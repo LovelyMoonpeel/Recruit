@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+	<insert id="create">
+		insert into tbl_board (id, pw, cname, pname, email, registnum, birth)
+		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
+		#{birth})
+	</insert>
+
+
+	<!--631 start -->
+	<!-- 로그인할 때 사용자의 아이디와 패스워드를 이용해서 사용자의 정보를 조회 -->
+	<select id="login" resultType="BoardVO">
+		select id, pw, pname from book_ex.tbl_board where id = #{id} and pw
+		= #{pw}
+	</select>
+	<!--631 end -->
+
+
+	<!--664 start -->
+	<!-- 칼럼을 추가해줬잖아 그러면 그 칼럼들도 업데이트 되야 하므로 아래의 SQL문을 작성 -->
+	<update id="keepLogin">
+		update tbl_board set sessionKey = #{sessionId},
+		sessionLimit = #{next} where
+		id = #{id}
+	</update>
+
+
+	<select id="checkUserWithSessionKey" resultType="BoardVO">
+		select * from
+		tbl_board where sessionKey = #{value} and sessionlimit > now()
+	</select>
+	<!--664 end -->
+
+
+</mapper>

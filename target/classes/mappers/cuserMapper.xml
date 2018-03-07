@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.CUserMapper">
+	<!-- p178참고 -->
+	<!-- 개인정보 확인 -->
+	<select id="selectCuser" resultType="com.recruit.domain.CUserVO">
+		select
+		id, pw, cname, pname,
+		email, registnum
+		from
+		project.tbluser
+		where id = #{id}
+	</select>
+
+	<!-- 개인정보 수정 -->
+	<update id="updateCUser">
+		update project.tbluser
+		set
+		pw = #{pw}, cname =
+		#{cname}, pname = #{pname},
+		email = #{email}, registnum = #{registnum}
+		where id = #{id}
+	</update>
+
+	<select id="selectCUserAll" resultType="com.recruit.domain.CUserVO">
+		select id, pw, cname,
+		pname, email, registnum
+		from
+		project.tbluser
+		where cname is not null and
+		id != 'admin'
+	</select>
+
+	<select id="selectCUsers" resultType="com.recruit.domain.CUserVO">
+		select id, pw, cname,
+		pname, email, registnum
+		from
+		project.tbluser
+		where
+		cname is not null and
+		id != 'admin'
+		and ( id like CONCAT('%',#{skey},'%') or cname like
+		CONCAT('%',#{skey},'%')
+		or pname like CONCAT('%',#{skey},'%')
+		or
+		email
+		like CONCAT('%',#{skey},'%') or registnum like
+		CONCAT('%',#{skey},'%'))
+	</select>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.recruit.mapper.CRecruitMapper">
+	<!-- p178참고 -->
+	
+	<!-- 스크랩한 채용공고 목록 -->
+	<select id = "selectCRList" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select *
+		from project.tblrecruit
+		where bno in (select rcbno
+						from project.tblinterestjob
+						where userid = #{id})
+		order by bno;
+	]]>
+	</select>
+		
+	<!-- 지원한 채용공고 목록 -->
+	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select *
+		from project.tblrecruit
+		where bno in (select rcno
+						from project.tblapply
+						where rsno in ( select bno 
+										from project.tblresume
+										where userid = #{id}))
+	]]>
+	</select>
+	
+	<!-- 스크랩한 채용공고 목록에서 선택한 채용공고 하나 확인 -->
+	<select id = "selectCROne" resultType = "com.recruit.domain.CRecruitVO">
+	<!-- bno는 클릭한 이력서 번호 -->
+	<![CDATA[
+		select *
+		from
+		project.tblrecruit
+		where bno = #{bno};
+	]]>
+	</select>
+
+</mapper>

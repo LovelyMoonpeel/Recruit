@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!--643 start -->
+	<beans:bean id="authInterceptor" class="com.recruit.interceptor.AuthInterceptor"></beans:bean>
+	<!--643 end -->
+
+
+	<!--638 start -->
+	<beans:bean id="loginInterceptor" class="com.recruit.interceptor.LoginInterceptor"></beans:bean>
+	<!--638 end -->
+
+
+
+	<interceptors>
+
+		<!--638 start -->
+		<!-- LoginInterceptor의 설정은 '/loginPost'의 동작에서 이뤄져야 하므로 다음과 같이 설정 '/user/loginPost'경로를 
+			호출할 때 동작하도록 설정됨 -->
+		<interceptor>
+			<mapping path="/rpjt/loginPost" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<!--638 end -->
+
+		<!--643 start -->
+		<!-- AuthInterceptor가 '게시물의 입력 화면'에서 처리하는 것을 적용 프로젝트를 실행하고, 로그인하지 않은 사용자가 
+			게시물 리스트에서 새로운 게시물을 작성하는 '/sboard/register'를 접근하게 되면 사용자는 로그인 페이지를 보게 된다. -->
+		<interceptor>
+			<mapping path="/sboard/register" />
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<!--643 end -->
+
+	</interceptors>
+
+	<context:component-scan base-package="com.recruit.controller" />
+</beans:beans>

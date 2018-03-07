@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.SearchMapper">
+
+	<select id="selectRecruits" resultType="com.recruit.domain.RecruitVO">
+		select bno, title, cid,
+		jobgroupid, rgbid, rgsid, jobdesc, recruitnum,
+		employstatusid,
+		salaryid, edu, exp, adddesc, period, acceptmethod, recruitform,
+		regdate, viewcnt
+		from tblrecruit
+		where title like
+		CONCAT('%',#{skey},'%') or cid like CONCAT('%',#{skey},'%') or
+		jobgroupid like CONCAT('%',#{skey},'%') or rgbid like
+		CONCAT('%',#{skey},'%') or
+		rgsid like CONCAT('%',#{skey},'%') or
+		jobdesc like CONCAT('%',#{skey},'%') or recruitnum like
+		CONCAT('%',#{skey},'%') or
+		employstatusid like CONCAT('%',#{skey},'%')
+		or salaryid like CONCAT('%',#{skey},'%') or edu like
+		CONCAT('%',#{skey},'%') or exp
+		like CONCAT('%',#{skey},'%') or adddesc
+		like CONCAT('%',#{skey},'%') or
+		period like CONCAT('%',#{skey},'%');
+	</select>
+
+	<select id="selectResumes" resultType="com.recruit.domain.ResumeVO">
+		select bno, userid, title,
+		address, postcode, coverletter, jobstateid, jobgroupid, rgbid,
+		rgsid,
+		employstatusid, salaryid, img, regdate
+		from tblresume
+		where userid like
+		CONCAT('%',#{skey},'%') or title like CONCAT('%',#{skey},'%') or
+		address like CONCAT('%',#{skey},'%') or
+		postcode like
+		CONCAT('%',#{skey},'%') or coverletter like CONCAT('%',#{skey},'%') or
+		jobstateid like CONCAT('%',#{skey},'%') or jobgroupid like
+		CONCAT('%',#{skey},'%') or rgbid like CONCAT('%',#{skey},'%') or
+		rgsid
+		like CONCAT('%',#{skey},'%') or employstatusid like
+		CONCAT('%',#{skey},'%') or salaryid like CONCAT('%',#{skey},'%');
+	</select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.csqnaMapper">
+
+	<select id="create">
+		insert into project.tblqna (title, user, content,
+		bpw)
+		values (#{title}, #{user}, #{content}, #{bpw})
+	</select>
+
+	<select id="read" resultType="com.recruit.domain.CsqnaVO">
+		select
+		bno, title, user, content,
+		bpw
+		from
+		project.tblqna
+		where bno = #{bno}
+	</select>
+
+	<update id="update">
+		update project.tblqna set
+		title = #{title}, content =
+		#{content}, bpw = #{bpw}
+		where bno = #{bno}
+	</update>
+
+	<delete id="delete">
+		delete from project.tblqna where bno = #{bno}
+	</delete>
+
+	<select id="listAll" resultType="com.recruit.domain.CsqnaVO">
+	<![CDATA[
+	select
+		bno, title, user, regdate, viewcnt, bpw
+	from
+		project.tblqna
+	order by bno desc
+	limit #{page}, 10
+	]]>
+	</select>
+
+	<update id="updateViewCnt">
+		update project.tblqna set viewcnt = viewcnt +1 where
+		bno = #{bno}
+	</update>
+
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select
+		count(bno)
+	from
+		project.tblqna
+	where
+		bno > 0
+	]]>
+	</select>
+
+	<select id="listCriteria" resultType="CsqnaVO">
+	<![CDATA[
+	select
+		bno, title, user, regdate, viewcnt, bpw
+	from
+		project.tblqna
+	where
+		bno > 0
+	order by bno desc
+	limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+
+	<select id="listPage" resultType="CsqnaVO">
+	<![CDATA[
+	select
+		bno, title, user, regdate, viewcnt, bpw
+	from
+		project.tblqna
+	where
+		bno > 0
+	order by bno desc
+	limit #{page}, 10
+	]]>
+	</select>
+</mapper>
