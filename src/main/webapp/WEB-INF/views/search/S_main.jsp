@@ -60,7 +60,7 @@
 				</div>
 				<div class="col-md-4">
 					<select id="sel2" class="form-control" style="visibility: hidden;">
-						<option value="0">2차선택</option>
+						<option value="0">선택 2차</option>
 					</select>
 				</div>
 				<div class="col-md-2">
