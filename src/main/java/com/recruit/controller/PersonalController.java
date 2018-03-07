@@ -82,7 +82,7 @@ public class PersonalController {
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume,Model model) throws Exception {
+	public String writePOST(ResumeVO resume, Model model) throws Exception {
 		System.out.println("왜안돼");
 		System.out.println(resume.toString());
 		Rservice.createROne(resume);
@@ -94,7 +94,7 @@ public class PersonalController {
 	   public String modifyGET(int bno, Model model) throws Exception {
 		   
 		   PUserVO PUser = new PUserVO();
-		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정\
+		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 		   
 		   model.addAttribute("PUserVO",service.selectPUser(PUser.getId()));
 		   
