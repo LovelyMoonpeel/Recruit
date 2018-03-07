@@ -22,7 +22,7 @@ import com.recruit.service.UserService;
 @Controller
 @RequestMapping("/rpjt/*")
 public class UserController {
-	//635 start
+	// 635 start
 	@Inject
 	private UserService service;
 
@@ -42,13 +42,6 @@ public class UserController {
 
 		model.addAttribute("boardVO", vo);
 
-		//635 end
-
-		//666 start
-		/*
-		 * »ç¿ëÀÚ°¡ 'ÀÚµ¿ ·Î±×ÀÎ'À» ¼±ÅÃÇÑ °æ¿ì ÇÊ¿äÇÑ ±â´É Ãß°¡ ÄÚµåÀÇ ÇÙ½ÉÀº loginCookie°ªÀÌ À¯ÁöµÇ´Â ½Ã°£ Á¤º¸¸¦
-		 * µ¥ÀÌÅÍº£ÀÌ½º¾Ö ÀúÀåÇÏ´Â °Í
-		 */
 		System.out.println(dto.isUseCookie());
 		if (dto.isUseCookie()) {
 
@@ -59,13 +52,9 @@ public class UserController {
 			service.keepLogin(vo.getId(), session.getId(), sessionLimit);
 		}
 	}
-	//666 end
+	// 666 end
 
-	//673 start
-	/*
-	 * ·Î±×¾Æ¿ôÀÇ Ã³¸®´Â HttpSessionÀÎ °æ¿ì login°ú °°ÀÌ ÀúÀåµÈ Á¤º¸¸¦ »èÁ¦ÇÏ°í, invalidate()¸¦ ÁÖ´Â ÀÛ¾÷°ú
-	 * ÄíÅ°ÀÇ À¯È¿½Ã°£À» º¯°æÇÏ´Â ÀÛ¾÷À¸·Î ÀÌ·ç¾îÁø´Ù.
-	 */
+	// 673 start
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
@@ -80,14 +69,14 @@ public class UserController {
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 
 			if (loginCookie != null) {
-				loginCookie.setPath("/");  //logout.jsp´Â º°´Ù¸¥ ³»¿ë¾øÀÌ '/'°ú °°Àº °æ·Î·Î ÀÌµ¿ÇÏ´Â ÄÚµå¸¸ ÀÛ¼ºÇÑ´Ù.
+				loginCookie.setPath("/"); // logout.jspï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '/'ï¿½ï¿½
+											// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î·ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½Úµå¸¸ ï¿½Û¼ï¿½ï¿½Ñ´ï¿½.
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				service.keepLogin(vo.getId(), session.getId(), new Date());
 			}
 		}
 	}
-	//673 end
+	// 673 end
 
 }
-  
