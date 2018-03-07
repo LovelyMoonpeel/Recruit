@@ -154,6 +154,6 @@ public class CompanyController {
 		System.out.println("2");
 
 		rttr.addFlashAttribute("msg", "success");
-		return "redirect:/rpjt/index";
+		return "redirect:/personal/index";
 	}
 }

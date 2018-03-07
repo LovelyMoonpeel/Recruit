@@ -11,22 +11,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-/*
-LoginInterceptor´Â '/loginPost'·Î Á¢±ÙÇÏµµ·Ï ¼³Á¤ÇÏ´Â °ÍÀ» ¸ñÀûÀ¸·Î ÀÛ¼ºµÊ
-*/
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-	//636 start
 	private static final String LOGIN = "login";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-	//636 end
-	
-	//636 start
-	/*
-	postHandle()¿¡¼­´Â UserController¿¡¼­ 'userVO'¶ó´Â ÀÌ¸§À¸·Î °´Ã¼¸¦ ´ã¾ÆµĞ »óÅÂÀÌ¹Ç·Î,
-	ÀÌ »óÅÂ¸¦ Ã¼Å©ÇØ¼­ HttpSesssion¿¡ ÀúÀåÇÑ´Ù.
-	¸¸µé¾îÁø ÄíÅ°´Â ¹İµå½Ã HttpServletResponse¿¡ ´ã°Ü¼­ Àüµ¿µÊ
-	*/
+
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
@@ -40,45 +29,24 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 			logger.info("new login success");
 			session.setAttribute(LOGIN, boardVO);
-			//response.sendRedirect("/"); 646ÂÊ ÇÏ¸é¼­ ÁÖ¼®Ã³¸®
-			
-			//658 start
-			/*
-			 'ÀÚµ¿ ·Î±×ÀÎ'À» ¼±ÅÃÇÑ °æ¿ì ÄíÅ°¸¦ »ı¼ºÇÏ°í »ı¼ºµÈ ÄíÅ°ÀÇ ÀÌ¸§Àº loginCookie·Î ÁöÁ¤ »ı¼ºµÈ
-			 loginCookie¿¡´Â °ª(value)À¸·Î ÇöÀç ¼¼¼ÇÀÇ ¾ÆÀÌµğ °ªÀ» º¸°ü ¼¼¼Ç ¾ÆÀÌµğ´Â ¼¼¼Ç ÄíÅ°ÀÇ °ªÀ» ÀÇ¹Ì
-			 */
-			/*
-			 ÀÌ ÄÚµå¸¦ ÀÌ¿ëÇØ¼­ ·Î±×ÀÎ ÇÏ¸é °Ô½Ã¹°ÀÇ ¿©·¯ ÆäÀÌÁö¿¡¼­ ¸Å¹ø ºê¶ó¿ìÀú¿¡ 'loginCookie'°¡ Àü´ŞµÇ´Â °ÍÀ»
-			 °³¹ßÀÚ µµ±¸¸¦ ÀÌ¿ëÇØ¼­ È®ÀÎÀÌ °¡´É
-			 */
+	
 			if (request.getParameter("useCookie") != null) {
 
 				logger.info("remember me................");
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
-				/*
-				 ¼¼¼ÇÄíÅ°ÀÇ °æ¿ì ºê¶ó¿ìÀú¸¦ Á¾·áÇÏ¸é »ç¶óÁö°í, ±×·¸±â ¶§¹®¿¡ ¸Å¹ø ºê¶ó¿ìÀú¸¦ »õ·Î ½ÇÇàÇÏ°í Á¢¼ÓÇÏ¸é »õ·Ó°Ô ¸¸µé¾îÁø´Ù. 
-				 ¹İ¸é, loginCookieÀÇ °æ¿ì ·Î±×ÀÎ ÇÒ ¶§ ºê¶ó¿ìÀú¸¦ ÀÌ¿ëÇØ¼­ º¸°üÇÔ ¿À·£ ½Ã°£ º¸°üµÇ±âÀ§ÇØ setMaxAge()¸¦ ÀÌ¿ë 
-				 setMaxAge()´Â ÃÊ ´ÜÀ§ÀÇ ½Ã°£ µ¿¾È À¯È¿ 60 * 60 * 24 * 7¸¦ ÅëÇØ ÀÏÁÖÀÏ°£ ºê¶ó¿ìÀú¿¡ º¸°ü
-				 */
 				loginCookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(loginCookie);
 			}
-			//658 end
-			
-			//646 start
-			Object dest = session.getAttribute("dest");
 
-			response.sendRedirect(dest != null ? (String) dest : "/rpjt/index");
-			//646 end0
+			Object dest = session.getAttribute("dest");
+				
+			//ì´ê±´ ë¡œê·¸ì¸ í•œ ë‹¤ìŒ í˜ì´ì§€ë‘ ìƒê´€ ì—†ëŠ” ê±° ê°™ìŒ
+			response.sendRedirect(dest != null ? (String) dest : "/personal/index");
+			
 		}
 	}
-	//636 end
 
-	//636 start
-	/*
-	preHandle()¿¡¼­´Â ±âÁ¸ HttpSession¿¡ ³²¾ÆÀÖ´Â Á¤º¸°¡ ÀÖ´Â °æ¿ì¿¡´Â Á¤º¸¸¦ »èÁ¦ÇÔ
-	*/
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -92,5 +60,5 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		return true;
 	}
-	//636 end
+
 }

@@ -42,13 +42,6 @@ public class UserController {
 
 		model.addAttribute("boardVO", vo);
 
-		//635 end
-
-		//666 start
-		/*
-		 * 사용자가 '자동 로그인'을 선택한 경우 필요한 기능 추가 코드의 핵심은 loginCookie값이 유지되는 시간 정보를
-		 * 데이터베이스애 저장하는 것
-		 */
 		System.out.println(dto.isUseCookie());
 		if (dto.isUseCookie()) {
 
@@ -58,14 +51,10 @@ public class UserController {
 
 			service.keepLogin(vo.getId(), session.getId(), sessionLimit);
 		}
+		
 	}
-	//666 end
 
-	//673 start
-	/*
-	 * 로그아웃의 처리는 HttpSession인 경우 login과 같이 저장된 정보를 삭제하고, invalidate()를 주는 작업과
-	 * 쿠키의 유효시간을 변경하는 작업으로 이루어진다.
-	 */
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
@@ -80,12 +69,14 @@ public class UserController {
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 
 			if (loginCookie != null) {
-				loginCookie.setPath("/");  //logout.jsp는 별다른 내용없이 '/'과 같은 경로로 이동하는 코드만 작성한다.
+				loginCookie.setPath("/");  
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				service.keepLogin(vo.getId(), session.getId(), new Date());
 			}
 		}
+		
+	
 	}
 	//673 end
 

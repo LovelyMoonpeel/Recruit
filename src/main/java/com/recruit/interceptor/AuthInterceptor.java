@@ -14,33 +14,13 @@ import org.springframework.web.util.WebUtils;
 import com.recruit.domain.BoardVO;
 import com.recruit.service.UserService;
 
-
-/*
-AuthInterceptor´Â Æ¯Á¤ °æ·Î¿¡ Á¢±ÙÇÏ´Â °æ¿ì
-ÇöÀç »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÑ »óÅÂÀÇ »ç¿ëÀÚÀÎÁö¸¦ Ã¼Å©ÇÏ´Â ¿ªÇÒÀ» Ã³¸®ÇÏ±âÀ§ÇØ ÀÛ¼ºÇÔ
-*/
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
-  //642 start
   private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
-  //642 end
  
-  //667 start
-  /* 
-  AuthInterceptor´Â UserService Å¸ÀÔÀÇ °´Ã¼¸¦ ÁÖÀÔ¹Ş´Â´Ù.
-    ÇöÀç »ç¿ëÀÚ°¡ HttpsSession¿¡ Àû´çÇÑ °ªÀÌ ¾ø´Â °æ¿ì loginCookie¸¦ °¡Áö°í ÀÖ´ÂÁö Ã¼Å©
-    ¸¸ÀÏ °ú°Å¿¡ º¸°üÇÑ ÄíÅ°°¡ ÀÖ´Ù¸é UserService °´Ã¼¸¦ ÀÌ¿ëÇØ¼­ »ç¿ëÀÚÀÇ Á¤º¸°¡ Á¸ÀçÇÏ´ÂÁö¸¦ È®ÀÎ
-    ¸¸ÀÏ »ç¿ëÀÚÀÇ Á¤º¸°¡ Á¸ÀçÇÑ´Ù¸é HttpSession¿¡ ´Ù½Ã »ç¿ëÀÚÀÇ Á¤º¸¸¦ ³Ö¾îÁÖ°Ô µÈ´Ù. 
-  */  
   @Inject
   private UserService service;
   
-  //642 start
-  /*
-  AuthInterceptor´Â preHandle()À» ÀÌ¿ëÇÏ¿© ÇöÀç »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÑ »óÅÂÀÎÁö Ã¼Å©ÇÏ°í,
-    ÄÁÆ®·Ñ·¯¸¦ È£ÃâÇÏ°Ô ÇÒ °ÍÀÎÁö¸¦ °áÁ¤ÇÑ´Ù.
-    ¸¸ÀÏ »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÏÁö ¾ÊÀº »óÅÂ¶ó¸é ·Î±×ÀÎÇÏ´Â '/user/login'À¸·Î ÀÌµ¿ÇÏ°Ô ÇÑ´Ù.
-  */
   @Override
   public boolean preHandle(HttpServletRequest request,
       HttpServletResponse response, Object handler) throws Exception {
@@ -69,23 +49,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         
       }
-      //667 end
-      
+      //ì–˜ë„ ë¡œê·¸ì¸ ì²˜ë¦¬ í›„ë‘ ê´€ë ¨ì´ ì—†ëŠ” ê±° ê°™ìŒ
       response.sendRedirect("/rpjt/index");
       return false;
     }
     return true;
   } 
-  //642 end
-  
-  //645 start
-  /*
-  AuthInterceptor´Â saveDest()¸Ş¼Òµå¸¦ ÀÌ¿ëÇØ¼­ ¿ø·¡ »ç¿ëÀÚ°¡ ¿øÇÏ´Â ÆäÀÌÁöÀÇ Á¤º¸´Â
-  HttpSession¾Ö 'dest'¶ó´Â ÀÌ¸§À¸·Î ÀúÀåÇÑ´Ù.
-  GET¹æ½ÄÀÎ °æ¿ì¿¡´Â URIÁ¤º¸ µÚÀÇ ÆÄ¶ó¹ÌÅÍµéÀ» ÇÔ²² º¸°üÇØ¾ß ÇÑ´Ù.
-  LoginInterceptor´Â ·Î±×ÀÎ ¼º°ø ÈÄÀÇ response.sendRedirect()ÀÛ¾÷¿¡
-  'dest'Á¤º¸¸¦ »ç¿ëÇÏµµ·Ï ¼öÁ¤
-  */
+
   private void saveDest(HttpServletRequest req) {
 
     String uri = req.getRequestURI();
@@ -103,29 +73,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       req.getSession().setAttribute("dest", uri + query);
     }
   }
-  //645 end
-  
-  //642 start
-  /*  
-    ¾Æ·¡ ³»¿ëÀº 667ÂÊ ¾²¸é¼­ ÁÖ¼®Ã³¸®µÊ
- 
-  @Override
-  public boolean preHandle(HttpServletRequest request, 
-  	HttpServletResponse response, Object handler) throws Exception {
 
-    HttpSession session = request.getSession();
-
-    if (session.getAttribute("login") == null) {
-
-      logger.info("current user is not logined");
-      
-      response.sendRedirect("/user/login");
-      return false;
-    }
-    return true;
-  }
-  */
-  //642 end
 }
 
 

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.service.BoardService;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
@@ -26,6 +28,10 @@ public class PersonalController {
 	// p194 앞 뒤로
 	private static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
+	@Inject
+	private BoardService boardservice;
+	
+	
 	@Inject
 	private PUserService service;
 
@@ -189,6 +195,19 @@ public class PersonalController {
 		
 		return	"personal/P_applied"; 
 	 }
+	
+	
+	@RequestMapping(value = "/joinperson", method = RequestMethod.POST)
+	public String joinPost(BoardVO board, RedirectAttributes rttr) throws Exception {
+		logger.info("regist post ...........");
+		logger.info(board.toString());
+		System.out.println("1");
+		boardservice.regist(board);
+		System.out.println("2");
+
+		rttr.addFlashAttribute("msg", "success");
+		return "redirect:/personal/index";
+	}
 	 
 
 }
