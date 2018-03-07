@@ -72,7 +72,7 @@
 </form>
 	
 		<button id = "modify-finish" class="btn btn-success" type='submit'>완료</button>
-		<button id = "modify-cancel" class="btn btn-success" type='submit'>취소</button>
+		<button id = "modify-cancel" class="btn btn-danger" type='submit'>취소</button>
 			<!--  onClick="javascript:self.location='C_index_r04.html';"-->
 
 	<!-- //수정 버튼 -->
@@ -119,7 +119,7 @@ $(document).ready(function(){
 		self.location = "/personal/index";
 	});
 	
-	<!-- 비밀번호 일치 여부  -->
+	/*<!-- 비밀번호 일치 여부  -->*/
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var pwchk = $('#pwchk');
 	

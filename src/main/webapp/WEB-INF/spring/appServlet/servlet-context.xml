@@ -32,7 +32,13 @@
 	<!--638 start -->
 	<beans:bean id="loginInterceptor" class="com.recruit.interceptor.LoginInterceptor"></beans:bean>
 	<!--638 end -->
-
+	
+	<!--p521 start -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name = "maxUploadSize" value = "10485760">
+		</beans:property>
+	</beans:bean>
+	<!--p521 end -->	
 
 
 	<interceptors>
