@@ -203,3 +203,5 @@ public class AdminController {
 		return "redirect:/admin/A_qna";
 	}
 }
+
+//test
