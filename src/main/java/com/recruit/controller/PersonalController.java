@@ -85,8 +85,12 @@ public class PersonalController {
 	public String writePOST(ResumeVO resume,Model model) throws Exception {
 		System.out.println("왜안돼");
 		System.out.println(resume.toString());
+		int bno = resume.getBno();
+		
+		System.out.println("bno"+bno);
+		
 		Rservice.createROne(resume);
-		return "redirect:/personal/index";
+		return "redirect:/personal/detail?bno="+bno+""; // redirect는 controller
 	}
 	
 	//이력서 하나 읽기
