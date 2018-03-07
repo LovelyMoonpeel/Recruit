@@ -27,8 +27,8 @@
 		<div class="table-responsive">
 			<!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
 			<table class="table table-bordered">
-
-
+			
+			
 				<tbody>
 					<tr>
 						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
@@ -38,10 +38,6 @@
 						<th class="table-active" scope="row">대표자명</th>
 						<td>${CInfoVO.ceo}</td>
 					</tr>
-					<!-- <tr>
-                        <th class="table-active" scope="row">소속그룹</th>
-                        <td colspan="3">동국제약</td>
-                      </tr> -->
 					<tr>
 						<th class="table-active" scope="row">업종</th>
 						<td colspan="3">${CInfoVO.ctype}</td>
@@ -56,21 +52,10 @@
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">사원수</th>
-						<td>${CInfoVO.numemp}명</td>
+						<td>${CInfoVO.numemp} 명</td>
 						<th class="table-active" scope="row">매출액</th>
 						<td>${CInfoVO.sales}</td>
 					</tr>
-					<!-- <tr>
-                          <th scope="row">자본금</th>
-                          <td> 222억 3,000만원
-                              <span class="standard_year">(2016년 기준)</span>
-                          </td>
-                          <th scope="row">영업이익</th>
-                          <td>
-                              466억 5,773만원
-                              <span class="standard_year">(2016년 기준)</span>
-                          </td>
-                      </tr> -->
 					<tr>
 						<th class="table-active" scope="row">대표전화</th>
 						<td>${CInfoVO.tel}</td>
@@ -82,8 +67,8 @@
 						<td><a href="${CInfoVO.homepage}" class="link_site"
 							target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
 						<th class="table-active" scope="row">SNS</th>
-						<td><a href="${CInfoVO.sns}" class="link_site"
-							target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
+						<td><a href="${CInfoVO.sns}"
+							class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">기업주소</th>
@@ -103,13 +88,13 @@
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
 	<form role="form" method="post">
-		<input type='hidden' name='id' value="${CInfoVO.id}">
-	</form>
-
+			<input type='hidden' name='id' value="${CInfoVO.id}">
+			</form>
+			
 	<!-- 수정 버튼 -->
 	<div class="box-footer">
-		<button type="submit" class="btn btn-warning">수정하기</button>
-	</div>
+	<button type="submit" class="btn btn-warning">수정하기</button>
+</div>
 
 
 
@@ -118,24 +103,30 @@
 </div>
 <!-- //기업 페이지 -->
 
-<script>
-	$(document).ready(function() {
-
-		var formObj = $("form[role='form']");
-
-		console.log(formObj);
-
-		$(".btn-warning").on("click", function() {
-			formObj.attr("action", "/rpjt/C_modify");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-
+			<script>
+				
+$(document).ready(function(){
+	
+var formObj = $("form[role='form']");
+	
+	console.log(formObj);
+	
+	$(".btn-warning").on("click", function(){
+		formObj.attr("action", "/rpjt/C_modify");
+		formObj.attr("method", "get");		
+		formObj.submit();
 	});
-	var result = '${msg}';
-	if (result == 'SUCCESS') {
-		alert("수정이 완료됐습니다.");
-	}
+	
+	
+});
+
+var result = '${msg}';
+
+if (result == 'SUCCESS') {
+	alert("수정이 완료됐습니다.");
+}
+
 </script>
 
 <%@include file="../include/cfooter.jsp"%>
+

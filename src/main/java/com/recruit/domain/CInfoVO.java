@@ -1,6 +1,6 @@
 package com.recruit.domain;
 
-public class CInfoVO {
+public class CInfoVO { // 회사 정보 VO
 
 	private String id;
 	private String cname;

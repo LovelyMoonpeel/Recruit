@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false"%>
 
@@ -19,25 +19,22 @@
 			<th style="text-align: center">지원자수</th>
 			<th>진행/완료</th>
 		</tr>
-
-		<%
-			int manage = 0;
-		%>
-		<c:forEach items="${recruitList}" var="RecruitVO">
-			<%
-				manage++;
-			%>
-			<tr>
-				<th><%=manage%></th>
-				<th><a href="https://www.w3schools.com/html/" target="_blank">${RecruitVO.title}</a></th>
-				<th>${RecruitVO.cid}</th>
-				<th>${RecruitVO.title}</th>
-				<th></th>
-				<th></th>
-			</tr>
-
-		</c:forEach>
-
+		
+		
+					<% int manage = 0; %>
+						<c:forEach items="${recruitList}" var="RecruitVO" varStatus="status">
+					<%manage++; %>
+					<tr>
+					<th><%=manage%></th>
+					<th><a href="C_recruitInfo?id=${CInfoVO.id}&recruitNum=${RecruitVO.bno}" target="_blank">${RecruitVO.title}</a></th>
+					<th>~${RecruitVO.period}</th>
+					<th>${RecruitVO.title}</th>
+					<th></th>
+					<th>모집중</th>
+					</tr>
+					
+						</c:forEach>
+		
 	</table>
 </div>
 <!-- //기업 채용공고 목록 끝 -->
