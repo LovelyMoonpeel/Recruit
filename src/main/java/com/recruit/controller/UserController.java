@@ -77,6 +77,4 @@ public class UserController {
 			}
 		}
 	}
-	// 673 end
-
 }
