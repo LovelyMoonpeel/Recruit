@@ -138,8 +138,48 @@
 			return false;
 		}
 	}
+	function deletelist() {
+		$(".result").remove();
+		$(".sres").attr('style', 'visibility: hidden;');
+	}
+
+	$("#search_btn").on("click", function() {
+		var sinp = $("#sinput").val();
+		$("#sinput").val("");
+
+		console.log(sinp);
+		if (sinp === "all") {
+			$("#sdesc").html("검색결과");
+			console.log($("#stype").attr("value"));
+			console.log($("#stype").attr("value") === "1");
+			if ($("#stype").attr("value") === "1") {
+				getAllList("cusers");
+			} else {
+				getAllList("pusers");
+			}
+		} else if (sinp === "") {
+			deletelist();
+			$("#sdesc").html("키워드가 입력되지 않았습니다.");
+		} else {
+			if ($("#stype").attr("value") === "1") {
+				getList("recruits", sinp);
+			} else {
+				getList("resumes", sinp);
+			}
+		}
+	});
+
+	$(".stab").on("click", function() {
+		if ($(this).hasClass("active") !== true) {
+			$(".nav-tabs li").removeClass("active");
+			$(this).addClass("active");
+			stabsel($(this).attr("id"));
+			$("#ttype").val($(this).attr("id"));
+		}
+	});
 
 	function getAllList(users) {
+		deletelist();
 		$.getJSON("/sresult/" + users, function(data) {
 			// var source_tbl = $("#template_tbl").html();
 			var source_pnl = $("#template_pnl").html();
@@ -165,6 +205,7 @@
 	}
 
 	function getList(users, skey) {
+		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
 			// var source_tbl = $("#template_tbl").html();
 			var source_pnl = $("#template_pnl").html();
@@ -196,47 +237,35 @@
 		});
 	}
 
-	function deletelist() {
-		$(".result").remove();
-		$(".sres").attr('style', 'visibility: hidden;');
-	}
-
-	$("#search_btn").on("click", function() {
-		var sinp = $("#sinput").val();
-		$("#sinput").val("");
-
-		console.log(sinp);
+	function getList_sel(users) {
 		deletelist();
-		if (sinp === "all") {
-			$("#sdesc").html("검색결과");
-			console.log($("#stype").attr("value"));
-			console.log($("#stype").attr("value") === "1");
-			if ($("#stype").attr("value") === "1") {
-				getAllList("cusers");
+		$.getJSON("/sresult/sel_search/" + users, function(data) {
+			var source_pnl = $("#template_pnl").html();
+			var template_pnl = Handlebars.compile(source_pnl);
+			console.log(data.length);
+			var i = 0;
+			var item;
+			$(data).each(function() {
+				item = {
+					num : ++i,
+					id : this.bno,
+					pw : this.rgbid,
+					pname : this.title,
+					email : this.employstatusid,
+					birth : this.regdate
+				};
+				$("#spanel").append(template_pnl(item));
+			});
+			var str;
+			if (data.length > 0) {
+				str = data.length + "개의 검색결과가 있습니다.";
+				$(".sres").attr('style', 'visibility: visible;');
 			} else {
-				getAllList("pusers");
+				str = "검색결과가 없습니다."
 			}
-		} else if (sinp === "del") {
-			deletelist();
-		} else if (sinp === "") {
-			$("#sdesc").html("키워드가 입력되지 않았습니다.");
-		} else {
-			if ($("#stype").attr("value") === "1") {
-				getList("recruits", sinp);
-			} else {
-				getList("resumes", sinp);
-			}
-		}
-	});
-
-	$(".stab").on("click", function() {
-		if ($(this).hasClass("active") !== true) {
-			$(".nav-tabs li").removeClass("active");
-			$(this).addClass("active");
-			stabsel($(this).attr("id"));
-			$("#ttype").val($(this).attr("id"));
-		}
-	});
+			$("#sdesc").html(str);
+		});
+	}
 
 	$("#opt_search_btn").on("click", function() {
 		var array = [];
@@ -245,8 +274,23 @@
 			array[i] = $(this).val();
 			i++;
 		});
-		alert(array +": "+ array.length);
-		console.log(array +": "+ array.length);
+		console.log(array + " : " + array.length);
+		$.ajax({
+			type : 'post',
+			url : '/sresult/sel_search/',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : 'text',
+			data : JSON.stringify(array),
+			success : function(result) {
+				if (result = 'SUCCESS') {
+					alert('SUCCESS');
+					getList_sel('recruits');
+				}
+			}
+		}); // ajax
 	});
 
 	function add_tmpl_sfilter(that) {

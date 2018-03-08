@@ -75,4 +75,14 @@ public class SearchServiceImpl implements SearchService {
 	public List<ResumeVO> selectResumes(String skey) throws Exception {
 		return searchDAO.selectResumes(skey);
 	}
+
+	@Override
+	public List<RecruitVO> selectRecruits_sel(List<String> sel_skeys) throws Exception {
+		return searchDAO.selectRecruits_sel(sel_skeys);
+	}
+
+	@Override
+	public List<ResumeVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
+		return searchDAO.selectResumes_sel(sel_skeys);
+	}
 }

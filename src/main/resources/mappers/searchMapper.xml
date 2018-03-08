@@ -44,4 +44,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		like CONCAT('%',#{skey},'%') or employstatusid like
 		CONCAT('%',#{skey},'%') or salaryid like CONCAT('%',#{skey},'%');
 	</select>
+
+	<select id="selectRecruits_sel" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select bno, title, cid,
+		jobgroupid, rgbid, rgsid, jobdesc, recruitnum,
+		employstatusid,
+		salaryid, edu, exp, adddesc, period, acceptmethod,
+		recruitform,
+		regdate, viewcnt
+		from tblrecruit
+		where
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			jobdesc like CONCAT('%',#{item},'%')
+		</foreach>
+		;
+	</select>
+
+	<select id="selectResumes_sel" resultType="com.recruit.domain.ResumeVO"
+		parameterType="java.util.List">
+		select bno, userid,
+		title,
+		address, postcode, coverletter,
+		jobstateid, jobgroupid, rgbid,
+		rgsid,
+		employstatusid, salaryid, img,
+		regdate
+		from tblresume;
+	</select>
 </mapper>

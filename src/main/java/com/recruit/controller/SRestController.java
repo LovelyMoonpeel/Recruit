@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -188,6 +189,38 @@ public class SRestController {
 		try {
 			System.out.println(searchService.selectResumes(skey));
 			entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	private List<String> sel_skeys;
+
+	@RequestMapping(value = "/sel_search", method = RequestMethod.POST)
+	public ResponseEntity<String> selectSearch(@RequestBody List<String> skeys) {
+
+		sel_skeys = skeys;
+		System.out.println("Skeys 1: " + sel_skeys);
+		ResponseEntity<String> entity = null;
+		try {
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	@RequestMapping(value = "/sel_search/recruits", method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> listRecruits() {
+
+		System.out.println("Skeys 2: " + sel_skeys);
+		ResponseEntity<List<RecruitVO>> entity = null;
+		try {
+			System.out.println("controller: " + searchService.selectRecruits_sel(sel_skeys));
+			entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_skeys), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
