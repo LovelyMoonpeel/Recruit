@@ -1,5 +1,6 @@
 package com.recruit.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -45,6 +46,7 @@ public class UploadController{
 		return new ResponseEntity<>(
 				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
@@ -79,5 +81,29 @@ public class UploadController{
 			in.close();
 		}
 		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		
+		System.out.println(fileName);
+		System.out.println("deleteFile POST");
+		
+		logger.info("delete file : " + fileName);
+		
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		
+		if(mType!=null){
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front+end).replace('/',  File.separatorChar)).delete();
+		}
+		
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 }
