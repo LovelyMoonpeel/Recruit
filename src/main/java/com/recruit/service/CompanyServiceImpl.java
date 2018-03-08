@@ -6,10 +6,12 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.ImgVO;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.persistence.CompanyDAO;
+import com.recruit.domain.ImgVO;
 
 
 @Service
@@ -57,6 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.RecruitInfoRead(recruitNum);
 	 }
+	
 
 	  
 	 

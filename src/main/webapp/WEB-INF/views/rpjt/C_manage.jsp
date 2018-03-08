@@ -18,6 +18,7 @@
 			<th>조회수</th>
 			<th style="text-align: center">지원자수</th>
 			<th>진행/완료</th>
+			
 		</tr>
 		
 		

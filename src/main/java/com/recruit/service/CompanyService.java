@@ -24,4 +24,5 @@ public interface CompanyService {
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  
 	  
+	  
 }

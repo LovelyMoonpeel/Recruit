@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.ImgVO;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -60,5 +61,6 @@ public class CompanyDAOImpl implements CompanyDAO{
 	
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
 	}
+
 	
 }

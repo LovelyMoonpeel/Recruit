@@ -13,12 +13,12 @@
     where id = #{id}
   </select>
   
- <update id="companyinfoUpdate">
- update project.tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
- , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
- , location=#{location}
- where id = #{id}
- </update>
+<update id="companyinfoUpdate">
+ update tblcinfo set cname =#{cname}, img=#{img}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
+  , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
+  , location=#{location}
+  where id = #{id}
+  </update>
  
  <update id="write">
   update tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
@@ -113,6 +113,7 @@
    where cid = #{id}
  ]]>  
  </select>
+ 
   
 
   

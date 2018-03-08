@@ -6,6 +6,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.RecruitVO;
+import com.recruit.domain.ImgVO;
 
 public interface CompanyDAO {
 
@@ -22,4 +23,6 @@ public interface CompanyDAO {
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
+	
+	
 }
