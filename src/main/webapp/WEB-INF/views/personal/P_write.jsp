@@ -107,13 +107,17 @@ $(document).ready(function(){
 			  
 			  var str = "";
 			  
+			  console.log(data);
+			  console.log(checkImageType(data));
+			  
 			  if(checkImageType(data)){
-				  str = "<div>"
-				  +"<img src = '/displayFile?fileName="+data+"'/>"
-						  +data+"</div>";
+				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
+				  +"<img src='../displayFile?fileName="+data+"'/>"
+				  +getImageLink(data) + "</a></div>";
+			
 			  }else{
-				  str = "<div>"
-				  + data + "</div>";
+				  str = "<div><a href='/displayFile?fileName="+data+"'>"
+						  +getOriginalName(data)+"</a></div>";
 			  }
 			  $(".uploadedList").append(str);
 		  }
@@ -127,6 +131,24 @@ $(document).ready(function(){
     	return fileName.match(pattern);
     }
     
+    function getOriginalName(fileName){
+    	if(checkImageType(fileName)){
+    		return;
+    	}
+    	var idx = fileName.indexOf("_")+1;
+    	return fileName.substr(idx);
+    }
+    
+    function getImageLink(fileName){
+    	if(!checkImageType(fileName)){
+    		return;
+    	}
+    	
+    	var front = fileName.substr(0,12);
+    	var end = fileName.substr(14);
+    	
+    	return front + end;
+    }
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>
