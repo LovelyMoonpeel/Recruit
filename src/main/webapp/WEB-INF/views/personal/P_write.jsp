@@ -32,10 +32,14 @@
      </div>
      
     
+     <div class = 'fileDrop' style = 'width : 100%; height : 200px; border : 1px dotted blue;'>
+     </div>
+     
+     <div class = 'uploadedList'>
+     </div>
+     
      
  </form> 
- 	
-  
       <br>
   <br>
  <%--    <div class="form-group">
@@ -72,6 +76,37 @@ $(document).ready(function(){
       formObj.attr("action", "/personal/write");
       formObj.attr("method", "post");
       formObj.submit();
+   });
+   
+   $(".fileDrop").on("drageneter dragover", function(event){
+	   event.preventDefault();
+   });
+    $(".fileDrop").on("drop", function(event){
+    	
+	   event.preventDefault();
+	   
+	   var files = event.originalEvent.dataTransfer.files;
+	   
+	   var file = files[0];
+	   
+	   console.log(file);
+	   
+	   var formData = new FormData();
+	   
+	   formData.append("file", file);
+	   
+	   
+	   $.ajax({
+		  url:'/uploadAjax',
+		  data: formData,
+		  dataType : 'text',
+		  processData : false,
+		  contentType : false,
+		  type : 'POST',
+		  success : function(data){
+			  alert(data)
+		  }
+	   });
    });
 });
 </script>

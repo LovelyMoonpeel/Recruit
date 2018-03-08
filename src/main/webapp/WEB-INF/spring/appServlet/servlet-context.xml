@@ -39,7 +39,13 @@
 		</beans:property>
 	</beans:bean>
 	<!--p521 end -->	
-
+	
+	<!-- p527 start -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value = "C:\\zzz\upload">
+		</beans:constructor-arg>
+	</beans:bean>
+	<!-- p527 end -->
 
 	<interceptors>
 
