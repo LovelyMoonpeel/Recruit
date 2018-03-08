@@ -14,7 +14,9 @@
 	<br> <br>
 	<div class="row">
 	
-	<form role="form" method="post" enctype="multipart/form-data">
+	<form role="form" method="post" enctype="multipart/form-data"> <!--enctype 기입 필수 -->
+					
+					
 	
 
 <a>test ${CInfoVO.id}</a>
@@ -111,8 +113,8 @@
 	</div>
 	
 	<div class="form-group col-lg-6">
-			<label>로고이미지</label> <br> <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.gif,.bmp">
-		</div> 
+			<label>로고이미지</label> <br> <input type="file" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp">
+		</div>  <!-- 컨트롤러 request에서 인식할 수 있게 임의의 name값을 지정해줘야한다 (controller랑 맞출 필요 X) -->
 		
 	</form>
 	

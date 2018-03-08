@@ -85,7 +85,7 @@ public class CompanyController {
 				  
 				  try {
 						// MultipartHttpServletRequest 생성
-						MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest) request;
+						MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest) request; //
 						Iterator iter = mhsr.getFileNames();
 						System.out.println(mhsr);
 						MultipartFile mfile = null;
@@ -130,7 +130,7 @@ public class CompanyController {
 						
 						CInfo.setImg(CInfo.getId()); // DB 이미지 저장
 
-						} catch (UnsupportedEncodingException e) {
+						} catch (UnsupportedEncodingException e) { 
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}catch (IllegalStateException e) {
