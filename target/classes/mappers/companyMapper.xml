@@ -101,7 +101,7 @@
  
  <select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-	select distinct r.bno, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
 		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
 	where r.bno = #{recruitNum}
     	and r.jobgroupid = j.id
@@ -117,12 +117,17 @@
  
   <select id="recruitListt" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
- select bno, title, period, viewcnt
+ select f.bno, title, (select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%Y%m%d')) as period, viewcnt
   from
-   tblRecruit
+   tblRecruit f
    where cid = #{id}
  ]]>  
  </select>
+ 
+	<update id="updateViewCnt">
+		update project.tblrecruit set viewcnt = viewcnt +1 where
+		bno = #{recruitNum}
+	</update>
   
 
   

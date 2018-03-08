@@ -47,14 +47,19 @@ public class CompanyServiceImpl implements CompanyService {
 	 }
 	 @Override
 	 public List<RecruitVO> RecruitList(String id) throws Exception{
-		 System.out.println("Service의 id : "+id);
+//		 System.out.println("Service의 id : "+id);
 			
 		 return dao.RecruitList(id);
 	 }
 	 @Override
 	 public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
-		 System.out.println("service넘어옴 값은 = "+recruitNum);
+//		 System.out.println("service넘어옴 값은 = "+recruitNum);
+		 dao.updateViewCnt(recruitNum);
 		 
+		 return dao.RecruitInfoRead(recruitNum);
+	 }
+	 @Override
+	 public RecruitVO RecruitInfoRead2(int recruitNum) throws Exception{
 		 return dao.RecruitInfoRead(recruitNum);
 	 }
 

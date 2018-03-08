@@ -17,7 +17,7 @@ import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 
 @Controller
-@RequestMapping("/rpjt/*")
+@RequestMapping("/company/*")
 public class CompanyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
@@ -55,6 +55,8 @@ public class CompanyController {
 	  @RequestMapping(value = "/C_manage", method = RequestMethod.GET)
 	  public void manage(String id, Model model) throws Exception {
 		  
+//		  System.out.println("날짜 출력 : "+service.RecruitList(id).get(0));
+		  
 		  model.addAttribute(service.CompanyInfoRead(id));
 		  model.addAttribute("recruitList", service.RecruitList(id));
 	  
@@ -88,7 +90,7 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "regist");
 
 		  
-		  return "redirect:/rpjt/C_index?id=park";
+		  return "redirect:/rpjt/C_manage?id=park";
 	  }
 
 	  @RequestMapping(value = "/C_index", method = RequestMethod.GET)
@@ -106,12 +108,12 @@ public class CompanyController {
 	  }
 
 		@RequestMapping(value = "/C_recruitInfo", method = RequestMethod.GET)
-		  public void readRecruit(String id, int recruitNum, Model model) throws Exception {
+		  public void readRecruit(int recruitNum, Model model) throws Exception {
 
 
 			
-			//service.RecruitInfoRead(recruitNum);
-			System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
+			String id = service.RecruitInfoRead2(recruitNum).getCid();
+//			System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 		    model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		   
@@ -121,7 +123,7 @@ public class CompanyController {
 		  public void readRecom(String id, Model model, RedirectAttributes rttr) throws Exception {
 
 			  model.addAttribute(service.CompanyInfoRead(id));
-			  System.out.println("컨트롤러 : " +id);
+//			  System.out.println("컨트롤러 : " +id);
 			  
 			  
 			  model.addAttribute("recruitList", service.RecruitList(id));

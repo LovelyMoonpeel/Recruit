@@ -134,7 +134,7 @@
 	<h1>
 		<b>지원자 리스트</b>
 	</h1>
-	<table>
+	<table border="1" id="my-tbody" class="table table-bordered">
 		<tr>
 			<th>순번</th>
 			<th>이력서 요약</th>

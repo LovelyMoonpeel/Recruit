@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
-import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 
@@ -50,15 +49,20 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{
-		System.out.println("comDAO부분 id : "+id);
-		return session.selectList(namespace + ".recruitList", id);
+//		System.out.println("comDAO부분 id : "+id);
+		return session.selectList(namespace + ".recruitListt", id);
 	}
 	@Override
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
-	System.out.println("Dao넘어옴 recruitNum값은 "+recruitNum);
+//	System.out.println("Dao넘어옴 recruitNum값은 "+recruitNum);
 		
 	
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
+	}
+	
+	@Override
+	public void updateViewCnt(int recruitNum) throws Exception {
+		session.update(namespace + ".updateViewCnt", recruitNum);
 	}
 	
 }
