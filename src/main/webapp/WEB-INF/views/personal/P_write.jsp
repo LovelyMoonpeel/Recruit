@@ -104,10 +104,29 @@ $(document).ready(function(){
 		  contentType : false,
 		  type : 'POST',
 		  success : function(data){
-			  alert(data)
+			  
+			  var str = "";
+			  
+			  if(checkImageType(data)){
+				  str = "<div>"
+				  +"<img src = '/displayFile?fileName="+data+"'/>"
+						  +data+"</div>";
+			  }else{
+				  str = "<div>"
+				  + data + "</div>";
+			  }
+			  $(".uploadedList").append(str);
 		  }
 	   });
    });
+    
+    function checkImageType(fileName){
+    	
+    	var pattern = /jpg$|gif$|png$|jpeg$/i;
+    	
+    	return fileName.match(pattern);
+    }
+    
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>
