@@ -97,7 +97,7 @@ $(document).ready(function(){
 	   
 	   
 	   $.ajax({
-		  url:'/uploadAjax',
+		  url:'uploadAjax',
 		  data: formData,
 		  dataType : 'text',
 		  processData : false,
@@ -123,7 +123,7 @@ $(document).ready(function(){
 			  } */
 			  if(checkImageType(data)){
 				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-				  +"<img src='/displayFile?fileName="+data+"'/>"
+				  +"<img src='displayFile?fileName="+data+"'/>"
 				  +getImageLink(data) 
 				  +"</a><small data-src="+data+">X</small></div>";
 			
