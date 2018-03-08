@@ -1,6 +1,7 @@
 package com.recruit.service;
 
 import com.recruit.domain.ResumeEduVO;
+import com.recruit.domain.ResumeVO;
 
 public interface ResumeEduService {
 
@@ -11,4 +12,5 @@ public void regist(ResumeEduVO vo)throws Exception;
 	public void modify(ResumeEduVO vo)throws Exception;
 	
 	public void remove(Integer bno)throws Exception;
+
 }

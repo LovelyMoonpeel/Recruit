@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.ResumeEduVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeEduDAO;
 
 @Service
@@ -32,5 +33,6 @@ public class ResumeEduServiceImpl implements ResumeEduService{
 	public void remove(Integer bno) throws Exception {
 		dao.deleteResumeEdu(bno);
 	}
+
 
 }

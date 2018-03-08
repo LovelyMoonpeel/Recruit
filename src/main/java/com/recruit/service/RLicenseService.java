@@ -1,6 +1,7 @@
 package com.recruit.service;
 
 import com.recruit.domain.RLicenseVO;
+import com.recruit.domain.ResumeVO;
 
 public interface RLicenseService {
 	
@@ -11,5 +12,6 @@ public interface RLicenseService {
 	public void modify(RLicenseVO vo)throws Exception;
 	
 	public void remove(Integer id)throws Exception;
+
 
 }

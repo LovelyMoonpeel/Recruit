@@ -11,10 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
+import com.recruit.service.PWebSiteService;
+import com.recruit.service.RLicenseService;
+import com.recruit.service.ResumeCareerService;
+import com.recruit.service.ResumeEduService;
+import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
 
 /**
@@ -34,6 +41,24 @@ public class PersonalController {
 	
 	@Inject
 	private ResumeService Rservice;
+	
+	@Inject
+	private PTelService Telservice;
+	
+	@Inject
+	private PWebSiteService Webservice;
+	
+	@Inject
+	private ResumeEduService Eduservice;
+	
+	@Inject
+	private ResumeCareerService Careerservice;
+	
+	@Inject
+	private RLicenseService Licenseservice;
+	
+	@Inject
+	private ResumeLanguageService Langservice;
 	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -82,10 +107,17 @@ public class PersonalController {
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume, Model model) throws Exception {
+	public String writePOST(ResumeVO resume, PTelVO ptvo, Model model) throws Exception {
 		System.out.println("왜안돼");
 		System.out.println(resume.toString());
 		Rservice.createROne(resume);
+		Telservice.createPTel(ptvo);
+		Webservice.createPWebSite(resume);
+		Eduservice.createResumeEdu(resume);
+		Careerservice.createResumeCareer(resume);
+		Licenseservice.createRLicense(resume);
+		Langservice.createResumeLanguage(resume);
+		
 		return "redirect:/personal/index";
 	}
 	

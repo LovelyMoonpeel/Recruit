@@ -1,6 +1,7 @@
 package com.recruit.service;
 
 import com.recruit.domain.PTelVO;
+import com.recruit.domain.ResumeVO;
 
 public interface PTelService {
 	
@@ -11,4 +12,8 @@ public interface PTelService {
 	public void modify(PTelVO vo)throws Exception;
 	
 	public void remove(Integer id)throws Exception;
+
+	public void createPTel(PTelVO vo);
+
+	
 }
