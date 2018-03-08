@@ -83,5 +83,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where userid = #{id}
   ]]>
 	</select>
+	
+	<!-- 이력서 이미지 등록 -->
+	<insert id="addRimgAttach">
+  <![CDATA[
+  insert 
+  into project.tblresume (img)
+  values(#{fullName})
+  ]]>
+	</insert>
+	
 
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminResumeVO;
 import com.recruit.domain.ResumeVO;
@@ -15,6 +16,25 @@ public class ResumeServiceImpl implements ResumeService {
 
 	@Inject
 	private ResumeDAO dao;
+	
+	@Transactional
+	@Override
+	public void createROne(ResumeVO resume) throws Exception {
+		
+		System.out.println("ResumeServiceImpl + createROne Transactional 실행");
+		
+		dao.createROne(resume);
+		
+		System.out.println("dao.createROne(resume) 실행");
+		
+		String fullName = resume.getImg();
+		
+		if(fullName==null){return;}
+		
+		dao.addRimgAttach(fullName);
+		
+		System.out.println("dao.addRimgAttach(fullName) 실행");
+	}
 
 	@Override
 	public AdminResumeVO read(String id) throws Exception {
@@ -34,11 +54,6 @@ public class ResumeServiceImpl implements ResumeService {
 	@Override
 	public List<AdminResumeVO> listAll(String id) throws Exception {
 		return dao.listAll(id);
-	}
-
-	@Override
-	public void createROne(ResumeVO resume) throws Exception {
-		dao.createROne(resume);
 	}
 
 	@Override

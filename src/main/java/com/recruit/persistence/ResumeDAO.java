@@ -21,7 +21,9 @@ public interface ResumeDAO {
 	
 	public void updateROne(ResumeVO vo)throws Exception;
 	
-	public void deleteROne(Integer bno) throws Exception;
+	public void deleteROne(Integer bno)throws Exception;
 	
-	public List<ResumeVO> selectRList(String id) throws Exception;
+	public List<ResumeVO> selectRList(String id)throws Exception;
+	
+	public void addRimgAttach(String fullName)throws Exception;
 }

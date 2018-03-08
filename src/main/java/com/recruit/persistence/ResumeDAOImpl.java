@@ -66,5 +66,10 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("ResumeDAOImpl selectRList" + id);
 		return session.selectList(namespace + ".selectRList", id);
 	}
+	
+	@Override
+	public void addRimgAttach(String fullName)throws Exception{
+		session.insert(namespace+".addRimgAttach", fullName);
+	};
 
 }
