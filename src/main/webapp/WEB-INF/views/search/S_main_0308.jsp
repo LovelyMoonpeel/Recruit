@@ -63,15 +63,13 @@
 						<option value="0">선택 2차</option>
 					</select>
 				</div>
-			</div>
-			<br />
-			<div class="row">
-				<div class="well col-md-10" id="well"
-					style="background-color: #c8c8c8;"></div>
 				<div class="col-md-2">
-					<button type="button" class="btn btn-default" id="opt_search_btn">&nbsp;검색&nbsp;</button>
+					<button type="button" class="btn btn-default">&nbsp;&nbsp;검색&nbsp;&nbsp;</button>
 				</div>
 			</div>
+			<br />
+
+			<div class="well" id="well"></div>
 			<br />
 			<h3 align="center" id="sdesc"></h3>
 			<br />
@@ -238,25 +236,10 @@
 		}
 	});
 
-	$("#opt_search_btn").on("click", function() {
-		var array = [];
-		var i = 0;
-		$("#well > .sfilter_btn").each(function() {
-			array[i] = $(this).val();
-			i++;
-		});
-		alert(array +": "+ array.length);
-		console.log(array +": "+ array.length);
-	});
-
 	function add_tmpl_sfilter(that) {
-		var alreadyhave = false;
-		$("#well > .sfilter_btn").each(function() {
-			if ($(this).val() === $(that).val())
-				alreadyhave = true;
+		$("#well > sfilter_btn").each(function() {
+			console.log("1");
 		})
-		if (alreadyhave)
-			return;
 		var source_sflt = $("#tmpl_sfilter").html();
 		var template_sflt = Handlebars.compile(source_sflt);
 		var item = {
