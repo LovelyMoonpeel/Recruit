@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.recruit.util.UploadFileUtils;
+
 @Controller
 public class UploadController{
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
@@ -25,12 +27,15 @@ public class UploadController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST,
+	produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file)throws Exception{
+	
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contetnType: " + file.getContentType());
 		
-		return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.CREATED);
+		return new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 }
