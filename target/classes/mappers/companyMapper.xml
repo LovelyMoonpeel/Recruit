@@ -83,9 +83,9 @@
  </select>
  
   <insert id="recruitWrite">
-  insert into tblrecruit (title, cid, jobgroupid, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period) values 
-  (#{title}, #{cid}, #{jobgroupid}, #{rgbid}, #{rgsid}, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}, #{exp}, #{adddesc}, #{period})
-
+  insert into tblrecruit (title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod)
+  values (#{title}, #{cid}, #{jobgroupid}, #{jobgroupid2}, #{rgbid}, #{rgsid}, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}, #{exp}, #{adddesc}, #{period}, #{acceptmethod})
+ 
  </insert>
  
  <select id="recruitList" resultType="com.recruit.domain.RecruitVO">
@@ -99,22 +99,33 @@
  
  <select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-	 select bno, title, jobgroupid, rgsid 
-	  from tblRecruit 
-	   where bno = #{recruitNum}
-	    ]]>
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
+		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
+	where r.bno = #{recruitNum}
+    	and r.jobgroupid = j.id
+    	and r.jobgroupid2 = u.id
+    	and g.rgbid = r.rgbid
+    	and g.rgsid = r.rgsid
+    	and r.employstatusid = c.id
+    	and r.salaryid = o.id
+    	and r.edu = d.id
+    	and r.exp = e.id;
+ ]]>
  </select>
  
   <select id="recruitListt" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
- select bno, title, period, viewcnt
+ select f.bno, title, (select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%Y%m%d')) as period, viewcnt
   from
-   tblRecruit
+   tblRecruit f
    where cid = #{id}
  ]]>  
  </select>
  
-  
+  <update id="updateViewCnt">
+		update project.tblrecruit set viewcnt = viewcnt +1 where
+		bno = #{recruitNum}
+	</update>
 
   
 </mapper>  

@@ -18,7 +18,7 @@ public interface CompanyDAO {
 	
 	public List<RegionVO> RegionList() throws Exception;
 	
-	public void RecruitWrite(RecruitVO writeRecruit) throws Exception;
+	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception;
 	
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	

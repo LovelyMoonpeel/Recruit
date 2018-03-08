@@ -45,9 +45,9 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectList(namespace + ".regionList");
 	}
 	@Override
-	public void RecruitWrite(RecruitVO writeRecruit) throws Exception{
+	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
 		
-		session.insert(namespace + ".recruitWrite", writeRecruit);
+		session.insert(namespace + ".recruitWrite", recruitWrtie);
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{

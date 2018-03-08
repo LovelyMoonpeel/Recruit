@@ -112,7 +112,7 @@
 	
 	<div class="form-group col-lg-6">
 			<label>로고이미지</label> <br> <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.gif,.bmp">
-		</div>
+		</div> 
 		
 	</form>
 	
@@ -150,28 +150,7 @@
 		});
 
 		$(".btn-primary").on("click", function() {
-			
-			
-
-
-
-			
-		/* 	if(fileObject.value != '')
-			{
-				alert("ok");
-				
-			
-			
-			}
-			
-			
-			
-			else{alert("no")} */
-			
-			
-			
-			/* FileUpLoad(); */
-			
+					
 			formObj.submit();
 		});
 

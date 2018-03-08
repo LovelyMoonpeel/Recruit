@@ -3,12 +3,12 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false"%>
+<%@include file="../include/cheader.jsp"%>
+
 
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-
-<%@include file="../include/cheader.jsp"%>
 
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
@@ -68,27 +68,21 @@
 	<form role="form" method="POST">
 	<input type="hidden" name="cid" value="${CInfoVO.id}"/>
 	<h3>공고제목</h3>
-	<input type="text" name="title" class="form-control"> <br>
+	<input type="text" name="title" class="form-control" value="${RecruitVO.title}"> <br>
 	
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
 				<th>모집직종</th>
 				<td>
-				<select name="largeCategory" id="jobGroup">
+				<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
+				<select id="jobGroup" name="jobgroupid2">
 				<option value="">모집직종</option>
-				<c:forEach items="${jobgroupList}" var="JobGroupVO">
-				
-				
-				<option value=${JobGroupVO.id}>${JobGroupVO.jobgroup}</option>
-			
-				</c:forEach>
+					<c:forEach items="${jobgroupList}" var="JobGroupVO">
+					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+					</c:forEach>
 				</select> 
 				
-			
-			
-				
 				<select id="subjobGroup" name="jobgroupid">
-				
 				</select>
 				
 				<input type="button" id="btn1" value="추가"/>
@@ -101,72 +95,64 @@
 			</tr>
 			<tr>
 				<th>근무지역</th>
-				<td id="">
-				
-					<select name="rgbid" id="region">
-						<option value="">근무지역</option>
-						
-						<c:forEach items="${regionList}" var="RegionVO">
-					
-						<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
-						
-						
-						</c:forEach>
+				<td>
+				<select id="region" name='rgbid'>
+					<option value="">근무지역</option>
+					<c:forEach items="${regionList}" var="RegionVO">
+						<option value="${RegionVO.rgbid}" name='rgbid'>${RegionVO.rgbname}</option>
+					</c:forEach>
 				</select>
 				
-				<select name="rgsid" id="subRegion">
-				
-				</select>
-				
+				<select id="subRegion" name='rgsid'>
+				</select>				
 				</td>
 			</tr>
 			<tr>
 				<th>담당업무</th>
-				<td><textarea name="jobdesc" id="" cols="30" rows="5"></textarea></td>
+				<td><textarea name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
 			</tr>
 			<tr>
 				<th>모집인원</th>
-				<td><input type="number" name="recruitnum" min="1" max="5">
-					명</td>
+				<td><input type="text" name="recruitnum" value="${RecruitVO.recruitnum }">명</td>
 			</tr>
 			<tr>
 				<th>근무형태</th>
-				<td><select name="employstatusid" id="">
-						<option value="">근무형태</option>
+				<td>
+				<select name="employstatusid">
+					<option value="">근무형태</option>
 						
-						<c:forEach items="${codeList}" var="CodeVO">
-						<c:if test="${CodeVO.tid==4}">
-						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
-						
-						</c:if>
-						</c:forEach>
-				</select></td>
+					<c:forEach items="${codeList}" var="CodeVO">
+					<c:if test="${CodeVO.tid==4}">
+					
+					<option value="${CodeVO.id}" name="employstatusid">${CodeVO.career}</option>
+					
+					</c:if>
+					</c:forEach>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<th>급여사항</th>
-				<td><select name="salaryid" id="">
-						<option value="">급여사항</option>
-						
-						<c:forEach items="${codeList}" var="CodeVO">
+				<td>
+				<select name="salaryid">
+					<option value="">급여사항</option>
+					<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==7}">
-						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
-						
+							<option value="${CodeVO.id}" name="salaryid">${CodeVO.career}</option>
 						</c:if>
-						</c:forEach>
-						
-				</select></td>
+					</c:forEach>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<th>학력</th>
-				<td><select name="edu" id="">
+				<td><select name="edu">
 						<option value="">학력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==2}">
 						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
+						<option value="${CodeVO.id}" name="edu">${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>
@@ -175,13 +161,13 @@
 			</tr>
 			<tr>
 				<th>경력</th>
-				<td><select name="exp" id="">
+				<td><select name="exp">
 						<option value="">경력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==1}">
 						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
+						<option value="${CodeVO.id}" name="exp">${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>
@@ -190,7 +176,7 @@
 			</tr>
 			<tr>
 				<th>상세내용 및 우대사항</th>
-				<td><textarea name="adddesc" id="" cols="30" rows="10"></textarea></td>
+				<td><textarea name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea></td>
 			</tr>
 		<!-- 	<tr>
 				<th>접수기간</th>
@@ -215,13 +201,14 @@
 			</tr>
 			<tr>
 				<th>접수방법</th>
-				<td><input type="radio" name="acceptmethod">홈페이지접수 &nbsp; <input
-					type="radio" name="sbm">즉시지원</td>
+				<td><input type="radio" name="acceptmethod" value="acceptmethod">홈페이지접수 &nbsp;
+				<input type="radio" name="acceptmethod" value="sbm">즉시지원</td>
 			</tr>
+			
 		</table>
+	</form>
 		<br> <br> <input class="btn btn-primary" type="submit"
 			value="등록">
-	</form>
 	<br>
 	<!-- // 공고 입력 부분 끝 -->
 </div>
@@ -241,134 +228,45 @@
 
 <script>
 	$(document).ready(function() {
-
 		var formObj = $("form[role='form']");
-
-	
-
 		$(".btn-primary").on("click", function() {
+			formObj.attr("action", "C_write");
 			formObj.submit();
 		});
-
 	});
 </script>
 
-
 <script>
-
-
-
-$("#region").change(function() {
-
-	var largeNum = $(this).val();	
-	
-	SubRegion(largeNum)
-	
-		
+	$("#region").change(function() {
+		var largeNum = $(this).val();
+		SubRegion(largeNum)
 	})
-
-
 	$("#jobGroup").change(function() {
-
-		var largeNum = $(this).val();	
-		
-		
-		
-	SubJobGroup(largeNum);
-			
-			
-		})
-		
-		function SubJobGroup(largeNum){
-
-	$.getJSON(
-			"/companyAjax/jobGroup/" + largeNum,
-			function(data){
-				var str = "";
-				
-				$(data).each(function() {
-					str += "<option value="+this.id+">"+this.jobgroup+"</option>";
-					
-				});
-				
-				$("#subjobGroup").html(str);
-			})
-}
-
-function SubRegion(largeNum){
-	
-	$.getJSON(
-			"/companyAjax/region/" + largeNum,
-			function(data){
-				var str = "";
-				
-				$(data).each(function() {
-					str += "<option value="+this.rgsid+">"+this.rgsname+"</option>";
-					
-				});
-				
-				$("#subRegion").html(str);
-			})
-}
-	
-	
-	
-</script>
-
-
-
-<script>
-
-	var region = document.getElementById('region');
-
-	var jobgroupZone = document.getElementById('jobgroupZone');
-	
-
-	
-	$('#btn1').click(function(){
-		
-		 var output='';
-		
-		    output += '<br><select id="jobgroupTd">';
-		    output += '<option>';
-		    output += '모집직종';
-		    output += '</option>';
-		    output += '</select>';
-		    output += '<select id="subclass">';
-			output += '</select>';
-				
-		   
-		    $('#jobgroupZone').append(output);
-		
-		
-		jobgroupPlus();
-		
-	});
-	
-	function jobgroupPlus(){
-		
-		$.getJSON(
-				
-				"/companyAjax/jobGroup", function(data){
-					var str = "";
-					
-					$(data).each(function() {
-						
-						str += "<option>"+this.jobgroup+"</option>";
-						
+		var largeNum = $(this).val();
+		SubJobGroup(largeNum);
+	})
+	function SubJobGroup(largeNum) {
+		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='jobgruopid' value="+this.id+">"
+								+ this.jobgroup + "</option>";
 					});
-					
-					$('#jobgroupTd').append(str);
-					
-					
-				})
+			$("#subjobGroup").html(str);
+		})
 	}
-
-	
-
-	
-	
+	function SubRegion(largeNum) {
+		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+								+ "</option>";
+					});
+			$("#subRegion").html(str);
+		})
+	}
 </script>
-
 
 <%@include file="../include/cfooter.jsp"%>

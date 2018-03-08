@@ -9,8 +9,8 @@
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
 	<div class="top_cont">
 		<div class="corp_logo">
-			<img src="/Users/hyeonghoon/sts-bundle/img/${CInfoVO.id}.jpg/"
-				width="209" height="117"> <br> <br>
+			<img src="//Users/hyeonghoon/sts-bundle/img/${CInfoVO.id}.jpeg"
+				width="209" height="117"/> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
