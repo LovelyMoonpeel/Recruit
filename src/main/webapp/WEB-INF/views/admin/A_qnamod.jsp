@@ -55,6 +55,12 @@
 	</table>
 	</form>
 	
+	<form role="formlist">
+		<input type='hidden' name='id' value="${CsqnaVO.bno}">
+    	<input type='hidden' name='page' value="${cri.page}">
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+	</form>
+
 	<input type="submit" class="btn btn-warning" value="수정">
 	<input type="submit" class="btn btn-danger" value="삭제">
 	<input type="submit" class="btn btn-primary" value="목록">
@@ -66,8 +72,10 @@
 <script type="text/javascript">
 
 var formObj = $("form[role='form']");
+var formObjlist = $("form[role='formlist']");
 
 console.log(formObj);
+console.log(formObjlist);
 
 $(".btn-warning").on("click", function(){
 	var title = $('#title').val();
@@ -95,12 +103,18 @@ $(".btn-danger").on("click", function(){
 	}
 });
 
+
+
 $(".btn-primary").on("click", function(){
-	self.location = "/admin/A_qna";
+	formObjlist.attr("method", "GET");
+	formObjlist.attr("action", "/admin/A_qna");
+	formObjlist.submit();
 });
 
 </script>
 <!-- //버튼에 대한 스크립트  -->
+
+
 
 <!-- 비밀번호 일치 여부  -->
 <script>

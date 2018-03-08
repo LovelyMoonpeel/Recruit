@@ -19,7 +19,7 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 		<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><a href='/admin/A_qnamod?bno=${CsqnaVO.bno}'>${CsqnaVO.title}</a></td>
+			<td><a href='/admin/A_qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}</a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>

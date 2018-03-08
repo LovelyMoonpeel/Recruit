@@ -46,13 +46,11 @@ public class AdminController {
 	public void mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		logger.info(cri.toString());
 
-		// model.addAttribute("list", aservice.listCriteria(cri));
 		model.addAttribute("list", aservice.listSearchCriteria(cri));
 
 		AdminPageMaker pageMaker = new AdminPageMaker();
 		pageMaker.setCri(cri);
 
-		// pageMaker.setTotalCount(aservice.listCountCriteria(cri));
 		pageMaker.setTotalCount(aservice.listSearchCount(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
@@ -61,9 +59,6 @@ public class AdminController {
 	@RequestMapping(value = "/A_modify", method = RequestMethod.GET)
 	public void modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
-		// model.addAttribute(rservice.read(id));
-		// System.out.println(id);
-		// System.out.println(rservice.listAll(id));
 		model.addAttribute("AmainVO", aservice.read(id));
 		model.addAttribute("reslist", rservice.listAll(id));
 	}
@@ -166,29 +161,30 @@ public class AdminController {
 	@RequestMapping(value = "/A_qna", method = RequestMethod.GET)
 	public void qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna get..........");
-		// model.addAttribute("list", qservice.listAll());
 		model.addAttribute("list", qservice.listCriteria(cri));
 		CsqnaPageMaker pageMaker = new CsqnaPageMaker();
 		pageMaker.setCri(cri);
 
 		pageMaker.setTotalCount(qservice.listCountCriteria(cri));
-
+		
+		
 		model.addAttribute("pageMaker", pageMaker);
 	}
 
 	@RequestMapping(value = "/A_qnamod", method = RequestMethod.GET)
-	public void qnaModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	public void qnaModifyGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna Modify Get..........");
 		model.addAttribute("CsqnaVO", qservice.modread(bno));
 	}
 
 	@RequestMapping(value = "/A_qnamod", method = RequestMethod.POST)
-	public String qnaModifyPOST(CsqnaVO vo, RedirectAttributes rttr) throws Exception {
+	public String qnaModifyPOST(CsqnaVO vo, CsqnaCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info("qna Modify Post..........");
 		logger.info(vo.toString());
 
 		qservice.modify(vo);
 
+		rttr.addAttribute("page", cri.getPage());
 		rttr.addFlashAttribute("msg", "modify");
 
 		return "redirect:/admin/A_qna";

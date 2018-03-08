@@ -50,7 +50,29 @@
 		</ul>
 	</div>
 	<!-- //pagination-->
+
+<!-- 검색 스크립트  -->
+<script type="text/javascript">
+	$(function(){
+		$('#searchBtn').on("click", function(event){
+			self.location = "A_main"
+				+ '${pageMaker.makeQuery(1)}'
+				+ "&searchType="
+				+ $("select option:selected").val()
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		});
+		
+		$('#keywordInput').keypress(function(event){
+			if(event.which == 13){
+				$('#searchBtn').click();
+			}
+		});
+	});
 	
+	
+</script>
+<!-- //검색 스크립트  -->
+
 	<!-- 검색 -->
 	<div class="box-body">
 		<select name="searchType">
@@ -67,19 +89,7 @@
 <!-- //개인관리 페이지 -->
 <!-- /.container -->
 
-<!-- 검색 스크립트  -->
-<script type="text/javascript">
-	$(function(){
-		$('#searchBtn').on("click", function(event){
-			self.location = "A_main"
-				+ '${pageMaker.makeQuery(1)}'
-				+ "&searchType="
-				+ $("select option:selected").val()
-				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
-		})
-	})
-</script>
-<!-- //검색 스크립트  -->
+
 
 
 <!-- 수정, 삭제 처리시 -->
