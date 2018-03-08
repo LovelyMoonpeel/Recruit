@@ -50,7 +50,7 @@ public class CompanyController {
 	private CompanyService service;
 	@Inject
 	private CompanyAjaxService jobService;
-	@Resource(name = "uploadPath")
+	@Resource(name = "uploadPath")  // servlet-context에 지정된 경로를 읽어옴 
 	private String uploadPath;
 	
 
