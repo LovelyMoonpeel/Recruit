@@ -75,15 +75,17 @@
 				<th>모집직종</th>
 				<td>
 				<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
-				<select id="jobGroup" name="jobgroupid">
+				<select id="jobGroup">
 				<option value="">모집직종</option>
 					<c:forEach items="${jobgroupList}" var="JobGroupVO">
-					<option value="${JobGroupVO.id}" name="jobgroupid">${JobGroupVO.jobgroup}</option>
+					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 					</c:forEach>
 				</select> 
 				
-				<select id="subjobGroup" name="jobgroupid2">
+				<select id="subjobGroup" name="jobgroupid">
 				</select>
+				
+				<input type="button" id="btn1" value="추가"/>
 				
 				<a id="jobgroupZone">
 				
@@ -199,8 +201,8 @@
 			</tr>
 			<tr>
 				<th>접수방법</th>
-				<td><input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수 &nbsp;
-				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원</td>
+				<td><input type="radio" name="acceptmethod" value="acceptmethod">홈페이지접수 &nbsp;
+				<input type="radio" name="acceptmethod" value="sbm">즉시지원</td>
 			</tr>
 			
 		</table>

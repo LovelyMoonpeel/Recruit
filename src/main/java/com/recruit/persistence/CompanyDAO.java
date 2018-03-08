@@ -21,5 +21,5 @@ public interface CompanyDAO {
 	
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	
-	public RecruitVO RecruitInfoRead(int id) throws Exception;
+	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 }

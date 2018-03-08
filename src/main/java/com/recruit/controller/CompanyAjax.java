@@ -17,6 +17,8 @@ import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.domain.RegionVO;
 
+
+
 @RestController
 @RequestMapping("/companyAjax")
 public class CompanyAjax {
@@ -25,52 +27,55 @@ public class CompanyAjax {
 	private CompanyAjaxService service;
 	@Inject
 	private CompanyService jobService;
-
+	
+	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
-	public ResponseEntity<List<JobGroupVO>> list() {
+	  public ResponseEntity<List<JobGroupVO>> list() {
 
-		ResponseEntity<List<JobGroupVO>> entity = null;
-		try {
+	    ResponseEntity<List<JobGroupVO>> entity = null;
+	    try {
+	    	
+	      entity = new ResponseEntity<>(service.jobgroupList(), HttpStatus.OK);
 
-			entity = new ResponseEntity<>(service.jobgroupList(), HttpStatus.OK);
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+	    return entity;
+	  }
+	
 
-		return entity;
-	}
-
+	 
 	@RequestMapping(value = "/jobGroup/{id2}", method = RequestMethod.GET)
-	public ResponseEntity<List<JobGroupVO>> list(@PathVariable("id2") int id2) {
+	  public ResponseEntity<List<JobGroupVO>> list(@PathVariable("id2") int id2) {
 
-		ResponseEntity<List<JobGroupVO>> entity = null;
-		try {
+	    ResponseEntity<List<JobGroupVO>> entity = null;
+	    try {
+	    	
+	      entity = new ResponseEntity<>(service.SubJobGroup(id2), HttpStatus.OK);
 
-			entity = new ResponseEntity<>(service.SubJobGroup(id2), HttpStatus.OK);
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
-	}
-
+	    return entity;
+	  }
+	
 	@RequestMapping(value = "/region/{id2}", method = RequestMethod.GET)
-	public ResponseEntity<List<RegionVO>> region(@PathVariable("id2") String id2) {
+	  public ResponseEntity<List<RegionVO>> region(@PathVariable("id2") String id2) {
 
-		ResponseEntity<List<RegionVO>> entity = null;
-		try {
+	    ResponseEntity<List<RegionVO>> entity = null;
+	    try {
+	    	
+	      entity = new ResponseEntity<>(service.SubRegion(id2), HttpStatus.OK);
 
-			entity = new ResponseEntity<>(service.SubRegion(id2), HttpStatus.OK);
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-
-		return entity;
-	}
+	    return entity;
+	  }
 }
