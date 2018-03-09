@@ -29,9 +29,12 @@ public class ResumeServiceImpl implements ResumeService {
 		
 		String fullName = resume.getImg();
 		
-		if(fullName==null){return;}
+		if(fullName==null){
+			System.out.println("fullName==null");
+			return;
+		}
 		
-		dao.addRimgAttach(fullName);
+		dao.addRimgAttach(fullName); //insert말고 update로 함
 		
 		System.out.println("dao.addRimgAttach(fullName) 실행");
 	}
@@ -79,5 +82,10 @@ public class ResumeServiceImpl implements ResumeService {
 		System.out.println("ResumeServiceImpl" + id);
 		return dao.selectRList(id);
 	}
-
+	
+/*	@Override
+	public void addRimgAttach(String fullName)throws Exception{
+		System.out.println("addRimgAttach ResumeServiceImpl");
+		dao.addRimgAttach(fullName);
+	}*/
 }

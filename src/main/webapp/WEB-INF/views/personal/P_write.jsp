@@ -15,43 +15,40 @@
 <form role ="form" method="post">
 
    	 <input type='hidden' name='id' value="${PUserVO.id}">
-<%--       	      
-      <div class="form-group">
-        <label for="userid">아이디</label>
-        <input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}">                          
-      </div>
-       --%>
 
      <div class="form-group">
        <label for="title">제목</label>
        <input class="form-control" id="title" name="title" value = "${ResumeVO.title}">
      </div>
+     
      <div class="form-group">
        <label for="coverletter">자기소개서</label>
        <textarea class="form-control" rows="10" id="coverletter" name="coverletter" style="resize:none;" value="${ResumeVO.coverletter}"></textarea>
      </div>
      
     
-     <div class = 'fileDrop' style = 'width : 100%; height : 200px; border : 1px dotted blue;'>
+<!--      <div class = 'fileDrop' style = 'width : 100%; height : 200px; border : 1px dotted blue;'>
      </div>
      
      <div class = 'uploadedList'>
-     </div>
-     
-     
+     </div> -->
  </form> 
-      <br>
+ 
+   	<form id = 'form1' action = "uploadForm" method = "post">
+     	<input type = 'file' id='fileupload' name = 'file' value = "${ResumeVO.img}" accept=".jpg,.jpeg,.png,.gif,.bmp">
+    
+   	</form>
   <br>
- <%--    <div class="form-group">
-	    <label for="img">img</label>
-	    <input type = 'file' class="form-control" id="img" name="img" value = "${ResumeVO.img}">
-    </div> --%>
+      
+
+      
+  <p id="status">File API & FileReader API not supported</p>
+      <div id= 'uploadedList' style = 'width : 120px; height : 150px; border : 1px dotted blue;'>
+     </div> 
+  <br>
   <div class = "form-group">
-    <form id = 'form1' action = "uploadForm" method = "post" enctype = "multipart/form-data">
-     	<input type = 'file' name = 'file'>
      	<button id = "write-success" class="btn btn-success col-md-offset-10"  type='submit'> 등록 </button>
      	<button id = "write-cancel" class="btn btn-danger" type='submit'>취소</button>
-    </form>
   </div>
   <br>
   <br>
@@ -72,113 +69,169 @@ $(document).ready(function(){
       });
    });
    
-   $("#btn-success").on("click", function(){
+   $("#write-success").on("click", function(){
       formObj.attr("action", "/personal/write");
       formObj.attr("method", "post");
       formObj.submit();
    });
    
-   $(".fileDrop").on("drageneter dragover", function(event){
-	   event.preventDefault();
-   });
-    $(".fileDrop").on("drop", function(event){
-    	
-	   event.preventDefault();
+   /////////////////////////////밑에는 AJAX 
+   $("#fileupload").on("")
+   
+   /*   $(".fileDrop").on("drageneter dragover", function(event){
+  	   event.preventDefault();
+     });
+      $(".fileDrop").on("drop", function(event){
+      	
+  	   event.preventDefault();
+  	   
+  	   var files = event.originalEvent.dataTransfer.files;
+  	   
+  	   var file = files[0];
+  	   
+  	   console.log(file);
+  	   
+  	   var formData = new FormData();
+  	   
+  	   formData.append("file", file);
+  	   
+  	   
+  	   $.ajax({
+  		  url:'uploadAjax',
+  		  data: formData,
+  		  dataType : 'text',
+  		  processData : false,
+  		  contentType : false,
+  		  type : 'POST',
+  		  success : function(data){
+  			  
+  			  var str = "";
+  			  
+  			  console.log(data);
+  			  console.log(checkImageType(data));
+  			  
+  			/*   if(checkImageType(data)){
+  				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
+  				  +"<img src='../displayFile?fileName="+data+"'/>"
+  				  +getImageLink(data) 
+  				  +"</a><small data-src="+data+">X</small></div>";
+  			
+  			  }else{
+  				  str = "<div><a href='/displayFile?fileName="+data+"'>"
+  						  +getOriginalName(data)+"</a>"
+  						  +"<small data-src="+data+">X</small></div>";
+  			  } */
+  			 /* if(checkImageType(data)){
+  				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
+  				  +"<img src='displayFile?fileName="+data+"'/>"
+  				  +getImageLink(data) 
+  				  +"</a><small data-src="+data+">X</small></div>";
+  			
+  			  }else{
+  				  str = "<div><a href='displayFile?fileName="+data+"'>"
+  						  +getOriginalName(data)+"</a>"
+  						  +"<small data-src="+data+">X</small></div>";
+  			  }
+  			  $(".uploadedList").append(str);
+  		  }
+  	   });
+     });
+      $(".uploadedList").on("click","small",function(event){
+      	var that = $(this);
+      	
+      	$.ajax({
+      		url:"deleteFile",
+      		type:"post",
+      		data:{fileName:$(this).attr("data-src")},
+      		dataType:"text",
+      		success:function(result){
+      			if(result=='deleted'){
+      				that.parent("div").remove();
+      				console.log("div.remove()")
+      				//alert("deleted");
+      			}
+      		}
+      	});
+      });
+      
+      function checkImageType(fileName){
+      	
+      	var pattern = /jpg$|gif$|png$|jpeg$/i;
+      	
+      	return fileName.match(pattern);
+      }
+      
+      function getOriginalName(fileName){
+      	if(checkImageType(fileName)){
+      		return;
+      	}
+      	var idx = fileName.indexOf("_")+1;
+      	return fileName.substr(idx);
+      }
+      
+      function getImageLink(fileName){
+      	if(!checkImageType(fileName)){
+      		return;
+      	}
+      	
+      	var front = fileName.substr(0,12);
+      	var end = fileName.substr(14);
+      	
+      	return front + end;
+      } */
+   
+   
+  ////////////img uploadedList start//////////////////////////////////////////////////////////
+  // var upload = document.getElementsByTagName('input')[0];
+   var upload = document.getElementById('fileupload');
+   var uploadedList = document.getElementById('uploadedList');
+   var state = document.getElementById('status');
+  
+	if (typeof window.FileReader === 'undefined') {
+	 state.className = 'fail';
+	 console.log("state.className = 'fail'");
+	} else {
+	 state.className = 'success';
+	 console.log("state.className = 'success'");
+	 state.innerHTML = 'File API & FileReader available';
+	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+	
+	upload.onchange = function (e) {
+	
+	 var file = upload.files[0];
+	 var reader = new FileReader();
+	 //p542다시 보기
+	 //데이터 올리는거
+	 reader.onload = function (event) {
+	   var img = new Image();
+	   img.src = event.target.result;
 	   
-	   var files = event.originalEvent.dataTransfer.files;
-	   
-	   var file = files[0];
-	   
-	   console.log(file);
-	   
-	   var formData = new FormData();
-	   
-	   formData.append("file", file);
-	   
-	   
-	   $.ajax({
-		  url:'uploadAjax',
-		  data: formData,
-		  dataType : 'text',
-		  processData : false,
-		  contentType : false,
-		  type : 'POST',
-		  success : function(data){
-			  
-			  var str = "";
-			  
-			  console.log(data);
-			  console.log(checkImageType(data));
-			  
-			/*   if(checkImageType(data)){
-				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-				  +"<img src='../displayFile?fileName="+data+"'/>"
-				  +getImageLink(data) 
-				  +"</a><small data-src="+data+">X</small></div>";
-			
-			  }else{
-				  str = "<div><a href='/displayFile?fileName="+data+"'>"
-						  +getOriginalName(data)+"</a>"
-						  +"<small data-src="+data+">X</small></div>";
-			  } */
-			  if(checkImageType(data)){
-				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-				  +"<img src='displayFile?fileName="+data+"'/>"
-				  +getImageLink(data) 
-				  +"</a><small data-src="+data+">X</small></div>";
-			
-			  }else{
-				  str = "<div><a href='displayFile?fileName="+data+"'>"
-						  +getOriginalName(data)+"</a>"
-						  +"<small data-src="+data+">X</small></div>";
-			  }
-			  $(".uploadedList").append(str);
-		  }
-	   });
-   });
-    $(".uploadedList").on("click","small",function(event){
-    	var that = $(this);
-    	
-    	$.ajax({
-    		url:"deleteFile",
-    		type:"post",
-    		data:{fileName:$(this).attr("data-src")},
-    		dataType:"text",
-    		success:function(result){
-    			if(result=='deleted'){
-    				that.parent("div").remove();
-    				console.log("div.remove()")
-    				//alert("deleted");
-    			}
-    		}
-    	});
-    });
-    
-    function checkImageType(fileName){
-    	
-    	var pattern = /jpg$|gif$|png$|jpeg$/i;
-    	
-    	return fileName.match(pattern);
-    }
-    
-    function getOriginalName(fileName){
-    	if(checkImageType(fileName)){
-    		return;
-    	}
-    	var idx = fileName.indexOf("_")+1;
-    	return fileName.substr(idx);
-    }
-    
-    function getImageLink(fileName){
-    	if(!checkImageType(fileName)){
-    		return;
-    	}
-    	
-    	var front = fileName.substr(0,12);
-    	var end = fileName.substr(14);
-    	
-    	return front + end;
-    }
+/* 	   console.log(img.width);
+	   console.log(img.height); */
+	   // note: no onload required since we've got the data url...I think! :)
+	  
+/* 	   if (img.width > 200) { // uploadedList width
+		 console.log("img.width>200");
+	     img.width = 200;
+	   }
+	   if (img.heigth > 100) { // uploadedList width
+		   console.log("img.height>100");
+	     img.height = 100;
+	   }
+	    */
+	    
+	   uploadedList.innerHTML = '';
+	  // img.width = 200;
+	   img.height = 150;
+	   uploadedList.appendChild(img);
+	 };
+	 console.log(file);
+	 reader.readAsDataURL(file);
+	
+	 return false;
+	};
+	//end //////////////////////////////////////////////////////////
+ 
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>

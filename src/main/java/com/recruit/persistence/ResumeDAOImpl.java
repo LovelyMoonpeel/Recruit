@@ -69,6 +69,7 @@ public class ResumeDAOImpl implements ResumeDAO {
 	
 	@Override
 	public void addRimgAttach(String fullName)throws Exception{
+		System.out.println("addRimgAttach ResumeDAOImpl 실행");
 		session.insert(namespace+".addRimgAttach", fullName);
 	};
 

@@ -91,19 +91,28 @@ public class PersonalController {
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(PUserVO puser, Model model) throws Exception {
-		System.out.println("왜안돼1");
+		System.out.println("write GET controller");
 		System.out.println(puser.toString());
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume,Model model) throws Exception {
-		System.out.println("왜안돼");
+	public String writePOST(ResumeVO resume,String file, Model model) throws Exception {
+		System.out.println("write POST controller");
+		
+		System.out.println("resume.toString()");
 		System.out.println(resume.toString());
+		System.out.println("file");
+		System.out.println(file);
+		
 		int bno = resume.getBno();
 		
 		System.out.println("bno"+bno);
 		
 		Rservice.createROne(resume);
+		//Rservice.addRimgAttach(fullName); createROne service에 transaction되어있음
+		
+		
+		
 		return "redirect:/personal/detail?bno="+bno+""; // redirect는 controller
 	}
 	

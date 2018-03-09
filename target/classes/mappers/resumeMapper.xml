@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <![CDATA[
   insert 
   into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-  values(#{userid}, #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
+  values("jin3", "임시 제목 mapper 수정해야함", "createROne t수정해야됨", 1, 1)
   ]]>
 	</insert>
 
@@ -87,9 +87,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 이미지 등록 -->
 	<insert id="addRimgAttach">
   <![CDATA[
-  insert 
-  into project.tblresume (img)
-  values(#{fullName})
+-- insert 
+-- into project.tblresume (img)
+-- value(#{fullName})
+
+	update project.tblresume 
+	set img = #{fullName}
+	where bno = #{bno};
   ]]>
 	</insert>
 	
