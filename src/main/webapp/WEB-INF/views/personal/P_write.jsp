@@ -20,6 +20,7 @@
 	 <input type='hidden' name='pname' value="${PUserVO.pname}">
 	 <input type='hidden' name='email' value="${PUserVO.email}">
 	 <input type='hidden' name='birth' value="${PUserVO.birth}">
+	 
      <div class="form-group">
        <label for="title">제목</label>
        <input class="form-control" id="title" name="title" value = "${ResumeVO.title}">
@@ -30,21 +31,9 @@
        <textarea class="form-control" rows="10" id="coverletter" name="coverletter" style="resize:none;" value="${ResumeVO.coverletter}"></textarea>
      </div>
      
-    
-<!--      <div class = 'fileDrop' style = 'width : 100%; height : 200px; border : 1px dotted blue;'>
-     </div>
-     
-     <div class = 'uploadedList'>
-     </div> -->
- </form> 
- 
-   <%-- <form role ="form" id = 'form1' action = "uploadForm" method = "post">
-     	<input type = 'file' id='fileupload' name = 'file' value = "${ResumeVO.img}" accept=".jpg,.jpeg,.png,.gif,.bmp">
-    
-   	</form> --%>
+     <input type = 'file' id='fileupload' name = 'img' value = "${ResumeVO.img}" accept=".jpg,.jpeg,.png,.gif,.bmp">
   <br>
-      
-
+ </form>
       
   <p id="status">File API & FileReader API not supported</p>
       <div id= 'uploadedList' style = 'width : 120px; height : 150px; border : 1px dotted blue;'>
@@ -80,7 +69,6 @@ $(document).ready(function(){
       formObj.submit();
    });
    
-   
   ////////////img uploadedList start//////////////////////////////////////////////////////////
   // var upload = document.getElementsByTagName('input')[0];
    var upload = document.getElementById('fileupload');
@@ -104,13 +92,13 @@ $(document).ready(function(){
 	
 		 //reader.onload start
 		 reader.onload = function (event) {
-			 var img = new Image();
-			 img.src = event.target.result;
+			 var image = new Image();
+			 image.src = event.target.result;
 			  
 			 uploadedList.innerHTML = '';
 			  // img.width = 200;
-			 img.height = 150;
-			 uploadedList.appendChild(img);
+			 image.height = 150;
+			 uploadedList.appendChild(image);
 		 };//reader.onload end
 		 
 	 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////

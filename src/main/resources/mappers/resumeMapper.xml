@@ -46,8 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createROne">
 	  <![CDATA[
 	  insert 
-	  into project.tblresume (bno, userid, title, coverletter, jobstateid, jobgroupid)
-	  values(LAST_INSERT_ID(),"jin3", #{title}, #{coverletter}, 1, 1)
+	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
+	  values("jin3", #{title}, #{coverletter}, 1, 1)
 	  ]]>
 	</insert>
 	
@@ -97,18 +97,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   ]]>
 		</select>
 
-		<!-- 이력서 이미지 등록 -->
-		<insert id="addRimgAttach">
+	<!-- 이력서 이미지 등록 -->
+	<!--
+	  update project.tblresume 
+	 set img = #{img}
+	 where bno = MAX(bno);
+	 update tblresume R1
+	 set img = #{img}
+	 where bno = (select *
+	 			FROM (SELECT Max(bno)
+	 					from tblresume R2
+	 					where userid = #{id}) R3); -->
+	<update id="addRimgAttach">
   <![CDATA[
--- insert 
--- into project.tblresume (img)
--- value(#{fullName})
-
-	update project.tblresume 
-	set img = #{fullName}
-	where bno = #{bno};
+	
+	update tblresume R1
+	set img = #{img}
+	where bno = (select *
+				from (select Max(bno)
+						from tblresume R2) R3);
   ]]>
-		</insert>
+	</update>
 
 
 </mapper>

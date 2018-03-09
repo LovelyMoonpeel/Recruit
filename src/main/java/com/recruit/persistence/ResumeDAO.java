@@ -27,6 +27,6 @@ public interface ResumeDAO {
 	
 	public List<ResumeVO> selectRList(String id)throws Exception;
 	
-	public void addRimgAttach(String fullName)throws Exception;
+	public void addRimgAttach(ResumeVO resume)throws Exception;
 	
 }

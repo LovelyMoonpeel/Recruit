@@ -27,23 +27,21 @@ public class ResumeServiceImpl implements ResumeService {
 		System.out.println("dao.createROne(resume) 실행 전");
 		dao.createROne(resume);
 		System.out.println("dao.createROne(resume) 실행");
-	
-		String fullName = resume.getImg();
-		System.out.println("resume.getImg()" + fullName);
-		//여기서 에러
-		System.out.println("puser.getId()" + puser.getId());
 		
+		String img = resume.getImg();
+		System.out.println("resume.getImg()" + img);
+		
+		if(img==null){
+			System.out.println("fullName==null");
+		}
+		
+		System.out.println("resume" + resume);
+		dao.addRimgAttach(resume); //insert말고 update로 함
+		
+		System.out.println("puser.getId()" + puser.getId());
 		System.out.println("resume.getBno()" + dao.readRLastCreatedOne(puser.getId()));
 		
 		return dao.readRLastCreatedOne(puser.getId());
-/*		if(fullName==null){
-			System.out.println("fullName==null");
-			return;
-		}
-*/		
-		//dao.addRimgAttach(fullName); //insert말고 update로 함
-		
-		//System.out.println("dao.addRimgAttach(fullName) 실행");
 	}
 /*	
 	@Override

@@ -100,7 +100,7 @@ public class PersonalController {
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id,Model model) throws Exception {
+	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		System.out.println("id값 뭐받아오냐");

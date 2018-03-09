@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.AdminResumeVO;
+import com.recruit.domain.PUserVO;
 import com.recruit.domain.ResumeVO;
 
 @Repository
@@ -46,7 +47,6 @@ public class ResumeDAOImpl implements ResumeDAO {
 	@Override
 	public int readRLastCreatedOne(String id) throws Exception {
 		System.out.println("ResumeDAOImpl readLRLastCreatedOne(String id)");
-		//여기서 에러
 		return session.selectOne(namespace + ".readRLastCreatedOne", id);
 	}
 
@@ -69,15 +69,14 @@ public class ResumeDAOImpl implements ResumeDAO {
 
 	@Override
 	public List<ResumeVO> selectRList(String id) throws Exception {
-		System.out.println("ResumeDAOImpl selectRList");
 		System.out.println("ResumeDAOImpl selectRList" + id);
 		return session.selectList(namespace + ".selectRList", id);
 	}
 	
 	@Override
-	public void addRimgAttach(String fullName)throws Exception{
+	public void addRimgAttach(ResumeVO resume)throws Exception{
 		System.out.println("addRimgAttach ResumeDAOImpl 실행");
-		session.insert(namespace+".addRimgAttach", fullName);
+		session.update(namespace+".addRimgAttach", resume);
 	};
 
 }
