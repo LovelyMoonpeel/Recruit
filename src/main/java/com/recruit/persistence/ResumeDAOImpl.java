@@ -39,8 +39,15 @@ public class ResumeDAOImpl implements ResumeDAO {
 	}
 
 	@Override
-	public void createROne(ResumeVO vo) throws Exception {
-		session.insert(namespace + ".createROne", vo);
+	public void createROne(ResumeVO resume) throws Exception {
+		session.insert(namespace + ".createROne", resume);
+	}
+	
+	@Override
+	public int readRLastCreatedOne(String id) throws Exception {
+		System.out.println("ResumeDAOImpl readLRLastCreatedOne(String id)");
+		//여기서 에러
+		return session.selectOne(namespace + ".readRLastCreatedOne", id);
 	}
 
 	@Override

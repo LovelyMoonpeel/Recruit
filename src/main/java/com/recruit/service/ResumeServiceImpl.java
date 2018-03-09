@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminResumeVO;
+import com.recruit.domain.PUserVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeDAO;
 
@@ -19,25 +20,38 @@ public class ResumeServiceImpl implements ResumeService {
 	
 	@Transactional
 	@Override
-	public void createROne(ResumeVO resume) throws Exception {
+	public Integer createROne(ResumeVO resume, PUserVO puser) throws Exception {
 		
 		System.out.println("ResumeServiceImpl + createROne Transactional 실행");
 		
+		System.out.println("dao.createROne(resume) 실행 전");
 		dao.createROne(resume);
-		
 		System.out.println("dao.createROne(resume) 실행");
-		
+	
 		String fullName = resume.getImg();
+		System.out.println("resume.getImg()" + fullName);
+		//여기서 에러
+		System.out.println("puser.getId()" + puser.getId());
 		
-		if(fullName==null){
+		System.out.println("resume.getBno()" + dao.readRLastCreatedOne(puser.getId()));
+		
+		return dao.readRLastCreatedOne(puser.getId());
+/*		if(fullName==null){
 			System.out.println("fullName==null");
 			return;
 		}
+*/		
+		//dao.addRimgAttach(fullName); //insert말고 update로 함
 		
-		dao.addRimgAttach(fullName); //insert말고 update로 함
-		
-		System.out.println("dao.addRimgAttach(fullName) 실행");
+		//System.out.println("dao.addRimgAttach(fullName) 실행");
 	}
+/*	
+	@Override
+	public int readRLastCreatedOne() throws Exception {
+		System.out.println("ResumeServiceImpl readLRLastCreatedOne()");
+		return dao.readRLastCreatedOne();
+	}*/
+	
 
 	@Override
 	public AdminResumeVO read(String id) throws Exception {

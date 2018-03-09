@@ -38,16 +38,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 이력서 등록 -->
-	<insert id="createROne">
-  <![CDATA[
-  insert 
-  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-  values("jin3", "임시 제목 mapper 수정해야함", "createROne t수정해야됨", 1, 1)
-  ]]>
-	</insert>
+	<!-- <insert id="createROne"> <![CDATA[ insert into project.tblresume (bno, 
+		userid, title, coverletter, jobstateid, jobgroupid) values(LAST_INSERT_ID(), 
+		"jin3", #{title}, #{coverletter}, 1, 1) ]]> </insert> -->
 
-	<!-- 이력서 확인 -->
-	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
+	<!-- 이력서 등록 -->
+	<insert id="createROne">
+	  <![CDATA[
+	  insert 
+	  into project.tblresume (bno, userid, title, coverletter, jobstateid, jobgroupid)
+	  values(LAST_INSERT_ID(),"jin3", #{title}, #{coverletter}, 1, 1)
+	  ]]>
+	</insert>
+	
+	<!-- 이력서 등록한 거 바로 확인 -->
+	<select id="readRLastCreatedOne" resultType="java.lang.Integer">
+  	select MAX(bno)
+	from project.tblresume
+	where userid = #{id}
+	;
+	</select>
+
+		<!-- 이력서 확인 -->
+		<select id="readROne" resultType="com.recruit.domain.ResumeVO">
     <![CDATA[
   select *
   from
@@ -55,37 +68,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where 
   	bno = #{bno}
       ]]>
-	</select>
+		</select>
 
-	<!-- 이력서 수정 -->
-	<update id="updateROne">
+		<!-- 이력서 수정 -->
+		<update id="updateROne">
    <![CDATA[
   update project.tblresume 
   set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
   where bno = #{bno}
        ]]>
-	</update>
+		</update>
 
 
-	<!-- 이력서 삭제 -->
-	<delete id="deleteROne">
-		delete
-		from
-		tblresume
-		where bno = #{bno}
-	</delete>
+		<!-- 이력서 삭제 -->
+		<delete id="deleteROne">
+			delete
+			from
+			tblresume
+			where bno = #{bno}
+		</delete>
 
-	<select id="selectRList" resultType="com.recruit.domain.ResumeVO">
+		<select id="selectRList" resultType="com.recruit.domain.ResumeVO">
   <![CDATA[
 	select *
 	from 
 	project.tblresume
 	where userid = #{id}
   ]]>
-	</select>
-	
-	<!-- 이력서 이미지 등록 -->
-	<insert id="addRimgAttach">
+		</select>
+
+		<!-- 이력서 이미지 등록 -->
+		<insert id="addRimgAttach">
   <![CDATA[
 -- insert 
 -- into project.tblresume (img)
@@ -95,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set img = #{fullName}
 	where bno = #{bno};
   ]]>
-	</insert>
-	
+		</insert>
+
 
 </mapper>

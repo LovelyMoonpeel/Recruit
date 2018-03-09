@@ -14,8 +14,12 @@
    
 <form role ="form" method="post">
 
-   	 <input type='hidden' name='id' value="${PUserVO.id}">
-
+  	 <input type='hidden' name='id' value="${PUserVO.id}"> 
+	<%--  <input type='hidden' name='puser' value="${PUserVO}">  --%>
+ 	 <input type='hidden' name='pw' value="${PUserVO.pw}">
+	 <input type='hidden' name='pname' value="${PUserVO.pname}">
+	 <input type='hidden' name='email' value="${PUserVO.email}">
+	 <input type='hidden' name='birth' value="${PUserVO.birth}">
      <div class="form-group">
        <label for="title">제목</label>
        <input class="form-control" id="title" name="title" value = "${ResumeVO.title}">
@@ -34,10 +38,10 @@
      </div> -->
  </form> 
  
-   	<form id = 'form1' action = "uploadForm" method = "post">
+   <%-- <form role ="form" id = 'form1' action = "uploadForm" method = "post">
      	<input type = 'file' id='fileupload' name = 'file' value = "${ResumeVO.img}" accept=".jpg,.jpeg,.png,.gif,.bmp">
     
-   	</form>
+   	</form> --%>
   <br>
       
 
@@ -70,6 +74,7 @@ $(document).ready(function(){
    });
    
    $("#write-success").on("click", function(){
+	  alert("write-success clicked");
       formObj.attr("action", "/personal/write");
       formObj.attr("method", "post");
       formObj.submit();
