@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.adcompanyMapper">
+
+	<select id="read" resultType="com.recruit.domain.AmainVO">
+	select
+		id, pw, cname, pname, email, registnum
+	from
+		project.tbluser
+	where id = #{id}
+	</select>
+
+	<update id="update">
+		update project.tbluser set
+		pw = #{pw}, cname = #{cname} ,pname = #{pname}, email = #{email}, registnum = #{registnum}
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from project.tbluser where id = #{id}
+	</delete>
+
+	<select id="listAll" resultType="com.recruit.domain.AmainVO">
+	<![CDATA[
+	select
+		id, cname , pname, email, registnum
+	from
+		project.tbluser
+	where
+		cname is not null and id != 'admin'
+	order by id
+	]]>
+	</select>
+	
+	<select id="listCriteria" resultType="AmainVO">
+	<![CDATA[
+	select
+		id, cname , pname, email, registnum
+	from
+		project.tbluser
+	where
+		cname is not null and id != 'admin'
+	order by id
+	limit #{pageStart}, #{perPageNum}
+	]]>	
+	</select>
+
+	<select id="listPage" resultType="AmainVO">
+	<![CDATA[
+	select
+		id, cname , pname, email, registnum
+	from
+		project.tbluser
+	where
+		cname is null and id != 'admin'
+	order by id
+	limit #{page}, 10
+	]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select
+		count(cname)
+	from
+		project.tbluser
+	where
+		cname is not null and id != 'admin'
+	]]>
+	</select>
+	
+	<select id="listSearch" resultType="AmainVO">
+	<![CDATA[
+	select *
+	from
+		project.tbluser
+	where
+		cname is not null and id != 'admin'
+	]]>
+	
+	<include refid="search"></include>
+	
+	<![CDATA[
+	order by id
+	limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 'id'.toString()">
+			and id like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'cname'.toString()">
+			and cname like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'pname'.toString()">
+			and pname like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'email'.toString()">
+			and email like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="searchType == 'registnum'.toString()">
+			and registnum like CONCAT('%', #{keyword}, '%')
+		</if>
+	</if>
+	</sql>
+	
+	<select id="listSearchCount" resultType="int">
+	<![CDATA[
+	select count(cname)
+	from project.tbluser
+	where cname is not null and id != 'admin'
+	]]>
+	<include refid="search"></include>
+	</select>
+
+</mapper>

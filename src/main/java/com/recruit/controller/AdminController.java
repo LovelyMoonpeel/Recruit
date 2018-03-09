@@ -19,7 +19,9 @@ import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
 import com.recruit.domain.CsqnaVO;
+import com.recruit.service.AdCompanyService;
 import com.recruit.service.AmainService;
+import com.recruit.service.CompanyService;
 import com.recruit.service.CsfaqService;
 import com.recruit.service.CsqnaService;
 import com.recruit.service.ResumeService;
@@ -41,6 +43,12 @@ public class AdminController {
 
 	@Inject
 	private CsqnaService qservice;
+	
+	@Inject
+	private AdCompanyService cservice;
+	
+	@Inject
+	private CompanyService pservice;
 
 	@RequestMapping(value = "/A_main", method = RequestMethod.GET)
 	public void mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
@@ -198,4 +206,56 @@ public class AdminController {
 
 		return "redirect:/admin/A_qna";
 	}
+	
+	@RequestMapping(value = "/A_company", method = RequestMethod.GET)
+	public void companyGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
+		logger.info(cri.toString());
+
+		model.addAttribute("list", cservice.listSearchCriteria(cri));
+
+		AdminPageMaker pageMaker = new AdminPageMaker();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(cservice.listSearchCount(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value = "/A_cmodify", method = RequestMethod.GET)
+	public void cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
+			throws Exception {
+		model.addAttribute("AmainVO", cservice.read(id));
+		model.addAttribute("recruitList", pservice.RecruitList(id));
+	}
+
+	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
+	public String cmodifyPOST(AmainVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+
+		logger.info("cmodify post...........");
+		logger.info(vo.toString());
+		
+		System.out.println("controller test1");
+		cservice.modify(vo);
+
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+
+		rttr.addFlashAttribute("msg", "modify");
+
+		System.out.println("controller test2");
+		return "redirect:/admin/A_company";
+	}
+	
+	@RequestMapping(value = "/A_rmodify", method = RequestMethod.GET)
+	public void rmodifyGET(@RequestParam("id") String id, int recruitNum, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
+			throws Exception {
+		model.addAttribute("AmainVO", cservice.read(id));
+		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
+		model.addAttribute("recruitList", pservice.RecruitList(id));
+		model.addAttribute("RecruitVO", pservice.RecruitInfoRead(recruitNum));
+	}
+	
+	
 }
