@@ -31,7 +31,6 @@ public class PersonalController {
 	@Inject
 	private BoardService boardservice;
 	
-	
 	@Inject
 	private PUserService service;
 
@@ -194,20 +193,6 @@ public class PersonalController {
 		model.addAttribute("PUserVO",service.selectPUser(id));
 		
 		return	"personal/P_applied"; 
-	 }
-	
-	
-	@RequestMapping(value = "/joinperson", method = RequestMethod.POST)
-	public String joinPost(BoardVO board, RedirectAttributes rttr) throws Exception {
-		logger.info("regist post ...........");
-		logger.info(board.toString());
-		System.out.println("1");
-		boardservice.regist(board);
-		System.out.println("2");
-
-		rttr.addFlashAttribute("msg", "success");
-		return "redirect:/personal/index";
-	}
-	 
+	 } 
 
 }

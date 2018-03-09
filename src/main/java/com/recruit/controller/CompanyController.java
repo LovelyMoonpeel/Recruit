@@ -26,9 +26,6 @@ import com.recruit.service.CompanyService;
 public class CompanyController {
 
 	@Inject
-	private BoardService boardservice;
-
-	@Inject
 	private CompanyService service;
 
 	@Inject
@@ -145,15 +142,4 @@ public class CompanyController {
 		model.addAttribute(service.RecruitInfoRead(id));
 	}
 
-	@RequestMapping(value = "/joinperson", method = RequestMethod.POST)
-	public String joinPost(BoardVO board, RedirectAttributes rttr) throws Exception {
-		logger.info("regist post ...........");
-		logger.info(board.toString());
-		System.out.println("1");
-		boardservice.regist(board);
-		System.out.println("2");
-
-		rttr.addFlashAttribute("msg", "success");
-		return "redirect:/personal/index";
-	}
 }

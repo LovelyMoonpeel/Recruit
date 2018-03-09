@@ -51,26 +51,31 @@
 					<li><a href="#">검색</a></li>
 
 					<!--회원가입, 로그인 부분 -->
-					<!--a href="#" 삭제하면 안됨  -->
-					<!--c태그 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
+					<!--★ a href="#" 삭제하면 안됨  -->
+					<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
 					<c:if test="${empty sessionScope.login}">
+						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
 						<li id="myBtn_join"><a href="#"> <span
 								class="glyphicon glyphicon-user"></span> 회원가입
 						</a></li>
 
+						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
 						<li id="myBtn_login"><a href="#"> <span
 								class="glyphicon glyphicon-log-in"></span> 로그인
 						</a></li>
 					</c:if>
 					<!--//회원가입, 로그인 부분  -->
 
-
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
 						<li><a href="#">MyPage</a></li>
+						
+						<!--버튼을 누르면 UserController에  /rpjt/logout을 찾아간다 -->
 						<li><a href="/rpjt/logout">로그아웃</a></li>
+						<li><a href="#">${sessionScope.login.id}등장</a></li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
+					
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -78,56 +83,59 @@
 		<!-- /.container -->
 	</nav>
 
-	<!--__________________________로그인 모달 시작_______________________________________  -->
 
-	<!--여기 써 있는 id값이 맨 밑에 자바 스크립트 부분에서 사용됨/ 회원가입 모달 시작 -->
-	<!--원래 modal fade인데 fade없애도 상관없는 거 같음, modal은 지우면 안됨  -->
-	<!--원래id옆에 role="dialog"있었는데 지워도 문제 없음  -->
+	<!--__________________________1.로그인 모달 시작_______________________________________  -->
+
+	<!--★ 원래 modal fade인데 fade없애도 상관없는 거 같음, modal은 지우면 안됨  -->
+	<!--★ 원래id옆에 role="dialog"있었는데 지워도 문제 없음  -->
 	<div class="modal" id="modal_login">
 
-		<!--뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
+		<!--★ 뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
 		<div class="modal-dialog">
 
-			<!--아래 두개의 클래스를 추가 했음, col-xs-8을 아래 붙이면 css적용이 안 됨  -->
+			<!--★ 아래 두개의 클래스를 추가 했음, col-xs-8을 아래 붙이면 css적용이 안 됨 , col-xs-8을 써서 모달 가로 폭을 조정 -->
 			<div class="modal-content col-xs-8">
 
 				<div class="modal-body">
 
-					<!--col-xs-8을 써서 모달 가로 폭을 조정했음  -->
-					<!--위에 있는 클래스랑 아래 있는 클래스랑 합치려고 modal-dialog를 아래 써 봤는데 이상해짐  -->
-					<!-- <div class="login-box-body col-xs-8"> -->
-
 					<!--x표시 누르면 창 사라지게 하는 코드 -->
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 
-					<!--모달 안에서 맨 위에 있는 네비게이션  -->
+					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
+						<!--★ href부분 값은 밑에 id랑 연결된다  -->
 						<li class="active"><a data-toggle="tab" href="#login_person">개인회원</a></li>
 						<li><a data-toggle="tab" href="#login_company">기업회원</a></li>
 					</ul>
 					
 					<br>
 					
-					<!--모달 안에 들어가는 내용/개인회원+기업회원  -->
+					<!--모달 안의 내용/개인회원&기업회원  -->
 					<div class="tab-content">
-						<!--_____________________로그인 개인 회원 시작_____________________ -->
+						<!--_____________________1-1.로그인 개인 회원 시작_____________________ -->
 						<div id="login_person" class="tab-pane fade in active">
-							<!--640쪽 action의 속성값은 '/rpjt/loginPost'를 호출한다.  -->
+							
+							<!-- action의 속성값으로 인해 UserController의 '/rpjt/loginPost'부분으로 넘어간다  -->
 							<form action="/rpjt/loginPost" method="post">
+								
 								<!--id입력  -->
+								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 개인 회원 로그인" /> <span
+										placeholder="ID 개인 회원 로그인" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
+								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
 									<input type="password" name="pw" class="form-control"
-										placeholder="Password" /> <span
+										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
-								<!--기억하기, 로그인 /그 줄에 로그인 버튼까지 있어서 row -->
+								
+								<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 								<div class="row">
+								
 									<!--기억하기 체크버튼  -->
 									<div class="col-xs-8">
 										<div class="checkbox icheck">
@@ -136,37 +144,47 @@
 											</label>
 										</div>
 									</div>
+									
 									<!--로그인 버튼 -->
 									<div class="col-xs-4">
 										<button type="submit"
 											class="btn btn-primary btn-block btn-flat">로그인</button>
 									</div>
+									
 								</div>
-								<!--//기억하기, 로그인 -->
+								<!--//row -->
+								
 								<!--아이디, 패스워드 까먹었을 경우를 대비  -->
-								<a href="#">아이디를 잊어버렸어요</a> <br> <a href="#">패스워드를
-									잊어버렸어요</a>
+								<a href="#">아이디를 잊어버렸어요</a> 
+								<br> 
+								<a href="#">패스워드를 잊어버렸어요</a>
+								
 							</form>
+							
 						</div>
-						<!--//_____________________로그인 개인 회원 끝_____________________ -->
+						<!--_____________________//1-1.로그인 개인 회원 끝_____________________ -->
 
-						<!--_____________________로그인 기업 회원 시작_____________________ -->
+
+						<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
 						<div id="login_company" class="tab-pane fade">
-							<!--640쪽 action의 속성값은 '/rpjt/loginPost'를 호출한다.  -->
+							
 							<form action="/rpjt/loginPost" method="post">
+								
 								<!--id입력 -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 기업회원 로그인" /> <span
+										placeholder="ID 기업회원 로그인" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
+								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
 									<input type="password" name="pw" class="form-control"
-										placeholder="Password" /> <span
+										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
-								<!--기억하기, 로그인 /그 줄에 로그인 버튼까지 있어서 row -->
+								
+								<!--row -->
 								<div class="row">
 									<!--기억하기 체크버튼  -->
 									<div class="col-xs-8">
@@ -176,33 +194,42 @@
 											</label>
 										</div>
 									</div>
+									
 									<!--로그인 버튼 -->
 									<div class="col-xs-4">
 										<button type="submit"
 											class="btn btn-primary btn-block btn-flat">로그인</button>
 									</div>
+									
 								</div>
-								<!--//기억하기,로그인 -->
+								<!--//row -->
+								
 								<!--아이디, 패스워드 까먹었을 경우를 대비  -->
-								<a href="#">아이디를 잊어버렸어요</a> <br> <a href="#">패스워드를
-									잊어버렸어요</a>
+								<a href="#">아이디를 잊어버렸어요</a> 
+								<br> 
+								<a href="#">패스워드를 잊어버렸어요</a>
 							</form>
+							
 						</div>
-						<!--//_____________________로그인 기업 회원 끝_____________________ -->
+						<!--_____________________//1.2로그인 기업 회원 끝_____________________ -->
+						
 					</div>
-					<!--//tab-content 모달 안에 들어가는 내용 끝(기업회원+개인회원) -->
+					<!--//tab-content 모달 안의 내용/개인회원&기업회원 -->
+				
 				</div>
 				<!--//class="modal-body"  -->
 
 			</div>
 			<!--//class="modal-content col-xs-8"-->
+		
 		</div>
-		<!--//modal-dialog 없애면 왼쪽에 붙음 -->
+		<!--//modal-dialog -->
+	
 	</div>
-	<!--//_____________________로그인 모달 끝_____________________-->
+	<!--_____________________//1.로그인 모달 끝_____________________-->
 	
 	
-	<!--_____________________회원가입 모달 시작_____________________-->
+	<!--_____________________2.회원가입 모달 시작_____________________-->
 
 	<!--여기 써 있는 id값이 맨 밑에 자바 스크립트 부분에서 사용됨/ 회원가입 모달 시작 -->
 	<!--원래 modal fade인데 fade없애도 상관없는 거 같음, modal은 지우면 안됨  -->
@@ -232,11 +259,11 @@
 					<!--모달 안에 들어가는 내용  -->
 					<div class="tab-content">
 
-						<!--_____________________회원가입 개인 회원 시작_____________________ -->
+						<!--_____________________2-1.회원가입 개인 회원 시작_____________________ -->
 						<div id="join_person" class="tab-pane fade in active">
 
 							<!--action속성값이 rController랑 연결되는 거 같음  -->
-							<form role="form" action="joinperson" method="post">
+							<form role="form" action="/rpjt/joinperson" method="post">
 
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
@@ -244,21 +271,21 @@
 									<!--아이디 -->
 									<div class="form-group">
 										아이디<input type="text" name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요.">
+											placeholder="4~10자리를 입력하세요." required>
 									</div>
 
 
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" name='pw' class="form-control"
-											placeholder="6자리를 입력하세요.">
+											placeholder="6자리를 입력하세요." required>
 									</div>
 
 
 									<!--이름 -->
 									<div class="form-group">
 										이름<input type="text" name='pname' class="form-control"
-											placeholder="이름을 입력하세요.">
+											placeholder="이름을 입력하세요." required>
 									</div>
 
 
@@ -267,7 +294,7 @@
 										생년월일
 										<div class="input-group date" data-provide="datepicker">
 											<input type="text" name='birth' class="form-control"
-												placeholder="생년월일을 입력하세요."> <span
+												placeholder="생년월일을 입력하세요." required> <span
 												class="input-group-addon"> <i
 												class="glyphicon glyphicon-calendar"></i>
 											</span>
@@ -279,7 +306,7 @@
 									<div class="form-group has-feedback">
 										이메일<input type="text" name="email" class="form-control"
 											placeholder="이메일을 입력하세요. 예) iampeel@naver.com" /> <span
-											class="glyphicon  form-control-feedback"></span>
+											class="glyphicon  form-control-feedback" required></span>
 									</div>
 
 
@@ -298,9 +325,9 @@
 								<!--//class="box-body" 뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐   -->
 							</form>
 						</div>
-						<!--//_____________________회원가입 개인회원 끝_____________________  -->
+						<!--_____________________//2-1.회원가입 개인회원 끝_____________________  -->
 
-						<!--_____________________회원가입 기업회원 시작_____________________  -->
+						<!--_____________________2-2.회원가입 기업회원 시작_____________________  -->
 						<div id="join_company" class="tab-pane fade">
 							<form role="form" action="joinperson" method="post">
 
@@ -310,28 +337,28 @@
 									<!--아이디 -->
 									<div class="form-group">
 										회사 아이디<input type="text" name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요.">
+											placeholder="4~10자리를 입력하세요." required>
 									</div>
 
 
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" name='pw' class="form-control"
-											placeholder="6자리를 입력하세요.">
+											placeholder="6자리를 입력하세요." required>
 									</div>
 
 
 									<!--회사명 -->
 									<div class="form-group">
 										회사명<input type="text" name='cname' class="form-control"
-											placeholder="회사명을 입력하세요.">
+											placeholder="회사명을 입력하세요." required>
 									</div>
 
 
 									<!--담당자 이름 -->
 									<div class="form-group">
 										담당자 이름<input type="text" name='pname' class="form-control"
-											placeholder="담당자 이름을 입력하세요.">
+											placeholder="담당자 이름을 입력하세요." required>
 									</div>
 
 
@@ -339,7 +366,7 @@
 									<div class="form-group has-feedback">
 										담당자 이메일<input type="text" name="email" class="form-control"
 											placeholder="담당자 이메일을 입력하세요. 예) iampeel@naver.com" /> <span
-											class="glyphicon  form-control-feedback"></span>
+											class="glyphicon  form-control-feedback" required></span>
 									</div>
 
 
@@ -349,7 +376,7 @@
 									<!--사업자 등록번호 -->
 									<div class="form-group">
 										사업자 등록번호<input type="text" name='registnum'
-											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요.">
+											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." required>
 									</div>
 
 
@@ -373,7 +400,7 @@
 
 
 						</div>
-						<!--//_____________________회원가입 기업회원 끝_____________________  -->
+						<!--_____________________//2-2.회원가입 기업회원 끝_____________________  -->
 
 
 
@@ -390,7 +417,7 @@
 		<!--//class="modal-dialog" 뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
 
 	</div>
-	<!--//_____________________회원가입 모달 끝_____________________-->
+	<!--_____________________//2.회원가입 모달 끝_____________________-->
 
 
 

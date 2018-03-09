@@ -7,18 +7,13 @@ import com.recruit.dto.LoginDTO;
 
 public interface UserService {
 
-	//633 start
+	//
 	public BoardVO login(LoginDTO dto) throws Exception;
-	//633 end
 
-	//665 start
-	/*  
-	·Î±×ÀÎ Á¤º¸¸¦ À¯ÁöÇÏ´Â keepLogin°ú 
-	°ú°Å¿¡ Á¢¼ÓÇÑ »ç¿ëÀÚÀÎÁö È®ÀÎÇÏ´Â ±â´É
-	*/
+	//ë¡œê·¸ì¸ ì •ë³´ë¥¼ ìœ ì§€
 	public void keepLogin(String id, String sessionId, Date next)throws Exception;
 	  
+	//ê³¼ê±°ì— ì ‘ì†í•œ ì‚¬ìš©ìì¸ì§€ í™•ì¸
 	public BoardVO checkLoginBefore(String value);  
-	//665 end
 	
 }

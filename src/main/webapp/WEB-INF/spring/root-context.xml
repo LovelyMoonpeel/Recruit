@@ -14,9 +14,9 @@
 
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property> 
-		<property name="url" value="jdbc:mysql://192.168.0.4:3306/project?useSSL=false"></property> 
-		<property name="username" value="mely"></property> <property name="password" 
-		value="0000"></property> </bean> -->
+		<property name="url" value="jdbc:mysql://127.0.0.1:8080/project?useSSL=false"></property> 
+		<property name="username" value="root"></property> <property name="password" 
+		value="1234"></property> </bean> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

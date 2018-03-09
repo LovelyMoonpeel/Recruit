@@ -21,18 +21,19 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
   @Inject
   private UserService service;
   
+  /* 현재 사용자가 로그인한 상태인지를 체크하고,컨트롤러를 호출하개 할 것인지를 결정한다.
+   * 사용자가 로그인하지 않은 상태라면 '/rpjt/index'으로 이동하게 한다.
+  */
   @Override
   public boolean preHandle(HttpServletRequest request,
       HttpServletResponse response, Object handler) throws Exception {
     
     HttpSession session = request.getSession();   
 
-
     if(session.getAttribute("login") == null){
     
       logger.info("current user is not logined");
       
-      //667 start
       saveDest(request);
       
       Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
@@ -49,13 +50,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         
       }
-      //얘도 로그인 처리 후랑 관련이 없는 거 같음
+      
       response.sendRedirect("/rpjt/index");
       return false;
     }
+    
     return true;
   } 
 
+  //saveDest()메소드를 이용해서 원래 사용자가 원하는 페이지의 정보는 HttpSession에 'dest'라는 이름으로 저장합니다.
+  //GET방식인 경우에는 URI정보 뒤의 파라미터들을 함께 보관해야 한다.
   private void saveDest(HttpServletRequest req) {
 
     String uri = req.getRequestURI();

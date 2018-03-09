@@ -9,9 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <script type="text/javascript">
-    self.location = "/personal/index";
-  </script>
+${boardVO.id}
+ <!--  <script type="text/javascript">
+    self.location = "/";
+  </script> -->
 </body>
 </html>
 
