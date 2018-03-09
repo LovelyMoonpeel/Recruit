@@ -63,8 +63,9 @@ public class CompanyServiceImpl implements CompanyService {
 		 return dao.RecruitInfoRead(recruitNum);
 	 }
 
-	  
+	 @Override
+	 public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
+		 return dao.RecruitInfoRead3(recruitNum);
+	 } 
 	 
-
-
 }

@@ -22,41 +22,43 @@
 	<table class="table table-bordered">
 		<tr>
 			<th>기업명</th>
-			<td><input type="text" name="cname" value="${CInfoVO.cname}"></td>
+			<td>${CInfoVO.cname}</td>
 			<th>대표자명</th>
-			<td><input type="text" name="cname" value="${CInfoVO.ceo}"></td>
+			<td>${CInfoVO.ceo}</td>
 		</tr>
 		<tr> 
 			<th>업종</th>
-			<td colspan="3"><input type="text" name="cname" value="${CInfoVO.ctype}"></td>
+			<td colspan="3">${CInfoVO.ctype}</td>
 		</tr>
 		<tr>
 			<th>기업형태</th>
-			<td colspan="3"><input type="text" name="cname" value="${CInfoVO.form}"></td>
+			<td colspan="3">${CInfoVO.form}</td>
 		</tr>
 		<tr>
 			<th>설립일</th>
-			<td colspan="3"><input type="text" name="cname" value="${CInfoVO.establish}"></td>
+			<td colspan="3">${CInfoVO.establish}</td>
 		</tr>
 		<tr>
 			<th>매출액</th>
-			<td colspan="3"><input type="text" name="cname" value="${CInfoVO.sales}"></td>
+			<td colspan="3">${CInfoVO.sales}</td>
 		</tr>
 		<tr>
 			<th>대표전화</th>
-			<td><input type="text" name="cname" value="${CInfoVO.tel}"></td>
+			<td>${CInfoVO.tel}</td>
 			<th>FAX</th>
-			<td><input type="text" name="cname" value="${CInfoVO.fax}"></td>
+			<td>${CInfoVO.fax}</td>
 		</tr>
 		<tr>
 			<th>홈페이지</th>
-			<td><input type="text" name="cname" value="${CInfoVO.homepage}"></td>
+			<td><a href="${CInfoVO.homepage}" class="link_site"
+				target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
 			<th>SNS / 블로그</th>
-			<td><input type="text" name="cname" value="${CInfoVO.sns}"></td>
+			<td><a href="{cinfoVO.sns}" class="link_site"
+				target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
 		</tr>
 		<tr>
 			<th>기업주소</th>
-			<td colspan="3"><input type="text" name="cname" value="${CInfoVO.location}"></td>
+			<td colspan="3">${CInfoVO.location}</td>
 		</tr>
 	</table>
 	<br> <br> <br>
@@ -65,6 +67,7 @@
 	<h3>모집부문</h3>
 	<form role="form" method="POST">
 	<input type="hidden" name="cid" value="${CInfoVO.id}"/>
+	<input type="hidden" name="bno" value="${RecruitVO.bno}"/>
 	<h3>공고제목</h3>
 	<input type="text" name="title" class="form-control" value="${RecruitVO.title}"> <br>
 	
@@ -76,16 +79,14 @@
 				<select id="jobGroup" name="jobgroupid">
 				<option value="">모집직종</option>
 					<c:forEach items="${jobgroupList}" var="JobGroupVO">
-					<option value="${JobGroupVO.id}" name="jobgroupid">${JobGroupVO.jobgroup}</option>
+					<option value="${JobGroupVO.id}"
+					<c:if test="${JobGroupVO.id == RecruitVO.jobgroupid}">selected</c:if>
+					>${JobGroupVO.jobgroup}</option>
 					</c:forEach>
 				</select> 
 				
 				<select id="subjobGroup" name="jobgroupid2">
 				</select>
-				
-				<a id="jobgroupZone">
-				
-				</a>
 				</td> 
 				
 			</tr>
@@ -95,7 +96,9 @@
 				<select id="region" name='rgbid'>
 					<option value="">근무지역</option>
 					<c:forEach items="${regionList}" var="RegionVO">
-						<option value="${RegionVO.rgbid}" name='rgbid'>${RegionVO.rgbname}</option>
+						<option value="${RegionVO.rgbid}"
+						<c:if test="${RegionVO.rgbid == RecruitVO.rgbid}">selected</c:if>
+						>${RegionVO.rgbname}</option>
 					</c:forEach>
 				</select>
 				
@@ -120,7 +123,9 @@
 					<c:forEach items="${codeList}" var="CodeVO">
 					<c:if test="${CodeVO.tid==4}">
 					
-					<option value="${CodeVO.id}" name="employstatusid">${CodeVO.career}</option>
+					<option value="${CodeVO.id}"
+					<c:if test="${CodeVO.id == RecruitVO.employstatusid}">selected</c:if>
+					>${CodeVO.career}</option>
 					
 					</c:if>
 					</c:forEach>
@@ -131,10 +136,12 @@
 				<th>급여사항</th>
 				<td>
 				<select name="salaryid">
-					<option value="">급여사항</option>
+					<option value="null">급여사항</option>
 					<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==7}">
-							<option value="${CodeVO.id}" name="salaryid">${CodeVO.career}</option>
+							<option value="${CodeVO.id}"
+							<c:if test="${CodeVO.id == RecruitVO.salaryid}">selected</c:if>
+							>${CodeVO.career}</option>
 						</c:if>
 					</c:forEach>
 				</select>
@@ -143,12 +150,14 @@
 			<tr>
 				<th>학력</th>
 				<td><select name="edu">
-						<option value="">학력</option>
+						<option value="null">학력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==2}">
 						
-						<option value="${CodeVO.id}" name="edu">${CodeVO.career}</option>
+						<option value="${CodeVO.id}"
+						<c:if test="${CodeVO.id == RecruitVO.edu}">selected</c:if>
+						>${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>
@@ -158,12 +167,14 @@
 			<tr>
 				<th>경력</th>
 				<td><select name="exp">
-						<option value="">경력</option>
+						<option value="null">경력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==1}">
 						
-						<option value="${CodeVO.id}" name="exp">${CodeVO.career}</option>
+						<option value="${CodeVO.id}"
+						<c:if test="${CodeVO.id == RecruitVO.exp}">selected</c:if>
+						>${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>
@@ -197,14 +208,20 @@
 			</tr>
 			<tr>
 				<th>접수방법</th>
-				<td><input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수 &nbsp;
-				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원</td>
+				<td><input type="radio" name="acceptmethod" value="홈페이지접수"
+				<c:if test="${RecruitVO.acceptmethod=='홈페이지접수'}">checked</c:if>
+				>홈페이지접수 &nbsp;
+				<input type="radio" name="acceptmethod" value="즉시지원"
+				<c:if test="${RecruitVO.acceptmethod=='즉시지원'}">checked</c:if>
+				>즉시지원</td>
 			</tr>
 			
 		</table>
 	</form>
-		<br> <br> <input class="btn btn-primary" type="submit"
-			value="등록">
+		<br> <br>
+		<input class="btn btn-primary" type="submit" value="수정">
+		<input type="submit" class="btn btn-danger" value="삭제">
+		
 	<br>
 	<!-- // 공고 입력 부분 끝 -->
 </div>
@@ -229,14 +246,29 @@
 
 
 		$(".btn-primary").on("click", function() {
-			formObj.attr("action", "C_write");
+			formObj.attr("action", "A_rmodify");
 			formObj.submit();
+		});
+		
+		$(".btn-danger").on("click", function(){
+			
+			if(confirm("삭제하시겠습니까?")){
+				formObj.attr("action", "/admin/rremove");
+				formObj.submit();
+			}
 		});
 
 	});
 </script>
 
 <script>
+$(document).ready(function(){
+	var largeNum = $('#jobGroup option:selected').val();
+	SubJobGroup2(largeNum);
+	var largeNum2 = $('#region option:selected').val();
+	SubRegion2(largeNum2);
+});
+
 	$("#region").change(function() {
 
 		var largeNum = $(this).val();
@@ -252,7 +284,7 @@
 		SubJobGroup(largeNum);
 
 	})
-
+	
 	function SubJobGroup(largeNum) {
 
 		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
@@ -260,9 +292,32 @@
 
 			$(data).each(
 					function() {
-						str += "<option name='jobgruopid' value="+this.id+">"
+						str += "<option value="+this.id+">"
 								+ this.jobgroup + "</option>";
 
+					});
+
+			$("#subjobGroup").html(str);
+		})
+	}
+
+	function SubJobGroup2(largeNum) {
+
+		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+			var str = "";
+			<c:set value="${RecruitVO.jobgroupid2}" var="select"/>
+			var sel = '<c:out value="${select}"/>';
+			var selected = "";
+			
+			$(data).each(
+					function() {
+						if(sel==this.id){
+							selected = "selected";
+						}else{
+							selected = "";
+						}
+						str += "<option value="+this.id+
+						" "+selected+">"+ this.jobgroup + "</option>";
 					});
 
 			$("#subjobGroup").html(str);
@@ -276,7 +331,7 @@
 
 			$(data).each(
 					function() {
-						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+						str += "<option value="+this.rgsid+">" + this.rgsname
 								+ "</option>";
 
 					});
@@ -284,6 +339,31 @@
 			$("#subRegion").html(str);
 		})
 	}
+	
+	function SubRegion2(largeNum) {
+
+		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
+			var str = "";
+			<c:set value="${RecruitVO.rgsid}" var="sid"/>
+			var selec = '<c:out value="${sid}"/>';
+			var select = "";
+
+			$(data).each(
+					function() {
+						if(selec==this.rgsid){
+							select = "selected";
+						}else{
+							select = "";
+						}
+						str += "<option value="+this.rgsid+
+						" " + select + ">" + this.rgsname + "</option>";
+
+					});
+
+			$("#subRegion").html(str);
+		})
+	}
 </script>
+
 
 <%@include file="../include/cfooter.jsp"%>

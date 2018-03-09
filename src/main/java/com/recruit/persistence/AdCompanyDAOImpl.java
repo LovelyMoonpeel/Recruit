@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.AmainVO;
+import com.recruit.domain.RecruitVO;
 
 @Repository
 public class AdCompanyDAOImpl implements AdCompanyDAO {
@@ -26,7 +27,7 @@ public class AdCompanyDAOImpl implements AdCompanyDAO {
 
 	@Override
 	public void update(AmainVO vo) throws Exception {
-		System.out.println("dao test");
+//		System.out.println("dao test");
 		session.update(namespace + ".update", vo);
 	}
 
@@ -70,4 +71,13 @@ public class AdCompanyDAOImpl implements AdCompanyDAO {
 		return session.selectOne(namespace + ".listSearchCount", cri);
 	}
 
+	@Override
+	public void update(RecruitVO vo) throws Exception {
+		session.update(namespace + ".rupdate", vo);
+	}
+	
+	@Override
+	public void delete(int bno) throws Exception {
+		session.delete(namespace + ".rdelete", bno);
+	}
 }

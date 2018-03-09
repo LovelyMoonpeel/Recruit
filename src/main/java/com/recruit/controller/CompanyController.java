@@ -49,7 +49,7 @@ public class CompanyController {
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 
-	    return "redirect:/rpjt/C_index?id="+CInfo.getId(); 
+	    return "redirect:/company/C_index?id="+CInfo.getId(); 
 	  }
 	
 	  @RequestMapping(value = "/C_manage", method = RequestMethod.GET)
@@ -64,7 +64,7 @@ public class CompanyController {
 	  @RequestMapping(value = "/C_detail", method = RequestMethod.GET)
 	  public String detail(Model model) throws Exception {
 
-	   return "rpjt/C_detail";
+	   return "company/C_detail";
 	  }
 
 	  @RequestMapping(value = "/C_write", method = RequestMethod.GET)
@@ -90,7 +90,7 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "regist");
 
 		  
-		  return "redirect:/rpjt/C_manage?id=park";
+		  return "redirect:/company/C_manage?id=park";
 	  }
 
 	  @RequestMapping(value = "/C_index", method = RequestMethod.GET)

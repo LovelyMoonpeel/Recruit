@@ -5,6 +5,7 @@ import java.util.List;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.AmainVO;
+import com.recruit.domain.RecruitVO;
 
 public interface AdCompanyService {
 
@@ -24,4 +25,7 @@ public interface AdCompanyService {
 
 	public int listSearchCount(AdminSearchCriteria cri) throws Exception;
 
+	public void modify(RecruitVO vo) throws Exception;
+	
+	public void remove(int bno) throws Exception;
 }

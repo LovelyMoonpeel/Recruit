@@ -65,4 +65,9 @@ public class CompanyDAOImpl implements CompanyDAO{
 		session.update(namespace + ".updateViewCnt", recruitNum);
 	}
 	
+	@Override
+	public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
+		return session.selectOne(namespace +".recruitinfoRead3", recruitNum);
+	}
+	
 }

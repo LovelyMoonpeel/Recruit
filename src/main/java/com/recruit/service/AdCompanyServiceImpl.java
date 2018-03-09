@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.AmainVO;
+import com.recruit.domain.RecruitVO;
 import com.recruit.persistence.AdCompanyDAO;
 
 @Service
@@ -58,4 +59,14 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 		return dao.listSearchCount(cri);
 	}
 
+	@Override
+	public void modify(RecruitVO vo) throws Exception {
+		System.out.println("service test");
+		dao.update(vo);
+	}
+	
+	@Override
+	public void remove(int bno) throws Exception {
+		dao.delete(bno);
+	}
 }

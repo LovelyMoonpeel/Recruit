@@ -57,13 +57,56 @@
 				<td><input class="form-control" type="text" name="registnum"
 					value="${AmainVO.registnum}" required></td>
 			</tr>
-			
 		</table>
+	
+	
+	<h2>기업기본정보</h2>
+	<table class="table table-bordered">
+		<tr>
+			<th>기업명</th>
+			<td><input class="form-control" type="text" value="${CInfoVO.cname}" readonly></td>
+			<th>대표자명</th>
+			<td><input class="form-control" type="text" name="ceo" value="${CInfoVO.ceo}"></td>
+		</tr>
+		<tr> 
+			<th>업종</th>
+			<td colspan="3"><input class="form-control" type="text" name="ctype" value="${CInfoVO.ctype}"></td>
+		</tr>
+		<tr>
+			<th>기업형태</th>
+			<td colspan="3"><input class="form-control" type="text" name="form" value="${CInfoVO.form}"></td>
+		</tr>
+		<tr>
+			<th>설립일</th>
+			<td colspan="3"><input class="form-control" type="text" name="establish" value="${CInfoVO.establish}"></td>
+		</tr>
+		<tr>
+			<th>매출액</th>
+			<td colspan="3"><input class="form-control" type="text" name="sales" value="${CInfoVO.sales}"></td>
+		</tr>
+		<tr>
+			<th>대표전화</th>
+			<td><input class="form-control" type="text" name="tel" value="${CInfoVO.tel}"></td>
+			<th>FAX</th>
+			<td><input class="form-control" type="text" name="fax" value="${CInfoVO.fax}"></td>
+		</tr>
+		<tr>
+			<th>홈페이지</th>
+			<td><input class="form-control" type="text" name="homepage" value="${CInfoVO.homepage}"></td>
+			<th>SNS / 블로그</th>
+			<td><input class="form-control" type="text" name="sns" value="${CInfoVO.sns}"></td>
+		</tr>
+		<tr>
+			<th>기업주소</th>
+			<td colspan="3"><input class="form-control" type="text" name="location" value="${CInfoVO.location}"></td>
+		</tr>
+	</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">
 		<input type="submit" class="btn btn-danger" value="삭제">
 		<input type="submit" class="btn btn-primary" value="목록">
-		
+	
+	
 	<!-- 이력서 보기  -->
 	<h1>채용공고 수정</h1>
 	<table class="table table-bordered">
@@ -78,7 +121,7 @@
 		<tr>
 			<td>${RecruitVO.bno}</td>
 			<td>${RecruitVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/A_rmodify?bno=${RecruitVO.bno}&id=${AmainVO.id}&recruitNum=${RecruitVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" onclick="location.href='/admin/A_rmodify?id=${AmainVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -141,7 +184,7 @@ $(function(){
 		
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("삭제하시겠습니까?")){
-				formObj.attr("action", "/admin/premove");
+				formObj.attr("action", "/admin/cremove");
 				formObj.submit();
 			}
 		}else{

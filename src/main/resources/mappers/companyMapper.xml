@@ -111,7 +111,7 @@
     	and r.employstatusid = c.id
     	and r.salaryid = o.id
     	and r.edu = d.id
-    	and r.exp = e.id;
+    	and r.exp = e.id
  ]]>
  </select>
  
@@ -130,6 +130,13 @@
 	</update>
   
 
+<select id="recruitinfoRead3" resultType="com.recruit.domain.RecruitVO">
+<![CDATA[
+	select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod
+	from project.tblrecruit
+	where bno=#{recruitNum}
+]]>
+</select>
   
 </mapper>  
 

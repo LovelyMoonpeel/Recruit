@@ -112,7 +112,7 @@ var formObj = $("form[role='form']");
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/rpjt/C_modify");
+		formObj.attr("action", "/company/C_modify");
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});

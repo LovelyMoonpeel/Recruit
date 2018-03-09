@@ -78,7 +78,7 @@
 				<select id="jobGroup" name="jobgroupid">
 				<option value="">모집직종</option>
 					<c:forEach items="${jobgroupList}" var="JobGroupVO">
-					<option value="${JobGroupVO.id}" name="jobgroupid">${JobGroupVO.jobgroup}</option>
+					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 					</c:forEach>
 				</select> 
 				
@@ -97,7 +97,7 @@
 				<select id="region" name='rgbid'>
 					<option value="">근무지역</option>
 					<c:forEach items="${regionList}" var="RegionVO">
-						<option value="${RegionVO.rgbid}" name='rgbid'>${RegionVO.rgbname}</option>
+						<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 					</c:forEach>
 				</select>
 				
@@ -122,7 +122,7 @@
 					<c:forEach items="${codeList}" var="CodeVO">
 					<c:if test="${CodeVO.tid==4}">
 					
-					<option value="${CodeVO.id}" name="employstatusid">${CodeVO.career}</option>
+					<option value="${CodeVO.id}">${CodeVO.career}</option>
 					
 					</c:if>
 					</c:forEach>
@@ -136,7 +136,7 @@
 					<option value="">급여사항</option>
 					<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==7}">
-							<option value="${CodeVO.id}" name="salaryid">${CodeVO.career}</option>
+							<option value="${CodeVO.id}">${CodeVO.career}</option>
 						</c:if>
 					</c:forEach>
 				</select>
@@ -150,7 +150,7 @@
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==2}">
 						
-						<option value="${CodeVO.id}" name="edu">${CodeVO.career}</option>
+						<option value="${CodeVO.id}">${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>
@@ -165,7 +165,7 @@
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==1}">
 						
-						<option value="${CodeVO.id}" name="exp">${CodeVO.career}</option>
+						<option value="${CodeVO.id}">${CodeVO.career}</option>
 						
 						</c:if>
 						</c:forEach>

@@ -11,9 +11,9 @@
 <!-- 기업 페이지 -->
 <div class="col-md-9">
 	<br> <br>
+	<form role="form" method="post">
 	<div class="row">
 	
-	<form role="form" method="post">
 	
 
 		<div class="form-group col-lg-6">
@@ -128,7 +128,7 @@
 		console.log(formObj);
 
 		$(".btn-warning").on("click", function() {
-			self.location = "/rpjt/C_index?id=${CInfoVO.id}";
+			self.location = "/company/C_index?id=${CInfoVO.id}";
 		});
 
 		$(".btn-primary").on("click", function() {
