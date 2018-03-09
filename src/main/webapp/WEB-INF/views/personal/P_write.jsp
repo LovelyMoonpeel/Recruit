@@ -130,30 +130,55 @@ $(document).ready(function(){
 				 contentType : false,
 				 type : 'POST',
 				 success : function(data){
-				  	alert(data);
-					  /* var str = "";
+				  	//alert(data);
+					   var str = "";
 					  
-					  console.log(data);
-					  console.log(checkImageType(data));
+					 	console.log(data);
 					 
-					  if(checkImageType(data)){
-						  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-						  +"<img src='displayFile?fileName="+data+"'/>"
-						  +getImageLink(data) 
-						  +"</a><small data-src="+data+">X</small></div>";
-					
-					  }else{
-						  str = "<div><a href='displayFile?fileName="+data+"'>"
-								  +getOriginalName(data)+"</a>"
-								  +"<small data-src="+data+">X</small></div>";
-					  }
-					  $(".uploadedList").append(str); */
+					  	str = 
+						  "<a href='displayFile?fileName="+getImageLink(data)+"'>원본 확인"
+						  +"</a>"
+						  +"<small data-src="+data+">X</small>";
+
+					  $("#uploadedList").append(str); 
 				  }//success : function(data){ end
 	 		  });//ajax end
 		//});//filedrop end
 	 console.log(file);
 	 reader.readAsDataURL(file);
 	};//upload change end
+	
+	$("#uploadedList").on("click", "small", function(event){
+		event.preventDefault();
+		var that = $(this);
+		//$("#uploadedList").remove();
+		$("#uploadedList").empty();
+		console.log("img File appended deleted");
+		
+		$.ajax({
+			url:"deleteFile",
+			type:"post",
+			data : {fileName:$(this).attr("data-src")},
+			dataType:"text",
+			succss:function(result){
+				if(result=='deleted'){
+					console.log("img File on server deleted");
+					that.parent("div").remove();
+				}
+			}
+		});
+	});
+	
+	function getOriginalName(fileName){
+      	var idx = fileName.indexOf("_")+1;
+      	return fileName.substr(idx);
+      }
+	function getImageLink(fileName){
+      	var front = fileName.substr(0,12);
+      	var end = fileName.substr(14);
+      	
+      	return front + end;
+      }
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>
