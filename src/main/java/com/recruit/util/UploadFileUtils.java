@@ -19,7 +19,8 @@ public class UploadFileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
 	
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData)throws Exception{
-UUID uid = UUID.randomUUID();
+		
+		UUID uid = UUID.randomUUID();
 		
 		String savedName = uid.toString() + "_" + originalName;
 		
@@ -78,6 +79,7 @@ UUID uid = UUID.randomUUID();
 			}
 		}
 	}
+	
 	private static String makeThumbnail(
 			String uploadPath,
 			String path, 

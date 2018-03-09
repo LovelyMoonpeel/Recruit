@@ -75,111 +75,6 @@ $(document).ready(function(){
       formObj.submit();
    });
    
-   /////////////////////////////밑에는 AJAX 
-   $("#fileupload").on("")
-   
-   /*   $(".fileDrop").on("drageneter dragover", function(event){
-  	   event.preventDefault();
-     });
-      $(".fileDrop").on("drop", function(event){
-      	
-  	   event.preventDefault();
-  	   
-  	   var files = event.originalEvent.dataTransfer.files;
-  	   
-  	   var file = files[0];
-  	   
-  	   console.log(file);
-  	   
-  	   var formData = new FormData();
-  	   
-  	   formData.append("file", file);
-  	   
-  	   
-  	   $.ajax({
-  		  url:'uploadAjax',
-  		  data: formData,
-  		  dataType : 'text',
-  		  processData : false,
-  		  contentType : false,
-  		  type : 'POST',
-  		  success : function(data){
-  			  
-  			  var str = "";
-  			  
-  			  console.log(data);
-  			  console.log(checkImageType(data));
-  			  
-  			/*   if(checkImageType(data)){
-  				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-  				  +"<img src='../displayFile?fileName="+data+"'/>"
-  				  +getImageLink(data) 
-  				  +"</a><small data-src="+data+">X</small></div>";
-  			
-  			  }else{
-  				  str = "<div><a href='/displayFile?fileName="+data+"'>"
-  						  +getOriginalName(data)+"</a>"
-  						  +"<small data-src="+data+">X</small></div>";
-  			  } */
-  			 /* if(checkImageType(data)){
-  				  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
-  				  +"<img src='displayFile?fileName="+data+"'/>"
-  				  +getImageLink(data) 
-  				  +"</a><small data-src="+data+">X</small></div>";
-  			
-  			  }else{
-  				  str = "<div><a href='displayFile?fileName="+data+"'>"
-  						  +getOriginalName(data)+"</a>"
-  						  +"<small data-src="+data+">X</small></div>";
-  			  }
-  			  $(".uploadedList").append(str);
-  		  }
-  	   });
-     });
-      $(".uploadedList").on("click","small",function(event){
-      	var that = $(this);
-      	
-      	$.ajax({
-      		url:"deleteFile",
-      		type:"post",
-      		data:{fileName:$(this).attr("data-src")},
-      		dataType:"text",
-      		success:function(result){
-      			if(result=='deleted'){
-      				that.parent("div").remove();
-      				console.log("div.remove()")
-      				//alert("deleted");
-      			}
-      		}
-      	});
-      });
-      
-      function checkImageType(fileName){
-      	
-      	var pattern = /jpg$|gif$|png$|jpeg$/i;
-      	
-      	return fileName.match(pattern);
-      }
-      
-      function getOriginalName(fileName){
-      	if(checkImageType(fileName)){
-      		return;
-      	}
-      	var idx = fileName.indexOf("_")+1;
-      	return fileName.substr(idx);
-      }
-      
-      function getImageLink(fileName){
-      	if(!checkImageType(fileName)){
-      		return;
-      	}
-      	
-      	var front = fileName.substr(0,12);
-      	var end = fileName.substr(14);
-      	
-      	return front + end;
-      } */
-   
    
   ////////////img uploadedList start//////////////////////////////////////////////////////////
   // var upload = document.getElementsByTagName('input')[0];
@@ -198,40 +93,67 @@ $(document).ready(function(){
 	
 	upload.onchange = function (e) {
 	
-	 var file = upload.files[0];
-	 var reader = new FileReader();
-	 //p542다시 보기
-	 //데이터 올리는거
-	 reader.onload = function (event) {
-	   var img = new Image();
-	   img.src = event.target.result;
-	   
-/* 	   console.log(img.width);
-	   console.log(img.height); */
-	   // note: no onload required since we've got the data url...I think! :)
-	  
-/* 	   if (img.width > 200) { // uploadedList width
-		 console.log("img.width>200");
-	     img.width = 200;
-	   }
-	   if (img.heigth > 100) { // uploadedList width
-		   console.log("img.height>100");
-	     img.height = 100;
-	   }
-	    */
-	    
-	   uploadedList.innerHTML = '';
-	  // img.width = 200;
-	   img.height = 150;
-	   uploadedList.appendChild(img);
-	 };
+		 var file = upload.files[0];
+		 var reader = new FileReader();
+		 //p542다시 보기
+	
+		 //reader.onload start
+		 reader.onload = function (event) {
+			 var img = new Image();
+			 img.src = event.target.result;
+			  
+			 uploadedList.innerHTML = '';
+			  // img.width = 200;
+			 img.height = 150;
+			 uploadedList.appendChild(img);
+		 };//reader.onload end
+		 
+	 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+	 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
+	   //  $(".fileDrop").on("drop", function(event){
+			 event.preventDefault();
+			 
+			 //var files = event.originalEvent.dataTransfer.files;
+			 
+			 console.log("file name");
+			 console.log(file);
+			 
+			 var formData = new FormData();
+			 
+			 formData.append("file", file);
+			 
+			 $.ajax({
+				 url:'uploadAjax',
+				 data: formData,
+				 dataType : 'text',
+				 processData : false,
+				 contentType : false,
+				 type : 'POST',
+				 success : function(data){
+				  	alert(data);
+					  /* var str = "";
+					  
+					  console.log(data);
+					  console.log(checkImageType(data));
+					 
+					  if(checkImageType(data)){
+						  str = "<div><a href='/displayFile?fileName="+getImageLink(data)+"'>"
+						  +"<img src='displayFile?fileName="+data+"'/>"
+						  +getImageLink(data) 
+						  +"</a><small data-src="+data+">X</small></div>";
+					
+					  }else{
+						  str = "<div><a href='displayFile?fileName="+data+"'>"
+								  +getOriginalName(data)+"</a>"
+								  +"<small data-src="+data+">X</small></div>";
+					  }
+					  $(".uploadedList").append(str); */
+				  }//success : function(data){ end
+	 		  });//ajax end
+		//});//filedrop end
 	 console.log(file);
 	 reader.readAsDataURL(file);
-	
-	 return false;
-	};
-	//end //////////////////////////////////////////////////////////
- 
+	};//upload change end
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>
