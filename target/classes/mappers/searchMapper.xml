@@ -9,11 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bno, title, cid,
 		jobgroupid, rgbid, rgsid, jobdesc, recruitnum,
 		employstatusid,
-		salaryid, edu, exp, adddesc, period, acceptmethod, recruitform,
-		regdate, viewcnt
+		salaryid, edu, exp, adddesc, period, acceptmethod,
+		recruitform,
+		regdate, viewcnt, jobgroupid2
 		from tblrecruit
 		where title like
-		CONCAT('%',#{skey},'%') or cid like CONCAT('%',#{skey},'%') or
+		CONCAT('%',#{skey},'%') or cid like CONCAT('%',#{skey},'%')
+		or
 		jobgroupid like CONCAT('%',#{skey},'%') or rgbid like
 		CONCAT('%',#{skey},'%') or
 		rgsid like CONCAT('%',#{skey},'%') or
@@ -45,22 +47,90 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		CONCAT('%',#{skey},'%') or salaryid like CONCAT('%',#{skey},'%');
 	</select>
 
-	<select id="selectRecruits_sel" resultType="com.recruit.domain.RecruitVO"
+	<select id="selectRecruits_selJob" resultType="com.recruit.domain.RecruitVO"
 		parameterType="java.util.List">
-		select bno, title, cid,
-		jobgroupid, rgbid, rgsid, jobdesc, recruitnum,
-		employstatusid,
-		salaryid, edu, exp, adddesc, period, acceptmethod,
-		recruitform,
-		regdate, viewcnt
+		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod, recruitform, regdate, viewcnt
 		from tblrecruit
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
-			jobdesc like CONCAT('%',#{item},'%')
+			jobgroupid2 = #{item}
 		</foreach>
 		;
 	</select>
+
+	<!-- <select id="selectRecruits_selRgn" resultType="com.recruit.domain.RecruitVO" -->
+	<!-- parameterType="java.util.Map"> -->
+	<!-- select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, -->
+	<!-- jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, -->
+	<!-- period, acceptmethod, recruitform, regdate, viewcnt -->
+	<!-- from tblrecruit -->
+	<!-- where -->
+	<!-- <foreach index="key" item="value" collection="map" -->
+	<!-- separator=" or "> -->
+	<!-- ( rgbid = #{key} and rgsid = #{value} ) -->
+	<!-- </foreach> -->
+	<!-- ; -->
+	<!-- </select> -->
+
+	<select id="selectRecruits_selRgn" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod, recruitform, regdate, viewcnt
+		from tblrecruit
+		where
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			( rgbid = #{item.rgbid} and rgsid = #{item.rgsid})
+		</foreach>
+		;
+	</select>
+
+	<select id="selectRecruits_selEmp" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod, recruitform, regdate, viewcnt
+		from tblrecruit
+		where
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			employstatusid = #{item}
+		</foreach>
+		;
+	</select>
+
+	<select id="selectRecruits_selExp" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod, recruitform, regdate, viewcnt
+		from tblrecruit
+		where
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			exp = #{item}
+		</foreach>
+		;
+	</select>
+
+	<select id="selectRecruits_selEdu" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod, recruitform, regdate, viewcnt
+		from tblrecruit
+		where
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			edu = #{item}
+		</foreach>
+		;
+	</select>
+
 
 	<select id="selectResumes_sel" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">

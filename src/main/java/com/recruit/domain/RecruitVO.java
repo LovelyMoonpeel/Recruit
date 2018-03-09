@@ -20,6 +20,7 @@ public class RecruitVO {
 	private String recruitform;
 	private String regdate;
 	private int viewcnt;
+	private int jobgroupid2;
 
 	public int getBno() {
 		return bno;
@@ -165,12 +166,123 @@ public class RecruitVO {
 		this.viewcnt = viewcnt;
 	}
 
+	public int getJobgroupid2() {
+		return jobgroupid2;
+	}
+
+	public void setJobgroupid2(int jobgroupid2) {
+		this.jobgroupid2 = jobgroupid2;
+	}
+
 	@Override
 	public String toString() {
 		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid + ", rgbid="
 				+ rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc + ", recruitnum=" + recruitnum
 				+ ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", edu=" + edu + ", exp=" + exp
 				+ ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
-				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
+				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", jobgroupid2=" + jobgroupid2 + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((acceptmethod == null) ? 0 : acceptmethod.hashCode());
+		result = prime * result + ((adddesc == null) ? 0 : adddesc.hashCode());
+		result = prime * result + bno;
+		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
+		result = prime * result + edu;
+		result = prime * result + employstatusid;
+		result = prime * result + exp;
+		result = prime * result + ((jobdesc == null) ? 0 : jobdesc.hashCode());
+		result = prime * result + jobgroupid;
+		result = prime * result + jobgroupid2;
+		result = prime * result + ((period == null) ? 0 : period.hashCode());
+		result = prime * result + ((recruitform == null) ? 0 : recruitform.hashCode());
+		result = prime * result + recruitnum;
+		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
+		result = prime * result + ((rgbid == null) ? 0 : rgbid.hashCode());
+		result = prime * result + rgsid;
+		result = prime * result + salaryid;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + viewcnt;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecruitVO other = (RecruitVO) obj;
+		if (acceptmethod == null) {
+			if (other.acceptmethod != null)
+				return false;
+		} else if (!acceptmethod.equals(other.acceptmethod))
+			return false;
+		if (adddesc == null) {
+			if (other.adddesc != null)
+				return false;
+		} else if (!adddesc.equals(other.adddesc))
+			return false;
+		if (bno != other.bno)
+			return false;
+		if (cid == null) {
+			if (other.cid != null)
+				return false;
+		} else if (!cid.equals(other.cid))
+			return false;
+		if (edu != other.edu)
+			return false;
+		if (employstatusid != other.employstatusid)
+			return false;
+		if (exp != other.exp)
+			return false;
+		if (jobdesc == null) {
+			if (other.jobdesc != null)
+				return false;
+		} else if (!jobdesc.equals(other.jobdesc))
+			return false;
+		if (jobgroupid != other.jobgroupid)
+			return false;
+		if (jobgroupid2 != other.jobgroupid2)
+			return false;
+		if (period == null) {
+			if (other.period != null)
+				return false;
+		} else if (!period.equals(other.period))
+			return false;
+		if (recruitform == null) {
+			if (other.recruitform != null)
+				return false;
+		} else if (!recruitform.equals(other.recruitform))
+			return false;
+		if (recruitnum != other.recruitnum)
+			return false;
+		if (regdate == null) {
+			if (other.regdate != null)
+				return false;
+		} else if (!regdate.equals(other.regdate))
+			return false;
+		if (rgbid == null) {
+			if (other.rgbid != null)
+				return false;
+		} else if (!rgbid.equals(other.rgbid))
+			return false;
+		if (rgsid != other.rgsid)
+			return false;
+		if (salaryid != other.salaryid)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (viewcnt != other.viewcnt)
+			return false;
+		return true;
 	}
 }
