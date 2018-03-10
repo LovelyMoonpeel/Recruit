@@ -198,6 +198,14 @@ $(function(){
 	});
 });
 </script>
+
+<script>
+var result = '${msg}';
+
+if(result == 'remove'){
+	alert("채용공고 삭제가 완료 되었습니다.");
+}
+</script>
 <!-- //버튼에 대한 스크립트  -->
 
 <%@include file="../include/cfooter.jsp"%>

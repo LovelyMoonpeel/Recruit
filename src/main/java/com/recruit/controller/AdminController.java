@@ -289,12 +289,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/rremove", method = RequestMethod.POST)
-	public String rremove(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
+	public String rremove(@RequestParam("id") String id, @RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
 		cservice.remove(bno);
 
+		rttr.addAttribute("id", id);
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_company";
+		return "redirect:/admin/A_cmodify";
 	}
 	
 	@RequestMapping(value = "/cremove", method = RequestMethod.POST)
