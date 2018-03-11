@@ -13,6 +13,7 @@ import com.recruit.domain.ImgVO;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 
 @Repository
 public class CompanyDAOImpl implements CompanyDAO{
@@ -60,6 +61,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 	
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
+	}
+	@Override
+	public List<ResumeVO> FavorList(String id)throws Exception{
+		
+		return session.selectList(namespace +".favorList", id);		
 	}
 
 	

@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
-import com.recruit.persistence.JobGroupDAO;
+import com.recruit.domain.ResumeVO;
+import com.recruit.persistence.CompanyAjaxDAO;
 
 @Service
 public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 
 	@Inject
-	private JobGroupDAO dao;
+	private CompanyAjaxDAO dao;
 	
 	
 	@Override
@@ -40,5 +41,7 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 System.out.println(id);
 		 return dao.RecruitList1(id);
 	 }
-	 
+	 public List<ResumeVO> PersonRecomList(int bno) throws Exception{
+	 	return dao.PersonRecomList(bno);
+	 }
 }

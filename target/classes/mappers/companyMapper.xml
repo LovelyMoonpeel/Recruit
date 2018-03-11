@@ -126,7 +126,19 @@
 		update project.tblrecruit set viewcnt = viewcnt +1 where
 		bno = #{recruitNum}
 	</update>
-
+	
+	
+	<select id="personRecomList" resultType="com.recruit.domain.ResumeVO">
+	select distinct p.bno as bno, u.pname as img, p.title,  j.jobgroup as userid , r.rgbname as address, m.career as postcode, n.career as rgbid  from tblresume p, tblRecruit c, tblJobGroup j, tblRegion r, tblcode m, tblcode n, tblUser u
+where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid and p.jobstateid = 1 and p.salaryid = c.salaryid
+and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id and c.salaryid = n.id and p.userid = u.id
+and c.bno = #{bno};
+	</select>
+	
+	<select id="favorList" resultType="com.recruit.domain.ResumeVO">
+	SELECT  distinct u.pname as img, p.title, r.rgbname as address FROM tblInterestPerson f, tblresume p, tblRegion r, tblUser u 
+	where f.puserid = p.userid and p.rgbid = r.rgbid and u.id = p.userid and f.cuserid = 'park';
+	</select>
   
 </mapper>  
 

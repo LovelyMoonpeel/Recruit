@@ -10,6 +10,7 @@ import com.recruit.domain.ImgVO;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.CompanyDAO;
 import com.recruit.domain.ImgVO;
 
@@ -61,6 +62,12 @@ public class CompanyServiceImpl implements CompanyService {
 	 }
 	
 
+	 @Override
+	 public List<ResumeVO> FavorList(String id) throws Exception{
+		 
+		 return dao.FavorList(id);
+		 
+	 }
 	  
 	 
 

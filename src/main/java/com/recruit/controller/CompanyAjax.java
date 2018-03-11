@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 
 
 
@@ -83,38 +85,25 @@ public class CompanyAjax {
 
 	    return entity;
 	  }
-	
-	 
-	@RequestMapping(value="/fileUpload",method=RequestMethod.POST)
-	public String fileUpload(String title, MultipartFile file,Model model,HttpServletRequest request) throws IllegalStateException, IOException{
-	
-		System.out.println("컨트롤러들어옴");
+	@RequestMapping(value = "/personList/{bno}", method = RequestMethod.GET)
+	public ResponseEntity<List<ResumeVO>> personList(@PathVariable("bno") int bno){
 		
-		String fileName = file.getOriginalFilename();
-	String saveDir = request.getServletContext().getRealPath("fileUpload");
-	System.out.println(saveDir);
-	System.out.println(title);
-	System.out.println(fileName);
-	// String saveFile = saveDir+"\\"+file1.getOriginalFilename();
-	 
-	// 중복된 파일인 경우 덮어 쓰기가 되기 때문에 중복 방지 처리를 해 줘야 한다.
-//	File fileObj
-//	// = new File(saveFile);
-//	// = new File(saveDir,file1.getOriginalFilename());
-//	 
-//	// 중복된 파일 방지 처리를 한 파일 객체를 사용 한다.
-//	= DuplicateFile.getFile(saveDir, file);
-//	 
-//	file.transferTo(fileObj);
-//	model.addAttribute("title",title);
-//	model.addAttribute("file",file);
-//	model.addAttribute("fileName",fileName);
-//	model.addAttribute("serverFileName",fileObj.getName());
-//	return "fileUpload";
-	return "hi";
-	}//fileUploadForm()
-	 
+		
+		  ResponseEntity<List<ResumeVO>> entity = null;
+		    try {
+		    	
+		      entity = new ResponseEntity<>(service.PersonRecomList(bno), HttpStatus.OK);
+
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		    }
+
+		    return entity;
 	}
+	 
+}
+
 	
 
 

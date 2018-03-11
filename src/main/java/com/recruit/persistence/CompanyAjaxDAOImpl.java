@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 
 @Repository
-public class JobGroupDAOImpl implements JobGroupDAO {
+public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 
 	@Inject
 	private SqlSession session;
@@ -37,5 +38,10 @@ public class JobGroupDAOImpl implements JobGroupDAO {
 	public List<RecruitVO> RecruitList1(String id) throws Exception{
 		System.out.println("jobDAO부분 id : "+id);
 		return session.selectList(namespace + ".recruitListt", id);
+	}
+	
+	@Override
+	public List<ResumeVO> PersonRecomList(int bno) throws Exception{
+		return session.selectList(namespace + ".personRecomList", bno);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.domain.RecruitVO;
 
 
@@ -23,6 +24,6 @@ public interface CompanyService {
 	  
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  
-	  
+	  public List<ResumeVO> FavorList(String id) throws Exception;
 	  
 }

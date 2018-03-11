@@ -81,7 +81,7 @@ public class CompanyController {
 				
 				 String path = uploadPath;  // 에너테이션에 연결된 저장경로를 String에 저장 
 				 
-				  Map returnObject = new HashMap();
+				 Map returnObject = new HashMap();
 				  
 				  try {
 						// MultipartHttpServletRequest 생성
@@ -114,21 +114,28 @@ public class CompanyController {
 							// 파일 명 변경
 							String ext = origName.substring(origName.lastIndexOf('.')); // 확장자 지정
 							String saveFileName = CInfo.getId() + ext; // 기업 id + 확장자로 경로에 저장 
-
+							
+							if(saveFileName != ""){
+							CInfo.setImg(saveFileName); // DB 이미지 저장
+							}
 							// 설정한 path에 파일저장
 							File serverFile = new File(path + File.separator + saveFileName);
+				
 							mfile.transferTo(serverFile);
 							
 							Map file = new HashMap();
 							file.put("origName", origName);
 							file.put("sfile", serverFile);
 							resultList.add(file);
-						}
+
+							
+							
+							}
+							
 						
-						returnObject.put("files", resultList);
-						returnObject.put("params", mhsr.getParameterMap());
+							returnObject.put("files", resultList);
+							returnObject.put("params", mhsr.getParameterMap());
 						
-						CInfo.setImg(CInfo.getId()); // DB 이미지 저장
 
 						} catch (UnsupportedEncodingException e) { 
 							// TODO Auto-generated catch block
@@ -216,7 +223,16 @@ public class CompanyController {
 		
 			  
 		  }
-	  
+		
+		@RequestMapping(value = "C_favor", method = RequestMethod.GET)
+		  public void readfavor(String id, Model model, RedirectAttributes rttr) throws Exception {
+
+			  
+			  model.addAttribute("favorList", service.FavorList(id));
+		
+			  
+		  }
+
 	  
 	
 

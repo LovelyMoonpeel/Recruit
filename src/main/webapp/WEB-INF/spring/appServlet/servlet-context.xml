@@ -22,7 +22,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+	</beans:bean> 
 
 	<!--643 start -->
 	<beans:bean id="authInterceptor" class="com.recruit.interceptor.AuthInterceptor"></beans:bean>
@@ -63,7 +63,7 @@
 	</beans:bean>
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
-    <beans:constructor-arg value="/Users/hyeonghoon/sts-bundle/img">
+    <beans:constructor-arg value="/Users/hyeonghoon/git/Recruit/src/main/webapp/resources/rpjt/img">
     </beans:constructor-arg>
   </beans:bean>
 
