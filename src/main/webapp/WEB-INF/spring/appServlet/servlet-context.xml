@@ -22,7 +22,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean> 
+	</beans:bean>
 
 	<!--643 start -->
 	<beans:bean id="authInterceptor" class="com.recruit.interceptor.AuthInterceptor"></beans:bean>
@@ -33,7 +33,20 @@
 	<beans:bean id="loginInterceptor" class="com.recruit.interceptor.LoginInterceptor"></beans:bean>
 	<!--638 end -->
 
+	<!--p521 start -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760">
+		</beans:property>
+	</beans:bean>
+	<!--p521 end -->
 
+	<!-- p527 start -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\zzz\upload">
+		</beans:constructor-arg>
+	</beans:bean>
+	<!-- p527 end -->
 
 	<interceptors>
 
@@ -54,18 +67,21 @@
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 		<!--643 end -->
-		
+
 
 	</interceptors>
-	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<beans:property name="maxUploadSize" value="10485760"></beans:property>
-	</beans:bean>
-	
-	<beans:bean id="uploadPath" class="java.lang.String">
-    <beans:constructor-arg value="/Users/hyeonghoon/git/Recruit/src/main/webapp/resources/rpjt/img">
-    </beans:constructor-arg>
-  </beans:bean>
+
+	<!-- merge conflicts -->
+	<!-- <beans:bean id="multipartResolver" -->
+	<!-- class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+	<!-- <beans:property name="maxUploadSize" value="10485760"></beans:property> -->
+	<!-- </beans:bean> -->
+
+	<!-- <beans:bean id="uploadPath" class="java.lang.String"> -->
+	<!-- <beans:constructor-arg -->
+	<!-- value="/Users/hyeonghoon/git/Recruit/src/main/webapp/resources/rpjt/img"> -->
+	<!-- </beans:constructor-arg> -->
+	<!-- </beans:bean> -->
 
 	<context:component-scan base-package="com.recruit.controller" />
 </beans:beans>

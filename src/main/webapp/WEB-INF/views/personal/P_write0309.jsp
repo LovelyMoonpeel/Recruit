@@ -12,7 +12,6 @@
 	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 <!-- Main content -->
-
 <div class="col-md-9">
 	<h1>이력서 작성</h1>
 
@@ -192,7 +191,9 @@
 				name="coverletter">${ResumeVO.coverletter}</textarea>
 		</div>
 
-		<button id="btn-success" class="btn btn-success" type="submit">등록</button>
+		<button id="btn-success" class="btn btn-success" type="submit">등록
+		</button>
+		<!--  </form> -->
 	</form>
 </div>
 
@@ -212,7 +213,7 @@
 		});
 
 		$("#btn-success").on("click", function() {
-			formObj.attr("action", "/personal/Rmodify");
+			formObj.attr("action", "/personal/write");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});

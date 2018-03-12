@@ -37,17 +37,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<!-- 이력서 등록 -->
-	<insert id="createROne">
-  <![CDATA[
-  insert 
-  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-  values(#{userid}, #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
-  ]]>
+<!-- 	<insert id="createROne">
+    <![CDATA[
+    insert 
+    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
+    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
+    ]]>
 	</insert>
+ -->
 
-	<!-- 이력서 확인 -->
-	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
+	<insert id="createROne">
+	  <![CDATA[
+	  insert 
+	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
+	  values("jin3", #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
+	  ]]>
+	</insert> 
+	
+	<!-- 이력서 등록한 거 바로 확인 -->
+	<select id="readRLastCreatedOne" resultType="java.lang.Integer">
+  	select MAX(bno)
+	from project.tblresume
+	where userid = #{id}
+	;
+	</select>
+
+		<!-- 이력서 확인 -->
+		<select id="readROne" resultType="com.recruit.domain.ResumeVO">
     <![CDATA[
   select *
   from
@@ -55,33 +71,252 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where 
   	bno = #{bno}
       ]]>
-	</select>
+		</select>
 
 	<!-- 이력서 수정 -->
 	<update id="updateROne">
-   <![CDATA[
-  update project.tblresume 
-  set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
-  where bno = #{bno}
-       ]]>
+	<![CDATA[
+	update project.tblresume 
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
+	where bno = #{bno}
+    ]]>
 	</update>
-
 
 	<!-- 이력서 삭제 -->
 	<delete id="deleteROne">
-		delete
-		from
-		tblresume
-		where bno = #{bno}
+	delete
+	from
+	tblresume
+	where bno = #{bno}
 	</delete>
 
 	<select id="selectRList" resultType="com.recruit.domain.ResumeVO">
-  <![CDATA[
+ 	<![CDATA[
 	select *
 	from 
 	project.tblresume
 	where userid = #{id}
-  ]]>
+  	]]>
 	</select>
 
+	<!-- 이력서 이미지 등록 -->
+	<!--
+	  update project.tblresume 
+	 set img = #{img}
+	 where bno = MAX(bno);
+	 update tblresume R1
+	 set img = #{img}
+	 where bno = (select *
+	 			FROM (SELECT Max(bno)
+	 					from tblresume R2
+	 					where userid = #{id}) R3); -->
+	 					
+	<update id="addRimgAttach">
+  <![CDATA[
+	
+	update tblresume R1
+	set img = #{img}
+	where bno = (select *
+				from (select Max(bno)
+						from tblresume R2) R3);
+  ]]>
+	</update>
+
+	<!-- 이력서 PTel 등록 -->
+	<insert id="createPTel">
+	<![CDATA[
+	insert into project.tbltel(rid, title, tel)
+	values(#{rid}, #{title}, #{tel})
+	]]>
+	</insert>
+	
+	<!-- 이력서 PTel 확인 -->
+	<select id="readPTel" resultType="com.recruit.domain.PTelVO">
+	<![CDATA[
+	select t.*, r.*
+	from project.tbltel t, project.tblresume r
+	where t.rid=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 PTel 수정 -->
+	<update id="updatePTel">
+	<![CDATA[
+	update project.tbltel
+	set title = #{title}, tel = #{tel} 
+	where rid = #{rid}
+	]]>
+	</update>
+	
+	<!-- 이력서 PTel 삭제 -->
+	<delete id="deletePTel">
+	<![CDATA[
+	delete from project.tbltel where rid= #{bno}
+	]]>
+	</delete>	
+	
+	<!-- 이력서 PWebsite 등록 -->
+	<insert id="createPWebSite">
+	<![CDATA[
+	insert into project.tblwebsite(rid, title, webadd)
+	values(#{rid}, #{title}, #{webadd})
+	]]>
+	</insert>
+	
+	<!-- 이력서 PWebsite 확인 -->
+	<select id="readPWebSite" resultType="com.recruit.domain.PWebSiteVO">
+	<![CDATA[
+	select w.*, r.*
+	from project.tblwebsite w, project.tblresume r
+	where w.rid=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 PWebsite 수정 -->
+	<update id="updatePWebSite">
+	<![CDATA[
+	update project.tblwebsite
+	set title = #{title}, webadd = #{webadd} 
+	where rid = #{rid}
+	]]>
+	</update>
+	
+	<!-- 이력서 PWebsite 삭제 -->
+	<delete id="deletePWebSite">
+	<![CDATA[
+	delete from project.tblwebsite where rid= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 REdu 등록 -->
+	<insert id="createResumeEdu">
+	<![CDATA[
+	insert into project.tblResumeEdu(resumenum, schoolname, major, enterdate, gradudate, edustatus)
+	values(#{resumenum}, #{schoolname}, #{major}, #{enterdate}, #{gradudate}, #{edustatus})
+	]]>
+	</insert>
+	
+	<!-- 이력서 REdu 확인 -->
+	<select id="readResumeEdu" resultType="com.recruit.domain.ResumeEduVO">
+	<![CDATA[
+	select e.*, r.*
+	from project.tblResumeEdu e, project.tblresume r
+	where e.resumenum=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 REdu 수정 -->
+	<update id="updateResumeEdu">
+	<![CDATA[
+	update project.tblResumeEdu
+	set schoolname = #{schoolname}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
+	where resumenum = #{resumenum}
+	]]>
+	</update>
+	
+	<!-- 이력서 REdu 삭제 -->
+	<delete id="deleteResumeEdu">
+	<![CDATA[
+	delete from project.tblResumeEdu where resumenum= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 RCareer 등록 -->
+	<insert id="createResumeCareer">
+	<![CDATA[
+	insert into project.tblResumeCareer(resumenum, cname, jobdescription, startjob, finishjob, salary)
+	values(#{resumenum}, #{cname}, #{jobdescription}, #{startjob}, #{finishjob}, #{salary})
+	]]>
+	</insert>
+	
+	<!-- 이력서 RCareer 확인 -->
+	<select id="readResumeCareer" resultType="com.recruit.domain.ResumeCareerVO">
+	<![CDATA[
+	select c.*, r.*
+	from project.tblResumeCareer c, project.tblresume r
+	where c.resumenum=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 RCareer 수정 -->
+	<update id="updateResumeCareer">
+	<![CDATA[
+	update project.tblResumeCareer
+	set cname = #{cname}, jobdescription = #{jobdescription}, startjob = #{startjob} , finishjob = #{finishjob} , salary = #{salary} 
+	where resumenum = #{resumenum}
+	]]>
+	</update>
+	
+	<!-- 이력서 RCareer 삭제 -->
+	<delete id="deleteResumeCareer">
+	<![CDATA[
+	delete from project.tblResumeCareer where resumenum= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 RLicense 등록 -->
+	<insert id="createRLicense">
+	<![CDATA[
+	insert into project.tbllicense(rid, test, publeoffice, acquidate)
+	values(#{rid}, #{test}, #{publeoffice}, #{acquidate})
+	]]>
+	</insert>
+	
+	<!-- 이력서 RLicense 확인 -->
+	<select id="readRLicense" resultType="com.recruit.domain.RLicenseVO">
+	<![CDATA[
+	select l.*, r.*
+	from project.tbllicense l, project.tblresume r
+	where l.resumenum=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 RLicense 수정 -->
+	<update id="updateRLicense">
+	<![CDATA[
+	update project.tbllicense
+	set test = #{test}, publeoffice = #{publeoffice}, acquidate = #{acquidate}
+	where rid = #{rid}
+	]]>
+	</update>
+	
+	<!-- 이력서 RLicense 삭제 -->
+	<delete id="deleteRLicense">
+	<![CDATA[
+	delete from project.tbllicense where rid= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 RLang 등록 -->
+	<insert id="createResumeLanguage">
+	<![CDATA[
+	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
+	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
+	]]>
+	</insert>
+	
+	<!-- 이력서 RLang 확인 -->
+	<select id="readResumeLanguage" resultType="com.recruit.domain.ResumeLanguageVO">
+	<![CDATA[
+	select lang.*, r.*
+	from project.tblResumeLanguage lang, project.tblresume r
+	where lang.rid=r.bno
+	]]>
+	</select>
+	
+	<!-- 이력서 RLang 수정 -->
+	<update id="updateResumeLanguage">
+	<![CDATA[
+	update project.tblResumeLanguage
+	set test = #{test}, score = #{score}, publeoffice = #{publeoffice}, acquidate = #{acquidate}
+	where rid = #{rid}
+	]]>
+	</update>
+	
+	<!-- 이력서 RLang 삭제 -->
+	<delete id="deleteResumeLanguage">
+	<![CDATA[
+	delete from project.tblResumeLanguage where rid= #{bno}
+	]]>
+	</delete>
 </mapper>

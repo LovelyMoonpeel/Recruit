@@ -1,21 +1,48 @@
 package com.recruit.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.PWebSiteVO;
+import com.recruit.domain.RLicenseVO;
+import com.recruit.domain.ResumeCareerVO;
+import com.recruit.domain.ResumeEduVO;
+import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
+import com.recruit.service.PWebSiteService;
+import com.recruit.service.RLicenseService;
+import com.recruit.service.ResumeCareerService;
+import com.recruit.service.ResumeEduService;
+import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
+import com.recruit.util.MediaUtils;
+import com.recruit.util.UploadFileUtils;
 
 /**
  * Handles requests for the application home page.
@@ -34,6 +61,24 @@ public class PersonalController {
 	
 	@Inject
 	private ResumeService Rservice;
+	
+	@Inject
+	private PTelService Telservice;
+	
+	@Inject
+	private PWebSiteService Webservice;
+	
+	@Inject
+	private ResumeEduService Eduservice;
+	
+	@Inject
+	private ResumeCareerService Careerservice;
+	
+	@Inject
+	private RLicenseService Licenseservice;
+	
+	@Inject
+	private ResumeLanguageService Langservice;
 	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -77,16 +122,46 @@ public class PersonalController {
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(PUserVO puser, Model model) throws Exception {
-		System.out.println("왜안돼1");
-		System.out.println(puser.toString());
+	//public String writeGET(@RequestParam("id") String id,	PUserVO puser, Model model) throws Exception {
+		System.out.println("write GET controller");
+		PUserVO PUser = service.selectPUser("jin3");
+		System.out.println("puser"+PUser);
+		model.addAttribute("PUserVO",PUser);
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume,Model model) throws Exception {
-		System.out.println("왜안돼");
+	//public String writePOST(String id, ResumeVO resume, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, ResumeEduVO revo, ResumeCareerVO rcvo, RLicenseVO rlvo, ResumeLanguageVO rlangVO, Model model) throws Exception {
+	//public String writePOST(String id, ResumeVO resume, String file, PUserVO PUser, Model model) throws Exception {
+	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id, Model model) throws Exception {	
+	System.out.println("write POST controller");
+		System.out.println("id값 뭐받아오냐");
+		System.out.println(id);
+		//puser = service.selectPUser("jin3");
+		System.out.println("write get에서 받아오는 puser"+puser);
+		
+		System.out.println("service 하기 전 resume.toString()");
+		System.out.println("file");
+		System.out.println(file);
+		
+		int bno = Rservice.createROne(resume, puser);
+		//Rservice.readRLastCreatedOne(); 마지막으로 생성한 PK가져오기
+		
+		System.out.println("service 한 후 resume.toString()");
 		System.out.println(resume.toString());
-		Rservice.createROne(resume);
-		return "redirect:/personal/index";
+		
+		System.out.println("Rservice Last 어쩌구 실행 후");
+		//System.out.println("bno"+bno);
+		//Rservice.addRimgAttach(fullName); createROne service에 transaction되어있음
+
+	/*	ptvo.setRid(Rservice.read(id).getBno());
+		Telservice.createPTel(ptvo);
+		Webservice.createPWebSite(pwvo);
+		Eduservice.createResumeEdu(revo);
+		Careerservice.createResumeCareer(rcvo);
+		Licenseservice.createRLicense(rlvo);
+		Langservice.createResumeLanguage(rlangVO);*/
+		
+		return "redirect:/personal/detail?bno="+bno+""; // redirect는 controller
 	}
 	
 	//이력서 하나 읽기
@@ -94,7 +169,7 @@ public class PersonalController {
 	   public String modifyGET(int bno, Model model) throws Exception {
 		   
 		   PUserVO PUser = new PUserVO();
-		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정\
+		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 		   
 		   model.addAttribute("PUserVO",service.selectPUser(PUser.getId()));
 		   
@@ -189,6 +264,87 @@ public class PersonalController {
 		
 		return	"personal/P_applied"; 
 	 }
-	 
+	//////IMG UPLOAD/////////////img upload/////////////////////////////////////////////////////////////
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
+	public void uploadAjax(){
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST,
+	produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file)throws Exception{
+	
+		logger.info("originalName : " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contetnType: " + file.getContentType());
+		
+		return new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		logger.info("FILE NAME : " + fileName);
+		
+		try{
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			
+			HttpHeaders headers = new HttpHeaders();
+			
+			in = new FileInputStream(uploadPath + fileName);
+			
+			if(mType!=null){
+				headers.setContentType(mType);
+			}else{
+				fileName = fileName.substring(fileName.indexOf("_")+1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition",  "attachment; filename=\""+new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+			}
+			
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally{
+			in.close();
+		}
+		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		
+		System.out.println(fileName);
+		System.out.println("deleteFile POST");
+		
+		logger.info("delete file : " + fileName);
+		
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		
+		if(mType!=null){
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front+end).replace('/',  File.separatorChar)).delete();
+		}
+		
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
 
 }
