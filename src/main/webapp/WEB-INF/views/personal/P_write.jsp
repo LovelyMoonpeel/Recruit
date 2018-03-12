@@ -127,11 +127,19 @@ $(document).ready(function(){
 					   var str = "";
 					  
 					 	console.log(data);
-					 
-					  	str = 
-						  "<a href='displayFile?fileName="+getImageLink(data)+"'>원본 확인"
+					 	
+					 	 /* str = "<a href='displayFile?fileName='"+ getImageLink(data) 
+					 			 onclick="window.open(this.href, '_blank'); return false;"+">원본확인"
+					 			+"<img src=data alt='' style='height:150px;' /></a>" */
+					 	
+					 /*  	str = 
+						  "<a href='displayFile?fileName="+getImageLink(data)+"' onclick='window.open(this.href, '_blank'); return false;'>원본 확인"
 						  +"</a>"
-						  +"<small data-src="+data+">X</small>";
+						  +"<small data-src="+data+">X</small>";  */
+						  str = 
+							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
+							  +"</a>"
+							  +"<small data-src="+data+">X</small>";
 
 					  $("#uploadedList").append(str); 
 				  }//success : function(data){ end
