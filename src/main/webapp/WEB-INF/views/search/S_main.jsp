@@ -208,7 +208,7 @@
 		});
 	}
 
-	// show selected items of users
+	// show selected items of users with key word
 	function getList(users, skey) {
 		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
@@ -245,6 +245,11 @@
 	// show selected items of recruits or resumes
 	function getList_sel(users) {
 		deletelist();
+		if($("#stype").attr("value") === "1"){
+			console.log('$("#stype").attr("value") === "1"')
+		} else if ($("#stype").attr("value") === "2") {
+			console.log('$("#stype").attr("value") === "2"')
+		}
 		$.getJSON("/sresult/sel_search/" + users, function(data) {
 			var source_pnl = $("#template_pnl").html();
 			var template_pnl = Handlebars.compile(source_pnl);
