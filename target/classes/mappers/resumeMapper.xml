@@ -39,49 +39,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 이력서 등록 -->
 	<insert id="createROne">
-  <![CDATA[
-  insert 
-  into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
-  values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
-  ]]>
+    <![CDATA[
+    insert 
+    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
+    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
+    ]]>
 	</insert>
 
 	<!-- 이력서 확인 -->
 	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
-    <![CDATA[
-  select *
-  from
-  	project.tblresume
-  where 
-  	bno = #{bno}
-      ]]>
+  	<![CDATA[
+	select *
+	from
+	  project.tblresume
+	where 
+	  bno = #{bno}
+    ]]>
 	</select>
 
 	<!-- 이력서 수정 -->
 	<update id="updateROne">
-   <![CDATA[
-  update project.tblresume 
-  set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
-  where bno = #{bno}
-       ]]>
+	<![CDATA[
+	update project.tblresume 
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
+	where bno = #{bno}
+    ]]>
 	</update>
 
 
 	<!-- 이력서 삭제 -->
 	<delete id="deleteROne">
-		delete
-		from
-		tblresume
-		where bno = #{bno}
+	delete
+	from
+	tblresume
+	where bno = #{bno}
 	</delete>
 
 	<select id="selectRList" resultType="com.recruit.domain.ResumeVO">
-  <![CDATA[
+ 	<![CDATA[
 	select *
 	from 
 	project.tblresume
 	where userid = #{id}
-  ]]>
+    ]]>
 	</select>
 	
 	
