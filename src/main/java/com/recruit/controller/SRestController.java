@@ -227,4 +227,19 @@ public class SRestController {
 		}
 		return entity;
 	}
+
+	@RequestMapping(value = "/sel_search/resumes", method = RequestMethod.GET)
+	public ResponseEntity<List<ResumeVO>> listResumes() {
+
+		System.out.println("Skeys 2: " + sel_skeys);
+		ResponseEntity<List<ResumeVO>> entity = null;
+		try {
+			System.out.println("controller: " + searchService.selectResumes_sel(sel_skeys));
+			entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_skeys), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

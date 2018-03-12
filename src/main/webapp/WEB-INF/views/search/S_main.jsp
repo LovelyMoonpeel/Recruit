@@ -130,7 +130,7 @@
 </script>
 
 <script>
-	stabsel("c1");
+	stabsel("c1"); // c1: job group tab
 
 	function onEnter() {
 		if (event.keyCode == 13) {
@@ -138,11 +138,13 @@
 			return false;
 		}
 	}
+
 	function deletelist() {
 		$(".result").remove();
 		$(".sres").attr('style', 'visibility: hidden;');
 	}
 
+	// search_button click event handler
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
 		$("#sinput").val("");
@@ -169,15 +171,17 @@
 		}
 	});
 
+	// select_tab click event handler
 	$(".stab").on("click", function() {
 		if ($(this).hasClass("active") !== true) {
 			$(".nav-tabs li").removeClass("active");
 			$(this).addClass("active");
 			stabsel($(this).attr("id"));
-			$("#ttype").val($(this).attr("id"));
+			$("#ttype").val($(this).attr("id")); // change ttype(hidden input) value
 		}
 	});
 
+	// show all items of users
 	function getAllList(users) {
 		deletelist();
 		$.getJSON("/sresult/" + users, function(data) {
@@ -204,6 +208,7 @@
 		});
 	}
 
+	// show selected items of users
 	function getList(users, skey) {
 		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
@@ -237,6 +242,7 @@
 		});
 	}
 
+	// show selected items of recruits or resumes
 	function getList_sel(users) {
 		deletelist();
 		$.getJSON("/sresult/sel_search/" + users, function(data) {
@@ -267,6 +273,7 @@
 		});
 	}
 
+	// click event handler of select_search button
 	$("#opt_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
@@ -293,13 +300,14 @@
 		}); // ajax
 	});
 
+	// add a search_filter item through search selection 
 	function add_tmpl_sfilter(that) {
 		var alreadyhave = false;
-		$("#well > .sfilter_btn").each(function() {
+		$("#well > .sfilter_btn").each(function() { // deduplication
 			if ($(this).val() === $(that).val())
 				alreadyhave = true;
 		})
-		if (alreadyhave)
+		if (alreadyhave) // deduplication
 			return;
 		var source_sflt = $("#tmpl_sfilter").html();
 		var template_sflt = Handlebars.compile(source_sflt);
@@ -307,16 +315,17 @@
 			sflt_val : $(that).val(),
 			sflt_title : $(that).find(":selected").text()
 		};
-		$("#well").append(template_sflt(item));
+		$("#well").append(template_sflt(item)); // add a search_filter
 	}
 
+	// the first selection tag change event handler
 	$("#sel1")
 			.change(
 					function() {
 						$("#sel2").attr('style', 'visibility: hidden;');
 						$(".opt2").remove();
 						if ($(this).val() !== '0') {
-							if ($("#ttype").val() === 'c1') { // #sel1 c1(Job) change
+							if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
 								$
 										.getJSON(
 												"/sresult/jobg/"
@@ -372,6 +381,7 @@
 						}
 					}); // $("#sel1").change
 
+	// the second selection tag change event handler
 	$("#sel2").change(function() {
 		if ($(this).val() !== '0') {
 			if ($("#ttype").val() === 'c1') { // #sel1 c1 change
@@ -388,11 +398,12 @@
 	// 		$(this).remove();
 	// 	});
 
+	// selection_tab change event handler
 	function stabsel(idc) {
 		$("#sel2").attr('style', 'visibility: hidden;');
 		$("#sel1").attr('style', 'visibility: hidden;');
 		$(".opt1").remove();
-		if (idc === "c1") { // 직무
+		if (idc === "c1") { // job group
 			$
 					.getJSON(
 							"/sresult/jobg",
@@ -411,7 +422,7 @@
 								$("#sel1")
 										.attr('style', 'visibility: visible;');
 							});
-		} else if (idc === "c2") { // 지역
+		} else if (idc === "c2") { // region
 			$
 					.getJSON(
 							"/sresult/region",
@@ -430,8 +441,9 @@
 								$("#sel1")
 										.attr('style', 'visibility: visible;');
 							});
-		} else { // 근무형태(4), 학력(2), 경력(1)
+		} else { // employment status(4), education(2), experience(1)
 			var tid;
+
 			if (idc === "c3")
 				tid = 4;
 			else if (idc === "c4")
