@@ -149,7 +149,7 @@
 		console.log(formObj);
 
 		$(".btn-warning").on("click", function() {
-			self.location = "/rpjt/C_index?id=${CInfoVO.id}";
+			self.location = "/company/C_index?id=${CInfoVO.id}";
 		});
 
 		$(".btn-primary").on("click", function() {
