@@ -11,6 +11,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 
 @Repository
 public class CompanyDAOImpl implements CompanyDAO{
@@ -43,9 +44,9 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectList(namespace + ".regionList");
 	}
 	@Override
-	public void RecruitWrite(RecruitVO writeRecruit) throws Exception{
+	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
 		
-		session.insert(namespace + ".recruitWrite", writeRecruit);
+		session.insert(namespace + ".recruitWrite", recruitWrtie);
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{
@@ -54,10 +55,12 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 	@Override
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
-//	System.out.println("Dao넘어옴 recruitNum값은 "+recruitNum);
-		
-	
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
+	}
+	@Override
+	public List<ResumeVO> FavorList(String id)throws Exception{
+		
+		return session.selectList(namespace +".favorList", id);		
 	}
 	
 	@Override
@@ -69,5 +72,6 @@ public class CompanyDAOImpl implements CompanyDAO{
 	public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
 		return session.selectOne(namespace +".recruitinfoRead3", recruitNum);
 	}
+
 	
 }

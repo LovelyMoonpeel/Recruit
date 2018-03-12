@@ -31,25 +31,28 @@
 			<th class="text-center">이력서 요약</th>
 			<th style="width: 15%;" class="text-center">업데이트일</th>
 		</tr>
-
+<c:forEach items="${favorList}" var="ResumeVO">
 		<tr>
+		
 			<td class="text-right" style="vertical-align: middle"><img
 				src="img/on.png" id="non"></td>
-			<td class="text-center" style="vertical-align: middle"><strong>박형훈</strong>
+			<td class="text-center" style="vertical-align: middle"><strong>${ResumeVO.img}</strong>
 				<br> <span>1991년, 28세</span></td>
 			<td><span class="careerLine">경력 3년 5개월</span> <a target="_blank"
-				href="">front</a>
-				<p>대학(2년제) 통신과</p>
+				href="">${ResumeVO.title}</a>
+				<p></p>
 				<div>
-					<div>정보처리산업기사</div>
-					<div>서울</div>
+					<div></div>
+					<div>${ResumeVO.address}</div>
 				</div>
 				<p>일러스트레이터,코렐드로우</p>
 				<div>
 					<a>핵심역량 마케팅전략·기획, 시장조사·분석, 프로모션, 온라인마케팅, 광고기획, 지배인</a>
 				</div></td>
 			<td class="text-center" style="vertical-align: middle">1분전</td>
+		
 		</tr>
+		</c:forEach>
 	</table>
 
 	<!-- //기업 페이지 -->

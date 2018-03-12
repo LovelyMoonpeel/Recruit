@@ -6,16 +6,18 @@ import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
-import com.recruit.domain.RegionVO;
+
+
 
 
 
@@ -78,4 +80,23 @@ public class CompanyAjax {
 
 	    return entity;
 	  }
+	@RequestMapping(value = "/personList/{bno}", method = RequestMethod.GET)
+	public ResponseEntity<List<ResumeVO>> personList(@PathVariable("bno") int bno){
+	
+		ResponseEntity<List<ResumeVO>> entity = null;
+		try {
+			entity = new ResponseEntity<>(service.PersonRecomList(bno), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	@RequestMapping(value = "/favor/{bno}/{id}",method = RequestMethod.GET)
+	public void faver(@PathVariable("bno") int bno, @PathVariable("id") String id) throws Exception{
+
+		service.FavorPerson(bno, id);
+	}
 }
+	 

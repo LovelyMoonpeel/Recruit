@@ -226,63 +226,42 @@
 
 <script>
 	$(document).ready(function() {
-
 		var formObj = $("form[role='form']");
-
-
 		$(".btn-primary").on("click", function() {
 			formObj.attr("action", "C_write");
 			formObj.submit();
 		});
-
 	});
 </script>
 
 <script>
 	$("#region").change(function() {
-
 		var largeNum = $(this).val();
-
 		SubRegion(largeNum)
-
 	})
-
 	$("#jobGroup").change(function() {
-
 		var largeNum = $(this).val();
-
 		SubJobGroup(largeNum);
-
 	})
-
 	function SubJobGroup(largeNum) {
-
 		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
 			var str = "";
-
 			$(data).each(
 					function() {
 						str += "<option name='jobgruopid' value="+this.id+">"
 								+ this.jobgroup + "</option>";
-
 					});
-
 			$("#subjobGroup").html(str);
 		})
 	}
-
 	function SubRegion(largeNum) {
-
 		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
 			var str = "";
-
 			$(data).each(
 					function() {
 						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
 								+ "</option>";
-
 					});
-
 			$("#subRegion").html(str);
 		})
 	}

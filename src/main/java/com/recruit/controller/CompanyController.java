@@ -1,5 +1,11 @@
 package com.recruit.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,8 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+//import org.zerock.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
@@ -26,7 +35,8 @@ public class CompanyController {
 	private CompanyService service;
 	@Inject
 	private CompanyAjaxService jobService;
-
+	@Resource(name = "uploadPath")  // servlet-context에 지정된 경로를 읽어옴 
+	private String uploadPath;
 	
 
 	  @RequestMapping(value = "/C_modify", method = RequestMethod.GET)
@@ -34,28 +44,115 @@ public class CompanyController {
 
 	    model.addAttribute(service.CompanyInfoRead(id));
 	  }
+	  	
 	  @RequestMapping(value = "/C_modify", method = RequestMethod.POST)
-	  public String modifyPOST(CInfoVO CInfo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-
+	  public String modifyPOST (CInfoVO CInfo,  HttpServletRequest request, Model model, RedirectAttributes rttr) throws Exception {
+	  			
+		  System.out.println(request.getParameter("img"));
 		  
+		  		InfoFileUpload(CInfo , request); //사진 업로드 메서드로 CInfo객체와 request를 사용하기 위해 넘김
+		  		// (CInfo 객체는 파일명에 사용할 기업id값과 db에 이름을 집어 넣기 위해 보냄)
 		  
-	    String establish;
-	    establish = request.getParameter("establish");
-	    
-	    CInfo.setEstablish(establish);
-	    
-	
-	    service.CompanyInfoModify(CInfo);
+				
+			    
+				service.CompanyInfoModify(CInfo); // text form값들 저장 
+				
+					    rttr.addFlashAttribute("msg", "SUCCESS");
+				
+					    return "redirect:/company/C_index?id="+CInfo.getId(); 
+			}
 
-	    rttr.addFlashAttribute("msg", "SUCCESS");
+		        
+			public void InfoFileUpload(CInfoVO CInfo, HttpServletRequest request) {
+				
+				 String path = uploadPath;  // 에너테이션에 연결된 저장경로를 String에 저장 
+				 
+//				 Map returnObject = new HashMap();
+				  
+				  try {
+						// MultipartHttpServletRequest 생성
+						MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest) request; //
+						Iterator iter = mhsr.getFileNames();
+						System.out.println(mhsr);
+						MultipartFile mfile = null;
+						String fieldName = "";
+//						List resultList = new ArrayList();
 
-	    return "redirect:/company/C_index?id="+CInfo.getId(); 
-	  }
+						// 디레토리가 없다면 생성
+//						File dir = new File(path);
+//						if (!dir.isDirectory()) {
+//							dir.mkdirs();
+//						}
+
+						// 값이 나올때까지
+						while (iter.hasNext()) {
+							
+							fieldName = (String) iter.next(); // 내용을 가져와서
+							mfile = mhsr.getFile(fieldName);
+							
+							System.out.println(mfile);
+							
+							String origName;
+							
+							
+							origName = new String(mfile.getOriginalFilename().getBytes("8859_1"), "UTF-8"); //한글깨짐 방지
+							// 파일명이 없다면
+//							if(origName != ""){
+//								break;
+//							}
+							if ("".equals(origName)) {
+								continue;
+							}
+
+							// 파일 명 변경
+							String ext = origName.substring(origName.lastIndexOf('.')); // 확장자 지정
+							String saveFileName = origName; // 기업 id + 확장자로 경로에 저장 
+							
+//							if(saveFileName.equals("")){
+//							 
+//							}else if(!saveFileName.equals("")){
+								CInfo.setImg(saveFileName);	// DB 이미지 저장
+//							
+							
+//							}
+							
+							// 설정한 path에 파일저장
+							File serverFile = new File(path + File.separator + saveFileName);
+				
+							mfile.transferTo(serverFile);
+							
+//							Map file = new HashMap();
+//							file.put("origName", origName);
+//							file.put("sfile", serverFile);
+//							resultList.add(file);
+
+							
+							
+							}
+							
+						
+//							returnObject.put("files", resultList);
+//							returnObject.put("params", mhsr.getParameterMap());
+						
+
+						} catch (UnsupportedEncodingException e) { 
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}catch (IllegalStateException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				
+				
+			}
+	  
+
 	
 	  @RequestMapping(value = "/C_manage", method = RequestMethod.GET)
 	  public void manage(String id, Model model) throws Exception {
-		  
-//		  System.out.println("날짜 출력 : "+service.RecruitList(id).get(0));
 		  
 		  model.addAttribute(service.CompanyInfoRead(id));
 		  model.addAttribute("recruitList", service.RecruitList(id));
@@ -79,7 +176,6 @@ public class CompanyController {
 	    
 	  }
 	  
-	  
 	  @RequestMapping(value = "/C_write", method = RequestMethod.POST)
 	  public String writePOST(RecruitVO writeRecruit, RedirectAttributes rttr) throws Exception {
 		  logger.info("write Register..........");
@@ -92,6 +188,16 @@ public class CompanyController {
 		  
 		  return "redirect:/company/C_manage?id=park";
 	  }
+	  
+//	  @RequestMapping(value = "/C_write", method = RequestMethod.POST)
+//	  public String writePOST(RecruitVO writeRecruit, HttpServletRequest request) throws Exception {
+//
+//		 
+//		  service.RecruitWrite(writeRecruit); // 채용공고등록
+//	  
+//
+//		  return "redirect:/company/C_index?id="+request.getParameter("cid"); 
+//	  }
 
 	  @RequestMapping(value = "/C_index", method = RequestMethod.GET)
 	  public void read(String id, Model model) throws Exception {
@@ -111,11 +217,13 @@ public class CompanyController {
 		  public void readRecruit(int recruitNum, Model model) throws Exception {
 
 
-			
-			String id = service.RecruitInfoRead2(recruitNum).getCid();
-//			System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
-			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
-		    model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+//		    	model.addAttribute(service.CompanyInfoRead(id));
+//		    	System.out.println(recruitNum);
+//		    	model.addAttribute(service.RecruitInfoRead(recruitNum));
+				String id = service.RecruitInfoRead2(recruitNum).getCid();
+//				System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
+				model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
+			    model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		   
 		  }
 		
@@ -123,15 +231,21 @@ public class CompanyController {
 		  public void readRecom(String id, Model model, RedirectAttributes rttr) throws Exception {
 
 			  model.addAttribute(service.CompanyInfoRead(id));
-//			  System.out.println("컨트롤러 : " +id);
+			  System.out.println("컨트롤러 : " +id);
 			  
 			  
 			  model.addAttribute("recruitList", service.RecruitList(id));
 		
 			  
 		  }
-	  
-	  
-	
+		
+		@RequestMapping(value = "C_favor", method = RequestMethod.GET)
+		  public void readfavor(String id, Model model, RedirectAttributes rttr) throws Exception {
+
+			  
+			  model.addAttribute("favorList", service.FavorList(id));
+		
+			  
+		  }
 
 }

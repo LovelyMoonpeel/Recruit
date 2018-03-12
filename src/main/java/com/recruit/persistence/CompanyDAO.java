@@ -5,7 +5,9 @@ import java.util.List;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.domain.RecruitVO;
+import com.recruit.domain.ImgVO;
 
 public interface CompanyDAO {
 
@@ -17,7 +19,7 @@ public interface CompanyDAO {
 	
 	public List<RegionVO> RegionList() throws Exception;
 	
-	public void RecruitWrite(RecruitVO writeRecruit) throws Exception;
+	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception;
 	
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	
@@ -26,4 +28,7 @@ public interface CompanyDAO {
 	public void updateViewCnt(int recruitNum) throws Exception;
 	
 	public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception;
+
+	public List<ResumeVO> FavorList(String id) throws Exception;
+	
 }

@@ -9,9 +9,8 @@
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
 	<div class="top_cont">
 		<div class="corp_logo">
-			<img id="동국제약㈜" alt="동국제약㈜"
-				src="http://webpds.saramin.co.kr/pds/united_company/logo/8008_logo_2.jpg"
-				width="209" height="117"> <br> <br>
+			<img src="/resources/rpjt/img/${CInfoVO.img}"
+				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
@@ -112,21 +111,17 @@ var formObj = $("form[role='form']");
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/company/C_modify");
+		formObj.attr("action", "/rpjt/C_modify");
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});
 	
 	
 });
-
 var result = '${msg}';
-
 if (result == 'SUCCESS') {
 	alert("수정이 완료됐습니다.");
 }
-
 </script>
 
 <%@include file="../include/cfooter.jsp"%>
-

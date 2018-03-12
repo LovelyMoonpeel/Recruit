@@ -19,25 +19,13 @@
 		<property name="password" value="1234"></property>
 	</bean> -->
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://192.168.0.4:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property>
 		<property name="username" value="ojh"></property>
 		<property name="password" value="0000"></property>
-	</bean>
-	
-	<!-- <bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url"
-			value="jdbc:log4jdbc:mysql://localhost:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="1234"></property>
-	</bean> -->
+	</bean> 
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -57,6 +45,8 @@
 
 	<context:component-scan base-package="com.recruit.persistence" />
 	<context:component-scan base-package="com.recruit.service" />
+	
+
 </beans>
 
 <!-- v0.2 SQL과 연결부분 업데이트 -->

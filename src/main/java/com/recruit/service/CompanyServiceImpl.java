@@ -11,7 +11,9 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.CompanyDAO;
+
 
 
 @Service
@@ -62,6 +64,7 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.RecruitInfoRead(recruitNum);
 	 }
+
 	 @Override
 	 public RecruitVO RecruitInfoRead2(int recruitNum) throws Exception{
 		 return dao.RecruitInfoRead(recruitNum);
@@ -72,4 +75,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 return dao.RecruitInfoRead3(recruitNum);
 	 } 
 	 
+	 public List<ResumeVO> FavorList(String id) throws Exception{
+		 
+		 return dao.FavorList(id);
+		 
+	 }
+	  
+
 }
