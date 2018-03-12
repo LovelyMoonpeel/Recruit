@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  <![CDATA[
 	  insert 
 	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-	  values("jin3", #{title}, #{coverletter}, 1, 1)
+	  values("jin3", #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
 	  ]]>
 	</insert>
 	

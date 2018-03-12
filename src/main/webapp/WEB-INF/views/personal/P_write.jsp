@@ -31,6 +31,16 @@
        <textarea class="form-control" rows="10" id="coverletter" name="coverletter" style="resize:none;" value="${ResumeVO.coverletter}"></textarea>
      </div>
      
+      <div class="form-group">
+       <label for="jobstateid">구직상태</label>
+       <input class="form-control" id="jobstateid" name="jobstateid" value = "${ResumeVO.jobstateid}">
+     </div>
+     
+      <div class="form-group">
+       <label for="jobgroupid">직종</label>
+       <input class="form-control" id="jobgroupid" name="jobgroupid" value = "${ResumeVO.jobgroupid}">
+     </div>
+     
      <input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
      <input type = 'hidden' id='uploadfilename' name = 'img' >
   <br>
