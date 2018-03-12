@@ -34,8 +34,6 @@
 	<%@include file="../include/jheader.jsp"%>
 
 
-
-
 	<!-- Page Content -->
 	<div class="container">
 
