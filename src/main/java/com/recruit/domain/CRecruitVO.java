@@ -1,24 +1,26 @@
 package com.recruit.domain;
 
+import java.util.Date;
+
 public class CRecruitVO {
-	int bno;
-	String title;
-	String cid;
-	int jobgroupid;
-	String rgbid;
-	int rgsid;
-	String jobdesc;
-	int recruitnum;
-	int employstatusid;
-	int salaryid;
-	int edu;
-	int exp;
-	String adddesc;
-	String period;
-	String acceptmethod;
-	String recruitform;
-	String regdate;
-	int viewcnt;
+	public int bno;
+	public String title;
+	public String cid;
+	public int jobgroupid;
+	public String rgbid;
+	public int rgsid;
+	public String jobdesc;
+	public int recruitnum;
+	public int employstatusid;
+	public int salaryid;
+	public int edu;
+	public int exp;
+	public String adddesc;
+	public Date period;
+	public String acceptmethod;
+	public String recruitform;
+	public String regdate;
+	public int viewcnt;
 	
 	public int getBno() {
 		return bno;
@@ -124,11 +126,11 @@ public class CRecruitVO {
 		this.adddesc = adddesc;
 	}
 
-	public String getPeriod() {
+	public Date getPeriod() {
 		return period;
 	}
 
-	public void setPeriod(String period) {
+	public void setPeriod(Date period) {
 		this.period = period;
 	}
 

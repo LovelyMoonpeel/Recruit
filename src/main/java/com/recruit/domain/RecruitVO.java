@@ -5,22 +5,23 @@ public class RecruitVO {
 	private int bno;
 	private String title;
 	private String cid;
-	private int jobgroupid;
+	private String jobgroupid;
+	private String jobgroupid2;
 	private String rgbid;
-	private int rgsid;
+	private String rgsid;
 	private String jobdesc;
 	private int recruitnum;
-	private int employstatusid;
-	private int salaryid;
-	private int edu;
-	private int exp;
+	private String employstatusid;
+	private String salaryid;
+	private String edu;
+	private String exp;
 	private String adddesc;
 	private String period;
 	private String acceptmethod;
 	private String recruitform;
 	private String regdate;
 	private int viewcnt;
-	private int jobgroupid2;
+	// private int jobgroupid2; // merge
 
 	public int getBno() {
 		return bno;
@@ -46,12 +47,20 @@ public class RecruitVO {
 		this.cid = cid;
 	}
 
-	public int getJobgroupid() {
+	public String getJobgroupid() {
 		return jobgroupid;
 	}
 
-	public void setJobgroupid(int jobgroupid) {
+	public void setJobgroupid(String jobgroupid) {
 		this.jobgroupid = jobgroupid;
+	}
+
+	public String getJobgroupid2() {
+		return jobgroupid2;
+	}
+
+	public void setJobgroupid2(String jobgroupid2) {
+		this.jobgroupid2 = jobgroupid2;
 	}
 
 	public String getRgbid() {
@@ -62,11 +71,11 @@ public class RecruitVO {
 		this.rgbid = rgbid;
 	}
 
-	public int getRgsid() {
+	public String getRgsid() {
 		return rgsid;
 	}
 
-	public void setRgsid(int rgsid) {
+	public void setRgsid(String rgsid) {
 		this.rgsid = rgsid;
 	}
 
@@ -86,35 +95,35 @@ public class RecruitVO {
 		this.recruitnum = recruitnum;
 	}
 
-	public int getEmploystatusid() {
+	public String getEmploystatusid() {
 		return employstatusid;
 	}
 
-	public void setEmploystatusid(int employstatusid) {
+	public void setEmploystatusid(String employstatusid) {
 		this.employstatusid = employstatusid;
 	}
 
-	public int getSalaryid() {
+	public String getSalaryid() {
 		return salaryid;
 	}
 
-	public void setSalaryid(int salaryid) {
+	public void setSalaryid(String salaryid) {
 		this.salaryid = salaryid;
 	}
 
-	public int getEdu() {
+	public String getEdu() {
 		return edu;
 	}
 
-	public void setEdu(int edu) {
+	public void setEdu(String edu) {
 		this.edu = edu;
 	}
 
-	public int getExp() {
+	public String getExp() {
 		return exp;
 	}
 
-	public void setExp(int exp) {
+	public void setExp(String exp) {
 		this.exp = exp;
 	}
 
@@ -166,21 +175,22 @@ public class RecruitVO {
 		this.viewcnt = viewcnt;
 	}
 
-	public int getJobgroupid2() {
-		return jobgroupid2;
-	}
-
-	public void setJobgroupid2(int jobgroupid2) {
-		this.jobgroupid2 = jobgroupid2;
-	}
+	// Merge
+	// public int getJobgroupid2() {
+	// return jobgroupid2;
+	// }
+	//
+	// public void setJobgroupid2(int jobgroupid2) {
+	// this.jobgroupid2 = jobgroupid2;
+	// }
 
 	@Override
 	public String toString() {
-		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid + ", rgbid="
-				+ rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc + ", recruitnum=" + recruitnum
-				+ ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", edu=" + edu + ", exp=" + exp
-				+ ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
-				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", jobgroupid2=" + jobgroupid2 + "]";
+		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
+				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc
+				+ ", recruitnum=" + recruitnum + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid
+				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
+				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
 	}
 
 	@Override
@@ -191,19 +201,19 @@ public class RecruitVO {
 		result = prime * result + ((adddesc == null) ? 0 : adddesc.hashCode());
 		result = prime * result + bno;
 		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
-		result = prime * result + edu;
-		result = prime * result + employstatusid;
-		result = prime * result + exp;
+		result = prime * result + ((edu == null) ? 0 : edu.hashCode());
+		result = prime * result + ((employstatusid == null) ? 0 : employstatusid.hashCode());
+		result = prime * result + ((exp == null) ? 0 : exp.hashCode());
 		result = prime * result + ((jobdesc == null) ? 0 : jobdesc.hashCode());
-		result = prime * result + jobgroupid;
-		result = prime * result + jobgroupid2;
+		result = prime * result + ((jobgroupid == null) ? 0 : jobgroupid.hashCode());
+		result = prime * result + ((jobgroupid2 == null) ? 0 : jobgroupid2.hashCode());
 		result = prime * result + ((period == null) ? 0 : period.hashCode());
 		result = prime * result + ((recruitform == null) ? 0 : recruitform.hashCode());
 		result = prime * result + recruitnum;
 		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
 		result = prime * result + ((rgbid == null) ? 0 : rgbid.hashCode());
-		result = prime * result + rgsid;
-		result = prime * result + salaryid;
+		result = prime * result + ((rgsid == null) ? 0 : rgsid.hashCode());
+		result = prime * result + ((salaryid == null) ? 0 : salaryid.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + viewcnt;
 		return result;
@@ -235,20 +245,35 @@ public class RecruitVO {
 				return false;
 		} else if (!cid.equals(other.cid))
 			return false;
-		if (edu != other.edu)
+		if (edu == null) {
+			if (other.edu != null)
+				return false;
+		} else if (!edu.equals(other.edu))
 			return false;
-		if (employstatusid != other.employstatusid)
+		if (employstatusid == null) {
+			if (other.employstatusid != null)
+				return false;
+		} else if (!employstatusid.equals(other.employstatusid))
 			return false;
-		if (exp != other.exp)
+		if (exp == null) {
+			if (other.exp != null)
+				return false;
+		} else if (!exp.equals(other.exp))
 			return false;
 		if (jobdesc == null) {
 			if (other.jobdesc != null)
 				return false;
 		} else if (!jobdesc.equals(other.jobdesc))
 			return false;
-		if (jobgroupid != other.jobgroupid)
+		if (jobgroupid == null) {
+			if (other.jobgroupid != null)
+				return false;
+		} else if (!jobgroupid.equals(other.jobgroupid))
 			return false;
-		if (jobgroupid2 != other.jobgroupid2)
+		if (jobgroupid2 == null) {
+			if (other.jobgroupid2 != null)
+				return false;
+		} else if (!jobgroupid2.equals(other.jobgroupid2))
 			return false;
 		if (period == null) {
 			if (other.period != null)
@@ -272,9 +297,15 @@ public class RecruitVO {
 				return false;
 		} else if (!rgbid.equals(other.rgbid))
 			return false;
-		if (rgsid != other.rgsid)
+		if (rgsid == null) {
+			if (other.rgsid != null)
+				return false;
+		} else if (!rgsid.equals(other.rgsid))
 			return false;
-		if (salaryid != other.salaryid)
+		if (salaryid == null) {
+			if (other.salaryid != null)
+				return false;
+		} else if (!salaryid.equals(other.salaryid))
 			return false;
 		if (title == null) {
 			if (other.title != null)

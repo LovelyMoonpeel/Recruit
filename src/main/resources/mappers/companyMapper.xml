@@ -2,82 +2,75 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+  
 <mapper namespace="com.recruit.mapper.CompanyMapper">
-	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
-		select
-		id, cname, img,
-		homepage, intro, ceo, ctype, form, establish, numemp,
-		sales, tel, fax,
-		sns, location
-		from
-		tblcinfo
-		where id = #{id}
-	</select>
 
-	<update id="companyinfoUpdate">
-		update tblcinfo set cname =#{cname},
-		homepage=#{homepage}, intro=#{intro},
-		ceo=#{ceo}, ctype=#{ctype}
-		,
-		form=#{form}, establish=#{establish}, numemp=#{numemp},
-		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
-		,
-		location=#{location}
-		where id = #{id}
-	</update>
-
-	<update id="write">
-		update tblcinfo set cname =#{cname},
-		homepage=#{homepage}, intro=#{intro},
-		ceo=#{ceo}, ctype=#{ctype}
-		,
-		form=#{form}, establish=#{establish}, numemp=#{numemp},
-		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
-		,
-		location=#{location}
-		where id = #{id}
-	</update>
-
-	<select id="list" resultType="JobGroupVO">
+  <select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
+  select
+   id, cname, img, homepage, intro, ceo, ctype, form, establish, numemp, sales, tel, fax, sns, location 
+  from
+   tblcinfo
+    where id = #{id}
+  </select>
+  
+ <update id="companyinfoUpdate">
+ update project.tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
+ , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
+ , location=#{location}
+ where id = #{id}
+ </update>
+ 
+ <update id="write">
+  update tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
+ , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
+ , location=#{location}
+ where id = #{id}
+ </update>
+ 
+ <select id="list" resultType="JobGroupVO">
 		select
 		id, jobgroup, id2
 		from
 		tbljobgroup
 		where id2 =
 		#{id2}
-
+		
 	</select>
-
-	<select id="jobgroupList" resultType="com.recruit.domain.JobGroupVO">
+  
+   <select id="jobgroupList" resultType="com.recruit.domain.JobGroupVO">
  <![CDATA[
  select 
    id, id2, jobgroup
  from 
    tbljobgroup 
  where id2 = 0
- ]]>
-	</select>
-
-	<select id="codeList" resultType="com.recruit.domain.CodeVO">
+ ]]>  
+ </select>
+ 
+ <select id="codeList" resultType="com.recruit.domain.CodeVO">
   <![CDATA[
  select 
    id, career, tid
  from 
    tblcode
- ]]>
-	</select>
+ ]]>  
 
-	<select id="regionList" resultType="com.recruit.domain.RegionVO">
+ </select>
+  
+   <select id="regionList" resultType="com.recruit.domain.RegionVO">
   <![CDATA[
  select 
   DISTINCT rgbid, rgbname
  from 
    tblRegion
- ]]>
-	</select>
+ ]]>  
 
-	<select id="subRegion" resultType="com.recruit.domain.RegionVO">
+ </select>
+
+  
+  
+  
+   <select id="subRegion" resultType="com.recruit.domain.RegionVO">
   <![CDATA[
  select 
    rgbid, rgbname, rgsid, rgsname
@@ -85,33 +78,99 @@
    tblregion
    
    where rgbid = #{id2}
+ ]]>  
+
+ </select>
+ 
+  <insert id="recruitWrite">
+  insert into tblrecruit (title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod)
+  values (#{title}, #{cid}, #{jobgroupid}, #{jobgroupid2}, #{rgbid}, #{rgsid}, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}, #{exp}, #{adddesc}, #{period}, #{acceptmethod})
+ 
+  
+
+ </insert>
+ 
+ <select id="recruitList" resultType="com.recruit.domain.RecruitVO">
+ <![CDATA[
+ select bno, title, period, viewcnt
+  from
+   tblRecruit
+   where cid = #{id}
+ ]]>  
+ </select>
+ 
+ <select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
+<![CDATA[
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
+		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
+	where r.bno = #{recruitNum}
+    	and r.jobgroupid = j.id
+    	and r.jobgroupid2 = u.id
+    	and g.rgbid = r.rgbid
+    	and g.rgsid = r.rgsid
+    	and r.employstatusid = c.id
+    	and r.salaryid = o.id
+    	and r.edu = d.id
+    	and r.exp = e.id
  ]]>
-	</select>
+ </select>
+ 
+  <select id="recruitListt" resultType="com.recruit.domain.RecruitVO">
+ <![CDATA[
+ select f.bno, title, (select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%Y%m%d')) as period, viewcnt
+  from
+   tblRecruit f
+   where cid = #{id}
+ ]]>  
+ </select>
+ 
+	<update id="updateViewCnt">
+		update project.tblrecruit set viewcnt = viewcnt +1 where
+		bno = #{recruitNum}
+	</update>
+  
 
-	<insert id="recruitWrite">
-		insert into tblrecruit (title, cid, jobgroupid,
-		rgbid, rgsid, jobdesc,
-		recruitnum, employstatusid, salaryid, edu, exp,
-		adddesc) values
-		(#{title}, #{cid}, #{jobgroupid}, #{rgbid}, #{rgsid},
-		#{jobdesc},
-		#{recruitnum}, #{employstatusid}, #{salaryid}, #{edu},
-		#{exp},
-		#{adddesc})
-	</insert>
+<select id="recruitinfoRead3" resultType="com.recruit.domain.RecruitVO">
+<![CDATA[
+	select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod
+	from project.tblrecruit
+	where bno=#{recruitNum}
+]]>
+</select>
 
-	<select id="recruitList" resultType="com.recruit.domain.RecruitVO">
-		select title, period,
-		viewcnt
-		from
-		tblRecruit
-		where cid = #{id}
+	<select id="personRecomList" resultType="com.recruit.domain.ResumeVO">
+	select distinct p.bno as bno, u.pname as img, p.title,  j.jobgroup as userid , r.rgbname as address, m.career as postcode, n.career as rgbid  from tblresume p, tblRecruit c, tblJobGroup j, tblRegion r, tblcode m, tblcode n, tblUser u
+where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid and p.jobstateid = 1 and p.salaryid = c.salaryid
+and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id and c.salaryid = n.id and p.userid = u.id
+and c.bno = #{bno};
 	</select>
+	
+	<select id="favorList" resultType="com.recruit.domain.ResumeVO">
+	SELECT  distinct u.pname as img, p.title, r.rgbname as address FROM tblInterestPerson f, tblresume p, tblRegion r, tblUser u 
+	where f.puserid = p.userid and p.rgbid = r.rgbid and u.id = p.userid and f.cuserid = 'park';
+	</select>
+	
+<insert id="favorPerson" parameterType="hashmap">
+insert into tblInterestPerson(cuserid, presume) values(#{paraMap.id},#{paraMap.bno});
 
-	<select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
-		select title
-		from
-		tblRecruit
-		where bno = 23
-	</select>
-</mapper>
+</insert>
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -62,7 +62,7 @@ public class SearchDAOImpl implements SearchDAO {
 
 				RecruitVO rtmp = new RecruitVO();
 				rtmp.setRgbid(sel_skeys.get(i).substring(1, 2));
-				rtmp.setRgsid(Integer.parseInt(sel_skeys.get(i).substring(2)));
+				rtmp.setRgsid(sel_skeys.get(i).substring(2));
 				list.add(rtmp);
 
 				// map.put(sel_skeys.get(i).substring(1, 2),

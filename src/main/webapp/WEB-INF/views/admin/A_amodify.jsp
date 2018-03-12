@@ -16,7 +16,7 @@
 
 
 
-	<h1>회원정보 수정</h1>
+	<h1>관리자정보 수정</h1>
 	<form role="form" action="A_amodify" method="POST">
 		<table class="table table-bordered">
 			<tr>
@@ -26,7 +26,7 @@
 			<tr>
 				<th>비밀번호</th>
 				<td><input class="form-control" type="text" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${AmainVO.pw}" required></td>
+					placeholder="변경할 비밀번호를 입력하세요." value="${AmainVO.pw}"></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
@@ -37,12 +37,12 @@
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${AmainVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${AmainVO.pname}"></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${AmainVO.email}" required></td>
+					value="${AmainVO.email}"></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>

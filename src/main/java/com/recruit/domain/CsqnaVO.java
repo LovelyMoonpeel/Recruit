@@ -2,14 +2,14 @@ package com.recruit.domain;
 
 public class CsqnaVO {
 
-	public Integer bno;
-	public String title;
-	public String user;
-	public String content;
-	public String bpw;
-	public String regdate;
-	public Integer viewcnt;
-	public Integer reply;
+	private Integer bno;
+	private String title;
+	private String user;
+	private String content;
+	private String bpw;
+	private String regdate;
+	private Integer viewcnt;
+	private Integer reply;
 
 	public Integer getBno() {
 		return bno;

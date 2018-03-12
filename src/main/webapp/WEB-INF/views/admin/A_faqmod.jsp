@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="../include/sheader.jsp"%>
+<%@include file="../include/aheader.jsp"%>
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
