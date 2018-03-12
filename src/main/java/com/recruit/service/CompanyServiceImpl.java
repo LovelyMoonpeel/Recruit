@@ -1,12 +1,14 @@
 package com.recruit.service;
 
 import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CodeVO;
-import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.persistence.CompanyDAO;
@@ -51,6 +53,8 @@ public class CompanyServiceImpl implements CompanyService {
 			
 		 return dao.RecruitList(id);
 	 }
+	 
+	 @Transactional
 	 @Override
 	 public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
 //		 System.out.println("service넘어옴 값은 = "+recruitNum);

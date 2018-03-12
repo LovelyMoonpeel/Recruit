@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
@@ -18,7 +17,6 @@ public class AmainServiceImpl implements AmainService {
 	@Inject
 	private AmainDAO dao;
 
-	@Transactional
 	@Override
 	public AmainVO read(String id) throws Exception {
 		return dao.read(id);

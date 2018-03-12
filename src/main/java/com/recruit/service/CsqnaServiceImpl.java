@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaVO;
@@ -21,6 +22,7 @@ public class CsqnaServiceImpl implements CsqnaService {
 		dao.create(vo);
 	}
 
+	@Transactional
 	@Override
 	public CsqnaVO read(Integer bno) throws Exception {
 		dao.updateViewCnt(bno);
