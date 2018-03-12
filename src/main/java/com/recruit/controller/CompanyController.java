@@ -74,7 +74,7 @@ public class CompanyController {
 				
 					    rttr.addFlashAttribute("msg", "SUCCESS");
 				
-					    return "redirect:/rpjt/C_index?id="+CInfo.getId(); 
+					    return "redirect:/company/C_index?id="+CInfo.getId(); 
 			}
 
 		        
@@ -176,7 +176,7 @@ public class CompanyController {
 	  @RequestMapping(value = "/C_detail", method = RequestMethod.GET)
 	  public String detail(Model model) throws Exception {
 
-	   return "rpjt/C_detail";
+	   return "company/C_detail";
 	  }
 
 	  @RequestMapping(value = "/C_write", method = RequestMethod.GET)
@@ -197,7 +197,7 @@ public class CompanyController {
 		  service.RecruitWrite(writeRecruit); // 채용공고등록
 	  
 
-		  return "redirect:/rpjt/C_index?id="+request.getParameter("cid"); 
+		  return "redirect:/company/C_index?id="+request.getParameter("cid"); 
 	  }
 
 	  @RequestMapping(value = "/C_index", method = RequestMethod.GET)
