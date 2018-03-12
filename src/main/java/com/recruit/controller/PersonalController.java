@@ -23,11 +23,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.PWebSiteVO;
+import com.recruit.domain.RLicenseVO;
+import com.recruit.domain.ResumeCareerVO;
+import com.recruit.domain.ResumeEduVO;
+import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
+import com.recruit.service.PWebSiteService;
+import com.recruit.service.RLicenseService;
+import com.recruit.service.ResumeCareerService;
+import com.recruit.service.ResumeEduService;
+import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.UploadFileUtils;
@@ -49,7 +61,25 @@ public class PersonalController {
 	
 	@Inject
 	private ResumeService Rservice;
-
+	
+	@Inject
+	private PTelService Telservice;
+	
+	@Inject
+	private PWebSiteService Webservice;
+	
+	@Inject
+	private ResumeEduService Eduservice;
+	
+	@Inject
+	private ResumeCareerService Careerservice;
+	
+	@Inject
+	private RLicenseService Licenseservice;
+	
+	@Inject
+	private ResumeLanguageService Langservice;
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(Model model) throws Exception {
@@ -92,7 +122,7 @@ public class PersonalController {
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(PUserVO puser, Model model) throws Exception {
-		
+	//public String writeGET(@RequestParam("id") String id,	PUserVO puser, Model model) throws Exception {
 		System.out.println("write GET controller");
 		PUserVO PUser = service.selectPUser("jin3");
 		System.out.println("puser"+PUser);
@@ -100,17 +130,16 @@ public class PersonalController {
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id, Model model) throws Exception {
-		System.out.println("write POST controller");
-		
+	//public String writePOST(String id, ResumeVO resume, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, ResumeEduVO revo, ResumeCareerVO rcvo, RLicenseVO rlvo, ResumeLanguageVO rlangVO, Model model) throws Exception {
+	//public String writePOST(String id, ResumeVO resume, String file, PUserVO PUser, Model model) throws Exception {
+	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id, Model model) throws Exception {	
+	System.out.println("write POST controller");
 		System.out.println("id값 뭐받아오냐");
 		System.out.println(id);
 		//puser = service.selectPUser("jin3");
 		System.out.println("write get에서 받아오는 puser"+puser);
 		
 		System.out.println("service 하기 전 resume.toString()");
-		System.out.println(resume.toString());
-		
 		System.out.println("file");
 		System.out.println(file);
 		
@@ -120,13 +149,18 @@ public class PersonalController {
 		System.out.println("service 한 후 resume.toString()");
 		System.out.println(resume.toString());
 		
-		//새로 resume 받아와야 함.
-		//int bno = resume.getBno(); 그래도 0 나옴
-		//Rservice.readRLastCreatedOne();
 		System.out.println("Rservice Last 어쩌구 실행 후");
-		//int bno = Rservice.readRLastCreatedOne();
 		//System.out.println("bno"+bno);
 		//Rservice.addRimgAttach(fullName); createROne service에 transaction되어있음
+
+	/*	ptvo.setRid(Rservice.read(id).getBno());
+		Telservice.createPTel(ptvo);
+		Webservice.createPWebSite(pwvo);
+		Eduservice.createResumeEdu(revo);
+		Careerservice.createResumeCareer(rcvo);
+		Licenseservice.createRLicense(rlvo);
+		Langservice.createResumeLanguage(rlangVO);*/
+		
 		return "redirect:/personal/detail?bno="+bno+""; // redirect는 controller
 	}
 	
@@ -135,7 +169,7 @@ public class PersonalController {
 	   public String modifyGET(int bno, Model model) throws Exception {
 		   
 		   PUserVO PUser = new PUserVO();
-		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정\
+		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 		   
 		   model.addAttribute("PUserVO",service.selectPUser(PUser.getId()));
 		   

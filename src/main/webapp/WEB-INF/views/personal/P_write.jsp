@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <%@include file="../include/pheader.jsp"%>
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript"
+	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript"
+	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 <!-- Main content -->
 <div class="col-md-9">
@@ -21,6 +24,10 @@
 	 <input type='hidden' name='email' value="${PUserVO.email}">
 	 <input type='hidden' name='birth' value="${PUserVO.birth}">
 	 
+	  <div class="form-group">
+       <label for="userid">아이디</label>
+       <input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}">                          
+     </div>
      <div class="form-group">
        <label for="title">제목</label>
        <input class="form-control" id="title" name="title" value = "${ResumeVO.title}">
