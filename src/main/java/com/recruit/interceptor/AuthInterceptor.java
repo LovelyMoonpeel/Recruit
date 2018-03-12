@@ -14,32 +14,16 @@ import org.springframework.web.util.WebUtils;
 import com.recruit.domain.BoardVO;
 import com.recruit.service.UserService;
 
-
-/*
-AuthInterceptor´Â Æ¯Á¤ °æ·Î¿¡ Á¢±ÙÇÏ´Â °æ¿ì
-ÇöÀç »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÑ »óÅÂÀÇ »ç¿ëÀÚÀÎÁö¸¦ Ã¼Å©ÇÏ´Â ¿ªÇÒÀ» Ã³¸®ÇÏ±âÀ§ÇØ ÀÛ¼ºÇÔ
-*/
+//í˜„ì¬ ì‚¬ìš©ìì˜ ì„¸ì…˜ì— loginì´ ì¡´ì¬í•˜ì§€ ì•Šì§€ë§Œ, ì¿ í‚¤ ì¤‘ì• ì„œ loginCookieê°€ ì¡´ì¬í•  ë•Œ ì²˜ë¦¬ê°€ ì§„í–‰ë¨
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
-  //642 start
   private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
-  //642 end
  
-  //667 start
-  /* 
-  AuthInterceptor´Â UserService Å¸ÀÔÀÇ °´Ã¼¸¦ ÁÖÀÔ¹Ş´Â´Ù.
-    ÇöÀç »ç¿ëÀÚ°¡ HttpsSession¿¡ Àû´çÇÑ °ªÀÌ ¾ø´Â °æ¿ì loginCookie¸¦ °¡Áö°í ÀÖ´ÂÁö Ã¼Å©
-    ¸¸ÀÏ °ú°Å¿¡ º¸°üÇÑ ÄíÅ°°¡ ÀÖ´Ù¸é UserService °´Ã¼¸¦ ÀÌ¿ëÇØ¼­ »ç¿ëÀÚÀÇ Á¤º¸°¡ Á¸ÀçÇÏ´ÂÁö¸¦ È®ÀÎ
-    ¸¸ÀÏ »ç¿ëÀÚÀÇ Á¤º¸°¡ Á¸ÀçÇÑ´Ù¸é HttpSession¿¡ ´Ù½Ã »ç¿ëÀÚÀÇ Á¤º¸¸¦ ³Ö¾îÁÖ°Ô µÈ´Ù. 
-  */  
   @Inject
   private UserService service;
   
-  //642 start
-  /*
-  AuthInterceptor´Â preHandle()À» ÀÌ¿ëÇÏ¿© ÇöÀç »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÑ »óÅÂÀÎÁö Ã¼Å©ÇÏ°í,
-    ÄÁÆ®·Ñ·¯¸¦ È£ÃâÇÏ°Ô ÇÒ °ÍÀÎÁö¸¦ °áÁ¤ÇÑ´Ù.
-    ¸¸ÀÏ »ç¿ëÀÚ°¡ ·Î±×ÀÎÇÏÁö ¾ÊÀº »óÅÂ¶ó¸é ·Î±×ÀÎÇÏ´Â '/user/login'À¸·Î ÀÌµ¿ÇÏ°Ô ÇÑ´Ù.
+  /* í˜„ì¬ ì‚¬ìš©ìê°€ ë¡œê·¸ì¸í•œ ìƒíƒœì¸ì§€ë¥¼ ì²´í¬í•˜ê³ ,ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ í˜¸ì¶œí•˜ê°œ í•  ê²ƒì¸ì§€ë¥¼ ê²°ì •í•œë‹¤.
+   * ì‚¬ìš©ìê°€ ë¡œê·¸ì¸í•˜ì§€ ì•Šì€ ìƒíƒœë¼ë©´ '/rpjt/index'ìœ¼ë¡œ ì´ë™í•˜ê²Œ í•œë‹¤.
   */
   @Override
   public boolean preHandle(HttpServletRequest request,
@@ -47,16 +31,17 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     
     HttpSession session = request.getSession();   
 
-
     if(session.getAttribute("login") == null){
     
       logger.info("current user is not logined");
       
-      //667 start
       saveDest(request);
       
       Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
       
+      //í˜„ì¬ ì‚¬ìš©ìê°€ HttpSessionì— ì ë‹¹í•œ ê°’ì´ ì—†ëŠ” ê²½ìš° loginCookieë¥¼ ê°€ì§€ê³  ìˆëŠ”ì§€ë¥¼ ì²´í¬í•œë‹¤.
+      //ë§Œì¼ ê³¼ê±°ì— ë³´ê´€í•œ ì¿ í‚¤ê°€ ìˆë‹¤ë©´ UserService ê°ì²´ë¥¼ ì´ìš©í•´ì„œ ì‚¬ìš©ìì˜ ì •ë³´ê°€ ì¡´ì¬í•˜ëŠ”ì§€ë¥¼ í™•ì¸í•œë‹¤.
+      //ë§Œì¼ ì‚¬ìš©ìì˜ ì •ë³´ê°€ ì¡´ì¬í•œë‹¤ë©´ HttpSessionì— ë‹¤ì‹œ ì‚¬ìš©ìì˜ ì •ë³´ë¥¼ ë„£ì–´ì£¼ê²Œ ëœë‹¤.
       if(loginCookie != null) { 
         
         BoardVO boardVO = service.checkLoginBefore(loginCookie.getValue());
@@ -69,23 +54,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         
       }
-      //667 end
       
       response.sendRedirect("/rpjt/index");
       return false;
     }
+    
     return true;
   } 
-  //642 end
-  
-  //645 start
-  /*
-  AuthInterceptor´Â saveDest()¸Ş¼Òµå¸¦ ÀÌ¿ëÇØ¼­ ¿ø·¡ »ç¿ëÀÚ°¡ ¿øÇÏ´Â ÆäÀÌÁöÀÇ Á¤º¸´Â
-  HttpSession¾Ö 'dest'¶ó´Â ÀÌ¸§À¸·Î ÀúÀåÇÑ´Ù.
-  GET¹æ½ÄÀÎ °æ¿ì¿¡´Â URIÁ¤º¸ µÚÀÇ ÆÄ¶ó¹ÌÅÍµéÀ» ÇÔ²² º¸°üÇØ¾ß ÇÑ´Ù.
-  LoginInterceptor´Â ·Î±×ÀÎ ¼º°ø ÈÄÀÇ response.sendRedirect()ÀÛ¾÷¿¡
-  'dest'Á¤º¸¸¦ »ç¿ëÇÏµµ·Ï ¼öÁ¤
-  */
+
+  //saveDest()ë©”ì†Œë“œë¥¼ ì´ìš©í•´ì„œ ì›ë˜ ì‚¬ìš©ìê°€ ì›í•˜ëŠ” í˜ì´ì§€ì˜ ì •ë³´ëŠ” HttpSessionì— 'dest'ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ì €ì¥í•©ë‹ˆë‹¤.
+  //GETë°©ì‹ì¸ ê²½ìš°ì—ëŠ” URIì •ë³´ ë’¤ì˜ íŒŒë¼ë¯¸í„°ë“¤ì„ í•¨ê»˜ ë³´ê´€í•´ì•¼ í•œë‹¤.
   private void saveDest(HttpServletRequest req) {
 
     String uri = req.getRequestURI();
@@ -103,29 +81,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       req.getSession().setAttribute("dest", uri + query);
     }
   }
-  //645 end
-  
-  //642 start
-  /*  
-    ¾Æ·¡ ³»¿ëÀº 667ÂÊ ¾²¸é¼­ ÁÖ¼®Ã³¸®µÊ
- 
-  @Override
-  public boolean preHandle(HttpServletRequest request, 
-  	HttpServletResponse response, Object handler) throws Exception {
 
-    HttpSession session = request.getSession();
-
-    if (session.getAttribute("login") == null) {
-
-      logger.info("current user is not logined");
-      
-      response.sendRedirect("/user/login");
-      return false;
-    }
-    return true;
-  }
-  */
-  //642 end
 }
 
 

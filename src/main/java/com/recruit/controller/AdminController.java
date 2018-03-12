@@ -46,13 +46,13 @@ public class AdminController {
 
 	@Inject
 	private CsqnaService qservice;
-	
+
 	@Inject
 	private AdCompanyService cservice;
-	
+
 	@Inject
 	private CompanyService pservice;
-	
+
 	@Inject
 	private CompanyAjaxService jobService;
 
@@ -180,13 +180,13 @@ public class AdminController {
 		pageMaker.setCri(cri);
 
 		pageMaker.setTotalCount(qservice.listCountCriteria(cri));
-		
-		
+
 		model.addAttribute("pageMaker", pageMaker);
 	}
 
 	@RequestMapping(value = "/A_qnamod", method = RequestMethod.GET)
-	public void qnaModifyGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
+	public void qnaModifyGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, Model model)
+			throws Exception {
 		logger.info("qna Modify Get..........");
 		model.addAttribute("CsqnaVO", qservice.modread(bno));
 	}
@@ -212,7 +212,7 @@ public class AdminController {
 
 		return "redirect:/admin/A_qna";
 	}
-	
+
 	@RequestMapping(value = "/A_company", method = RequestMethod.GET)
 	public void companyGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		logger.info(cri.toString());
@@ -226,7 +226,7 @@ public class AdminController {
 
 		model.addAttribute("pageMaker", pageMaker);
 	}
-	
+
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.GET)
 	public void cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
@@ -236,12 +236,13 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
-	public String cmodifyPOST(AmainVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String cmodifyPOST(AmainVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
+			throws Exception {
 
 		logger.info("cmodify post...........");
 		logger.info(vo.toString());
-		
-//		System.out.println("controller test1");
+
+		// System.out.println("controller test1");
 		cservice.modify(vo);
 		pservice.CompanyInfoModify(cinfo);
 
@@ -252,44 +253,45 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-//		System.out.println("controller test2");
+		// System.out.println("controller test2");
 		return "redirect:/admin/A_company";
 	}
-	
+
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.GET)
-	public void rmodifyGET(@RequestParam("id") String id,@RequestParam("bno") int bno, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
-			throws Exception {
+	public void rmodifyGET(@RequestParam("id") String id, @RequestParam("bno") int bno,
+			@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		model.addAttribute("AmainVO", cservice.read(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
 		model.addAttribute("recruitList", pservice.RecruitList(id));
-	    model.addAttribute("jobgroupList", jobService.jobgroupList());
-	    model.addAttribute("codeList", pservice.CodeList());
-	    model.addAttribute("regionList", pservice.RegionList());
+		model.addAttribute("jobgroupList", jobService.jobgroupList());
+		model.addAttribute("codeList", pservice.CodeList());
+		model.addAttribute("regionList", pservice.RegionList());
 		model.addAttribute("RecruitVO", pservice.RecruitInfoRead3(bno));
-		
+
 	}
-	
+
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.POST)
-	public String rmodifyPOST(CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String rmodifyPOST(CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
+			throws Exception {
 
 		logger.info("cmodify post...........");
-		
-//		System.out.println("controller test1");
+
+		// System.out.println("controller test1");
 		cservice.modify(recvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-		
-		
+
 		rttr.addFlashAttribute("msg", "modify");
 
 		return "redirect:/admin/A_company";
 	}
-	
+
 	@RequestMapping(value = "/rremove", method = RequestMethod.POST)
-	public String rremove(@RequestParam("id") String id, @RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
+	public String rremove(@RequestParam("id") String id, @RequestParam("bno") int bno, RedirectAttributes rttr)
+			throws Exception {
 		cservice.remove(bno);
 
 		rttr.addAttribute("id", id);
@@ -297,7 +299,7 @@ public class AdminController {
 
 		return "redirect:/admin/A_cmodify";
 	}
-	
+
 	@RequestMapping(value = "/cremove", method = RequestMethod.POST)
 	public String cremove(@RequestParam("id") String id, RedirectAttributes rttr) throws Exception {
 		aservice.remove(id);

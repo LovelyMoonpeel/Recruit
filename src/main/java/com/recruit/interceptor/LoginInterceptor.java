@@ -1,5 +1,7 @@
 package com.recruit.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,22 +13,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-/*
-LoginInterceptor´Â '/loginPost'·Î Á¢±ÙÇÏµµ·Ï ¼³Á¤ÇÏ´Â °ÍÀ» ¸ñÀûÀ¸·Î ÀÛ¼ºµÊ
-*/
+//LoginInterceptorì˜ ì„¤ì •ì€ /loginPostì˜ ë™ì‘ì—ì„œ ì´ë¤„ì ¸ì•¼ í•˜ë‹ˆê¹ servlet-context.xmlì— ì„¤ì • ì¶”ê°€
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-	//636 start
 	private static final String LOGIN = "login";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-	//636 end
-	
-	//636 start
-	/*
-	postHandle()¿¡¼­´Â UserController¿¡¼­ 'userVO'¶ó´Â ÀÌ¸§À¸·Î °´Ã¼¸¦ ´ã¾ÆµĞ »óÅÂÀÌ¹Ç·Î,
-	ÀÌ »óÅÂ¸¦ Ã¼Å©ÇØ¼­ HttpSesssion¿¡ ÀúÀåÇÑ´Ù.
-	¸¸µé¾îÁø ÄíÅ°´Â ¹İµå½Ã HttpServletResponse¿¡ ´ã°Ü¼­ Àüµ¿µÊ
-	*/
+
+	//UserControllerì—ì„œ 'userVO'ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ê°ì²´ë¥¼ ë‹´ì•„ë‘” ìƒíƒœì´ë¯€ë¡œ, ì´ ìƒíƒœë¥¼ ì²´í¬í•´ì„œ HttpSessionì— ì €ì¥
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
@@ -36,49 +29,42 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object boardVO = modelMap.get("boardVO");
 		
+
+		
 		if (boardVO != null) {
 
 			logger.info("new login success");
-			session.setAttribute(LOGIN, boardVO);
-			//response.sendRedirect("/"); 646ÂÊ ÇÏ¸é¼­ ÁÖ¼®Ã³¸®
 			
-			//658 start
-			/*
-			 'ÀÚµ¿ ·Î±×ÀÎ'À» ¼±ÅÃÇÑ °æ¿ì ÄíÅ°¸¦ »ı¼ºÇÏ°í »ı¼ºµÈ ÄíÅ°ÀÇ ÀÌ¸§Àº loginCookie·Î ÁöÁ¤ »ı¼ºµÈ
-			 loginCookie¿¡´Â °ª(value)À¸·Î ÇöÀç ¼¼¼ÇÀÇ ¾ÆÀÌµğ °ªÀ» º¸°ü ¼¼¼Ç ¾ÆÀÌµğ´Â ¼¼¼Ç ÄíÅ°ÀÇ °ªÀ» ÀÇ¹Ì
-			 */
-			/*
-			 ÀÌ ÄÚµå¸¦ ÀÌ¿ëÇØ¼­ ·Î±×ÀÎ ÇÏ¸é °Ô½Ã¹°ÀÇ ¿©·¯ ÆäÀÌÁö¿¡¼­ ¸Å¹ø ºê¶ó¿ìÀú¿¡ 'loginCookie'°¡ Àü´ŞµÇ´Â °ÍÀ»
-			 °³¹ßÀÚ µµ±¸¸¦ ÀÌ¿ëÇØ¼­ È®ÀÎÀÌ °¡´É
-			 */
+			
+			session.setAttribute(LOGIN, boardVO);
+	
+			//ì¿ í‚¤ë¥¼ ìƒì„±í•˜ê³ , HttpSevletResponseì— ê°™ì´ ë‹´ì•„ì„œ ì „ì†¡í•˜ë„ë¡ ì½”ë“œë¥¼ ìˆ˜ì •
+			//ì‚¬ìš©ìê°€'ìë™ë¡œê·¸ì¸'ì„ ì„ íƒí•œ ê²½ìš° ì¿ í‚¤ë¥¼ ìƒì„±í•˜ê³  ìƒì„±ëœ ì¿ í‚¤ì˜ ì´ë¦„ì€ loginCookieë¡œ ì§€ì •í•œë‹¤.
+			//ìƒì„±ëœ loginCookieì—ëŠ” ê°’ìœ¼ë¡œ í˜„ì¬ ì„¸ì…˜ì˜ ì•„ì´ë”” ê°’ì„ ë³´ê´€í•œë‹¤.
+			//ì„¸ì…˜ ì•„ì´ë””ëŠ” ì„¸ì…˜ ì¿ í‚¤ì˜ ê°’ì„ ë§í•œë‹¤.
+			//ì„¸ì…˜ ì¿ í‚¤ì˜ ê²½ìš° ë¸Œë¼ìš°ì €ë¥¼ ì¢…ë£Œí•˜ë©´ ì‚¬ë¼ì§€ì§€ë§Œ, ì‘ì„±í•˜ëŠ” loginCookieì˜ ê²½ìš° ì˜¤ëœì‹œê°„ ë³´ê´€ë˜ê¸° ìœ„í•´ì„œ setmaxAge()ë¥¼ ì´ìš©í•œë‹¤.
+			//setMaxAge()ëŠ” ì´ˆ ë‹¨ìœ„ì˜ ì‹œê°„ ë™ì•ˆ ìœ íš¨í•˜ë¯€ë¡œ , 60*60*24*7ë¥¼ ì´ìš©í•´ì„œ ì¼ì£¼ì¼ê°„ ë¸Œë¼ìš°ì €ì—ì„œ ë³´ê´€
 			if (request.getParameter("useCookie") != null) {
 
 				logger.info("remember me................");
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
-				/*
-				 ¼¼¼ÇÄíÅ°ÀÇ °æ¿ì ºê¶ó¿ìÀú¸¦ Á¾·áÇÏ¸é »ç¶óÁö°í, ±×·¸±â ¶§¹®¿¡ ¸Å¹ø ºê¶ó¿ìÀú¸¦ »õ·Î ½ÇÇàÇÏ°í Á¢¼ÓÇÏ¸é »õ·Ó°Ô ¸¸µé¾îÁø´Ù. 
-				 ¹İ¸é, loginCookieÀÇ °æ¿ì ·Î±×ÀÎ ÇÒ ¶§ ºê¶ó¿ìÀú¸¦ ÀÌ¿ëÇØ¼­ º¸°üÇÔ ¿À·£ ½Ã°£ º¸°üµÇ±âÀ§ÇØ setMaxAge()¸¦ ÀÌ¿ë 
-				 setMaxAge()´Â ÃÊ ´ÜÀ§ÀÇ ½Ã°£ µ¿¾È À¯È¿ 60 * 60 * 24 * 7¸¦ ÅëÇØ ÀÏÁÖÀÏ°£ ºê¶ó¿ìÀú¿¡ º¸°ü
-				 */
 				loginCookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(loginCookie);
 			}
-			//658 end
-			
-			//646 start
+
 			Object dest = session.getAttribute("dest");
-
-			response.sendRedirect(dest != null ? (String) dest : "/rpjt/index");
-			//646 end0
+			
+			
+			
+			//ë¡œê·¸ì¸ ì„±ê³µí•˜ë©´ /personal/indexë¡œ ì´ë™í•œë‹¤.	
+			response.sendRedirect(dest != null ? (String) dest : "/personal/index");
+			
 		}
+		
 	}
-	//636 end
 
-	//636 start
-	/*
-	preHandle()¿¡¼­´Â ±âÁ¸ HttpSession¿¡ ³²¾ÆÀÖ´Â Á¤º¸°¡ ÀÖ´Â °æ¿ì¿¡´Â Á¤º¸¸¦ »èÁ¦ÇÔ
-	*/
+	//ê¸°ì¡´ HttpSessionì— ë‚¨ì•„ìˆëŠ” ì •ë³´ê°€ ìˆëŠ” ê²½ìš° ì •ë³´ë¥¼ ì‚­ì œ
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -92,5 +78,5 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		return true;
 	}
-	//636 end
+
 }
