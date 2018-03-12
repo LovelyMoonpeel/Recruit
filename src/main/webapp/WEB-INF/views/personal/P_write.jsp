@@ -31,7 +31,8 @@
        <textarea class="form-control" rows="10" id="coverletter" name="coverletter" style="resize:none;" value="${ResumeVO.coverletter}"></textarea>
      </div>
      
-     <input type = 'file' id='fileupload' name = 'img' value = "${ResumeVO.img}" accept=".jpg,.jpeg,.png,.gif,.bmp">
+     <input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+     <input type = 'hidden' id='uploadfilename' name = 'img' >
   <br>
  </form>
       
@@ -142,6 +143,7 @@ $(document).ready(function(){
 							  +"<small data-src="+data+">X</small>";
 
 					  $("#uploadedList").append(str); 
+					  document.getElementById('uploadfilename').value = getImageLink(data);
 				  }//success : function(data){ end
 	 		  });//ajax end
 		//});//filedrop end

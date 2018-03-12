@@ -21,7 +21,9 @@
                   <th class="table-active" scope="row">이름</th>
                   <td class="col-sm-4">${PUserVO.pname}</td>
                   <th class="table-active" scope="row">사진</th>
-                  <td class="col-sm-4">${ResumeVO.img}</td>
+                  <td class="col-sm-4">
+                  <img src='displayFile?fileName=${ResumeVO.img}' height = "150px;" alt="${ResumeVO.img}" /> 
+                  </td>
                </tr>
                <tr>
                   <th class="table-active" scope="row">생년월일</th>
