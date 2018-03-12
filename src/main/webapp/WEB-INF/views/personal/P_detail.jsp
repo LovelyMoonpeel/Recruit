@@ -23,7 +23,8 @@
                   <td class="col-sm-4">${PUserVO.pname}</td>
                   <th class="table-active" scope="row">사진</th>
                   <td class="col-sm-4">
-                  <img src='displayFile?fileName=${ResumeVO.img}' height = "150px;" alt="${ResumeVO.img}" /> 
+                  <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+                  <input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
                   </td>
                </tr>
                <tr>
@@ -175,11 +176,21 @@
    <!-- //수정 버튼 -->
    <br> <br>
 </div>
-         
-<!--       </div>
-   </div> -->
-   
-<!-- //기업 페이지 -->
+<img id='imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+<script>
+$(document).ready(function(){
+	
+	var imgsrccheck = ('#imgsrccheck');
+	
+	if($('#imgsrccheck').val()!=""){
+		console.log(" val이 널값아님");
+		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+	}else{
+		console.log(" val이 널값이다");
+		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+	}
+});
+</script>
 </body>
          
 <%@include file="../include/cfooter.jsp"%>
