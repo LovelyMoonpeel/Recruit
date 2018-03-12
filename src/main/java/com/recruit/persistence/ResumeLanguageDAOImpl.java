@@ -23,8 +23,8 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	}
 
 	@Override
-	public List<ResumeLanguageVO> selectResumeLanguage(Integer rid) throws Exception {
-		return session.selectList(namespace+".selectResumeLanguage", rid);
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid) throws Exception {
+		return session.selectList(namespace+".selectResumeLanguageList", rid);
 	}
 
 	@Override

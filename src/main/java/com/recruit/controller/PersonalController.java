@@ -177,10 +177,10 @@ public class PersonalController {
 		   
 		   model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 		   
-		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguage(bno));
+		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 		   
-		 //  model.addAttribute("", )
-		   
+		   model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+		   System.out.println(Webservice.selectPWebSiteList(bno));
 	      return "personal/P_detail";
 	   }
 	   

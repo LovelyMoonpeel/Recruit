@@ -298,7 +298,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 RLang 확인 -->
-	<select id="selectResumeLanguage" resultType="com.recruit.domain.ResumeLanguageVO">
+	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
 	 select*
     from project.tblresumeLanguage

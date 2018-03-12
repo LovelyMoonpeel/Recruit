@@ -43,18 +43,23 @@
 	               </tr>
                </c:forEach>
                
-               <tr>
-                  <th class="table-active" scope="row">웹사이트(종류)★</th>
-                  <td>${PWebSiteVO.title}</td>
-                  <th class="table-active" scope="row">웹사이트주소★</th>
-                  <td>${PWebSiteVO.webadd}</td>
-               </tr>               
-               <tr>
-                  <th class="table-active" scope="row">주소</th>
-                  <td>${ResumeVO.address}</td>
-                  <th class="table-active" scope="row">우편번호</th>
-                  <td>${ResumeVO.postcode}</td>
-               </tr>
+               <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
+            
+	               <tr>
+	                  <th class="table-active" scope="row">웹사이트(종류)★</th>
+	                  <td>${PWebSiteVO.title}</td>
+	                  <th class="table-active" scope="row">웹사이트주소★</th>
+	                  <td>${PWebSiteVO.webadd}</td>
+	               </tr>  
+	           </c:forEach> 
+	                        
+	               <tr>
+	                  <th class="table-active" scope="row">주소</th>
+	                  <td>${ResumeVO.address}</td>
+	                  <th class="table-active" scope="row">우편번호</th>
+	                  <td>${ResumeVO.postcode}</td>
+	               </tr>
+               
                
                <tr>
                	  <th>학력사항</th>            
@@ -185,7 +190,7 @@
 <img id='imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 <script>
 $(document).ready(function(){
-	
+	 console.log('${PWebSitelist}');
 	var imgsrccheck = ('#imgsrccheck');
 	
 	if($('#imgsrccheck').val()!=""){

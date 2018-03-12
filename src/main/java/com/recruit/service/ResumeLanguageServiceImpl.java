@@ -21,8 +21,8 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	}
 
 	@Override
-	public List<ResumeLanguageVO> selectResumeLanguage(Integer rid) throws Exception {
-		return dao.selectResumeLanguage(rid);
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid) throws Exception {
+		return dao.selectResumeLanguageList(rid);
 	}
 
 	@Override

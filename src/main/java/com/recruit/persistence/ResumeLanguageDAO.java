@@ -8,7 +8,7 @@ public interface ResumeLanguageDAO {
 	
 	public void createResumeLanguage(ResumeLanguageVO vo)throws Exception;
 	
-	public List<ResumeLanguageVO> selectResumeLanguage(Integer rid)throws Exception;
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid)throws Exception;
 	
 	public void updateResumeLanguage(ResumeLanguageVO vo)throws Exception;
 	

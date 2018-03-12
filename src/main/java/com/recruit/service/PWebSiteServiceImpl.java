@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class PWebSiteServiceImpl implements PWebSiteService{
 	}
 
 	@Override
-	public PWebSiteVO read(Integer id) throws Exception {
-		return dao.readPWebSite(id);
+	public List<PWebSiteVO> selectPWebSiteList(Integer rid) throws Exception {
+		return dao.selectPWebSiteList(rid);
 	}
 
 	@Override

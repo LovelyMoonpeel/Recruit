@@ -8,7 +8,7 @@ public interface ResumeLanguageService {
 	
 	public void regist(ResumeLanguageVO vo)throws Exception;
 	
-	public List<ResumeLanguageVO> selectResumeLanguage(Integer rid)throws Exception;
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid)throws Exception;
 	
 	public void modify(ResumeLanguageVO vo)throws Exception;
 	
