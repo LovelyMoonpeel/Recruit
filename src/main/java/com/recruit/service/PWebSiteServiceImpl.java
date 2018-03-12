@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.PWebSiteVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.PWebSiteDAO;
 
 @Service
@@ -32,6 +31,11 @@ public class PWebSiteServiceImpl implements PWebSiteService{
 	@Override
 	public void remove(Integer id) throws Exception {
 		dao.deletePWebSite(id);
+	}
+
+	@Override
+	public void createPWebSite(PWebSiteVO vo) throws Exception{
+		dao.createPWebSite(vo);
 	}
 
 

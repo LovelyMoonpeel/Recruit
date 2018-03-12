@@ -1,7 +1,6 @@
 package com.recruit.service;
 
 import com.recruit.domain.ResumeLanguageVO;
-import com.recruit.domain.ResumeVO;
 
 public interface ResumeLanguageService {
 	
@@ -12,6 +11,8 @@ public interface ResumeLanguageService {
 	public void modify(ResumeLanguageVO vo)throws Exception;
 	
 	public void remove(Integer id)throws Exception;
+
+	public void createResumeLanguage(ResumeLanguageVO rlangVO)throws Exception;
 
 	
 }

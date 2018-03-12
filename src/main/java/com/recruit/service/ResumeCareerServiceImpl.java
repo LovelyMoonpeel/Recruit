@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.ResumeCareerVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeCareerDAO;
 
 @Service
@@ -32,6 +31,12 @@ public class ResumeCareerServiceImpl implements ResumeCareerService{
 	@Override
 	public void remove(Integer bno) throws Exception {
 		dao.deleteResumeCareer(bno);
+	}
+
+	@Override
+	public void createResumeCareer(ResumeCareerVO vo) throws Exception {
+		dao.createResumeCareer(vo);
+		
 	}
 
 

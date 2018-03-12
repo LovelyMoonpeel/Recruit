@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.RLicenseVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.RLicenseDAO;
 
 @Service
@@ -32,6 +31,11 @@ public class RLicenseServiceImpl implements RLicenseService{
 	@Override
 	public void remove(Integer id) throws Exception {
 		dao.deleteRLicense(id);
+	}
+
+	@Override
+	public void createRLicense(RLicenseVO vo) throws Exception {
+		dao.createRLicense(vo);		
 	}
 
 

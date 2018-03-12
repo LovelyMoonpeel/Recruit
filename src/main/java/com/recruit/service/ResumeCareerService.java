@@ -1,7 +1,6 @@
 package com.recruit.service;
 
 import com.recruit.domain.ResumeCareerVO;
-import com.recruit.domain.ResumeVO;
 
 public interface ResumeCareerService {
 	
@@ -12,6 +11,8 @@ public interface ResumeCareerService {
 	public void modify(ResumeCareerVO vo)throws Exception;
 	
 	public void remove(Integer bno)throws Exception;
+
+	public void createResumeCareer(ResumeCareerVO rcvo)throws Exception;
 
 	
 }

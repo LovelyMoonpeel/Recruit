@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.ResumeLanguageVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeLanguageDAO;
 
 @Service
@@ -32,6 +31,11 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	@Override
 	public void remove(Integer id) throws Exception {
 		dao.deleteResumeLanguage(id);
+	}
+
+	@Override
+	public void createResumeLanguage(ResumeLanguageVO vo) throws Exception {
+		dao.createResumeLanguage(vo);		
 	}
 
 

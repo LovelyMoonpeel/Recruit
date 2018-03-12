@@ -13,6 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.PWebSiteVO;
+import com.recruit.domain.RLicenseVO;
+import com.recruit.domain.ResumeCareerVO;
+import com.recruit.domain.ResumeEduVO;
+import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
@@ -101,22 +106,26 @@ public class PersonalController {
 
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String writeGET(PUserVO puser, Model model) throws Exception {
+	public String writeGET(@RequestParam("id") String id, PUserVO puser, Model model) throws Exception {
 		System.out.println("왜안돼1");
 		System.out.println(puser.toString());
+		
+		model.addAttribute("PUserVO", service.selectPUser(id));
 		return "personal/P_write";
 	}
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume, PTelVO ptvo, Model model) throws Exception {
+	@RequestMapping(value = "/write", method = RequestMethod.POST) // @RequestParam("id")
+	public String writePOST(String id, ResumeVO resume, PTelVO ptvo, PWebSiteVO pwvo, ResumeEduVO revo, ResumeCareerVO rcvo, RLicenseVO rlvo, ResumeLanguageVO rlangVO, Model model) throws Exception {
+		System.out.println("아이디값 불러오나?" + id);
 		System.out.println("왜안돼");
 		System.out.println(resume.toString());
 		Rservice.createROne(resume);
+		ptvo.setRid(Rservice.read(id).getBno());
 		Telservice.createPTel(ptvo);
-		Webservice.createPWebSite(resume);
-		Eduservice.createResumeEdu(resume);
-		Careerservice.createResumeCareer(resume);
-		Licenseservice.createRLicense(resume);
-		Langservice.createResumeLanguage(resume);
+		Webservice.createPWebSite(pwvo);
+		Eduservice.createResumeEdu(revo);
+		Careerservice.createResumeCareer(rcvo);
+		Licenseservice.createRLicense(rlvo);
+		Langservice.createResumeLanguage(rlangVO);
 		
 		return "redirect:/personal/index";
 	}

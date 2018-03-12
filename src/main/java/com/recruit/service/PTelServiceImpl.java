@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.PTelVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.PTelDAO;
 
 @Service

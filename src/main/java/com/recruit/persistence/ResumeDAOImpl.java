@@ -40,11 +40,13 @@ public class ResumeDAOImpl implements ResumeDAO {
 
 	@Override
 	public void createROne(ResumeVO vo) throws Exception {
+		System.out.println("Service createROne");
 		session.insert(namespace + ".createROne", vo);
 	}
 
 	@Override
 	public ResumeVO readROne(Integer bno) throws Exception {
+		System.out.println("Service readROne");
 		return session.selectOne(namespace + ".readROne", bno);
 	}
 
@@ -57,6 +59,7 @@ public class ResumeDAOImpl implements ResumeDAO {
 	@Override
 	public void deleteROne(Integer bno) throws Exception {
 		System.out.println("dao" + bno);
+		System.out.println("Service deleteROne");
 		session.delete(namespace + ".deleteROne", bno);
 	}
 

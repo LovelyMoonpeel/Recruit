@@ -30,16 +30,98 @@
                   <td>${PUserVO.email}</td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">제목</th>
-                  <td colspan="3">${ResumeVO.title}</td>
+                  <th class="table-active" scope="row">전화번호(종류)</th>
+                  <td>${PTelVO.teltitle}</td>
+                  <th class="table-active" scope="row">전화번호</th>
+                  <td>${PTelVO.tel}</td>
                </tr>
+               <tr>
+                  <th class="table-active" scope="row">웹사이트(종류)</th>
+                  <td>${PWebSiteVO.title}</td>
+                  <th class="table-active" scope="row">웹사이트주소</th>
+                  <td>${PWebSiteVO.webadd}</td>
+               </tr>               
                <tr>
                   <th class="table-active" scope="row">주소</th>
-                  <td colspan="3">${ResumeVO.address}</td>
-               </tr>
-               <tr>
+                  <td>${ResumeVO.address}</td>
                   <th class="table-active" scope="row">우편번호</th>
                   <td>${ResumeVO.postcode}</td>
+               </tr>
+               
+               <tr>
+               	  <th>학력사항</th>            
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">학교명</th>
+                  <td>${ResumeEduVO.schoolname}</td>
+                  <th class="table-active" scope="row">학과</th>
+                  <td>${ResumeEduVO.major}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">입학일</th>
+                  <td>${ResumeEduVO.enterdate}</td>
+                  <th class="table-active" scope="row">졸업일</th>
+                  <td>${ResumeEduVO.gradudate}</td>
+               </tr>
+               <tr>
+               	  <th class="table-active" scope="row">졸업상태</th>
+                  <td>${ResumeEduVO.edustatus}</td>
+               </tr>
+               
+               <tr>
+               	  <th>경력사항</th>            
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">회사명</th>
+                  <td>${ResumeCareerVO.cname}</td>
+                  <th class="table-active" scope="row">담당업무</th>
+                  <td>${ResumeCareerVO.jobdescription}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">입사일</th>
+                  <td>${ResumeCareerVO.startjob}</td>
+                  <th class="table-active" scope="row">퇴사일</th>
+                  <td>${ResumeCareerVO.finishjob}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">연봉</th>
+                  <td>${ResumeCareerVO.salary}</td>
+               </tr>
+               
+               <tr>
+               	  <th>보유자격증</th>            
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">자격증명</th>
+                  <td>${RLicenseVO.test}</td>
+                  <th class="table-active" scope="row">발행기관</th>
+                  <td>${RLicenseVO.publeoffice}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">취득일자</th>
+                  <td>${RLicenseVO.acquidate}</td>
+               </tr>               
+               
+               <tr>
+               	  <th>어학능력 및 시험</th>            
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">공인인증시험명</th>
+                  <td>${ResumeLanguageVO.test}</td>
+                  <th class="table-active" scope="row">점수</th>
+                  <td>${ResumeLanguageVO.score}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">발행기관</th>
+                  <td>${ResumeLanguageVO.publeoffice}</td>
+                  <th class="table-active" scope="row">취득일자</th>
+                  <td>${ResumeLanguageVO.acquidate}</td>
+               </tr>               
+               
+               <tr>
+               	  <th>희망 구직 정보</th>            
+               </tr>
+               <tr>
                   <th class="table-active" scope="row">구직상태</th>
                   <td>${ResumeVO.jobstateid}</td>
                </tr>
@@ -47,23 +129,26 @@
                   <th class="table-active" scope="row">희망직종</th>
                   <td>${ResumeVO.jobgroupid}</td>
                   <th class="table-active" scope="row">희망근무형태</th>
-                  <td colspan="3">${ResumeVO.employstatusid}</td>
+                  <td>${ResumeVO.employstatusid}</td>
                </tr>
                <tr>
-                     <th class="table-active" scope="row">희망근무지(시/도)</th>
+                  <th class="table-active" scope="row">희망근무지(시/도)</th>
                   <td>${ResumeVO.rgbid}</td>
                   <th class="table-active" scope="row">희망근무지</th>
                   <td>${ResumeVO.rgsid}</td>
-
                </tr>
                <tr>
                   <th class="table-active" scope="row">희망연봉</th>
-                  <td colspan="3">${ResumeVO.salaryid}</td>
+                  <td>${ResumeVO.salaryid}</td>
                </tr>
-               
+                              
+               <tr>
+                  <th class="table-active" scope="row">제목</th>
+                  <td>${ResumeVO.title}</td>
+               </tr>
                <tr>
                   <th class="table-active" scope="row">자기소개서</th>
-                  <td colspan="3">${ResumeVO.coverletter}</td>
+                  <td>${ResumeVO.coverletter}</td>
                </tr>                     
             </tbody>
          </table>
