@@ -10,7 +10,7 @@
 	<div class="top_cont">
 		<div class="corp_logo">
 			<img src="/resources/rpjt/img/${CInfoVO.img}"
-				width="209" height="117"/> <br> <br>
+				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>

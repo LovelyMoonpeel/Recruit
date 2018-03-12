@@ -1,6 +1,8 @@
 package com.recruit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -43,5 +45,18 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	@Override
 	public List<ResumeVO> PersonRecomList(int bno) throws Exception{
 		return session.selectList(namespace + ".personRecomList", bno);
+	}
+	
+	@Override
+	public void FavorPerson(int bno, String id) throws Exception{
+		
+		
+	HashMap<String, Object> paraMap = new HashMap<>();
+		
+		paraMap.put("bno", bno);
+		paraMap.put("id", id);
+		
+		
+		session.insert(namespace + ".favorPerson" , paraMap);
 	}
 }

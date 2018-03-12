@@ -1,5 +1,6 @@
 package com.recruit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.recruit.domain.CInfoVO;
@@ -22,5 +23,7 @@ public interface CompanyAjaxDAO {
 	public List<RecruitVO> RecruitList1(String id) throws Exception;
 	
 	public List<ResumeVO> PersonRecomList(int bno) throws Exception;
+	
+	public void FavorPerson(int bno, String id) throws Exception;
 	
 }

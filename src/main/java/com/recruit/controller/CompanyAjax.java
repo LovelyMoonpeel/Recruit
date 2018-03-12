@@ -2,7 +2,9 @@ package com.recruit.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -100,6 +102,15 @@ public class CompanyAjax {
 		    }
 
 		    return entity;
+	}
+	
+	@RequestMapping(value = "/favor/{bno}/{id}",method = RequestMethod.GET)
+	public void faver(@PathVariable("bno") int bno, @PathVariable("id") String id) throws Exception{
+		
+	
+		
+		service.FavorPerson(bno, id);
+		
 	}
 	 
 }

@@ -11,6 +11,7 @@
 <!-- 기업 페이지 -->
 <div class="col-md-9">
 	
+	<input type="hidden" id="id" value="${CInfoVO.id}">
 	
 	
 	<div class="col-md-9">
@@ -63,6 +64,7 @@
 $("button").click(function() {
 
 	var bno = $(this).val();
+	
 	$(".tr"+bno).toggle();
 	PersonList(bno);
 	/* $(".tr"+bno).toggle(); */
@@ -88,7 +90,7 @@ function PersonList(bno){
 		var str = "";
 		$(data).each(
 				function() {
-					str += "<tr><td><span value="+this.bno+">"+1+"</span></td><td>"+this.img+"</td><td><a  id="+this.bno+">"+this.title+"</a></td><td>"+this.rgbid+"</td></tr>";
+					str += "<tr><td><a id=r1 value="+this.bno+">"+1+"</a></td><td>"+this.img+"</td><td><h1  id="+this.bno+">"+this.title+"</h1></td><td>"+this.rgbid+"</td></tr>";
 							
 				});
 		
@@ -98,13 +100,46 @@ function PersonList(bno){
 }
 
 
-var a = document.getElementById('25');
-
-a.onclick = function(){
-	
-	alert("hi");
-}
 </script>
+
+<script>
+
+
+$(document).ready(function(){
+	
+	
+	
+	$(document).on("click", '#r1', function(){
+		
+		var id = $('#id').attr('value');
+		var bno = $(this).attr('value');
+		
+		favFun(bno, id);
+	})
+	
+	
+	
+	
+})
+
+function favFun(bno, id){
+			alert(bno);
+			alert(id);
+	$.getJSON("/companyAjax/favor/"+bno+"/"+id, function(data) {
+		var str = "";
+		$(data).each(
+				function() {
+					alert("관심 인재에 등록 됐습니다.");		
+				});
+		
+		
+	})
+	
+		}
+
+</script>
+
+
 
 <!-- //기업 페이지 -->
 

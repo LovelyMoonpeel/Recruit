@@ -139,6 +139,11 @@ and c.bno = #{bno};
 	SELECT  distinct u.pname as img, p.title, r.rgbname as address FROM tblInterestPerson f, tblresume p, tblRegion r, tblUser u 
 	where f.puserid = p.userid and p.rgbid = r.rgbid and u.id = p.userid and f.cuserid = 'park';
 	</select>
+	
+<insert id="favorPerson" parameterType="hashmap">
+insert into tblInterestPerson(cuserid, presume) values(#{paraMap.id},#{paraMap.bno});
+
+</insert>
   
 </mapper>  
 
