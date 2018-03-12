@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class RLicenseServiceImpl implements RLicenseService{
 	}
 
 	@Override
-	public RLicenseVO read(Integer id) throws Exception {
-		return dao.readRLicense(id);
+	public List<RLicenseVO> selectRLicenseList(Integer bno) throws Exception {
+		return dao.selectRLicenseList(bno);
 	}
 
 	@Override

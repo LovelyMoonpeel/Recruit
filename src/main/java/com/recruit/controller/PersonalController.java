@@ -174,7 +174,13 @@ public class PersonalController {
 		   model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		   
 		   model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-
+		   
+		   model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+		   
+		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguage(bno));
+		   
+		 //  model.addAttribute("", )
+		   
 	      return "personal/P_detail";
 	   }
 	   

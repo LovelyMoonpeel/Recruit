@@ -36,18 +36,17 @@
                
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
-	                  <th class="table-active" scope="row">전화번호(종류)</th>
+	                  <th class="table-active" scope="row">전화번호(종류)★</th>
 	                  <td>${PTelVO.title}</td>
-	                  <th class="table-active" scope="row">전화번호</th>
+	                  <th class="table-active" scope="row">전화번호★</th>
 	                  <td>${PTelVO.tel}</td>
 	               </tr>
-               
                </c:forEach>
                
                <tr>
-                  <th class="table-active" scope="row">웹사이트(종류)</th>
+                  <th class="table-active" scope="row">웹사이트(종류)★</th>
                   <td>${PWebSiteVO.title}</td>
-                  <th class="table-active" scope="row">웹사이트주소</th>
+                  <th class="table-active" scope="row">웹사이트주소★</th>
                   <td>${PWebSiteVO.webadd}</td>
                </tr>               
                <tr>
@@ -98,34 +97,41 @@
                </tr>
                
                <tr>
-               	  <th>보유자격증</th>            
+               	  <th>보유자격증 목록~~~~</th>            
                </tr>
+               
+               <c:forEach items="${RLicenselist}" var="RLicenseVO">
                <tr>
-                  <th class="table-active" scope="row">자격증명</th>
+                  <th class="table-active" scope="row">자격증명★</th>
                   <td>${RLicenseVO.test}</td>
-                  <th class="table-active" scope="row">발행기관</th>
+                  <th class="table-active" scope="row">발행기관★</th>
                   <td>${RLicenseVO.publeoffice}</td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">취득일자</th>
+                  <th class="table-active" scope="row">취득일자★</th>
                   <td>${RLicenseVO.acquidate}</td>
-               </tr>               
+               </tr>     
+                         
+                </c:forEach>
                
                <tr>
-               	  <th>어학능력 및 시험</th>            
+               	  <th>어학능력 자격증 목록~~~~</th>            
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">공인인증시험명</th>
-                  <td>${ResumeLanguageVO.test}</td>
-                  <th class="table-active" scope="row">점수</th>
-                  <td>${ResumeLanguageVO.score}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">발행기관</th>
-                  <td>${ResumeLanguageVO.publeoffice}</td>
-                  <th class="table-active" scope="row">취득일자</th>
-                  <td>${ResumeLanguageVO.acquidate}</td>
-               </tr>               
+               
+               <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+	               <tr>
+	                  <th class="table-active" scope="row">공인인증시험명★</th>
+	                  <td>${ResumeLanguageVO.test}</td>
+	                  <th class="table-active" scope="row">점수★</th>
+	                  <td>${ResumeLanguageVO.score}</td>
+	               </tr>
+	               <tr>
+	                  <th class="table-active" scope="row">발행기관★</th>
+	                  <td>${ResumeLanguageVO.publeoffice}</td>
+	                  <th class="table-active" scope="row">취득일자★</th>
+	                  <td>${ResumeLanguageVO.acquidate}</td>
+	               </tr>  
+                </c:forEach>             
                
                <tr>
                	  <th>희망 구직 정보</th>            
@@ -188,6 +194,7 @@ $(document).ready(function(){
 	}else{
 		console.log(" val이 널값이다");
 		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
 	}
 });
 </script>

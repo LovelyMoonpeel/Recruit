@@ -165,11 +165,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 PWebsite 확인 -->
-	<select id="readPWebSite" resultType="com.recruit.domain.PWebSiteVO">
+	<select id="selectPWebSiteList" resultType="com.recruit.domain.PWebSiteVO">
 	<![CDATA[
-	select w.*, r.*
-	from project.tblwebsite w, project.tblresume r
-	where w.rid=r.bno
+	select*
+    from project.tblwebsite
+    where rid=#{bno};
 	]]>
 	</select>
 	
@@ -264,13 +264,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 RLicense 확인 -->
-	<select id="readRLicense" resultType="com.recruit.domain.RLicenseVO">
+	<select id="selectRLicenseList" resultType="com.recruit.domain.RLicenseVO">
 	<![CDATA[
-	select l.*, r.*
-	from project.tbllicense l, project.tblresume r
-	where l.resumenum=r.bno
+	select *
+	from project.tbllicense
+	where rid=#{bno};
 	]]>
 	</select>
+	
 	
 	<!-- 이력서 RLicense 수정 -->
 	<update id="updateRLicense">
@@ -297,11 +298,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 RLang 확인 -->
-	<select id="readResumeLanguage" resultType="com.recruit.domain.ResumeLanguageVO">
+	<select id="selectResumeLanguage" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
-	select lang.*, r.*
-	from project.tblResumeLanguage lang, project.tblresume r
-	where lang.rid=r.bno
+	 select*
+    from project.tblresumeLanguage
+    where rid=#{bno};
 	]]>
 	</select>
 	
