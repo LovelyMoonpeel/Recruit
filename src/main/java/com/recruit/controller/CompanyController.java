@@ -41,7 +41,7 @@ import com.recruit.domain.RegionVO;
 import com.recruit.domain.ImgVO;
 
 @Controller
-@RequestMapping("/rpjt/*")
+@RequestMapping("/company/*")
 public class CompanyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
