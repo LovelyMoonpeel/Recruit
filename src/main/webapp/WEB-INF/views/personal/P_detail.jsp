@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-   
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
          
@@ -31,12 +32,17 @@
                   <th class="table-active" scope="row">이메일</th>
                   <td>${PUserVO.email}</td>
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">전화번호(종류)</th>
-                  <td>${PTelVO.teltitle}</td>
-                  <th class="table-active" scope="row">전화번호</th>
-                  <td>${PTelVO.tel}</td>
-               </tr>
+               
+               <c:forEach items="${PTellist}" var="PTelVO">
+	               <tr>
+	                  <th class="table-active" scope="row">전화번호(종류)</th>
+	                  <td>${PTelVO.title}</td>
+	                  <th class="table-active" scope="row">전화번호</th>
+	                  <td>${PTelVO.tel}</td>
+	               </tr>
+               
+               </c:forEach>
+               
                <tr>
                   <th class="table-active" scope="row">웹사이트(종류)</th>
                   <td>${PWebSiteVO.title}</td>

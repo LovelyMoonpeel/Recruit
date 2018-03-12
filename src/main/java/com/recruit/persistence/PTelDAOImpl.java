@@ -1,11 +1,14 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.PTelVO;
+import com.recruit.domain.PUserVO;
 
 @Repository
 public class PTelDAOImpl implements PTelDAO{
@@ -16,14 +19,13 @@ public class PTelDAOImpl implements PTelDAO{
 	private static String namespace = "com.recruit.mapper.ResumeMapper";
 
 	@Override
-	public void createPTel(PTelVO vo) throws Exception {
-		session.insert(namespace+".createPTel", vo);
+	public void createPTel(PTelVO ptvo) throws Exception {
+		session.insert(namespace+".createPTel", ptvo);
 	}
 
 	@Override
-	public PTelVO readPTel(Integer id) throws Exception {
-		
-		return session.selectOne(namespace+".readPTel", id);
+	public List<PTelVO> selectPTelList(Integer bno) throws Exception {
+		return session.selectList(namespace+".selectPTelList", bno);
 	}
 
 	@Override

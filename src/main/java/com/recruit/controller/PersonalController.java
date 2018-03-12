@@ -130,10 +130,8 @@ public class PersonalController {
 		return "personal/P_write";
 	}
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	//public String writePOST(String id, ResumeVO resume, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, ResumeEduVO revo, ResumeCareerVO rcvo, RLicenseVO rlvo, ResumeLanguageVO rlangVO, Model model) throws Exception {
-	//public String writePOST(String id, ResumeVO resume, String file, PUserVO PUser, Model model) throws Exception {
 	public String writePOST(ResumeVO resume,String file, PUserVO puser, String id, Model model) throws Exception {	
-	System.out.println("write POST controller");
+		System.out.println("write POST controller");
 		System.out.println("id값 뭐받아오냐");
 		System.out.println(id);
 		//puser = service.selectPUser("jin3");
@@ -171,9 +169,11 @@ public class PersonalController {
 		   PUserVO PUser = new PUserVO();
 		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 		   
-		   model.addAttribute("PUserVO",service.selectPUser(PUser.getId()));
+		   model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
 		   
-		   model.addAttribute("ResumeVO",Rservice.readROne(bno));
+		   model.addAttribute("ResumeVO", Rservice.readROne(bno));
+		   
+		   model.addAttribute("PTellist", Telservice.selectPTelList(bno));
 
 	      return "personal/P_detail";
 	   }
@@ -184,26 +184,27 @@ public class PersonalController {
 		// 수정하는 페이지
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
+		
 		System.out.println("get bno" + bno);
+		
 		return "personal/P_Rmodify";
 	}
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(Integer bno, ResumeVO resume, String id, Model model, RedirectAttributes rttr) throws Exception {
 		logger.info("index POST, 개인정보 수정");
-		//logger.info(PUser.toString());
+		System.out.println("bno"+bno);
 		
 		System.out.println(resume.toString());
 		
-		int bno = resume.getBno();
-		
-		System.out.println("bno"+bno);
-		
 		Rservice.updateROne(resume);
 		
+		//ptvo.setRid(bno);
+		//System.out.println(ptvo.toString());
+		
+		//Telservice.createPTel(ptvo);
 		model.addAttribute("result", "success");
-		//rttr.addFlashAttribute("result", "success");
 		rttr.addFlashAttribute("bno", "success");
 		return "redirect:/personal/detail?bno="+bno+""; // redirect는 controller
 	}

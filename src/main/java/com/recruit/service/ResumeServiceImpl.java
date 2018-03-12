@@ -43,13 +43,6 @@ public class ResumeServiceImpl implements ResumeService {
 		
 		return dao.readRLastCreatedOne(puser.getId());
 	}
-/*	
-	@Override
-	public int readRLastCreatedOne() throws Exception {
-		System.out.println("ResumeServiceImpl readLRLastCreatedOne()");
-		return dao.readRLastCreatedOne();
-	}*/
-	
 
 	@Override
 	public AdminResumeVO read(String id) throws Exception {

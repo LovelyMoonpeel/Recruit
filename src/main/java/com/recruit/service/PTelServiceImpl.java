@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class PTelServiceImpl implements PTelService{
 	}
 
 	@Override
-	public PTelVO read(Integer id) throws Exception {
-		return dao.readPTel(id);
+	public List<PTelVO> selectPTelList(Integer bno) throws Exception {
+		return dao.selectPTelList(bno);
 	}
 
 	@Override

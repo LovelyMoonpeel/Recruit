@@ -127,16 +127,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	insert into project.tbltel(rid, title, tel)
 	values(#{rid}, #{title}, #{tel})
+	
 	]]>
 	</insert>
 	
 	<!-- 이력서 PTel 확인 -->
-	<select id="readPTel" resultType="com.recruit.domain.PTelVO">
-	<![CDATA[
-	select t.*, r.*
-	from project.tbltel t, project.tblresume r
-	where t.rid=r.bno
-	]]>
+	<select id="selectPTelList" resultType="com.recruit.domain.PTelVO">
+ 	<![CDATA[
+	select t.*
+	from project.tbltel t
+	where t.rid=#{bno}
+  	]]>
 	</select>
 	
 	<!-- 이력서 PTel 수정 -->
