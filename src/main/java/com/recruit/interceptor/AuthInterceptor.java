@@ -14,6 +14,7 @@ import org.springframework.web.util.WebUtils;
 import com.recruit.domain.BoardVO;
 import com.recruit.service.UserService;
 
+//현재 사용자의 세션에 login이 존재하지 않지만, 쿠키 중애서 loginCookie가 존재할 때 처리가 진행됨
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
   private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
@@ -38,6 +39,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       
       Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
       
+      //현재 사용자가 HttpSession에 적당한 값이 없는 경우 loginCookie를 가지고 있는지를 체크한다.
+      //만일 과거에 보관한 쿠키가 있다면 UserService 객체를 이용해서 사용자의 정보가 존재하는지를 확인한다.
+      //만일 사용자의 정보가 존재한다면 HttpSession에 다시 사용자의 정보를 넣어주게 된다.
       if(loginCookie != null) { 
         
         BoardVO boardVO = service.checkLoginBefore(loginCookie.getValue());

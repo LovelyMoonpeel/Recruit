@@ -9,10 +9,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-${boardVO.id}
- <!--  <script type="text/javascript">
-    self.location = "/";
-  </script> -->
+
+<!--로그인 실패시 처리  -->
+ <script type="text/javascript">
+    self.location = "/personal/index";
+  </script>
+  
+  
 </body>
 </html>
 

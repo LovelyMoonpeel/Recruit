@@ -1,5 +1,7 @@
 package com.recruit.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object boardVO = modelMap.get("boardVO");
+		
+
 		
 		if (boardVO != null) {
 

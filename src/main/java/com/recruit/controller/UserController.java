@@ -39,10 +39,10 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	//무슨 역할 하는지 모름."localhost8080/rpjt/cheader"를 주소창에 넣으면 아래 내용이 출력
-	@RequestMapping(value = "/cheader", method = RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-		System.out.println("/rpjt/cheader 테스트입니다");
-	}
+//	@RequestMapping(value = "/cheader", method = RequestMethod.GET)
+//	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+//		System.out.println("/rpjt/cheader 테스트입니다");
+//	}
 
 	//jsp에서 <form action="/rpjt/loginPost" method="post">으로 이리로 온다.
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
@@ -60,8 +60,10 @@ public class UserController {
 		//Model에 BoardVO객체를 추가
 		model.addAttribute("boardVO", vo);
 
-		//코드의 핵심은 loginCookie 값이 유지되는 시간 정보를 데이터베이스에 저장하는 것
+		
 		System.out.println(dto.isUseCookie());
+		
+		//코드의 핵심은 loginCookie 값이 유지되는 시간 정보를 데이터베이스에 저장하는 것
 		if (dto.isUseCookie()) {
 
 			int amount = 60 * 60 * 24 * 7;
