@@ -33,39 +33,49 @@
          <!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
          <table class="table table-bordered">
             <tbody>
+                <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
+                <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
                <tr>
-                  <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-                  <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-                  <th class="table-active" scope="row"><label for="pname">이름</label> </th>
-                 	<td class="col-sm-4">
-                  		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
-                  	</td>
-                  <th class="table-active" scope="row"><label for="img">사진</label></th>
-                  	<td class="col-sm-4">
-                  		<img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
-                  		<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                  	<div class="form-group">
-						<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-			     		<input type = 'hidden' id='uploadfilename' name = 'img' >
-		     		</div>
-                 	</td>
+                <th class="table-active" scope="row"><label for="pname">이름</label> </th>
+	          	<td class="col-sm-4">
+	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
+	           	</td>
+                <th class="table-active" scope="row"><label for="img">사진</label></th>
+                <td class="col-sm-4">
+                
+                   <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
+				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+				   </div>
+				   	<!--  사진 보이는 div  -->
+				   	
+                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
+                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
+                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
+					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+					
+					<br>
+					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+					<!--파일 업로드 하는 버튼-->
+					
+				   
+               	 </td>
                </tr>
                <tr>
                   <th class="table-active" scope="row"><label>생년월일</label></th>
-                  	<td>
+                  <td>
                   	<div class="form-group">
 						<div class="input-group date" data-provide="datepicker">
 							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 						</div>
 					</div>
-					</td>
+				  </td>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
-                  	<td>
-						<div class="form-group">
-							 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
-						</div>
-					</td>
+            	  <td>
+				  	<div class="form-group">
+					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
+					</div>
+				</td>
                </tr>
                
                <tr>
@@ -116,6 +126,7 @@
                 <th class="table-active" scope="row">상세</th>
                 <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
+          	  
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
 	                  <td>
@@ -191,6 +202,7 @@
       </div>
       <!-- //table-responsive -->
    </div>
+   <br>
    <!--  -------------------------------------------------------------------------- -->
 		<button id="btn-success" class="btn btn-success" type="submit">등록</button>
 	</form>
@@ -223,11 +235,121 @@
 		if($('#imgsrccheck').val()!=""){
 			console.log(" val이 널값아님");
 			$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+			var str = "";
+			str = 
+				  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
+				  +"</a>"
+				  +"<small data-src=${ResumeVO.img}>X</small>";
+			  $("#uploadedList").append(str); 
+			  console.log("uploadedlist에 x버튼 추가");
 		}else{
 			console.log(" val이 널값이다");
 			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
 			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
 		}
+		
+	  ////////////img uploadedList start//////////////////////////////////////////////////////////
+	  // var upload = document.getElementsByTagName('input')[0];
+	   var upload = document.getElementById('fileupload');
+	   var uploadedList = document.getElementById('uploadedList');
+	  
+		if (typeof window.FileReader === 'undefined') {
+		 console.log("window.FileReader 'fail'");
+		} else {
+		 console.log("window.FileReader 'success'");
+		}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+		
+		upload.onchange = function (e) {
+		
+			 var file = upload.files[0];
+			 var reader = new FileReader();
+			 //p542다시 보기
+			 $("#uploadedList").empty();
+			 //reader.onload start
+			 reader.onload = function (event) {
+				 var image = new Image();
+				 image.src = event.target.result;
+				  
+				 uploadedList.innerHTML = '';
+				  // img.width = 200;
+				 image.height = 150;
+				 uploadedList.appendChild(image);
+			 };//reader.onload end
+			 
+		 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+		 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
+		   //  $(".fileDrop").on("drop", function(event){
+				 event.preventDefault();
+				 
+				 //var files = event.originalEvent.dataTransfer.files;
+				 
+				 console.log("file name");
+				 console.log(file);
+				 
+				 var formData = new FormData();
+				 
+				 formData.append("file", file);
+				 
+				 $.ajax({
+					 url:'uploadAjax',
+					 data: formData,
+					 dataType : 'text',
+					 processData : false,
+					 contentType : false,
+					 type : 'POST',
+					 success : function(data){
+					  	//alert(data);
+						   var str = "";
+						  
+						 	console.log(data);
+						 	
+							  str = 
+								  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
+								  +"</a>"
+								  +"<small data-src="+data+">X</small>";
+	
+						  $("#uploadedList").append(str); 
+						  document.getElementById('uploadfilename').value = getImageLink(data);
+					  }//success : function(data){ end
+		 		  });//ajax end
+			//});//filedrop end
+		 console.log(file);
+		 reader.readAsDataURL(file);
+		};//upload change end
+		
+		$("#uploadedList").on("click", "small", function(event){
+			event.preventDefault();
+			var that = $(this);
+			//$("#uploadedList").remove();
+			$("#fileupload").val("");
+			$("#uploadedList").empty();
+			//$("#fileupload").remove();
+			console.log("img File appended deleted");
+			
+			$.ajax({
+				url:"deleteFile",
+				type:"post",
+				data : {fileName:$(this).attr("data-src")},
+				dataType:"text",
+				succss:function(result){
+					if(result=='deleted'){
+						console.log("img File on server deleted");
+						that.parent("div").remove();
+					}
+				}
+			});
+		});
+		
+		function getOriginalName(fileName){
+	      	var idx = fileName.indexOf("_")+1;
+	      	return fileName.substr(idx);
+	      }
+		function getImageLink(fileName){
+	      	var front = fileName.substr(0,12);
+	      	var end = fileName.substr(14);
+	      	
+	      	return front + end;
+	      }
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>
