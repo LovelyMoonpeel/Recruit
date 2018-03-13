@@ -199,13 +199,15 @@ public class PersonalController {
 	   
     // 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
-	public String RmodifyPOST(Integer bno, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, Model model) throws Exception {
 		// 수정하는 페이지
 		System.out.println("Rmodify GET Controller");
 		System.out.println("Rmodify GET bno" + bno);
+		
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
+		System.out.println("Rmodify GET id" + id);
 		
 		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
 		System.out.println("PWebSitelist 결과:"+ Webservice.selectPWebSiteList(bno).toString() );

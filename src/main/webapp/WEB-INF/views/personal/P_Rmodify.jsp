@@ -68,18 +68,21 @@
 					</td>
                </tr>
                
+               <tr>
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
+               </tr>
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
 	                  <td>
 						<div class="form-group">
-							<input type="text" class="form-control" id="title" name="title" value="${PTelVO.title}">
+							<input type="text" class="form-control" name="title" value="${PTelVO.title}">
 						</div>
 					  </td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
 	                  <td>
 	                	<div class="form-group">
-							<input type="text" class="form-control" id="tel" name="tel" value="${PTelVO.tel}">
+							<input type="text" class="form-control" name="tel" value="${PTelVO.tel}">
 						</div>
 	                  </td>
 	               </tr>
@@ -94,13 +97,13 @@
 	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
 	                  <td>
 	                  	<div class="form-group">
-						 <input type="text" class="form-control" id="webtitle" name="webtitle" value="${PWebSiteVO.title}">
+						 <input type="text" class="form-control" name="webtitle" value="${PWebSiteVO.title}">
 						</div>
 	                  </td>
 	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
 	                  <td>
 	                  	<div class="form-group">
-						 <input type="text" class="form-control" id="webadd" name="webadd" value="${PWebSiteVO.webadd}">
+						 <input type="text" class="form-control" name="webadd" value="${PWebSiteVO.webadd}">
 						</div>
 	                  </td>
 	               </tr>  
@@ -117,22 +120,22 @@
 	               <tr>
 	                  <td>
 						<div class="form-group">
-							<input class="form-control" id="test" name="test" value="${RLicenseVO.test}"></input>
+							<input class="form-control" name="test" value="${RLicenseVO.test}"></input>
 						</div>
 					  </td>
 	                  <td>
 	            	    <div class="form-group">
-							 <input class="form-control" id="test" name="test" value="${RLicenseVO.test}"></input>
+							 <input class="form-control" name="test" value="${RLicenseVO.test}"></input>
 					    </div>
 					  </td>
 					  <td>
 					 	<div class="form-group">
-							<input class="form-control" id="publeoffice" name="publeoffice" value="${RLicenseVO.publeoffice}"></input>
+							<input class="form-control" name="publeoffice" value="${RLicenseVO.publeoffice}"></input>
 						</div>
 					  </td>
 					  <td>
 					  	<div class="form-group">
-							<input class="form-control" id="acquidate" name="acquidate" value="${RLicenseVO.acquidate}"></input>
+							<input class="form-control" name="acquidate" value="${RLicenseVO.acquidate}"></input>
 						</div>
 					  </td>
 	               </tr>
@@ -151,29 +154,29 @@
 	               <tr>
 	                  <td>
 	                  	<div class="form-group">
-						 <input class="form-control" id="testname" name="testname" value="${ResumeLanguageVO.test}"></input>
+						 <input class="form-control" name="testname" value="${ResumeLanguageVO.test}"></input>
 						</div>
 					  </td>
 	                  <td>
 	                  	<div class="form-group">
-							<input class="form-control" id="score" name="score" value="${ResumeLanguageVO.score}"></input>
+							<input class="form-control" name="score" value="${ResumeLanguageVO.score}"></input>
 						</div>
 	                  </td>
 	                  <td>
 						<div class="form-group">
-						 <input class="form-control" id="lanpubleoffice" name="lanpubleoffice" value="${ResumeLanguageVO.publeoffice}"></input>
+						 <input class="form-control" name="lanpubleoffice" value="${ResumeLanguageVO.publeoffice}"></input>
 						</div>
 					 </td>
 	                  <td>
 	                  	<div class="form-group">
-						 <input class="form-control" id="lanacquidate" name="lanacquidate" value="${ResumeLanguageVO.acquidate}"></input>
+						 <input class="form-control" name="lanacquidate" value="${ResumeLanguageVO.acquidate}"></input>
 						</div>
 	                  </td>
 	               </tr>  
                 </c:forEach>
                        
                <tr>
-                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">자기소개서</th>
+                  <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
                <tr>
                 <td colspan="4" rowspan="2">
