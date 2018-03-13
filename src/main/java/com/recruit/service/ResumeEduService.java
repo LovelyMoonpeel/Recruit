@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import com.recruit.domain.ResumeEduVO;
 
 public interface ResumeEduService {
@@ -14,4 +16,6 @@ public void regist(ResumeEduVO vo)throws Exception;
 
 	public void createResumeEdu(ResumeEduVO vo)throws Exception;
 
+	// r.code 03/13 추가
+	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception;
 }

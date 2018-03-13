@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../include/pheader.jsp"%>
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
@@ -82,19 +82,19 @@
 		</div>
 
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
-		<hr style="border: solid 0.5px #ccc;">
+		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>학력</b>
 		</h4>
 		<div id="edu_div"></div>
 		<!-- r.code 03/13 : 학력폼을  handlebars(template_edu)로 적용 -->
-		<hr style="border: solid 0.5px #ccc;">
+		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>경력</b>
 		</h4>
 		<div id="exp_div"></div>
 		<!-- r.code 03/13 : 경력폼을  handlebars(template_exp)로 적용 -->
-		<hr style="border: solid 0.5px #ccc;">
+		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 
 		<div class="form-group">
@@ -169,10 +169,10 @@
 </div>
 
 <script id="template_edu" type="text/x-handlebars-template">
+<hr style="border: solid 0.5px #ccc;">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
-		<label>입학일 (추가)</label>
+		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="enterdate"
 				name="enterdate" value="${ResumeEduVO.enterdate}"> <span
@@ -227,10 +227,10 @@
 </script>
 
 <script id="template_exp" type="text/x-handlebars-template">
+<hr style="border: solid 0.5px #ccc;">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
-		<label>입사일 (추가)</label>
+		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="startjob" name="startjob"
 				value="${ResumeCareerVO.startjob}"> <span
@@ -303,7 +303,17 @@
 
 		var formObj = $("form[role = 'form']");
 
-		$(function() {
+		// $(function() {
+		// 	$('.input-group.date').datepicker({
+		// 		calendarWeeks : false,
+		// 		todayHighlight : true,
+		// 		autoclose : true,
+		// 		format : "yyyy-mm-dd",
+		// 		language : "kr"
+		// 	});
+		// });
+
+		function datepick() {
 			$('.input-group.date').datepicker({
 				calendarWeeks : false,
 				todayHighlight : true,
@@ -311,7 +321,7 @@
 				format : "yyyy-mm-dd",
 				language : "kr"
 			});
-		});
+		}
 
 		$("#btn-success").on("click", function() {
 			formObj.attr("action", "/personal/Rmodify");
@@ -332,13 +342,33 @@
 			var source_edu = $("#template_edu").html();
 			var template_edu = Handlebars.compile(source_edu);
 			$("#edu_div").append(template_edu());
+			datepick();
 		}
 
 		function add_exp() {
 			var source_exp = $("#template_exp").html();
 			var template_exp = Handlebars.compile(source_exp);
 			$("#exp_div").append(template_exp());
+			datepick();
 		}
+		
+		function edu_list() {
+			var eduVOlist =  new Array();
+			var num = (${eduVOlist.size()});
+			<c:forEach items="${eduVOlist}" var="eduVO">
+				var eduVO = new Object();
+				eduVO.bno = (${eduVO.bno});
+				eduVO.schoolname = ("${eduVO.schoolname}");
+				eduVO.major = ("${eduVO.major}");
+				eduVO.enterdate = ("${eduVO.enterdate}");
+				eduVO.gradudate = ("${eduVO.gradudate}");
+				eduVO.edustatus = ("${eduVO.edustatus}");
+				console.log(eduVO);
+				eduVOlist.push(eduVO);
+			</c:forEach>
+			console.log(eduVOlist);
+		}
+		edu_list();
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>

@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -8,11 +10,11 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.persistence.ResumeEduDAO;
 
 @Service
-public class ResumeEduServiceImpl implements ResumeEduService{
+public class ResumeEduServiceImpl implements ResumeEduService {
 
 	@Inject
 	private ResumeEduDAO dao;
-	
+
 	@Override
 	public void regist(ResumeEduVO vo) throws Exception {
 		dao.createResumeEdu(vo);
@@ -35,8 +37,12 @@ public class ResumeEduServiceImpl implements ResumeEduService{
 
 	@Override
 	public void createResumeEdu(ResumeEduVO vo) throws Exception {
-		dao.createResumeEdu(vo);		
+		dao.createResumeEdu(vo);
 	}
-
-
+	
+	// r.code 03/13 추가
+	@Override
+	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {
+		return dao.readResumeEduList(bno);
+	}
 }

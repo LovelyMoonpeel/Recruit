@@ -3,6 +3,7 @@ package com.recruit.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -23,16 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.PTelVO;
-import com.recruit.domain.BoardVO;
 import com.recruit.domain.PUserVO;
-import com.recruit.domain.PWebSiteVO;
-import com.recruit.domain.RLicenseVO;
-import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
-import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
-import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.BoardService;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
@@ -193,10 +187,20 @@ public class PersonalController {
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyPOST(Integer bno, Model model) throws Exception {
+
 		// 수정하는 페이지
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		System.out.println("get bno" + bno);
+
+		// r.code 03/13
+		List<ResumeEduVO> resumeEduVOList = Eduservice.readResumeEduList(bno);
+		int num = resumeEduVOList.size();
+		for (int i = 0; i < num; i++) {
+			System.out.println("Personal test: " + resumeEduVOList.get(i));
+		}
+		model.addAttribute("eduVOlist", resumeEduVOList);
+		// end of r.code 03/13
 		return "personal/P_Rmodify";
 	}
 
