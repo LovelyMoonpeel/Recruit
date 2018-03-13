@@ -11,6 +11,11 @@
 <script type="text/javascript"
 	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
+<!-- r.추가  -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
+	
+</script>
 <!-- Main content -->
 
 <div class="col-md-9">
@@ -37,7 +42,7 @@
 			<!--   <div class="form-group col-lg-6"> -->
 			<label>생년월일</label>
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" id="" name="birth"
+				<input type="text" class="form-control" id="birth" name="birth"
 					value="${PUserVO.birth}"> <span class="input-group-addon">
 					<i class="glyphicon glyphicon-calendar"></i>
 				</span>
@@ -77,51 +82,21 @@
 				id="postcode" name="postcode" value="${ResumeVO.postcode}"></input>
 		</div>
 
-
-		<div class="form-group">
-			<label for="schoolname">학교명</label> <input class="form-control"
-				id="schoolname" name="schoolname" value="${ResumeEduVO.schoolname}"></input>
-		</div>
-		<div class="form-group">
-			<label for="major">학과</label> <input class="form-control" id="major"
-				name="major" value="${ResumeEduVO.major}"></input>
-		</div>
-		<div class="form-group">
-			<label for="enterdate">입학일</label> <input class="form-control"
-				id="enterdate" name="enterdate" value="${ResumeEduVO.enterdate}"></input>
-		</div>
-		<div class="form-group">
-			<label for="gradudate">졸업일</label> <input class="form-control"
-				id="gradudate" name="gradudate" value="${ResumeEduVO.gradudate}"></input>
-		</div>
-		<div class="form-group">
-			<label for="edustatus">졸업상태</label> <input class="form-control"
-				id="edustatus" name="edustatus" value="${ResumeEduVO.edustatus}"></input>
-		</div>
-
-
-		<div class="form-group">
-			<label for="cname">회사명</label> <input class="form-control" id="cname"
-				name="cname" value="${ResumeCareerVO.cname}"></input>
-		</div>
-		<div class="form-group">
-			<label for="jobdescription">담당업무</label> <input class="form-control"
-				id="jobdescription" name="jobdescription"
-				value="${ResumeCareerVO.jobdescription}"></input>
-		</div>
-		<div class="form-group">
-			<label for="startjob">입사일</label> <input class="form-control"
-				id="startjob" name="startjob" value="${ResumeCareerVO.startjob}"></input>
-		</div>
-		<div class="form-group">
-			<label for="finishjob">퇴사일</label> <input class="form-control"
-				id="finishjob" name="finishjob" value="${ResumeCareerVO.finishjob}"></input>
-		</div>
-		<div class="form-group">
-			<label for="salary">연봉</label> <input class="form-control"
-				id="salary" name="salary" value="${ResumeCareerVO.salary}"></input>
-		</div>
-
+		<!-- r.code 03/13 : 학력/경력 폼 수정-->
+		<hr style="border: solid 0.5px #ccc;">
+		<h4>
+			<b>학력</b>
+		</h4>
+		<div id="edu_div"></div>
+		<!-- r.code 03/13 : 학력폼을  handlebars(template_edu)로 적용 -->
+		<hr style="border: solid 0.5px #ccc;">
+		<h4>
+			<b>경력</b>
+		</h4>
+		<div id="exp_div"></div>
+		<!-- r.code 03/13 : 경력폼을  handlebars(template_exp)로 적용 -->
+		<hr style="border: solid 0.5px #ccc;">
+		<!-- end of r.code -->
 
 		<div class="form-group">
 			<label for="test">자격증명</label> <input class="form-control" id="test"
@@ -196,6 +171,134 @@
 	</form>
 </div>
 
+<script id="template_edu" type="text/x-handlebars-template">
+<div class="row">
+	<div class="form-group col-md-3">
+		<label>입학일 (추가)</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control" id="enterdate"
+				name="enterdate" value="${ResumeEduVO.enterdate}"> <span
+				class="input-group-addon"> </span>
+		</div>
+		<!-- <input class="form-control" id="enterdate" name="enterdate" -->
+		<!-- value="${ResumeEduVO.enterdate}"></input> -->
+	</div>
+	<div class="form-group col-md-3">
+		<label>졸업일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control" id="gradudate"
+				name="gradudate" value="${ResumeEduVO.gradudate}"> <span
+				class="input-group-addon"> </span>
+		</div>
+		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
+		<!-- value="${ResumeEduVO.gradudate}"></input> -->
+	</div>
+	<div class="form-group col-md-5">
+		<label for="schoolname">학교명</label> <input class="form-control"
+			id="schoolname" name="schoolname" value="${ResumeEduVO.schoolname}"></input>
+	</div>
+	<div class="form-group col-md-4">
+		<label for="major">학과</label> <input class="form-control" id="major"
+			name="major" value="${ResumeEduVO.major}"></input>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="edustatus">졸업상태</label> <select id="edustatus"
+			class="form-control">
+			<option value="0">선택</option>
+			<option value="15">재학</option>
+			<option value="16">졸업</option>
+			<option value="17">중퇴</option>
+			<option value="18">졸업예정</option>
+			<option value="19">휴학</option>
+		</select>
+		<!-- <input class="form-control" id="edustatus" name="edustatus" -->
+		<!-- value="${ResumeEduVO.edustatus}"></input> -->
+	</div>
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default" id="edu_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default" id="edu_minus_btn" type="button"
+			onclick="$(this).closest("div").remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
+<script id="template_exp" type="text/x-handlebars-template">
+<div class="row">
+	<div class="form-group col-md-3">
+		<label>입사일 (추가)</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control" id="startjob" name="startjob"
+				value="${ResumeCareerVO.startjob}"> <span
+				class="input-group-addon"> </span>
+		</div>
+		<!-- <input class="form-control" id="startjob" name="startjob" -->
+		<!-- value="${ResumeCareerVO.startjob}"></input> -->
+	</div>
+	<div class="form-group col-md-3">
+		<label>퇴사일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control" id="finishjob"
+				name="finishjob" value="${ResumeCareerVO.finishjob}"> <span
+				class="input-group-addon"> </span>
+		</div>
+		<!-- <input class="form-control" id="finishjob" name="finishjob" -->
+		<!-- value="${ResumeCareerVO.finishjob}"></input> -->
+	</div>
+	<div class="form-group col-md-5">
+		<label for="cname">회사명</label> <input class="form-control" id="cname"
+			name="cname" value="${ResumeCareerVO.cname}"></input>
+	</div>
+	<div class="form-group col-md-4">
+		<label for="jobdescription">담당업무</label> <input class="form-control"
+			id="jobdescription" name="jobdescription"
+			value="${ResumeCareerVO.jobdescription}"></input>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="salary">연봉</label> <select id="salary"
+			class="form-control">
+			<option value="0">선택</option>
+			<option value="34">~ 2,000</option>
+			<option value="35">2,000 ~ 2,500</option>
+			<option value="36">2,500 ~ 3,000</option>
+			<option value="37">3,000 ~ 3,500</option>
+			<option value="38">3,500 ~ 4,000</option>
+			<option value="39">4,000 ~ 4,500</option>
+			<option value="40">4,500 ~ 5,000</option>
+			<option value="41">5,000 ~ 6,000</option>
+			<option value="42">6,000 ~ 6,500</option>
+			<option value="43">6,500 ~ 7,000</option>
+			<option value="44">7,000 ~ 7,500</option>
+			<option value="45">7,500 ~ 8,000</option>
+			<option value="46">8,000 ~ 8,500</option>
+			<option value="47">8,500 ~ 9,000</option>
+			<option value="48">9,000 ~ 9,500</option>
+			<option value="49">9,500 ~ 10,000</option>
+			<option value="50">10,000 ~ 10,500</option>
+			<option value="51">10,500 ~</option>
+		</select>
+		<!-- <input class="form-control" id="salary" name="salary" -->
+		<!-- value="${ResumeCareerVO.salary}"></input> -->
+	</div>
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default" id="exp_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default" id="exp_minus_btn" type="button"
+			onclick="$(this).closest("div").remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
 <script type='text/javascript'>
 	$(document).ready(function() {
 
@@ -216,6 +319,26 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
+
+		$("#edu_plus_btn").on("click", function() {
+			var source_edu = $("#template_edu").html();
+			var template_edu = Handlebars.compile(source_edu);
+			$("#edu_div").append(template_edu());
+		});
+
+		$("#exp_plus_btn").on("click", function() {
+			var source_exp = $("#template_exp").html();
+			var template_exp = Handlebars.compile(source_exp);
+			$("#exp_div").append(template_exp());
+		});
+
+		var source_edu = $("#template_edu").html();
+		var template_edu = Handlebars.compile(source_edu);
+		$("#edu_div").append(template_edu());
+
+		var source_exp = $("#template_exp").html();
+		var template_exp = Handlebars.compile(source_exp);
+		$("#exp_div").append(template_exp());
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>
