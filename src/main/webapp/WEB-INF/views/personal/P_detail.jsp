@@ -6,9 +6,8 @@
 
          
 <div class="col-md-9">
-   
+   	<h1>${PUserVO.id}님의 이력서 상세</h1>
    <br> <br>
-   
 <!-- 이력서 페이지 두번째(기본 정보) -->
    <div class="company_info_content">
       <!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->

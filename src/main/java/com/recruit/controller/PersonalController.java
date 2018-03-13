@@ -204,7 +204,7 @@ public class PersonalController {
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		
-		System.out.println("get bno" + bno);
+		System.out.println("Rmodify bno" + bno);
 		
 		return "personal/P_Rmodify";
 	}
