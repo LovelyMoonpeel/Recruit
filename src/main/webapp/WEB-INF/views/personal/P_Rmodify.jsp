@@ -37,14 +37,13 @@
                   <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
                   <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
                   <th class="table-active" scope="row"><label for="pname">이름</label> </th>
-                 	<td class="col-sm-4">
+                 	<td class="col-sm-4" colspan="3">
                   		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
                   	</td>
                   <th class="table-active" scope="row"><label for="img">사진</label></th>
-                  	<td class="col-sm-4">
+                  	<td class="col-sm-4" colspan="3">
                   		<img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
                   		<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                  		
                   	<div class="form-group">
 						<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
 			     		<input type = 'hidden' id='uploadfilename' name = 'img' >
@@ -53,7 +52,7 @@
                </tr>
                <tr>
                   <th class="table-active" scope="row"><label>생년월일</label></th>
-                  	<td>
+                  	<td colspan="3">
                   	<div class="form-group">
 						<div class="input-group date" data-provide="datepicker">
 							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
@@ -62,7 +61,7 @@
 					</div>
 					</td>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
-                  	<td>
+                  	<td colspan="3">
 						<div class="form-group">
 							 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
 						</div>
@@ -72,13 +71,13 @@
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
-	                  <td>
+	                  <td colspan="3">
 						<div class="form-group">
 							<input type="text" class="form-control" id="title" name="title" value="${PTelVO.title}">
 						</div>
 					  </td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
-	                  <td>
+	                  <td colspan="3">
 	                	<div class="form-group">
 							<input type="text" class="form-control" id="tel" name="tel" value="${PTelVO.tel}">
 						</div>
@@ -87,19 +86,19 @@
                </c:forEach> 
                
 				<tr>
-                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
+                  <th class="table-active" colspan="8" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
                
                <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
-	                  <td>
+	                  <td colspan="3">
 	                  	<div class="form-group">
 						 <input type="text" class="form-control" id="webtitle" name="webtitle" value="${PWebSiteVO.title}">
 						</div>
 	                  </td>
 	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
-	                  <td>
+	                  <td colspan="3">
 	                  	<div class="form-group">
 						 <input type="text" class="form-control" id="webadd" name="webadd" value="${PWebSiteVO.webadd}">
 						</div>
@@ -108,47 +107,42 @@
 	           </c:forEach> 
 	           
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
+               	  <th class="table-active" colspan="8" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
 	                  <th class="table-active" scope="row">자격증명</th>
-	                  <td>${RLicenseVO.test}</td>
+	                  <td colspan="2">${RLicenseVO.test}</td>
 	                  <th class="table-active" scope="row">발행기관</th>
-	                  <td>${RLicenseVO.publeoffice}</td>
+	                  <td colspan="2">${RLicenseVO.publeoffice}</td>
 	                  <th class="table-active" scope="row">취득일자</th>
 	                  <td>${RLicenseVO.acquidate}</td>
 	               </tr>
-	              <%--  <tr>
-	                  <th class="table-active" scope="row">취득일자</th>
-	                  <td>${RLicenseVO.acquidate}</td>
-	               </tr>  --%>    
                 </c:forEach>
                
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
+               	  <th class="table-active" colspan="8" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                
-               <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
 	                  <th class="table-active" scope="row">공인인증시험명</th>
 	                  <td>${ResumeLanguageVO.test}</td>
 	                  <th class="table-active" scope="row">점수</th>
 	                  <td>${ResumeLanguageVO.score}</td>
-	               </tr>
-	               <tr>
 	                  <th class="table-active" scope="row">발행기관</th>
 	                  <td>${ResumeLanguageVO.publeoffice}</td>
 	                  <th class="table-active" scope="row">취득일자</th>
 	                  <td>${ResumeLanguageVO.acquidate}</td>
 	               </tr>  
-                </c:forEach>            
+                </c:forEach>
+                       
                <tr>
-                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">자기소개서</th>
+                  <th class="table-active" colspan="8" scope="row" style = "text-align: center;">자기소개서</th>
                </tr> 
                <tr>
-                <td colspan="4" rowspan="2">
+                <td colspan="8" rowspan="2">
                   	<div class="form-group">
 						<textarea class="form-control" rows="10" id="coverletter" name="coverletter">${ResumeVO.coverletter}</textarea>
 					</div>
@@ -161,7 +155,6 @@
       <!-- //table-responsive -->
    </div>
    <!--  -------------------------------------------------------------------------- -->
-
 		<button id="btn-success" class="btn btn-success" type="submit">등록</button>
 	</form>
 </div>
