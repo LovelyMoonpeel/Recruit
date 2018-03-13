@@ -200,6 +200,7 @@ public class PersonalController {
 			System.out.println("Personal test: " + resumeEduVOList.get(i));
 		}
 		model.addAttribute("eduVOlist", resumeEduVOList);
+		model.addAttribute("eduVOlist", resumeEduVOList);
 		// end of r.code 03/13
 		return "personal/P_Rmodify";
 	}
@@ -277,9 +278,7 @@ public class PersonalController {
 	public String appliedGET(@RequestParam("id") String id, Model model) throws Exception {
 		// private CRecruitService Cservice;
 		model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
-
 		model.addAttribute("PUserVO", service.selectPUser(id));
-
 		return "personal/P_applied";
 	}
 	////// IMG UPLOAD/////////////img
@@ -362,8 +361,6 @@ public class PersonalController {
 		}
 
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
-
 }

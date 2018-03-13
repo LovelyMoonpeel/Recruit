@@ -174,8 +174,8 @@
 	<div class="form-group col-md-3">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control" id="enterdate"
-				name="enterdate" value="${ResumeEduVO.enterdate}"> <span
+			<input type="text" class="form-control enterdate"
+				name="enterdate" value="{{enterdate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="enterdate" name="enterdate" -->
@@ -184,26 +184,26 @@
 	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control" id="gradudate"
-				name="gradudate" value="${ResumeEduVO.gradudate}"> <span
+			<input type="text" class="form-control gradudate"
+				name="gradudate" value="{{gradudate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
 		<!-- value="${ResumeEduVO.gradudate}"></input> -->
 	</div>
 	<div class="form-group col-md-5">
-		<label for="schoolname">학교명</label> <input class="form-control"
-			id="schoolname" name="schoolname" value="${ResumeEduVO.schoolname}"></input>
+		<label for="schoolname">학교명</label> <input class="form-control schoolname"
+			name="schoolname" value="{{schoolname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
-		<label for="major">학과</label> <input class="form-control" id="major"
-			name="major" value="${ResumeEduVO.major}"></input>
+		<label for="major">학과</label> <input class="form-control major"
+			name="major" value="{{major}}""></input>
 	</div>
 	<div class="form-group col-md-3">
-		<label for="edustatus">졸업상태</label> <select id="edustatus"
-			class="form-control">
+		<label for="edustatus">졸업상태</label>
+		<select class="form-control edustatus">
 			<option value="0">선택</option>
-			<option value="15">재학</option>
+			<option value="15" selected>재학</option>
 			<option value="16">졸업</option>
 			<option value="17">중퇴</option>
 			<option value="18">졸업예정</option>
@@ -233,7 +233,7 @@
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="startjob" name="startjob"
-				value="${ResumeCareerVO.startjob}"> <span
+				value="입사일"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="startjob" name="startjob" -->
@@ -243,7 +243,7 @@
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="finishjob"
-				name="finishjob" value="${ResumeCareerVO.finishjob}"> <span
+				name="finishjob" value="퇴사일"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="finishjob" name="finishjob" -->
@@ -251,18 +251,18 @@
 	</div>
 	<div class="form-group col-md-5">
 		<label for="cname">회사명</label> <input class="form-control" id="cname"
-			name="cname" value="${ResumeCareerVO.cname}"></input>
+			name="cname" value="회사명"></input>
 	</div>
 	<div class="form-group col-md-4">
 		<label for="jobdescription">담당업무</label> <input class="form-control"
 			id="jobdescription" name="jobdescription"
-			value="${ResumeCareerVO.jobdescription}"></input>
+			value="담당업무"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="salary">연봉</label> <select id="salary"
 			class="form-control">
 			<option value="0">선택</option>
-			<option value="34">~ 2,000</option>
+			<option value="34" selected>~ 2,000</option>
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
 			<option value="37">3,000 ~ 3,500</option>
@@ -335,38 +335,37 @@
 		// exp 추가버튼 이벤트
 		$("#exp_div").on("click", ".exp_plus_btn", add_exp);
 
-		add_edu();
+		// add_edu();
 		add_exp();
 
-		function add_edu() {
+		function add_edu(item) {
 			var source_edu = $("#template_edu").html();
 			var template_edu = Handlebars.compile(source_edu);
-			$("#edu_div").append(template_edu());
+			$("#edu_div").append(template_edu(item));
 			datepick();
 		}
 
-		function add_exp() {
+		function add_exp(item) {
 			var source_exp = $("#template_exp").html();
 			var template_exp = Handlebars.compile(source_exp);
-			$("#exp_div").append(template_exp());
+			$("#exp_div").append(template_exp(item));
 			datepick();
 		}
 		
 		function edu_list() {
-			var eduVOlist =  new Array();
 			var num = (${eduVOlist.size()});
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var eduVO = new Object();
-				eduVO.bno = (${eduVO.bno});
-				eduVO.schoolname = ("${eduVO.schoolname}");
-				eduVO.major = ("${eduVO.major}");
-				eduVO.enterdate = ("${eduVO.enterdate}");
-				eduVO.gradudate = ("${eduVO.gradudate}");
-				eduVO.edustatus = ("${eduVO.edustatus}");
-				console.log(eduVO);
-				eduVOlist.push(eduVO);
+				var item = {
+						bno : ${eduVO.bno},
+						schoolname : "${eduVO.schoolname}",
+						major : "${eduVO.major}",
+						enterdate : "${eduVO.enterdate}",
+						gradudate : "${eduVO.gradudate}",
+						edustatus : ${eduVO.edustatus}
+					};
+				add_edu(item);
 			</c:forEach>
-			console.log(eduVOlist);
 		}
 		edu_list();
 	});
