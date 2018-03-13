@@ -1,6 +1,5 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'cbranch' of https\://github.com/LovelyMoonpeel/Recruit.git
 eclipse.preferences.version=1
-<<<<<<< HEAD
-encoding//src/main/webapp/WEB-INF/views/personal/P_write_examplejsp.jsp=UTF-8
-=======
 encoding//src/main/webapp/WEB-INF/views/include/jheader.jsp=UTF-8
->>>>>>> branch 'cbranch' of https://github.com/LovelyMoonpeel/Recruit.git

@@ -1,5 +1,7 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,8 +23,8 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	}
 
 	@Override
-	public ResumeLanguageVO readResumeLanguage(Integer id) throws Exception {
-		return session.selectOne(namespace+".readResumeLanguage", id);
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid) throws Exception {
+		return session.selectList(namespace+".selectResumeLanguageList", rid);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-   
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
          
@@ -22,7 +23,8 @@
                   <td class="col-sm-4">${PUserVO.pname}</td>
                   <th class="table-active" scope="row">사진</th>
                   <td class="col-sm-4">
-                  <img src='displayFile?fileName=${ResumeVO.img}' height = "150px;" alt="${ResumeVO.img}" /> 
+                  <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+                  <input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
                   </td>
                </tr>
                <tr>
@@ -31,24 +33,33 @@
                   <th class="table-active" scope="row">이메일</th>
                   <td>${PUserVO.email}</td>
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">전화번호(종류)</th>
-                  <td>${PTelVO.teltitle}</td>
-                  <th class="table-active" scope="row">전화번호</th>
-                  <td>${PTelVO.tel}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">웹사이트(종류)</th>
-                  <td>${PWebSiteVO.title}</td>
-                  <th class="table-active" scope="row">웹사이트주소</th>
-                  <td>${PWebSiteVO.webadd}</td>
-               </tr>               
-               <tr>
-                  <th class="table-active" scope="row">주소</th>
-                  <td>${ResumeVO.address}</td>
-                  <th class="table-active" scope="row">우편번호</th>
-                  <td>${ResumeVO.postcode}</td>
-               </tr>
+               
+               <c:forEach items="${PTellist}" var="PTelVO">
+	               <tr>
+	                  <th class="table-active" scope="row">전화번호(종류)★</th>
+	                  <td>${PTelVO.title}</td>
+	                  <th class="table-active" scope="row">전화번호★</th>
+	                  <td>${PTelVO.tel}</td>
+	               </tr>
+               </c:forEach>
+               
+               <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
+            
+	               <tr>
+	                  <th class="table-active" scope="row">웹사이트(종류)★</th>
+	                  <td>${PWebSiteVO.title}</td>
+	                  <th class="table-active" scope="row">웹사이트주소★</th>
+	                  <td>${PWebSiteVO.webadd}</td>
+	               </tr>  
+	           </c:forEach> 
+	                        
+	               <tr>
+	                  <th class="table-active" scope="row">주소</th>
+	                  <td>${ResumeVO.address}</td>
+	                  <th class="table-active" scope="row">우편번호</th>
+	                  <td>${ResumeVO.postcode}</td>
+	               </tr>
+               
                
                <tr>
                	  <th>학력사항</th>            
@@ -91,34 +102,41 @@
                </tr>
                
                <tr>
-               	  <th>보유자격증</th>            
+               	  <th>보유자격증 목록~~~~</th>            
                </tr>
+               
+               <c:forEach items="${RLicenselist}" var="RLicenseVO">
                <tr>
-                  <th class="table-active" scope="row">자격증명</th>
+                  <th class="table-active" scope="row">자격증명★</th>
                   <td>${RLicenseVO.test}</td>
-                  <th class="table-active" scope="row">발행기관</th>
+                  <th class="table-active" scope="row">발행기관★</th>
                   <td>${RLicenseVO.publeoffice}</td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">취득일자</th>
+                  <th class="table-active" scope="row">취득일자★</th>
                   <td>${RLicenseVO.acquidate}</td>
-               </tr>               
+               </tr>     
+                         
+                </c:forEach>
                
                <tr>
-               	  <th>어학능력 및 시험</th>            
+               	  <th>어학능력 자격증 목록~~~~</th>            
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">공인인증시험명</th>
-                  <td>${ResumeLanguageVO.test}</td>
-                  <th class="table-active" scope="row">점수</th>
-                  <td>${ResumeLanguageVO.score}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">발행기관</th>
-                  <td>${ResumeLanguageVO.publeoffice}</td>
-                  <th class="table-active" scope="row">취득일자</th>
-                  <td>${ResumeLanguageVO.acquidate}</td>
-               </tr>               
+               
+               <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+	               <tr>
+	                  <th class="table-active" scope="row">공인인증시험명★</th>
+	                  <td>${ResumeLanguageVO.test}</td>
+	                  <th class="table-active" scope="row">점수★</th>
+	                  <td>${ResumeLanguageVO.score}</td>
+	               </tr>
+	               <tr>
+	                  <th class="table-active" scope="row">발행기관★</th>
+	                  <td>${ResumeLanguageVO.publeoffice}</td>
+	                  <th class="table-active" scope="row">취득일자★</th>
+	                  <td>${ResumeLanguageVO.acquidate}</td>
+	               </tr>  
+                </c:forEach>             
                
                <tr>
                	  <th>희망 구직 정보</th>            
@@ -169,11 +187,22 @@
    <!-- //수정 버튼 -->
    <br> <br>
 </div>
-         
-<!--       </div>
-   </div> -->
-   
-<!-- //기업 페이지 -->
+<img id='imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+<script>
+$(document).ready(function(){
+	 console.log('${PWebSitelist}');
+	var imgsrccheck = ('#imgsrccheck');
+	
+	if($('#imgsrccheck').val()!=""){
+		console.log(" val이 널값아님");
+		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+	}else{
+		console.log(" val이 널값이다");
+		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+	}
+});
+</script>
 </body>
          
 <%@include file="../include/cfooter.jsp"%>

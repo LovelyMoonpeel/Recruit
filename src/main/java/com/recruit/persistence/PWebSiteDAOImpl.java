@@ -1,5 +1,7 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,8 +23,8 @@ public class PWebSiteDAOImpl implements PWebSiteDAO{
 	}
 
 	@Override
-	public PWebSiteVO readPWebSite(Integer id) throws Exception {
-		return session.selectOne(namespace+".readPWebSite", id);
+	public List<PWebSiteVO> selectPWebSiteList(Integer rid) throws Exception {
+		return session.selectList(namespace+".selectPWebSiteList", rid);
 	}
 
 	@Override

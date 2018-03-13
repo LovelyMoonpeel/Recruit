@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	}
 
 	@Override
-	public ResumeLanguageVO read(Integer id) throws Exception {
-		return dao.readResumeLanguage(id);
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid) throws Exception {
+		return dao.selectResumeLanguageList(rid);
 	}
 
 	@Override

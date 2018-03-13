@@ -1,12 +1,14 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import com.recruit.domain.PWebSiteVO;
 
 public interface PWebSiteDAO {
 
 	public void createPWebSite(PWebSiteVO vo)throws Exception;
 	
-	public PWebSiteVO readPWebSite(Integer id)throws Exception;
+	public List<PWebSiteVO> selectPWebSiteList(Integer rid)throws Exception;
 	
 	public void updatePWebSite(PWebSiteVO vo)throws Exception;
 	

@@ -127,16 +127,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	insert into project.tbltel(rid, title, tel)
 	values(#{rid}, #{title}, #{tel})
+	
 	]]>
 	</insert>
 	
 	<!-- 이력서 PTel 확인 -->
-	<select id="readPTel" resultType="com.recruit.domain.PTelVO">
-	<![CDATA[
-	select t.*, r.*
-	from project.tbltel t, project.tblresume r
-	where t.rid=r.bno
-	]]>
+	<select id="selectPTelList" resultType="com.recruit.domain.PTelVO">
+ 	<![CDATA[
+	select t.*
+	from project.tbltel t
+	where t.rid=#{bno}
+  	]]>
 	</select>
 	
 	<!-- 이력서 PTel 수정 -->
@@ -164,11 +165,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 PWebsite 확인 -->
-	<select id="readPWebSite" resultType="com.recruit.domain.PWebSiteVO">
+	<select id="selectPWebSiteList" resultType="com.recruit.domain.PWebSiteVO">
 	<![CDATA[
-	select w.*, r.*
-	from project.tblwebsite w, project.tblresume r
-	where w.rid=r.bno
+	select*
+    from project.tblwebsite
+    where rid=#{bno};
 	]]>
 	</select>
 	
@@ -263,13 +264,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 RLicense 확인 -->
-	<select id="readRLicense" resultType="com.recruit.domain.RLicenseVO">
+	<select id="selectRLicenseList" resultType="com.recruit.domain.RLicenseVO">
 	<![CDATA[
-	select l.*, r.*
-	from project.tbllicense l, project.tblresume r
-	where l.resumenum=r.bno
+	select *
+	from project.tbllicense
+	where rid=#{bno};
 	]]>
 	</select>
+	
 	
 	<!-- 이력서 RLicense 수정 -->
 	<update id="updateRLicense">
@@ -296,11 +298,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 이력서 RLang 확인 -->
-	<select id="readResumeLanguage" resultType="com.recruit.domain.ResumeLanguageVO">
+	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
-	select lang.*, r.*
-	from project.tblResumeLanguage lang, project.tblresume r
-	where lang.rid=r.bno
+	 select*
+    from project.tblresumeLanguage
+    where rid=#{bno};
 	]]>
 	</select>
 	

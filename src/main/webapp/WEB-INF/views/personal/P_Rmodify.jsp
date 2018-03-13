@@ -17,9 +17,12 @@
 	<h1>이력서 작성</h1>
 
 	<form role="form" method="post">
+		<input type="hidden" class="form-control" id="bno" name="bno"
+			value="${ResumeVO.bno}"> 
 
 		<input type="hidden" class="form-control" id="userid" name="userid"
-			value="${PUserVO.id}"> <input type="hidden"
+			value="${PUserVO.id}"> 
+			<input type="hidden"
 			class="form-control" id="id" name="id" value="${PUserVO.id}">
 
 		<div class="form-group">
