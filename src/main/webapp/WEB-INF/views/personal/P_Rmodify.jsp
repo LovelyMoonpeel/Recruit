@@ -204,8 +204,9 @@
    </div>
    <br>
    <!--  -------------------------------------------------------------------------- -->
-		<button id="btn-success" class="btn btn-success" type="submit">등록</button>
 	</form>
+		<button id="btn-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
+		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
 
 <script type='text/javascript'>
@@ -278,9 +279,7 @@
 			 
 		 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
 		 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
-		   //  $(".fileDrop").on("drop", function(event){
 				 event.preventDefault();
-				 
 				 //var files = event.originalEvent.dataTransfer.files;
 				 
 				 console.log("file name");
@@ -320,7 +319,15 @@
 		$("#uploadedList").on("click", "small", function(event){
 			event.preventDefault();
 			var that = $(this);
-			//$("#uploadedList").remove();
+			
+			console.log($(this));
+			
+			var fileName = $(this).attr("data-src");
+			var front = fileName.substring(0, 12);
+			var end = fileName.substring(12);
+			
+			fileName = front + "s_" + end;
+			
 			$("#fileupload").val("");
 			$("#uploadedList").empty();
 			//$("#fileupload").remove();
@@ -329,7 +336,8 @@
 			$.ajax({
 				url:"deleteFile",
 				type:"post",
-				data : {fileName:$(this).attr("data-src")},
+				//data : {fileName:$(this).attr("data-src")},
+				data: {fileName:fileName},
 				dataType:"text",
 				succss:function(result){
 					if(result=='deleted'){

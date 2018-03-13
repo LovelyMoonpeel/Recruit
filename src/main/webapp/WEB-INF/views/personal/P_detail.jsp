@@ -183,7 +183,6 @@
    <!-- //수정, 목록 버튼 -->
    <br> <br>
 </div>
-<img id='imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 <script>
 $(document).ready(function(){
 	console.log('${PWebSitelist}');

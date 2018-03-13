@@ -349,6 +349,7 @@ public class PersonalController {
 		MediaType mType = MediaUtils.getMediaType(formatName);
 
 		if (mType != null) {
+			System.out.println("if 문 안으로 들어왔다.");
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
 			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();

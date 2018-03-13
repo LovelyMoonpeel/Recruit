@@ -59,7 +59,7 @@
   <br>
   <div class = "form-group">
      	<button id = "write-success" class="btn btn-success col-md-offset-10"  type='submit'> 등록 </button>
-     	<button id = "write-cancel" class="btn btn-danger" type='submit'>취소</button>
+     	<button id = "write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';">취소</button>
   </div>
   <br>
   <br>
