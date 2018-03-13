@@ -26,7 +26,6 @@
 		<input type="hidden" class="form-control" id="userid" name="userid"
 			value="${PUserVO.id}"> <input type="hidden"
 			class="form-control" id="id" name="id" value="${PUserVO.id}">
-
 		<div class="form-group">
 			<label for="pname">이름</label> <input type="text" class="form-control"
 				id="pname" name="pname" value="${PUserVO.pname}">
@@ -129,8 +128,6 @@
 				id="lanacquidate" name="lanacquidate"
 				value="${ResumeLanguageVO.acquidate}"></input>
 		</div>
-
-
 		<div class="form-group">
 			<label for="jobstateid">구직상태</label> <input class="form-control"
 				id="jobstateid" name="jobstateid" value="${ResumeVO.jobstateid}">
@@ -173,6 +170,7 @@
 
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row">
+	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입학일 (추가)</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -216,11 +214,11 @@
 	</div>
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br />
-		<button class="btn btn-default" id="edu_plus_btn" type="button">
+		<button class="btn btn-default edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default" id="edu_minus_btn" type="button"
-			onclick="$(this).closest("div").remove();">
+		<button class="btn btn-default edu_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -230,6 +228,7 @@
 
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row">
+	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일 (추가)</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -287,11 +286,11 @@
 	</div>
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br />
-		<button class="btn btn-default" id="exp_plus_btn" type="button">
+		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default" id="exp_minus_btn" type="button"
-			onclick="$(this).closest("div").remove();">
+		<button class="btn btn-default exp_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -320,25 +319,26 @@
 			formObj.submit();
 		});
 
-		$("#edu_plus_btn").on("click", function() {
+		// edu 추가버튼 이벤트
+		$("#edu_div").on("click", ".edu_plus_btn", add_edu);
+
+		// exp 추가버튼 이벤트
+		$("#exp_div").on("click", ".exp_plus_btn", add_exp);
+
+		add_edu();
+		add_exp();
+
+		function add_edu() {
 			var source_edu = $("#template_edu").html();
 			var template_edu = Handlebars.compile(source_edu);
 			$("#edu_div").append(template_edu());
-		});
+		}
 
-		$("#exp_plus_btn").on("click", function() {
+		function add_exp() {
 			var source_exp = $("#template_exp").html();
 			var template_exp = Handlebars.compile(source_exp);
 			$("#exp_div").append(template_exp());
-		});
-
-		var source_edu = $("#template_edu").html();
-		var template_edu = Handlebars.compile(source_edu);
-		$("#edu_div").append(template_edu());
-
-		var source_exp = $("#template_exp").html();
-		var template_exp = Handlebars.compile(source_exp);
-		$("#exp_div").append(template_exp());
+		}
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>
