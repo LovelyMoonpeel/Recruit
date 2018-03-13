@@ -201,10 +201,21 @@ public class PersonalController {
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyPOST(Integer bno, Model model) throws Exception {
 		// 수정하는 페이지
-		model.addAttribute("PUserVO", service.selectPUser("jin3"));
+		System.out.println("Rmodify GET Controller");
+		System.out.println("Rmodify GET bno" + bno);
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		
-		System.out.println("Rmodify bno" + bno);
+		model.addAttribute("PUserVO", service.selectPUser("jin3"));
+		
+		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+		System.out.println("PWebSitelist 결과:"+ Webservice.selectPWebSiteList(bno).toString() );
+		
+		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+		
+		System.out.println(Webservice.selectPWebSiteList(bno));
+		
 		
 		return "personal/P_Rmodify";
 	}
@@ -212,20 +223,25 @@ public class PersonalController {
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	public String RmodifyPOST(Integer bno, ResumeVO resume, String id, Model model, RedirectAttributes rttr) throws Exception {
-		logger.info("index POST, 개인정보 수정");
-		// logger.info(PUser.toString());
-		System.out.println("bno"+bno);
-		System.out.println(resume.toString());
+		System.out.println("Rmodify POST Controller");  
+		/*PUserVO PUser = new PUserVO();
+		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+	   
+		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
+	   
+		model.addAttribute("ResumeVO", Rservice.readROne(bno));
+	   
+		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+	   
+		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+	   
+		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));*/
+		System.out.println("Rmodify POST bno" + bno);
+		System.out.println("Rmodify POST id" + id);
+		
 
-		//int bno = resume.getBno();
 		Rservice.updateROne(resume);
 
-		//ptvo.setRid(bno);
-		//System.out.println(ptvo.toString());
-		//Telservice.createPTel(ptvo);
-		model.addAttribute("result", "success");
-		// rttr.addFlashAttribute("result", "success");
-		rttr.addFlashAttribute("bno", "success");
 		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
 	}
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
@@ -25,93 +26,7 @@
 			<label for="title">제목</label> <input class="form-control" id="title"
 				name="title" value="${ResumeVO.title}">
 		</div>
-		<div class="form-group">
-			<label for="pname">이름</label> <input type="text" class="form-control"
-				id="pname" name="pname" value="${PUserVO.pname}">
-		</div>
-		<div class="form-group">
-			<label for="img">사진</label>
-			<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-     		<input type = 'hidden' id='uploadfilename' name = 'img' >
-		</div>
-		<div class="form-group">
-			<!-- ☆google search : datepicker -->
-			<!--   <div class="form-group col-lg-6"> -->
-			<label>생년월일</label>
-			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" id="" name="birth"
-					value="${PUserVO.birth}"> <span class="input-group-addon">
-					<i class="glyphicon glyphicon-calendar"></i>
-				</span>
-			</div>
-			<!--  </div>  -->
-		</div>
-		<div class="form-group">
-			<label for="email">이메일</label> <input type="text"
-				class="form-control" id="email" name="email"
-				value="${PUserVO.email}">
-		</div>
-		<div class="form-group">
-			<label for="teltitle">전화번호(종류)</label> <input type="text"
-				class="form-control" id="teltitle" name="teltitle"
-				value="${PTelVO.teltitle}">
-		</div>
-		<div class="form-group">
-			<label for="tel">전화번호</label> <input type="text" class="form-control"
-				id="tel" name="tel" value="${PTelVO.tel}">
-		</div>
-		<div class="form-group">
-			<label for="webtitle">웹사이트(종류)</label> <input type="text"
-				class="form-control" id="webtitle" name="webtitle"
-				value="${PWebSiteVO.title}">
-		</div>
-		<div class="form-group">
-			<label for="webadd">웹사이트</label> <input type="text"
-				class="form-control" id="webadd" name="webadd"
-				value="${PWebSiteVO.webadd}">
-		</div>
-		<div class="form-group">
-			<label for="test">자격증명</label> <input class="form-control" id="test"
-				name="test" value="${RLicenseVO.test}"></input>
-		</div>
-		<div class="form-group">
-			<label for="publeoffice">발행기관</label> <input class="form-control"
-				id="publeoffice" name="publeoffice"
-				value="${RLicenseVO.publeoffice}"></input>
-		</div>
-		<div class="form-group">
-			<label for="acquidate">취득일자</label> <input class="form-control"
-				id="acquidate" name="acquidate" value="${RLicenseVO.acquidate}"></input>
-		</div>
-		<div class="form-group">
-			<label for="testname">공인인증시험명</label> <input class="form-control"
-				id="testname" name="testname" value="${ResumeLanguageVO.test}"></input>
-		</div>
-		<div class="form-group">
-			<label for="score">점수</label> <input class="form-control" id="score"
-				name="score" value="${ResumeLanguageVO.score}"></input>
-		</div>
-		<div class="form-group">
-			<label for="lanpubleoffice">발행기관</label> <input class="form-control"
-				id="lanpubleoffice" name="lanpubleoffice"
-				value="${ResumeLanguageVO.publeoffice}"></input>
-		</div>
-		<div class="form-group">
-			<label for="lanacquidate">취득일자</label> <input class="form-control"
-				id="lanacquidate" name="lanacquidate"
-				value="${ResumeLanguageVO.acquidate}"></input>
-		</div>
-		<div class="form-group">
-			<label for="coverletter">자기소개서</label>
-			<textarea class="form-control" rows="10" id="coverletter"
-				name="coverletter">${ResumeVO.coverletter}</textarea>
-		</div>
-		
-		
-		
-		   <!--  -------------------------------------------------------------------------- -->
-
-		
+   <!--  -------------------------------------------------------------------------- -->
 		 <div class="company_info_content">
       <!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
       <div class="table-responsive">
@@ -121,157 +36,124 @@
                <tr>
                   <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
                   <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-                  <th class="table-active" scope="row">이름</th>
-                  <td class="col-sm-4">${PUserVO.pname}</td>
-                  <th class="table-active" scope="row">사진</th>
-                  <td class="col-sm-4">
-                  <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
-                  <input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                  </td>
+                  <th class="table-active" scope="row"><label for="pname">이름</label> </th>
+                 	<td class="col-sm-4">
+                  		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
+                  	</td>
+                  <th class="table-active" scope="row"><label for="img">사진</label></th>
+                  	<td class="col-sm-4">
+                  		<img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+                  		<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
+                  		
+                  	<div class="form-group">
+						<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+			     		<input type = 'hidden' id='uploadfilename' name = 'img' >
+		     		</div>
+                 	</td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">생년월일</th>
-                  <td>${PUserVO.birth}</td>
-                  <th class="table-active" scope="row">이메일</th>
-                  <td>${PUserVO.email}</td>
+                  <th class="table-active" scope="row"><label>생년월일</label></th>
+                  	<td>
+                  	<div class="form-group">
+						<div class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+					</div>
+					</td>
+                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
+                  	<td>
+						<div class="form-group">
+							 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
+						</div>
+					</td>
                </tr>
                
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
-	                  <th class="table-active" scope="row">전화번호(종류)★</th>
-	                  <td>${PTelVO.title}</td>
-	                  <th class="table-active" scope="row">전화번호★</th>
-	                  <td>${PTelVO.tel}</td>
+	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
+	                  <td>
+						<div class="form-group">
+							<input type="text" class="form-control" id="title" name="title" value="${PTelVO.title}">
+						</div>
+					  </td>
+	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
+	                  <td>
+	                	<div class="form-group">
+							<input type="text" class="form-control" id="tel" name="tel" value="${PTelVO.tel}">
+						</div>
+	                  </td>
 	               </tr>
-               </c:forEach>
+               </c:forEach> 
+               
+				<tr>
+                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
+               </tr> 
                
                <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
-            
 	               <tr>
-	                  <th class="table-active" scope="row">웹사이트(종류)★</th>
-	                  <td>${PWebSiteVO.title}</td>
-	                  <th class="table-active" scope="row">웹사이트주소★</th>
-	                  <td>${PWebSiteVO.webadd}</td>
+	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
+	                  <td>
+	                  	<div class="form-group">
+						 <input type="text" class="form-control" id="webtitle" name="webtitle" value="${PWebSiteVO.title}">
+						</div>
+	                  </td>
+	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
+	                  <td>
+	                  	<div class="form-group">
+						 <input type="text" class="form-control" id="webadd" name="webadd" value="${PWebSiteVO.webadd}">
+						</div>
+	                  </td>
 	               </tr>  
 	           </c:forEach> 
-	                        
+	           
+               <tr>
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
+               </tr>
+               
+          	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
-	                  <th class="table-active" scope="row">주소</th>
-	                  <td>${ResumeVO.address}</td>
-	                  <th class="table-active" scope="row">우편번호</th>
-	                  <td>${ResumeVO.postcode}</td>
+	                  <th class="table-active" scope="row">자격증명</th>
+	                  <td>${RLicenseVO.test}</td>
+	                  <th class="table-active" scope="row">발행기관</th>
+	                  <td>${RLicenseVO.publeoffice}</td>
+	                  <th class="table-active" scope="row">취득일자</th>
+	                  <td>${RLicenseVO.acquidate}</td>
 	               </tr>
-               
-               
-               <tr>
-               	  <th>학력사항</th>            
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">학교명</th>
-                  <td>${ResumeEduVO.schoolname}</td>
-                  <th class="table-active" scope="row">학과</th>
-                  <td>${ResumeEduVO.major}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">입학일</th>
-                  <td>${ResumeEduVO.enterdate}</td>
-                  <th class="table-active" scope="row">졸업일</th>
-                  <td>${ResumeEduVO.gradudate}</td>
-               </tr>
-               <tr>
-               	  <th class="table-active" scope="row">졸업상태</th>
-                  <td>${ResumeEduVO.edustatus}</td>
-               </tr>
-               
-               <tr>
-               	  <th>경력사항</th>            
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">회사명</th>
-                  <td>${ResumeCareerVO.cname}</td>
-                  <th class="table-active" scope="row">담당업무</th>
-                  <td>${ResumeCareerVO.jobdescription}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">입사일</th>
-                  <td>${ResumeCareerVO.startjob}</td>
-                  <th class="table-active" scope="row">퇴사일</th>
-                  <td>${ResumeCareerVO.finishjob}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">연봉</th>
-                  <td>${ResumeCareerVO.salary}</td>
-               </tr>
-               
-               <tr>
-               	  <th>보유자격증 목록~~~~</th>            
-               </tr>
-               
-               <c:forEach items="${RLicenselist}" var="RLicenseVO">
-               <tr>
-                  <th class="table-active" scope="row">자격증명★</th>
-                  <td>${RLicenseVO.test}</td>
-                  <th class="table-active" scope="row">발행기관★</th>
-                  <td>${RLicenseVO.publeoffice}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">취득일자★</th>
-                  <td>${RLicenseVO.acquidate}</td>
-               </tr>     
-                         
+	              <%--  <tr>
+	                  <th class="table-active" scope="row">취득일자</th>
+	                  <td>${RLicenseVO.acquidate}</td>
+	               </tr>  --%>    
                 </c:forEach>
                
                <tr>
-               	  <th>어학능력 자격증 목록~~~~</th>            
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                
                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
-	                  <th class="table-active" scope="row">공인인증시험명★</th>
+	                  <th class="table-active" scope="row">공인인증시험명</th>
 	                  <td>${ResumeLanguageVO.test}</td>
-	                  <th class="table-active" scope="row">점수★</th>
+	                  <th class="table-active" scope="row">점수</th>
 	                  <td>${ResumeLanguageVO.score}</td>
 	               </tr>
 	               <tr>
-	                  <th class="table-active" scope="row">발행기관★</th>
+	                  <th class="table-active" scope="row">발행기관</th>
 	                  <td>${ResumeLanguageVO.publeoffice}</td>
-	                  <th class="table-active" scope="row">취득일자★</th>
+	                  <th class="table-active" scope="row">취득일자</th>
 	                  <td>${ResumeLanguageVO.acquidate}</td>
 	               </tr>  
-                </c:forEach>             
-               
+                </c:forEach>            
                <tr>
-               	  <th>희망 구직 정보</th>            
+                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">자기소개서</th>
+               </tr> 
+               <tr>
+                <td colspan="4" rowspan="2">
+                  	<div class="form-group">
+						<textarea class="form-control" rows="10" id="coverletter" name="coverletter">${ResumeVO.coverletter}</textarea>
+					</div>
+              	 </td>   
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">구직상태</th>
-                  <td>${ResumeVO.jobstateid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망직종</th>
-                  <td>${ResumeVO.jobgroupid}</td>
-                  <th class="table-active" scope="row">희망근무형태</th>
-                  <td>${ResumeVO.employstatusid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망근무지(시/도)</th>
-                  <td>${ResumeVO.rgbid}</td>
-                  <th class="table-active" scope="row">희망근무지</th>
-                  <td>${ResumeVO.rgsid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망연봉</th>
-                  <td>${ResumeVO.salaryid}</td>
-               </tr>
-                              
-               <tr>
-                  <th class="table-active" scope="row">제목</th>
-                  <td>${ResumeVO.title}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">자기소개서</th>
-                  <td>${ResumeVO.coverletter}</td>
-               </tr>                     
             </tbody>
          </table>
          <!-- //table class -->

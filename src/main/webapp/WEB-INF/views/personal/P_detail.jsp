@@ -43,7 +43,6 @@
                </c:forEach>
                
                <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
-            
 	               <tr>
 	                  <th class="table-active" scope="row">웹사이트(종류)★</th>
 	                  <td>${PWebSiteVO.title}</td>
@@ -58,8 +57,6 @@
 	                  <th class="table-active" scope="row">우편번호</th>
 	                  <td>${ResumeVO.postcode}</td>
 	               </tr>
-               
-               
                <tr>
                	  <th>학력사항</th>            
                </tr>
@@ -178,18 +175,19 @@
          
    <!-- //개인 페이지 두번째(company_modify_content) -->
    <br> <br>
-   <!-- 수정 버튼 -->
-   <form>
-   <input class="btn btn-success" type='button' value='수정'
-      onClick="javascript:self.location='/personal/Rmodify?bno=${ResumeVO.bno}';">
-   </form>
-   <!-- //수정 버튼 -->
+   <!-- 수정, 목록 버튼 -->
+    <div class = "form-group">
+     	<button id = "write-success" class="btn btn-success col-md-offset-10"  type='button' onClick="javascript:self.location='/personal/Rmodify?bno=${ResumeVO.bno}';">수정</button>
+     	<button id = "write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';">목록</button>
+  	</div>
+   <!-- //수정, 목록 버튼 -->
    <br> <br>
 </div>
 <img id='imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 <script>
 $(document).ready(function(){
-	 console.log('${PWebSitelist}');
+	console.log('${PWebSitelist}');
+	
 	var imgsrccheck = ('#imgsrccheck');
 	
 	if($('#imgsrccheck').val()!=""){
