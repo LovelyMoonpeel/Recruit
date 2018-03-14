@@ -13,14 +13,15 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
-		<button type = "submit" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/detail?bno=${ResumeVO.bno}'">수정</button>
 		<!-- button type = "button" id = "delete-button" class="btn btn-success" onclick="location.href='/personal/Rremove?bno=${ResumeVO.bno}'">삭제</button -->
-		<button type = "button" id = "delete-button" class="btn btn-success">삭제</button>
+		<button type = "button" id = "delete-button" class="btn btn-danger col-md-offset-11">삭제</button>
+		<br><br>
 		<table class="table table-bordered">
 			<tr>
-			<th style="width: 55px;">관리</th>
+				<th style="width: 55px;">관리</th>
 				<th style="width: 55px;">순번</th>
 				<th>이력서 제목</th>
+				<th style="width: 60px;">관리</th>
 			</tr>
 			
 			<c:forEach items="${ResumeVOList}" var="ResumeVO">		
@@ -28,6 +29,7 @@
 				<td><input id="${ResumeVO.bno}" type="checkbox"></td>
 				<td>${ResumeVO.bno}</td>
 				<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
+				<td><button type = "submit" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/detail?bno=${ResumeVO.bno}'">수정</button></td>
 			</tr>
 			</c:forEach>
 		</table>
@@ -67,8 +69,6 @@ $(document).ready(function(){
 				}
 			} 
 		});*/
-		
-		
 		formObj.submit();
 	});
 });
