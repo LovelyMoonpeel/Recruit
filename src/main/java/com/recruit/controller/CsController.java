@@ -4,9 +4,12 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,6 +124,23 @@ public class CsController {
 		rttr.addFlashAttribute("msg", "modify");
 
 		return "redirect:/cs/S_qna";
+	}
+	
+	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST)
+	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno, @RequestParam("bpw") String bpw){
+		ResponseEntity<String> entity = null;
+		
+		try{
+			String dbpw = qservice.modread(bno).getBpw();
+			String inputpw = bpw;
+			System.out.println("bpw 출력 : "+ inputpw);
+			String result = "";
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 
 }

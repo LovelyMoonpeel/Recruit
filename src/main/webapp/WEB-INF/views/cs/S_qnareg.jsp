@@ -58,7 +58,6 @@
 	<input type="button" class="btn btn-primary" value="취소">
 	</form>
 	
-		
 </div>
 <!-- //관리자정보수정 페이지 -->
 

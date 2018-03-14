@@ -18,7 +18,6 @@
 
 	<h1>회원정보 수정</h1>
 	<form role="form" action="A_modify" method="POST">
-	 <input type='hidden' name='id' value="${AmainVO.id}">
      <input type='hidden' name='page' value="${cri.page}">
      <input type='hidden' name='perPageNum' value="${cri.perPageNum}">
      <input type='hidden' name='searchType' value="${cri.searchType}">
@@ -92,11 +91,11 @@
 <!-- 달력 나오게 하는 스크립트  -->
 <script type='text/javascript'>
 	$(function() {
-		$('.input-group.date').datepicker({
+		$('.input-group .date').datepicker({
 			calendarWeeks : false,
 			todayHighlight : true,
 			autoclose : true,
-			format : "yyyy-mm-dd",
+			format : "yyyy/mm/dd",
 			language : "kr"
 		});
 	});

@@ -20,7 +20,7 @@
 			
 	</table>
 	
-	<button class="btn btn-success" type="button" onclick="location.href='/cs/S_faqreg'">작성</button>
+	<!-- <button class="btn btn-success" type="button" onclick="location.href='/cs/S_faqreg'">작성</button> -->
 
 </div>
 

@@ -13,8 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="read" resultType="com.recruit.domain.CsqnaVO">
 		select
-		bno, title, user, content,
-		bpw
+		bno, title, user, content, bpw, reply
 		from
 		project.tblqna
 		where bno = #{bno}
@@ -34,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listAll" resultType="com.recruit.domain.CsqnaVO">
 	<![CDATA[
 	select
-		bno, title, user, regdate, viewcnt, bpw
+		bno, title, user, regdate, viewcnt, bpw, reply
 	from
 		project.tblqna
 	order by bno desc
@@ -61,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listCriteria" resultType="CsqnaVO">
 	<![CDATA[
 	select
-		bno, title, user, regdate, viewcnt, bpw
+		bno, title, user, regdate, viewcnt, bpw, reply
 	from
 		project.tblqna
 	where
@@ -74,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listPage" resultType="CsqnaVO">
 	<![CDATA[
 	select
-		bno, title, user, regdate, viewcnt, bpw
+		bno, title, user, regdate, viewcnt, bpw, reply
 	from
 		project.tblqna
 	where

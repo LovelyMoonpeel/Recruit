@@ -15,8 +15,8 @@
 <link href="/resources/rpjt/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<!-- <link href="css/shop-item.css" rel="stylesheet"> -->
-<link href="/resources/rpjt/css/lovelyB_022711.css" rel="stylesheet">
+<link href="/resources/rpjt/css/shop-item.css" rel="stylesheet">
+<!-- <link href="/resources/rpjt/css/lovelyB_022711.css" rel="stylesheet"> -->
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

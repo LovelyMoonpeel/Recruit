@@ -17,10 +17,9 @@
 			<th>조회수</th>
 		</tr>		
 	<c:forEach items="${list}" var="CsqnaVO">
-		<input class="form-control" type="hidden" name="bpw" value="${CsqnaVO.bpw}" readonly>
-		<tr>
+			<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><a id="bpwc" href='/cs/S_qnaread?bno=${CsqnaVO.bno}'>${CsqnaVO.title}</a></td>
+			<td><a id="bpwc" class="qnadetail" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
@@ -53,6 +52,28 @@
 		</ul>
 	</div>
 	<!-- //pagination-->
+
+<!-- 비밀번호 Modal -->
+<div id="bpwModal" class="modal modal-primary fade" role="dialog">
+ <div class="modal-dialog">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+     <input type='hidden' id='bno' name='bno' value="${CsqnaVO.bno}">
+     <button type="button" class="close" data-dismiss="modal">&times;</button>
+     <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body" data-bno>
+     <p><input type="text" id="bpwchk" class="form-control"></p>
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-info" id="qnabpw">확인</button>
+     <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+    </div>
+  </div>
+ </div>
+</div>
+<!-- //비밀번호 Modal -->
 </div>
 <!-- 버튼에 대한 스크립트  -->
 <script type="text/javascript">
@@ -61,21 +82,38 @@ var formObj = $("form[role='form']");
 
 console.log(formObj);
 
-$("#bpwc").on("click", function(){
-	var bpw = $('#bpw').val();
-	var bpwchk = $('#bpwc');
+/* 비밀번호 확인 Modal */
+$(".qnadetail").on("click", function(){
+	var bno = $(this);
 	
-	if(bpw != ""){
-		var bpwchk = prompt("비밀번호를 입력해주세요.");
-		if(bpw != bpwchk){
-			alert("비밀번호가 일치하지않습니다.");
-			/* bpwchk.attr("href", "/cs/S_qna"); */
-			self.location = "/cs/S_qna";
-		}
-	}
-		
+	$(".modal-title").html(bno.attr("data-bno"));
 });
 
+/* 비밀번호 확인 스크립트 */
+$("#qnabpw").on("click", function(){
+	var bno = $(".modal-title").html();
+	var bpwObj = $("#bpwchk");
+	var bpw = $("#bpwchk").val();
+	
+	$.ajax({
+		type:'POST',
+		url:'/cs/S_qnaread/'+bno,
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override":"POST"},
+		data:JSON.stringify({bno:bno, bpw:bpw}),
+		dataType:'text',
+		success:function(result){
+			console.log("result: "+result);
+			if(result = bpw){
+				alert("비밀번호가 일치합니다.");
+				bpwObj.val("");
+			}else{
+				alert("비밀번호 불일치");
+				bpwObj.val("");
+			}
+		}});
+});
 </script>
 <!-- //버튼에 대한 스크립트  -->
 <!-- 수정, 삭제 처리시 -->

@@ -70,7 +70,7 @@
 			calendarWeeks : false,
 			todayHighlight : true,
 			autoclose : true,
-			format : "yyyy-mm-dd",
+			format : "yyyy/mm/dd",
 			language : "kr"
 		});
 	});
