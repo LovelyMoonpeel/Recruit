@@ -197,17 +197,19 @@
 	</div>
 	<div class="form-group col-md-4">
 		<label for="major">학과</label> <input class="form-control major"
-			name="major" value="{{major}}""></input>
+			name="major" value="{{major}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus">
-			<option value="0">선택</option>
-			<option value="15" selected>재학</option>
+			{{#select edustatus}}
+			<option value="0" selected>선택</option>
+			<option value="15">재학</option>
 			<option value="16">졸업</option>
 			<option value="17">중퇴</option>
 			<option value="18">졸업예정</option>
 			<option value="19">휴학</option>
+			{{/select}}
 		</select>
 		<!-- <input class="form-control" id="edustatus" name="edustatus" -->
 		<!-- value="${ResumeEduVO.edustatus}"></input> -->
@@ -233,7 +235,7 @@
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="startjob" name="startjob"
-				value="입사일"> <span
+				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="startjob" name="startjob" -->
@@ -243,7 +245,7 @@
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control" id="finishjob"
-				name="finishjob" value="퇴사일"> <span
+				name="finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="finishjob" name="finishjob" -->
@@ -251,18 +253,19 @@
 	</div>
 	<div class="form-group col-md-5">
 		<label for="cname">회사명</label> <input class="form-control" id="cname"
-			name="cname" value="회사명"></input>
+			name="cname" value="{{cname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
 		<label for="jobdescription">담당업무</label> <input class="form-control"
 			id="jobdescription" name="jobdescription"
-			value="담당업무"></input>
+			value="{{jobdescription}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="salary">연봉</label> <select id="salary"
 			class="form-control">
-			<option value="0">선택</option>
-			<option value="34" selected>~ 2,000</option>
+			{{#select salary}}
+			<option value="0" selected>선택</option>
+			<option value="34">~ 2,000</option>
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
 			<option value="37">3,000 ~ 3,500</option>
@@ -280,6 +283,7 @@
 			<option value="49">9,500 ~ 10,000</option>
 			<option value="50">10,000 ~ 10,500</option>
 			<option value="51">10,500 ~</option>
+			{{/select}}
 		</select>
 		<!-- <input class="form-control" id="salary" name="salary" -->
 		<!-- value="${ResumeCareerVO.salary}"></input> -->
@@ -300,7 +304,13 @@
 
 <script type='text/javascript'>
 	$(document).ready(function() {
-
+		
+		Handlebars.registerHelper('select', function( value, options ){
+	        var $el = $('<select />').html( options.fn(this) );
+	        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
+	        return $el.html();
+	    });
+	
 		var formObj = $("form[role = 'form']");
 
 		// $(function() {
@@ -335,8 +345,8 @@
 		// exp 추가버튼 이벤트
 		$("#exp_div").on("click", ".exp_plus_btn", add_exp);
 
-		// add_edu();
-		add_exp();
+		// add_edu(); // edu 공란 추가
+		// add_exp(); // exp 공란 추가
 
 		function add_edu(item) {
 			var source_edu = $("#template_edu").html();
@@ -367,7 +377,25 @@
 				add_edu(item);
 			</c:forEach>
 		}
+		
+		function exp_list() {
+			var num = (${careerVOList.size()});
+			<c:forEach items="${careerVOList}" var="careerVO">
+				var careerVO = new Object();
+				var item = {
+						bno : ${careerVO.bno},
+						cname : "${careerVO.cname}",
+						jobdescription : "${careerVO.jobdescription}",
+						startjob : "${careerVO.startjob}",
+						finishjob : "${careerVO.finishjob}",
+						salary : ${careerVO.salary}
+					};
+				add_exp(item);
+			</c:forEach>
+		}
+		
 		edu_list();
+		exp_list();
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>

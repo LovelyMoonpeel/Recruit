@@ -195,16 +195,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<!-- r.code 추가 -->
-	<!-- 이력서 REdu 확인 -->
+	<!-- r.code 03/13 추가 -->
+	<!-- 이력서 EduList 확인 -->
 	<select id="readResumeEduList" resultType="com.recruit.domain.ResumeEduVO">
-	<![CDATA[
-	select *
-	from project.tblResumeEdu
-	where resumenum=#{bno}
-	]]>
+		select *
+		from
+		project.tblResumeEdu
+		where resumenum=#{bno}
 	</select>
-	<!-- end of r.code 수정 -->
+	<!-- end of r.code -->
 
 	<!-- 이력서 REdu 수정 -->
 	<update id="updateResumeEdu">
@@ -238,6 +237,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where c.resumenum=r.bno
 	]]>
 	</select>
+
+	<!-- r.code 03/14 추가 -->
+	<!-- 이력서 CareerList 확인 -->
+	<select id="readResumeCareerList" resultType="com.recruit.domain.ResumeCareerVO">
+		select *
+		from
+		project.tblResumeCareer
+		where resumenum=#{bno}
+	</select>
+	<!-- end of r.code -->
 
 	<!-- 이력서 RCareer 수정 -->
 	<update id="updateResumeCareer">

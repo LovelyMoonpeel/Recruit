@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.BoardService;
@@ -200,7 +201,13 @@ public class PersonalController {
 			System.out.println("Personal test: " + resumeEduVOList.get(i));
 		}
 		model.addAttribute("eduVOlist", resumeEduVOList);
-		model.addAttribute("eduVOlist", resumeEduVOList);
+
+		List<ResumeCareerVO> resumeCareerVOList = Careerservice.readResumeCareerList(bno);
+		num = resumeCareerVOList.size();
+		for (int i = 0; i < num; i++) {
+			System.out.println("Personal test: " + resumeCareerVOList.get(i));
+		}
+		model.addAttribute("careerVOList", resumeCareerVOList);
 		// end of r.code 03/13
 		return "personal/P_Rmodify";
 	}
@@ -314,9 +321,7 @@ public class PersonalController {
 
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-
 			MediaType mType = MediaUtils.getMediaType(formatName);
-
 			HttpHeaders headers = new HttpHeaders();
 
 			in = new FileInputStream(uploadPath + fileName);

@@ -41,5 +41,4 @@ public class ResumeEduDAOImpl implements ResumeEduDAO {
 	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {
 		return session.selectList(namespace + ".readResumeEduList", bno);
 	}
-
 }
