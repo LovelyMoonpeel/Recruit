@@ -4,7 +4,7 @@ public class PTelVO {
 
 	private int id;
 	private int rid;
-	private String title;
+	private String teltitle;
 	private String tel;
 	
 	public int getId() {
@@ -19,11 +19,11 @@ public class PTelVO {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	public String getTitle() {
-		return title;
+	public String getTeltitle() {
+		return teltitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTeltitle(String teltitle) {
+		this.teltitle = teltitle;
 	}
 	public String getTel() {
 		return tel;
@@ -33,7 +33,6 @@ public class PTelVO {
 	}
 	@Override
 	public String toString() {
-		return "PTelVO [id=" + id + ", rid=" + rid + ", title=" + title + ", tel=" + tel + "]";
-	}	
-	
+		return "PTelVO [id=" + id + ", rid=" + rid + ", teltitle=" + teltitle + ", tel=" + tel + "]";
+	}
 }

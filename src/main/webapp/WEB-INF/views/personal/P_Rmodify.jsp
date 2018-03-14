@@ -81,12 +81,17 @@
                <tr>
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
-               <c:forEach items="${PTellist}" var="PTelVO">
+               
+               		<input type="text" name="rid" value="${PTelVO.rid }">
+               <c:forEach items="${PTellist}" var="PTelVO" varStatus="status">
 	               <tr>
-	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
+	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류) 	${status.count}</label>
+	                  <input type="text" name="ptvoid" value="${PTelVO.id }">
+	                 	
+	                  </th>
 	                  <td>
 						<div class="form-group">
-							<input type="text" class="form-control" value="${PTelVO.title}">
+							<input type="text" class="form-control" name="teltitle" value="${PTelVO.teltitle}">
 						</div>
 					  </td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
@@ -211,7 +216,6 @@
 
 <script type='text/javascript'>
 	$(document).ready(function() {
-
 		var formObj = $("form[role = 'form']");
 		var xornot = document.getElementById('xornot');
 		
@@ -224,7 +228,6 @@
 				language : "kr"
 			});
 		});
-
 		console.log('${PWebSitelist}');
 		var imgsrccheck = ('#imgsrccheck');
 		
@@ -390,7 +393,6 @@
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
 				formObj.submit();
-
 			}
 		});
 	});

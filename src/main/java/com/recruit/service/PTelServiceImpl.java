@@ -16,8 +16,8 @@ public class PTelServiceImpl implements PTelService{
 	private PTelDAO dao;	
 	
 	@Override
-	public void regist(PTelVO vo) throws Exception {
-		dao.createPTel(vo);
+	public void createTOne(PTelVO ptvo) throws Exception {
+		dao.createTOne(ptvo);
 	}
 
 	@Override
@@ -26,20 +26,15 @@ public class PTelServiceImpl implements PTelService{
 	}
 
 	@Override
-	public void modify(PTelVO vo) throws Exception {
-		dao.updatePTel(vo);
+	public void updateTOne(Integer ptvoid) throws Exception {
+		//안소연
+		dao.updateTOne(ptvoid);
 	}
 
 	@Override
-	public void remove(Integer id) throws Exception {
-		dao.deletePTel(id);
+	public void deleteTOne(Integer id) throws Exception {
+		dao.deleteTOne(id);
 	}
-
-	@Override
-	public void createPTel(PTelVO vo) throws Exception {
-		dao.createPTel(vo);
-	}
-
-
-
+	
+	
 }

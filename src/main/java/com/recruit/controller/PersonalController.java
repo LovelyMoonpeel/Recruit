@@ -3,6 +3,7 @@ package com.recruit.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -195,18 +196,53 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
+	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, PTelVO[] ptvo, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, String[] teltitle, String[] tel, Model model, RedirectAttributes rttr) throws Exception {
+	
 		System.out.println("Rmodify POST Controller"); 
 		
-		System.out.println("Rmodify POST id" + id);
-		System.out.println("Rmodify POST bno" + bno);
 		Rservice.updateROne(resume);
+
+		//PTel start///////////////////////
+		for(int i=0;i<ptvoid.length;i++){
+			Telservice.deleteTOne(ptvoid[i]);
+		}//기존에 있던거는 먼저 전부 삭제 delete
+		
+		for(int i=0;i<ptvoid.length;i++){
+			PTelVO ptvo = new PTelVO();
+			ptvo.setRid(bno);
+			ptvo.setTeltitle(teltitle[i]);
+			ptvo.setTel(tel[i]);
+			Telservice.createTOne(ptvo);
+		}//all create
+		//PTel end///////////////////////
+		
+	/*	for(int i=0;i<ptvoid.length;i++){
+			Telservice.updateTOne(ptvoid[i]);
+		}*/
+		
 		//Telservice.;
 		
 		/*Webservice.selectPWebSiteList(bno);
 		Telservice.selectPTelList(bno);
 		Licenseservice.selectRLicenseList(bno);
 		Langservice.selectResumeLanguageList(bno);*/
+		
+		/*		for(int i=0;i<ptvoid.length;i++){
+		System.out.println("값"+ptvoid[i]);
+		System.out.println("teltitle 값:"+ teltitle[i]);
+		System.out.println("tel 값:"+ tel[i]);
+		}
+		
+		PTelVO[] ptvo = new PTelVO[ptvoid.length];
+		//추가되는거 어차피 크리에이트로 해야함
+		
+		for(int i=0;i<ptvoid.length;i++){
+			System.out.println("들어가냐");
+			System.out.println(ptvo[i].toString());
+			System.out.println("실행됐나");
+		}//근데 배열 자체가 안되는듯 이게 하나의 테이블인데
+		 */
 		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}

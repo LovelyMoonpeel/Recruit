@@ -19,8 +19,8 @@ public class PTelDAOImpl implements PTelDAO{
 	private static String namespace = "com.recruit.mapper.ResumeMapper";
 
 	@Override
-	public void createPTel(PTelVO ptvo) throws Exception {
-		session.insert(namespace+".createPTel", ptvo);
+	public void createTOne(PTelVO ptvo) throws Exception {
+		session.insert(namespace+".createTOne", ptvo);
 	}
 
 	@Override
@@ -29,13 +29,13 @@ public class PTelDAOImpl implements PTelDAO{
 	}
 
 	@Override
-	public void updatePTel(PTelVO vo) throws Exception {
-		session.update(namespace+".updatePTel", vo);
+	public void updateTOne(Integer ptvoid) throws Exception {
+		session.update(namespace+".updateTOne", ptvoid);
 	}
 
 	@Override
-	public void deletePTel(Integer id) throws Exception {
-		session.delete(namespace+".deletePTel", id);
+	public void deleteTOne(Integer id) throws Exception {
+		session.delete(namespace+".deleteTOne", id);
 	}
 	
 
