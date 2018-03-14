@@ -214,36 +214,41 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(ResumeVO resume, ResumeEduVO resumeEduVO, Model model, RedirectAttributes rttr)
-			throws Exception {
+	public String RmodifyPOST(ResumeVO resume, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, Model model,
+			RedirectAttributes rttr) throws Exception {
 
 		// r.code 03/14
 		System.out.println("r.code");
 		System.out.println(resume);
-		System.out.println("r: " + resumeEduVO.getList().size());
 
-		int num = resumeEduVO.getList().size();
+		int num = resumeEduVO.getListEdu().size();
+		System.out.println("size: " + num);
 		for (int i = 0; i < num; i++) {
-			System.out.println("r: " + resumeEduVO.getList().get(i));
+			System.out.println("r: " + resumeEduVO.getListEdu().get(i));
 		}
+
+		num = resumeCareerVO.getListCareer().size();
+		System.out.println("size: " + num);
+		for (int i = 0; i < num; i++) {
+			System.out.println("r: " + resumeCareerVO.getListCareer().get(i));
+		}
+
+		Eduservice.changeResumeEduList(34, resumeEduVO.getListEdu());
 		// end of r.code
 
 		logger.info("index POST, 개인정보 수정");
 		// logger.info(PUser.toString());
 
 		System.out.println(resume.toString());
-
 		int bno = resume.getBno();
-
 		System.out.println("bno" + bno);
-
 		Rservice.updateROne(resume);
-
 		model.addAttribute("result", "success");
+
 		// rttr.addFlashAttribute("result", "success");
 		rttr.addFlashAttribute("bno", "success");
+
 		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
-															// controller
 	}
 
 	// 이력서 관리 (리스트)

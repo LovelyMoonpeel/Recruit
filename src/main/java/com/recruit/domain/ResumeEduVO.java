@@ -13,14 +13,14 @@ public class ResumeEduVO {
 	private int edustatus;
 
 	// r.code 03/14 JSP에서 객체 리스트 받기
-	private List<ResumeEduVO> list;
+	private List<ResumeEduVO> listEdu;
 
-	public List<ResumeEduVO> getList() {
-		return list;
+	public List<ResumeEduVO> getListEdu() {
+		return listEdu;
 	}
 
-	public void setList(List<ResumeEduVO> list) {
-		this.list = list;
+	public void setListEdu(List<ResumeEduVO> listEdu) {
+		this.listEdu = listEdu;
 	}
 	// end of r.code
 

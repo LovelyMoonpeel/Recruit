@@ -203,6 +203,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		project.tblResumeEdu
 		where resumenum=#{bno}
 	</select>
+
+	<!-- r.code 03/14 추가 -->
+	<select id="deleteResumeEduList">
+		delete from
+		project.tblResumeEdu
+		where
+		resumenum=#{resumenum}
+	</select>
+
+	<insert id="createResumeEdu">
+
+	</insert>
 	<!-- end of r.code -->
 
 	<!-- 이력서 REdu 수정 -->

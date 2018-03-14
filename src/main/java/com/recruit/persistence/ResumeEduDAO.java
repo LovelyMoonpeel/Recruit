@@ -16,4 +16,6 @@ public interface ResumeEduDAO {
 
 	// r.code 03/13 추가
 	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception;
+
+	public void deleteResumeEduList(Integer resumenum) throws Exception;
 }

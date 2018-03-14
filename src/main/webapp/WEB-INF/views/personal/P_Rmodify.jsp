@@ -172,11 +172,11 @@
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
-		<input type="hidden" name="list[{{num}}].bno" value="{{bno}}">
+		<input class="edu" type="hidden" name="listEdu[].bno" value="{{bno}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate"
-				name="list[{{num}}].enterdate" value="{{enterdate}}"> <span
+			<input type="text" class="form-control enterdate edu"
+				name="listEdu[].enterdate" value="{{enterdate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="enterdate" name="enterdate" -->
@@ -185,24 +185,24 @@
 	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate"
-				name="list[{{num}}].gradudate" value="{{gradudate}}"> <span
+			<input type="text" class="form-control gradudate edu"
+				name="listEdu[].gradudate" value="{{gradudate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
 		<!-- value="${ResumeEduVO.gradudate}"></input> -->
 	</div>
 	<div class="form-group col-md-5">
-		<label for="schoolname">학교명</label> <input class="form-control schoolname"
-			name="list[{{num}}].schoolname" value="{{schoolname}}"></input>
+		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
+			name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
-		<label for="major">학과</label> <input class="form-control major"
-			name="list[{{num}}].major" value="{{major}}"></input>
+		<label for="major">학과</label> <input class="form-control major edu"
+			name="listEdu[].major" value="{{major}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="edustatus">졸업상태</label>
-		<select class="form-control edustatus" name="list[{{num}}].edustatus">
+		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}
 			<option value="0" selected>선택</option>
 			<option value="15">재학</option>
@@ -231,12 +231,12 @@
 
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row">
-	<input type="hidden" name="bno" value="{{bno}}">
+	<input class="career" type="hidden" name="listCareer[].bno" value="{{bno}}">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control" name="startjob"
+			<input type="text" class="form-control career" name="listCareer[].startjob"
 				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
@@ -246,8 +246,8 @@
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control"
-				name="finishjob" value="{{finishjob}}"> <span
+			<input type="text" class="form-control career"
+				name="listCareer[].finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" name="finishjob" -->
@@ -255,16 +255,16 @@
 	</div>
 	<div class="form-group col-md-5">
 		<label for="cname">회사명</label>
-		<input class="form-control" name="cname" value="{{cname}}"></input>
+		<input class="form-control career" name="listCareer[].cname" value="{{cname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
 		<label for="jobdescription">담당업무</label>
-		<input class="form-control" name="jobdescription" value="{{jobdescription}}">
+		<input class="form-control career" name="listCareer[].jobdescription" value="{{jobdescription}}">
 		</input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="salary">연봉</label>
-		<select class="form-control" name="salary">
+		<select class="form-control career" name="listCareer[].salary">
 			{{#select salary}}
 			<option value="0" selected>선택</option>
 			<option value="34">~ 2,000</option>
@@ -339,8 +339,28 @@
 		$("#btn-success").on("click", function() {
 			formObj.attr("action", "/personal/Rmodify");
 			formObj.attr("method", "post");
+			numberingList();
 			formObj.submit();
 		});
+		
+		// r.code 03/14 edu, career 객체번호 붙힘
+		function numberingList() {
+			$(".edu").each(function(index){
+				var num = 6;
+				var name = $(this).attr("name");
+				name = name.substring(0, 8) + parseInt(index/num) + name.substring(8);
+				$(this).attr("name", name);
+				console.log($(this).attr("name"));
+			});
+				
+			$(".career").each(function(index){
+				var num = 6;
+				var name = $(this).attr("name");
+				name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
+				$(this).attr("name", name);
+				console.log($(this).attr("name"));
+			});
+		}
 
 		// edu 추가버튼 이벤트
 		$("#edu_div").on("click", ".edu_plus_btn", add_edu);
@@ -367,11 +387,9 @@
 		
 		function edu_list() {
 			var len = (${eduVOlist.size()});
-			var num = 0;
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var eduVO = new Object();
 				var item = {
-						num : num,
 						bno : ${eduVO.bno},
 						schoolname : "${eduVO.schoolname}",
 						major : "${eduVO.major}",
@@ -380,12 +398,11 @@
 						edustatus : ${eduVO.edustatus}
 					};
 				add_edu(item);
-				num++;
 			</c:forEach>
 		}
 		
 		function exp_list() {
-			var num = (${careerVOList.size()});
+			var len = (${careerVOList.size()});
 			<c:forEach items="${careerVOList}" var="careerVO">
 				var careerVO = new Object();
 				var item = {
@@ -398,8 +415,7 @@
 					};
 				add_exp(item);
 			</c:forEach>
-		}
-		
+		}		
 		edu_list();
 		exp_list();
 	});
