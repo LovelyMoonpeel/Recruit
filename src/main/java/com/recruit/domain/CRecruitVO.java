@@ -16,7 +16,7 @@ public class CRecruitVO {
 	public int edu;
 	public int exp;
 	public String adddesc;
-	public Date period;
+	public String period;
 	public String acceptmethod;
 	public String recruitform;
 	public String regdate;
@@ -126,11 +126,11 @@ public class CRecruitVO {
 		this.adddesc = adddesc;
 	}
 
-	public Date getPeriod() {
+	public String getPeriod() {
 		return period;
 	}
 
-	public void setPeriod(Date period) {
+	public void setPeriod(String period) {
 		this.period = period;
 	}
 

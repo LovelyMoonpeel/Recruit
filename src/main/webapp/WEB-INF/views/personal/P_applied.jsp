@@ -29,7 +29,7 @@
 			<tr>
 				<td>${CRecruitVO.bno}</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = ''>${CRecruitVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/company/C_recruitment?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.period}</td>
 				<td>${CRecruitVO.regdate}</td>
 				<td style="width: 20px;"><input id="btns" type="button"

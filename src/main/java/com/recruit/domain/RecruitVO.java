@@ -136,10 +136,12 @@ public class RecruitVO {
 	}
 
 	public String getPeriod() {
+		System.out.println("야야get Period");
 		return period;
 	}
 
 	public void setPeriod(String period) {
+
 		this.period = period;
 	}
 

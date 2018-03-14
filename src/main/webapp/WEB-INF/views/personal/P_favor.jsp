@@ -25,12 +25,11 @@
 				<th  style="width: 100px;">등록일</th>
 				<th>조회수</th>
 			</tr>
-			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO">
-			
+		 	<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO">
 			<tr>
 				<td>${CRecruitVO.bno}</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = ''>${CRecruitVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/company/C_recruitment?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.period}</td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.viewcnt}</td>

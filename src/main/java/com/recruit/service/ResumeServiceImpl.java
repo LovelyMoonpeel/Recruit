@@ -21,7 +21,7 @@ public class ResumeServiceImpl implements ResumeService {
 	@Transactional
 	@Override
 	public Integer createROne(ResumeVO resume, PUserVO puser) throws Exception {
-		
+		//안소연
 		System.out.println("ResumeServiceImpl + createROne Transactional 실행");
 		
 		System.out.println("dao.createROne(resume) 실행 전");
@@ -44,6 +44,15 @@ public class ResumeServiceImpl implements ResumeService {
 		return dao.readRLastCreatedOne(puser.getId());
 	}
 
+
+	@Override
+	public void updateROne(ResumeVO resume) throws Exception {
+		//안소연
+		System.out.println("라 ResumeServiceImpl dao updateROne");
+		dao.updateROne(resume);
+	}
+	
+	
 	@Override
 	public AdminResumeVO read(String id) throws Exception {
 		return dao.read(id);
@@ -67,12 +76,6 @@ public class ResumeServiceImpl implements ResumeService {
 	@Override
 	public ResumeVO readROne(Integer bno) throws Exception {
 		return dao.readROne(bno);
-	}
-
-	@Override
-	public void updateROne(ResumeVO resume) throws Exception {
-		System.out.println("dao updateROne");
-		dao.updateROne(resume);
 	}
 
 	@Override

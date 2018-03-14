@@ -199,10 +199,14 @@ public class PersonalController {
 		System.out.println("Rmodify POST Controller"); 
 		
 		System.out.println("Rmodify POST id" + id);
+		System.out.println("Rmodify POST bno" + bno);
+		Rservice.updateROne(resume);
+		//Telservice.;
 		
-		
-		
-		
+		/*Webservice.selectPWebSiteList(bno);
+		Telservice.selectPTelList(bno);
+		Licenseservice.selectRLicenseList(bno);
+		Langservice.selectResumeLanguageList(bno);*/
 		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
@@ -244,12 +248,11 @@ public class PersonalController {
 	@RequestMapping(value = "/favor", method = RequestMethod.GET)
 	public String favorGET(@RequestParam("id") String id, Model model) throws Exception {
 		logger.info("favor GET, 관심채용공고 확인");
-		System.out.println(id);
+		System.out.println("관심채용공고 누구꺼냐" + id);
 		
 		model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
 		model.addAttribute("PUserVO", service.selectPUser(id));
-		// model.addAttribute(Cservice.selectCRList(id));
-		// System.out.println(Cservice.selectCRList(id).toString());
+		
 		return "personal/P_favor";
 	}
 	// 지원현황리스트

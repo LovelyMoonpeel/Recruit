@@ -86,7 +86,7 @@
 	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
 	                  <td>
 						<div class="form-group">
-							<input type="text" class="form-control" name="title" value="${PTelVO.title}">
+							<input type="text" class="form-control" value="${PTelVO.title}">
 						</div>
 					  </td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>

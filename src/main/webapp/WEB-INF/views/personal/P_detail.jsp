@@ -18,6 +18,10 @@
                 <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
                 <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
                <tr>
+               	<th class="table-active" scope="row"><label for="title">제목</label> 
+               	<td colspan="4">${ResumeVO.title}</td>
+               </tr>
+               <tr>
                 <th class="table-active" scope="row"><label for="pname">이름</label> </th>
 	          	<td class="col-sm-4" id="pname" name="pname">${PUserVO.pname}</td>
                 <th class="table-active" scope="row"><label for="img">사진</label></th>
