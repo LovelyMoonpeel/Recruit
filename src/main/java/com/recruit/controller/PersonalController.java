@@ -116,7 +116,7 @@ public class PersonalController {
 		service.updatePUser(PUser);
 		model.addAttribute("result", "success");
 		rttr.addFlashAttribute("result", "success");
-
+		
 		return "redirect:/personal/index"; // redirect는 controller
 	}
 
@@ -195,27 +195,15 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(Integer bno, ResumeVO resume, String id, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 		
-		/*PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
-	   
-		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-	   
-		model.addAttribute("ResumeVO", Rservice.readROne(bno));
-	   
-		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-	   
-		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-	   
-		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));*/
-		
-		System.out.println("Rmodify POST bno" + bno);
 		System.out.println("Rmodify POST id" + id);
 		
-		Rservice.updateROne(resume);
-
+		
+		
+		
+		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
 

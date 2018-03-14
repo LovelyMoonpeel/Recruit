@@ -121,10 +121,7 @@ $(document).ready(function(){
 		 
 	 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
 	 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
-	   //  $(".fileDrop").on("drop", function(event){
 			 event.preventDefault();
-			 
-			 //var files = event.originalEvent.dataTransfer.files;
 			 
 			 console.log("file name");
 			 console.log(file);

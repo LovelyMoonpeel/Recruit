@@ -18,7 +18,7 @@
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
 		<br>
-		<input type="text" class="form-control" id="bno" name="bno" value="ResumeVO의 bno값 : ${ResumeVO.bno}" readonly> 
+		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
 		<input type="text" class="form-control" id="userid" name="userid" value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> 
 		<input type="text" class="form-control" id="id" name="id" value="PUserVO의 id값  : ${PUserVO.id}" readonly>
 		<br>	
@@ -57,7 +57,7 @@
 					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
 					<!--파일 업로드 하는 버튼-->
 					
-				   
+				   	<input type = 'hidden' id = 'xornot' value = '0'>
                	 </td>
                </tr>
                <tr>
@@ -213,7 +213,8 @@
 	$(document).ready(function() {
 
 		var formObj = $("form[role = 'form']");
-
+		var xornot = document.getElementById('xornot');
+		
 		$(function() {
 			$('.input-group.date').datepicker({
 				calendarWeeks : false,
@@ -224,12 +225,6 @@
 			});
 		});
 
-		$("#btn-success").on("click", function() {
-			formObj.attr("action", "/personal/Rmodify");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
 		console.log('${PWebSitelist}');
 		var imgsrccheck = ('#imgsrccheck');
 		
@@ -248,7 +243,6 @@
 			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
 			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
 		}
-		
 	  ////////////img uploadedList start//////////////////////////////////////////////////////////
 	  // var upload = document.getElementsByTagName('input')[0];
 	   var upload = document.getElementById('fileupload');
@@ -276,8 +270,8 @@
 				 image.height = 150;
 				 uploadedList.appendChild(image);
 			 };//reader.onload end
-			 
 		 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+		 
 		 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
 				 event.preventDefault();
 				 //var files = event.originalEvent.dataTransfer.files;
@@ -322,7 +316,7 @@
 			
 			console.log($(this));
 			
-			var fileName = $(this).attr("data-src");
+			fileName = $(this).attr("data-src"); //전역변수로 설정하기
 			var front = fileName.substring(0, 12);
 			var end = fileName.substring(12);
 			
@@ -333,7 +327,9 @@
 			//$("#fileupload").remove();
 			console.log("img File appended deleted");
 			
-			$.ajax({
+			$("#xornot").val("1");
+			
+		 /* 	$.ajax({
 				url:"deleteFile",
 				type:"post",
 				//data : {fileName:$(this).attr("data-src")},
@@ -345,7 +341,8 @@
 						that.parent("div").remove();
 					}
 				}
-			});
+			}); 
+		 	 */
 		});
 		
 		function getOriginalName(fileName){
@@ -358,6 +355,44 @@
 	      	
 	      	return front + end;
 	      }
+		
+		$("#btn-success").on("click", function() {
+			if($("#xornot").val()==0){
+				console.log("xornot.val()==0");
+				console.log("사진 삭제 안함");
+				
+				formObj.attr("action", "/personal/Rmodify");
+				formObj.attr("method", "post");
+				formObj.submit();
+				
+			}else if($("#xornot").val()==1){
+				//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
+				console.log("xornot.val()==1");
+				console.log("사진 삭제함");		
+				$.ajax({
+					url:"deleteFile",
+					type:"post",
+					//data : {fileName:$(this).attr("data-src")},
+					data: {fileName:fileName},
+					dataType:"text",
+					succss:function(result){
+						if(result=='deleted'){
+							console.log("img File on server deleted");
+							that.parent("div").remove();
+							
+							/* console.log("ajax뒤로");
+							formObj.attr("action", "/personal/Rmodify");
+							formObj.attr("method", "post");
+							formObj.submit(); */
+						}
+					}
+				});
+				formObj.attr("action", "/personal/Rmodify");
+				formObj.attr("method", "post");
+				formObj.submit();
+
+			}
+		});
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>

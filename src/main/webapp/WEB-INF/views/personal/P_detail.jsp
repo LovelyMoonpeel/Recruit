@@ -14,158 +14,100 @@
       <div class="table-responsive">
          <!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
          <table class="table table-bordered">
-            <tbody>
+             <tbody>
+                <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
+                <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
                <tr>
-                  <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-                  <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-                  <th class="table-active" scope="row">이름</th>
-                  <td class="col-sm-4">${PUserVO.pname}</td>
-                  <th class="table-active" scope="row">사진</th>
-                  <td class="col-sm-4">
-                  <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
-                  <input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                  </td>
+                <th class="table-active" scope="row"><label for="pname">이름</label> </th>
+	          	<td class="col-sm-4" id="pname" name="pname">${PUserVO.pname}</td>
+                <th class="table-active" scope="row"><label for="img">사진</label></th>
+                <td class="col-sm-4">
+                   <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
+				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+				   </div>
+				   	<!--  사진 보이는 div  -->
+				   	
+                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
+                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
+                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
+					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+					<br>
+               	 </td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">생년월일</th>
+                  <th class="table-active" scope="row"><label>생년월일</label></th>
                   <td>${PUserVO.birth}</td>
-                  <th class="table-active" scope="row">이메일</th>
-                  <td>${PUserVO.email}</td>
+                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
+            	  <td>${PUserVO.email}</td>
                </tr>
                
+               <tr>
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
+               </tr>
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
-	                  <th class="table-active" scope="row">전화번호(종류)★</th>
+	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
 	                  <td>${PTelVO.title}</td>
-	                  <th class="table-active" scope="row">전화번호★</th>
+	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
 	                  <td>${PTelVO.tel}</td>
 	               </tr>
-               </c:forEach>
+               </c:forEach> 
+               
+				<tr>
+                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
+               </tr> 
                
                <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
 	               <tr>
-	                  <th class="table-active" scope="row">웹사이트(종류)★</th>
+	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
 	                  <td>${PWebSiteVO.title}</td>
-	                  <th class="table-active" scope="row">웹사이트주소★</th>
+	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
 	                  <td>${PWebSiteVO.webadd}</td>
 	               </tr>  
 	           </c:forEach> 
-	                        
+	           
+               <tr>
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
+               </tr>
+                <th class="table-active" scope="row"><label for="test">자격증명</label></th>
+                <th class="table-active" scope="row">상세</th>
+                <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
+                <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
+          	  
+          	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
-	                  <th class="table-active" scope="row">주소</th>
-	                  <td>${ResumeVO.address}</td>
-	                  <th class="table-active" scope="row">우편번호</th>
-	                  <td>${ResumeVO.postcode}</td>
+	                  <td>${RLicenseVO.test}</td>
+	                  <td>${RLicenseVO.test}</div>
+					  </td>
+					  <td>${RLicenseVO.publeoffice}</td>
+					  <td>${RLicenseVO.acquidate}</td>
 	               </tr>
-               <tr>
-               	  <th>학력사항</th>            
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">학교명</th>
-                  <td>${ResumeEduVO.schoolname}</td>
-                  <th class="table-active" scope="row">학과</th>
-                  <td>${ResumeEduVO.major}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">입학일</th>
-                  <td>${ResumeEduVO.enterdate}</td>
-                  <th class="table-active" scope="row">졸업일</th>
-                  <td>${ResumeEduVO.gradudate}</td>
-               </tr>
-               <tr>
-               	  <th class="table-active" scope="row">졸업상태</th>
-                  <td>${ResumeEduVO.edustatus}</td>
-               </tr>
-               
-               <tr>
-               	  <th>경력사항</th>            
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">회사명</th>
-                  <td>${ResumeCareerVO.cname}</td>
-                  <th class="table-active" scope="row">담당업무</th>
-                  <td>${ResumeCareerVO.jobdescription}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">입사일</th>
-                  <td>${ResumeCareerVO.startjob}</td>
-                  <th class="table-active" scope="row">퇴사일</th>
-                  <td>${ResumeCareerVO.finishjob}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">연봉</th>
-                  <td>${ResumeCareerVO.salary}</td>
-               </tr>
-               
-               <tr>
-               	  <th>보유자격증 목록~~~~</th>            
-               </tr>
-               
-               <c:forEach items="${RLicenselist}" var="RLicenseVO">
-               <tr>
-                  <th class="table-active" scope="row">자격증명★</th>
-                  <td>${RLicenseVO.test}</td>
-                  <th class="table-active" scope="row">발행기관★</th>
-                  <td>${RLicenseVO.publeoffice}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">취득일자★</th>
-                  <td>${RLicenseVO.acquidate}</td>
-               </tr>     
-                         
                 </c:forEach>
                
                <tr>
-               	  <th>어학능력 자격증 목록~~~~</th>            
+               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                
-               <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+               	<th class="table-active" scope="row"><label for="testname">공인인증시험명</label></th>
+                <th class="table-active" scope="row"><label for="score">점수</label> </th>
+                <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
+                <th class="table-active" scope="row"><label for="lanacquidate">취득일자</label></th>
+                
+                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
-	                  <th class="table-active" scope="row">공인인증시험명★</th>
 	                  <td>${ResumeLanguageVO.test}</td>
-	                  <th class="table-active" scope="row">점수★</th>
 	                  <td>${ResumeLanguageVO.score}</td>
-	               </tr>
-	               <tr>
-	                  <th class="table-active" scope="row">발행기관★</th>
 	                  <td>${ResumeLanguageVO.publeoffice}</td>
-	                  <th class="table-active" scope="row">취득일자★</th>
 	                  <td>${ResumeLanguageVO.acquidate}</td>
 	               </tr>  
-                </c:forEach>             
-               
+                </c:forEach>
+                       
                <tr>
-               	  <th>희망 구직 정보</th>            
+                  <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
+               </tr> 
+               <tr>
+                <td colspan="4" rowspan="2">${ResumeVO.coverletter}</td>   
                </tr>
-               <tr>
-                  <th class="table-active" scope="row">구직상태</th>
-                  <td>${ResumeVO.jobstateid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망직종</th>
-                  <td>${ResumeVO.jobgroupid}</td>
-                  <th class="table-active" scope="row">희망근무형태</th>
-                  <td>${ResumeVO.employstatusid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망근무지(시/도)</th>
-                  <td>${ResumeVO.rgbid}</td>
-                  <th class="table-active" scope="row">희망근무지</th>
-                  <td>${ResumeVO.rgsid}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">희망연봉</th>
-                  <td>${ResumeVO.salaryid}</td>
-               </tr>
-                              
-               <tr>
-                  <th class="table-active" scope="row">제목</th>
-                  <td>${ResumeVO.title}</td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row">자기소개서</th>
-                  <td>${ResumeVO.coverletter}</td>
-               </tr>                     
             </tbody>
          </table>
          <!-- //table class -->

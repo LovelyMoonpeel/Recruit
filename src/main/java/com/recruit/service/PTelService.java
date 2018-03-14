@@ -16,5 +16,4 @@ public interface PTelService {
 
 	public void createPTel(PTelVO vo)throws Exception;
 
-	
 }

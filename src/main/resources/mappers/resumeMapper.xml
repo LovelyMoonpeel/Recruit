@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	update project.tbltel
 	set title = #{title}, tel = #{tel} 
-	where rid = #{rid}
+	where rid = #{bno}
 	]]>
 	</update>
 	
