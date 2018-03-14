@@ -24,15 +24,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<!--643 start -->
+	<!--2018.3.13 문필 작성
+	1. 아래 interceptor에서authInterceptor을 사용하기 위해 bean으로 등록하는 과정   
+	2. class 속성값은 AuthInterceptor가 있는 경로-->
 	<beans:bean id="authInterceptor" class="com.recruit.interceptor.AuthInterceptor"></beans:bean>
-	<!--643 end -->
-
-
-	<!--638 start -->
+	
+	<!--2018.3.13 문필 작성 
+	1. 아래 interceptor에서loginInterceptor을 사용하기 위해 bean으로 등록하는 과정   
+	2. class 속성값은 LoginInterceptor가 있는 경로-->
 	<beans:bean id="loginInterceptor" class="com.recruit.interceptor.LoginInterceptor"></beans:bean>
-	<!--638 end -->
-
+	
 	<!--p521 start -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -50,25 +51,22 @@
 
 	<interceptors>
 
-		
-		<!-- LoginInterceptor의 설정은 '/loginPost'의 동작에서 이뤄져야 하므로 다음과 같이 설정 '/user/loginPost'경로를 
-			호출할 때 동작하도록 설정됨 -->
+		<!--2018.3.13 문필 작성 
+		1. /rpjt/loginPost 요청이 들어오면  loginInterceptor가 먼저 동작
+		2. 밑에 ref는 loginInterceptor가 참조변수라는 말 -->
 		<interceptor>
 			<mapping path="/rpjt/loginPost" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 	
-
-	
-		<!-- AuthInterceptor가 '게시물의 입력 화면'에서 처리하는 것을 적용 프로젝트를 실행하고, 로그인하지 않은 사용자가 
-			게시물 리스트에서 새로운 게시물을 작성하는 '/sboard/register'를 접근하게 되면 사용자는 로그인 페이지를 보게 된다. -->
+		<!--2018.3.13 문필 작성 
+		1. 로그인하지 않은 사용자가 '/sboard/register'에 접근할 때 로그인 페이지를 보여주도록 하는 장치 
+		2. 1번과 같은 기능을 적용시킬 페이지를 mapping에 적는다 -->
 		<interceptor>
 			<mapping path="/sboard/register" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	
-
-
 	</interceptors>
 
 	<!-- merge conflicts -->

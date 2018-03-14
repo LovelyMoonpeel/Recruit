@@ -22,13 +22,13 @@ public class UserDAOImpl implements UserDAO {
 	private static String namespace = "com.recruit.mapper.UserMapper";
 
 	@Override
-	public UserVO read(String uid) throws Exception {
+	public BoardVO read(String id) throws Exception {
 		System.out.println("read");
-		return session.selectOne(namespace + ".read", uid);
+		return session.selectOne(namespace + ".read", id);
 	}
 
 	@Override
-	public List<UserVO> listAll() throws Exception {
+	public List<BoardVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
 	}
 
@@ -50,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
 		paramMap.put("next", next);
 
 		session.update(namespace + ".keepLogin", paramMap);
-
+		
 	}
 
 	//loginCookie에 기록된 값으로 사용자의 정보를 조회하는 기능
@@ -58,5 +58,6 @@ public class UserDAOImpl implements UserDAO {
 	public BoardVO checkUserWithSessionKey(String value) {
 
 		return session.selectOne(namespace + ".checkUserWithSessionKey", value);
+		
 	}
 }

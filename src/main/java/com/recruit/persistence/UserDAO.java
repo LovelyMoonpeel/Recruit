@@ -9,10 +9,16 @@ import com.recruit.dto.LoginDTO;
 
 public interface UserDAO {
 
-	public UserVO read(String uid) throws Exception;
-	public List<UserVO> listAll() throws Exception;
+	public BoardVO read(String id) throws Exception;
+	public List<BoardVO> listAll() throws Exception;
+	
+	//3.14 문필꺼 확인
 	public BoardVO login(LoginDTO dto)throws Exception;
+	
+	//3.14 문필꺼 확인
 	public void keepLogin(String id, String sessionId, Date next);
+	
+	//3.14 문필꺼 확인
 	public BoardVO checkUserWithSessionKey(String value);	
 
 }

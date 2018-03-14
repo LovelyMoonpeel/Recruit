@@ -1,5 +1,6 @@
 package com.recruit.domain;
 
+//3.14 ë¬¸í•„ ì „ì²´ í™•ì¸
 public class BoardVO {
 	
 	private String id;
@@ -61,6 +62,6 @@ public class BoardVO {
 
 //629
 /*
-¼¼¼Ç¿¡ º¸°üµÉ UserVOÅ¬·¡½º¸¦ ¼³°è
+ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UserVOÅ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 */
 
