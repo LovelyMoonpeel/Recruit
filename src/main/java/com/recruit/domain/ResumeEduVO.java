@@ -1,5 +1,7 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class ResumeEduVO {
 
 	private int bno;
@@ -9,6 +11,18 @@ public class ResumeEduVO {
 	private String enterdate;
 	private String gradudate;
 	private int edustatus;
+
+	// r.code 03/14 JSP에서 객체 리스트 받기
+	private List<ResumeEduVO> list;
+
+	public List<ResumeEduVO> getList() {
+		return list;
+	}
+
+	public void setList(List<ResumeEduVO> list) {
+		this.list = list;
+	}
+	// end of r.code
 
 	public int getBno() {
 		return bno;

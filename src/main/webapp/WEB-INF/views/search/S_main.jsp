@@ -245,7 +245,7 @@
 	// show selected items of recruits or resumes
 	function getList_sel(users) {
 		deletelist();
-		if($("#stype").attr("value") === "1"){
+		if ($("#stype").attr("value") === "1") {
 			console.log('$("#stype").attr("value") === "1"')
 		} else if ($("#stype").attr("value") === "2") {
 			console.log('$("#stype").attr("value") === "2"')
@@ -297,7 +297,7 @@
 			dataType : 'text',
 			data : JSON.stringify(array),
 			success : function(result) {
-				if (result = 'SUCCESS') {
+				if (result == 'SUCCESS') {
 					alert('SUCCESS');
 					getList_sel('recruits');
 				}

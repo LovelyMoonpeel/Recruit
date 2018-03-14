@@ -169,13 +169,14 @@
 </div>
 
 <script id="template_edu" type="text/x-handlebars-template">
-<hr style="border: solid 0.5px #ccc;">
 <div class="row">
+	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
+		<input type="hidden" name="list[{{num}}].bno" value="{{bno}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control enterdate"
-				name="enterdate" value="{{enterdate}}"> <span
+				name="list[{{num}}].enterdate" value="{{enterdate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="enterdate" name="enterdate" -->
@@ -185,7 +186,7 @@
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control gradudate"
-				name="gradudate" value="{{gradudate}}"> <span
+				name="list[{{num}}].gradudate" value="{{gradudate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
 		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
@@ -193,15 +194,15 @@
 	</div>
 	<div class="form-group col-md-5">
 		<label for="schoolname">학교명</label> <input class="form-control schoolname"
-			name="schoolname" value="{{schoolname}}"></input>
+			name="list[{{num}}].schoolname" value="{{schoolname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
 		<label for="major">학과</label> <input class="form-control major"
-			name="major" value="{{major}}"></input>
+			name="list[{{num}}].major" value="{{major}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="edustatus">졸업상태</label>
-		<select class="form-control edustatus">
+		<select class="form-control edustatus" name="list[{{num}}].edustatus">
 			{{#select edustatus}}
 			<option value="0" selected>선택</option>
 			<option value="15">재학</option>
@@ -229,40 +230,41 @@
 </script>
 
 <script id="template_exp" type="text/x-handlebars-template">
-<hr style="border: solid 0.5px #ccc;">
 <div class="row">
+	<input type="hidden" name="bno" value="{{bno}}">
+	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control" id="startjob" name="startjob"
+			<input type="text" class="form-control" name="startjob"
 				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
-		<!-- <input class="form-control" id="startjob" name="startjob" -->
+		<!-- <input class="form-control" name="startjob" -->
 		<!-- value="${ResumeCareerVO.startjob}"></input> -->
 	</div>
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control" id="finishjob"
+			<input type="text" class="form-control"
 				name="finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
-		<!-- <input class="form-control" id="finishjob" name="finishjob" -->
+		<!-- <input class="form-control" name="finishjob" -->
 		<!-- value="${ResumeCareerVO.finishjob}"></input> -->
 	</div>
 	<div class="form-group col-md-5">
-		<label for="cname">회사명</label> <input class="form-control" id="cname"
-			name="cname" value="{{cname}}"></input>
+		<label for="cname">회사명</label>
+		<input class="form-control" name="cname" value="{{cname}}"></input>
 	</div>
 	<div class="form-group col-md-4">
-		<label for="jobdescription">담당업무</label> <input class="form-control"
-			id="jobdescription" name="jobdescription"
-			value="{{jobdescription}}"></input>
+		<label for="jobdescription">담당업무</label>
+		<input class="form-control" name="jobdescription" value="{{jobdescription}}">
+		</input>
 	</div>
 	<div class="form-group col-md-3">
-		<label for="salary">연봉</label> <select id="salary"
-			class="form-control">
+		<label for="salary">연봉</label>
+		<select class="form-control" name="salary">
 			{{#select salary}}
 			<option value="0" selected>선택</option>
 			<option value="34">~ 2,000</option>
@@ -305,6 +307,7 @@
 <script type='text/javascript'>
 	$(document).ready(function() {
 		
+		// r.code 03/14 Handlebars Helper 등록
 		Handlebars.registerHelper('select', function( value, options ){
 	        var $el = $('<select />').html( options.fn(this) );
 	        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
@@ -363,10 +366,12 @@
 		}
 		
 		function edu_list() {
-			var num = (${eduVOlist.size()});
+			var len = (${eduVOlist.size()});
+			var num = 0;
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var eduVO = new Object();
 				var item = {
+						num : num,
 						bno : ${eduVO.bno},
 						schoolname : "${eduVO.schoolname}",
 						major : "${eduVO.major}",
@@ -375,6 +380,7 @@
 						edustatus : ${eduVO.edustatus}
 					};
 				add_edu(item);
+				num++;
 			</c:forEach>
 		}
 		

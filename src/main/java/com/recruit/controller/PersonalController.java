@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -179,7 +180,6 @@ public class PersonalController {
 		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 
 		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 
 		return "personal/P_detail";
@@ -214,7 +214,20 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(ResumeVO resume, ResumeEduVO resumeEduVO, Model model, RedirectAttributes rttr)
+			throws Exception {
+
+		// r.code 03/14
+		System.out.println("r.code");
+		System.out.println(resume);
+		System.out.println("r: " + resumeEduVO.getList().size());
+
+		int num = resumeEduVO.getList().size();
+		for (int i = 0; i < num; i++) {
+			System.out.println("r: " + resumeEduVO.getList().get(i));
+		}
+		// end of r.code
+
 		logger.info("index POST, 개인정보 수정");
 		// logger.info(PUser.toString());
 

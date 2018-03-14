@@ -1,5 +1,7 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class ResumeVO {
 
 	private int bno;
