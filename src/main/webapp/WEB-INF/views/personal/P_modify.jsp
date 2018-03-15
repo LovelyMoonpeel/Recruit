@@ -13,25 +13,14 @@
 
 <div class="col-md-9">
 	<form role = "form" method = "post">
+		<!-- 개인 페이지 첫번째(이미지, 이름) -->
+		<div class="top_cont">
+			<br>
+			<h1 class="ci_name">${PUserVO.pname}</h1>
+			<br>
+		</div>
 		<table class="table table-bordered">
 				<tbody>
-				<tr>
-					<th class="table-active" scope="row"><label>프로필이미지</label></th>
-					<td colspan="3">
-					<!-- 개인 페이지 첫번째(이미지, 이름) -->
-						<div class="top_cont">
-							<div class="corp_logo">
-							 <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" src="http://webpds.saramin.co.kr/pds/united_company/logo/8008_logo_2.jpg"/> 
-									<br>
-									<h1 class="ci_name">${PUserVO.pname}</h1>
-								<br>
-							</div>
-						</div>
-						<div class="form-group col-lg-6 col-md-offset-4">
-							<input type="file" id="exampleInputFile">
-						</div>
-					</td>
-				</tr>
 				<tr>
 					<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
 					<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
@@ -80,7 +69,7 @@
 					<td colspan="3">
 						<div class="form-group">
 							<div class="input-group date" data-provide="datepicker">
-								<input type="text" name ="birth" class="form-control" id = "" value ="${PUserVO.birth}">
+								<input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}">
 								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 								</span>
 							</div>
@@ -91,15 +80,10 @@
 			</table>
 		</div>
 	</form>
-	
-		<button id = "modify-finish" class="btn btn-success" type='submit'>완료</button>
-		<button id = "modify-cancel" class="btn btn-danger" type='submit'>취소</button>
-			<!--  onClick="javascript:self.location='C_index_r04.html';"-->
-
-	<!-- //수정 버튼 -->
+	<button id ="modify-finish" class="btn btn-success col-md-offset-10" type='submit'>완료</button>
+	<button id ="modify-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/index?id={PUserVO.id}';" type="button">취소</button>
 	<br> <br>
 </div>
-<!-- //기업 페이지 -->
 
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -120,9 +104,15 @@ $(document).ready(function(){
 		//self.location = "/person/modify";
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
-			
+		
 		if(pw==pwc){
 			if(confirm("수정하시겠습니까?")){
+				<!-- //birth null값인지 확인  -->
+				//	birth가 ''면 null
+				if($('#birth').val()==''){
+					$('#birth').val("0000-00-00");
+				}
+				// null이면 0000-00-00으로 반환
 				formObj.attr("action", "/personal/modify");
 				formObj.attr("method", "post");
 				formObj.submit();
@@ -164,8 +154,8 @@ $(document).ready(function(){
 		}
 	}); 
 	<!-- //비밀번호 일치 여부  -->
+	
 });
 	
 </script>
-
 <%@include file="../include/cfooter.jsp"%>

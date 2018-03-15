@@ -93,6 +93,7 @@ public class PersonalController {
 
 		PUserVO PUser = new PUserVO();
 		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+		//ResumeVO의 가장 
 		
 		model.addAttribute(service.selectPUser(PUser.getId()));
 
@@ -114,6 +115,7 @@ public class PersonalController {
 	public String indexPOST(PUserVO PUser, Model model, RedirectAttributes rttr) throws Exception {
 		logger.info("index POST, 개인정보 수정");
 		logger.info(PUser.toString());
+		
 		service.updatePUser(PUser);
 		model.addAttribute("result", "success");
 		rttr.addFlashAttribute("result", "success");

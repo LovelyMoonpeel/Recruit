@@ -12,17 +12,10 @@
 <div class="col-md-9">
 	<!-- 개인 페이지 첫번째(이미지, 이름) -->
 	<div class="top_cont">
-		<div class="corp_logo">
-			<img id="프로필사진" alt="프로필사진"
-				src="http://webpds.saramin.co.kr/pds/united_company/logo/8008_logo_2.jpg"
-				width="209" height="117"> <br> <br>
 				<h1 class="ci_name">${PUserVO.pname}</h1>
 			<br>
-		</div>
 	</div>
-	<!-- //개인 페이지 첫번째 -->
 	<br> <br>
-	<!-- 개인 정보 페이지 두번째(기본 정보) -->
 	<div class="company_info_content">
 		<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 		<div class="table-responsive">
@@ -36,12 +29,7 @@
 						<td>${PUserVO.id}</td>
 						<th class="table-active" scope="row">비밀번호</th>
 						<td>${PUserVO.pw}</td>
-						
 					</tr>
-					<!-- <tr>
-                        <th class="table-active" scope="row">소속그룹</th>
-                        <td colspan="3">동국제약</td>
-                      </tr> -->
 					<tr>
 						<th class="table-active" scope="row">이름</th>
 						<td colspan="3">${PUserVO.pname}</td>
@@ -54,46 +42,6 @@
 						<th class="table-active" scope="row">생일</th>
 						<td colspan="3">${PUserVO.birth}</td>
 					</tr>
-					<!--<tr>
-						<th class="table-active" scope="row">사원수</th>
-						<td>${cinfoVO.numemp} 명</td>
-						<th class="table-active" scope="row">매출액</th>
-						<td>${cinfoVO.sales}</td>
-					</tr>
-					 	<tr>
-                          <th scope="row">자본금</th>
-                          <td> 222억 3,000만원
-                              <span class="standard_year">(2016년 기준)</span>
-                          </td>
-                          <th scope="row">영업이익</th>
-                          <td>
-                              466억 5,773만원
-                              <span class="standard_year">(2016년 기준)</span>
-                          </td>
-                      </tr> 
-					<tr>
-						<th class="table-active" scope="row">대표전화</th>
-						<td>${cinfoVO.tel}</td>
-						<th class="table-active" scope="row">FAX</th>
-						<td>${cinfoVO.fax}</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row">홈페이지</th>
-						<td><a href="${cinfoVO.homepage}" class="link_site"
-							target="_blank" rel="nofollow">${cinfoVO.homepage}</a></td>
-						<th class="table-active" scope="row">SNS</th>
-						<td><a href="${cinfoVO.sns}"
-							class="link_site" target="_blank" rel="nofollow">${cinfoVO.sns}</a></td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row">기업주소</th>
-						<td colspan="3">${cinfoVO.location}</td>
-					</tr>-->
-					<!-- ★복지는 2차 개발 -->
-					<!-- <tr>
-                        <th class="table-active" scope="row">복지</th>
-                        <td colspan="3">하하하하하하 </td>
-                      </tr> -->
 				</tbody>
 			</table>
 			<!-- //table class -->
@@ -108,7 +56,7 @@
 	</form>
 		 <input class="btn btn-success" type='button' value='수정'
 			onClick="javascript:self.location='/personal/modify';"> -->
-		<button type = "submit" id = "modify-button" class="btn btn-success">수정</button>
+		<button type = "submit" id = "modify-button" class="btn btn-success col-md-offset-11">수정</button>
 	
 	<!-- //수정 버튼 -->
 	<br> <br>

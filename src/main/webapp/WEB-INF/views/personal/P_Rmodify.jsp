@@ -42,7 +42,6 @@
 	           	</td>
                 <th class="table-active" scope="row"><label for="img">사진</label></th>
                 <td class="col-sm-4">
-                
                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
 				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 				   </div>
