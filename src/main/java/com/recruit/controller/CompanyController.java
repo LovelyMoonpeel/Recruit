@@ -216,6 +216,13 @@ public class CompanyController {
 		// model.addAttribute(service.RecruitInfoRead(recruitNum));
 		String id = service.RecruitInfoRead2(recruitNum).getCid();
 		// System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
+		String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
+		String adddesc2 = adddesc.replace("\r\n", "<br>");
+		String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
+		String jobdesc2 = jobdesc.replace("\r\n", "<br>");
+		
+		model.addAttribute("adddesc", adddesc2);
+		model.addAttribute("jobdesc", jobdesc2);
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 

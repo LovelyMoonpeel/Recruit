@@ -19,7 +19,7 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 			<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><a class="qnadetail" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
+			<td><input class="qnamodal ${CsqnaVO.bno}" type="hidden" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}"><a class="qnadetail" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
@@ -78,7 +78,7 @@
 <script type="text/javascript">
 
 var formObj = $("form[role='form']");
-
+var sbno = "";
 console.log(formObj);
 
 /* 비밀번호 확인 Modal */
@@ -97,9 +97,25 @@ $(".qnadetail").on("click", function(){
 		success:function(result){
 			if(result == ""){
 				self.location = "/cs/S_qnaread?bno="+bno;
+			}else{
+				$("."+bno).click();
 			}
 		}});
-	$(".modal-title").html(bno);
+	/* $(".modal-title").html(bno); */
+/* 	sbno = bno;
+	alert("bno : " + bno);
+	alert("sbno : "+sbno); */
+});
+/* alert(sbno); */
+$(".qnamodal").on("click", function(){
+	/* alert("qnamodal"+sbno);
+	console.log("qnamodal"+sbno); */
+	var bnoObj = $(this);
+	var bno = bnoObj.attr("data-bno");
+	
+	$(".modal-title").html(bnoObj.attr("data-bno"));
+	document.getElementById('bpwchk').focus();
+	$('#bpwchk').focus();
 });
 
 /* 비밀번호 확인 스크립트 */
@@ -120,7 +136,7 @@ $("#qnabpw").on("click", function(){
 /* 			console.log("result: "+result);
 			alert("result : "+result); */
 			if(result == bpw){
-				alert("비밀번호가 일치합니다.");
+				/* alert("비밀번호가 일치합니다."); */
 				bpwObj.val("");
 				self.location = "/cs/S_qnaread?bno="+bno;
 			}else{

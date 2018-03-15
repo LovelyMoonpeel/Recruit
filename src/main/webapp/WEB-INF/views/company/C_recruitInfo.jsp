@@ -93,7 +93,7 @@
 		</tr>
 		<tr>
 			<th>담당업무</th>
-			<td>${RecruitVO.jobdesc }</td>
+			<td>${jobdesc }</td>
 		</tr>
 		<tr>
 			<th>모집인원</th>
@@ -117,7 +117,7 @@
 		</tr>
 		<tr>
 			<th>상세내용 및 우대사항</th>
-			<td>${RecruitVO.adddesc }</td>
+			<td>${adddesc }</td>
 		</tr>
 		<tr>
 			<th>접수기간</th>
