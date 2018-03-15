@@ -19,7 +19,7 @@
 	<form role="form" method="post">
 		<br>
 		<input type="text" class="form-control" id="rid" name="rid" value="PTelVO의 rid값  : ${PTelVO.rid }">
-		<input type="text" class="form-control" id="bno" name="bno" value="ResumeVO의 bno값 : ${ResumeVO.bno}" readonly> 
+		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
 		<input type="text" class="form-control" id="userid" name="userid" value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> 
 		<input type="text" class="form-control" id="id" name="id" value="PUserVO의 id값  : ${PUserVO.id}" readonly>
 		<br>	

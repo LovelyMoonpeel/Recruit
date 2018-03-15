@@ -200,8 +200,9 @@ public class PersonalController {
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, PTelVO[] ptvo, Model model, RedirectAttributes rttr) throws Exception {
 	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, String[] teltitle, String[] tel, Model model, RedirectAttributes rttr) throws Exception {
-	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
+		System.out.println("야"); 
 		
 		Rservice.updateROne(resume);
 
@@ -222,29 +223,7 @@ public class PersonalController {
 	/*	for(int i=0;i<ptvoid.length;i++){
 			Telservice.updateTOne(ptvoid[i]);
 		}*/
-		
-		//Telservice.;
-		
-		/*Webservice.selectPWebSiteList(bno);
-		Telservice.selectPTelList(bno);
-		Licenseservice.selectRLicenseList(bno);
-		Langservice.selectResumeLanguageList(bno);*/
-		
-		/*		for(int i=0;i<ptvoid.length;i++){
-		System.out.println("값"+ptvoid[i]);
-		System.out.println("teltitle 값:"+ teltitle[i]);
-		System.out.println("tel 값:"+ tel[i]);
-		}
-		
-		PTelVO[] ptvo = new PTelVO[ptvoid.length];
-		//추가되는거 어차피 크리에이트로 해야함
-		
-		for(int i=0;i<ptvoid.length;i++){
-			System.out.println("들어가냐");
-			System.out.println(ptvo[i].toString());
-			System.out.println("실행됐나");
-		}//근데 배열 자체가 안되는듯 이게 하나의 테이블인데
-		 */
+	
 		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
