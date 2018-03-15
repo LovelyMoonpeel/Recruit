@@ -33,11 +33,25 @@
 					<th><%=manage%></th>
 					<th>${RecruitVO.title}</th>
 					<th>~${RecruitVO.period}</th>
-					<th><button id=${RecruitVO.bno} value=${RecruitVO.bno}>인재보기</button></th>
+					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
-					
-					
-				<tr class="tr${RecruitVO.bno}" style="display:none">
+
+						</c:forEach>
+		
+	</table>
+	
+	<div id="myModal" class="modal fade" role="dialog">
+ 	 <div class="modal-dialog">
+	   <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" name="offLoad" id="off" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">추천인재목록</h4>
+        </div>
+        <div class="modal-body">
+          <table>
+          <c:forEach items="${recruitList}" var="RecruitVO">
+          
+          <tr class="tr${RecruitVO.bno}" id="off" style="display:none">
                 <th style="width:5%;"></th>
                 <th style="width:20%;" class="text-center">이름</th>
                 <th class="text-center">이력서 요약</th>
@@ -47,12 +61,16 @@
           	 <tbody class="tr${RecruitVO.bno}" id="recomList${RecruitVO.bno}" style="display:none"> 
           	 
           	  </tbody>
-          	  
-  
-						</c:forEach>
-		
-	</table>
-	
+          
+          </c:forEach>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div>
+      	</div> 
+       </div>
+    </div>
 	
 
 </div>
@@ -60,14 +78,22 @@
 </div>
 
 <script>
-$("button").click(function() {
+$('button[name="onLoad"]').on("click", function() {
 	var bno = $(this).val();
 	
-	$(".tr"+bno).toggle();
+	
+	 $(".tr"+bno).toggle(); 
+	
 	PersonList(bno);
 	/* $(".tr"+bno).toggle(); */
 	
 })
+$("button[name=offLoad]").on("click", function(add_event) {
+	
+alert(bno);	
+	 $(".tr"+bno).toggle(); 
+})
+
 $(document).ready(function(){
 	
 	
@@ -80,7 +106,7 @@ function PersonList(bno){
 		var str = "";
 		$(data).each(
 				function() {
-					str += "<tr><td><a id=r1 value="+this.bno+">"+1+"</a></td><td>"+this.img+"</td><td><h1  id="+this.bno+">"+this.title+"</h1></td><td>"+this.rgbid+"</td></tr>";
+					str += "<tr><td><a id=r1 value="+this.bno+">"+1+"</a></td><td>"+this.img+"</td><td><a  id="+this.bno+">"+this.title+"</a></td><td>"+this.rgbid+"</td></tr>";
 							
 				});
 		

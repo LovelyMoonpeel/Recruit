@@ -31,4 +31,11 @@ public interface CompanyService {
 
 	  public List<ResumeVO> FavorList(String id) throws Exception;
 	  
+	  public List<RecruitVO> cinfoRecruitList(String id) throws Exception;
+	  
+	  public void RecruitModify(RecruitVO recruitModify) throws Exception;
+	
+	  public RecruitVO RecruitModifyRead(int bno, String id)throws Exception;
+	  
+	  public void RecruitRemove(int bno, String id)throws Exception;
 }

@@ -10,7 +10,7 @@
 	<div class="top_cont">
 		<div class="corp_logo">
 			<img src="/resources/rpjt/img/${CInfoVO.img}"
-				 name="img" value="${CInfoVO.img}" /> <br> <br>
+				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
@@ -80,22 +80,39 @@
                       </tr> -->
 				</tbody>
 			</table>
-			
-	
 			<!-- //table class -->
 		</div>
 		<!-- //table-responsive -->
 	</div>
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	<form role="form" method="post">
-			<input type='hidden' name='id' value="${CInfoVO.id}">
-			</form>
+	
+	<form class="form-inline">
+	<table class="table">
+	<tr class="active">
+	<h1><a>'${CInfoVO.cname}'</a>진행중인 채용 공고</h1>
+	</tr>
+	
+					<!-- DB의 날짜를 숫자로 변환(비교를 위해) -->
+				
+	<c:forEach items="${cinfoRecruitList}" var="recruitVO">
+	<tr class="active">
+	<td> ${recruitVO.title}
+	<button type="button" class="btn">
+  	<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+	</button>
+	<br>${recruitVO.jobdesc} 
+	
+	</td>
+	<td> ${recruitVO.exp}<br>${recruitVO.edu}<br>${recruitVO.rgbid}
+	</td>
+	</tr class="active">
+	</c:forEach>
+	
+	</table>
+	</form>
 			
-	<!-- 수정 버튼 -->
-	<div class="box-footer">
-	<button type="submit" class="btn btn-warning">수정하기</button>
-</div>
+	
 
 
 
@@ -104,26 +121,5 @@
 </div>
 <!-- //기업 페이지 -->
 
-			<script>
-				
-$(document).ready(function(){
-	
-var formObj = $("form[role='form']");
-	
-	console.log(formObj);
-	
-	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/company/C_modify");
-		formObj.attr("method", "get");		
-		formObj.submit();
-	});
-	
-	
-});
-var result = '${msg}';
-if (result == 'SUCCESS') {
-	alert("수정이 완료됐습니다.");
-}
-</script>
 
 <%@include file="../include/cfooter.jsp"%>

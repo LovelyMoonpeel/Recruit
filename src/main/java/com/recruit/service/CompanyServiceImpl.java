@@ -74,12 +74,34 @@ public class CompanyServiceImpl implements CompanyService {
 	 public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
 		 return dao.RecruitInfoRead3(recruitNum);
 	 } 
-	 
+	 @Override
 	 public List<ResumeVO> FavorList(String id) throws Exception{
 		 
 		 return dao.FavorList(id);
 		 
 	 }
+	 @Override
+	 public List<RecruitVO> cinfoRecruitList(String id) throws Exception{
+		 
+		 return dao.cinfoRecruitList(id);
+	 }
+
+	@Override
+	public void RecruitModify(RecruitVO recruitModify) throws Exception {
+		
+		dao.RecruitModify(recruitModify);
+	}
+	@Override
+	public RecruitVO RecruitModifyRead(int bno, String id)throws Exception{
+		System.out.println("출력결과는 : " +dao.RecruitModifyRead(bno,id));
+		return dao.RecruitModifyRead(bno,id);
+	}
+
+	@Override
+	public void RecruitRemove(int bno, String id) throws Exception {
+		
+		dao.RecruitRemove(bno ,id);
+	}
 	  
 
 }

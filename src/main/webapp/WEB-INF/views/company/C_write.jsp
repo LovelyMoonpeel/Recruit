@@ -78,7 +78,11 @@
 				<select id="jobGroup" name="jobgroupid">
 				<option value="">모집직종</option>
 					<c:forEach items="${jobgroupList}" var="JobGroupVO">
+				
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+					
+				
+				
 					</c:forEach>
 				</select> 
 				
@@ -227,8 +231,7 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		$(".btn-primary").on("click", function() {
-			formObj.attr("action", "C_write");
+		$(".btn-primary").on("click", function() {			
 			formObj.submit();
 		});
 	});

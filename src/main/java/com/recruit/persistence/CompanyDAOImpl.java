@@ -1,5 +1,6 @@
 package com.recruit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,6 +72,44 @@ public class CompanyDAOImpl implements CompanyDAO{
 	@Override
 	public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
 		return session.selectOne(namespace +".recruitinfoRead3", recruitNum);
+	}
+	@Override
+	public List<RecruitVO> cinfoRecruitList(String id) throws Exception{
+		
+		return session.selectList(namespace + ".cinfoRecruitList", id);
+	}
+
+	@Override
+	public void RecruitModify(RecruitVO recruitModify) throws Exception {
+		
+		session.update(namespace + ".recruitModify", recruitModify);
+	}
+	
+	@Override
+	public RecruitVO RecruitModifyRead(int bno,String id)throws Exception{
+		
+		HashMap<String, Object> rr = new HashMap<>();
+		
+		rr.put("id", id);
+		rr.put("bno", bno);
+		
+		System.out.println(rr);
+		
+		
+		
+		
+		return session.selectOne(namespace + ".recruitModifyRead", rr);
+	}
+	@Override
+	public void RecruitRemove(int bno, String id)throws Exception{
+		
+		HashMap<String, Object> RR = new HashMap<>();
+		
+		RR.put("id", id);
+		RR.put("bno", bno);
+		
+		
+		session.delete(namespace + ".recruitDelete", RR);
 	}
 
 	

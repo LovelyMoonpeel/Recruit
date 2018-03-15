@@ -9,12 +9,12 @@
   text-align: center;
 }
 
-table,
+/* table,
 th,
 td {
   border: 1px solid black;
   border-collapse: collapse
-}
+} */
 
 body {
   padding-top: 70px;
@@ -35,18 +35,18 @@ footer {
 }
 
 .careerLine {
-  /*ÃßÃµÀÎÀç ,°ü½ÉÀÎÀç ÃÑ °æ·Â Å×µÎ¸®*/
+  /*ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ ,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½×µÎ¸ï¿½*/
   border: 1px solid blue;
   border-radius: 7px;
 }
 
 #none {
-  /* ÃßÃµÀÎÀç ¼û±â±â */
+  /* ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ */
   display: none;
 }
 
 #inline {
-  /* ÃßÃµÀÎÀç º¸±â */
+  /* ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   display: inline;
 }
 

@@ -95,7 +95,7 @@ public class CompanyAjax {
 
 	@RequestMapping(value = "/favor/{bno}/{id}",method = RequestMethod.GET)
 	public void faver(@PathVariable("bno") int bno, @PathVariable("id") String id) throws Exception{
-
+		System.out.println("ControllerAjax :" +bno+ ", "+id);
 		service.FavorPerson(bno, id);
 	}
 }

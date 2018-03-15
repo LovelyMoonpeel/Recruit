@@ -15,7 +15,7 @@
   
  <update id="companyinfoUpdate">
  update project.tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
- , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns}
+ , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} , img=#{img}
  , location=#{location}
  where id = #{id}
  </update>
@@ -83,8 +83,37 @@
  </select>
  
   <insert id="recruitWrite">
-  insert into tblrecruit (title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod)
-  values (#{title}, #{cid}, #{jobgroupid}, #{jobgroupid2}, #{rgbid}, #{rgsid}, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}, #{exp}, #{adddesc}, #{period}, #{acceptmethod})
+  insert into tblrecruit (title, cid
+  <if test="jobgroupid != '' and jobgroupid != null ">, jobgroupid</if>
+  <if test="jobgroupid2 != '' and jobgroupid2 != null ">, jobgroupid2</if>
+  <if test="rgbid != '' and rgbid != null ">, rgbid</if>
+  <if test="rgsid != '' and rgsid != null ">, rgsid</if>
+  <if test="jobdesc != '' and jobdesc != null ">, jobdesc</if>
+  <if test="recruitnum != '' and recruitnum != null ">, recruitnum</if>
+  <if test="employstatusid != '' and employstatusid != null ">, employstatusid</if> 
+  <if test="salaryid != '' and salaryid != null ">,salaryid</if>
+  <if test="edu != '' and edu != null ">, edu</if>
+  <if test="exp != '' and exp != null ">, exp</if>
+  <if test="adddesc != '' and adddesc != null ">, adddesc</if>
+  <if test="period != '' and period != null ">, period</if>
+  <if test="acceptmethod != '' and acceptmethod != null ">, acceptmethod</if>
+  )
+  values (
+  #{title}, #{cid}
+  <if test="jobgroupid != '' and jobgroupid != null ">, #{jobgroupid}</if>
+  <if test="jobgroupid2 != '' and jobgroupid2 != null ">, #{jobgroupid2}</if>
+  <if test="rgbid != '' and rgbid != null ">, #{rgbid}</if>
+  <if test="rgsid != '' and rgsid != null ">, #{rgsid}</if>
+  <if test="jobdesc != '' and jobdesc != null ">, #{jobdesc}</if>
+  <if test="recruitnum != '' and recruitnum != null ">, #{recruitnum}</if>
+  <if test="employstatusid != '' and employstatusid != null ">, #{employstatusid}</if>
+  <if test="salaryid != '' and salaryid != null ">, #{salaryid}</if>
+  <if test="edu != '' and edu != null ">, #{edu}</if>
+  <if test="exp != '' and exp != null ">, #{exp}</if>
+  <if test="adddesc != '' and adddesc != null ">, #{adddesc}</if>
+  <if test="period != '' and period != null "> , #{period}</if>
+  <if test="acceptmethod != '' and acceptmethod != null "> , #{acceptmethod}</if>
+  )
  
   
 
@@ -101,7 +130,7 @@
  
  <select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt
 		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
 	where r.bno = #{recruitNum}
     	and r.jobgroupid = j.id
@@ -147,13 +176,65 @@ and c.bno = #{bno};
 	
 	<select id="favorList" resultType="com.recruit.domain.ResumeVO">
 	SELECT  distinct u.pname as img, p.title, r.rgbname as address FROM tblInterestPerson f, tblresume p, tblRegion r, tblUser u 
-	where f.puserid = p.userid and p.rgbid = r.rgbid and u.id = p.userid and f.cuserid = 'park';
+	where f.presume = p.bno and p.rgbid = r.rgbid and u.id = p.userid and f.cuserid = 'park';
 	</select>
 	
-<insert id="favorPerson" parameterType="hashmap">
-insert into tblInterestPerson(cuserid, presume) values(#{paraMap.id},#{paraMap.bno});
+<insert id="favorPerson" parameterType="hashMap">
+insert into tblInterestPerson(cuserid, presume) values(#{id}, #{bno});
 
 </insert>
+
+<select id="cinfoRecruitList" resultType="com.recruit.domain.RecruitVO">
+
+select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
+		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
+	where 
+ r.jobgroupid = j.id
+    	and r.jobgroupid2 = u.id
+    	and g.rgbid = r.rgbid
+    	and g.rgsid = r.rgsid
+    	and r.employstatusid = c.id
+    	and r.salaryid = o.id
+    	and r.edu = d.id
+    	and r.exp = e.id
+    	and r.cid = #{id};
+
+</select>
+
+<update id="recruitModify">
+
+update tblrecruit set 
+title= #{title},
+cid=#{cid}, 
+jobgroupid=#{jobgroupid},
+jobgroupid2=#{jobgroupid2},
+rgbid=#{rgbid}, 
+rgsid=#{rgsid}, 
+jobdesc=#{jobdesc}, 
+recruitnum = #{recruitnum}, 
+employstatusid = #{employstatusid},
+ salaryid = #{salaryid}, 
+edu = #{edu}, 
+exp = #{exp}, 
+adddesc = #{adddesc}, 
+period = #{period},
+acceptmethod = #{acceptmethod}, 
+recruitform = #{recruitform}
+
+where bno=#{bno} and cid=#{cid};
+</update>
+
+<select id="recruitModifyRead"  resultType="com.recruit.domain.RecruitVO" parameterType="hashMap">
+
+select bno,title,cid,jobgroupid,jobgroupid2,rgbid,rgsid,jobdesc,recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod, recruitform, regdate, viewcnt
+from tblrecruit 
+where bno = #{bno} and cid = #{id};
+
+</select>
+
+<delete id="recruitDelete" parameterType="hashMap">
+delete from tblrecruit where bno = #{bno} and cid = #{id};
+</delete>
 </mapper>  
 
 

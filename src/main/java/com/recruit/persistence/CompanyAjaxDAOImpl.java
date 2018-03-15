@@ -50,11 +50,15 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	@Override
 	public void FavorPerson(int bno, String id) throws Exception{
 		
+		System.out.println("AjaxDao :" +bno+ ", "+id);
 		
-	HashMap<String, Object> paraMap = new HashMap<>();
+		HashMap<String, Object> paraMap = new HashMap<>();
 		
 		paraMap.put("bno", bno);
 		paraMap.put("id", id);
+		
+		System.out.println("paraMap :" +paraMap.toString());
+		System.out.println(paraMap.get("bno"));
 		
 		
 		session.insert(namespace + ".favorPerson" , paraMap);

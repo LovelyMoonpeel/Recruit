@@ -53,12 +53,12 @@ public class CompanyController {
 	public String modifyPOST(CInfoVO CInfo, HttpServletRequest request, Model model, RedirectAttributes rttr)
 			throws Exception {
 
-		System.out.println(request.getParameter("img"));
-
+		
 		InfoFileUpload(CInfo, request); // 사진 업로드 메서드로 CInfo객체와 request를 사용하기 위해
 										// 넘김
 		// (CInfo 객체는 파일명에 사용할 기업id값과 db에 이름을 집어 넣기 위해 보냄)
-
+		System.out.println(CInfo.getImg());
+		
 		service.CompanyInfoModify(CInfo); // text form값들 저장
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
@@ -82,10 +82,10 @@ public class CompanyController {
 			// List resultList = new ArrayList();
 
 			// 디레토리가 없다면 생성
-			// File dir = new File(path);
-			// if (!dir.isDirectory()) {
-			// dir.mkdirs();
-			// }
+			 File dir = new File(path);
+			 if (!dir.isDirectory()) {
+			 dir.mkdirs();
+			 }
 
 			// 값이 나올때까지
 			while (iter.hasNext()) {
@@ -99,10 +99,10 @@ public class CompanyController {
 
 				origName = new String(mfile.getOriginalFilename().getBytes("8859_1"), "UTF-8"); // 한글깨짐
 																								// 방지
-				// 파일명이 없다면
-				// if(origName != ""){
-				// break;
-				// }
+//				 파일명이 없다면
+//				 if(origName != ""){
+//				 continue;
+//				 }
 				if ("".equals(origName)) {
 					continue;
 				}
@@ -112,13 +112,14 @@ public class CompanyController {
 																			// 지정
 				String saveFileName = origName; // 기업 id + 확장자로 경로에 저장
 
-				// if(saveFileName.equals("")){
-				//
-				// }else if(!saveFileName.equals("")){
-				CInfo.setImg(saveFileName); // DB 이미지 저장
-				//
+				System.out.println(saveFileName);
+				
+				String imgName = CInfo.getId()+ext;
+				 
+				CInfo.setImg(imgName); // DB 이미지 저장
+				System.out.print(CInfo.getImg());
 
-				// }
+				 
 
 				// 설정한 path에 파일저장
 				File serverFile = new File(path + File.separator + saveFileName);
@@ -153,15 +154,10 @@ public class CompanyController {
 
 		model.addAttribute(service.CompanyInfoRead(id));
 		model.addAttribute("recruitList", service.RecruitList(id));
+		
 
 	}
-
-	@RequestMapping(value = "/C_detail", method = RequestMethod.GET)
-	public String detail(Model model) throws Exception {
-
-		return "company/C_detail";
-	}
-
+	
 	@RequestMapping(value = "/C_write", method = RequestMethod.GET)
 	public void writeGET(String id, Model model) throws Exception {
 
@@ -179,10 +175,10 @@ public class CompanyController {
 		logger.info(writeRecruit.toString());
 
 		service.RecruitWrite(writeRecruit);
-
+		
 		rttr.addFlashAttribute("msg", "regist");
 
-		return "redirect:/company/C_manage?id=park";
+		return "redirect:/company/C_manage?id="+writeRecruit.getCid();
 	}
 
 	// @RequestMapping(value = "/C_write", method = RequestMethod.POST)
@@ -200,11 +196,6 @@ public class CompanyController {
 	public void read(String id, Model model) throws Exception {
 
 		model.addAttribute(service.CompanyInfoRead(id));
-
-	}
-
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public void read(int recruitNum, Model model) throws Exception {
 
 	}
 
@@ -234,7 +225,68 @@ public class CompanyController {
 	@RequestMapping(value = "C_favor", method = RequestMethod.GET)
 	public void readfavor(String id, Model model, RedirectAttributes rttr) throws Exception {
 
+		model.addAttribute(service.CompanyInfoRead(id));
 		model.addAttribute("favorList", service.FavorList(id));
 
 	}
+	@RequestMapping(value = "/C_info", method = RequestMethod.GET)
+	public void C_info(String id, Model model) throws Exception {
+
+		model.addAttribute(service.CompanyInfoRead(id));
+		model.addAttribute("cinfoRecruitList", service.cinfoRecruitList(id));
+	}
+	
+	
+	@RequestMapping(value = "/C_recruitment", method = RequestMethod.GET)
+	public void C_recruitment(int recruitNum, Model model) throws Exception {
+
+		// model.addAttribute(service.CompanyInfoRead(id));
+		// System.out.println(recruitNum);
+		// model.addAttribute(service.RecruitInfoRead(recruitNum));
+		String id = service.RecruitInfoRead2(recruitNum).getCid();
+		// System.out.println("컨트롤러에서 테스트"+service.RecruitInfoRead(recruitNum));
+		model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
+		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+
+	}
+	
+	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.GET)
+		public void C_recruitModfiy(int bno, String id, Model model) throws Exception{
+		model.addAttribute(service.CompanyInfoRead(id));
+		System.out.println("아이디입니당." + id);
+		System.out.println("bno값입니당."+bno);
+		model.addAttribute("jobgroupList", jobService.jobgroupList());
+		model.addAttribute("codeList", service.CodeList());
+		model.addAttribute("regionList", service.RegionList());
+		
+		model.addAttribute("RecruitVO",service.RecruitModifyRead(bno, id));
+//		service.RecruitModify(bno, id);
+		
+		}
+	
+	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.POST)
+	public String C_recruitModfiy2(RecruitVO recruitModify, RedirectAttributes rttr) throws Exception{
+		
+	
+		service.RecruitModify(recruitModify);
+	
+		rttr.addFlashAttribute("msg", "MODISUCCESS");
+		
+		return "redirect:/company/C_manage?id=" + recruitModify.getCid();
+
+	}
+	
+	@RequestMapping(value= "/C_recruitRemove", method = RequestMethod.GET)
+		public String remove(@RequestParam("bno") int bno, @RequestParam("id") String id, RedirectAttributes rttr)throws Exception{
+		
+		service.RecruitRemove(bno, id);
+		
+		rttr.addFlashAttribute("msg", "DELESUCCESS");
+		
+			return "redirect:/company/C_manage?id="+id;
+		}
+	
+	
+		
+	
 }

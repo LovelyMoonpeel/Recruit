@@ -50,6 +50,7 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 
 	 @Override
 	 public void FavorPerson(int bno, String id) throws Exception{
+		 System.out.println("Service :" +bno+ ", "+id);
 		 dao.FavorPerson(bno, id);
 	 }
 }
