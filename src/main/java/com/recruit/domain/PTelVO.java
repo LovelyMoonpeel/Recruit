@@ -1,12 +1,21 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class PTelVO {
 
 	private int id;
 	private int rid;
 	private String teltitle;
 	private String tel;
-	
+	private List<PTelVO> ptelvolist;
+
+	public List<PTelVO> getPtelvolist() {
+		return ptelvolist;
+	}
+	public void setPtelvolist(List<PTelVO> ptelvolist) {
+		this.ptelvolist = ptelvolist;
+	}
 	public int getId() {
 		return id;
 	}

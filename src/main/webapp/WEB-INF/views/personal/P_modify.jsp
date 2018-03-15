@@ -13,63 +13,84 @@
 
 <div class="col-md-9">
 	<form role = "form" method = "post">
-		<br> <br>
-		<!-- <div class="row">
-			<div class="form-group col-lg-6">
-				<label>프로필이미지</label> <br> <input type="file"
-					id="exampleInputFile">
-			</div>
-		</div> -->
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>아이디</label> <input type="text" name="id" class="form-control" id=""
-					value="${PUserVO.id}" readonly="readonly">
-			</div>
+		<table class="table table-bordered">
+				<tbody>
+				<tr>
+					<th class="table-active" scope="row"><label>프로필이미지</label></th>
+					<td colspan="3">
+					<!-- 개인 페이지 첫번째(이미지, 이름) -->
+						<div class="top_cont">
+							<div class="corp_logo">
+							 <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" src="http://webpds.saramin.co.kr/pds/united_company/logo/8008_logo_2.jpg"/> 
+									<br>
+									<h1 class="ci_name">${PUserVO.pname}</h1>
+								<br>
+							</div>
+						</div>
+						<div class="form-group col-lg-6 col-md-offset-4">
+							<input type="file" id="exampleInputFile">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
+					<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
+					<th class="table-active" scope="row"><label>아이디</label></th>
+					<td>
+						<div class="form-group">
+			 				<input type="text" name="id" class="form-control" id="" value="${PUserVO.id}" readonly="readonly">
+						</div>
+					</td>
+                       <th class="table-active" scope="row"><label>비밀번호</label></th>
+					<td>
+						<div class="form-group">
+							<input type="text" name="pw" class="form-control" id="pw" value="${PUserVO.pw}">
+						</div>
+					</td>
+					
+                   </tr>
+				<tr>
+					<th class="table-active" scope="row"><label>이름</label></th>
+					<td>
+						<div >
+							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="" value="${PUserVO.pname}">
+						</div>
+					</td>
+					
+					 <th class="table-active" scope="row"><label>비밀번호 확인</label></th>
+					<td>
+						<div class="form-group">
+							 <input type="text" name="pwc" class="form-control" id="pwc">
+						<span id="pwchk"></span>	
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="table-active" scope="row"><label>email</label></th>
+					<td>
+						<div class="form-group">
+							<input type="text" name = "email" class="form-control" id="" value ="${PUserVO.email}">
+						</div>
+					</td>
+					<td colspan="2">
+					</td>
+				</tr>
+				<tr>
+					<th class="table-active" scope="row"><label>생일</label></th>
+					<td colspan="3">
+						<div class="form-group">
+							<div class="input-group date" data-provide="datepicker">
+								<input type="text" name ="birth" class="form-control" id = "" value ="${PUserVO.birth}">
+								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 		</div>
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>비밀번호</label> <input type="text" name="pw" class="form-control" id="pw"
-					value="${PUserVO.pw}">
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>비밀번호 확인</label> <input type="text" name="pwc" class="form-control" id="pwc"
-					>
-					<span id="pwchk"></span>	
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>이름</label> <input type="text" name="pname" class="form-control" id=""
-					value="${PUserVO.pname}">
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>email</label>
-				<input type="text" name = "email" class="form-control" id=""
-					value ="${PUserVO.email}">
-			</div>
-		</div>
-		<div class="row">
-			<!-- ☆google search : datepicker -->
-			<div class="form-group col-lg-6">
-				<label>생일</label>
-				<div class="input-group date" data-provide="datepicker">
-					<input type="text" name ="birth" class="form-control" id = ""
-					value ="${PUserVO.birth}">
-					<span
-						class="input-group-addon"> <i
-						class="glyphicon glyphicon-calendar"></i>
-					</span>
-				</div>
-			</div>
-		</div>
-		<br> <br>
-		<!-- 수정 완료, 취소 버튼 -->
-		
-</form>
+	</form>
 	
 		<button id = "modify-finish" class="btn btn-success" type='submit'>완료</button>
 		<button id = "modify-cancel" class="btn btn-danger" type='submit'>취소</button>
