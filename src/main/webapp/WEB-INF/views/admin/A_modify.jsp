@@ -52,7 +52,7 @@
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" name="birth" value="${AmainVO.birth}" required>
+				<input type="text" class="form-control" id="birth" name="birth" value="${AmainVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
@@ -141,13 +141,13 @@ $(function(){
 	$(".btn-warning").on("click", function(){
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
-		
+
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("수정하시겠습니까?")){
 				formObj.submit();
-			}
-		}else{
+			}else{
 			alert("비밀번호를 확인해주세요.");
+			}
 		}
 	});
 	

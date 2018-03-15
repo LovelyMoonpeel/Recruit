@@ -19,7 +19,7 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 			<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><a id="bpwc" class="qnadetail" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
+			<td><a class="qnadetail" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
@@ -59,12 +59,11 @@
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-     <input type='hidden' id='bno' name='bno' value="${CsqnaVO.bno}">
      <button type="button" class="close" data-dismiss="modal">&times;</button>
      <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body" data-bno>
-     <p><input type="text" id="bpwchk" class="form-control"></p>
+     <p><input type="text" id="bpwchk" class="form-control" placeholder="비밀번호를 입력해주세요."></p>
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-info" id="qnabpw">확인</button>
@@ -84,9 +83,23 @@ console.log(formObj);
 
 /* 비밀번호 확인 Modal */
 $(".qnadetail").on("click", function(){
-	var bno = $(this);
-	
-	$(".modal-title").html(bno.attr("data-bno"));
+	var bnoObj = $(this);
+	var bno = bnoObj.attr("data-bno");
+
+	$.ajax({
+		type:'POST',
+		url:'/cs/S_qnaread/pwc/'+bno,
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override":"POST"},
+		data:JSON.stringify({bno:bno}),
+		dataType:'text',
+		success:function(result){
+			if(result == ""){
+				self.location = "/cs/S_qnaread?bno="+bno;
+			}
+		}});
+	$(".modal-title").html(bno);
 });
 
 /* 비밀번호 확인 스크립트 */
@@ -104,7 +117,8 @@ $("#qnabpw").on("click", function(){
 		data:JSON.stringify({bno:bno, bpw:bpw}),
 		dataType:'text',
 		success:function(result){
-			console.log("result: "+result);
+/* 			console.log("result: "+result);
+			alert("result : "+result); */
 			if(result == bpw){
 				alert("비밀번호가 일치합니다.");
 				bpwObj.val("");
@@ -114,6 +128,12 @@ $("#qnabpw").on("click", function(){
 				bpwObj.val("");
 			}
 		}});
+});
+
+$('#bpwchk').keypress(function(event){
+	if(event.which == 13){
+		$('#qnabpw').click();
+	}
 });
 </script>
 <!-- //버튼에 대한 스크립트  -->

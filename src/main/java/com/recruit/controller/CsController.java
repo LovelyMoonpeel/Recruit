@@ -126,7 +126,7 @@ public class CsController {
 		return "redirect:/cs/S_qna";
 	}
 	
-	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST)
+	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno){
 		ResponseEntity<String> entity = null;
 		
@@ -135,6 +135,22 @@ public class CsController {
 //			String inputpw = bpw;
 //			System.out.println("bpw 출력 : "+ inputpw);
 			String result = qservice.modread(bno).getBpw();
+//			System.out.println("비밀번호는 무엇 ? "+result);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/S_qnaread/pwc/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> bpwc(@PathVariable("bno") Integer bno){
+		ResponseEntity<String> entity = null;
+		
+		try{
+			String result = qservice.modread(bno).getBpw();
+			System.out.println("결과 출력 : "+result);
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

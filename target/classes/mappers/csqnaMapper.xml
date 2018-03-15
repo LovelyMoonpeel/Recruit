@@ -70,16 +70,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<select id="listPage" resultType="CsqnaVO">
-	<![CDATA[
-	select
-		bno, title, user, regdate, viewcnt, bpw, reply
-	from
-		project.tblqna
-	where
-		bno > 0
-	order by bno desc
-	limit #{page}, 10
-	]]>
-	</select>
 </mapper>
