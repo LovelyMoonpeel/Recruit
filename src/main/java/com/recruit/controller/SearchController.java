@@ -1,8 +1,5 @@
 package com.recruit.controller;
 
-import java.util.Iterator;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,7 +52,6 @@ public class SearchController {
 			// System.out.println(((PUserVO) itr.next()).getPname());
 			// }
 		}
-
 		model.addAttribute(srch);
 		model.addAttribute("sdesc", "키워드를 검색창에 입력후 돋보기 아이콘을 누르세요.");
 		model.addAttribute("stype_", stype);

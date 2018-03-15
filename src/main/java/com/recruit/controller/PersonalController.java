@@ -360,6 +360,10 @@ public class PersonalController {
 		return entity;
 	}
 
+	/*
+	 * if(($'#birth').val()==''){ ($'#birth').val("0000-00-00"); }
+	 */
+
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {

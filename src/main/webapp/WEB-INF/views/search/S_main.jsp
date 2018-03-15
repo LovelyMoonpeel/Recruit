@@ -242,40 +242,42 @@
 		});
 	}
 
+	function resHandler(data) {
+		var source_pnl = $("#template_pnl").html();
+		var template_pnl = Handlebars.compile(source_pnl);
+		console.log(data.length);
+		var i = 0;
+		var item;
+		$(data).each(function() {
+			item = {
+				num : ++i,
+				id : this.bno,
+				pw : this.rgbid,
+				pname : this.title,
+				email : this.employstatusid,
+				birth : this.regdate
+			};
+			$("#spanel").append(template_pnl(item));
+		});
+		var str;
+		if (data.length > 0) {
+			str = data.length + "개의 검색결과가 있습니다.";
+			$(".sres").attr('style', 'visibility: visible;');
+		} else {
+			str = "검색결과가 없습니다."
+		}
+		$("#sdesc").html(str);
+	}
+
 	// show selected items of recruits or resumes
 	function getList_sel(users) {
 		deletelist();
 		if ($("#stype").attr("value") === "1") {
-			console.log('$("#stype").attr("value") === "1"')
+			$.getJSON("/sresult/sel_search/" + users, resHandler);
 		} else if ($("#stype").attr("value") === "2") {
 			console.log('$("#stype").attr("value") === "2"')
 		}
-		$.getJSON("/sresult/sel_search/" + users, function(data) {
-			var source_pnl = $("#template_pnl").html();
-			var template_pnl = Handlebars.compile(source_pnl);
-			console.log(data.length);
-			var i = 0;
-			var item;
-			$(data).each(function() {
-				item = {
-					num : ++i,
-					id : this.bno,
-					pw : this.rgbid,
-					pname : this.title,
-					email : this.employstatusid,
-					birth : this.regdate
-				};
-				$("#spanel").append(template_pnl(item));
-			});
-			var str;
-			if (data.length > 0) {
-				str = data.length + "개의 검색결과가 있습니다.";
-				$(".sres").attr('style', 'visibility: visible;');
-			} else {
-				str = "검색결과가 없습니다."
-			}
-			$("#sdesc").html(str);
-		});
+		$.getJSON("/sresult/sel_search/" + users, resHandler);
 	}
 
 	// click event handler of select_search button
