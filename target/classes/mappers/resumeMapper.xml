@@ -98,6 +98,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where userid = #{id}
   	]]>
 	</select>
+	
+	<!-- CodeDB이력서와연결 -->
+   	<select id="selectRCodeList" resultType="com.recruit.domain.CodeVO">
+      select *
+      from 
+      project.tblcode
+   	</select>
+   
+   	<!-- JobGroupDB이력서와연결 -->
+   	<select id="selectRGPList" resultType="com.recruit.domain.JobGroupVO">
+      select *
+      from 
+      project.tbljobgroup
+   	</select>
+   
+   	<!-- RegionDB이력서와연결 -->
+   	<select id="selectRegionList" resultType="com.recruit.domain.RegionVO">
+      <![CDATA[
+      select DISTINCT rgbid, rgbname
+      from 
+      project.tblregion
+      ]]>
+    </select>
+	
 
 	<!-- 이력서 이미지 등록 -->
 	<!--
@@ -112,14 +136,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 					where userid = #{id}) R3); -->
 	 					
 	<update id="addRimgAttach">
-  <![CDATA[
-	
-	update tblresume R1
-	set img = #{img}
-	where bno = (select *
-				from (select Max(bno)
-						from tblresume R2) R3);
-  ]]>
+	<![CDATA[
+		
+		update tblresume R1
+		set img = #{img}
+		where bno = (select *
+					from (select Max(bno)
+							from tblresume R2) R3);
+	]]>
 	</update>
 
 	<!-- 이력서 PTel 등록 -->

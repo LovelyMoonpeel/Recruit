@@ -8,8 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 개인정보 확인 -->
 	<select id="selectPuser" resultType="com.recruit.domain.PUserVO">
 		select
-		id, pw, pname, email,
-		birth
+		id, pw, pname, email, birth
 		from
 		project.tbluser
 		where id = #{id}

@@ -176,27 +176,27 @@ public class PersonalController {
 															// controller
 	}
 	//이력서 하나 읽기
-	   @RequestMapping(value = "/detail", method = RequestMethod.GET)
-	   public String modifyGET(int bno, Model model) throws Exception {
-		   
-		   PUserVO PUser = new PUserVO();
-		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
-		   
-		   model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-		   
-		   model.addAttribute("ResumeVO", Rservice.readROne(bno));
-		   
-		   model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-		   
-		   model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-		   
-		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
-		   
-		   model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
-		   System.out.println(Webservice.selectPWebSiteList(bno));
-	      return "personal/P_detail";
-	   }
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public String modifyGET(int bno, Model model) throws Exception {
 	   
+	    PUserVO PUser = new PUserVO();
+	    PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+	   
+	    model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
+	   
+	    model.addAttribute("ResumeVO", Rservice.readROne(bno));
+	    
+	    model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+	   
+	    model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+	   
+	    model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+	   
+	    model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+	    System.out.println(Webservice.selectPWebSiteList(bno));
+       return "personal/P_detail";
+    }
+ 	   
     // 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyPOST(String id, Integer bno, Model model) throws Exception {
@@ -218,7 +218,10 @@ public class PersonalController {
 		
 		System.out.println(Webservice.selectPWebSiteList(bno));
 		
-		
+		model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+	    model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+	    model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+				
 		return "personal/P_Rmodify";
 	}
 
@@ -240,6 +243,9 @@ public class PersonalController {
 		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));*/
 		System.out.println("Rmodify POST bno" + bno);
 		System.out.println("Rmodify POST id" + id);
+		
+		System.out.println("Rmodify POST rgbid : " + resume.getRgbid());
+		System.out.println("Rmodify POST rgsid : " + resume.getRgsid());
 		
 
 		Rservice.updateROne(resume);
