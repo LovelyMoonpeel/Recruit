@@ -89,7 +89,7 @@ public class PersonalController {
 		logger.info("index GET, 개인정보 확인");
 
 		PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+		PUser.setId("mely");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 		// logger.info(vo.toString());
 		// service.selectPUser(vo.getId());
 		model.addAttribute(service.selectPUser(PUser.getId()));
@@ -126,7 +126,7 @@ public class PersonalController {
 		// public String writeGET(@RequestParam("id") String id, PUserVO puser,
 		// Model model) throws Exception {
 		System.out.println("write GET controller");
-		PUserVO PUser = service.selectPUser("jin3");
+		PUserVO PUser = service.selectPUser("mely");
 		System.out.println("puser" + PUser);
 		model.addAttribute("PUserVO", PUser);
 		return "personal/P_write";
@@ -177,7 +177,7 @@ public class PersonalController {
 	public String modifyGET(int bno, Model model) throws Exception {
 
 		PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+		PUser.setId("mely");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 
 		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
@@ -190,7 +190,7 @@ public class PersonalController {
 	public String RmodifyPOST(Integer bno, Model model) throws Exception {
 
 		// 수정하는 페이지
-		model.addAttribute("PUserVO", service.selectPUser("jin3"));
+		model.addAttribute("PUserVO", service.selectPUser("mely"));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
 		System.out.println("get bno" + bno);
 
@@ -251,7 +251,7 @@ public class PersonalController {
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String manageGET(Model model) throws Exception {
 
-		String id = "jin3";
+		String id = "mely";
 		model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 		model.addAttribute("PUserVO", service.selectPUser(id));
 

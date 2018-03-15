@@ -366,10 +366,21 @@
 		}
 
 		// edu 추가버튼 이벤트
-		$("#edu_div").on("click", ".edu_plus_btn", add_edu);
+		$("#edu_div").on("click", ".edu_plus_btn", function(){
+			var item = {
+					resumenum : ${bno}
+				};
+			add_edu(item);
+		});
 
 		// exp 추가버튼 이벤트
-		$("#exp_div").on("click", ".exp_plus_btn", add_exp);
+		$("#exp_div").on("click", ".exp_plus_btn", function(){
+			var item = {
+					resumenum : ${bno}
+				};
+			add_exp(item);
+		});
+				
 
 		// add_edu(); // edu 공란 추가
 		// add_exp(); // exp 공란 추가
@@ -391,7 +402,6 @@
 		function edu_list() {
 			var len = (${eduVOlist.size()});
 			<c:forEach items="${eduVOlist}" var="eduVO">
-				var eduVO = new Object();
 				var item = {
 						resumenum : ${eduVO.resumenum},
 						schoolname : "${eduVO.schoolname}",
@@ -407,7 +417,6 @@
 		function exp_list() {
 			var len = (${careerVOList.size()});
 			<c:forEach items="${careerVOList}" var="careerVO">
-				var careerVO = new Object();
 				var item = {
 						resumenum : ${careerVO.resumenum},
 						cname : "${careerVO.cname}",
