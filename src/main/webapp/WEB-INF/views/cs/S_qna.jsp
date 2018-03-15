@@ -105,9 +105,10 @@ $("#qnabpw").on("click", function(){
 		dataType:'text',
 		success:function(result){
 			console.log("result: "+result);
-			if(result = bpw){
+			if(result == bpw){
 				alert("비밀번호가 일치합니다.");
 				bpwObj.val("");
+				self.location = "/cs/S_qnaread?bno="+bno;
 			}else{
 				alert("비밀번호 불일치");
 				bpwObj.val("");

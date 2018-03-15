@@ -127,14 +127,14 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST)
-	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno, @RequestParam("bpw") String bpw){
+	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno){
 		ResponseEntity<String> entity = null;
 		
 		try{
-			String dbpw = qservice.modread(bno).getBpw();
-			String inputpw = bpw;
-			System.out.println("bpw 출력 : "+ inputpw);
-			String result = "";
+//			String dbpw = qservice.modread(bno).getBpw();
+//			String inputpw = bpw;
+//			System.out.println("bpw 출력 : "+ inputpw);
+			String result = qservice.modread(bno).getBpw();
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
