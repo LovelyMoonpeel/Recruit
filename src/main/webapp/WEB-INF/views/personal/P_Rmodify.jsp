@@ -18,7 +18,8 @@
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
 		<br>
-		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
+		<input type="text" class="form-control" id="rid" name="rid" value="PTelVO의 rid값  : ${PTelVO.rid }">
+		<input type="text" class="form-control" id="bno" name="bno" value="ResumeVO의 bno값 : ${ResumeVO.bno}" readonly> 
 		<input type="text" class="form-control" id="userid" name="userid" value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> 
 		<input type="text" class="form-control" id="id" name="id" value="PUserVO의 id값  : ${PUserVO.id}" readonly>
 		<br>	
@@ -81,11 +82,10 @@
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
                
-               		<input type="text" name="rid" value="${PTelVO.rid }">
                <c:forEach items="${PTellist}" var="PTelVO" varStatus="status">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류) 	${status.count}</label>
-	                  <input type="text" name="ptvoid" value="${PTelVO.id }">
+	                  <input type="text" value="${PTelVO.telid }">
 	                 	
 	                  </th>
 	                  <td>

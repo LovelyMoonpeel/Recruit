@@ -199,13 +199,13 @@ public class PersonalController {
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, PTelVO[] ptvo, Model model, RedirectAttributes rttr) throws Exception {
-	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, String[] teltitle, String[] tel, Model model, RedirectAttributes rttr) throws Exception {
-	
+	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, String[] teltitle, String[] tel, Model model, RedirectAttributes rttr) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 		
 		Rservice.updateROne(resume);
 
-		//PTel start///////////////////////
+		/*//PTel start///////////////////////
 		for(int i=0;i<ptvoid.length;i++){
 			Telservice.deleteTOne(ptvoid[i]);
 		}//기존에 있던거는 먼저 전부 삭제 delete
@@ -217,7 +217,7 @@ public class PersonalController {
 			ptvo.setTel(tel[i]);
 			Telservice.createTOne(ptvo);
 		}//all create
-		//PTel end///////////////////////
+*/		//PTel end///////////////////////
 		
 	/*	for(int i=0;i<ptvoid.length;i++){
 			Telservice.updateTOne(ptvoid[i]);

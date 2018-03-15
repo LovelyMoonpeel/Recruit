@@ -4,23 +4,23 @@ import java.util.List;
 
 public class PTelVO {
 
-	private int id;
+	private int telid;
 	private int rid;
 	private String teltitle;
 	private String tel;
 	private List<PTelVO> ptelvolist;
-
+	
 	public List<PTelVO> getPtelvolist() {
 		return ptelvolist;
 	}
 	public void setPtelvolist(List<PTelVO> ptelvolist) {
 		this.ptelvolist = ptelvolist;
 	}
-	public int getId() {
-		return id;
+	public int getTelid() {
+		return telid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setTelid(int telid) {
+		this.telid = telid;
 	}
 	public int getRid() {
 		return rid;
@@ -42,6 +42,6 @@ public class PTelVO {
 	}
 	@Override
 	public String toString() {
-		return "PTelVO [id=" + id + ", rid=" + rid + ", teltitle=" + teltitle + ", tel=" + tel + "]";
+		return "PTelVO [telid=" + telid + ", rid=" + rid + ", teltitle=" + teltitle + ", tel=" + tel + "]";
 	}
 }

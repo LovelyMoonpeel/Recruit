@@ -37,15 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-<!-- 	<insert id="createROne">
-    <![CDATA[
-    insert 
-    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
-    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
-    ]]>
-	</insert>
- -->
-
 	<insert id="createROne">
 	  <![CDATA[
 	  insert 
@@ -130,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 PTel 삭제 -->
 	<delete id="deleteTOne">
 	<![CDATA[
-	delete from project.tbltel where id= #{ptvoid}
+	delete from project.tbltel where telid= #{telid}
 	]]>
 	</delete>	
 	
