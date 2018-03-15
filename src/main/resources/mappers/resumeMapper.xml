@@ -224,9 +224,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 REdu 확인 -->
 	<select id="readResumeEdu" resultType="com.recruit.domain.ResumeEduVO">
 	<![CDATA[
-	select e.*, r.*
-	from project.tblResumeEdu e, project.tblresume r
-	where e.resumenum=r.bno
+	select e.*
+	from project.tblResumeEdu e
+	where e.resumenum=#{bno}
 	]]>
 	</select>
 	

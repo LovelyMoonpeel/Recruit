@@ -13,5 +13,7 @@ public void regist(ResumeEduVO vo)throws Exception;
 	public void remove(Integer bno)throws Exception;
 
 	public void createResumeEdu(ResumeEduVO vo)throws Exception;
+	
+	
 
 }

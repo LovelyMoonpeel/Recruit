@@ -62,19 +62,19 @@
                </tr>
                <tr>
                   <th class="table-active" scope="row">학교명</th>
-                  <td>${ResumeEduVO.schoolname}</td>
+                  <td>${REduVO.schoolname}</td>
                   <th class="table-active" scope="row">학과</th>
-                  <td>${ResumeEduVO.major}</td>
+                  <td>${REduVO.major}</td>
                </tr>
                <tr>
                   <th class="table-active" scope="row">입학일</th>
-                  <td>${ResumeEduVO.enterdate}</td>
+                  <td>${REduVO.enterdate}</td>
                   <th class="table-active" scope="row">졸업일</th>
-                  <td>${ResumeEduVO.gradudate}</td>
+                  <td>${REduVO.gradudate}</td>
                </tr>
                <tr>
                	  <th class="table-active" scope="row">졸업상태</th>
-                  <td>${ResumeEduVO.edustatus}</td>
+                  <td>${REduVO.edustatus}</td>
                </tr>
                
                <tr>

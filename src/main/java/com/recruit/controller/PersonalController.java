@@ -193,6 +193,9 @@ public class PersonalController {
 	    model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 	   
 	    model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+	    
+	    model.addAttribute("REduVO", Eduservice.read(bno));
+	    
 	    System.out.println(Webservice.selectPWebSiteList(bno));
        return "personal/P_detail";
     }

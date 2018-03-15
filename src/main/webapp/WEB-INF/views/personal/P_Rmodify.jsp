@@ -158,13 +158,13 @@
       
 		<div class="form-group">
 		<label for="jobgroupid">희망직종(구현X)</label> 
-			<select id="jobGroup" name="jobgroupid">
+			<select id="jobGroup" class="form-control" name="jobgroupid">
 				<option value="">모집직종</option>
 				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 				</c:forEach>
 			</select> 			
-			<select id="subjobGroup" name="jobgroupid2">
+			<select id="subjobGroup" class="form-control" name="jobgroupid2">
 			</select>
 		</div>    	
       
@@ -187,14 +187,14 @@
 		</div> --%>
 		<div class="form-group">	
 		<label for="jobgroupid">희망근무지(시/도)(구현X)</label> 
-			<select id="region" name='rgbid'>
+			<select id="region" class="form-control" name='rgbid'>
 				<option value="">희망근무지(시/도)(구현X)</option>
 				<c:forEach items="${RegionVOlist}" var="RegionVO">
 					<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 				</c:forEach>
 			</select>
 			<label for="jobgroupid">희망근무지(구현X)</label> 
-			<select id="subRegion" name='rgsid'>
+			<select id="subRegion" class="form-control" name='rgsid'>
 				<option value="">희망 근무지</option>
 			</select>
 		</div>

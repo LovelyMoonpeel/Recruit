@@ -8,7 +8,7 @@ public class ResumeEduVO {
 	private String major;
 	private String enterdate;
 	private String gradudate;
-	private int sdustatus;
+	private int edustatus;
 	
 	public int getBno() {
 		return bno;
@@ -46,16 +46,16 @@ public class ResumeEduVO {
 	public void setGradudate(String gradudate) {
 		this.gradudate = gradudate;
 	}
-	public int getSdustatus() {
-		return sdustatus;
+	public int getEdustatus() {
+		return edustatus;
 	}
-	public void setSdustatus(int sdustatus) {
-		this.sdustatus = sdustatus;
+	public void setEdustatus(int edustatus) {
+		this.edustatus = edustatus;
 	}
 	@Override
 	public String toString() {
 		return "ResumeEduVO [bno=" + bno + ", resumenum=" + resumenum + ", schoolname=" + schoolname + ", major="
-				+ major + ", enterdate=" + enterdate + ", gradudate=" + gradudate + ", sdustatus=" + sdustatus + "]";
+				+ major + ", enterdate=" + enterdate + ", gradudate=" + gradudate + ", edustatus=" + edustatus + "]";
 	}
 		
 }
