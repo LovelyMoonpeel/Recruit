@@ -16,4 +16,6 @@ public interface ResumeCareerDAO {
 
 	// r.code 03/14 추가
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception;
+	
+	public void deleteResumeCareerList(Integer resumenum) throws Exception;
 }

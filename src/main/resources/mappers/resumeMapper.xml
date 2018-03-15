@@ -203,18 +203,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		project.tblResumeEdu
 		where resumenum=#{bno}
 	</select>
-
-	<!-- r.code 03/14 추가 -->
-	<select id="deleteResumeEduList">
-		delete from
-		project.tblResumeEdu
-		where
-		resumenum=#{resumenum}
-	</select>
-
-	<insert id="createResumeEdu">
-
-	</insert>
 	<!-- end of r.code -->
 
 	<!-- 이력서 REdu 수정 -->
@@ -232,6 +220,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from project.tblResumeEdu where resumenum= #{bno}
 	]]>
 	</delete>
+
+	<!-- r.code 03/14 추가 -->
+	<select id="deleteResumeEduList">
+		delete from
+		project.tblResumeEdu
+		where
+		resumenum=#{resumenum}
+	</select>
+	<!-- end of r.code -->
 
 	<!-- 이력서 RCareer 등록 -->
 	<insert id="createResumeCareer">
@@ -275,6 +272,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from project.tblResumeCareer where resumenum= #{bno}
 	]]>
 	</delete>
+
+	<!-- r.code 03/15 추가 : 경력 리스트 삭제 -->
+	<select id="deleteResumeCareerList">
+		delete from
+		project.tblResumeCareer
+		where
+		resumenum=#{resumenum}
+	</select>
+	<!-- end of r.code -->
 
 	<!-- 이력서 RLicense 등록 -->
 	<insert id="createRLicense">

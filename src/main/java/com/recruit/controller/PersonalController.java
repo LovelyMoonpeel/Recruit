@@ -195,6 +195,8 @@ public class PersonalController {
 		System.out.println("get bno" + bno);
 
 		// r.code 03/13
+		model.addAttribute("bno", bno);
+
 		List<ResumeEduVO> resumeEduVOList = Eduservice.readResumeEduList(bno);
 		int num = resumeEduVOList.size();
 		for (int i = 0; i < num; i++) {
@@ -221,19 +223,13 @@ public class PersonalController {
 		System.out.println("r.code");
 		System.out.println(resume);
 
-		int num = resumeEduVO.getListEdu().size();
-		System.out.println("size: " + num);
-		for (int i = 0; i < num; i++) {
-			System.out.println("r: " + resumeEduVO.getListEdu().get(i));
-		}
+		// int num = resumeEduVO.getListEdu().size();
+		// System.out.println("r: " + resumeEduVO.getListEdu().get(i));
 
-		num = resumeCareerVO.getListCareer().size();
-		System.out.println("size: " + num);
-		for (int i = 0; i < num; i++) {
-			System.out.println("r: " + resumeCareerVO.getListCareer().get(i));
-		}
-
-		Eduservice.changeResumeEduList(34, resumeEduVO.getListEdu());
+		// r.code 03/15 : update edu & career list in DB
+		int resumenum = resume.getBno();
+		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
+		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		// end of r.code
 
 		logger.info("index POST, 개인정보 수정");

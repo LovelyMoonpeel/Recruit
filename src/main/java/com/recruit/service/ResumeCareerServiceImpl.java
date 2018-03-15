@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.ResumeCareerVO;
+import com.recruit.domain.ResumeEduVO;
 import com.recruit.persistence.ResumeCareerDAO;
 
 @Service
@@ -44,5 +45,18 @@ public class ResumeCareerServiceImpl implements ResumeCareerService {
 	@Override
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception {
 		return dao.readResumeCareerList(bno);
+	}
+
+	// r.code 03/15 추가
+	@Override
+	public void changeResumeCareerList(Integer resumenum, List<ResumeCareerVO> resumeCareerVOList) throws Exception {
+
+		dao.deleteResumeCareerList(resumenum);
+		System.out.println("resumeCareerVOList: " + resumeCareerVOList);
+		if (resumeCareerVOList != null) {
+			int num = resumeCareerVOList.size();
+			for (int i = 0; i < num; i++)
+				dao.createResumeCareer(resumeCareerVOList.get(i));
+		}
 	}
 }

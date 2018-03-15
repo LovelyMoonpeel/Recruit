@@ -18,4 +18,7 @@ public interface ResumeCareerService {
 
 	// r.code 03/14 추가
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception;
+
+	// r.code 03/15 추가
+	public void changeResumeCareerList(Integer resumenum, List<ResumeCareerVO> resumeCareerVOList) throws Exception;
 }

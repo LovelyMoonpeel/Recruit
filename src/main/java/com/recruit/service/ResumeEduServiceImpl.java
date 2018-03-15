@@ -46,13 +46,15 @@ public class ResumeEduServiceImpl implements ResumeEduService {
 		return dao.readResumeEduList(bno);
 	}
 
+	// r.code 03/14 추가
 	@Override
 	public void changeResumeEduList(Integer resumenum, List<ResumeEduVO> resumeEduVOList) throws Exception {
 
 		dao.deleteResumeEduList(resumenum);
-
-		int num = resumeEduVOList.size();
-		for (int i = 0; i < num; i++)
-			dao.createResumeEdu(resumeEduVOList.get(i));
+		if (resumeEduVOList != null) {
+			int num = resumeEduVOList.size();
+			for (int i = 0; i < num; i++)
+				dao.createResumeEdu(resumeEduVOList.get(i));
+		}
 	}
 }

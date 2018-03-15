@@ -22,7 +22,9 @@
 	<h1>이력서 작성</h1>
 
 	<form role="form" method="post">
-
+		<!-- r.code 03/15 -->
+		<input type="hidden" name="bno" value="${bno}">
+		<!-- end of r.code -->
 		<input type="hidden" class="form-control" id="userid" name="userid"
 			value="${PUserVO.id}"> <input type="hidden"
 			class="form-control" id="id" name="id" value="${PUserVO.id}">
@@ -83,6 +85,7 @@
 
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
+
 		<h4>
 			<b>학력</b>
 		</h4>
@@ -172,7 +175,7 @@
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
-		<input class="edu" type="hidden" name="listEdu[].bno" value="{{bno}}">
+		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control enterdate edu"
@@ -231,7 +234,7 @@
 
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row">
-	<input class="career" type="hidden" name="listCareer[].bno" value="{{bno}}">
+	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
@@ -390,7 +393,7 @@
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var eduVO = new Object();
 				var item = {
-						bno : ${eduVO.bno},
+						resumenum : ${eduVO.resumenum},
 						schoolname : "${eduVO.schoolname}",
 						major : "${eduVO.major}",
 						enterdate : "${eduVO.enterdate}",
@@ -406,7 +409,7 @@
 			<c:forEach items="${careerVOList}" var="careerVO">
 				var careerVO = new Object();
 				var item = {
-						bno : ${careerVO.bno},
+						resumenum : ${careerVO.resumenum},
 						cname : "${careerVO.cname}",
 						jobdescription : "${careerVO.jobdescription}",
 						startjob : "${careerVO.startjob}",

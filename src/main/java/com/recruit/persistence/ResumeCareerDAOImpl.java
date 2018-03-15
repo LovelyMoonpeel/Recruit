@@ -42,4 +42,10 @@ public class ResumeCareerDAOImpl implements ResumeCareerDAO {
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception {
 		return session.selectList(namespace + ".readResumeCareerList", bno);
 	}
+
+	// r.code 03/15 추가
+	@Override
+	public void deleteResumeCareerList(Integer resumenum) throws Exception {
+		session.delete(namespace + ".deleteResumeCareerList", resumenum);
+	}
 }
