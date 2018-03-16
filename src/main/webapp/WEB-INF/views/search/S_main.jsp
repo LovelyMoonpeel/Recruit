@@ -130,8 +130,10 @@
 </script>
 
 <script>
+	// select 검색 탭 초기화
 	stabsel("c1"); // c1: job group tab
 
+	// text 검색 엔터키 처리
 	function onEnter() {
 		if (event.keyCode == 13) {
 			$("#search_btn").trigger('click');
@@ -139,12 +141,13 @@
 		}
 	}
 
+	// 검색 결과 판넬 list 제거
 	function deletelist() {
 		$(".result").remove();
 		$(".sres").attr('style', 'visibility: hidden;');
 	}
 
-	// search_button click event handler
+	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
 		$("#sinput").val("");
@@ -171,7 +174,7 @@
 		}
 	});
 
-	// select_tab click event handler
+	// select 검색 탭 click 이벤트 핸들러
 	$(".stab").on("click", function() {
 		if ($(this).hasClass("active") !== true) {
 			$(".nav-tabs li").removeClass("active");
@@ -181,7 +184,7 @@
 		}
 	});
 
-	// show all items of users
+	// 모든 user(cusers or pusers)를 보여주다.
 	function getAllList(users) {
 		deletelist();
 		$.getJSON("/sresult/" + users, function(data) {
@@ -208,7 +211,8 @@
 		});
 	}
 
-	// show selected items of users with key word
+	// text 검색으로 관련 정보를 를 보여주다.
+	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getList(users, skey) {
 		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
@@ -242,6 +246,8 @@
 		});
 	}
 
+	// select 검색으로 관련 정보를 를 보여주다.(3)
+	// 결과 판넬 List 생성
 	function resHandler(data) {
 		var source_pnl = $("#template_pnl").html();
 		var template_pnl = Handlebars.compile(source_pnl);
@@ -269,18 +275,21 @@
 		$("#sdesc").html(str);
 	}
 
-	// show selected items of recruits or resumes
+	// select 검색으로 관련 정보를 를 보여주다.(2)
+	// 검색분류(users: recruits or resumes)
 	function getList_sel(users) {
 		deletelist();
 		$.getJSON("/sresult/sel_search/" + users, resHandler);
 	}
 
-	// click event handler of select_search button
+	// select 검색으로 관련 정보를 를 보여주다.(1)
+	// select 검색 버튼 click 이벤트 핸들러
+	// ajax로 select filters 전송 to controller
 	$("#opt_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
 		$("#well > .sfilter_btn").each(function() {
-			array[i] = $(this).val();
+			array[i] = $(this).val(); // select filter를 배열에 담기
 			i++;
 		});
 		console.log(array + " : " + array.length);
@@ -306,10 +315,10 @@
 		}); // ajax
 	});
 
-	// add a search_filter item through search selection 
+	// select filter(버튼) 추가하기
 	function add_tmpl_sfilter(that) {
 		var alreadyhave = false;
-		$("#well > .sfilter_btn").each(function() { // deduplication
+		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
 			if ($(this).val() === $(that).val())
 				alreadyhave = true;
 		})
@@ -327,6 +336,8 @@
 	var str;
 	var that_val;
 	var sel2Options;
+	
+	// select 2번째 생성하기
 	function sel2Handler(data) {
 		str = "";
 		console.log(data.length);
@@ -336,17 +347,19 @@
 		$("#sel2").attr('style', 'visibility: visible;');
 	}
 
+	// select 2번째 직무 option 생성하기
 	function sel2JobOptions(index, that) { // option val : J + job code
 		str += '<option class="opt2" value="J'+ that.id +'">' + that.jobgroup
 				+ '</option>';
 	}
 
+	// select 2번째 지역 option 생성하기
 	function sel2RegOptions(index, that) { // option val : R + region code
 		str += '<option class="opt2" value="R' + that_val + that.rgsid +'">'
 				+ that.rgsname + '</option>'
 	}
 
-	// the first selection tag change event handler
+	// select 1번째 change 이벤트 핸들러 
 	$("#sel1").change(function() {
 		$("#sel2").attr('style', 'visibility: hidden;');
 		$(".opt2").remove();
@@ -370,7 +383,7 @@
 		}
 	}); // $("#sel1").change
 
-	// the second selection tag change event handler
+	// select 2번째 change 이벤트 핸들러
 	$("#sel2").change(function() {
 		if ($(this).val() !== '0') {
 			if ($("#ttype").val() === 'c1') { // #sel1 c1 change
@@ -388,6 +401,8 @@
 	// });
 
 	var sel1Options;
+	
+	// select 1번째 생성하기
 	function sel1Handler(data) {
 		str = "";
 		console.log(data.length);
@@ -397,22 +412,27 @@
 		$("#sel1").attr('style', 'visibility: visible;');
 	}
 
+	// select 1번째 직무 option 생성하기
 	function sel1JobOptions(index, that) {
 		str += '<option class="opt1" value="'+ that.id +'">' + that.jobgroup
 				+ '</option>';
 	}
 
+	// select 1번째 지역 option 생성하기
 	function sel1RegOptions(index, that) {
 		str += '<option class="opt1" value="'+ that.rgbid +'">' + that.rgbname
 				+ '</option>';
 	}
 
+	// select 1번째 코드(근무형태, 학력, 경력) option 생성하기
 	function sel1CodOptions(index, that) {
 		str += '<option class="opt1" value="'+ that.id +'">' + that.career
 				+ '</option>';
 	}
 
-	// selection_tab change event handler
+	// select 검색 탭 변경하기
+	// select 검색 탭 click 이벤트 핸들러
+	// select 검색 탭 option list 받기
 	function stabsel(idc) {
 		$("#sel2").attr('style', 'visibility: hidden;');
 		$("#sel1").attr('style', 'visibility: hidden;');
