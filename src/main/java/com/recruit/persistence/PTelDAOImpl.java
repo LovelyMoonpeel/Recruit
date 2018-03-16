@@ -38,5 +38,9 @@ public class PTelDAOImpl implements PTelDAO{
 		session.delete(namespace+".deleteTOne", id);
 	}
 	
+	@Override
+	public void deleteTList(Integer rid) throws Exception {
+		session.delete(namespace+".deleteTList", rid);
+	}
 
 }

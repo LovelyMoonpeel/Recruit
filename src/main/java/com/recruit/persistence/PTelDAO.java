@@ -13,5 +13,7 @@ public interface PTelDAO {
 	public void updateTOne(Integer ptvoid)throws Exception;
 	
 	public void deleteTOne(Integer id)throws Exception;
-
+	
+	public void deleteTList(Integer rid) throws Exception;
+	
 }

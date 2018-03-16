@@ -125,6 +125,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</delete>	
 	
+	<!-- 이력서 PTel 목록 삭제 -->
+	<delete id="deleteTList">
+	<![CDATA[
+	delete from project.tbltel where rid= #{rid}
+	]]>
+	</delete>	
+	
 	<!-- 이력서 PTel 등록 -->
 	<insert id="createTOne">
 	<![CDATA[

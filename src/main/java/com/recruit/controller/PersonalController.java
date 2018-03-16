@@ -189,7 +189,9 @@ public class PersonalController {
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
 		
 		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
-		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+		//model.addAttribute("PTelVOlist", Telservice.selectPTelList(bno));
+		
+		model.addAttribute("PTelVO", Telservice.selectPTelList(bno));
 		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 		
@@ -198,11 +200,17 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, PTelVO[] ptvo, Model model, RedirectAttributes rttr) throws Exception {
-	//public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Integer[] ptvoid, String[] teltitle, String[] tel, Model model, RedirectAttributes rttr) throws Exception {
-	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model) throws Exception {
+	//public String RmodifyPOST(String id, Integer bno, List<PTelVO> ptvolist, ResumeVO resume, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, ResumeVO resume, Model model) throws Exception {
+		
 		System.out.println("Rmodify POST Controller"); 
-		System.out.println("야"); 
+		System.out.println("야");
+		
+		System.out.println(bno+  " 으으으"+ ptvo.getPtelvolist().toString());
+		
+		Telservice.updateTList(bno, ptvo.getPtelvolist());
+		//Rmodify에 rid값 줘야함
+	
 		
 		Rservice.updateROne(resume);
 
@@ -223,7 +231,6 @@ public class PersonalController {
 	/*	for(int i=0;i<ptvoid.length;i++){
 			Telservice.updateTOne(ptvoid[i]);
 		}*/
-	
 		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
@@ -280,7 +287,7 @@ public class PersonalController {
 		model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 
 		model.addAttribute("PUserVO", service.selectPUser(id));
-
+		
 		return "personal/P_applied";
 	}
 	////// IMG UPLOAD/////////////img

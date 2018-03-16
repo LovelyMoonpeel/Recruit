@@ -4,38 +4,27 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
-<!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
-<link rel="stylesheet" type="text/css"
-	href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-
-<!-- Main content -->
+<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
-		<br>
-		<input type="text" class="form-control" id="rid" name="rid" value="PTelVO의 rid값  : ${PTelVO.rid }">
+		<%-- <input type="text" class="form-control" id="rid" name="rid" value="${PTelVO.rid }"> --%>
+		
 		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
-		<input type="text" class="form-control" id="userid" name="userid" value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> 
-		<input type="text" class="form-control" id="id" name="id" value="PUserVO의 id값  : ${PUserVO.id}" readonly>
+		<input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}" readonly> 
+		<input type="text" class="form-control" id="id" name="id" value="${PUserVO.id}" readonly>
 		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> <input class="form-control" id="title"
 				name="title" value="${ResumeVO.title}">
 		</div>
-   <!--  -------------------------------------------------------------------------- -->
-		 <div class="company_info_content">
-      <!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
+	  <div class="company_info_content">
       <div class="table-responsive">
-         <!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
          <table class="table table-bordered">
             <tbody>
-                <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-                <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
                <tr>
                 <th class="table-active" scope="row"><label for="pname">이름</label> </th>
 	          	<td class="col-sm-4">
@@ -43,7 +32,7 @@
 	           	</td>
                 <th class="table-active" scope="row"><label for="img">사진</label></th>
                 <td class="col-sm-4">
-                   <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
+                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
 				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 				   </div>
 				   	<!--  사진 보이는 div  -->
@@ -82,21 +71,21 @@
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
                
-               <c:forEach items="${PTellist}" var="PTelVO" varStatus="status">
+               <c:forEach items="${PTelVO}" var="PTelVO" varStatus="status">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류) 	${status.count}</label>
-	                  <input type="text" value="${PTelVO.telid }">
-	                 	
+	                  	<input type="text" value="${PTelVO.telid }">
 	                  </th>
 	                  <td>
+	                  <input class="telclass" type='hidden' name="ptelvolist[].rid" value="${ResumeVO.bno}">
 						<div class="form-group">
-							<input type="text" class="form-control" name="teltitle" value="${PTelVO.teltitle}">
+							<input type="text" class="form-control telclass" name="ptelvolist[].teltitle" value="${PTelVO.teltitle}">
 						</div>
 					  </td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
 	                  <td>
 	                	<div class="form-group">
-							<input type="text" class="form-control" name="tel" value="${PTelVO.tel}">
+							<input type="text" class="form-control telclass" name="ptelvolist[].tel" value="${PTelVO.tel}">
 						</div>
 	                  </td>
 	               </tr>
@@ -106,31 +95,33 @@
                   <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
                
-               <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
-	               <tr>
-	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
-	                  <td>
-	                  	<div class="form-group">
-						 <input type="text" class="form-control" name="webtitle" value="${PWebSiteVO.title}">
+		      <%--  <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
+		        <tr>
+		           <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
+		           <td>
+		         	  <input class="webclass" type='hidden' name="PWebSitelist[].rid" value="${ResumeVO.bno}">
+		           	<div class="form-group">
+						 <input type="text" class="form-control webclass" name="PWebSitelist[].webtitle" value="${PWebSiteVO.title}">
 						</div>
-	                  </td>
-	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
-	                  <td>
-	                  	<div class="form-group">
-						 <input type="text" class="form-control" name="webadd" value="${PWebSiteVO.webadd}">
+		           </td>
+		           <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
+		           <td>
+		           	<div class="form-group">
+						 <input type="text" class="form-control webclass" name="PWebSitelist[].webadd" value="${PWebSiteVO.webadd}">
 						</div>
-	                  </td>
-	               </tr>  
-	           </c:forEach> 
+		           </td>
+		         </tr>  
+		   		</c:forEach> --%>
 	           
                <tr>
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
+               <tr>
                 <th class="table-active" scope="row"><label for="test">자격증명</label></th>
                 <th class="table-active" scope="row">상세</th>
                 <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
-          	  
+          	  </tr>
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
 	                  <td>
@@ -140,7 +131,7 @@
 					  </td>
 	                  <td>
 	            	    <div class="form-group">
-							 <input class="form-control" name="test" value="${RLicenseVO.test}"></input>
+							 <input class="form-control" value=""></input>
 					    </div>
 					  </td>
 					  <td>
@@ -159,12 +150,12 @@
                <tr>
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
-               
+               <tr>
                	<th class="table-active" scope="row"><label for="testname">공인인증시험명</label></th>
                 <th class="table-active" scope="row"><label for="score">점수</label> </th>
                 <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="lanacquidate">취득일자</label></th>
-                
+               </tr> 
                 <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
 	                  <td>
@@ -209,7 +200,7 @@
    <br>
    <!--  -------------------------------------------------------------------------- -->
 	</form>
-		<button id="btn-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
+		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
 
@@ -230,7 +221,7 @@
 		console.log('${PWebSitelist}');
 		var imgsrccheck = ('#imgsrccheck');
 		
-		if($('#imgsrccheck').val()!=""){
+ 		 if($('#imgsrccheck').val()!=""){
 			console.log(" val이 널값아님");
 			$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 			var str = "";
@@ -244,9 +235,9 @@
 			console.log(" val이 널값이다");
 			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
 			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
-		}
+		}  
 	  ////////////img uploadedList start//////////////////////////////////////////////////////////
-	  // var upload = document.getElementsByTagName('input')[0];
+ 	  // var upload = document.getElementsByTagName('input')[0];
 	   var upload = document.getElementById('fileupload');
 	   var uploadedList = document.getElementById('uploadedList');
 	  
@@ -255,8 +246,8 @@
 		} else {
 		 console.log("window.FileReader 'success'");
 		}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-		
-		upload.onchange = function (e) {
+		  
+	 	  upload.onchange = function (e) {
 		
 			 var file = upload.files[0];
 			 var reader = new FileReader();
@@ -293,7 +284,6 @@
 					 contentType : false,
 					 type : 'POST',
 					 success : function(data){
-					  	//alert(data);
 						   var str = "";
 						  
 						 	console.log(data);
@@ -310,9 +300,9 @@
 			//});//filedrop end
 		 console.log(file);
 		 reader.readAsDataURL(file);
-		};//upload change end
+		};//upload change end   
 		
-		$("#uploadedList").on("click", "small", function(event){
+  		$("#uploadedList").on("click", "small", function(event){
 			event.preventDefault();
 			var that = $(this);
 			
@@ -328,24 +318,11 @@
 			$("#uploadedList").empty();
 			//$("#fileupload").remove();
 			console.log("img File appended deleted");
+			console.log("fileName"+fileName);
 			
 			$("#xornot").val("1");
-			
-		 /* 	$.ajax({
-				url:"deleteFile",
-				type:"post",
-				//data : {fileName:$(this).attr("data-src")},
-				data: {fileName:fileName},
-				dataType:"text",
-				succss:function(result){
-					if(result=='deleted'){
-						console.log("img File on server deleted");
-						that.parent("div").remove();
-					}
-				}
-			}); 
-		 	 */
-		});
+			console.log($("#xornot").val());
+		}); 
 		
 		function getOriginalName(fileName){
 	      	var idx = fileName.indexOf("_")+1;
@@ -356,15 +333,20 @@
 	      	var end = fileName.substr(14);
 	      	
 	      	return front + end;
-	      }
-		
-		$("#btn-success").on("click", function() {
-			if($("#xornot").val()==0){
+	      } 
+		 
+		$("#write-success").on("click", function() {
+			
+			console.log("write-success clicked");
+			
+			  if($("#xornot").val()==0){
 				console.log("xornot.val()==0");
 				console.log("사진 삭제 안함");
 				
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
+				numberingList();
+				console.log("사진 삭제 안한 상태에서 submit직전");
 				formObj.submit();
 				
 			}else if($("#xornot").val()==1){
@@ -381,19 +363,36 @@
 						if(result=='deleted'){
 							console.log("img File on server deleted");
 							that.parent("div").remove();
-							
-							/* console.log("ajax뒤로");
-							formObj.attr("action", "/personal/Rmodify");
-							formObj.attr("method", "post");
-							formObj.submit(); */
 						}
 					}
-				});
+				}); 
+			} 
+				console.log("사진 삭제한 상태에서 submit직전");
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
-				formObj.submit();
-			}
+				//numberingList();
+				//formObj.submit();
+			
 		});
+    
+		function numberingList() {
+ 			$(".telclass").each(function(index){
+				var num = 3;
+				var name = $(this).attr("name");
+				name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
+				$(this).attr("name", name);
+				console.log($(this).attr("name"));
+			});
+			
+ 			/* $(".webclass").each(function(index){
+				var num = 3;
+				var name = $(this).attr("name");
+				name = name.substring(0, 13) + parseInt(index/num) + name.substring(13);
+				$(this).attr("name", name);
+				console.log($(this).attr("name"));
+			});  */
+		}
+		
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>

@@ -13,5 +13,7 @@ public interface PTelService {
 	public void updateTOne(Integer ptvoid)throws Exception;
 	
 	public void deleteTOne(Integer id)throws Exception;
-
+	
+	public void updateTList(Integer rid, List<PTelVO> PTelVOlist) throws Exception;
+	
 }
