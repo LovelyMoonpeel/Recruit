@@ -272,11 +272,6 @@
 	// show selected items of recruits or resumes
 	function getList_sel(users) {
 		deletelist();
-		if ($("#stype").attr("value") === "1") {
-			$.getJSON("/sresult/sel_search/" + users, resHandler);
-		} else if ($("#stype").attr("value") === "2") {
-			console.log('$("#stype").attr("value") === "2"')
-		}
 		$.getJSON("/sresult/sel_search/" + users, resHandler);
 	}
 
@@ -301,7 +296,11 @@
 			success : function(result) {
 				if (result == 'SUCCESS') {
 					alert('SUCCESS');
-					getList_sel('recruits');
+					if ($("#stype").attr("value") === "1") { // recruits 검색 
+						getList_sel('recruits');
+					} else {
+						getList_sel('resumes');
+					}
 				}
 			}
 		}); // ajax
@@ -325,68 +324,51 @@
 		$("#well").append(template_sflt(item)); // add a search_filter
 	}
 
-	// the first selection tag change event handler
-	$("#sel1")
-			.change(
-					function() {
-						$("#sel2").attr('style', 'visibility: hidden;');
-						$(".opt2").remove();
-						if ($(this).val() !== '0') {
-							if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
-								$
-										.getJSON(
-												"/sresult/jobg/"
-														+ $(this).val(),
-												function(data) {
-													var str = "";
-													console.log(data.length);
-													var i = 0;
-													$(data)
-															.each(
-																	function() { // option val : J + job code
-																		str += '<option class="opt2" value="J'+ this.id +'">'
-																				+ this.jobgroup
-																				+ '</option>'
-																	});
-													$("#sel2").append(str);
-													$("#sel2")
-															.attr('style',
-																	'visibility: visible;');
-												});
-							} // end of #sel1 c1 change
-							else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
-								var that_val = $(this).val();
+	var str;
+	var that_val;
+	var sel2Options;
+	function sel2Handler(data) {
+		str = "";
+		console.log(data.length);
+		var i = 0;
+		$(data).each(sel2Options);
+		$("#sel2").append(str);
+		$("#sel2").attr('style', 'visibility: visible;');
+	}
 
-								$
-										.getJSON(
-												"/sresult/region/"
-														+ $(this).val(),
-												function(data) {
-													var str = "";
-													console.log(data.length);
-													var i = 0;
-													$(data)
-															.each(
-																	function() { // option val : R + region code
-																		str += '<option class="opt2" value="R' + that_val+ this.rgsid +'">'
-																				+ this.rgsname
-																				+ '</option>'
-																	});
-													$("#sel2").append(str);
-													$("#sel2")
-															.attr('style',
-																	'visibility: visible;');
-												});
-							} // end of #sel1 c2 change
-							else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
-								add_tmpl_sfilter(this);
-							} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
-								add_tmpl_sfilter(this);
-							} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
-								add_tmpl_sfilter(this);
-							}
-						}
-					}); // $("#sel1").change
+	function sel2JobOptions(index, that) { // option val : J + job code
+		str += '<option class="opt2" value="J'+ that.id +'">' + that.jobgroup
+				+ '</option>';
+	}
+
+	function sel2RegOptions(index, that) { // option val : R + region code
+		str += '<option class="opt2" value="R' + that_val + that.rgsid +'">'
+				+ that.rgsname + '</option>'
+	}
+
+	// the first selection tag change event handler
+	$("#sel1").change(function() {
+		$("#sel2").attr('style', 'visibility: hidden;');
+		$(".opt2").remove();
+		if ($(this).val() !== '0') {
+			if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
+				sel2Options = sel2JobOptions;
+				$.getJSON("/sresult/jobg/" + $(this).val(), sel2Handler);
+			} // end of #sel1 c1 change
+			else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
+				that_val = $(this).val();
+				sel2Options = sel2RegOptions;
+				$.getJSON("/sresult/region/" + $(this).val(), sel2Handler);
+			} // end of #sel1 c2 change
+			else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
+				add_tmpl_sfilter(this);
+			} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
+				add_tmpl_sfilter(this);
+			} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
+				add_tmpl_sfilter(this);
+			}
+		}
+	}); // $("#sel1").change
 
 	// the second selection tag change event handler
 	$("#sel2").change(function() {
@@ -400,10 +382,35 @@
 	});
 
 	// sfilter click > delete
-	// 	$("#well").on("click", ".sfilter_btn", function() {
-	// 		alert($(this).val());
-	// 		$(this).remove();
-	// 	});
+	// $("#well").on("click", ".sfilter_btn", function() {
+	//	alert($(this).val());
+	//	$(this).remove();
+	// });
+
+	var sel1Options;
+	function sel1Handler(data) {
+		str = "";
+		console.log(data.length);
+		var i = 0;
+		$(data).each(sel1Options);
+		$("#sel1").append(str);
+		$("#sel1").attr('style', 'visibility: visible;');
+	}
+
+	function sel1JobOptions(index, that) {
+		str += '<option class="opt1" value="'+ that.id +'">' + that.jobgroup
+				+ '</option>';
+	}
+
+	function sel1RegOptions(index, that) {
+		str += '<option class="opt1" value="'+ that.rgbid +'">' + that.rgbname
+				+ '</option>';
+	}
+
+	function sel1CodOptions(index, that) {
+		str += '<option class="opt1" value="'+ that.id +'">' + that.career
+				+ '</option>';
+	}
 
 	// selection_tab change event handler
 	function stabsel(idc) {
@@ -411,70 +418,21 @@
 		$("#sel1").attr('style', 'visibility: hidden;');
 		$(".opt1").remove();
 		if (idc === "c1") { // job group
-			$
-					.getJSON(
-							"/sresult/jobg",
-							function(data) {
-								var str = "";
-								console.log(data.length);
-								var i = 0;
-								$(data)
-										.each(
-												function() {
-													str += '<option class="opt1" value="'+ this.id +'">'
-															+ this.jobgroup
-															+ '</option>'
-												});
-								$("#sel1").append(str);
-								$("#sel1")
-										.attr('style', 'visibility: visible;');
-							});
+			sel1Options = sel1JobOptions; // option 생성함수 연결
+			$.getJSON("/sresult/jobg", sel1Handler);
 		} else if (idc === "c2") { // region
-			$
-					.getJSON(
-							"/sresult/region",
-							function(data) {
-								var str = "";
-								console.log(data.length);
-								var i = 0;
-								$(data)
-										.each(
-												function() {
-													str += '<option class="opt1" value="'+ this.rgbid +'">'
-															+ this.rgbname
-															+ '</option>'
-												});
-								$("#sel1").append(str);
-								$("#sel1")
-										.attr('style', 'visibility: visible;');
-							});
+			sel1Options = sel1RegOptions; // option 생성함수 연결
+			$.getJSON("/sresult/region", sel1Handler);
 		} else { // employment status(4), education(2), experience(1)
 			var tid;
-
 			if (idc === "c3")
 				tid = 4;
 			else if (idc === "c4")
 				tid = 2;
 			else
 				tid = 1;
-			$
-					.getJSON(
-							"/sresult/code/" + tid,
-							function(data) {
-								var str = "";
-								console.log(data.length);
-								var i = 0;
-								$(data)
-										.each(
-												function() {
-													str += '<option class="opt1" value="'+ this.id +'">'
-															+ this.career
-															+ '</option>'
-												});
-								$("#sel1").append(str);
-								$("#sel1")
-										.attr('style', 'visibility: visible;');
-							});
+			sel1Options = sel1CodOptions; // option 생성함수 연결
+			$.getJSON("/sresult/code/" + tid, sel1Handler);
 		}
 	}
 </script>

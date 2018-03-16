@@ -1,6 +1,6 @@
 package com.recruit.domain;
 
-public class RecruitVO {
+public class RecruitVO implements Bnoble {
 
 	private int bno;
 	private String title;

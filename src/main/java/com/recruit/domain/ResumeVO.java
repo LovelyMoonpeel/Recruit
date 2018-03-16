@@ -1,8 +1,6 @@
 package com.recruit.domain;
 
-import java.util.List;
-
-public class ResumeVO {
+public class ResumeVO implements Bnoble {
 
 	private int bno;
 	private String userid;
@@ -137,5 +135,90 @@ public class ResumeVO {
 				+ ", postcode=" + postcode + ", coverletter=" + coverletter + ", jobstateid=" + jobstateid
 				+ ", jobgroupid=" + jobgroupid + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
 				+ employstatusid + ", salaryid=" + salaryid + ", img=" + img + ", regdate=" + regdate + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + bno;
+		result = prime * result + ((coverletter == null) ? 0 : coverletter.hashCode());
+		result = prime * result + employstatusid;
+		result = prime * result + ((img == null) ? 0 : img.hashCode());
+		result = prime * result + jobgroupid;
+		result = prime * result + jobstateid;
+		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
+		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
+		result = prime * result + ((rgbid == null) ? 0 : rgbid.hashCode());
+		result = prime * result + rgsid;
+		result = prime * result + salaryid;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ResumeVO other = (ResumeVO) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (bno != other.bno)
+			return false;
+		if (coverletter == null) {
+			if (other.coverletter != null)
+				return false;
+		} else if (!coverletter.equals(other.coverletter))
+			return false;
+		if (employstatusid != other.employstatusid)
+			return false;
+		if (img == null) {
+			if (other.img != null)
+				return false;
+		} else if (!img.equals(other.img))
+			return false;
+		if (jobgroupid != other.jobgroupid)
+			return false;
+		if (jobstateid != other.jobstateid)
+			return false;
+		if (postcode == null) {
+			if (other.postcode != null)
+				return false;
+		} else if (!postcode.equals(other.postcode))
+			return false;
+		if (regdate == null) {
+			if (other.regdate != null)
+				return false;
+		} else if (!regdate.equals(other.regdate))
+			return false;
+		if (rgbid == null) {
+			if (other.rgbid != null)
+				return false;
+		} else if (!rgbid.equals(other.rgbid))
+			return false;
+		if (rgsid != other.rgsid)
+			return false;
+		if (salaryid != other.salaryid)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (userid == null) {
+			if (other.userid != null)
+				return false;
+		} else if (!userid.equals(other.userid))
+			return false;
+		return true;
 	}
 }

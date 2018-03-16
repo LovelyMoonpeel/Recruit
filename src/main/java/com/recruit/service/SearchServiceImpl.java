@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.recruit.domain.Bnoble;
 import com.recruit.domain.CUserVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.PUserVO;
@@ -19,6 +20,10 @@ import com.recruit.persistence.SearchDAO;
 
 @Service
 public class SearchServiceImpl implements SearchService {
+
+	int[] empArr = { 20, 26 }; // emp 20~26
+	int[] expArr = { 1, 8 }; // exp 1~8
+	int[] eduArr = { 9, 14 }; // edu 9~14
 
 	@Inject
 	private PUserDAO puserdao;
@@ -82,9 +87,9 @@ public class SearchServiceImpl implements SearchService {
 
 		List<RecruitVO> list_tmp = searchDAO.selectRecruits_selJob(sel_skeys);
 		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selRgn(sel_skeys));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selEmp(sel_skeys));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selExp(sel_skeys));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selEdu(sel_skeys));
+		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, empArr));
+		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, expArr));
+		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, eduArr));
 
 		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
 			list_tmp = new ArrayList<RecruitVO>();
@@ -93,14 +98,23 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<ResumeVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
-		return searchDAO.selectResumes_sel(sel_skeys);
+
+		List<ResumeVO> list_tmp = searchDAO.selectResumes_selJob(sel_skeys);
+		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selRgn(sel_skeys));
+		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, empArr));
+		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, expArr));
+		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, eduArr));
+
+		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
+			list_tmp = new ArrayList<ResumeVO>();
+		return list_tmp;
 	}
 
-	public List<RecruitVO> intersection(List<RecruitVO> list1, List<RecruitVO> list2) {
+	public <T extends Bnoble> List<T> intersection(List<T> list1, List<T> list2) {
 
 		// list have no element.
 		if (list1.size() == 0 || list2.size() == 0)
-			return new ArrayList<RecruitVO>();
+			return new ArrayList<T>();
 
 		// criteria isn't selected.
 		if (list1.get(0).getBno() == -1)
@@ -108,13 +122,55 @@ public class SearchServiceImpl implements SearchService {
 		else if (list2.get(0).getBno() == -1)
 			return list1;
 
-		List<RecruitVO> list = new ArrayList<RecruitVO>();
-		for (RecruitVO t : list1) {
+		List<T> list = new ArrayList<T>();
+		for (T t : list1) {
 			if (list2.contains(t))
 				list.add(t);
 		}
 		return list;
 	}
+
+	// public List<RecruitVO> intersectionRecruit(List<RecruitVO> list1,
+	// List<RecruitVO> list2) {
+	//
+	// // list have no element.
+	// if (list1.size() == 0 || list2.size() == 0)
+	// return new ArrayList<RecruitVO>();
+	//
+	// // criteria isn't selected.
+	// if (list1.get(0).getBno() == -1)
+	// return list2;
+	// else if (list2.get(0).getBno() == -1)
+	// return list1;
+	//
+	// List<RecruitVO> list = new ArrayList<RecruitVO>();
+	// for (RecruitVO t : list1) {
+	// if (list2.contains(t))
+	// list.add(t);
+	// }
+	// return list;
+	// }
+
+	// public List<ResumeVO> intersectionResume(List<ResumeVO> list1,
+	// List<ResumeVO> list2) {
+	//
+	// // list have no element.
+	// if (list1.size() == 0 || list2.size() == 0)
+	// return new ArrayList<ResumeVO>();
+	//
+	// // criteria isn't selected.
+	// if (list1.get(0).getBno() == -1)
+	// return list2;
+	// else if (list2.get(0).getBno() == -1)
+	// return list1;
+	//
+	// List<ResumeVO> list = new ArrayList<ResumeVO>();
+	// for (ResumeVO t : list1) {
+	// if (list2.contains(t))
+	// list.add(t);
+	// }
+	// return list;
+	// }
 }
 
 // use project;
