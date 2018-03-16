@@ -110,7 +110,7 @@
                   <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
                <tr>
-                <td colspan="4" rowspan="2">${ResumeVO.coverletter}</td>   
+                <td colspan="4" rowspan="3">${ResumeVO.coverletter}</td>   
                </tr>
             </tbody>
          </table>

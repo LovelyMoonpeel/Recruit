@@ -199,8 +199,8 @@ public class PersonalController {
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, ResumeVO resume, Model model) throws Exception {
-	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeVO resume, Model model) throws Exception {
-		
+	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeVO resume, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 		System.out.println("야");
 		
@@ -210,26 +210,13 @@ public class PersonalController {
 		//Rmodify에 rid값 줘야함
 		Webservice.updateWList(bno, pwvo.getPwebsitesvolist());
 		
+		//Licenseservice.updateLList(bno, plivo.getRlicensevolist());
+		
+		Langservice.updateLList(bno, plavo.getRlangvolist());
+		
+		
 		Rservice.updateROne(resume);
 
-		/*//PTel start///////////////////////
-		for(int i=0;i<ptvoid.length;i++){
-			Telservice.deleteTOne(ptvoid[i]);
-		}//기존에 있던거는 먼저 전부 삭제 delete
-		
-		for(int i=0;i<ptvoid.length;i++){
-			PTelVO ptvo = new PTelVO();
-			ptvo.setRid(bno);
-			ptvo.setTeltitle(teltitle[i]);
-			ptvo.setTel(tel[i]);
-			Telservice.createTOne(ptvo);
-		}//all create
-*/		//PTel end///////////////////////
-		
-	/*	for(int i=0;i<ptvoid.length;i++){
-			Telservice.updateTOne(ptvoid[i]);
-		}*/
-		
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
 

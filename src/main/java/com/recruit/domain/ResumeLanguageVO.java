@@ -1,5 +1,7 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class ResumeLanguageVO {
 	
 	private int id;
@@ -9,7 +11,14 @@ public class ResumeLanguageVO {
 	private String score;
 	private String publeoffice;
 	private String acquidate;
+	private List<ResumeLanguageVO> rlangvolist;
 	
+	public List<ResumeLanguageVO> getRlangvolist() {
+		return rlangvolist;
+	}
+	public void setRlangvolist(List<ResumeLanguageVO> rlangvolist) {
+		this.rlangvolist = rlangvolist;
+	}
 	public int getId() {
 		return id;
 	}

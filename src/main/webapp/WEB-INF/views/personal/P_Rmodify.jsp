@@ -12,9 +12,9 @@
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
 	<%-- 	<input type="text" class="form-control" id="rid" name="rid" value="${PTelVO.rid }" readonly> --%>
-		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
+	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
 	<%-- 	<input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}" readonly> --%>
-		<input type="text" class="form-control" id="id" name="id" value="${PUserVO.id}" readonly>
+	<%-- 	<input type="text" class="form-control" id="id" name="id" value="${PUserVO.id}" readonly> --%>
 		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> <input class="form-control" id="title"

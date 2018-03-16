@@ -1,5 +1,7 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class RLicenseVO {
 	
 	private int id;
@@ -7,7 +9,14 @@ public class RLicenseVO {
 	private String test;
 	private String publeoffice;
 	private String acquidate;
+	private List<RLicenseVO> rlicensevolist;
 	
+	public List<RLicenseVO> getRlicensevolist() {
+		return rlicensevolist;
+	}
+	public void setRlicensevolist(List<RLicenseVO> rlicensevolist) {
+		this.rlicensevolist = rlicensevolist;
+	}
 	public int getId() {
 		return id;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.persistence.ResumeLanguageDAO;
@@ -39,6 +40,17 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	public void createResumeLanguage(ResumeLanguageVO vo) throws Exception {
 		dao.createResumeLanguage(vo);		
 	}
-
-
+	
+	//@Transactional
+	@Override
+	public void updateLList(Integer rid, ResumeLanguageVO rlangVO)throws Exception{
+		
+		dao.createResumeLanguage(rid);
+		
+		//레주메 번호에 해당하는 모든 Web을 지운다.
+		if (pwebsitesvolist != null) {
+			for (int i = 0; i < pwebsitesvolist.size(); i++)
+				dao.createPWebSite(pwebsitesvolist.get(i));
+		}
+	}
 }

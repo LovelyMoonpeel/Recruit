@@ -42,11 +42,11 @@ public class PWebSiteServiceImpl implements PWebSiteService{
 		dao.createPWebSite(vo);
 	}
 	
-	//@Transactional
+	@Transactional
 	@Override
 	public void updateWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception {
 
-		//dao.deleteWList(rid);
+		dao.deleteWList(rid);
 		//레주메 번호에 해당하는 모든 Web을 지운다.
 		
 		if (pwebsitesvolist != null) {

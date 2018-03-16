@@ -36,6 +36,9 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	public void deleteResumeLanguage(Integer id) throws Exception {
 		session.delete(namespace+".deleteResumeLanguage", id);
 	}
-
 	
+	/*@Override
+	public void updateResumeLanguage(ResumeLanguageVO vo) throws Exception {
+		session.update(namespace+".updateResumeLanguage", vo);
+	}*/
 }

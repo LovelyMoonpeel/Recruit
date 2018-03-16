@@ -16,5 +16,5 @@ public interface ResumeLanguageService {
 
 	public void createResumeLanguage(ResumeLanguageVO rlangVO)throws Exception;
 
-	
+	public void updateLList(Integer rid, ResumeLanguageVO rlangVO)throws Exception;
 }
