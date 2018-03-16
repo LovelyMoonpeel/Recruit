@@ -24,7 +24,7 @@
 			<td>${AmainVO.pname}</td>
 			<td>${AmainVO.email}</td>
 			<td>${AmainVO.registnum}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/A_cmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${AmainVO.id }'" value="기업정보수정"></td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/cmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${AmainVO.id }'" value="기업정보수정"></td>
 		</tr>
 	</c:forEach>
 			
@@ -35,18 +35,18 @@
 		<ul class="pagination">
 		
 			<c:if test="${pageMaker.prev }">
-				<li><a href="A_company?page=${pageMaker.startPage-1}">&laquo;</a></li>
+				<li><a href="company?page=${pageMaker.startPage-1}">&laquo;</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.page == idx? 'class=active':'' }"/>>
-					<a href="A_company${pageMaker.makeSearch(idx)}">${idx }</a>
+					<a href="company${pageMaker.makeSearch(idx)}">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-				<li><a href="A_company?page=${pageMaker.endPage + 1}">&raquo;</a></li>
+				<li><a href="company?page=${pageMaker.endPage + 1}">&raquo;</a></li>
 			</c:if>
 			
 		</ul>
@@ -57,7 +57,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#searchBtn').on("click", function(event){
-			self.location = "A_company"
+			self.location = "company"
 				+ '${pageMaker.makeQuery(1)}'
 				+ "&searchType="
 				+ $("select option:selected").val()

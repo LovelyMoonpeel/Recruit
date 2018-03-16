@@ -21,8 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="update">
 		update project.tblqna set
-		title = #{title}, content =
-		#{content}, bpw = #{bpw}
+		title = #{title}, content =	#{content}, bpw = #{bpw}
 		where bno = #{bno}
 	</update>
 

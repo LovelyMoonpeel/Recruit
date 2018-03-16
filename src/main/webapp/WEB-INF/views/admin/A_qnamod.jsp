@@ -19,7 +19,8 @@
 
 
 	<h1>Q&A</h1>	
-	<form role="form" method="POST">
+	<form role="form" action="A_qnamod" method="POST">
+		<input type='hidden' name='bno' value="${CsqnaVO.bno}">
 		<table class="table table-bordered">
 		<tr>
 			<th>제목</th>
@@ -126,7 +127,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body">{{content}} </div>
+  <div class="timeline-body"><textarea class="form-control" readonly>{{content}}</textarea> </div>
    <a class="btn btn-primary btn-xs"
      data-toggle="modal" data-target="#modifyModal">Modify</a>
   </div>
@@ -134,6 +135,8 @@
 </li>
 {{/each}}
 </script>
+
+
 
 <script>
 Handlebars.registerHelper("prettifyDate", function(timeValue){
@@ -153,6 +156,7 @@ var printData = function(replyArr, target, templateObject){
 
 </script>
 
+<!-- 댓글보기 -->
 <script>
 var bno=${CsqnaVO.bno};
 
@@ -170,6 +174,7 @@ $("#repliesDiv").on("click", function() {
 
 });
 </script>
+<!-- //댓글보기 -->
 
 <!-- 버튼에 대한 스크립트  -->
 <script type="text/javascript">
@@ -212,7 +217,7 @@ $("#sremove").on("click", function(){
 /* QnA목록 */
 $(".btn-primary").on("click", function(){
 	formObjlist.attr("method", "GET");
-	formObjlist.attr("action", "/admin/A_qna");
+	formObjlist.attr("action", "/admin/qna");
 	formObjlist.submit();
 });
 

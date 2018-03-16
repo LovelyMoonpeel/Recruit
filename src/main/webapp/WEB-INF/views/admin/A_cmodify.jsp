@@ -121,7 +121,7 @@
 		<tr>
 			<td>${RecruitVO.bno}</td>
 			<td>${RecruitVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/A_rmodify?id=${AmainVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
+			<td><input type="button" onclick="location.href='/admin/rmodify?id=${AmainVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -193,7 +193,7 @@ $(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/admin/A_company?page=${cri.page}&perPageNum=${cri.perPageNum}"
+		self.location = "/admin/company?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
 });

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <%@include file="../include/sheader.jsp"%>
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
@@ -9,7 +10,8 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
+<!-- Font Awesome Icons -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <!-- 개인정보수정 페이지 -->
 <div class="col-md-9">
@@ -65,7 +67,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body">{{content}} </div>
+  <div class="timeline-body"><textarea class="form-control" readonly>{{content}}</textarea> </div>
   </div>
  </div>
 </li>

@@ -62,8 +62,8 @@ public class AdminController {
 	@Inject
 	private CompanyAjaxService jobService;
 
-	@RequestMapping(value = "/A_main", method = RequestMethod.GET)
-	public void mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		logger.info(cri.toString());
 
 		model.addAttribute("list", aservice.listSearchCriteria(cri));
@@ -74,13 +74,17 @@ public class AdminController {
 		pageMaker.setTotalCount(aservice.listSearchCount(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/admin/A_main";
 	}
 
-	@RequestMapping(value = "/A_modify", method = RequestMethod.GET)
-	public void modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
 		model.addAttribute("AmainVO", aservice.read(id));
 		model.addAttribute("reslist", rservice.listAll(id));
+		
+		return "/admin/A_modify";
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
@@ -98,7 +102,7 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/admin/A_main";
+		return "redirect:/admin/main";
 	}
 
 	@RequestMapping(value = "/premove", method = RequestMethod.POST)
@@ -107,12 +111,13 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_main";
+		return "redirect:/admin/main";
 	}
 
-	@RequestMapping(value = "/A_amodify", method = RequestMethod.GET)
-	public void amodifyGET(Model model) throws Exception {
+	@RequestMapping(value = "/amodify", method = RequestMethod.GET)
+	public String amodifyGET(Model model) throws Exception {
 		model.addAttribute("AmainVO", aservice.aread());
+		return "/admin/A_amodify";
 	}
 
 	@RequestMapping(value = "/A_amodify", method = RequestMethod.POST)
@@ -125,18 +130,22 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "amodify");
 
-		return "redirect:/admin/A_main";
+		return "redirect:/admin/main";
 	}
 
-	@RequestMapping(value = "/A_faq", method = RequestMethod.GET)
-	public void faqGET(Model model) throws Exception {
+	@RequestMapping(value = "/faq", method = RequestMethod.GET)
+	public String faqGET(Model model) throws Exception {
 		logger.info("faq..........");
 		model.addAttribute("list", fservice.listAll());
+		
+		return "/admin/A_faq";
 	}
 
-	@RequestMapping(value = "/A_faqreg", method = RequestMethod.GET)
-	public void faqRegisterGET(Model model) throws Exception {
+	@RequestMapping(value = "/faqreg", method = RequestMethod.GET)
+	public String faqRegisterGET(Model model) throws Exception {
 		logger.info("faq Register..........");
+		
+		return "/admin/A_faqreg";
 	}
 
 	@RequestMapping(value = "/A_faqreg", method = RequestMethod.POST)
@@ -148,7 +157,7 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "regist");
 
-		return "redirect:/admin/A_faq";
+		return "redirect:/admin/faq";
 	}
 
 	@RequestMapping(value = "/sremove", method = RequestMethod.POST)
@@ -157,13 +166,15 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_faq";
+		return "redirect:/admin/faq";
 	}
 
-	@RequestMapping(value = "/A_faqmod", method = RequestMethod.GET)
-	public void faqModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/faqmod", method = RequestMethod.GET)
+	public String faqModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("faq Modify Get..........");
 		model.addAttribute("CsfaqVO", fservice.read(bno));
+		
+		return "/admin/A_faqmod";
 	}
 
 	@RequestMapping(value = "/A_faqmod", method = RequestMethod.POST)
@@ -175,11 +186,11 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/admin/A_faq";
+		return "redirect:/admin/faq";
 	}
 
-	@RequestMapping(value = "/A_qna", method = RequestMethod.GET)
-	public void qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/qna", method = RequestMethod.GET)
+	public String qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna get..........");
 		model.addAttribute("list", qservice.listCriteria(cri));
 		CsqnaPageMaker pageMaker = new CsqnaPageMaker();
@@ -188,13 +199,17 @@ public class AdminController {
 		pageMaker.setTotalCount(qservice.listCountCriteria(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/admin/A_qna";
 	}
 
-	@RequestMapping(value = "/A_qnamod", method = RequestMethod.GET)
-	public void qnaModifyGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, Model model)
+	@RequestMapping(value = "/qnamod", method = RequestMethod.GET)
+	public String qnaModifyGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, Model model)
 			throws Exception {
 		logger.info("qna Modify Get..........");
 		model.addAttribute("CsqnaVO", qservice.modread(bno));
+		
+		return "/admin/A_qnamod";
 	}
 
 	@RequestMapping(value = "/A_qnamod", method = RequestMethod.POST)
@@ -207,7 +222,7 @@ public class AdminController {
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/admin/A_qna";
+		return "redirect:/admin/qna";
 	}
 
 	@RequestMapping(value = "/qremove", method = RequestMethod.POST)
@@ -216,11 +231,11 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_qna";
+		return "redirect:/admin/qna";
 	}
 
-	@RequestMapping(value = "/A_company", method = RequestMethod.GET)
-	public void companyGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/company", method = RequestMethod.GET)
+	public String companyGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		logger.info(cri.toString());
 
 		model.addAttribute("list", cservice.listSearchCriteria(cri));
@@ -231,14 +246,18 @@ public class AdminController {
 		pageMaker.setTotalCount(cservice.listSearchCount(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/admin/A_company";
 	}
 
-	@RequestMapping(value = "/A_cmodify", method = RequestMethod.GET)
-	public void cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
+	@RequestMapping(value = "/cmodify", method = RequestMethod.GET)
+	public String cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
 		model.addAttribute("AmainVO", cservice.read(id));
 		model.addAttribute("recruitList", pservice.RecruitList(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
+		
+		return "/admin/A_cmodify";
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
@@ -260,11 +279,11 @@ public class AdminController {
 		rttr.addFlashAttribute("msg", "modify");
 
 		// System.out.println("controller test2");
-		return "redirect:/admin/A_company";
+		return "redirect:/admin/company";
 	}
 
-	@RequestMapping(value = "/A_rmodify", method = RequestMethod.GET)
-	public void rmodifyGET(@RequestParam("id") String id, @RequestParam("bno") int bno,
+	@RequestMapping(value = "/rmodify", method = RequestMethod.GET)
+	public String rmodifyGET(@RequestParam("id") String id, @RequestParam("bno") int bno,
 			@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
 		model.addAttribute("AmainVO", cservice.read(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
@@ -274,6 +293,7 @@ public class AdminController {
 		model.addAttribute("regionList", pservice.RegionList());
 		model.addAttribute("RecruitVO", pservice.RecruitInfoRead3(bno));
 
+		return "/admin/A_rmodify";
 	}
 
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.POST)
@@ -292,7 +312,7 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/admin/A_company";
+		return "redirect:/admin/company";
 	}
 
 	@RequestMapping(value = "/rremove", method = RequestMethod.POST)
@@ -303,7 +323,7 @@ public class AdminController {
 		rttr.addAttribute("id", id);
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_cmodify";
+		return "redirect:/admin/cmodify";
 	}
 
 	@RequestMapping(value = "/cremove", method = RequestMethod.POST)
@@ -312,7 +332,7 @@ public class AdminController {
 
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/admin/A_company";
+		return "redirect:/admin/company";
 	}
 	
 }

@@ -44,4 +44,9 @@ public class CsqnaReplyServiceImpl implements CsqnaReplyService {
 	public void deleteReply(Integer bno) throws Exception{
 		dao.deleteReply(bno);
 	}
+	
+	@Override
+	public CsqnaReplyVO readReply(Integer rno) throws Exception{
+		return dao.read(rno);
+	}
 }

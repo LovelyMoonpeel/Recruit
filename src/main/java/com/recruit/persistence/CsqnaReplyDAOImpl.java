@@ -46,4 +46,8 @@ public class CsqnaReplyDAOImpl implements CsqnaReplyDAO {
 	public void deleteReply(Integer bno) throws Exception{
 		session.update(namespace+".deleteReply", bno);
 	}
+	
+	public CsqnaReplyVO read(Integer rno) throws Exception{
+		return session.selectOne(namespace+".read", rno);
+	}
 }

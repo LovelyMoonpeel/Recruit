@@ -17,4 +17,6 @@ public interface CsqnaReplyService {
 	public void updateReply(Integer bno) throws Exception;
 	
 	public void deleteReply(Integer bno) throws Exception;
+	
+	public CsqnaReplyVO readReply(Integer rno) throws Exception;
 }

@@ -14,13 +14,13 @@
 		</tr>		
 	<c:forEach items="${list}" var="CsfaqVO">
 		<tr>
-			<td><a href='/admin/A_faqmod?bno=${CsfaqVO.bno}'>${CsfaqVO.title}</a></td>
+			<td><a href='/admin/faqmod?bno=${CsfaqVO.bno}'>${CsfaqVO.title}</a></td>
 		</tr>
 	</c:forEach>
 			
 	</table>
 	
-	<button class="btn btn-success" type="button" onclick="location.href='/admin/A_faqreg'">작성</button>
+	<button class="btn btn-success" type="button" onclick="location.href='/admin/faqreg'">작성</button>
 	
 </div>
 <!-- //개인관리 페이지 -->

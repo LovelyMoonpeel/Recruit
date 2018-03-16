@@ -80,7 +80,7 @@
 		<tr>
 			<td>${ResumeVO.bno}</td>
 			<td>${ResumeVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/A_rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" onclick="location.href='/admin/rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -145,9 +145,9 @@ $(function(){
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("수정하시겠습니까?")){
 				formObj.submit();
+				}
 			}else{
 			alert("비밀번호를 확인해주세요.");
-			}
 		}
 	});
 	
@@ -166,7 +166,7 @@ $(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/admin/A_main?page=${cri.page}&perPageNum=${cri.perPageNum}"
+		self.location = "/admin/main?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
 });

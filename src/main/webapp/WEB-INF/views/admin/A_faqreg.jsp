@@ -16,7 +16,7 @@
 
 
 	<h1>FAQ</h1>	
-	<form role="form" method="POST">
+	<form role="form" action="A_faqreg" method="POST">
 		<table class="table table-bordered">
 			<tr>
 				<th>제목</th>
@@ -51,7 +51,7 @@ $(".btn-warning").on("click", function(){
 });
 
 $(".btn-primary").on("click", function(){
-	self.location = "/admin/A_faq";
+	self.location = "/admin/faq";
 });
 
 </script>
