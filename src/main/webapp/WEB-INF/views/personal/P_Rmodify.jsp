@@ -67,7 +67,7 @@
                </tr>
                
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
                
                <c:forEach items="${PTelVOlist}" var="PTelVO" varStatus="status">
@@ -91,7 +91,7 @@
                </c:forEach> 
                
 				<tr>
-                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
+                  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
                 <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
 	               <tr>
@@ -114,27 +114,8 @@
                </c:forEach> 
                
                
-               
-		  <%--       <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
-		        <tr>
-		           <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
-		           <td>													
-		         	  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
-		           	<div class="form-group">
-						 <input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
-						</div>
-		           </td>
-		           <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
-		           <td>
-		           	<div class="form-group">
-						 <input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
-						</div>
-		           </td>
-		         </tr>  
-		   		</c:forEach>
-	            --%>
 <%--                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                <tr>
                 <th class="table-active" scope="row"><label for="test">자격증명</label></th>
@@ -167,45 +148,52 @@
 	               </tr>
                 </c:forEach> --%>
                
-             <%--   <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
+                <tr>
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                <tr>
-               	<th class="table-active" scope="row"><label for="testname">공인인증시험명</label></th>
+                <th class="table-active" scope="row"><label for="lid">언어</label></th>
+               	<th class="table-active" scope="row"><label for="test">공인인증시험명</label></th>
                 <th class="table-active" scope="row"><label for="score">점수</label> </th>
                 <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="lanacquidate">취득일자</label></th>
                </tr> 
-                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO" varStatus="status">
 	               <tr>
+	                 <td>
+	                    <input class="langclass" type='hidden' name="rlangvolist[].rid" value="${ResumeVO.bno}">
+	                  	<div class="form-group">
+							<input class="form-control langclass" name="rlangvolist[].lid" value="${ResumeLanguageVO.lid}"></input>
+						</div>
+	                  </td>
 	                  <td>
 	                  	<div class="form-group">
-						 <input class="form-control" name="testname" value="${ResumeLanguageVO.test}"></input>
+						 <input class="form-control langclass" name="rlangvolist[].test" value="${ResumeLanguageVO.test}"></input>
 						</div>
 					  </td>
 	                  <td>
 	                  	<div class="form-group">
-							<input class="form-control" name="score" value="${ResumeLanguageVO.score}"></input>
+							<input class="form-control langclass" name="rlangvolist[].score" value="${ResumeLanguageVO.score}"></input>
 						</div>
 	                  </td>
 	                  <td>
 						<div class="form-group">
-						 <input class="form-control" name="lanpubleoffice" value="${ResumeLanguageVO.publeoffice}"></input>
+						 <input class="form-control langclass" name="rlangvolist[].publeoffice" value="${ResumeLanguageVO.publeoffice}"></input>
 						</div>
 					 </td>
 	                  <td>
 	                  	<div class="form-group">
-						 <input class="form-control" name="lanacquidate" value="${ResumeLanguageVO.acquidate}"></input>
+						 <input class="form-control langclass" name="rlangvolist[].acquidate" value="${ResumeLanguageVO.acquidate}"></input>
 						</div>
 	                  </td>
 	               </tr>  
-                </c:forEach> --%>
+                </c:forEach> 
                        
                <tr>
-                  <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
+                  <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
                <tr>
-                <td colspan="4" rowspan="2">
+                <td colspan="5" rowspan="2">
                   	<div class="form-group">
 						<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;">${ResumeVO.coverletter}</textarea>
 					</div>
@@ -410,6 +398,14 @@
 				$(this).attr("name", name);
 				console.log($(this).attr("name"));
 			}); 
+ 			 $(".langclass").each(function(index){
+ 				var num = 6;
+ 				var name = $(this).attr("name");
+ 				name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
+ 				$(this).attr("name", name);
+ 				console.log($(this).attr("name"));
+ 			}); 
+ 			 
 		}
 		
 	});

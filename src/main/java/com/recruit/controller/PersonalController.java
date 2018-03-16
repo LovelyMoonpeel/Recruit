@@ -198,11 +198,9 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, ResumeVO resume, Model model) throws Exception {
-	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeVO resume, Model model) throws Exception {
-	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
-		System.out.println("야");
 		
 		System.out.println(bno+  " 으으으"+ ptvo.getPtelvolist().toString());
 		
@@ -210,10 +208,11 @@ public class PersonalController {
 		//Rmodify에 rid값 줘야함
 		Webservice.updateWList(bno, pwvo.getPwebsitesvolist());
 		
-		//Licenseservice.updateLList(bno, plivo.getRlicensevolist());
-		
+		System.out.println(bno+  " 으아악"+ plavo.getRlangvolist().toString());
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		
+		System.out.println(bno+  " 으아악"+ plivo.getRlicensevolist().toString());
+		Licenseservice.updateLList(bno, plivo.getRlicensevolist());
 		
 		Rservice.updateROne(resume);
 

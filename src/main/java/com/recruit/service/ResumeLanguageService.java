@@ -14,7 +14,7 @@ public interface ResumeLanguageService {
 	
 	public void remove(Integer id)throws Exception;
 
-	public void createResumeLanguage(ResumeLanguageVO rlangVO)throws Exception;
+	public void createResumeLanguage(ResumeLanguageVO vo)throws Exception;
 
-	public void updateLList(Integer rid, ResumeLanguageVO rlangVO)throws Exception;
+	public void updateLList(Integer rid, List<ResumeLanguageVO> rlangvolist)throws Exception;
 }

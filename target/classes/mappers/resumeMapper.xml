@@ -312,14 +312,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</delete>
 	
-	<!-- 이력서 RLang 등록 -->
-	<insert id="createResumeLanguage">
-	<![CDATA[
-	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
-	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
-	]]>
-	</insert>
-	
+
 	<!-- 이력서 RLang 확인 -->
 	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
@@ -342,6 +335,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteResumeLanguage">
 	<![CDATA[
 	delete from project.tblResumeLanguage where rid= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 RLang 등록 -->
+	<insert id="createResumeLanguage">
+	<![CDATA[
+	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
+	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
+	]]>
+	</insert>
+	
+	<!-- 이력서 RLang 삭제 -->
+	<delete id="deleteRLangList">
+	<![CDATA[
+	delete from project.tblResumeLanguage where rid= #{rid}
 	]]>
 	</delete>
 </mapper>
