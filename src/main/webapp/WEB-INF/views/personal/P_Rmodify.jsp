@@ -181,12 +181,6 @@
 			</select> 
 		</div>
 
-		<%-- <div class="form-group">
-			<label for="rgbid">희망근무지(시/도)(구현X)</label> <input class="form-control" id="rgbid" name="rgbid" value="${ResumeVO.rgbid}"></input>
-		</div>
-		<div class="form-group">
-			<label for="rgsid">희망 근무지(구현X)</label> <input class="form-control" id="rgsid" name="rgsid" value="${ResumeVO.rgsid}"></input>
-		</div> --%>
 		<div class="form-group">	
 		<label for="jobgroupid">희망근무지(시/도)(구현X)</label> 
 			<select id="region" class="form-control" name='rgbid'>
