@@ -13,4 +13,6 @@ public interface PWebSiteDAO {
 	public void updatePWebSite(PWebSiteVO vo)throws Exception;
 	
 	public void deletePWebSite(Integer id)throws Exception;
+	
+	public void deleteWList(Integer rid)throws Exception;
 }

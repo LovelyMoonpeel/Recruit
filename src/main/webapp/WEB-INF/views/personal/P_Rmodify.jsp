@@ -11,10 +11,9 @@
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
-		<%-- <input type="text" class="form-control" id="rid" name="rid" value="${PTelVO.rid }"> --%>
-		
+	<%-- 	<input type="text" class="form-control" id="rid" name="rid" value="${PTelVO.rid }" readonly> --%>
 		<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly> 
-		<input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}" readonly> 
+	<%-- 	<input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}" readonly> --%>
 		<input type="text" class="form-control" id="id" name="id" value="${PUserVO.id}" readonly>
 		<br>	
 		<div class="form-group">
@@ -71,7 +70,7 @@
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
                
-               <c:forEach items="${PTelVO}" var="PTelVO" varStatus="status">
+               <c:forEach items="${PTelVOlist}" var="PTelVO" varStatus="status">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류) 	${status.count}</label>
 	                  	<input type="text" value="${PTelVO.telid }">
@@ -94,26 +93,47 @@
 				<tr>
                   <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
+                <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
+	               <tr>
+	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label>
+	                  	<input type="text" value="${PWebSiteVO.id }">
+	                  </th>
+	                  <td>
+	                  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
+						<div class="form-group">
+							<input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
+						</div>
+					  </td>
+	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
+	                  <td>
+	                	<div class="form-group">
+							<input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
+						</div>
+	                  </td>
+	               </tr>
+               </c:forEach> 
                
-		      <%--  <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
+               
+               
+		  <%--       <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
 		        <tr>
 		           <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
-		           <td>
-		         	  <input class="webclass" type='hidden' name="PWebSitelist[].rid" value="${ResumeVO.bno}">
+		           <td>													
+		         	  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
 		           	<div class="form-group">
-						 <input type="text" class="form-control webclass" name="PWebSitelist[].webtitle" value="${PWebSiteVO.title}">
+						 <input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
 						</div>
 		           </td>
 		           <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
 		           <td>
 		           	<div class="form-group">
-						 <input type="text" class="form-control webclass" name="PWebSitelist[].webadd" value="${PWebSiteVO.webadd}">
+						 <input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
 						</div>
 		           </td>
 		         </tr>  
-		   		</c:forEach> --%>
-	           
-               <tr>
+		   		</c:forEach>
+	            --%>
+<%--                <tr>
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                <tr>
@@ -145,9 +165,9 @@
 						</div>
 					  </td>
 	               </tr>
-                </c:forEach>
+                </c:forEach> --%>
                
-               <tr>
+             <%--   <tr>
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                <tr>
@@ -179,7 +199,7 @@
 						</div>
 	                  </td>
 	               </tr>  
-                </c:forEach>
+                </c:forEach> --%>
                        
                <tr>
                   <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
@@ -366,13 +386,13 @@
 						}
 					}
 				}); 
-			} 
-				console.log("사진 삭제한 상태에서 submit직전");
+				
+			/* 	console.log("사진 삭제한 상태에서 submit직전");
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
-				//numberingList();
-				//formObj.submit();
-			
+				numberingList();
+				formObj.submit(); */
+			} 
 		});
     
 		function numberingList() {
@@ -383,14 +403,13 @@
 				$(this).attr("name", name);
 				console.log($(this).attr("name"));
 			});
-			
- 			/* $(".webclass").each(function(index){
+ 			 $(".webclass").each(function(index){
 				var num = 3;
 				var name = $(this).attr("name");
-				name = name.substring(0, 13) + parseInt(index/num) + name.substring(13);
+				name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
 				$(this).attr("name", name);
 				console.log($(this).attr("name"));
-			});  */
+			}); 
 		}
 		
 	});

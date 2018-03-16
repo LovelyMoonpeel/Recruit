@@ -37,5 +37,9 @@ public class PWebSiteDAOImpl implements PWebSiteDAO{
 		session.delete(namespace+".deletePWebSite", id);
 	}
 	
+	@Override
+	public void deleteWList(Integer rid)throws Exception{
+		session.delete(namespace+".deleteWList", rid);
+	}
 	
 }

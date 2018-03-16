@@ -1,11 +1,21 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class PWebSiteVO {
 
 	private int id;
 	private int rid;
-	private String title;
+	private String webtitle;
 	private String webadd;
+	private List<PWebSiteVO> pwebsitesvolist;
+	
+	public List<PWebSiteVO> getPwebsitesvolist() {
+		return pwebsitesvolist;
+	}
+	public void setPwebsitesvolist(List<PWebSiteVO> pwebsitesvolist) {
+		this.pwebsitesvolist = pwebsitesvolist;
+	}
 	public int getId() {
 		return id;
 	}
@@ -18,11 +28,11 @@ public class PWebSiteVO {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	public String getTitle() {
-		return title;
+	public String getWebtitle() {
+		return webtitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setWebtitle(String webtitle) {
+		this.webtitle = webtitle;
 	}
 	public String getWebadd() {
 		return webadd;
@@ -33,7 +43,7 @@ public class PWebSiteVO {
 	
 	@Override
 	public String toString() {
-		return "PWebSiteVO [id=" + id + ", rid=" + rid + ", title=" + title + ", webadd=" + webadd + "]";
+		return "PWebSiteVO [id=" + id + ", rid=" + rid + ", webtitle=" + webtitle + ", webadd=" + webadd + "]";
 	}	
 	
 }

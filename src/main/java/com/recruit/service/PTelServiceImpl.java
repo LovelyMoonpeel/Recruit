@@ -37,7 +37,7 @@ public class PTelServiceImpl implements PTelService{
 		dao.updateTOne(ptvoid);
 	}
 	
-	//@Transactional
+	@Transactional
 	@Override
 	public void updateTList(Integer rid, List<PTelVO> PTelVOlist) throws Exception {
 

@@ -175,8 +175,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 PWebsite 등록 -->
 	<insert id="createPWebSite">
 	<![CDATA[
-	insert into project.tblwebsite(rid, title, webadd)
-	values(#{rid}, #{title}, #{webadd})
+	insert into project.tblwebsite(rid, webtitle, webadd)
+	values(#{rid}, #{webtitle}, #{webadd})
 	]]>
 	</insert>
 	
@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePWebSite">
 	<![CDATA[
 	update project.tblwebsite
-	set title = #{title}, webadd = #{webadd} 
+	set webtitle = #{webtitle}, webadd = #{webadd} 
 	where rid = #{rid}
 	]]>
 	</update>
@@ -202,6 +202,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deletePWebSite">
 	<![CDATA[
 	delete from project.tblwebsite where rid= #{bno}
+	]]>
+	</delete>
+	
+	<!-- 이력서 PWebsiteList 삭제 -->
+	<delete id="deleteWList">
+	<![CDATA[
+	delete from project.tblwebsite where rid= #{rid}
 	]]>
 	</delete>
 	
