@@ -134,29 +134,38 @@
 	               </tr>  
                 </c:forEach>             
                
+               
+               <!-- ★★★★★★★★★★★★★★★셀렉트 박스★★★★★★★★★★★★★★★-->
+               <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
+               <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
+               <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★-->
                <tr>
                	  <th>희망 구직 정보</th>            
                </tr>
                <tr>
                   <th class="table-active" scope="row">구직상태</th>
-                  <td>${ResumeVO.jobstateid}</td>
+                  <td>${resumeRead.jobstateid}</td>
+                  <th class="table-active" scope="row">희망근무형태</th>
+                  <td>${resumeRead.employstatusid}</td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row">희망직종</th>
-                  <td>${ResumeVO.jobgroupid}</td>
-                  <th class="table-active" scope="row">희망근무형태</th>
-                  <td>${ResumeVO.employstatusid}</td>
+                  <th class="table-active" scope="row">희망직종(대분류)</th>
+                  <td>${resumeRead.jobgroupid}</td>
+                  <th class="table-active" scope="row">희망직종(소분류)</th>
+                  <td>${resumeRead.jobgroupid2}</td>
                </tr>
                <tr>
                   <th class="table-active" scope="row">희망근무지(시/도)</th>
-                  <td>${ResumeVO.rgbid}</td>
+                  <td>${resumeRead.rgbid}</td>
                   <th class="table-active" scope="row">희망근무지</th>
-                  <td>${ResumeVO.rgsid}</td>
+                  <td>${resumeRead.rgsid}</td>
                </tr>
                <tr>
                   <th class="table-active" scope="row">희망연봉</th>
-                  <td>${ResumeVO.salaryid}</td>
+                  <td>${resumeRead.salaryid}</td>
                </tr>
+               
+               <!--셀렉트 박스 끝-->
                               
                <tr>
                   <th class="table-active" scope="row">제목</th>

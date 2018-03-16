@@ -137,12 +137,6 @@ public class PersonalController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	// public String writePOST(String id, ResumeVO resume, String file, PUserVO
-	// puser, PTelVO ptvo, PWebSiteVO pwvo, ResumeEduVO revo, ResumeCareerVO
-	// rcvo, RLicenseVO rlvo, ResumeLanguageVO rlangVO, Model model) throws
-	// Exception {
-	// public String writePOST(String id, ResumeVO resume, String file, PUserVO
-	// PUser, Model model) throws Exception {
 	public String writePOST(ResumeVO resume, String file, PUserVO puser, String id, Model model) throws Exception {
 		System.out.println("write POST controller");
 		System.out.println("id값 뭐받아오냐");
@@ -186,6 +180,8 @@ public class PersonalController {
 	   
 	    model.addAttribute("ResumeVO", Rservice.readROne(bno));
 	    
+	    model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+	    
 	    model.addAttribute("PTellist", Telservice.selectPTelList(bno));
 	   
 	    model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
@@ -197,7 +193,8 @@ public class PersonalController {
 	    model.addAttribute("REduVO", Eduservice.read(bno));
 	    
 	    System.out.println(Webservice.selectPWebSiteList(bno));
-       return "personal/P_detail";
+	    
+        return "personal/P_detail";
     }
  	   
     // 선택한 이력서 수정하는 페이지

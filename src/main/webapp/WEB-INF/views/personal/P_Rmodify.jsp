@@ -157,14 +157,16 @@
 		</div>
       
 		<div class="form-group">
-		<label for="jobgroupid">희망직종(구현X)</label> 
+		<label for="jobgroupid">희망직종(대분류)</label> 
 			<select id="jobGroup" class="form-control" name="jobgroupid">
 				<option value="">모집직종</option>
 				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 				</c:forEach>
 			</select> 			
+			<label for="jobgroupid">희망직종(소분류)</label> 
 			<select id="subjobGroup" class="form-control" name="jobgroupid2">
+				<option value="">희망직종(소분류)</option>
 			</select>
 		</div>    	
       

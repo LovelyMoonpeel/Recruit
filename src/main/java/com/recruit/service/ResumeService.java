@@ -24,6 +24,8 @@ public interface ResumeService {
 	//public int readRLastCreatedOne() throws Exception;
 
 	public ResumeVO readROne(Integer bno) throws Exception;
+	
+	public ResumeVO resumeRead(Integer bno) throws Exception;
 
 	public void updateROne(ResumeVO resume) throws Exception;
 

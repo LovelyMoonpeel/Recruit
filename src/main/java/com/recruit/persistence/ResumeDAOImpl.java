@@ -100,4 +100,10 @@ public class ResumeDAOImpl implements ResumeDAO {
 		return session.selectList(namespace + ".selectRegionList");
 	}
 
+	@Override
+	public ResumeVO resumeRead(Integer bno) throws Exception {
+		System.out.println("ResumeDAOImpl selectRList" + bno);
+		return session.selectOne(namespace+".resumeRead", bno);
+	}
+
 }

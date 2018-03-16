@@ -22,6 +22,8 @@ public interface ResumeDAO {
 	
 	public ResumeVO readROne(Integer bno) throws Exception;
 	
+	public ResumeVO resumeRead(Integer bno) throws Exception;
+	
 	public int readRLastCreatedOne(String id)throws Exception;
 	
 	public void updateROne(ResumeVO vo)throws Exception;
