@@ -211,8 +211,8 @@ public class PersonalController {
 		System.out.println(bno+  " 으아악"+ plavo.getRlangvolist().toString());
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		
-		System.out.println(bno+  " 으아악"+ plivo.getRlicensevolist().toString());
-		Licenseservice.updateLList(bno, plivo.getRlicensevolist());
+		System.out.println(bno+  "라이센스 으아악"+ plivo.getRlicensevolist().toString());
+		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
 		
 		Rservice.updateROne(resume);
 

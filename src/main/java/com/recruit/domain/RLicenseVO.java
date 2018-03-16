@@ -6,7 +6,7 @@ public class RLicenseVO {
 	
 	private int id;
 	private int rid;
-	private String test;
+	private String licensename;
 	private String publeoffice;
 	private String acquidate;
 	private List<RLicenseVO> rlicensevolist;
@@ -29,11 +29,11 @@ public class RLicenseVO {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	public String getTest() {
-		return test;
+	public String getLicensename() {
+		return licensename;
 	}
-	public void setTest(String test) {
-		this.test = test;
+	public void setLicensename(String licensename) {
+		this.licensename = licensename;
 	}
 	public String getPubleoffice() {
 		return publeoffice;
@@ -49,7 +49,7 @@ public class RLicenseVO {
 	}
 	@Override
 	public String toString() {
-		return "RLicenseVO [id=" + id + ", rid=" + rid + ", test=" + test + ", publeoffice=" + publeoffice
+		return "RLicenseVO [id=" + id + ", rid=" + rid + ", licensename=" + licensename + ", publeoffice=" + publeoffice
 				+ ", acquidate=" + acquidate + "]";
 	}	
 	

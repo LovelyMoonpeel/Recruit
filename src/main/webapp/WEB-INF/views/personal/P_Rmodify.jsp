@@ -99,7 +99,7 @@
 	                  	<input type="text" value="${PWebSiteVO.id }">
 	                  </th>
 	                  <td>
-	                  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
+	                    <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
 						<div class="form-group">
 							<input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
 						</div>
@@ -114,39 +114,34 @@
                </c:forEach> 
                
                
-<%--                <tr>
+                <tr>
                	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                <tr>
-                <th class="table-active" scope="row"><label for="test">자격증명</label></th>
-                <th class="table-active" scope="row">상세</th>
-                <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
-                <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
+                <th class="table-active" scope="row"><label for="licensename">자격증명</label></th>
+                <th colspan="2" class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
+                <th colspan="2" class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
           	  </tr>
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
 	                  <td>
+	                    <input class="licenseclass" type='hidden' name="rlicensevolist[].rid" value="${ResumeVO.bno}">
 						<div class="form-group">
-							<input class="form-control" name="test" value="${RLicenseVO.test}"></input>
+							<input class="form-control licenseclass" name="rlicensevolist[].licensename" value="${RLicenseVO.licensename}"></input>
 						</div>
 					  </td>
-	                  <td>
-	            	    <div class="form-group">
-							 <input class="form-control" value=""></input>
-					    </div>
-					  </td>
-					  <td>
+					  <td colspan="2">
 					 	<div class="form-group">
-							<input class="form-control" name="publeoffice" value="${RLicenseVO.publeoffice}"></input>
+							<input class="form-control licenseclass" name="rlicensevolist[].publeoffice" value="${RLicenseVO.publeoffice}"></input>
 						</div>
 					  </td>
-					  <td>
+					  <td colspan="2">
 					  	<div class="form-group">
-							<input class="form-control" name="acquidate" value="${RLicenseVO.acquidate}"></input>
+							<input class="form-control licenseclass" name="rlicensevolist[].acquidate" value="${RLicenseVO.acquidate}"></input>
 						</div>
 					  </td>
 	               </tr>
-                </c:forEach> --%>
+                </c:forEach>
                
                 <tr>
                	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
@@ -405,9 +400,14 @@
  				$(this).attr("name", name);
  				console.log($(this).attr("name"));
  			}); 
- 			 
+ 			$(".licenseclass").each(function(index){
+ 				var num = 4;
+ 				var name = $(this).attr("name");
+ 				name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
+ 				$(this).attr("name", name);
+ 				console.log($(this).attr("name"));
+ 			}); 
 		}
-		
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>

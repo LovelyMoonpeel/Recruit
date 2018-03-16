@@ -281,8 +281,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RLicense 등록 -->
 	<insert id="createRLicense">
 	<![CDATA[
-	insert into project.tbllicense(rid, test, publeoffice, acquidate)
-	values(#{rid}, #{test}, #{publeoffice}, #{acquidate})
+	insert into project.tbllicense(rid, licensename, publeoffice, acquidate)
+	values(#{rid}, #{licensename}, #{publeoffice}, #{acquidate})
 	]]>
 	</insert>
 	
@@ -295,12 +295,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	
 	<!-- 이력서 RLicense 수정 -->
 	<update id="updateRLicense">
 	<![CDATA[
 	update project.tbllicense
-	set test = #{test}, publeoffice = #{publeoffice}, acquidate = #{acquidate}
+	set licensename = #{licensename}, publeoffice = #{publeoffice}, acquidate = #{acquidate}
 	where rid = #{rid}
 	]]>
 	</update>

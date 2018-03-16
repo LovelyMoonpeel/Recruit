@@ -74,15 +74,15 @@
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                <tr>
-                <th class="table-active" scope="row"><label for="test">자격증명</label></th>
+                <th class="table-active" scope="row"><label for="licensename">자격증명</label></th>
                 <th class="table-active" scope="row">상세</th>
                 <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
           	  </tr>
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
-	                  <td>${RLicenseVO.test}</td>
-	                  <td>${RLicenseVO.test}</td>
+	                  <td>${RLicenseVO.licensename}</td>
+	                  <td>${RLicenseVO.licensename}</td>
 					  <td>${RLicenseVO.publeoffice}</td>
 					  <td>${RLicenseVO.acquidate}</td>
 	               </tr>
@@ -92,7 +92,7 @@
                	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                 <tr>
-               	<th class="table-active" scope="row"><label for="testname">공인인증시험명</label></th>
+               	<th class="table-active" scope="row"><label for="test">공인인증시험명</label></th>
                 <th class="table-active" scope="row"><label for="score">점수</label> </th>
                 <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="lanacquidate">취득일자</label></th>

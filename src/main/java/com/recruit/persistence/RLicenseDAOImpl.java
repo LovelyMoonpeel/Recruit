@@ -36,5 +36,9 @@ public class RLicenseDAOImpl implements RLicenseDAO{
 	public void deleteRLicense(Integer id) throws Exception {
 		session.delete(namespace+".deleteRLicense", id);
 	}
-
+	
+	@Override
+	public void deleteRLicenseList(Integer rid)throws Exception {
+		session.delete(namespace+".deleteRLicense",rid);
+	}
 }

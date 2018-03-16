@@ -41,13 +41,13 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 		dao.createResumeLanguage(vo);		
 	}
 	
-	//@Transactional
+	@Transactional
 	@Override
 	public void updateLList(Integer rid, List<ResumeLanguageVO> rlangvolist)throws Exception{
 		
 		dao.deleteRLangList(rid);
-		
-		//레주메 번호에 해당하는 모든 Web을 지운다.
+		//레주메 번호에 해당하는 모든 Lang을 지운다.
+
 		if (rlangvolist != null) {
 			for (int i = 0; i < rlangvolist.size(); i++)
 				dao.createResumeLanguage(rlangvolist.get(i));
