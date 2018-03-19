@@ -56,6 +56,7 @@
 </nav>
 
 
+
 <!--___로그인 모달 시작__________________________________________________________________  -->
 
 <!--★ 여기 써 있는 id값이 맨 밑에 자바 스크립트 부분에서 사용됨/ 로그인 모달 시작 -->
@@ -112,7 +113,7 @@
 							<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 							<div class="row">
 
-								<!--★ 기억하기 체크버튼  -->
+<!--로그인 개인 회원 기억하기 체크버튼 -->
 								<div class="col-xs-8">
 									<div class="checkbox icheck">
 										<label> <input type="checkbox" name="useCookie">
@@ -163,7 +164,7 @@
 							<!--★ row -->
 							<div class="row">
 
-								<!--★ 기억하기 체크버튼  -->
+<!--로그인 기업 회원 기억하기 체크버튼 -->
 								<div class="col-xs-8">
 									<div class="checkbox icheck">
 										<label> <input type="checkbox" name="useCookie">

@@ -1,6 +1,6 @@
 package com.recruit.dto;
 
-//3.14 문필 전체 최종 수정
+//문> LoginDTO는 화면에서 전달되는 데이터를 수집하는 용도
 public class LoginDTO {
 	private String id;
 	private String pw;
