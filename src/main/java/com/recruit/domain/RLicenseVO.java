@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RLicenseVO {
 	
-	private int id;
+	private int licenseid;
 	private int rid;
 	private String licensename;
 	private String publeoffice;
@@ -17,11 +17,11 @@ public class RLicenseVO {
 	public void setRlicensevolist(List<RLicenseVO> rlicensevolist) {
 		this.rlicensevolist = rlicensevolist;
 	}
-	public int getId() {
-		return id;
+	public int getLicenseid() {
+		return licenseid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setLicenseid(int licenseid) {
+		this.licenseid = licenseid;
 	}
 	public int getRid() {
 		return rid;
@@ -49,7 +49,7 @@ public class RLicenseVO {
 	}
 	@Override
 	public String toString() {
-		return "RLicenseVO [id=" + id + ", rid=" + rid + ", licensename=" + licensename + ", publeoffice=" + publeoffice
+		return "RLicenseVO [licenseid=" + licenseid + ", rid=" + rid + ", licensename=" + licensename + ", publeoffice=" + publeoffice
 				+ ", acquidate=" + acquidate + "]";
 	}	
 	

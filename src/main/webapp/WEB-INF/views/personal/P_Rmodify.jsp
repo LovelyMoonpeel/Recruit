@@ -80,102 +80,31 @@
 	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
     <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
     <!-- ------------------------------------------------------handlebar로 수정2 -->
-            <%-- <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
-                <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label>
-                	<input type="text" value="${PWebSiteVO.id }">
-                </th>
-                <td>
-                  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
-			<div class="form-group">
-				<input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
-			</div>
-		  </td>
-                <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
-                <td>
-              	<div class="form-group">
-				<input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
-			</div>
-                </td>
-            </c:forEach>  --%>
     <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>사이트 목록</b>
 	</h4>
 	<div id="web_div"></div>
 	<hr style="border: solid 4px #ccc;">
-      <!-- ------------------------------------------------------handlebar로 수정2 종료 -->           
-<%--               
-                <tr>
-               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
-               </tr>
-               <tr>
-                <th class="table-active" scope="row"><label for="licensename">자격증명</label></th>
-                <th colspan="2" class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
-                <th colspan="2" class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
-          	  </tr>
-          	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
-	               <tr>
-	                  <td>
-	                    <input class="licenseclass" type='hidden' name="rlicensevolist[].rid" value="${ResumeVO.bno}">
-						<div class="form-group">
-							<input class="form-control licenseclass" name="rlicensevolist[].licensename" value="${RLicenseVO.licensename}"></input>
-						</div>
-					  </td>
-					  <td colspan="2">
-					 	<div class="form-group">
-							<input class="form-control licenseclass" name="rlicensevolist[].publeoffice" value="${RLicenseVO.publeoffice}"></input>
-						</div>
-					  </td>
-					  <td colspan="2">
-					  	<div class="form-group">
-							<input class="form-control licenseclass" name="rlicensevolist[].acquidate" value="${RLicenseVO.acquidate}"></input>
-						</div>
-					  </td>
-	               </tr>
-                </c:forEach>
-               
-                <tr>
-               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
-               </tr>
-               <tr>
-                <th class="table-active" scope="row"><label for="lid">언어</label></th>
-               	<th class="table-active" scope="row"><label for="test">공인인증시험명</label></th>
-                <th class="table-active" scope="row"><label for="score">점수</label> </th>
-                <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
-                <th class="table-active" scope="row"><label for="lanacquidate">취득일자</label></th>
-               </tr> 
-                <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO" varStatus="status">
-	               <tr>
-	                 <td>
-	                    <input class="langclass" type='hidden' name="rlangvolist[].rid" value="${ResumeVO.bno}">
-	                  	<div class="form-group">
-							<input class="form-control langclass" name="rlangvolist[].lid" value="${ResumeLanguageVO.lid}"></input>
-						</div>
-	                  </td>
-	                  <td>
-	                  	<div class="form-group">
-						 <input class="form-control langclass" name="rlangvolist[].test" value="${ResumeLanguageVO.test}"></input>
-						</div>
-					  </td>
-	                  <td>
-	                  	<div class="form-group">
-							<input class="form-control langclass" name="rlangvolist[].score" value="${ResumeLanguageVO.score}"></input>
-						</div>
-	                  </td>
-	                  <td>
-						<div class="form-group">
-						 <input class="form-control langclass" name="rlangvolist[].publeoffice" value="${ResumeLanguageVO.publeoffice}"></input>
-						</div>
-					 </td>
-	                  <td>
-	                  	<div class="form-group">
-						 <input class="form-control langclass" name="rlangvolist[].acquidate" value="${ResumeLanguageVO.acquidate}"></input>
-						</div>
-	                  </td>
-	               </tr>  
-                </c:forEach> 
-                       
-               <tr>
+   <!-- ------------------------------------------------------handlebar로 수정2 종료 -->     
+   <!-- ------------------------------------------------------handlebar로 수정3 -->  
+   <hr style="border: solid 4px #ccc;">
+	<h4>
+		<b>보유 자격증 목록</b>
+	</h4>
+	<div id="license_div"></div>
+	<hr style="border: solid 4px #ccc;">
+   <!-- ------------------------------------------------------handlebar로 수정3 종료 -->    
+    <!-- ------------------------------------------------------handlebar로 수정4 -->  
+   <hr style="border: solid 4px #ccc;">
+	<h4>
+		<b>어학 능력(자격증) 목록</b>
+	</h4>
+	<div id="language_div"></div>
+	<hr style="border: solid 4px #ccc;">
+   <!-- ------------------------------------------------------handlebar로 수정4 종료 -->    
+         
+            <%--   <tr>
                   <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
                <tr>
@@ -201,8 +130,8 @@
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 
-	<input type="hidden" class="form-control telid telclass" value="{{telid}}"></input>
-	<input type="hidden" class="form-control rid telclass" value="{{rid}}"></input>
+	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
+	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-3">
 		<label for="teltitle">전화번호 (종류)</label> 
@@ -215,11 +144,12 @@
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
-		<button class="btn btn-default tel_plus_btn" type="button">
+		<label>추가/삭제</label>
+		<br>
+		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default tel_minus_btn" type="button"
+		<button class="btn btn-default btn-sm tel_minus_btn" type="button"
 			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
@@ -231,12 +161,12 @@
 <script id="template_web" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-	<input type="hidden" class="form-control webid webclass" value="{{webid}}"></input>
-	<input type="hidden" class="form-control rid webclass" value="{{rid}}"></input>
-	
+	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
+	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
+
 	<div class="form-group col-md-3">
 		<label for="webtitle">사이트 (종류)</label> 
-		<input class="form-control webtitle webclass" name="pwebsitesvolist[].webtitle" value="{{webtitle}}"></input>
+		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
 	</div>
 
 	<div class="form-group col-md-4">
@@ -246,10 +176,10 @@
 
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br />
-		<button class="btn btn-default web_plus_btn" type="button">
+		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default web_minus_btn" type="button"
+		<button class="btn btn-default btn-sm web_minus_btn" type="button"
 			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
@@ -258,6 +188,87 @@
 </div>
 <!-- end of row -->
 </script>
+ <script id="template_license" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
+	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-3">
+		<label for="licensename">자격증명</label> 
+		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
+	</div>
+
+	<div class="form-group col-md-4">
+		<label for="publeoffice">발행기관</label> 
+		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="acquidate">취득일자</label> 
+		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}"></input>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br/>
+		<button class="btn btn-default license_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default license_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+
+</div>
+<!-- end of row -->
+</script>           
+            
+ <script id="template_language" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<input type="hidden" class="form-control id" value="{{id}}"></input>
+	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-2">
+		<label for="lid">언어 선택</label> 
+		<input class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="test">공인인증시험명</label> 
+		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="score">점수</label> 
+		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label for="publeoffice">발행기관</label> 
+		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label for="acquidate">취득일자</label> 
+		<input class="form-control acquidate langclass" name="rlangvolist[].acquidate" value="{{acquidate}}"></input>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br/>
+		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm lang_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>               
+            
 
    <!--  -------------------------------------------------------------------------- -->
 
@@ -504,10 +515,11 @@
 			$("#web_div").append(template_web(item));
 		}
 		function web_list() {
-			var len = (${PTelVOlist.size()});
+			var len = (${PWebSiteVOlist.size()});
 			
 			<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
 				var item = {
+						
 						webid : ${PWebSiteVO.webid},
 						rid : ${PWebSiteVO.rid},
 						webtitle : "${PWebSiteVO.webtitle}", 
@@ -516,9 +528,68 @@
 				add_web(item);
 			</c:forEach>
 		}
+		//자격증 추가 버튼 이벤트
+		$("#license_div").on("click", ".license_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
+			add_license(item);
+		});
+		
+		function add_license(item) {
+			var source_license = $("#template_license").html();
+			var template_license = Handlebars.compile(source_license);
+			$("#license_div").append(template_license(item));
+		}
+		function license_list() {
+			var len = (${RLicenselist.size()});
+			
+			<c:forEach items="${RLicenselist}" var="RLicenseVO">
+				var item = {
+						
+						licenseid : ${RLicenseVO.licenseid},
+						rid : ${RLicenseVO.rid},
+						licensename : "${RLicenseVO.licensename}", 
+						publeoffice : "${RLicenseVO.publeoffice}",
+						acquidate : "${RLicenseVO.acquidate}"
+				};
+				add_license(item);
+			</c:forEach>
+		}
+		//언어 추가 버튼 이벤트
+		$("#language_div").on("click", ".lang_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
+			add_language(item);
+		});
+		
+		function add_language(item) {
+			var source_language = $("#template_language").html();
+			var template_language = Handlebars.compile(source_language);
+			$("#language_div").append(template_language(item));
+		}
+		function language_list() {
+			var len = (${RLanguagelist.size()});
+			
+			<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+				var item = {
+						id : ${ResumeLanguageVO.id},
+						rid : ${ResumeLanguageVO.rid},
+						lid : ${ResumeLanguageVO.lid},
+						test : "${ResumeLanguageVO.test}", 
+						score : "${ResumeLanguageVO.score}",
+						publeoffice : "${ResumeLanguageVO.publeoffice}",
+						acquidate : "${ResumeLanguageVO.acquidate}"
+				};
+				add_language(item);
+			</c:forEach>
+		}
 		
 		tel_list();
 		web_list();
+		license_list();
+		language_list();
 		
 	});
 </script>
