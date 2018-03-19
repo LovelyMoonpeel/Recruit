@@ -24,40 +24,39 @@ import com.recruit.service.BoardService;
 import com.recruit.service.UserService;
 
 
-//★ 다 끝나고 LoginInterceptor로 이동
+//문>LoginInterceptor에서 이리로 날라옴
 @Controller
 @RequestMapping("/rpjt/*")
 public class UserController {
 
-	//★ 밑에서 boarservice를 쓰기 위해서
+	//문>Inject애노테이션은 밑에서 쓰기 위해서
 	@Inject
 	private BoardService boardservice;
 	
-	//★ 밑에서 service를 쓰기 위해서
 	@Inject
 	private UserService service;
 
-	//☆ 무슨 말인지 모름
+
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	//★ 무슨 역할 하는지 모름."localhost8080/rpjt/cheader"를 주소창에 넣으면 아래 내용이 콘솔창에 출력
-	//@RequestMapping(value = "/cheader", method = RequestMethod.GET)
-	//public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-	//System.out.println("/rpjt/cheader 테스트입니다");
-	//}
 
-	//★ jsp에서 <form action="/rpjt/loginPost" method="post">의 처리로 이리로 온다.
+	@RequestMapping(value = "/cheader", method = RequestMethod.GET)
+	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+		System.out.println("/rpjt/cheader 테스트입니다");
+	}
+
+	//문>jsp에서 <form action="/rpjt/loginPost" method="post">의 처리로 이리로 온다.
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 
-		//☆ 뭘 받아와서 vo에 넣는거 같은데 service.logint(dto)해석 불가
+		
 		BoardVO vo = service.login(dto);
 
-		//☆ vo가 null이면 끝낸다는 소리인가?
+	
 		if (vo == null) {
 			return;
 		}
-		//★ Model에 BoardVO라는 참조변수를 추가(vo안에 있는 것을 boardVO.xxx라고 쓰고 이용할 수 있게 하는 코드)
+		//문> Model에 boardVO라는 이름으로 객체를 넣었다
 		model.addAttribute("boardVO", vo);
 		
 		//☆ dto에 쿠키가 있냐?

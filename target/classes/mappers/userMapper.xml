@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.recruit.mapper.UserMapper">
+<!--문> 안쓰는 거 같아서 주석 처리 	
 	<select id="read" resultType="com.recruit.domain.UserVO">
 		select
 		uid, upw, uname, upoint
@@ -17,10 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		uid, upw, uname, upoint
 		from
 		tblUser
-	</select>
+	</select> -->
 
-	<!--631 start -->
-	<!-- 로그인할 때 사용자의 아이디와 패스워드를 이용해서 사용자의 정보를 조회 -->
+	
+	<!--문> 로그인 처리 -->
 	<select id="login" resultType="BoardVO">
 
 		select id, pw, pname
@@ -28,12 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Project.tblUser
 		where id = #{id} and pw = #{pw}
 	</select>
-	<!--631 end -->
+	<!--// -->
 
-
-
-	<!--664 start -->
-	<!-- 칼럼을 추가해줬잖아 그러면 그 칼럼들도 업데이트 되야 하므로 아래의 SQL문을 작성 -->
+	<!--문> 자동로그인  -->
 	<update id="keepLogin">
 
 		update tblUser
@@ -49,9 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select *
 		from
 		tblUser
-		where sessionKey = #{value} and sessionlimit > now()
+		where sessionKey = #{value} and sessionLimit > now()
 
 	</select>
-	<!--664 end -->
+	<!--// -->
 
 </mapper>

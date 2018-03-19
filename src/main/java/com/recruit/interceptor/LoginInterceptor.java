@@ -13,8 +13,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-//전체 최종 수정 3월 13일 문필
-//★ servlet-context.xml에 인터셉트 설정을 추가해줘야함
+
+//문> 컨트롤러 거치기 전에 여기 먼저 처리 됨,servlet-context.xml에 인터셉트 설정을 추가해줘야함
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	
@@ -69,25 +69,23 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				
 	}
 
-	//★ preHandle은 요청한 URL에 대한 처리가 진행되기 전에 실행된다.
-	//★ 만약 boolean값이 false이면 다음으로 진행하지 않는다. true일때만 다음으로 진행한다. 
+	//문> preHandle은 요청한 URL에 대한 처리가 진행되기 전에 실행된다. 만약 boolean값이 false이면 다음으로 진행하지 않는다. true일때만 다음으로 진행한다. 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		//★ 세션객체 생성
+		//문> 세션객체 생성
 		HttpSession session = request.getSession();
 		
-		System.out.println(session);
+		System.out.println("세션?"+session);
 
-		//★ LOGIN의 세션에 남아있는 정보가 있는 경우 정보를 삭제 
+		//문> LOGIN의 세션에 남아있는 정보가 있는 경우 정보를 삭제 
 		if (session.getAttribute(LOGIN) != null) {
 			logger.info("clear login data before");
 			session.removeAttribute(LOGIN);
 		}
 		
-		//★ true를 리턴값으로 보내서 다음 과정이 진행되게 함
-		//★ 다음 과정은 요청한 url을 처리
+		//문> true를 리턴값으로 보내서 다음 과정이 진행되게 함, 다음 과정은 요청한 url을 처리
 		return true;
 	}
 
