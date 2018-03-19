@@ -119,12 +119,16 @@
 </tr>
 </script>
 
-<script id="template_pnl" type="text/x-handlebars-template">
+<script id="tmpnl_recruit" type="text/x-handlebars-template">
 <div class="col-md-3 result">
 	<div class="panel panel-default">
-		<div class="panel-heading">{{num}} {{id}}</div>
-		<div class="panel-body">{{pname}}<br/>{{birth}}</div>
-		<div class="panel-footer">{{email}}</div>
+		<div class="panel-body">
+			{{cname}} (~{{period}})<br />
+			{{title}}<br />
+			({{jobgroupid}}, {{jobgroupid2}})<br />
+			{{edu}}, {{exp}}<br />
+			({{rgbid}}, {{rgsid}})<br />
+		</div>
 	</div>
 </div>
 </script>
@@ -261,8 +265,9 @@
 
 	// select 검색으로 관련 정보를 를 보여주다.(3)
 	// 결과 판넬 List 생성
+	// url: /sresult/sel_search/recruits
 	function selRecruitHandler(data) {
-		var source_pnl = $("#template_pnl").html();
+		var source_pnl = $("#tmpnl_recruit").html();
 		var template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
 		var i = 0;
@@ -270,11 +275,17 @@
 		$(data).each(function() {
 			item = {
 				num : ++i,
-				id : this.bno,
-				pw : this.rgbid,
-				pname : this.title,
-				email : this.employstatusid,
-				birth : this.regdate
+				bno : this.bno,
+				cid : this.cid,
+				title : this.title,
+				jobgroupid : this.jobgroupid,
+				jobgroupid2 : this.jobgroupid2,
+				rgbid : this.rgbid,
+				rgsid : this.rgsid,
+				cname : this.cname,
+				edu : this.edu,
+				exp : this.exp,
+				period : this.period
 			};
 			$("#spanel").append(template_pnl(item));
 		});

@@ -215,10 +215,10 @@ public class SRestController {
 	}
 
 	@RequestMapping(value = "/sel_search/recruits", method = RequestMethod.GET)
-	public ResponseEntity<List<RecruitVO>> listRecruits() {
+	public ResponseEntity<List<SpanelVO>> listRecruits() {
 
 		System.out.println("Skeys 2: " + sel_skeys);
-		ResponseEntity<List<RecruitVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			System.out.println("controller: " + searchService.selectRecruits_sel(sel_skeys));
 			entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_skeys), HttpStatus.OK);

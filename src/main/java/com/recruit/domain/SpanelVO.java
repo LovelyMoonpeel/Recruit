@@ -1,7 +1,7 @@
 package com.recruit.domain;
 
 public class SpanelVO implements Bnoble {
-
+	// ResumeVO
 	private int bno;
 	private String userid;
 	private String title;
@@ -14,6 +14,15 @@ public class SpanelVO implements Bnoble {
 
 	// 개인회원용
 	private String pname;
+
+	// RecruitVO
+	private String cid;
+	private String edu;
+	private String exp;
+	private String period;
+
+	// 기업회원용
+	private String cname;
 
 	public int getBno() {
 		return bno;
@@ -95,11 +104,51 @@ public class SpanelVO implements Bnoble {
 		this.pname = pname;
 	}
 
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+
+	public String getEdu() {
+		return edu;
+	}
+
+	public void setEdu(String edu) {
+		this.edu = edu;
+	}
+
+	public String getExp() {
+		return exp;
+	}
+
+	public void setExp(String exp) {
+		this.exp = exp;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
 	@Override
 	public String toString() {
 		return "SpanelVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", jobstateid=" + jobstateid
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
-				+ rgsid + ", img=" + img + ", pname=" + pname + "]";
+				+ rgsid + ", img=" + img + ", pname=" + pname + ", cid=" + cid + ", edu=" + edu + ", exp=" + exp
+				+ ", period=" + period + ", cname=" + cname + "]";
 	}
-
 }

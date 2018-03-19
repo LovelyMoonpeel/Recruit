@@ -29,7 +29,7 @@ public interface SearchService {
 
 	public List<ResumeVO> selectResumes(String skey) throws Exception;
 
-	public List<RecruitVO> selectRecruits_sel(List<String> sel_skeys) throws Exception;
+	public List<SpanelVO> selectRecruits_sel(List<String> sel_skeys) throws Exception;
 
 	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception;
 }

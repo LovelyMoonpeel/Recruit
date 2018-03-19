@@ -83,8 +83,9 @@ public class SearchServiceImpl implements SearchService {
 		return searchDAO.selectResumes(skey);
 	}
 
+	// 채용공고
 	@Override
-	public List<RecruitVO> selectRecruits_sel(List<String> sel_skeys) throws Exception {
+	public List<SpanelVO> selectRecruits_sel(List<String> sel_skeys) throws Exception {
 
 		List<RecruitVO> list_tmp = searchDAO.selectRecruits_selJob(sel_skeys);
 		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selRgn(sel_skeys));
@@ -92,11 +93,16 @@ public class SearchServiceImpl implements SearchService {
 		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, expArr));
 		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, eduArr));
 
+		List<SpanelVO> listSp_tmp;
 		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
-			list_tmp = new ArrayList<RecruitVO>();
-		return list_tmp;
+			listSp_tmp = new ArrayList<SpanelVO>();
+		else {
+			listSp_tmp = convertToRecruitPanel(list_tmp);
+		}
+		return listSp_tmp;
 	}
 
+	// 이력서
 	@Override
 	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
 
@@ -106,16 +112,49 @@ public class SearchServiceImpl implements SearchService {
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, expArr));
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, eduArr));
 
-		List<SpanelVO> listSp_tmp; 
+		List<SpanelVO> listSp_tmp;
 		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
 			listSp_tmp = new ArrayList<SpanelVO>();
 		else {
-			listSp_tmp = convertToPanel(list_tmp);
+			listSp_tmp = convertToResumePanel(list_tmp);
 		}
 		return listSp_tmp;
 	}
 
-	public List<SpanelVO> convertToPanel(List<ResumeVO> listResume) throws Exception {
+	// 채용공고 판넬 변환
+	public List<SpanelVO> convertToRecruitPanel(List<RecruitVO> listRecruit) throws Exception {
+		int num = listRecruit.size();
+		List<SpanelVO> listPanel = new ArrayList<SpanelVO>();
+		for (int i = 0; i < num; i++) {
+			SpanelVO spanelVO = new SpanelVO();
+			spanelVO.setBno(listRecruit.get(i).getBno());
+			spanelVO.setCid(listRecruit.get(i).getCid());
+			spanelVO.setTitle(listRecruit.get(i).getTitle());
+
+			spanelVO.setJobgroupid(
+					codedao.selectJobGroup(Integer.parseInt(listRecruit.get(i).getJobgroupid())).getJobgroup());
+			spanelVO.setJobgroupid2(
+					codedao.selectJobGroup(Integer.parseInt(listRecruit.get(i).getJobgroupid2())).getJobgroup());
+
+			String rgbid = listRecruit.get(i).getRgbid();
+			String rgsid = listRecruit.get(i).getRgsid();
+			spanelVO.setRgbid(codedao.selectRegion(rgbid, Integer.parseInt(rgsid)).getRgbname());
+			spanelVO.setRgsid(codedao.selectRegion(rgbid, Integer.parseInt(rgsid)).getRgsname());
+			// spanelVO.setImg(listRecruit.get(i).getImg());
+
+			// 기업회원용
+			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
+			spanelVO.setEdu(codedao.readCode(Integer.parseInt(listRecruit.get(i).getEdu())).getCareer());
+			spanelVO.setExp(codedao.readCode(Integer.parseInt(listRecruit.get(i).getExp())).getCareer());
+			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
+
+			listPanel.add(spanelVO);
+		}
+		return listPanel;
+	}
+
+	// 이력서 판넬 변환
+	public List<SpanelVO> convertToResumePanel(List<ResumeVO> listResume) throws Exception {
 		int num = listResume.size();
 		List<SpanelVO> listPanel = new ArrayList<SpanelVO>();
 		for (int i = 0; i < num; i++) {
