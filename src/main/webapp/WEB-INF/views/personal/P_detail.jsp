@@ -25,7 +25,7 @@
                 <th class="table-active" scope="row"><label for="pname">이름</label> </th>
 	          	<td class="col-sm-4" id="pname" name="pname">${PUserVO.pname}</td>
                 <th class="table-active" scope="row"><label for="img">사진</label></th>
-                <td class="col-sm-4">
+                <td colspan="2"  class="col-sm-4">
                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
 				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 				   </div>
@@ -42,23 +42,23 @@
                   <th class="table-active" scope="row"><label>생년월일</label></th>
                   <td>${PUserVO.birth}</td>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
-            	  <td>${PUserVO.email}</td>
+            	  <td colspan="2" >${PUserVO.email}</td>
                </tr>
                
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">연락처 목록</th>            
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">연락처 목록</th>            
                </tr>
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
 	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류)</label></th>
 	                  <td>${PTelVO.teltitle}</td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
-	                  <td>${PTelVO.tel}</td>
+	                  <td colspan="2">${PTelVO.tel}</td>
 	               </tr>
                </c:forEach> 
                
 				<tr>
-                  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">웹사이트 목록</th>
+                  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
                
                <c:forEach items="${PWebSitelist}" var="PWebSiteVO">
@@ -66,32 +66,31 @@
 	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label></th>
 	                  <td>${PWebSiteVO.webtitle}</td>
 	                  <th class="table-active" scope="row"><label for="webadd">웹사이트</label></th>
-	                  <td>${PWebSiteVO.webadd}</td>
+	                  <td colspan="2" >${PWebSiteVO.webadd}</td>
 	               </tr>  
 	           </c:forEach> 
 	           
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">보유자격증 목록</th>            
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
                <tr>
-                <th class="table-active" scope="row"><label for="licensename">자격증명</label></th>
-                <th class="table-active" scope="row">상세</th>
-                <th class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
+                <th colspan="2" class="table-active" scope="row"><label for="licensename">자격증명</label></th>
+                <th colspan="2"  class="table-active" scope="row"><label for="publeoffice">발행기관</label></th>
                 <th class="table-active" scope="row"><label for="acquidate">취득일자</label></th>
           	  </tr>
           	   <c:forEach items="${RLicenselist}" var="RLicenseVO">
 	               <tr>
-	                  <td>${RLicenseVO.licensename}</td>
-	                  <td>${RLicenseVO.licensename}</td>
-					  <td>${RLicenseVO.publeoffice}</td>
+	                  <td colspan="2" >${RLicenseVO.licensename}</td>
+					  <td colspan="2" >${RLicenseVO.publeoffice}</td>
 					  <td>${RLicenseVO.acquidate}</td>
 	               </tr>
                 </c:forEach>
                
                <tr>
-               	  <th class="table-active" colspan="4" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">어학능력 자격증 목록</th>            
                </tr>
                 <tr>
+                <th class="table-active" scope="row"><label for="test">언어</label></th>
                	<th class="table-active" scope="row"><label for="test">공인인증시험명</label></th>
                 <th class="table-active" scope="row"><label for="score">점수</label> </th>
                 <th class="table-active" scope="row"><label for="lanpubleoffice">발행기관</label></th>
@@ -99,18 +98,19 @@
                  </tr>
                 <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
-	                  <td>${ResumeLanguageVO.test}</td>
-	                  <td>${ResumeLanguageVO.score}</td>
-	                  <td>${ResumeLanguageVO.publeoffice}</td>
-	                  <td>${ResumeLanguageVO.acquidate}</td>
+	               	<td>${ResumeLanguageVO.lid}</td>
+	                <td>${ResumeLanguageVO.test}</td>
+	                <td>${ResumeLanguageVO.score}</td>
+	                <td>${ResumeLanguageVO.publeoffice}</td>
+	                <td>${ResumeLanguageVO.acquidate}</td>
 	               </tr>  
                 </c:forEach>
                        
                <tr>
-                  <th class="table-active" colspan="4" scope="row" style="text-align: center;">자기소개서</th>
+                  <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
                <tr>
-                <td colspan="4" rowspan="3">${ResumeVO.coverletter}</td>   
+                <td colspan="5" rowspan="3">${ResumeVO.coverletter}</td>   
                </tr>
             </tbody>
          </table>
