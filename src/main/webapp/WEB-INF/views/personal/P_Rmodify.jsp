@@ -119,22 +119,6 @@
            </tbody>
        </table>      
     </div>
-      <!-- //table-responsive -->          
-            <%--   <tr>
-                  <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
-               </tr> 
-               <tr>
-                <td colspan="5" rowspan="2">
-                  	<div class="form-group">
-						<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;">${ResumeVO.coverletter}</textarea>
-					</div>
-              	 </td>   
-               </tr>
-            </tbody>
-         </table>
-         <!-- //table class --> --%>
-      </div>
-      <!-- //table-responsive -->
    </div>
    <br>
    	</form>
@@ -247,10 +231,45 @@
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-2">
-		<label for="lid">언어 선택</label> 
-		<input class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}"></input>
+		<label for="lid">언어 선택</label>
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}"></input>
+			{{#select lid}}
+			<option value="102" selected>선택</option>
+			<option value="52">영어</option>
+			<option value="53">일본어</option>
+			<option value="54">중국어</option>
+			<option value="55">그리스어</option>
+			<option value="56">네덜란드어</option>
+			<option value="57">노르웨이어</option>
+			<option value="58">독일어</option>
+			<option value="59">러시아어</option>
+			<option value="60">루마니아어</option>
+			<option value="61">마인어</option>
+			<option value="62">몽골어</option>
+			<option value="63">미얀마어</option>
+			<option value="64">베트남어</option>
+			<option value="65">세르비아어</option>
+			<option value="66">스웨덴어</option>
+			<option value="67">스페인어</option>
+			<option value="68">슬로바키아어</option>
+			<option value="69">아랍어</option>
+			<option value="70">유고어</option>
+			<option value="71">이란(페르시아어)</option>
+			<option value="72">이탈리아어</option>
+			<option value="73">체코어</option>
+			<option value="74">태국어</option>
+			<option value="75">터키어</option>
+			<option value="76">포르투갈어</option>
+			<option value="77">폴란드어</option>
+			<option value="78">프랑스어</option>
+			<option value="79">헝가리어</option>
+			<option value="80">히브리어</option>
+			<option value="81">히브리어</option>
+			<option value="82">그 외</option>
+			{{/select}}
+		</select>
 	</div>
-	
+
 	<div class="form-group col-md-2">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
@@ -289,7 +308,15 @@
    <!--  -------------------------------------------------------------------------- -->
 
 <script type='text/javascript'>
-	$(document).ready(function() {
+$(document).ready(function() {
+		
+		// a.code 03/19 Handlebars Helper 등록
+		Handlebars.registerHelper('select', function( value, options ){
+	        var $el = $('<select />').html( options.fn(this) );
+	        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
+	        return $el.html();
+		});
+		
 		var formObj = $("form[role = 'form']");
 		var xornot = document.getElementById('xornot');
 		
@@ -598,6 +625,7 @@
 						publeoffice : "${ResumeLanguageVO.publeoffice}",
 						acquidate : "${ResumeLanguageVO.acquidate}"
 				};
+				
 				add_language(item);
 			</c:forEach>
 		}
@@ -605,8 +633,8 @@
 		tel_list();
 		web_list();
 		license_list();
-		language_list();
+		language_list(); 
 		
-	});
+});
 </script>
 <%@include file="../include/cfooter.jsp"%>

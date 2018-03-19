@@ -19,7 +19,7 @@ public class PTelServiceImpl implements PTelService{
 	@Override
 	public void createTOne(PTelVO ptvo) throws Exception {
 		dao.createTOne(ptvo);
-	}//안씀
+	}
 	
 	@Override
 	public void deleteTOne(Integer id) throws Exception {
@@ -48,6 +48,14 @@ public class PTelServiceImpl implements PTelService{
 			for (int i = 0; i < PTelVOlist.size(); i++)
 				dao.createTOne(PTelVOlist.get(i));
 		}
-	}
+	}//안소연 update page
+	
+	@Override
+	public void createTList(Integer bno, List<PTelVO> PTelVOlist) throws Exception {
+		if (PTelVOlist != null) {
+			for (int i = 0; i < PTelVOlist.size(); i++)
+				dao.createTOneoflist(bno, PTelVOlist.get(i));
+		}//생성시킬 때 필수적으로 rid 필요한데 그 값을 bno로 담아 보냄
+	}//안소연 write page에서 씀
 	
 }

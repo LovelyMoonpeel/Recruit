@@ -22,6 +22,12 @@ public class PTelDAOImpl implements PTelDAO{
 	public void createTOne(PTelVO ptvo) throws Exception {
 		session.insert(namespace+".createTOne", ptvo);
 	}
+	
+	@Override
+	public void createTOneoflist(Integer bno, PTelVO ptvo) throws Exception {
+		ptvo.setRid(bno);
+		session.insert(namespace+".createTOne", ptvo);
+	}
 
 	@Override
 	public List<PTelVO> selectPTelList(Integer bno) throws Exception {

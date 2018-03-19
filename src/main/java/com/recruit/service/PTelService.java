@@ -16,4 +16,6 @@ public interface PTelService {
 	
 	public void updateTList(Integer rid, List<PTelVO> PTelVOlist) throws Exception;
 	
+	public void createTList(Integer bno, List<PTelVO> PTelVOlist) throws Exception;
+	//안소연 사용
 }

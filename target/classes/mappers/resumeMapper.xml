@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  <![CDATA[
 	  insert 
 	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-	  values("jin3", #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
-	  ]]>
+	  values("jin3", #{title}, #{coverletter}, 102, 102)
+	  ]]><!-- 민경언니꺼랑 merge전에 임의로 102넣어놓음 -->
 	</insert> 
 	
 	<!-- 이력서 등록한 거 바로 확인 -->

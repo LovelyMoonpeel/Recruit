@@ -132,32 +132,39 @@ public class PersonalController {
 		PUserVO PUser = service.selectPUser("jin3");
 		System.out.println("puser" + PUser);
 		model.addAttribute("PUserVO", PUser);
+	//model.addAttribute("codeList", Cservice.CodeList());
+		//코드 테이블 가져오기
 		return "personal/P_write";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ResumeVO resume, String file, PUserVO puser, String id, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, ResumeVO resume, Model model) throws Exception {
+	//public String writePOST(String id, String file, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
+	//public String writePOST(ResumeVO resume, String file, PUserVO puser, String id, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		System.out.println("id값 뭐받아오냐" + id);
-		// puser = service.selectPUser("jin3");
 		System.out.println("write get에서 받아오는 puser" + puser);
 
-		System.out.println("service 하기 전 resume.toString()");
-		System.out.println("file");
-		System.out.println(file);
+		System.out.println("file: " + file);
 
 		int bno = Rservice.createROne(resume, puser);
-		// Rservice.readRLastCreatedOne(); 마지막으로 생성한 PK가져오기
-
-		System.out.println("service 한 후 resume.toString()");
-		System.out.println(resume.toString());
-
-		System.out.println("Rservice Last 어쩌구 실행 후");
-		// System.out.println("bno"+bno);
-		// Rservice.addRimgAttach(fullName); createROne service에 transaction되어있음
-
-		/* ptvo.setRid(Rservice.read(id).getBno()); Telservice.createPTel(ptvo); Webservice.createPWebSite(pwvo); Eduservice.createResumeEdu(revo); Careerservice.createResumeCareer(rcvo); Licenseservice.createRLicense(rlvo); Langservice.createResumeLanguage(rlangVO);*/
+		// Rservice.readRLastCreatedOne(); 생성한 후 마지막으로 생성한 PK가져오기가 포함
+		System.out.println("레주메 정보 : "+ resume.toString());
+		
+		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
+		Telservice.createTList(bno, ptvo.getPtelvolist());
+		
+		System.out.println(bno + "p");
+		/*Webservice.updateWList(bno, pwvo.getPwebsitesvolist());
+		
+		System.out.println(bno+  " 으아악"+ plavo.getRlangvolist().toString());
+		Langservice.updateLList(bno, plavo.getRlangvolist());
+		
+		System.out.println(bno+  "라이센스 으아악"+ plivo.getRlicensevolist().toString());
+		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());*/
+		
+		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
 	}
@@ -357,5 +364,22 @@ public class PersonalController {
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
+	 @RequestMapping(value = "/example", method = RequestMethod.GET)
+	   public String exmapleGET(Model model) throws Exception {
+		   int bno = 1;
+		   PUserVO PUser = new PUserVO();
+		   PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+		   
+		   model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
+		   model.addAttribute("ResumeVO", Rservice.readROne(bno));
+		   
+		   model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+		   model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+		   model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+		   
+	      return "personal/P_example";
+	   }
 
 }
