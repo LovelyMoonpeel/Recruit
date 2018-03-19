@@ -24,7 +24,7 @@
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://192.168.0.4:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC">
 		</property>
-		<property name="username" value="ojh"></property>
+		<property name="username" value="cheon"></property>
 		<property name="password" value="0000"></property>
 	</bean>
 

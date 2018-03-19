@@ -1,6 +1,6 @@
 package com.recruit.domain;
 
-//3.14 문필 전체 확인
+//3.14 문
 public class BoardVO {
 	
 	private String id;
@@ -59,9 +59,3 @@ public class BoardVO {
 	}
 	
 }
-
-//629
-/*
-���ǿ� ������ UserVOŬ������ ����
-*/
-
