@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
@@ -66,54 +66,55 @@
 				</td>
                </tr>
                
-               <tr>
-               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">연락처 목록</th>            
-               </tr>
+             </tbody>
+         </table>
                
-               <c:forEach items="${PTelVOlist}" var="PTelVO" varStatus="status">
-	               <tr>
-	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류) 	${status.count}</label>
-	                  	<input type="text" value="${PTelVO.telid }">
-	                  </th>
-	                  <td>
-	                  <input class="telclass" type='hidden' name="ptelvolist[].rid" value="${ResumeVO.bno}">
-						<div class="form-group">
-							<input type="text" class="form-control telclass" name="ptelvolist[].teltitle" value="${PTelVO.teltitle}">
-						</div>
-					  </td>
-	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
-	                  <td>
-	                	<div class="form-group">
-							<input type="text" class="form-control telclass" name="ptelvolist[].tel" value="${PTelVO.tel}">
-						</div>
-	                  </td>
-	               </tr>
-               </c:forEach> 
-               
-				<tr>
-                  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">웹사이트 목록</th>
-               </tr> 
-                <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
-	               <tr>
-	                  <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label>
-	                  	<input type="text" value="${PWebSiteVO.id }">
-	                  </th>
-	                  <td>
-	                    <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
-						<div class="form-group">
-							<input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
-						</div>
-					  </td>
-	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
-	                  <td>
-	                	<div class="form-group">
-							<input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
-						</div>
-	                  </td>
-	               </tr>
-               </c:forEach> 
-               
-               
+    <!-- ------------------------------------------------------handlebar로 수정1 -->
+   <hr style="border: solid 4px #ccc;">
+	<h4>
+		<b>연락처 목록</b>
+	</h4>
+	<div id="tel_div"></div>
+	<hr style="border: solid 4px #ccc;">
+	
+	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
+    <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
+       <hr style="border: solid 4px #ccc;">
+	<h4>
+		<b>연락처 목록</b>
+	</h4>
+	<div id="tel_div"></div>
+	<hr style="border: solid 4px #ccc;">
+	
+	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
+    <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
+    <!-- ------------------------------------------------------handlebar로 수정2 -->
+    
+            <%-- <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
+                <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label>
+                	<input type="text" value="${PWebSiteVO.id }">
+                </th>
+                <td>
+                  <input class="webclass" type='hidden' name="pwebsitesvolist[].rid" value="${ResumeVO.bno}">
+			<div class="form-group">
+				<input type="text" class="form-control webclass" name="pwebsitesvolist[].webtitle" value="${PWebSiteVO.webtitle}">
+			</div>
+		  </td>
+                <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
+                <td>
+              	<div class="form-group">
+				<input type="text" class="form-control webclass" name="pwebsitesvolist[].webadd" value="${PWebSiteVO.webadd}">
+			</div>
+                </td>
+            </c:forEach>  --%>
+    <hr style="border: solid 4px #ccc;">
+	<h4>
+		<b>사이트 목록</b>
+	</h4>
+	<div id="web_div"></div>
+	<hr style="border: solid 4px #ccc;">
+      <!-- ------------------------------------------------------handlebar로 수정1 종료 -->           
+<%--               
                 <tr>
                	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
                </tr>
@@ -196,17 +197,81 @@
                </tr>
             </tbody>
          </table>
-         <!-- //table class -->
+         <!-- //table class --> --%>
       </div>
       <!-- //table-responsive -->
    </div>
    <br>
-   <!--  -------------------------------------------------------------------------- -->
-	</form>
+   	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
 
+<script id="template_tel" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+
+	<input type="hidden" class="form-control telid telclass" value="{{telid}}"></input>
+	<input type="hidden" class="form-control rid telclass" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-3">
+		<label for="teltitle">전화번호 (종류)</label> 
+		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
+	</div>
+	
+	<div class="form-group col-md-4">
+		<label for="tel">전화번호</label> 
+		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default tel_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default tel_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
+<script id="template_tel" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+
+	<input type="hidden" class="form-control telid telclass" value="{{telid}}"></input>
+	<input type="hidden" class="form-control rid telclass" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-3">
+		<label for="teltitle">전화번호 (종류)</label> 
+		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
+	</div>
+	
+	<div class="form-group col-md-4">
+		<label for="tel">전화번호</label> 
+		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default tel_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default tel_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
+   <!--  -------------------------------------------------------------------------- -->
+
+	
 <script type='text/javascript'>
 	$(document).ready(function() {
 		var formObj = $("form[role = 'form']");
@@ -408,6 +473,35 @@
  				console.log($(this).attr("name"));
  			}); 
 		}
+		
+		// tel 추가버튼 이벤트
+		$("#tel_div").on("click", ".tel_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
+			add_tel(item);
+		});
+		
+		function add_tel(item) {
+			var source_tel = $("#template_tel").html();
+			var template_tel = Handlebars.compile(source_tel);
+			$("#tel_div").append(template_tel(item));
+		}
+		function tel_list() {
+			var len = (${PTelVOlist.size()});
+			
+			<c:forEach items="${PTelVOlist}" var="PTelVO">
+				var item = {
+						telid : ${PTelVO.telid},
+						rid : ${PTelVO.rid},
+						teltitle : "${PTelVO.teltitle}", 
+						tel : "${PTelVO.tel}" 
+				};
+				add_tel(item);
+			</c:forEach>
+		}
+		
+		tel_list();
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>
