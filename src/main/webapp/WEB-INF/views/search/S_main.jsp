@@ -129,6 +129,19 @@
 </div>
 </script>
 
+<script id="tmpnl_resume" type="text/x-handlebars-template">
+<div class="col-md-3 result">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{{pname}} ({{jobstateid}})<br />
+			{{jobgroupid}}, {{jobgroupid2}}<br />
+			{{title}}<br />
+			({{rgbid}}, {{rgsid}})
+		</div>
+	</div>
+</div>
+</script>
+
 <script>
 	// select 검색 탭 초기화
 	stabsel("c1"); // c1: job group tab
@@ -248,7 +261,7 @@
 
 	// select 검색으로 관련 정보를 를 보여주다.(3)
 	// 결과 판넬 List 생성
-	function resHandler(data) {
+	function selRecruitHandler(data) {
 		var source_pnl = $("#template_pnl").html();
 		var template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
@@ -275,11 +288,49 @@
 		$("#sdesc").html(str);
 	}
 
+	// url: /sresult/sel_search/resumes
+	function selResumeHandler(data) {
+		var source_pnl = $("#tmpnl_resume").html();
+		var template_pnl = Handlebars.compile(source_pnl);
+		console.log(data.length);
+		var i = 0;
+		var item;
+		$(data).each(function() {
+			item = {
+				num : ++i,
+				bno : this.bno,
+				userid : this.userid,
+				title : this.title,
+				jobstateid : this.jobstateid,
+				jobgroupid : this.jobgroupid,
+				jobgroupid2 : this.jobgroupid2,
+				rgbid : this.rgbid,
+				rgsid : this.rgsid,
+				img : this.img,
+				pname : this.pname
+			};
+			$("#spanel").append(template_pnl(item));
+		});
+
+		var str;
+		if (data.length > 0) {
+			str = data.length + "개의 검색결과가 있습니다.";
+			$(".sres").attr('style', 'visibility: visible;');
+		} else {
+			str = "검색결과가 없습니다."
+		}
+		$("#sdesc").html(str);
+	}
+
 	// select 검색으로 관련 정보를 를 보여주다.(2)
 	// 검색분류(users: recruits or resumes)
 	function getList_sel(users) {
 		deletelist();
-		$.getJSON("/sresult/sel_search/" + users, resHandler);
+		if (users == 'recruits') // 'recruits'
+			$.getJSON("/sresult/sel_search/" + users, selRecruitHandler);
+		else
+			// 'resumes'
+			$.getJSON("/sresult/sel_search/" + users, selResumeHandler);
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(1)
@@ -336,7 +387,7 @@
 	var str;
 	var that_val;
 	var sel2Options;
-	
+
 	// select 2번째 생성하기
 	function sel2Handler(data) {
 		str = "";
@@ -401,7 +452,7 @@
 	// });
 
 	var sel1Options;
-	
+
 	// select 1번째 생성하기
 	function sel1Handler(data) {
 		str = "";

@@ -1,6 +1,8 @@
 package com.recruit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RegionVO;
 
 @Repository
 public class CodeDAOImpl implements CodeDAO {
@@ -20,5 +24,25 @@ public class CodeDAOImpl implements CodeDAO {
 	@Override
 	public List<CodeVO> CodeList(int tid) throws Exception {
 		return session.selectList(namespace + ".CodeList", tid);
+	}
+
+	@Override
+	public CodeVO readCode(int id) throws Exception {
+		return session.selectOne(namespace + ".readCode", id);
+	}
+
+	@Override
+	public JobGroupVO selectJobGroup(int id) throws Exception {
+		return session.selectOne(namespace + ".selectJobGroup", id);
+	}
+
+	@Override
+	public RegionVO selectRegion(String rgbid, int rgsid) throws Exception {
+
+		Map map = new HashMap();
+		map.put("rgbid", rgbid);
+		map.put("rgsid", rgsid);
+
+		return session.selectOne(namespace + ".selectRegion", map);
 	}
 }

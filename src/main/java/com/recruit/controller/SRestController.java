@@ -19,6 +19,7 @@ import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.domain.SpanelVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.SearchService;
@@ -229,10 +230,10 @@ public class SRestController {
 	}
 
 	@RequestMapping(value = "/sel_search/resumes", method = RequestMethod.GET)
-	public ResponseEntity<List<ResumeVO>> listResumes() {
+	public ResponseEntity<List<SpanelVO>> listResumes() {
 
 		System.out.println("Skeys 2: " + sel_skeys);
-		ResponseEntity<List<ResumeVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			System.out.println("controller: " + searchService.selectResumes_sel(sel_skeys));
 			entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_skeys), HttpStatus.OK);

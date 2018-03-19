@@ -13,6 +13,7 @@ import com.recruit.domain.CodeVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.domain.SpanelVO;
 import com.recruit.persistence.CUserDAO;
 import com.recruit.persistence.CodeDAO;
 import com.recruit.persistence.PUserDAO;
@@ -97,7 +98,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<ResumeVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
+	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
 
 		List<ResumeVO> list_tmp = searchDAO.selectResumes_selJob(sel_skeys);
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selRgn(sel_skeys));
@@ -105,9 +106,39 @@ public class SearchServiceImpl implements SearchService {
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, expArr));
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, eduArr));
 
+		List<SpanelVO> listSp_tmp; 
 		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
-			list_tmp = new ArrayList<ResumeVO>();
-		return list_tmp;
+			listSp_tmp = new ArrayList<SpanelVO>();
+		else {
+			listSp_tmp = convertToPanel(list_tmp);
+		}
+		return listSp_tmp;
+	}
+
+	public List<SpanelVO> convertToPanel(List<ResumeVO> listResume) throws Exception {
+		int num = listResume.size();
+		List<SpanelVO> listPanel = new ArrayList<SpanelVO>();
+		for (int i = 0; i < num; i++) {
+			SpanelVO spanelVO = new SpanelVO();
+			spanelVO.setBno(listResume.get(i).getBno());
+			spanelVO.setUserid(listResume.get(i).getUserid());
+			spanelVO.setTitle(listResume.get(i).getTitle());
+			spanelVO.setJobstateid(codedao.readCode(listResume.get(i).getJobstateid()).getCareer());
+			spanelVO.setJobgroupid(codedao.selectJobGroup(listResume.get(i).getJobgroupid()).getJobgroup());
+			spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
+
+			String rgbid = listResume.get(i).getRgbid();
+			int rgsid = listResume.get(i).getRgsid();
+			spanelVO.setRgbid(codedao.selectRegion(rgbid, rgsid).getRgbname());
+			spanelVO.setRgsid(codedao.selectRegion(rgbid, rgsid).getRgsname());
+			spanelVO.setImg(listResume.get(i).getImg());
+
+			// 개인회원용
+			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
+
+			listPanel.add(spanelVO);
+		}
+		return listPanel;
 	}
 
 	public <T extends Bnoble> List<T> intersection(List<T> list1, List<T> list2) {

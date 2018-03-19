@@ -134,13 +134,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectResumes_selJob" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
 		select bno, userid, title, address, postcode, coverletter, jobstateid,
-		jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
+		jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate,
+		jobgroupid2
 		from
 		tblresume
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
-			jobgroupid = #{item}
+			jobgroupid2 = #{item}
 		</foreach>
 		;
 	</select>

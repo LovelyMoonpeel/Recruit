@@ -10,6 +10,7 @@ public class ResumeVO implements Bnoble {
 	private String coverletter;
 	private int jobstateid;
 	private int jobgroupid;
+	private int jobgroupid2;
 	private String rgbid;
 	private int rgsid;
 	private int employstatusid;
@@ -81,6 +82,14 @@ public class ResumeVO implements Bnoble {
 		this.jobgroupid = jobgroupid;
 	}
 
+	public int getJobgroupid2() {
+		return jobgroupid2;
+	}
+
+	public void setJobgroupid2(int jobgroupid2) {
+		this.jobgroupid2 = jobgroupid2;
+	}
+
 	public String getRgbid() {
 		return rgbid;
 	}
@@ -133,8 +142,9 @@ public class ResumeVO implements Bnoble {
 	public String toString() {
 		return "ResumeVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", address=" + address
 				+ ", postcode=" + postcode + ", coverletter=" + coverletter + ", jobstateid=" + jobstateid
-				+ ", jobgroupid=" + jobgroupid + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
-				+ employstatusid + ", salaryid=" + salaryid + ", img=" + img + ", regdate=" + regdate + "]";
+				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
+				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
+				+ ", regdate=" + regdate + "]";
 	}
 
 	@Override
@@ -147,6 +157,7 @@ public class ResumeVO implements Bnoble {
 		result = prime * result + employstatusid;
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + jobgroupid;
+		result = prime * result + jobgroupid2;
 		result = prime * result + jobstateid;
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
 		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
@@ -187,6 +198,8 @@ public class ResumeVO implements Bnoble {
 		} else if (!img.equals(other.img))
 			return false;
 		if (jobgroupid != other.jobgroupid)
+			return false;
+		if (jobgroupid2 != other.jobgroupid2)
 			return false;
 		if (jobstateid != other.jobstateid)
 			return false;

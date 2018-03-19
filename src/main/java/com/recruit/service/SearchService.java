@@ -7,6 +7,7 @@ import com.recruit.domain.CodeVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.domain.SpanelVO;
 
 public interface SearchService {
 
@@ -30,5 +31,5 @@ public interface SearchService {
 
 	public List<RecruitVO> selectRecruits_sel(List<String> sel_skeys) throws Exception;
 
-	public List<ResumeVO> selectResumes_sel(List<String> sel_skeys) throws Exception;
+	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception;
 }
