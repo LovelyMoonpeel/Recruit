@@ -50,7 +50,7 @@
                </tr>
                <c:forEach items="${PTellist}" var="PTelVO">
 	               <tr>
-	                  <th class="table-active" scope="row"><label for="title">전화번호(종류)</label></th>
+	                  <th class="table-active" scope="row"><label for="teltitle">전화번호(종류)</label></th>
 	                  <td>${PTelVO.teltitle}</td>
 	                  <th class="table-active" scope="row"><label for="tel">전화번호</label></th>
 	                  <td>${PTelVO.tel}</td>

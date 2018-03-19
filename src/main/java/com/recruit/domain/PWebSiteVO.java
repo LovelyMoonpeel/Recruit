@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PWebSiteVO {
 
-	private int id;
+	private int webid;
 	private int rid;
 	private String webtitle;
 	private String webadd;
@@ -16,11 +16,11 @@ public class PWebSiteVO {
 	public void setPwebsitesvolist(List<PWebSiteVO> pwebsitesvolist) {
 		this.pwebsitesvolist = pwebsitesvolist;
 	}
-	public int getId() {
-		return id;
+	public int getWebid() {
+		return webid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setWebid(int webid) {
+		this.webid = webid;
 	}
 	public int getRid() {
 		return rid;
@@ -43,7 +43,7 @@ public class PWebSiteVO {
 	
 	@Override
 	public String toString() {
-		return "PWebSiteVO [id=" + id + ", rid=" + rid + ", webtitle=" + webtitle + ", webadd=" + webadd + "]";
+		return "PWebSiteVO [webid=" + webid + ", rid=" + rid + ", webtitle=" + webtitle + ", webadd=" + webadd + "]";
 	}	
 	
 }

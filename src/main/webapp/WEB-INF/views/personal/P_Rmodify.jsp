@@ -79,17 +79,7 @@
 	
 	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
     <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
-       <hr style="border: solid 4px #ccc;">
-	<h4>
-		<b>연락처 목록</b>
-	</h4>
-	<div id="tel_div"></div>
-	<hr style="border: solid 4px #ccc;">
-	
-	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
-    <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
     <!-- ------------------------------------------------------handlebar로 수정2 -->
-    
             <%-- <c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO" varStatus="status">
                 <th class="table-active" scope="row"><label for="webtitle">웹사이트(종류)</label>
                 	<input type="text" value="${PWebSiteVO.id }">
@@ -113,7 +103,7 @@
 	</h4>
 	<div id="web_div"></div>
 	<hr style="border: solid 4px #ccc;">
-      <!-- ------------------------------------------------------handlebar로 수정1 종료 -->           
+      <!-- ------------------------------------------------------handlebar로 수정2 종료 -->           
 <%--               
                 <tr>
                	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">보유자격증 목록</th>            
@@ -238,40 +228,39 @@
 <!-- end of row -->
 </script>
 
-<script id="template_tel" type="text/x-handlebars-template">
+<script id="template_web" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-
-	<input type="hidden" class="form-control telid telclass" value="{{telid}}"></input>
-	<input type="hidden" class="form-control rid telclass" value="{{rid}}"></input>
+	<input type="hidden" class="form-control webid webclass" value="{{webid}}"></input>
+	<input type="hidden" class="form-control rid webclass" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-3">
-		<label for="teltitle">전화번호 (종류)</label> 
-		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
+		<label for="webtitle">사이트 (종류)</label> 
+		<input class="form-control webtitle webclass" name="pwebsitesvolist[].webtitle" value="{{webtitle}}"></input>
 	</div>
-	
+
 	<div class="form-group col-md-4">
-		<label for="tel">전화번호</label> 
-		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
+		<label for="webadd">주소</label> 
+		<input class="form-control webadd webclass" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
 	</div>
-	
+
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br />
-		<button class="btn btn-default tel_plus_btn" type="button">
+		<button class="btn btn-default web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default tel_minus_btn" type="button"
+		<button class="btn btn-default web_minus_btn" type="button"
 			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
+
 </div>
 <!-- end of row -->
 </script>
 
    <!--  -------------------------------------------------------------------------- -->
 
-	
 <script type='text/javascript'>
 	$(document).ready(function() {
 		var formObj = $("form[role = 'form']");
@@ -501,7 +490,36 @@
 			</c:forEach>
 		}
 		
+		//웹 추가 버튼 이벤트
+		$("#web_div").on("click", ".web_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
+			add_web(item);
+		});
+		
+		function add_web(item) {
+			var source_web = $("#template_web").html();
+			var template_web = Handlebars.compile(source_web);
+			$("#web_div").append(template_web(item));
+		}
+		function web_list() {
+			var len = (${PTelVOlist.size()});
+			
+			<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
+				var item = {
+						webid : ${PWebSiteVO.webid},
+						rid : ${PWebSiteVO.rid},
+						webtitle : "${PWebSiteVO.webtitle}", 
+						webadd : "${PWebSiteVO.webadd}"
+				};
+				add_web(item);
+			</c:forEach>
+		}
+		
 		tel_list();
+		web_list();
+		
 	});
 </script>
 <%@include file="../include/cfooter.jsp"%>
