@@ -54,4 +54,13 @@ public class PWebSiteServiceImpl implements PWebSiteService{
 				dao.createPWebSite(pwebsitesvolist.get(i));
 		}
 	}
+	
+	@Override
+	public void createWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception {
+		
+		if (pwebsitesvolist != null) {
+			for (int i = 0; i < pwebsitesvolist.size(); i++)
+				dao.createOneoflist(rid, pwebsitesvolist.get(i));
+		}///생성시킬 때 필수적으로 rid 필요한데 그 값을 bno로 담아 보냄
+	}
 }

@@ -54,4 +54,15 @@ public class RLicenseServiceImpl implements RLicenseService{
 			}
 		}
 	}
+	
+	@Override
+	public void createLicenseList(Integer rid, List<RLicenseVO> rlicensevolist) throws Exception {
+	
+		if (rlicensevolist != null) {
+			for (int i = 0; i < rlicensevolist.size(); i++){
+				dao.createRLicenseOneoflist(rid, rlicensevolist.get(i));
+			}
+		}
+	}
+	
 }

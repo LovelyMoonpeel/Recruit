@@ -13,10 +13,6 @@
 	<h1>${PUserVO.id}님의 이력서 작성</h1>
 	<form role="form" method="post">
 	 <input type='hidden' name='id' value="${PUserVO.id}"> 
- 	 <input type='hidden' name='pw' value="${PUserVO.pw}">
-	 <input type='hidden' name='pname' value="${PUserVO.pname}">
-	 <input type='hidden' name='email' value="${PUserVO.email}">
-	 <input type='hidden' name='birth' value="${PUserVO.birth}">
 	 
 		<br>	
 		<div class="form-group">
@@ -73,22 +69,22 @@
          </table>
                
     <!-- ------------------------------------------------------handlebar로 수정1 -->
-   <hr style="border: solid 4px #ccc;">
+<!--    <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>연락처 목록</b>
 	</h4>
 	<div id="tel_div"></div>
-	<hr style="border: solid 4px #ccc;">
+	<hr style="border: solid 4px #ccc;"> -->
 	
 	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
     <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
     <!-- ------------------------------------------------------handlebar로 수정2 -->
-<!--     <hr style="border: solid 4px #ccc;">
+<!--    <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>사이트 목록</b>
 	</h4>
 	<div id="web_div"></div>
-	<hr style="border: solid 4px #ccc;"> -->
+	<hr style="border: solid 4px #ccc;">  -->
    <!-- ------------------------------------------------------handlebar로 수정2 종료 -->     
    <!-- ------------------------------------------------------handlebar로 수정3 -->  
  <!--   <hr style="border: solid 4px #ccc;">
@@ -99,12 +95,12 @@
 	<hr style="border: solid 4px #ccc;"> -->
    <!-- ------------------------------------------------------handlebar로 수정3 종료 -->    
     <!-- ------------------------------------------------------handlebar로 수정4 -->  
-<!--    <hr style="border: solid 4px #ccc;">
+   <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>어학 능력(자격증) 목록</b>
 	</h4>
 	<div id="language_div"></div>
-	<hr style="border: solid 4px #ccc;"> -->
+	<hr style="border: solid 4px #ccc;">
    <!-- ------------------------------------------------------handlebar로 수정4 종료 -->    
      <div class="table-responsive">
        <table class="table table-bordered">
@@ -200,17 +196,17 @@
 	
 	<div class="form-group col-md-3">
 		<label for="licensename">자격증명</label> 
-		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" placeholder="{{licensename}}"></input>
+		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
 	</div>
 
 	<div class="form-group col-md-4">
 		<label for="publeoffice">발행기관</label> 
-		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" placeholder="{{publeoffice}}"></input>
+		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" placeholder="{{acquidate}}"></input>
+		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}"></input>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -236,7 +232,7 @@
 
 	<div class="form-group col-md-2">
 		<label for="lid">언어 선택</label>
-		<select class="form-control lid langclass" name="rlangvolist[].lid" >
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
 			{{#select lid}}
 			<option value="102" selected>선택</option>
 			<option value="52">영어</option>
@@ -472,9 +468,9 @@ $(document).ready(function(){
 	
 	// tel 추가버튼 이벤트
 	$("#tel_div").on("click", ".tel_plus_btn", function(){
-		/* var item = {
-				rid : ${ResumeVO.bno}
-			}; */
+		 var item = {
+				rid : 0
+			}; 
 		add_tel(item);
 	});
 	
@@ -496,7 +492,7 @@ $(document).ready(function(){
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
-				//rid : ${ResumeVO.bno}
+				rid : 0
 			}
 		add_web(item);
 	});
@@ -508,16 +504,16 @@ $(document).ready(function(){
 	}
 	function web_list() {
 			var item = {
-					//rid :  ${ResumeVO.bno},
-					webtitle : "", 
-					webadd : ""
+					rid : 0,
+					webtitle : "${PWebSiteVO.webtitle}", 
+					webadd : "${PWebSiteVO.webadd}"
 			}
 			add_web(item);
 	}
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
 		var item = {
-				//rid : ${ResumeVO.bno}
+				rid : 0
 		}
 			
 		add_license(item);
@@ -530,17 +526,17 @@ $(document).ready(function(){
 	}
 	function license_list() {
 			var item = {
-					//rid :  "${ResumeVO.bno}",
+					rid :  0,
 					licensename : "", 
 					publeoffice : "",
-					acquidate : ""
+					acquidate : "2018-08-08"
 			};
 			add_license(item);
 	}
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
-				//rid : ${ResumeVO.bno}
+				rid : 0
 			};
 		add_language(item);
 	});
@@ -552,12 +548,12 @@ $(document).ready(function(){
 	}
 	function language_list() {
 			var item = {
-					//rid :  ${ResumeVO.bno},
-					//lid : ${ResumeLanguageVO.lid},
+					rid :  0,
+					//lid : "",
 					test : "", 
 					score : "",
 					publeoffice : "",
-					acquidate : ""
+					acquidate : "2018-08-08"
 			};
 			add_language(item);
 	}

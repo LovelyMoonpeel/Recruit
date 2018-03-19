@@ -41,4 +41,10 @@ public class RLicenseDAOImpl implements RLicenseDAO{
 	public void deleteRLicenseList(Integer rid)throws Exception {
 		session.delete(namespace+".deleteRLicense",rid);
 	}
+	
+	@Override
+	public void createRLicenseOneoflist(Integer rid, RLicenseVO plivo)throws Exception {
+		plivo.setRid(rid);
+		session.insert(namespace+".createRLicense", plivo);
+	}
 }

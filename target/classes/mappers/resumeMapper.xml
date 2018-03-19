@@ -177,7 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	insert into project.tblwebsite(rid, webtitle, webadd)
 	values(#{rid}, #{webtitle}, #{webadd})
-	]]>
+	]]><!-- 안소연 사용 pwebsitedao에서 p_write -->
 	</insert>
 	
 	<!-- 이력서 PWebsite 확인 -->

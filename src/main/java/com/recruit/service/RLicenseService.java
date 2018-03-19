@@ -17,4 +17,6 @@ public interface RLicenseService {
 	public void createRLicense(RLicenseVO rlvo)throws Exception;
 
 	public void updateLicenseList(Integer rid, List<RLicenseVO> rlicensevolist) throws Exception; 
+	
+	public void createLicenseList(Integer rid, List<RLicenseVO> rlicensevolist) throws Exception;
 }

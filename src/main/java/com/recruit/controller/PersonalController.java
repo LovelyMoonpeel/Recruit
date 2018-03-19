@@ -138,9 +138,8 @@ public class PersonalController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, ResumeVO resume, Model model) throws Exception {
-	//public String writePOST(String id, String file, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
-	//public String writePOST(ResumeVO resume, String file, PUserVO puser, String id, Model model) throws Exception {
+	//public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		System.out.println("id값 뭐받아오냐" + id);
@@ -152,19 +151,19 @@ public class PersonalController {
 		// Rservice.readRLastCreatedOne(); 생성한 후 마지막으로 생성한 PK가져오기가 포함
 		System.out.println("레주메 정보 : "+ resume.toString());
 		
-		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
+/*		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
 		Telservice.createTList(bno, ptvo.getPtelvolist());
+
+		System.out.println(bno + "pwebsitesvolist" + pwvo.getPwebsitesvolist().toString());
+		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		
-		System.out.println(bno + "p");
-		/*Webservice.updateWList(bno, pwvo.getPwebsitesvolist());
+		System.out.println(bno+ "rlicensevolist"+ plivo.getRlicensevolist().toString());
+		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());*/
 		
-		System.out.println(bno+  " 으아악"+ plavo.getRlangvolist().toString());
-		Langservice.updateLList(bno, plavo.getRlangvolist());
+		System.out.println(bno+  "rlangvolist"+ plavo.getRlangvolist().toString());
+		//Langservice.updateLList(bno, plavo.getRlangvolist());
 		
-		System.out.println(bno+  "라이센스 으아악"+ plivo.getRlicensevolist().toString());
-		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());*/
-		
-		Rservice.updateROne(resume);
+		//Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
 	}

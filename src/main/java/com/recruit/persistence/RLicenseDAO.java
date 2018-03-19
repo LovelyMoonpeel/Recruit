@@ -15,5 +15,7 @@ public interface RLicenseDAO {
 	public void deleteRLicense(Integer id)throws Exception;
 	
 	public void deleteRLicenseList(Integer rid)throws Exception;
+		
+	public void createRLicenseOneoflist(Integer rid, RLicenseVO plivo)throws Exception;
 	
 }

@@ -18,4 +18,5 @@ public interface PWebSiteService {
 	
 	public void updateWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception;
 	
+	public void createWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception;
 }

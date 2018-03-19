@@ -23,7 +23,7 @@ public class PTelDAOImpl implements PTelDAO{
 		session.insert(namespace+".createTOne", ptvo);
 	}
 	
-	@Override
+	@Override//write 페이지에서 쓴다.
 	public void createTOneoflist(Integer bno, PTelVO ptvo) throws Exception {
 		ptvo.setRid(bno);
 		session.insert(namespace+".createTOne", ptvo);
