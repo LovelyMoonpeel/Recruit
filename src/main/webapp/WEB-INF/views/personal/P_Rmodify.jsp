@@ -227,10 +227,10 @@
 
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br/>
-		<button class="btn btn-default license_plus_btn" type="button">
+		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default license_minus_btn" type="button"
+		<button class="btn btn-default btn-sm license_minus_btn" type="button"
 			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
