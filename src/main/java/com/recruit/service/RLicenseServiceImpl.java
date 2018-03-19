@@ -41,7 +41,7 @@ public class RLicenseServiceImpl implements RLicenseService{
 		dao.createRLicense(vo);		
 	}
 	
-	//@Transactional
+	@Transactional
 	@Override
 	public void updateLicenseList(Integer rid, List<RLicenseVO> rlicensevolist) throws Exception {
 		

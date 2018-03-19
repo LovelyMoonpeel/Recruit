@@ -103,7 +103,23 @@
 	<div id="language_div"></div>
 	<hr style="border: solid 4px #ccc;">
    <!-- ------------------------------------------------------handlebar로 수정4 종료 -->    
-         
+     <div class="table-responsive">
+       <table class="table table-bordered">
+          <tbody>
+            <tr>
+               <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
+            </tr> 
+            <tr>
+             <td colspan="5" rowspan="2">
+               	<div class="form-group">
+				<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;">${ResumeVO.coverletter}</textarea>
+				</div>
+             </td>   
+            </tr>
+           </tbody>
+       </table>      
+    </div>
+      <!-- //table-responsive -->          
             <%--   <tr>
                   <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
                </tr> 
@@ -267,9 +283,9 @@
 	</div>
 </div>
 <!-- end of row -->
-</script>               
+</script>     
+ 
             
-
    <!--  -------------------------------------------------------------------------- -->
 
 <script type='text/javascript'>
