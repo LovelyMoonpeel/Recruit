@@ -56,7 +56,7 @@
 <%@include file="../include/jheader.jsp"%>
 <%@ page import = "com.recruit.domain.BoardVO" %>
 
-<%
+<%-- <%
 	String id = "";
 	BoardVO login = null;
 	
@@ -84,7 +84,7 @@
 		e.printStackTrace();
 	}
 	
-%>
+%> --%>
 
 
 	<!-- Page Content -->

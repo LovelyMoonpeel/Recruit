@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.BoardVO;
-import com.recruit.domain.UserVO;
 import com.recruit.dto.LoginDTO;
 
 @Repository
@@ -22,13 +21,13 @@ public class UserDAOImpl implements UserDAO {
 	private static String namespace = "com.recruit.mapper.UserMapper";
 
 	@Override
-	public UserVO read(String uid) throws Exception {
+	public BoardVO read(String uid) throws Exception {
 		System.out.println("read");
 		return session.selectOne(namespace + ".read", uid);
 	}
 
 	@Override
-	public List<UserVO> listAll() throws Exception {
+	public List<BoardVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
 	}
 

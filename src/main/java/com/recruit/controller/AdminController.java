@@ -1,17 +1,12 @@
 package com.recruit.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.AdminPageMaker;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.AmainVO;
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
-import com.recruit.domain.CsqnaReplyVO;
 import com.recruit.domain.CsqnaVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.AdCompanyService;
@@ -81,14 +75,14 @@ public class AdminController {
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
-		model.addAttribute("AmainVO", aservice.read(id));
+		model.addAttribute("BoardVO", aservice.read(id));
 		model.addAttribute("reslist", rservice.listAll(id));
 		
 		return "/admin/A_modify";
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
-	public String modifyPOST(AmainVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -116,12 +110,12 @@ public class AdminController {
 
 	@RequestMapping(value = "/amodify", method = RequestMethod.GET)
 	public String amodifyGET(Model model) throws Exception {
-		model.addAttribute("AmainVO", aservice.aread());
+		model.addAttribute("BoardVO", aservice.aread());
 		return "/admin/A_amodify";
 	}
 
 	@RequestMapping(value = "/A_amodify", method = RequestMethod.POST)
-	public String amodifyPOST(AmainVO vo, RedirectAttributes rttr) throws Exception {
+	public String amodifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -253,7 +247,7 @@ public class AdminController {
 	@RequestMapping(value = "/cmodify", method = RequestMethod.GET)
 	public String cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
-		model.addAttribute("AmainVO", cservice.read(id));
+		model.addAttribute("BoardVO", cservice.read(id));
 		model.addAttribute("recruitList", pservice.RecruitList(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
 		
@@ -261,7 +255,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
-	public String cmodifyPOST(AmainVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String cmodifyPOST(BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
 		logger.info("cmodify post...........");
@@ -285,7 +279,7 @@ public class AdminController {
 	@RequestMapping(value = "/rmodify", method = RequestMethod.GET)
 	public String rmodifyGET(@RequestParam("id") String id, @RequestParam("bno") int bno,
 			@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
-		model.addAttribute("AmainVO", cservice.read(id));
+		model.addAttribute("BoardVO", cservice.read(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
 		model.addAttribute("recruitList", pservice.RecruitList(id));
 		model.addAttribute("jobgroupList", jobService.jobgroupList());

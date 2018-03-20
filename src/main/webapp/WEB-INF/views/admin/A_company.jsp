@@ -17,14 +17,14 @@
 			<th>사업자번호</th>
 			<th>회원정보수정</th>
 		</tr>		
-	<c:forEach items="${list}" var="AmainVO">
+	<c:forEach items="${list}" var="BoardVO">
 		<tr>
-			<td>${AmainVO.id}</td>
-			<td>${AmainVO.cname}</td>
-			<td>${AmainVO.pname}</td>
-			<td>${AmainVO.email}</td>
-			<td>${AmainVO.registnum}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/cmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${AmainVO.id }'" value="기업정보수정"></td>
+			<td>${BoardVO.id}</td>
+			<td>${BoardVO.cname}</td>
+			<td>${BoardVO.pname}</td>
+			<td>${BoardVO.email}</td>
+			<td>${BoardVO.registnum}</td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/cmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="기업정보수정"></td>
 		</tr>
 	</c:forEach>
 			

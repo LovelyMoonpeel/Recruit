@@ -17,13 +17,13 @@
 			<th>생년월일</th>
 			<th>회원정보수정</th>
 		</tr>		
-	<c:forEach items="${list}" var="AmainVO">
+	<c:forEach items="${list}" var="BoardVO">
 		<tr>
-			<td>${AmainVO.id}</td>
-			<td>${AmainVO.pname}</td>
-			<td>${AmainVO.email}</td>
-			<td>${AmainVO.birth}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${AmainVO.id }'" value="회원정보수정"></td>
+			<td>${BoardVO.id}</td>
+			<td>${BoardVO.pname}</td>
+			<td>${BoardVO.email}</td>
+			<td>${BoardVO.birth}</td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
 		</tr>
 	</c:forEach>
 			

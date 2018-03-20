@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.AmainVO;
+import com.recruit.domain.BoardVO;
 
 @Repository
 public class AmainDAOImpl implements AmainDAO {
@@ -20,12 +20,12 @@ public class AmainDAOImpl implements AmainDAO {
 	private static String namespace = "com.recruit.mapper.amainMapper";
 
 	@Override
-	public AmainVO read(String id) throws Exception {
+	public BoardVO read(String id) throws Exception {
 		return session.selectOne(namespace + ".read", id);
 	}
 
 	@Override
-	public void update(AmainVO vo) throws Exception {
+	public void update(BoardVO vo) throws Exception {
 		session.update(namespace + ".update", vo);
 	}
 
@@ -35,17 +35,17 @@ public class AmainDAOImpl implements AmainDAO {
 	}
 
 	@Override
-	public List<AmainVO> listAll() throws Exception {
+	public List<BoardVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
 	}
 
 	@Override
-	public List<AmainVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 
 	@Override
-	public List<AmainVO> listPage(int page) throws Exception {
+	public List<BoardVO> listPage(int page) throws Exception {
 		if (page <= 0) {
 			page = 1;
 		}
@@ -60,7 +60,7 @@ public class AmainDAOImpl implements AmainDAO {
 	}
 
 	@Override
-	public List<AmainVO> listSearch(AdminSearchCriteria cri) throws Exception {
+	public List<BoardVO> listSearch(AdminSearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 
@@ -70,12 +70,12 @@ public class AmainDAOImpl implements AmainDAO {
 	}
 
 	@Override
-	public AmainVO aread() throws Exception {
+	public BoardVO aread() throws Exception {
 		return session.selectOne(namespace + ".aread");
 	}
 
 	@Override
-	public void aupdate(AmainVO vo) throws Exception {
+	public void aupdate(BoardVO vo) throws Exception {
 		session.update(namespace + ".aupdate", vo);
 	}
 

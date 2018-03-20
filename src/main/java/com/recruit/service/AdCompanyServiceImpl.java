@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.AmainVO;
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.persistence.AdCompanyDAO;
 
@@ -19,12 +19,12 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	private AdCompanyDAO dao;
 
 	@Override
-	public AmainVO read(String id) throws Exception {
+	public BoardVO read(String id) throws Exception {
 		return dao.read(id);
 	}
 
 	@Override
-	public void modify(AmainVO vo) throws Exception {
+	public void modify(BoardVO vo) throws Exception {
 		System.out.println("service test");
 		dao.update(vo);
 	}
@@ -35,12 +35,12 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	}
 
 	@Override
-	public List<AmainVO> listAll() throws Exception {
+	public List<BoardVO> listAll() throws Exception {
 		return dao.listAll();
 	}
 
 	@Override
-	public List<AmainVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
 
@@ -50,7 +50,7 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	}
 
 	@Override
-	public List<AmainVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
+	public List<BoardVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 

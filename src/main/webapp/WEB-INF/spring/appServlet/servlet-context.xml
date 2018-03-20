@@ -54,7 +54,7 @@
 		<!-- LoginInterceptor의 설정은 '/loginPost'의 동작에서 이뤄져야 하므로 다음과 같이 설정 '/user/loginPost'경로를 
 			호출할 때 동작하도록 설정됨 -->
 		<interceptor>
-			<mapping path="/rpjt/loginPost" />
+			<mapping path="/user/loginPost" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 	
@@ -63,7 +63,10 @@
 		<!-- AuthInterceptor가 '게시물의 입력 화면'에서 처리하는 것을 적용 프로젝트를 실행하고, 로그인하지 않은 사용자가 
 			게시물 리스트에서 새로운 게시물을 작성하는 '/sboard/register'를 접근하게 되면 사용자는 로그인 페이지를 보게 된다. -->
 		<interceptor>
-			<mapping path="/sboard/register" />
+			<mapping path="/admin/main" />
+			<!-- 이 부분 증식해서 로그인 안되있으면 로그인 되도록 처리해주면 됨 -->
+<!-- 			<mapping path="/admin/main" />
+			<mapping path="/admin/main" /> -->
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	

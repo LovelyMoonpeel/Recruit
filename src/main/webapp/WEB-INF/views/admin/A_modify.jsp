@@ -25,12 +25,12 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${AmainVO.id}" readonly></td>
+				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td><input class="form-control" type="text" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${AmainVO.pw}" required></td>
+					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
@@ -41,25 +41,25 @@
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${AmainVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${AmainVO.email}" required></td>
+					value="${BoardVO.email}" required></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" id="birth" name="birth" value="${AmainVO.birth}" required>
+				<input type="text" class="form-control" id="birth" name="birth" value="${BoardVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
 				</div>
 				</td>
 			</tr>
-			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${AmainVO.birth}" /> --%>
+			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${BoardVO.birth}" /> --%>
 		</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">
