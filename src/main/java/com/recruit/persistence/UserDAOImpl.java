@@ -36,10 +36,9 @@ public class UserDAOImpl implements UserDAO {
 
 		return session.selectOne(namespace + ".login", dto);
 	}
-	
 
-	//로그인 한 사용자의 sessionKey와 sessionLimit를 업데이트 하는 기능
-	//DAO와 userMapper.xml과 DAOImpl은 같이 다닌다.
+	// 로그인 한 사용자의 sessionKey와 sessionLimit를 업데이트 하는 기능
+	// DAO와 userMapper.xml과 DAOImpl은 같이 다닌다.
 	@Override
 	public void keepLogin(String id, String sessionId, Date next) {
 
@@ -52,10 +51,11 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
-	//loginCookie에 기록된 값으로 사용자의 정보를 조회하는 기능
+	// loginCookie에 기록된 값으로 사용자의 정보를 조회하는 기능
 	@Override
 	public BoardVO checkUserWithSessionKey(String value) {
 
 		return session.selectOne(namespace + ".checkUserWithSessionKey", value);
+
 	}
 }

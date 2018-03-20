@@ -1,5 +1,6 @@
 package com.recruit.dto;
 
+//ë¬¸> LoginDTOëŠ” í™”ë©´ì—ì„œ ì „ë‹¬ë˜ëŠ” ë°ì´í„°ë¥¼ ìˆ˜ì§‘í•˜ëŠ” ìš©ë„
 public class LoginDTO {
 	private String id;
 	private String pw;
@@ -30,8 +31,3 @@ public class LoginDTO {
 	
 	
 }
-
-//630
-/*
-È­¸é¿¡¼­ Àü´ŞÇÏ´Â µ¥ÀÌÅÍ¸¦ ¼öÁıÇÏ´Â ¿ëµµ·Î »ç¿ë
-*/

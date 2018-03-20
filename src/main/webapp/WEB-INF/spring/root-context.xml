@@ -12,21 +12,24 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
- 	<!--   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property> 
 		<property name="username" value="root"></property> <property name="password" 
-		value="apmsetup"></property> </bean> --> 
+		value="apmsetup"></property> </bean> -->
 
- 	 <bean id="dataSource"
+	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+
+		<!--문> '0000-00-00' can not be represented as java.sql.Date ==> 저 날짜를 인식하지 
+			못해서 자동으로 null값으로 바꿔주는 코드 삽입 &amp;zeroDateTimeBehavior=convertToNull -->
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://192.168.0.4:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull">
 		</property>
 		<property name="username" value="ahn"></property>
 		<property name="password" value="0000"></property>
-	</bean>   
+	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -47,7 +50,7 @@
 
 	<context:component-scan base-package="com.recruit.persistence" />
 	<context:component-scan base-package="com.recruit.service" />
-	
+
 
 
 </beans>

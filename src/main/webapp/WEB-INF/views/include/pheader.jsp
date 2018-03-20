@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
 <meta charset="utf-8">
@@ -35,7 +34,6 @@
 	<!-- Page Content -->
 	<div class="container">
 
-		<div class="row">
 
 			<div class="col-md-3">
 				<p class="lead">마이페이지(개인)</p>

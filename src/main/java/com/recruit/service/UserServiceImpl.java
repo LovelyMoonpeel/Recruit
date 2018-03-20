@@ -18,14 +18,14 @@ public class UserServiceImpl implements UserService {
 	  @Inject
 	  private UserDAO dao;
 
-	  //
+	  
 	  @Override
 	  public BoardVO login(LoginDTO dto) throws Exception {
 
 	    return dao.login(dto);
 	  }
 
-	  //로그인 정보를 유지
+	  //문> 로그인 정보를 유지
 	  @Override
 	  public void keepLogin(String id, String sessionId, Date next)
 	      throws Exception {
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	    
 	  }
 
-	  //과거에 접속한 사용자인지 확인
+	  //문> 과거에 접속한 사용자인지 확인
 	  @Override
 	  public BoardVO checkLoginBefore(String value) {
 	    

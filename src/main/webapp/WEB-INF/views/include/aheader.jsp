@@ -26,6 +26,8 @@
     <![endif]-->
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
 <style>
 /* 관리자 페이지*/
 .navbar-brand-sub{
@@ -49,6 +51,8 @@
 }
 /* 관리자 페이지 끝*/
 </style>
+
+
 </head>
 
 <body>

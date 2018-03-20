@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.BoardVO;
 import com.recruit.persistence.BoardDAO;
 
-
+//3.19 문
 @Service
 public class BoardServiceImpl implements BoardService {
 
@@ -16,8 +16,6 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public void regist(BoardVO board) throws Exception {
-	  System.out.println("3");
     dao.create(board);
-    System.out.println("6");
   }
 }
