@@ -50,118 +50,82 @@
 		</div>
 	</div>
 	<!-- end of carousel -->
+	<br />
+	<!-- 검색 택스트 -->
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<h1 align="center">
-				<%
-					String stype2 = (String) request.getAttribute("stype_");
-					String stitle;
-					if ("2".equals(stype2)) {
-						stitle = "인재검색";
-					} else {
-						stype2 = "1";
-						stitle = "기업검색";
-					}
-				%>
-			</h1>
-
-			<!-- BS Inputs 2 -->
-			<!-- <p>${srchVO.sdesc}</p> -->
-			<!-- <form action="/srch/main" method="get"> -->
+		<div class="col-md-8 col-md-offset-2">
 			<form onsubmit="return false;">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="${sdesc}"
 						name="skeyword" id="sinput" onKeyDown="onEnter();">
 					<div class="input-group-btn">
-						<!-- <button class="btn btn-default" type="submit"> -->
-						<!-- form button default type : submit -->
 						<button class="btn btn-default" id="search_btn" type="button">
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
-					<input id="stype" type='hidden' name='stype' value="<%=stype2%>">
-					<input id="ttype" type='hidden' name='ttype' value="c1">
 				</div>
 			</form>
 		</div>
-		<div class="col-md-2"></div>
 	</div>
+	<!-- end of 검색 텍스트 -->
 </div>
+<br />
+
 <nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">WebSiteName</a>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<ul class="nav navbar-nav">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무&nbsp;&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Page 1-1</a></li>
+								<li><a href="#">Page 1-2</a></li>
+								<li role=separator class=divider></li>
+								<li><a href="#">Page 1-3</a></li>
+							</ul></li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역&nbsp;&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Page 2-1</a></li>
+								<li><a href="#">Page 2-2</a></li>
+								<li role=separator class=divider></li>
+								<li><a href="#">Page 2-3</a></li>
+							</ul></li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Page 3-1</a></li>
+								<li><a href="#">Page 3-2</a></li>
+								<li><a href="#">Page 3-3</a></li>
+							</ul></li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력&nbsp;&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Page 4-1</a></li>
+								<li><a href="#">Page 4-2</a></li>
+								<li><a href="#">Page 4-3</a></li>
+							</ul></li>
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Page 5-1</a></li>
+								<li><a href="#">Page 5-2</a></li>
+								<li><a href="#">Page 5-3</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Page 1</a></li>
-			<li><a href="#">Page 2</a></li>
-			<li><a href="#">Page 3</a></li>
-		</ul>
 	</div>
 </nav>
+
 <div class="container">
-	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<br />
-			<ul class="nav nav-tabs">
-				<li id="c1" class="active stab"><a href="#">직무</a></li>
-				<li id="c2" class="stab"><a href="#">지역</a></li>
-				<li id="c3" class="stab"><a href="#">근무형태</a></li>
-				<li id="c4" class="stab"><a href="#">학력</a></li>
-				<li id="c5" class="stab"><a href="#">경력</a></li>
-			</ul>
-			<br />
-			<div class="row">
-				<div class="col-md-4  col-md-offset-1">
-					<select id="sel1" class="form-control" style="visibility: hidden;">
-						<option value="0">선택</option>
-					</select>
-				</div>
-				<div class="col-md-4">
-					<select id="sel2" class="form-control" style="visibility: hidden;">
-						<option value="0">선택 2차</option>
-					</select>
-				</div>
-			</div>
-			<br />
-			<div class="row">
-				<div class="well col-md-10" id="well"
-					style="background-color: #c8c8c8;"></div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-default" id="opt_search_btn">&nbsp;검색&nbsp;</button>
-				</div>
-			</div>
-			<br />
-			<h3 align="center" id="sdesc"></h3>
-			<br />
-			<!-- Search List -->
-			<!-- <h1 class="sres" align="center" style="visibility: hidden;">검색결과</h1> -->
-			<!-- <table class="table table-bordered sres" style="visibility: hidden;"> -->
-			<!-- style="visibility: hidden/visible; -->
-			<!-- <tbody id="stable"> -->
-			<!-- <tr> -->
-			<!-- <th style="text-align: center">순번</th> -->
-			<!-- <th style="text-align: center">항목1</th> -->
-			<!-- <th style="text-align: center">항목2</th> -->
-			<!-- <th style="text-align: center">항목3</th> -->
-			<!-- <th style="text-align: center">항목4</th> -->
-			<!-- <th style="text-align: center">항목5</th> -->
-			<!-- </tr> -->
-			<!-- </tbody> -->
-			<!-- </table> -->
-			<!-- /Search List -->
-		</div>
-		<div class="col-md-2"></div>
-	</div>
-	<!-- row -->
 	<div class="row" id="spanel"></div>
 </div>
 <!-- /Page Content -->
 
-<div class="col-md-12"></div>
 
 <script id="tmpl_sfilter" type="text/x-handlebars-template">
 <button class="btn btn-default sfilter_btn" type="button"

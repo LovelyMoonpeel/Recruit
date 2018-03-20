@@ -12,6 +12,7 @@ import com.recruit.domain.CUserVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
+import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.domain.SpanelVO;
 import com.recruit.persistence.CUserDAO;
@@ -130,14 +131,18 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setBno(listRecruit.get(i).getBno());
 			spanelVO.setCid(listRecruit.get(i).getCid());
 			spanelVO.setTitle(listRecruit.get(i).getTitle());
-
 			spanelVO.setJobgroupid(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid()).getJobgroup());
-			spanelVO.setJobgroupid2(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid2()).getJobgroup());
+
+			if (listRecruit.get(i).getJobgroupid2() != null)
+				spanelVO.setJobgroupid2(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid2()).getJobgroup());
 
 			String rgbid = listRecruit.get(i).getRgbid();
 			String rgsid = listRecruit.get(i).getRgsid();
-			spanelVO.setRgbid(codedao.selectRegion(rgbid, rgsid).getRgbname());
-			spanelVO.setRgsid(codedao.selectRegion(rgbid, rgsid).getRgsname());
+			if (rgbid != null && rgsid != null) {
+				RegionVO regionVO = codedao.selectRegion(rgbid, rgsid);
+				spanelVO.setRgbid(regionVO.getRgbname());
+				spanelVO.setRgsid(regionVO.getRgsname());
+			}
 			// spanelVO.setImg(listRecruit.get(i).getImg());
 
 			// 기업회원용
@@ -162,12 +167,17 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setTitle(listResume.get(i).getTitle());
 			spanelVO.setJobstateid(codedao.readCode(listResume.get(i).getJobstateid()).getCareer());
 			spanelVO.setJobgroupid(codedao.selectJobGroup(listResume.get(i).getJobgroupid()).getJobgroup());
-			spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
+
+			if (listResume.get(i).getJobgroupid2() != null)
+				spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
 
 			String rgbid = listResume.get(i).getRgbid();
 			String rgsid = listResume.get(i).getRgsid();
-			spanelVO.setRgbid(codedao.selectRegion(rgbid, rgsid).getRgbname());
-			spanelVO.setRgsid(codedao.selectRegion(rgbid, rgsid).getRgsname());
+			if (rgbid != null && rgsid != null) {
+				RegionVO regionVO = codedao.selectRegion(rgbid, rgsid);
+				spanelVO.setRgbid(regionVO.getRgbname());
+				spanelVO.setRgsid(regionVO.getRgsname());
+			}
 			spanelVO.setImg(listResume.get(i).getImg());
 
 			// 개인회원용
@@ -198,125 +208,15 @@ public class SearchServiceImpl implements SearchService {
 		return list;
 	}
 
-	// public List<RecruitVO> intersectionRecruit(List<RecruitVO> list1,
-	// List<RecruitVO> list2) {
-	//
-	// // list have no element.
-	// if (list1.size() == 0 || list2.size() == 0)
-	// return new ArrayList<RecruitVO>();
-	//
-	// // criteria isn't selected.
-	// if (list1.get(0).getBno() == -1)
-	// return list2;
-	// else if (list2.get(0).getBno() == -1)
-	// return list1;
-	//
-	// List<RecruitVO> list = new ArrayList<RecruitVO>();
-	// for (RecruitVO t : list1) {
-	// if (list2.contains(t))
-	// list.add(t);
-	// }
-	// return list;
-	// }
+	@Override
+	public List<SpanelVO> selectRecruitsAll() throws Exception {
+		List<RecruitVO> list_tmp = searchDAO.selectRecruitsAll();
+		return convertToRecruitPanel(list_tmp);
+	}
 
-	// public List<ResumeVO> intersectionResume(List<ResumeVO> list1,
-	// List<ResumeVO> list2) {
-	//
-	// // list have no element.
-	// if (list1.size() == 0 || list2.size() == 0)
-	// return new ArrayList<ResumeVO>();
-	//
-	// // criteria isn't selected.
-	// if (list1.get(0).getBno() == -1)
-	// return list2;
-	// else if (list2.get(0).getBno() == -1)
-	// return list1;
-	//
-	// List<ResumeVO> list = new ArrayList<ResumeVO>();
-	// for (ResumeVO t : list1) {
-	// if (list2.contains(t))
-	// list.add(t);
-	// }
-	// return list;
-	// }
+	@Override
+	public List<SpanelVO> selectResumesAll() throws Exception {
+		List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
+		return convertToResumePanel(list_tmp);
+	}
 }
-
-// use project;
-//
-// select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc,
-// recruitnum,
-// employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod,
-// recruitform, regdate, viewcnt
-// from tblrecruit;
-//
-// select * from tblrecruit;
-//
-// select * from tblrecruit where employstatusid in (23,24,25) and jobgroupid2
-// in (27,89) and edu in (12);
-//
-// select * from tblrecruit where (rgbid = 'C' and rgsid = 4) or (rgbid = 'I'
-// and rgsid = 4);
-//
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(1)', 'SAMSUNG', 1, 19, 'A', 1, '담당업무', 3, 20, 7, 9, 5,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(2)', 'SAMSUNG', 1, 20, 'A', 2, '담당업무', 3, 21, 7, 10, 2,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(3)', 'SAMSUNG', 1, 19, 'O', 5, '담당업무', 3, 22, 7, 11, 3,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(4)', 'SAMSUNG', 1, 20, 'O', 2, '담당업무', 3, 23, 7, 12, 4,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(5)', 'SAMSUNG', 1, 19, 'A', 3, '담당업무', 3, 20, 7, 9, 5,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(6)', 'SAMSUNG', 1, 20, 'A', 4, '담당업무', 3, 21, 7, 10, 2,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(7)', 'SAMSUNG', 1, 19, 'O', 8, '담당업무', 3, 22, 7, 11, 3,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-// INSERT INTO tblrecruit(title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-// jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period,
-// acceptmethod, recruitform, viewcnt)
-// VALUES( 'MELYCODE(8)', 'SAMSUNG', 1, 20, 'O', 6, '담당업무', 3, 23, 7, 12, 4,
-// '상세모집내용', '접수기간', '접수방법', '이력서양식', 0);
-//
-//
-// select * from tblcode;
-//
-// select * from tblrecruit;
-//
-// select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc,
-// recruitnum, employstatusid, salaryid,
-// edu, exp, adddesc, period, acceptmethod, recruitform, regdate, viewcnt from
-// tblrecruit
-// #where jobgroupid2 = '19' or jobgroupid2 = '20';
-// #where (rgbid = 'O' and rgsid = 5) or (rgbid = 'O' and rgsid = 2);
-// where employstatusid = 4;
-//
-// delete from tblrecruit where title like 'MELY%';

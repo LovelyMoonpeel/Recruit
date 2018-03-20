@@ -75,22 +75,6 @@
 			<br />
 			<h3 align="center" id="sdesc"></h3>
 			<br />
-			<!-- Search List -->
-			<!-- <h1 class="sres" align="center" style="visibility: hidden;">검색결과</h1> -->
-			<!-- <table class="table table-bordered sres" style="visibility: hidden;"> -->
-			<!-- style="visibility: hidden/visible; -->
-			<!-- <tbody id="stable"> -->
-			<!-- <tr> -->
-			<!-- <th style="text-align: center">순번</th> -->
-			<!-- <th style="text-align: center">항목1</th> -->
-			<!-- <th style="text-align: center">항목2</th> -->
-			<!-- <th style="text-align: center">항목3</th> -->
-			<!-- <th style="text-align: center">항목4</th> -->
-			<!-- <th style="text-align: center">항목5</th> -->
-			<!-- </tr> -->
-			<!-- </tbody> -->
-			<!-- </table> -->
-			<!-- /Search List -->
 		</div>
 		<div class="col-md-2"></div>
 	</div>
@@ -99,24 +83,11 @@
 </div>
 <!-- /Page Content -->
 
-<div class="col-md-12"></div>
-
 <script id="tmpl_sfilter" type="text/x-handlebars-template">
 <button class="btn btn-default sfilter_btn" type="button"
 	value={{sflt_val}} onclick="$(this).remove();">
 	{{sflt_title}} <i class="glyphicon glyphicon-remove"></i>
 </button>
-</script>
-
-<script id="template_tbl" type="text/x-handlebars-template">
-<tr class="result">
-	<td align="center">{{num}}</td>
-	<td align="center">{{id}}</td>
-	<td style="text-align: center">{{pw}}</td>
-	<td align="center">{{pname}}</td>
-	<td style="text-align: center">{{birth}}</td>
-	<td align="center">{{email}}</td>
-</tr>
 </script>
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
@@ -175,9 +146,9 @@
 			console.log($("#stype").attr("value"));
 			console.log($("#stype").attr("value") === "1");
 			if ($("#stype").attr("value") === "1") {
-				getAllList("cusers");
+				getAllList("recruits");
 			} else {
-				getAllList("pusers");
+				getAllList("resumes");
 			}
 		} else if (sinp === "") {
 			deletelist();
@@ -201,31 +172,61 @@
 		}
 	});
 
-	// 모든 user(cusers or pusers)를 보여주다.
+	// 모든 user(recruits or pusers)를 보여주다.
 	function getAllList(users) {
 		deletelist();
-		$.getJSON("/sresult/" + users, function(data) {
-			// var source_tbl = $("#template_tbl").html();
-			var source_pnl = $("#template_pnl").html();
-			// var template_tbl = Handlebars.compile(source_tbl);
-			var template_pnl = Handlebars.compile(source_pnl);
-			console.log(data.length);
-			var i = 0;
-			var item;
-			$(data).each(function() {
-				item = {
-					num : ++i,
-					id : this.id,
-					pw : this.pw,
-					pname : this.pname,
-					email : this.email,
-					birth : this.birth
-				};
-				// $("#stable").append(template_tbl(item));
-				$("#spanel").append(template_pnl(item));
+		if (users === "recruits") { // "/sresult/recruits"
+			$.getJSON("/sresult/" + users, function(data) {
+				var source_pnl = $("#tmpnl_recruit").html();
+				var template_pnl = Handlebars.compile(source_pnl);
+				console.log(data.length);
+				var i = 0;
+				var item;
+				$(data).each(function() {
+					item = {
+						num : ++i,
+						bno : this.bno,
+						cid : this.cid,
+						title : this.title,
+						jobgroupid : this.jobgroupid,
+						jobgroupid2 : this.jobgroupid2,
+						rgbid : this.rgbid,
+						rgsid : this.rgsid,
+						cname : this.cname,
+						edu : this.edu,
+						exp : this.exp,
+						period : this.period
+					};
+					$("#spanel").append(template_pnl(item));
+				});
+				$(".sres").attr('style', 'visibility: visible;');
 			});
-			$(".sres").attr('style', 'visibility: visible;');
-		});
+		} else { // "/sresult/resumes"
+			$.getJSON("/sresult/" + users, function(data) {
+				var source_pnl = $("#tmpnl_resume").html();
+				var template_pnl = Handlebars.compile(source_pnl);
+				console.log(data.length);
+				var i = 0;
+				var item;
+				$(data).each(function() {
+					item = {
+						num : ++i,
+						bno : this.bno,
+						userid : this.userid,
+						title : this.title,
+						jobstateid : this.jobstateid,
+						jobgroupid : this.jobgroupid,
+						jobgroupid2 : this.jobgroupid2,
+						rgbid : this.rgbid,
+						rgsid : this.rgsid,
+						img : this.img,
+						pname : this.pname
+					};
+					$("#spanel").append(template_pnl(item));
+				});
+				$(".sres").attr('style', 'visibility: visible;');
+			});
+		}
 	}
 
 	// text 검색으로 관련 정보를 를 보여주다.
@@ -233,9 +234,7 @@
 	function getList(users, skey) {
 		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
-			// var source_tbl = $("#template_tbl").html();
 			var source_pnl = $("#template_pnl").html();
-			// var template_tbl = Handlebars.compile(source_tbl);
 			var template_pnl = Handlebars.compile(source_pnl);
 			console.log(data.length);
 			var i = 0;
@@ -249,7 +248,6 @@
 					email : this.employstatusid,
 					birth : this.regdate
 				};
-				// $("#stable").append(template_tbl(item));
 				$("#spanel").append(template_pnl(item));
 			});
 			var str;

@@ -174,19 +174,13 @@ public class SearchDAOImpl implements SearchDAO {
 		return tmplist;
 	}
 
-	// public List<RecruitVO> noCriteriaRecruit() {
-	// List<RecruitVO> tmplist = new ArrayList<RecruitVO>();
-	// RecruitVO tmp = new RecruitVO();
-	// tmp.setBno(-1);
-	// tmplist.add(tmp);
-	// return tmplist;
-	// }
+	@Override
+	public List<RecruitVO> selectRecruitsAll() throws Exception {
+		return session.selectList(namespace + ".selectRecruitsAll");
+	}
 
-	// public List<ResumeVO> noCriteriaResume() {
-	// List<ResumeVO> tmplist = new ArrayList<ResumeVO>();
-	// ResumeVO tmp = new ResumeVO();
-	// tmp.setBno(-1);
-	// tmplist.add(tmp);
-	// return tmplist;
-	// }
+	@Override
+	public List<ResumeVO> selectResumesAll() throws Exception {
+		return session.selectList(namespace + ".selectResumesAll");
+	}
 }
