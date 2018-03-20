@@ -82,6 +82,9 @@
 				</tbody>
 			</table>
 			
+			<form role="form" method="post">
+			
+			</form>
 	
 			<!-- //table class -->
 		</div>
@@ -89,13 +92,11 @@
 	</div>
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	<form role="form" method="post">
-			<input type='hidden' name='id' value="${CInfoVO.id}">
-			</form>
+
 			
 	<!-- 수정 버튼 -->
 	<div class="box-footer">
-	<button type="submit" class="btn btn-warning">수정하기</button>
+	<button type="submit" class="btn btn-warning" id="cinfoModify">수정하기</button>
 </div>
 
 
@@ -108,15 +109,18 @@
 			<script>
 				
 $(document).ready(function(){
-	
-var formObj = $("form[role='form']");
-	
+		
+	var formObj = $("form[role='form']");
+
 	console.log(formObj);
 	
-	$(".btn-warning").on("click", function(){
+	$("#cinfoModify").on("click", function(){
+		alert("hi");
 		formObj.attr("action", "/company/C_modify");
 		formObj.attr("method", "get");		
 		formObj.submit();
+		
+		
 	});
 	
 	

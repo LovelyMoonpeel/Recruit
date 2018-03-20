@@ -128,7 +128,7 @@
 	
 	<div class="box-footer">
 					<button type="submit" class="btn btn-primary">SAVE</button>
-					<button type="submit" class="btn btn-warning">CANCEL</button>
+					<button type="submit" class="btn btn-warning" id="modify">CANCEL</button>
 				</div>
 	<!-- //수정 버튼 -->
 	<br> <br>
@@ -144,7 +144,7 @@
 	
 		console.log(formObj);
 		$(".btn-warning").on("click", function() {
-			self.location = "/company/C_index?id=${CInfoVO.id}";
+			self.location = "/company/C_index";
 		});
 		$(".btn-primary").on("click", function() {
 					

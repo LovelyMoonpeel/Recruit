@@ -109,19 +109,12 @@
  
  <select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-<<<<<<< HEAD
-	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, 
-					g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, 
-					o.career as salaryid, d.career as edu, e.career as exp, r.adddesc, r.period, r.acceptmethod
-	from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g, project.tblcode c, 
-		 project.tblcode o, project.tblcode d, project.tblcode e
-=======
+
 	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid,
 	 d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt
 		
 		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g
 		, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
->>>>>>> branch 'pbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 	where r.bno = #{recruitNum}
     	and r.jobgroupid = j.id
     	and r.jobgroupid2 = u.id

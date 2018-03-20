@@ -30,7 +30,11 @@
 		cname = login.getCname();
 		}
 		if(cname==null){
-			location = "/personal/index";
+			if(id.equals("admin")){
+				 				location = "/admin/main";
+				 			}else{
+				 				location = "/personal/index";
+				 			}
 		}else{
 			location = "/company/C_index";
 		}

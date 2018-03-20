@@ -8,6 +8,8 @@ import java.util.Iterator;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import com.recruit.domain.BoardVO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
+
 
 @Controller
 @RequestMapping("/company/*")
@@ -40,16 +44,43 @@ public class CompanyController {
 	private String uploadPath;
 
 	@RequestMapping(value = "/C_index", method = RequestMethod.GET) // 기업 메인 화면
-	public void read(String id, Model model) throws Exception {
-
-		model.addAttribute(service.CompanyInfoRead(id));
+	public String read(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+		 		
+	String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+	
+	BoardVO login = (BoardVO) session.getAttribute("login");
+		
+	
+	if (login != null) {
+			String id = login.getId();
+			model.addAttribute(service.CompanyInfoRead(id));
+			return path;
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		 		
 	}
+	
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
 																		// GET
-	public void modifyGET(String id, Model model) throws Exception {
-
-		model.addAttribute(service.CompanyInfoRead(id));
+	public String modifyGET(HttpSession session, HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+		
+		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+			
+		
+		if (login != null) {
+				String id1 = login.getId();
+				model.addAttribute(service.CompanyInfoRead(id1));
+				return path;
+			} else {
+				rttr.addFlashAttribute("msg", "login");
+				return "redirect:/cs/S_faq";
+			}
+		
 	}
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.POST) // 기업정보 수정
@@ -174,6 +205,7 @@ public class CompanyController {
 	public void manage(String id, Model model) throws Exception {
 
 		model.addAttribute(service.CompanyInfoRead(id));
+		model.addAttribute("recruitList", service.RecruitList(id));
 
 	}
 
@@ -197,6 +229,7 @@ public class CompanyController {
 
 		model.addAttribute("adddesc", adddesc2);
 		model.addAttribute("jobdesc", jobdesc2);
+		
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		model.addAttribute("ApplyList", service.ApplyList(recruitNum));
