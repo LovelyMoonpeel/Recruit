@@ -294,9 +294,42 @@
 
 									<!--비밀번호 -->
 									<div class="form-group">
-										비밀번호<input type="password" name='pw' class="form-control"
+										비밀번호<input type="password" id='ppw' name='pw' class="form-control"
 											placeholder="6자리를 입력하세요." required>
 									</div>
+									
+									<div class="form-group">
+										비밀번호 확인<input type="password" id="ppwc" class="form-control"
+											placeholder="6자리를 입력하세요." required>
+									<span id="ppwchk"></span>
+									</div>
+									
+	<!-- 비밀번호 일치 여부  -->
+<script>
+	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
+	var ppwchk = $('#ppwchk');
+	
+	$('#ppwc').keyup(function(){
+		if($('#ppw').val() == $('#ppwc').val()){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+			ppwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			ppwchk.attr("style", "color:red")
+		}
+	})
+	
+	$('#ppw').keyup(function(){
+		if($('#ppw').val() == $('#ppwc').val()){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+			ppwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			ppwchk.attr("style", "color:red")
+		}
+	})
+</script>
+<!-- //비밀번호 일치 여부  -->
 
 
 									<!--이름 -->
@@ -360,10 +393,42 @@
 
 									<!--비밀번호 -->
 									<div class="form-group">
-										비밀번호<input type="password" name='pw' class="form-control"
+										비밀번호<input type="password" id='cpw' name='pw' class="form-control"
 											placeholder="6자리를 입력하세요." required>
 									</div>
+									
+									<div class="form-group">
+										비밀번호 확인<input type="password" id='cpwc' class="form-control"
+											placeholder="6자리를 입력하세요." required>
+										<span id="cpwchk"></span>
+									</div>
 
+	<!-- 비밀번호 일치 여부  -->
+<script>
+	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
+	var cpwchk = $('#cpwchk');
+	
+	$('#cpwc').keyup(function(){
+		if($('#cpw').val() == $('#cpwc').val()){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
+			cpwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			cpwchk.attr("style", "color:red")
+		}
+	})
+	
+	$('#cpw').keyup(function(){
+		if($('#cpw').val() == $('#cpwc').val()){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
+			cpwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			cpwchk.attr("style", "color:red")
+		}
+	})
+</script>
+<!-- //비밀번호 일치 여부  -->
 
 									<!--회사명 -->
 									<div class="form-group">

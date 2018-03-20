@@ -4,7 +4,7 @@ package com.recruit.dto;
 public class LoginDTO {
 	private String id;
 	private String pw;
-	private String index;
+	private String index; //개인로그인과 기업로그인을 비교하기 위해 들어간 변수
 	private boolean useCookie;
 	public String getId() {
 		return id;
