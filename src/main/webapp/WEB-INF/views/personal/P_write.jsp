@@ -69,30 +69,30 @@
          </table>
                
     <!-- ------------------------------------------------------handlebar로 수정1 -->
-<!--    <hr style="border: solid 4px #ccc;">
+    <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>연락처 목록</b>
 	</h4>
 	<div id="tel_div"></div>
-	<hr style="border: solid 4px #ccc;"> -->
+	<hr style="border: solid 4px #ccc;">
 	
 	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
     <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
     <!-- ------------------------------------------------------handlebar로 수정2 -->
-<!--    <hr style="border: solid 4px #ccc;">
+    <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>사이트 목록</b>
 	</h4>
 	<div id="web_div"></div>
-	<hr style="border: solid 4px #ccc;">  -->
+	<hr style="border: solid 4px #ccc;">
    <!-- ------------------------------------------------------handlebar로 수정2 종료 -->     
    <!-- ------------------------------------------------------handlebar로 수정3 -->  
- <!--   <hr style="border: solid 4px #ccc;">
+    <hr style="border: solid 4px #ccc;">
 	<h4>
 		<b>보유 자격증 목록</b>
 	</h4>
 	<div id="license_div"></div>
-	<hr style="border: solid 4px #ccc;"> -->
+	<hr style="border: solid 4px #ccc;">
    <!-- ------------------------------------------------------handlebar로 수정3 종료 -->    
     <!-- ------------------------------------------------------handlebar로 수정4 -->  
    <hr style="border: solid 4px #ccc;">
@@ -199,14 +199,17 @@
 		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
 	</div>
 
-	<div class="form-group col-md-4">
+	<div class="form-group col-md-3">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}"></input>
+			<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -227,13 +230,14 @@
  <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-	<input type="hidden" class="form-control id" value="{{id}}"></input>
+	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 
 	<div class="form-group col-md-2">
 		<label for="lid">언어 선택</label>
 		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
 			{{#select lid}}
+			<option value="102">선택</option>
 			<option value="102" selected>선택</option>
 			<option value="52">영어</option>
 			<option value="53">일본어</option>
@@ -279,7 +283,6 @@
 		<label for="score">점수</label> 
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
-
 	<div class="form-group col-md-2">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
@@ -287,7 +290,10 @@
 
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate langclass" name="rlangvolist[].acquidate" value="{{acquidate}}"></input>
+		<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="form-control acquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -302,12 +308,9 @@
 	</div>
 </div>
 <!-- end of row -->
-
 </script>
-
   <br>
   <br>
-
 <script type='text/javascript'>
 $(document).ready(function(){
    
@@ -341,7 +344,6 @@ $(document).ready(function(){
   // var upload = document.getElementsByTagName('input')[0];
    var upload = document.getElementById('fileupload');
    var uploadedList = document.getElementById('uploadedList');
-
 	if (typeof window.FileReader === 'undefined') {
 	 console.log("state.className = 'fail'");
 	} else {
@@ -393,7 +395,6 @@ $(document).ready(function(){
 							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
 							  +"</a>"
 							  +"<small data-src="+data+">X</small>";
-
 					  $("#uploadedList").append(str); 
 					  document.getElementById('uploadfilename').value = getImageLink(data);
 				  }//success : function(data){ end
@@ -529,7 +530,7 @@ $(document).ready(function(){
 					rid :  0,
 					licensename : "", 
 					publeoffice : "",
-					acquidate : "2018-08-08"
+					acquidate : ""
 			};
 			add_license(item);
 	}
@@ -549,11 +550,11 @@ $(document).ready(function(){
 	function language_list() {
 			var item = {
 					rid :  0,
-					//lid : "",
+					lid : "",
 					test : "", 
 					score : "",
 					publeoffice : "",
-					acquidate : "2018-08-08"
+					acquidate : ""
 			};
 			add_language(item);
 	}

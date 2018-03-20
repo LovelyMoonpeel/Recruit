@@ -11,16 +11,13 @@
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
-	<%-- 	<input type="text" class="form-control" id="rid" name="rid" value="${PTelVO.rid }" readonly> --%>
 	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
-	<%-- 	<input type="text" class="form-control" id="userid" name="userid" value="${ResumeVO.userid}" readonly> --%>
-	<%-- 	<input type="text" class="form-control" id="id" name="id" value="${PUserVO.id}" readonly> --%>
 		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> <input class="form-control" id="title"
 				name="title" value="${ResumeVO.title}">
 		</div>
-	  <div class="company_info_content">
+  <div class="company_info_content">
       <div class="table-responsive">
          <table class="table table-bordered">
             <tbody>
@@ -68,7 +65,7 @@
                
              </tbody>
          </table>
-               
+  </div>             
     <!-- ------------------------------------------------------handlebar로 수정1 -->
    <hr style="border: solid 4px #ccc;">
 	<h4>
@@ -124,7 +121,7 @@
    	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
-</div>
+	</div>
 
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
@@ -206,7 +203,10 @@
 	
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}"></input>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control acquidate licenseclass"  name="rlicensevolist[].acquidate" value="{{acquidate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -227,7 +227,7 @@
  <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-	<input type="hidden" class="form-control id" value="{{id}}"></input>
+	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-2">
@@ -281,13 +281,11 @@
 	</div>
 
 	<div class="form-group col-md-2">
-		<label for="publeoffice">발행기관</label> 
-		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
-	</div>
-
-	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate langclass" name="rlangvolist[].acquidate" value="{{acquidate}}"></input>
+		<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="form-control acquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -478,11 +476,11 @@ $(document).ready(function() {
 					}
 				}); 
 				
-			/* 	console.log("사진 삭제한 상태에서 submit직전");
+			 	console.log("사진 삭제한 상태에서 submit직전");
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
 				numberingList();
-				formObj.submit(); */
+				formObj.submit(); 
 			} 
 		});
     
@@ -617,7 +615,7 @@ $(document).ready(function() {
 			
 			<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 				var item = {
-						id : ${ResumeLanguageVO.id},
+						resumelangid : ${ResumeLanguageVO.resumelangid},
 						rid : ${ResumeLanguageVO.rid},
 						lid : ${ResumeLanguageVO.lid},
 						test : "${ResumeLanguageVO.test}", 

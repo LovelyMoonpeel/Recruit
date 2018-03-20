@@ -41,4 +41,10 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	public void deleteRLangList(Integer rid) throws Exception {
 		session.delete(namespace+".deleteRLangList", rid);
 	}
+	
+	@Override
+	public void createRLanguageList(Integer rid, ResumeLanguageVO plavo) throws Exception {
+		plavo.setRid(rid);
+		session.insert(namespace+".createResumeLanguage", plavo);
+	}
 }

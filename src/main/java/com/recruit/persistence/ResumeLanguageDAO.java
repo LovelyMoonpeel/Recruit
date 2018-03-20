@@ -15,4 +15,6 @@ public interface ResumeLanguageDAO {
 	public void createResumeLanguage(ResumeLanguageVO vo)throws Exception;
 	
 	public void deleteRLangList(Integer rid)throws Exception;
+	
+	public void createRLanguageList(Integer rid, ResumeLanguageVO plavo) throws Exception;
 }

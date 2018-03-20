@@ -342,7 +342,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
 	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
-	]]>
+	]]><!-- 소연 사용 -->
 	</insert>
 	
 	<!-- 이력서 RLang 삭제 -->
