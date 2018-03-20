@@ -25,16 +25,32 @@
 				<div class="item active">
 					<img src="/resources/rpjt/img/la.jpg" alt="Los Angeles"
 						style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>LOS ANGELES</h3>
+						<p>Los Angeles, officially the City of Los Angeles and often
+							known by its initials L.A., is the cultural, financial, and
+							commercial center of Southern California.</p>
+					</div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/chicago.jpg" alt="Chicago"
 						style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>CHICAGO</h3>
+						<p>Chicago, officially the City of Chicago, is the third most
+							populous city in the United States.</p>
+					</div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/ny.jpg" alt="New york"
 						style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>NEW YORK</h3>
+						<p>The City of New York, often called New York City or simply
+							New York, is the most populous city in the United States.</p>
+					</div>
 				</div>
 			</div>
 
@@ -79,7 +95,7 @@
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무&nbsp;&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" id="jobgroup">
 								<li><a href="#">Page 1-1</a></li>
 								<li><a href="#">Page 1-2</a></li>
 								<li role=separator class=divider></li>
@@ -87,7 +103,7 @@
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역&nbsp;&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" id="region">
 								<li><a href="#">Page 2-1</a></li>
 								<li><a href="#">Page 2-2</a></li>
 								<li role=separator class=divider></li>
@@ -95,24 +111,21 @@
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" id="emp">
 								<li><a href="#">Page 3-1</a></li>
 								<li><a href="#">Page 3-2</a></li>
 								<li><a href="#">Page 3-3</a></li>
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력&nbsp;&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" id="edu">
 								<li><a href="#">Page 4-1</a></li>
 								<li><a href="#">Page 4-2</a></li>
 								<li><a href="#">Page 4-3</a></li>
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Page 5-1</a></li>
-								<li><a href="#">Page 5-2</a></li>
-								<li><a href="#">Page 5-3</a></li>
+							<ul class="dropdown-menu" id="exp">
 							</ul></li>
 					</ul>
 				</div>
@@ -154,6 +167,35 @@
 </script>
 
 <script>
+	// dropdown 전역변수
+	var drop1ListItems;
+
+	// dropdown 1번째 생성하기
+	function drop1Handler(data) {
+		str = "";
+		console.log(data.length);
+		var i = 0;
+		$(data).each(drop1ListItems);
+	}
+
+	// dropdown 1번째 코드(근무형태, 학력, 경력) list items 생성하기
+	function drop1CodListItems(index, that) {
+		str += '<li value="'+ that.id +'"><a href="#">' + that.career
+				+ '</a></li>';
+	}
+
+	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
+	$.getJSON("/sresult/code/1", drop1Handler); // experience(1)
+	$("#exp").append(str);
+
+	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
+	$.getJSON("/sresult/code/2", drop1Handler); // education(2)
+	$("#edu").append(str);
+
+	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
+	$.getJSON("/sresult/code/4", drop1Handler); // employment status(4)
+	$("#emp").append(str);
+
 	// text 검색 엔터키 처리
 	function onEnter() {
 		if (event.keyCode == 13) {
@@ -174,6 +216,7 @@
 		console.log(sinp);
 	});
 
+	// 채용공고 판넬 전역변수
 	var i;
 	var item;
 	var template_pnl;
