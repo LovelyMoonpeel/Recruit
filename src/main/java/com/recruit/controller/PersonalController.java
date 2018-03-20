@@ -138,8 +138,8 @@ public class PersonalController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
-	//public String writePOST(String id, String file, PUserVO puser, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	//public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		//System.out.println("id값 뭐받아오냐" + id);
@@ -151,7 +151,7 @@ public class PersonalController {
 		// Rservice.readRLastCreatedOne(); 생성한 후 마지막으로 생성한 PK가져오기가 포함
 		System.out.println("레주메 정보 : "+ resume.toString());
 		
-		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
+/*		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
 		Telservice.createTList(bno, ptvo.getPtelvolist());
 
 		System.out.println(bno + "pwebsitesvolist" + pwvo.getPwebsitesvolist().toString());
@@ -161,9 +161,8 @@ public class PersonalController {
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		
 		System.out.println(bno+ "rlangvolist"+ plavo.getRlangvolist().toString());
-		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
+		Langservice.createRLanguageList(bno, plavo.getRlangvolist());*/
 		
-		//Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
@@ -204,10 +203,11 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
+	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 		
-		System.out.println(bno+  " 으으으"+ ptvo.getPtelvolist().toString());
+		/*System.out.println(bno+  " 으으으"+ ptvo.getPtelvolist().toString());
 		
 		Telservice.updateTList(bno, ptvo.getPtelvolist());
 		//Rmodify에 rid값 줘야함
@@ -217,9 +217,10 @@ public class PersonalController {
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		
 		System.out.println(bno+  "라이센스 으아악"+ plivo.getRlicensevolist().toString());
-		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
-		
+		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());*/
+		System.out.println("1bno가 몇이냐"+bno);
 		Rservice.updateROne(resume);
+		System.out.println("2bno가 몇이냐"+bno);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
@@ -357,6 +358,7 @@ public class PersonalController {
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
 			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+			System.out.println("if문 마지막");
 		}
 
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
