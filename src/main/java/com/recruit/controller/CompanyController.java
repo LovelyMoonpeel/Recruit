@@ -246,15 +246,18 @@ public class CompanyController {
 			return "redirect:/company/C_manage?id="+id;
 		}
 	
-	@RequestMapping(value= "C_info", method = RequestMethod.GET)
-	public void C_info(@RequestParam("id") String id, Model model, RedirectAttributes rttr)throws Exception{
+	@RequestMapping(value= "C_info", method = RequestMethod.GET) // 개인이 보는 기업정보 페이
+	public void C_info(int recruitNum, Model model, RedirectAttributes rttr)throws Exception{
+		
+		String id = service.RecruitInfoRead2(recruitNum).getCid();
+		System.out.println("컨트롤러 아이디 값은 : " +id);
 		
 		model.addAttribute(service.CompanyInfoRead(id));
 		model.addAttribute("RecruitList", service.CInfoRecruitList(id));
 		
 	}
 	
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 채용공고 정보
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 채용공고 정보
 	public void readRecruitMent(int recruitNum, Model model) throws Exception {
 
 		String id = service.RecruitInfoRead2(recruitNum).getCid();

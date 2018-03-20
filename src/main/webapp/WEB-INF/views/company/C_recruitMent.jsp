@@ -83,6 +83,7 @@
 	<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
 	<h4 >기업정보</h4>
 	
+
 	
 	산업(업종) ${CInfoVO.ctype}<br>
 	사원수 ${CInfoVO.numemp}<br>
@@ -91,7 +92,7 @@
 	홈페이지 ${CInfoVO.homepage}<br>
 	<br>
 	<div class="text-center">
-	<button class="btn btn-info" id="CInfo" value="${CInfoVO.id}">기업정보</button>
+	<button class="btn btn-info" id="CInfo" value="${RecruitVO.bno}">기업정보</button>
 	</div>
 	<br>
 	</div>
@@ -280,7 +281,7 @@
 
 $('#CInfo').on("click",function(){
 	
-	self.location = "/company/C_info?id="+$('#CInfo').val()
+	self.location = "/company/C_info?recruitNum="+$('#CInfo').val()
 	
 })
 

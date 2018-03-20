@@ -14,7 +14,7 @@
 <!-- 공고 작성 바디 -->
 <div class="col-md-9">
 
-${CInfoVO.id}
+
 
 <input type="hidden" id="bno" value="${RecruitVO.bno}">
 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}">
