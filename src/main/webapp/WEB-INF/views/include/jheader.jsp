@@ -134,7 +134,7 @@
 							
 							<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
 							<form action="/user/loginPost" method="post">
-								
+								<input type="hidden" name="index" value="per">
 								<!--id입력  -->
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
@@ -186,7 +186,7 @@
 						<div id="login_company" class="tab-pane fade">
 							
 							<form action="/user/loginPost" method="post">
-								
+								<input type="hidden" name="index" value="com">
 								<!--id입력 -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
@@ -280,7 +280,7 @@
 						<div id="join_person" class="tab-pane fade in active">
 
 							<!--action속성값이 rController랑 연결되는 거 같음  -->
-							<form role="form" action="/user/joinperson" method="post">
+							<form role="form" action="/user/joinPost" method="post">
 
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
@@ -346,7 +346,7 @@
 
 						<!--_____________________2-2.회원가입 기업회원 시작_____________________  -->
 						<div id="join_company" class="tab-pane fade">
-							<form role="form" action="joinperson" method="post">
+							<form role="form" action="/user/joinPost" method="post">
 
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
@@ -388,7 +388,7 @@
 
 
 									<!--이메일 인증  -->
-									<a href="" class="text-center">이메일 인증하기</a> <br> <br>
+									<a href="#" class="text-center">이메일 인증하기</a> <br> <br>
 
 									<!--사업자 등록번호 -->
 									<div class="form-group">
@@ -398,7 +398,7 @@
 
 
 									<!--사업자 등록번호 인증  -->
-									<a href="" class="text-center">사업자 등록번호 인증하기</a>
+									<a href="#" class="text-center">사업자 등록번호 인증하기</a>
 
 
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->

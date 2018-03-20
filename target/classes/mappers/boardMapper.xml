@@ -11,6 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
 		#{birth})
 	</insert>
+	
+	<insert id="Ccreate">
+		insert into project.tblcinfo (id, cname)
+		select #{id}, #{cname} from dual 
+		where exists (select id from project.tbluser where id = #{id})
+		;
+	</insert>
 
 
 	<!--631 start -->

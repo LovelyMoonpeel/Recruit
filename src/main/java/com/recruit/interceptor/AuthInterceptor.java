@@ -50,7 +50,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         
       }
       
-      response.sendRedirect("/personal/index");
+      response.sendRedirect("/cs/S_faq");
       return false;
     }
     

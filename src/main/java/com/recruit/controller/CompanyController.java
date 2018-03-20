@@ -47,8 +47,15 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			model.addAttribute(service.CompanyInfoRead(id));
+			String cname = login.getCname();
+			if(cname != null){
+				model.addAttribute(service.CompanyInfoRead(id));
+			}
 			return "/company/C_index";
+			/*else{
+				rttr.addFlashAttribute("msg", "NO_per");
+				return "redirect:/cs/S_faq";
+			}*/
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";

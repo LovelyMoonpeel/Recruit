@@ -4,8 +4,8 @@ package com.recruit.dto;
 public class LoginDTO {
 	private String id;
 	private String pw;
+	private String index;
 	private boolean useCookie;
-	
 	public String getId() {
 		return id;
 	}
@@ -18,6 +18,12 @@ public class LoginDTO {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
+	public String getIndex() {
+		return index;
+	}
+	public void setIndex(String index) {
+		this.index = index;
+	}
 	public boolean isUseCookie() {
 		return useCookie;
 	}
@@ -26,8 +32,10 @@ public class LoginDTO {
 	}
 	@Override
 	public String toString() {
-		return "LoginDTO [id=" + id + ", pw=" + pw + ", useCookie=" + useCookie + "]";
+		return "LoginDTO [id=" + id + ", pw=" + pw + ", index=" + index + ", useCookie=" + useCookie + "]";
 	}
+	
+
 	
 	
 }

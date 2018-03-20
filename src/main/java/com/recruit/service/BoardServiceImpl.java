@@ -3,6 +3,7 @@ package com.recruit.service;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.persistence.BoardDAO;
@@ -15,7 +16,14 @@ public class BoardServiceImpl implements BoardService {
   private BoardDAO dao;
 
   @Override
-  public void regist(BoardVO board) throws Exception {
+  public void pregist(BoardVO board) throws Exception {
     dao.create(board);
+  }
+  
+  @Transactional
+  @Override
+  public void cregist(BoardVO board) throws Exception {
+    dao.create(board);
+    dao.Ccreate(board);
   }
 }
