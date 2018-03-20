@@ -136,7 +136,6 @@ public class RecruitVO implements Bnoble {
 	}
 
 	public String getPeriod() {
-		System.out.println("야야get Period");
 		return period;
 	}
 

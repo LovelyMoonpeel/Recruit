@@ -132,7 +132,6 @@
 	// 검색 결과 판넬 list 제거
 	function deletelist() {
 		$(".result").remove();
-		$(".sres").attr('style', 'visibility: hidden;');
 	}
 
 	// text 검색 버튼 click 이벤트 핸들러
@@ -172,59 +171,65 @@
 		}
 	});
 
-	// 모든 user(recruits or pusers)를 보여주다.
+	var i;
+	var item;
+	var template_pnl;
+
+	// 채용공고 판넬 연결
+	function recruitPnl(index, that) {
+		item = {
+			num : ++i,
+			bno : that.bno,
+			cid : that.cid,
+			title : that.title,
+			jobgroupid : that.jobgroupid,
+			jobgroupid2 : that.jobgroupid2,
+			rgbid : that.rgbid,
+			rgsid : that.rgsid,
+			cname : that.cname,
+			edu : that.edu,
+			exp : that.exp,
+			period : that.period
+		};
+		$("#spanel").append(template_pnl(item));
+	}
+
+	// 이력서 판넬 연결
+	function resumePnl(index, that) {
+		item = {
+			num : ++i,
+			bno : that.bno,
+			userid : that.userid,
+			title : that.title,
+			jobstateid : that.jobstateid,
+			jobgroupid : that.jobgroupid,
+			jobgroupid2 : that.jobgroupid2,
+			rgbid : that.rgbid,
+			rgsid : that.rgsid,
+			img : that.img,
+			pname : that.pname
+		};
+		$("#spanel").append(template_pnl(item));
+	}
+
+	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		deletelist();
 		if (users === "recruits") { // "/sresult/recruits"
 			$.getJSON("/sresult/" + users, function(data) {
 				var source_pnl = $("#tmpnl_recruit").html();
-				var template_pnl = Handlebars.compile(source_pnl);
+				template_pnl = Handlebars.compile(source_pnl);
 				console.log(data.length);
-				var i = 0;
-				var item;
-				$(data).each(function() {
-					item = {
-						num : ++i,
-						bno : this.bno,
-						cid : this.cid,
-						title : this.title,
-						jobgroupid : this.jobgroupid,
-						jobgroupid2 : this.jobgroupid2,
-						rgbid : this.rgbid,
-						rgsid : this.rgsid,
-						cname : this.cname,
-						edu : this.edu,
-						exp : this.exp,
-						period : this.period
-					};
-					$("#spanel").append(template_pnl(item));
-				});
-				$(".sres").attr('style', 'visibility: visible;');
+				i = 0;
+				$(data).each(recruitPnl);
 			});
 		} else { // "/sresult/resumes"
 			$.getJSON("/sresult/" + users, function(data) {
 				var source_pnl = $("#tmpnl_resume").html();
-				var template_pnl = Handlebars.compile(source_pnl);
+				template_pnl = Handlebars.compile(source_pnl);
 				console.log(data.length);
-				var i = 0;
-				var item;
-				$(data).each(function() {
-					item = {
-						num : ++i,
-						bno : this.bno,
-						userid : this.userid,
-						title : this.title,
-						jobstateid : this.jobstateid,
-						jobgroupid : this.jobgroupid,
-						jobgroupid2 : this.jobgroupid2,
-						rgbid : this.rgbid,
-						rgsid : this.rgsid,
-						img : this.img,
-						pname : this.pname
-					};
-					$("#spanel").append(template_pnl(item));
-				});
-				$(".sres").attr('style', 'visibility: visible;');
+				i = 0;
+				$(data).each(resumePnl);
 			});
 		}
 	}
@@ -253,7 +258,6 @@
 			var str;
 			if (data.length > 0) {
 				str = data.length + "개의 검색결과가 있습니다.";
-				$(".sres").attr('style', 'visibility: visible;');
 			} else {
 				str = "검색결과가 없습니다."
 			}
@@ -266,31 +270,13 @@
 	// url: /sresult/sel_search/recruits
 	function selRecruitHandler(data) {
 		var source_pnl = $("#tmpnl_recruit").html();
-		var template_pnl = Handlebars.compile(source_pnl);
+		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
-		var i = 0;
-		var item;
-		$(data).each(function() {
-			item = {
-				num : ++i,
-				bno : this.bno,
-				cid : this.cid,
-				title : this.title,
-				jobgroupid : this.jobgroupid,
-				jobgroupid2 : this.jobgroupid2,
-				rgbid : this.rgbid,
-				rgsid : this.rgsid,
-				cname : this.cname,
-				edu : this.edu,
-				exp : this.exp,
-				period : this.period
-			};
-			$("#spanel").append(template_pnl(item));
-		});
+		i = 0;
+		$(data).each(recruitPnl);
 		var str;
 		if (data.length > 0) {
 			str = data.length + "개의 검색결과가 있습니다.";
-			$(".sres").attr('style', 'visibility: visible;');
 		} else {
 			str = "검색결과가 없습니다."
 		}
@@ -300,31 +286,14 @@
 	// url: /sresult/sel_search/resumes
 	function selResumeHandler(data) {
 		var source_pnl = $("#tmpnl_resume").html();
-		var template_pnl = Handlebars.compile(source_pnl);
+		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
-		var i = 0;
-		var item;
-		$(data).each(function() {
-			item = {
-				num : ++i,
-				bno : this.bno,
-				userid : this.userid,
-				title : this.title,
-				jobstateid : this.jobstateid,
-				jobgroupid : this.jobgroupid,
-				jobgroupid2 : this.jobgroupid2,
-				rgbid : this.rgbid,
-				rgsid : this.rgsid,
-				img : this.img,
-				pname : this.pname
-			};
-			$("#spanel").append(template_pnl(item));
-		});
+		i = 0;
+		$(data).each(resumePnl);
 
 		var str;
 		if (data.length > 0) {
 			str = data.length + "개의 검색결과가 있습니다.";
-			$(".sres").attr('style', 'visibility: visible;');
 		} else {
 			str = "검색결과가 없습니다."
 		}
