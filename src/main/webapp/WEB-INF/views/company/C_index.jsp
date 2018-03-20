@@ -3,6 +3,7 @@
 
 <%@include file="../include/cheader.jsp"%>
 
+
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <div class="col-md-9">
@@ -10,7 +11,7 @@
 	<div class="top_cont">
 		<div class="corp_logo">
 			<img src="/resources/rpjt/img/${CInfoVO.img}"
-				 name="img" value="${CInfoVO.img}" /> <br> <br>
+				 name="img" value="${CInfoVO.img}" style="width:200px;"/> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>

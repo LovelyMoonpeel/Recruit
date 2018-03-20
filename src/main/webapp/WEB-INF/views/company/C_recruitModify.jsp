@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
+
 <%@include file="../include/cheader.jsp"%>
 
 
@@ -24,13 +24,14 @@ ${CInfoVO.id}
 	<input type="hidden" name="cid" value="${CInfoVO.id}"/>
 	<h3>공고제목</h3>
 	
-	<div class="form-group col-lg-6">
+	<div class="form-group">
+	
 			<label>타이틀</label> <input type="text" name="title" class="form-control" id=""
 				value="${RecruitVO.title}">
 		</div>
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
-				<th>모집직종</th>
+				<th class="active">모집직종</th>
 				<td>
 				<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
 				<select id="jobGroup" name="jobgroupid">
@@ -59,7 +60,7 @@ ${CInfoVO.id}
 				
 			</tr>
 			<tr>
-				<th>근무지역</th>
+				<th class="active">근무지역</th>
 				<td>
 				<select id="region" name='rgbid'>
 					<option value="">근무지역</option>
@@ -80,15 +81,15 @@ ${CInfoVO.id}
 				</td>
 			</tr>
 			<tr>
-				<th>담당업무</th>
+				<th class="active">담당업무</th>
 				<td><textarea name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
 			</tr>
 			<tr>
-				<th>모집인원</th>
+				<th class="active">모집인원</th>
 				<td><input type="text" name="recruitnum" value="${RecruitVO.recruitnum }">명</td>
 			</tr>
 			<tr>
-				<th>근무형태</th>
+				<th class="active">근무형태</th>
 				<td>
 				<select name="employstatusid">
 					<option value="">근무형태</option>
@@ -117,7 +118,7 @@ ${CInfoVO.id}
 				</td>
 			</tr>
 			<tr>
-				<th>급여사항</th>
+				<th class="active">급여사항</th>
 				<td>
 				<select name="salaryid">
 					<option value="">급여사항</option>
@@ -141,7 +142,7 @@ ${CInfoVO.id}
 				</td>
 			</tr>
 			<tr>
-				<th>학력</th>
+				<th class="active">학력</th>
 				<td><select name="edu">
 						<option value="">학력</option>
 						
@@ -165,7 +166,7 @@ ${CInfoVO.id}
 				</select></td>
 			</tr>
 			<tr>
-				<th>경력</th>
+				<th class="active">경력</th>
 				<td><select name="exp">
 						<option value="">경력</option>
 						
@@ -192,7 +193,7 @@ ${CInfoVO.id}
 				</select></td>
 			</tr>
 			<tr>
-				<th>상세내용 및 우대사항</th>
+				<th class="active">상세내용 및 우대사항</th>
 				<td><textarea name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea></td>
 			</tr>
 		<!-- 	<tr>
@@ -201,7 +202,7 @@ ${CInfoVO.id}
 				</td>
 			</tr> -->
 			<tr>
-			<th>접수기간</th>
+			<th class="active">접수기간</th>
 			<td>
 				
 				
@@ -217,7 +218,7 @@ ${CInfoVO.id}
 			</td>
 			</tr>
 			<tr>
-				<th>접수방법</th>
+				<th class="active">접수방법</th>
 				<td>
 				<c:choose>
 				

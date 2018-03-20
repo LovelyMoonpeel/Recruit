@@ -3,13 +3,24 @@
 	
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
 
 <%@include file="../include/cheader.jsp"%>
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <div class="col-md-9">
+
+<%@ page import="java.util.*, java.text.*"  %>
+
+<%
+
+ java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+ String today = formatter.format(new java.util.Date());
+
+ out.println(today);
+
+%>
+
 	
 	<input type="hidden" id="id" value="${CInfoVO.id}">
 	
@@ -35,10 +46,12 @@
 					<th>~${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
+					
 
 						</c:forEach>
 		
 	</table>
+	
 	
 	<div id="myModal" class="modal fade" role="dialog">
  	 <div class="modal-dialog">
@@ -48,22 +61,19 @@
           <h4 class="modal-title">추천인재목록</h4>
         </div>
         <div class="modal-body">
-          <table>
-          <c:forEach items="${recruitList}" var="RecruitVO">
+         
+         	 <table class="table table-striped" >
+          <tr class=active>
+          <th>번호</th>
+          <th>이름</th>
+          <th>이력서 요약</th>
+          <th>업데이트일</th>
+          </tr>
+          <tbody id="recomList">
           
-          <tr class="tr${RecruitVO.bno}" id="off" style="display:none">
-                <th style="width:5%;"></th>
-                <th style="width:20%;" class="text-center">이름</th>
-                <th class="text-center">이력서 요약</th>
-                <th style="width:15%;" class="text-center">업데이트일</th>
-          	  </tr>
-          	  
-          	 <tbody class="tr${RecruitVO.bno}" id="recomList${RecruitVO.bno}" style="display:none"> 
-          	 
-          	  </tbody>
-          
-          </c:forEach>
+          </tbody>
           </table>
+          
         </div>
         <div class="modal-footer">
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
@@ -77,75 +87,135 @@
 
 </div>
 
+<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
+<input type="text" name="CompareList" value="${FavorCompareListVO.presume}">
+</c:forEach>
+
+
+
+
 <script>
-$('button[name="onLoad"]').on("click", function() {
+
+
+
+
+
+$("button[name=onLoad]").on("click", function() {
+	
 	var bno = $(this).val();
 	
-	
-	 $(".tr"+bno).toggle(); 
-	
 	PersonList(bno);
-	/* $(".tr"+bno).toggle(); */
 	
-})
-$("button[name=offLoad]").on("click", function(add_event) {
 	
-alert(bno);	
-	 $(".tr"+bno).toggle(); 
 })
 
-$(document).ready(function(){
-	
-	
-})
 	
 function PersonList(bno){
 	
 	
 	$.getJSON("/companyAjax/personList/" + bno, function(data) {
 		var str = "";
+		var comparison = [];
+		
 		$(data).each(
 				function() {
-					str += "<tr><td><a id=r1 value="+this.bno+">"+1+"</a></td><td>"+this.img+"</td><td><a  id="+this.bno+">"+this.title+"</a></td><td>"+this.rgbid+"</td></tr>";
-							
+					
+					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span><a  id="+this.bno+">"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+					
+					comparison.push(this.bno)
+	
 				});
 		
-		$("#recomList"+bno).html(str);
+		$("#recomList").html(str);
+		
+	
+		favorComparison(comparison)
+		
 	})
+	
+	
+	
+}
+
+function favorComparison(comparison){
+	
+	var compare = document.getElementsByName('CompareList');
+	var compareList = [];
+	for(var i=0; i<compare.length; i++){
+		
+	compareList.push(compare[i].value);
+	}
+
+
+	/*
+ 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
+ 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
+   */
+ 	for(var i= 0; i<compareList.length; i++){
+ 		
+ 		for(var j = 0; j<comparison.length; j++){
+ 			if(compareList[i] == comparison[j]){
+ 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
+ 			}
+ 		}
+ 	}
+	
+	
 }
 </script>
 
 <script>
+
+
 $(document).ready(function(){
-	
-	
 	
 	$(document).on("click", '#r1', function(){
 		
 		var id = $('#id').attr('value');
 		var bno = $(this).attr('value');
 		
-		favFun(bno, id);
-	})
-	
-	
+		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
+			favDel(bno, id);
+		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
+			favAdd(bno, id);
+		}
+		
+			
+		})
 	
 	
 })
-function favFun(bno, id){
-			alert(bno);
-			alert(id);
-	$.getJSON("/companyAjax/favor/"+bno+"/"+id, function(data) {
+function favAdd(bno, id){   // 관심인재 등록
+			
+	
+	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
 		var str = "";
+		
 		$(data).each(
 				function() {
-					alert("관심 인재에 등록 됐습니다.");		
 				});
 		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
+	alert("관심인재에 등록 됐습니다.")
+	
+	
+}
+
+function favDel(bno, id){ 	// 관심인재 삭제
+	
+	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+	var str = "";
+		
+		$(data).each(
+				function() {
+				});
 		
 	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
+	alert("관심인재에서 삭제 됐습니다.")
 	
-		}
+}
 </script>
 
 

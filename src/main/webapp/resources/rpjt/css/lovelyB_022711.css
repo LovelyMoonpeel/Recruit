@@ -35,9 +35,18 @@ footer {
 }
 
 .careerLine {
-  /*��õ���� ,�������� �� ��� �׵θ�*/
-  border: 1px solid blue;
-  border-radius: 7px;
+     display: inline-block;
+    margin: 2px 4px 0 0;
+    padding: 0 9px 0 8px;
+    height: 20px;
+    border: 1px solid #6b80f1;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 18px;
+    vertical-align: top;
+    background: #6b80f1;
 }
 
 #none {

@@ -9,6 +9,8 @@
 	<br> <br> <br>
 	<h1>관심인재</h1>
 
+<input type="hidden" id="id" value="${CInfoVO.id}">
+
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div
 			style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
@@ -31,21 +33,22 @@
 			<th class="text-center">이력서 요약</th>
 			<th style="width: 15%;" class="text-center">업데이트일</th>
 		</tr>
-<c:forEach items="${favorList}" var="ResumeVO">
+<c:forEach items="${favorList}" var="CPersonInfoVO">
 		<tr>
 		
+		
 			<td class="text-right" style="vertical-align: middle"><img
-				src="img/on.png" id="non"></td>
-			<td class="text-center" style="vertical-align: middle"><strong>${ResumeVO.img}</strong>
+				src="/resources/rpjt/img/on.png")" id="non" value="${CPersonInfoVO.bno}"></td>
+			<td class="text-center" style="vertical-align: middle"><strong>${CPersonInfoVO.name}  ⃝  ⃝  </strong>
 				<br> <span>1991년, 28세</span></td>
 			<td><span class="careerLine">경력 3년 5개월</span> <a target="_blank"
-				href="">${ResumeVO.title}</a>
+				href="">${CPersonInfoVO.title}</a>
 				<p></p>
 				<div>
 					<div></div>
-					<div>${ResumeVO.address}</div>
+					<div>${CPersonInfoVO.schoolname}${CPersonInfoVO.major}</div>
 				</div>
-				<p>일러스트레이터,코렐드로우</p>
+				<p>${CPersonInfoVO.rgbid} ${CPersonInfoVO.salary}</p>
 				<div>
 					<a>핵심역량 마케팅전략·기획, 시장조사·분석, 프로모션, 온라인마케팅, 광고기획, 지배인</a>
 				</div></td>
@@ -59,11 +62,36 @@
 </div>
 
 <script>
-	$(document).ready(function() { // 인재 추천 창 온오프
-		$("#non").click(function() { //즐겨찾기
-			$(this).attr('src', 'img/non.png');
+
+
+
+
+	
+	 
+	$(document).on("click", '#non', function() { //즐겨찾기
+
+			var id = $('#id').attr('value');
+			var bno = $(this).attr('value');
+			
+			favDel(bno, id);
+			
 		})
-	}) // .인재 추천 창 온오프
+	
+	
+	
+	function favDel(bno, id){ 	// 관심인재 삭제
+		
+		$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+		var str = "";
+			
+			$(data).each(
+					function() {
+					});
+			
+		})
+		
+		alert("삭제됐습니다.");
+	}
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

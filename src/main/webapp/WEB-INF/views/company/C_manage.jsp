@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ page session="false"%>
-
 <%@include file="../include/cheader.jsp"%>
 
 <!-- Main content -->
@@ -58,7 +56,6 @@
 					<!-- // 날짜 비교를 통해 모집중/완료 구분 -->
 					</th>
 					<th>
-				<button type="submit" id ="modify" value="${RecruitVO.bno}" class="btn btn-warning">수정하기</button>
 				
 				<button type="button" id="delete"  value="${RecruitVO.bno}" class="btn btn-danger">삭제하기</button>
 					</th>
@@ -90,16 +87,6 @@
 
 var formObj = $("form[role='form']");
 
-
-
-		$(document).on("click", '#modify',function(){
-			var bno = $(this).attr('value');
-			alert(bno);
-		/* 	formObj.attr("action", "/company/C_recruitModify?bno=${RecruitVO.bno}"); */
-			self.location = "/company/C_recruitModify?bno="+bno+"&id=${CInfoVO.id}";
-			/* formObj.attr("method", "get");		
-			formObj.submit(); */
-		});
 		
 		$(document).on("click", '#delete',function(){
 			var bno = $(this).attr('value');

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
+
 <%@include file="../include/cheader.jsp"%>
 
 
@@ -76,7 +76,7 @@
 				<td>
 				<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
 				<select id="jobGroup" name="jobgroupid">
-				<option value="">모집직종</option>
+				<option value="0">모집직종</option>
 					<c:forEach items="${jobgroupList}" var="JobGroupVO">
 				
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
@@ -99,7 +99,7 @@
 				<th>근무지역</th>
 				<td>
 				<select id="region" name='rgbid'>
-					<option value="">근무지역</option>
+					<option value="Z">근무지역</option>
 					<c:forEach items="${regionList}" var="RegionVO">
 						<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 					</c:forEach>
@@ -111,7 +111,7 @@
 			</tr>
 			<tr>
 				<th>담당업무</th>
-				<td><textarea name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
+				<td><textarea class="form-control" style="resize:none" name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
 			</tr>
 			<tr>
 				<th>모집인원</th>
@@ -121,7 +121,7 @@
 				<th>근무형태</th>
 				<td>
 				<select name="employstatusid">
-					<option value="">근무형태</option>
+					<option value="102">근무형태</option>
 						
 					<c:forEach items="${codeList}" var="CodeVO">
 					<c:if test="${CodeVO.tid==4}">
@@ -137,7 +137,7 @@
 				<th>급여사항</th>
 				<td>
 				<select name="salaryid">
-					<option value="">급여사항</option>
+					<option value="102">급여사항</option>
 					<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==7}">
 							<option value="${CodeVO.id}">${CodeVO.career}</option>
@@ -149,7 +149,7 @@
 			<tr>
 				<th>학력</th>
 				<td><select name="edu">
-						<option value="">학력</option>
+						<option value="102">학력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==2}">
@@ -164,7 +164,7 @@
 			<tr>
 				<th>경력</th>
 				<td><select name="exp">
-						<option value="">경력</option>
+						<option value="102">경력</option>
 						
 						<c:forEach items="${codeList}" var="CodeVO">
 						<c:if test="${CodeVO.tid==1}">
@@ -178,7 +178,7 @@
 			</tr>
 			<tr>
 				<th>상세내용 및 우대사항</th>
-				<td><textarea name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea></td>
+				<td><textarea style="resize:none" class="form-control" name="adddesc" cols="30" rows="10" required>${RecruitVO.adddesc}</textarea></td>
 			</tr>
 		<!-- 	<tr>
 				<th>접수기간</th>
@@ -260,11 +260,16 @@
 	function SubRegion(largeNum) {
 		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
 			var str = "";
+			var str2 = "";
 			$(data).each(
 					function() {
 						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
 								+ "</option>";
 					});
+			/* str2 += "<option value=102>선택하세요</option>"; */
+			
+			str2 += str;
+			
 			$("#subRegion").html(str);
 		})
 	}

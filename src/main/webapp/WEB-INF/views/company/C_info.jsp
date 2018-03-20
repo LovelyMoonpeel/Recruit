@@ -87,30 +87,24 @@
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
 	
-	<form class="form-inline">
-	<table class="table">
-	<tr class="active">
+
 	<h1><a>'${CInfoVO.cname}'</a>진행중인 채용 공고</h1>
-	</tr>
 	
-					<!-- DB의 날짜를 숫자로 변환(비교를 위해) -->
-				
-	<c:forEach items="${cinfoRecruitList}" var="recruitVO">
-	<tr class="active">
-	<td> ${recruitVO.title}
-	<button type="button" class="btn">
-  	<span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
-	</button>
-	<br>${recruitVO.jobdesc} 
-	
-	</td>
-	<td> ${recruitVO.exp}<br>${recruitVO.edu}<br>${recruitVO.rgbid}
-	</td>
-	</tr class="active">
-	</c:forEach>
-	
-	</table>
-	</form>
+	<div class="row">
+  <c:forEach items="${RecruitList}" var="list">
+  <div class="col-sm-6 col-md-4">
+     
+    <div class="thumbnail">
+
+	 <div class="caption">
+        <span>~${list.period}</span> <img src=/resources/rpjt/img/non.png>
+        <br><a id="r1" value="${list.bno}">${list.title}</a><br>
+        <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
+      </div>
+    </div>
+  </div>
+    </c:forEach>
+</div>
 			
 	
 
@@ -120,6 +114,20 @@
 	<br> <br>
 </div>
 <!-- //기업 페이지 -->
+
+<script>
+
+$(document).on("click",'#r1',function(){
+
+	var a = $(this).attr("value");
+	
+	self.location = "/company/C_recruitMent?recruitNum="+a;
+	
+})
+
+
+
+</script>
 
 
 <%@include file="../include/cfooter.jsp"%>

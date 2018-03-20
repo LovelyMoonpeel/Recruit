@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.recruit.domain.CInterestPersonVO;
+import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -44,13 +46,18 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 }
 
 	 @Override
-	 public List<ResumeVO> PersonRecomList(int bno) throws Exception{
+	 public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception{
 	 	return dao.PersonRecomList(bno);
 	 }
 	 
 	 @Override
-	 public void FavorPerson(int bno, String id) throws Exception{
-		 System.out.println("Service :" +bno+ ", "+id);
-		 dao.FavorPerson(bno, id);
+	 public void FavorPersonAdd(int bno, String id) throws Exception{
+		 dao.FavorPersonAdd(bno, id);
 	 }
+	 @Override
+	 public void FavorPersonDelete(int bno, String id) throws Exception{
+		 dao.FavorPersonDelete(bno, id);
+	 }
+	 
+	
 }

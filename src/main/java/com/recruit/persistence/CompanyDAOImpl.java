@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CInfoVO;
+import com.recruit.domain.CInterestPersonVO;
+import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -59,7 +61,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
 	}
 	@Override
-	public List<ResumeVO> FavorList(String id)throws Exception{
+	public List<CPersonInfoVO> FavorList(String id)throws Exception{
 		
 		return session.selectList(namespace +".favorList", id);		
 	}
@@ -110,6 +112,24 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 		
 		session.delete(namespace + ".recruitDelete", RR);
+	}
+
+	@Override
+	public List<ResumeVO> ApplyList(int recruitNum) throws Exception {
+		
+		return session.selectList(namespace + ".applyList", recruitNum);
+	}
+
+
+	@Override
+	public List<CInterestPersonVO> FavorCompareList(String id) throws Exception {
+		
+		return session.selectList(namespace + ".favorCompareList", id);
+	}
+	@Override
+	public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception{
+		
+		return session.selectList(namespace + ".cRecruitList", id);
 	}
 
 	
