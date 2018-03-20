@@ -30,4 +30,4 @@
 
 <body>
 
-	<%@include file="../include/jheader.jsp"%>
+<%@include file="../include/jheader.jsp"%>

@@ -143,9 +143,20 @@ public class PersonalController {
 		// return "personal/P_manage";
 	}
 
+	// o.Merge
+	// @RequestMapping(value = "/manage", method = RequestMethod.GET)
+	// public String manageGET(Model model) throws Exception {
+	// System.out.println("manage GET Controller");
+	// String id = "jin3";
+	// model.addAttribute("ResumeVOList", Rservice.selectRList(id));
+	// model.addAttribute("PUserVO", service.selectPUser(id));
+	//
+	// return "personal/P_manage";
+	// }
+
 	// 개인정보수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String indexGET(@RequestParam("id") String id, Model model) throws Exception {
+	public String modifyGET(@RequestParam("id") String id, Model model) throws Exception {
 		// 수정하는 페이지
 		logger.info("index에서 넘겨받은 id" + id);
 		logger.info(service.selectPUser(id).toString());
@@ -155,7 +166,7 @@ public class PersonalController {
 
 	// 수정한거 db로 전달하는 페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String indexPOST(PUserVO PUser, Model model, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(PUserVO PUser, Model model, RedirectAttributes rttr) throws Exception {
 		logger.info("index POST, 개인정보 수정");
 		logger.info(PUser.toString());
 
@@ -217,7 +228,7 @@ public class PersonalController {
 
 	// 이력서 하나 읽기
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String modifyGET(int bno, Model model) throws Exception {
+	public String detailGET(int bno, Model model) throws Exception {
 
 		PUserVO PUser = new PUserVO();
 		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
@@ -237,7 +248,7 @@ public class PersonalController {
 
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
-	public String RmodifyPOST(String id, Integer bno, Model model) throws Exception {
+	public String RmodifyGET(String id, Integer bno, Model model) throws Exception {
 		// 수정하는 페이지
 		System.out.println("Rmodify GET Controller");
 		model.addAttribute("PUserVO", service.selectPUser("jin3"));
@@ -346,17 +357,6 @@ public class PersonalController {
 		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
 	}
 
-	// 이력서 관리 (리스트)
-	@RequestMapping(value = "/manage", method = RequestMethod.GET)
-	public String manageGET(Model model) throws Exception {
-		System.out.println("manage GET Controller");
-		String id = "jin3";
-		model.addAttribute("ResumeVOList", Rservice.selectRList(id));
-		model.addAttribute("PUserVO", service.selectPUser(id));
-
-		return "personal/P_manage";
-	}
-
 	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
 	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("Rremove POST Controller");
@@ -404,13 +404,13 @@ public class PersonalController {
 	private String uploadPath;
 
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
-	public void uploadAjax() {
+	public void uploadAjaxGET() {
 
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+	public ResponseEntity<String> uploadAjaxPOST(MultipartFile file) throws Exception {
 
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
