@@ -19,7 +19,7 @@ public class PUserDAOImpl implements PUserDAO {
 
 	@Override
 	public PUserVO selectPUser(String id) throws Exception {
-		return session.selectOne(namespace + ".selectPuser", id);
+		return session.selectOne(namespace + ".selectPUser", id);
 	}
 
 	@Override

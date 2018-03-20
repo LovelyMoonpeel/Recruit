@@ -1,8 +1,11 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.persistence.ResumeLanguageDAO;
@@ -19,8 +22,8 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	}
 
 	@Override
-	public ResumeLanguageVO read(Integer id) throws Exception {
-		return dao.readResumeLanguage(id);
+	public List<ResumeLanguageVO> selectResumeLanguageList(Integer rid) throws Exception {
+		return dao.selectResumeLanguageList(rid);
 	}
 
 	@Override
@@ -37,6 +40,25 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 	public void createResumeLanguage(ResumeLanguageVO vo) throws Exception {
 		dao.createResumeLanguage(vo);		
 	}
+	
+	@Transactional
+	@Override
+	public void updateLList(Integer rid, List<ResumeLanguageVO> rlangvolist)throws Exception{
+		
+		dao.deleteRLangList(rid);
+		//레주메 번호에 해당하는 모든 Lang을 지운다.
 
-
+		if (rlangvolist != null) {
+			for (int i = 0; i < rlangvolist.size(); i++)
+				dao.createResumeLanguage(rlangvolist.get(i));
+		}
+	}
+	
+	@Override
+	public void createRLanguageList(Integer rid, List<ResumeLanguageVO> rlangvolist)throws Exception{
+		if (rlangvolist != null) {
+			for (int i = 0; i < rlangvolist.size(); i++)
+				dao.createRLanguageList(rid, rlangvolist.get(i));
+		}
+	}
 }

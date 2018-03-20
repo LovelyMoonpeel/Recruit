@@ -1,18 +1,21 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import com.recruit.domain.PTelVO;
 
 public interface PTelService {
 	
-	public void regist(PTelVO vo)throws Exception;
+	public void createTOne(PTelVO ptvo)throws Exception;
 	
-	public PTelVO read(Integer id)throws Exception;
+	public List<PTelVO> selectPTelList(Integer bno)throws Exception;
 	
-	public void modify(PTelVO vo)throws Exception;
+	public void updateTOne(Integer ptvoid)throws Exception;
 	
-	public void remove(Integer id)throws Exception;
-
-	public void createPTel(PTelVO vo)throws Exception;
-
+	public void deleteTOne(Integer id)throws Exception;
 	
+	public void updateTList(Integer rid, List<PTelVO> PTelVOlist) throws Exception;
+	
+	public void createTList(Integer bno, List<PTelVO> PTelVOlist) throws Exception;
+	//안소연 사용
 }

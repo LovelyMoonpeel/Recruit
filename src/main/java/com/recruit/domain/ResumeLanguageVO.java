@@ -1,20 +1,29 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class ResumeLanguageVO {
 	
-	private int id;
+	private int resumelangid;
 	private int rid;
 	private int lid;
 	private String test;
 	private String score;
 	private String publeoffice;
 	private String acquidate;
+	private List<ResumeLanguageVO> rlangvolist;
 	
-	public int getId() {
-		return id;
+	public List<ResumeLanguageVO> getRlangvolist() {
+		return rlangvolist;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setRlangvolist(List<ResumeLanguageVO> rlangvolist) {
+		this.rlangvolist = rlangvolist;
+	}
+	public int getResumelangid() {
+		return resumelangid;
+	}
+	public void setResumelangid(int resumelangid) {
+		this.resumelangid = resumelangid;
 	}
 	public int getRid() {
 		return rid;
@@ -54,7 +63,7 @@ public class ResumeLanguageVO {
 	}
 	@Override
 	public String toString() {
-		return "ResumeLanguageVO [id=" + id + ", rid=" + rid + ", lid=" + lid + ", test=" + test + ", score=" + score
+		return "ResumeLanguageVO [resumelangid=" + resumelangid + ", rid=" + rid + ", lid=" + lid + ", test=" + test + ", score=" + score
 				+ ", publeoffice=" + publeoffice + ", acquidate=" + acquidate + "]";
 	}	
 	

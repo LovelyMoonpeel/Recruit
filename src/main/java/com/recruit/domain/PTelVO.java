@@ -1,17 +1,26 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class PTelVO {
 
-	private int id;
+	private int telid;
 	private int rid;
-	private String title;
+	private String teltitle;
 	private String tel;
+	private List<PTelVO> ptelvolist;
 	
-	public int getId() {
-		return id;
+	public List<PTelVO> getPtelvolist() {
+		return ptelvolist;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setPtelvolist(List<PTelVO> ptelvolist) {
+		this.ptelvolist = ptelvolist;
+	}
+	public int getTelid() {
+		return telid;
+	}
+	public void setTelid(int telid) {
+		this.telid = telid;
 	}
 	public int getRid() {
 		return rid;
@@ -19,11 +28,11 @@ public class PTelVO {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	public String getTitle() {
-		return title;
+	public String getTeltitle() {
+		return teltitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTeltitle(String teltitle) {
+		this.teltitle = teltitle;
 	}
 	public String getTel() {
 		return tel;
@@ -33,7 +42,6 @@ public class PTelVO {
 	}
 	@Override
 	public String toString() {
-		return "PTelVO [id=" + id + ", rid=" + rid + ", title=" + title + ", tel=" + tel + "]";
-	}	
-	
+		return "PTelVO [telid=" + telid + ", rid=" + rid + ", teltitle=" + teltitle + ", tel=" + tel + "]";
+	}
 }

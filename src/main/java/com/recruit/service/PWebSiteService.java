@@ -1,18 +1,22 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import com.recruit.domain.PWebSiteVO;
 
 public interface PWebSiteService {
 	
 	public void regist(PWebSiteVO vo)throws Exception;
 	
-	public PWebSiteVO read(Integer id)throws Exception;
+	public List<PWebSiteVO> selectPWebSiteList(Integer rid)throws Exception;
 	
 	public void modify(PWebSiteVO vo)throws Exception;
 	
 	public void remove(Integer id)throws Exception;
 
 	public void createPWebSite(PWebSiteVO vo)throws Exception;
-
 	
+	public void updateWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception;
+	
+	public void createWList(Integer rid, List<PWebSiteVO> pwebsitesvolist) throws Exception;
 }

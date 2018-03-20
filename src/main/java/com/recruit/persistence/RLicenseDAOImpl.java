@@ -1,5 +1,7 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,8 +23,8 @@ public class RLicenseDAOImpl implements RLicenseDAO{
 	}
 
 	@Override
-	public RLicenseVO readRLicense(Integer id) throws Exception {
-		return session.selectOne(namespace+".readRLicense", id);
+	public List<RLicenseVO> selectRLicenseList(Integer bno) throws Exception {
+		return session.selectList(namespace+".selectRLicenseList", bno);
 	}
 
 	@Override
@@ -34,5 +36,15 @@ public class RLicenseDAOImpl implements RLicenseDAO{
 	public void deleteRLicense(Integer id) throws Exception {
 		session.delete(namespace+".deleteRLicense", id);
 	}
-
+	
+	@Override
+	public void deleteRLicenseList(Integer rid)throws Exception {
+		session.delete(namespace+".deleteRLicense",rid);
+	}
+	
+	@Override
+	public void createRLicenseOneoflist(Integer rid, RLicenseVO plivo)throws Exception {
+		plivo.setRid(rid);
+		session.insert(namespace+".createRLicense", plivo);
+	}
 }

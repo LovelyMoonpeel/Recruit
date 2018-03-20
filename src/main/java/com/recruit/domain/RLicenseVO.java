@@ -1,18 +1,27 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class RLicenseVO {
 	
-	private int id;
+	private int licenseid;
 	private int rid;
-	private String test;
+	private String licensename;
 	private String publeoffice;
 	private String acquidate;
+	private List<RLicenseVO> rlicensevolist;
 	
-	public int getId() {
-		return id;
+	public List<RLicenseVO> getRlicensevolist() {
+		return rlicensevolist;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setRlicensevolist(List<RLicenseVO> rlicensevolist) {
+		this.rlicensevolist = rlicensevolist;
+	}
+	public int getLicenseid() {
+		return licenseid;
+	}
+	public void setLicenseid(int licenseid) {
+		this.licenseid = licenseid;
 	}
 	public int getRid() {
 		return rid;
@@ -20,11 +29,11 @@ public class RLicenseVO {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	public String getTest() {
-		return test;
+	public String getLicensename() {
+		return licensename;
 	}
-	public void setTest(String test) {
-		this.test = test;
+	public void setLicensename(String licensename) {
+		this.licensename = licensename;
 	}
 	public String getPubleoffice() {
 		return publeoffice;
@@ -40,7 +49,7 @@ public class RLicenseVO {
 	}
 	@Override
 	public String toString() {
-		return "RLicenseVO [id=" + id + ", rid=" + rid + ", test=" + test + ", publeoffice=" + publeoffice
+		return "RLicenseVO [licenseid=" + licenseid + ", rid=" + rid + ", licensename=" + licensename + ", publeoffice=" + publeoffice
 				+ ", acquidate=" + acquidate + "]";
 	}	
 	
