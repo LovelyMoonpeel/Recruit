@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
@@ -40,9 +42,17 @@ public class CompanyController {
 	private String uploadPath;
 
 	@RequestMapping(value = "/C_index", method = RequestMethod.GET) // 기업 메인 화면
-	public void read(String id, Model model) throws Exception {
-
-		model.addAttribute(service.CompanyInfoRead(id));
+	public String read(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			model.addAttribute(service.CompanyInfoRead(id));
+			return "/company/C_index";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
 	}
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
