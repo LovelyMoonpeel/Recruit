@@ -131,21 +131,19 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setCid(listRecruit.get(i).getCid());
 			spanelVO.setTitle(listRecruit.get(i).getTitle());
 
-			spanelVO.setJobgroupid(
-					codedao.selectJobGroup(Integer.parseInt(listRecruit.get(i).getJobgroupid())).getJobgroup());
-			spanelVO.setJobgroupid2(
-					codedao.selectJobGroup(Integer.parseInt(listRecruit.get(i).getJobgroupid2())).getJobgroup());
+			spanelVO.setJobgroupid(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid()).getJobgroup());
+			spanelVO.setJobgroupid2(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid2()).getJobgroup());
 
 			String rgbid = listRecruit.get(i).getRgbid();
 			String rgsid = listRecruit.get(i).getRgsid();
-			spanelVO.setRgbid(codedao.selectRegion(rgbid, Integer.parseInt(rgsid)).getRgbname());
-			spanelVO.setRgsid(codedao.selectRegion(rgbid, Integer.parseInt(rgsid)).getRgsname());
+			spanelVO.setRgbid(codedao.selectRegion(rgbid, rgsid).getRgbname());
+			spanelVO.setRgsid(codedao.selectRegion(rgbid, rgsid).getRgsname());
 			// spanelVO.setImg(listRecruit.get(i).getImg());
 
 			// 기업회원용
 			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
-			spanelVO.setEdu(codedao.readCode(Integer.parseInt(listRecruit.get(i).getEdu())).getCareer());
-			spanelVO.setExp(codedao.readCode(Integer.parseInt(listRecruit.get(i).getExp())).getCareer());
+			spanelVO.setEdu(codedao.readCode(listRecruit.get(i).getEdu()).getCareer());
+			spanelVO.setExp(codedao.readCode(listRecruit.get(i).getExp()).getCareer());
 			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
 
 			listPanel.add(spanelVO);
@@ -167,7 +165,7 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
 
 			String rgbid = listResume.get(i).getRgbid();
-			int rgsid = listResume.get(i).getRgsid();
+			String rgsid = listResume.get(i).getRgsid();
 			spanelVO.setRgbid(codedao.selectRegion(rgbid, rgsid).getRgbname());
 			spanelVO.setRgsid(codedao.selectRegion(rgbid, rgsid).getRgsname());
 			spanelVO.setImg(listResume.get(i).getImg());

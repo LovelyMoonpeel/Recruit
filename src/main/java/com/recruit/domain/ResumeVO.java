@@ -8,13 +8,14 @@ public class ResumeVO implements Bnoble {
 	private String address;
 	private String postcode;
 	private String coverletter;
-	private int jobstateid;
-	private int jobgroupid;
-	private int jobgroupid2;
+	private String jobstateid;
+	private String jobgroupid;
+	private String jobgroupid2;
+
 	private String rgbid;
-	private int rgsid;
-	private int employstatusid;
-	private int salaryid;
+	private String rgsid;
+	private String employstatusid;
+	private String salaryid;
 	private String img;
 	private String regdate;
 
@@ -66,27 +67,27 @@ public class ResumeVO implements Bnoble {
 		this.coverletter = coverletter;
 	}
 
-	public int getJobstateid() {
+	public String getJobstateid() {
 		return jobstateid;
 	}
 
-	public void setJobstateid(int jobstateid) {
+	public void setJobstateid(String jobstateid) {
 		this.jobstateid = jobstateid;
 	}
 
-	public int getJobgroupid() {
+	public String getJobgroupid() {
 		return jobgroupid;
 	}
 
-	public void setJobgroupid(int jobgroupid) {
+	public void setJobgroupid(String jobgroupid) {
 		this.jobgroupid = jobgroupid;
 	}
 
-	public int getJobgroupid2() {
+	public String getJobgroupid2() {
 		return jobgroupid2;
 	}
 
-	public void setJobgroupid2(int jobgroupid2) {
+	public void setJobgroupid2(String jobgroupid2) {
 		this.jobgroupid2 = jobgroupid2;
 	}
 
@@ -98,27 +99,27 @@ public class ResumeVO implements Bnoble {
 		this.rgbid = rgbid;
 	}
 
-	public int getRgsid() {
+	public String getRgsid() {
 		return rgsid;
 	}
 
-	public void setRgsid(int rgsid) {
+	public void setRgsid(String rgsid) {
 		this.rgsid = rgsid;
 	}
 
-	public int getEmploystatusid() {
+	public String getEmploystatusid() {
 		return employstatusid;
 	}
 
-	public void setEmploystatusid(int employstatusid) {
+	public void setEmploystatusid(String employstatusid) {
 		this.employstatusid = employstatusid;
 	}
 
-	public int getSalaryid() {
+	public String getSalaryid() {
 		return salaryid;
 	}
 
-	public void setSalaryid(int salaryid) {
+	public void setSalaryid(String salaryid) {
 		this.salaryid = salaryid;
 	}
 
@@ -154,16 +155,16 @@ public class ResumeVO implements Bnoble {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + bno;
 		result = prime * result + ((coverletter == null) ? 0 : coverletter.hashCode());
-		result = prime * result + employstatusid;
+		result = prime * result + ((employstatusid == null) ? 0 : employstatusid.hashCode());
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
-		result = prime * result + jobgroupid;
-		result = prime * result + jobgroupid2;
-		result = prime * result + jobstateid;
+		result = prime * result + ((jobgroupid == null) ? 0 : jobgroupid.hashCode());
+		result = prime * result + ((jobgroupid2 == null) ? 0 : jobgroupid2.hashCode());
+		result = prime * result + ((jobstateid == null) ? 0 : jobstateid.hashCode());
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
 		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
 		result = prime * result + ((rgbid == null) ? 0 : rgbid.hashCode());
-		result = prime * result + rgsid;
-		result = prime * result + salaryid;
+		result = prime * result + ((rgsid == null) ? 0 : rgsid.hashCode());
+		result = prime * result + ((salaryid == null) ? 0 : salaryid.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
@@ -190,18 +191,30 @@ public class ResumeVO implements Bnoble {
 				return false;
 		} else if (!coverletter.equals(other.coverletter))
 			return false;
-		if (employstatusid != other.employstatusid)
+		if (employstatusid == null) {
+			if (other.employstatusid != null)
+				return false;
+		} else if (!employstatusid.equals(other.employstatusid))
 			return false;
 		if (img == null) {
 			if (other.img != null)
 				return false;
 		} else if (!img.equals(other.img))
 			return false;
-		if (jobgroupid != other.jobgroupid)
+		if (jobgroupid == null) {
+			if (other.jobgroupid != null)
+				return false;
+		} else if (!jobgroupid.equals(other.jobgroupid))
 			return false;
-		if (jobgroupid2 != other.jobgroupid2)
+		if (jobgroupid2 == null) {
+			if (other.jobgroupid2 != null)
+				return false;
+		} else if (!jobgroupid2.equals(other.jobgroupid2))
 			return false;
-		if (jobstateid != other.jobstateid)
+		if (jobstateid == null) {
+			if (other.jobstateid != null)
+				return false;
+		} else if (!jobstateid.equals(other.jobstateid))
 			return false;
 		if (postcode == null) {
 			if (other.postcode != null)
@@ -218,9 +231,15 @@ public class ResumeVO implements Bnoble {
 				return false;
 		} else if (!rgbid.equals(other.rgbid))
 			return false;
-		if (rgsid != other.rgsid)
+		if (rgsid == null) {
+			if (other.rgsid != null)
+				return false;
+		} else if (!rgsid.equals(other.rgsid))
 			return false;
-		if (salaryid != other.salaryid)
+		if (salaryid == null) {
+			if (other.salaryid != null)
+				return false;
+		} else if (!salaryid.equals(other.salaryid))
 			return false;
 		if (title == null) {
 			if (other.title != null)

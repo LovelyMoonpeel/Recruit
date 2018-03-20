@@ -178,11 +178,13 @@ public class PersonalController {
 
 		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
 		model.addAttribute("ResumeVO", Rservice.readROne(bno));
-
+		model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
 		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+		model.addAttribute("REduVO", Eduservice.read(bno));
+		System.out.println(Webservice.selectPWebSiteList(bno));
 
 		return "personal/P_detail";
 	}
@@ -219,6 +221,12 @@ public class PersonalController {
 		model.addAttribute("careerVOList", resumeCareerVOList);
 		// end of r.code 03/13
 
+		System.out.println(Webservice.selectPWebSiteList(bno));
+
+		model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+		model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+		model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+
 		return "personal/P_Rmodify";
 	}
 
@@ -227,6 +235,27 @@ public class PersonalController {
 	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
 			RLicenseVO plivo, ResumeVO resume, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, Model model,
 			RedirectAttributes rttr) throws Exception {
+		/*
+		 * PUserVO PUser = new PUserVO(); PUser.setId("jin3");// 이거는 로그인해서
+		 * id받아오도록 로그인 완성되면 합치면서 수정
+		 * 
+		 * model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
+		 * 
+		 * model.addAttribute("ResumeVO", Rservice.readROne(bno));
+		 * 
+		 * model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+		 * 
+		 * model.addAttribute("RLicenselist",
+		 * Licenseservice.selectRLicenseList(bno));
+		 * 
+		 * model.addAttribute("RLanguagelist",
+		 * Langservice.selectResumeLanguageList(bno));
+		 */
+		System.out.println("Rmodify POST bno" + bno);
+		System.out.println("Rmodify POST id" + id);
+
+		System.out.println("Rmodify POST rgbid : " + resume.getRgbid());
+		System.out.println("Rmodify POST rgsid : " + resume.getRgsid());
 
 		System.out.println("Rmodify POST Controller");
 

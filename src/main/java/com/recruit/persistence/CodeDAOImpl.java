@@ -23,22 +23,22 @@ public class CodeDAOImpl implements CodeDAO {
 
 	@Override
 	public List<CodeVO> CodeList(int tid) throws Exception {
-		
+
 		return session.selectList(namespace + ".CodeList", tid);
 	}
 
 	@Override
-	public CodeVO readCode(int id) throws Exception {
+	public CodeVO readCode(String id) throws Exception {
 		return session.selectOne(namespace + ".readCode", id);
 	}
 
 	@Override
-	public JobGroupVO selectJobGroup(int id) throws Exception {
+	public JobGroupVO selectJobGroup(String id) throws Exception {
 		return session.selectOne(namespace + ".selectJobGroup", id);
 	}
 
 	@Override
-	public RegionVO selectRegion(String rgbid, int rgsid) throws Exception {
+	public RegionVO selectRegion(String rgbid, String rgsid) throws Exception {
 
 		Map map = new HashMap();
 		map.put("rgbid", rgbid);

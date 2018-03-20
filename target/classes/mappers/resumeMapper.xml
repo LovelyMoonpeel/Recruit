@@ -77,7 +77,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 안소연 -->
 	<![CDATA[
 	update project.tblresume 
+<<<<<<< HEAD
 	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = 1, jobgroupid = 1, rgbid = 'Z', rgsid = 102, employstatusid = 1, salaryid = 1, img = #{img}
+=======
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
+>>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 	where bno = #{bno}
     ]]>
 	</update>
@@ -98,6 +102,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where userid = #{id}
   	]]>
 	</select>
+	
+	<!-- CodeDB이력서와연결 -->
+   	<select id="selectRCodeList" resultType="com.recruit.domain.CodeVO">
+      select *
+      from 
+      project.tblcode
+   	</select>
+   
+   	<!-- JobGroupDB이력서와연결 -->
+   	<select id="selectRGPList" resultType="com.recruit.domain.JobGroupVO">
+      select *
+      from 
+      project.tbljobgroup
+   	</select>
+   
+   	<!-- RegionDB이력서와연결 -->
+   	<select id="selectRegionList" resultType="com.recruit.domain.RegionVO">
+      <![CDATA[
+      select DISTINCT rgbid, rgbname
+      from 
+      project.tblregion
+      ]]>
+    </select>
+    
+    <!-- 이력서화면에 출력 -->
+    <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
+	    <![CDATA[
+	    select a.bno, a.userid, a.title, a.address, a.postcode, 
+			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
+            b.jobgroup as jobgroupid, 
+			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
+			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid
+			
+		from 
+			tblresume a, tbljobgroup b, tblcode c, tblregion d
+		where 	a.bno = #{bno}
+			and a.jobstateid = c.id
+			and a.jobgroupid = b.id
+			and a.rgbid = d.rgbid
+			and a.rgsid = d.rgsid;
+		]]>
+	</select>
+	
 
 	<!-- 이력서 이미지 등록 -->
 	<!-- update project.tblresume set img = #{img} where bno = MAX(bno); update 
@@ -105,14 +152,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tblresume R2 where userid = #{id}) R3); -->
 
 	<update id="addRimgAttach">
-  <![CDATA[
-	
-	update tblresume R1
-	set img = #{img}
-	where bno = (select *
-				from (select Max(bno)
-						from tblresume R2) R3);
-  ]]>
+	<![CDATA[
+		
+		update tblresume R1
+		set img = #{img}
+		where bno = (select *
+					from (select Max(bno)
+							from tblresume R2) R3);
+	]]>
 	</update>
 
 
@@ -221,9 +268,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 REdu 확인 -->
 	<select id="readResumeEdu" resultType="com.recruit.domain.ResumeEduVO">
 	<![CDATA[
-	select e.*, r.*
-	from project.tblResumeEdu e, project.tblresume r
-	where e.resumenum=r.bno
+	select e.*
+	from project.tblResumeEdu e
+	where e.resumenum=#{bno}
 	]]>
 	</select>
 

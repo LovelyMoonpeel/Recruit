@@ -10,9 +10,9 @@ public interface CodeDAO {
 
 	public List<CodeVO> CodeList(int tid) throws Exception;
 
-	public CodeVO readCode(int id) throws Exception;
+	public CodeVO readCode(String id) throws Exception;
 
-	public JobGroupVO selectJobGroup(int id) throws Exception;
+	public JobGroupVO selectJobGroup(String id) throws Exception;
 
-	public RegionVO selectRegion(String rgbid, int rgsid) throws Exception;
+	public RegionVO selectRegion(String rgbid, String rgsid) throws Exception;
 }

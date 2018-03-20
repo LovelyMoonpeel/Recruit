@@ -134,7 +134,7 @@ public class SearchDAOImpl implements SearchDAO {
 
 				ResumeVO rtmp = new ResumeVO();
 				rtmp.setRgbid(sel_skeys.get(i).substring(1, 2));
-				rtmp.setRgsid(Integer.parseInt(sel_skeys.get(i).substring(2)));
+				rtmp.setRgsid(sel_skeys.get(i).substring(2));
 				list.add(rtmp);
 			}
 		}
