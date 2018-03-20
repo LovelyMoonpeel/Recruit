@@ -3,7 +3,6 @@
 
 <%@include file="../include/cheader.jsp"%>
 
-
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <div class="col-md-9">
@@ -11,7 +10,7 @@
 	<div class="top_cont">
 		<div class="corp_logo">
 			<img src="/resources/rpjt/img/${CInfoVO.img}"
-				 name="img" value="${CInfoVO.img}" style="width:200px;"/> <br> <br>
+				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
@@ -81,22 +80,33 @@
                       </tr> -->
 				</tbody>
 			</table>
-			
-	
 			<!-- //table class -->
 		</div>
 		<!-- //table-responsive -->
 	</div>
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	<form role="form" method="post">
-			<input type='hidden' name='id' value="${CInfoVO.id}">
-			</form>
-			
-	<!-- 수정 버튼 -->
-	<div class="box-footer">
-	<button type="submit" class="btn btn-warning">수정하기</button>
+	
+
+	<h1><a>'${CInfoVO.cname}'</a>진행중인 채용 공고</h1>
+	
+	<div class="row">
+  <c:forEach items="${RecruitList}" var="list">
+  <div class="col-sm-6 col-md-4">
+     
+    <div class="thumbnail">
+
+	 <div class="caption">
+        <span>~${list.period}</span> <img src=/resources/rpjt/img/non.png>
+        <br><a id="r1" value="${list.bno}">${list.title}</a><br>
+        <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
+      </div>
+    </div>
+  </div>
+    </c:forEach>
 </div>
+			
+	
 
 
 
@@ -105,26 +115,19 @@
 </div>
 <!-- //기업 페이지 -->
 
-			<script>
-				
-$(document).ready(function(){
+<script>
+
+$(document).on("click",'#r1',function(){
+
+	var a = $(this).attr("value");
 	
-var formObj = $("form[role='form']");
+	self.location = "/company/C_recruitMent?recruitNum="+a;
 	
-	console.log(formObj);
-	
-	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/company/C_modify");
-		formObj.attr("method", "get");		
-		formObj.submit();
-	});
-	
-	
-});
-var result = '${msg}';
-if (result == 'SUCCESS') {
-	alert("수정이 완료됐습니다.");
-}
+})
+
+
+
 </script>
+
 
 <%@include file="../include/cfooter.jsp"%>

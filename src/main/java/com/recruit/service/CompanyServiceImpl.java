@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.CInfoVO;
+import com.recruit.domain.CInterestPersonVO;
+import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -59,7 +61,11 @@ public class CompanyServiceImpl implements CompanyService {
 	 @Transactional
 	 @Override
 	 public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
-//		 System.out.println("service넘어옴 값은 = "+recruitNum);
+
+		 System.out.println("service넘어옴 값은 = "+recruitNum);
+		 
+		 System.out.println("출력값은 : " + dao.RecruitInfoRead(recruitNum));
+		 
 		 dao.updateViewCnt(recruitNum);
 		 
 		 return dao.RecruitInfoRead(recruitNum);
@@ -74,11 +80,51 @@ public class CompanyServiceImpl implements CompanyService {
 	 public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
 		 return dao.RecruitInfoRead3(recruitNum);
 	 } 
-	 
-	 public List<ResumeVO> FavorList(String id) throws Exception{
+	 @Override
+	 public List<CPersonInfoVO> FavorList(String id) throws Exception{
 		 
 		 return dao.FavorList(id);
 		 
+	 }
+	 @Override
+	 public List<RecruitVO> cinfoRecruitList(String id) throws Exception{
+		 
+		 return dao.cinfoRecruitList(id);
+	 }
+
+	@Override
+	public void RecruitModify(RecruitVO recruitModify) throws Exception {
+		
+		dao.RecruitModify(recruitModify);
+	}
+	@Override
+	public RecruitVO RecruitModifyRead(int bno, String id)throws Exception{
+		System.out.println("출력결과는 : " +dao.RecruitModifyRead(bno,id));
+		return dao.RecruitModifyRead(bno,id);
+	}
+
+	@Override
+	public void RecruitRemove(int bno, String id) throws Exception {
+		
+		dao.RecruitRemove(bno ,id);
+	}
+
+	@Override
+	public List<ResumeVO> ApplyList(int recruitNum) throws Exception {
+		
+		return dao.ApplyList(recruitNum);
+	}
+
+	 @Override
+		public List<CInterestPersonVO> FavorCompareList(String id) throws Exception {
+			
+			return dao.FavorCompareList(id);
+		}
+	 
+	 @Override
+	 public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception{
+		 
+		 return dao.CInfoRecruitList(id);
 	 }
 	  
 
