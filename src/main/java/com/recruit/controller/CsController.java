@@ -4,9 +4,12 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,6 +124,39 @@ public class CsController {
 		rttr.addFlashAttribute("msg", "modify");
 
 		return "redirect:/cs/S_qna";
+	}
+	
+	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno){
+		ResponseEntity<String> entity = null;
+		
+		try{
+//			String dbpw = qservice.modread(bno).getBpw();
+//			String inputpw = bpw;
+//			System.out.println("bpw 출력 : "+ inputpw);
+			String result = qservice.modread(bno).getBpw();
+//			System.out.println("비밀번호는 무엇 ? "+result);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/S_qnaread/pwc/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> bpwc(@PathVariable("bno") Integer bno){
+		ResponseEntity<String> entity = null;
+		
+		try{
+			String result = qservice.modread(bno).getBpw();
+			System.out.println("결과 출력 : "+result);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 
 }

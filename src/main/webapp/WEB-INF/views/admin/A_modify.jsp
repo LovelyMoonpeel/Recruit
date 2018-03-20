@@ -18,7 +18,6 @@
 
 	<h1>회원정보 수정</h1>
 	<form role="form" action="A_modify" method="POST">
-	 <input type='hidden' name='id' value="${AmainVO.id}">
      <input type='hidden' name='page' value="${cri.page}">
      <input type='hidden' name='perPageNum' value="${cri.perPageNum}">
      <input type='hidden' name='searchType' value="${cri.searchType}">
@@ -26,12 +25,12 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${AmainVO.id}" readonly></td>
+				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td><input class="form-control" type="text" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${AmainVO.pw}" required></td>
+					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
@@ -42,25 +41,25 @@
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${AmainVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${AmainVO.email}" required></td>
+					value="${BoardVO.email}" required></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" name="birth" value="${AmainVO.birth}" required>
+				<input type="text" class="form-control" id="birth" name="birth" value="${BoardVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
 				</div>
 				</td>
 			</tr>
-			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${AmainVO.birth}" /> --%>
+			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${BoardVO.birth}" /> --%>
 		</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">
@@ -81,7 +80,7 @@
 		<tr>
 			<td>${ResumeVO.bno}</td>
 			<td>${ResumeVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/A_rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" onclick="location.href='/admin/rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -92,11 +91,11 @@
 <!-- 달력 나오게 하는 스크립트  -->
 <script type='text/javascript'>
 	$(function() {
-		$('.input-group.date').datepicker({
+		$('.input-group .date').datepicker({
 			calendarWeeks : false,
 			todayHighlight : true,
 			autoclose : true,
-			format : "yyyy-mm-dd",
+			format : "yyyy/mm/dd",
 			language : "kr"
 		});
 	});
@@ -142,12 +141,12 @@ $(function(){
 	$(".btn-warning").on("click", function(){
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
-		
+
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("수정하시겠습니까?")){
 				formObj.submit();
-			}
-		}else{
+				}
+			}else{
 			alert("비밀번호를 확인해주세요.");
 		}
 	});
@@ -167,7 +166,7 @@ $(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/admin/A_main?page=${cri.page}&perPageNum=${cri.perPageNum}"
+		self.location = "/admin/main?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
 });

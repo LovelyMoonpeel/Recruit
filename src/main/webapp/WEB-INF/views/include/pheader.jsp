@@ -42,7 +42,7 @@
 				<div class="list-grozup">
 					<a href="/personal/index" class="list-group-item">개인정보관리 P_index</a><!-- p08 --> <a
 						href="/personal/write?id=${PUserVO.id}" class="list-group-item">이력서 작성</a> <!-- p02 --><a
-						href="/personal/manage?id=${PUserVO.id}" class="list-group-item">이력서 관리</a> <!-- p01 --><a
+						href="/personal/manage" class="list-group-item">이력서 관리</a> <!-- p01 --><a
 						href="/personal/recom?id=${PUserVO.id}" class="list-group-item">추천채용공고 P_recom</a> <!-- p04 --><a
 						href="/personal/favor?id=${PUserVO.id}" id = "P_favor" class="list-group-item">관심채용공고 P_favor</a> <!-- p05 --><a
 						href="/personal/applied?id=${PUserVO.id}" class="list-group-item">지원현황리스트 P_applied</a><!-- p07 -->

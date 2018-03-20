@@ -1,5 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import = "java.net.URLDecoder" %>
+<%@ page import = "com.recruit.domain.BoardVO" %>
+<%
+	String idc = "";
+	String chkc = "";
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null && cookies.length > 0){
+		for(int i=0;i<cookies.length;i++){
+			if(cookies[i].getName().equals("loginCookie")){
+				idc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
+				chkc = "checked='checked'";
+			}
+		}
+	}
+%>
+
+<%
+	String id = "";
+	BoardVO login = null;
+	String cname = "";
+	String location = "";
+	
+	try{
+		login = (BoardVO)session.getAttribute("login");
+		if(login != null){
+		id = login.getId();
+		cname = login.getCname();
+		}
+		if(cname==null){
+			location = "/personal/index";
+		}else{
+			location = "/company/C_index";
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
 
 <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -40,10 +79,12 @@
 
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
-						<li><a href="#">MyPage</a></li>
+
+						<li><a href="<%= location%>">MyPage</a></li>
 						
-						<!--버튼을 누르면 UserController에  /rpjt/logout을 찾아간다 -->
-						<li><a href="/rpjt/logout">로그아웃</a></li>
+						
+						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
+						<li><a href="/user/logout">로그아웃</a></li>
 						<li><a href="#">${sessionScope.login.id}등장</a></li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
@@ -87,14 +128,14 @@
 						<!--_____________________1-1.로그인 개인 회원 시작_____________________ -->
 						<div id="login_person" class="tab-pane fade in active">
 							
-							<!-- action의 속성값으로 인해 UserController의 '/rpjt/loginPost'부분으로 넘어간다  -->
-							<form action="/rpjt/loginPost" method="post">
+							<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
+							<form action="/user/loginPost" method="post">
 								
 								<!--id입력  -->
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 개인 회원 로그인" required/> <span
+										placeholder="ID 개인 회원 로그인" value="<%=idc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
@@ -111,7 +152,7 @@
 									<!--기억하기 체크버튼  -->
 									<div class="col-xs-8">
 										<div class="checkbox icheck">
-											<label> <input type="checkbox" name="useCookie">
+											<label> <input type="checkbox" name="useCookie" <%=chkc %>>
 												기억하기
 											</label>
 										</div>
@@ -140,7 +181,7 @@
 						<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
 						<div id="login_company" class="tab-pane fade">
 							
-							<form action="/rpjt/loginPost" method="post">
+							<form action="/user/loginPost" method="post">
 								
 								<!--id입력 -->
 								<div class="form-group has-feedback">
@@ -235,7 +276,7 @@
 						<div id="join_person" class="tab-pane fade in active">
 
 							<!--action속성값이 rController랑 연결되는 거 같음  -->
-							<form role="form" action="/rpjt/joinperson" method="post">
+							<form role="form" action="/user/joinperson" method="post">
 
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
@@ -277,8 +318,8 @@
 									<!--이메일 -->
 									<div class="form-group has-feedback">
 										이메일<input type="text" name="email" class="form-control"
-											placeholder="이메일을 입력하세요. 예) iampeel@naver.com" /> <span
-											class="glyphicon  form-control-feedback" required></span>
+											placeholder="이메일을 입력하세요. 예) iampeel@naver.com" required/> <span
+											class="glyphicon  form-control-feedback"></span>
 									</div>
 
 
@@ -337,8 +378,8 @@
 									<!--담당자 이메일 -->
 									<div class="form-group has-feedback">
 										담당자 이메일<input type="text" name="email" class="form-control"
-											placeholder="담당자 이메일을 입력하세요. 예) iampeel@naver.com" /> <span
-											class="glyphicon  form-control-feedback" required></span>
+											placeholder="담당자 이메일을 입력하세요. 예) iampeel@naver.com" required/> <span
+											class="glyphicon  form-control-feedback"></span>
 									</div>
 
 
@@ -462,8 +503,31 @@
         });
       });
     </script> -->
-
-
-
-
-
+    
+<!-- 로그인 부분 수정해볼 예정 -->
+<!-- <script>
+/* 로그인 버튼 */
+$("#replyAddBtn").on("click", function(){
+	var contentObj = $("#newReplyText");
+	var bnoObj = $("#bno");
+	var content = contentObj.val();
+	var bno = bnoObj.val();
+	
+	$.ajax({
+		type:'post',
+		url:'/user/loginpost',
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override": "POST"},
+		dataType:'text',
+		data: JSON.stringify({bno:bno, content:content}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'success'){
+				alert("등록완료");
+				contentObj.val("");
+				getPage("/replies/all/" + bno);
+			}
+		}});
+});
+</script> -->

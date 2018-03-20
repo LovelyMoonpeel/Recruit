@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="../include/aheader.jsp"%>
+<%@ include file="../include/aheader.jsp"%>
+
 
 <!-- 개인관리 페이지 -->
 <div class="col-md-9">
@@ -16,13 +17,13 @@
 			<th>생년월일</th>
 			<th>회원정보수정</th>
 		</tr>		
-	<c:forEach items="${list}" var="AmainVO">
+	<c:forEach items="${list}" var="BoardVO">
 		<tr>
-			<td>${AmainVO.id}</td>
-			<td>${AmainVO.pname}</td>
-			<td>${AmainVO.email}</td>
-			<td>${AmainVO.birth}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/A_modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${AmainVO.id }'" value="회원정보수정"></td>
+			<td>${BoardVO.id}</td>
+			<td>${BoardVO.pname}</td>
+			<td>${BoardVO.email}</td>
+			<td>${BoardVO.birth}</td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
 		</tr>
 	</c:forEach>
 			
@@ -33,18 +34,18 @@
 		<ul class="pagination">
 		
 			<c:if test="${pageMaker.prev }">
-				<li><a href="A_main?page=${pageMaker.startPage-1}">&laquo;</a></li>
+				<li><a href="main?page=${pageMaker.startPage-1}">&laquo;</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.page == idx? 'class=active':'' }"/>>
-					<a href="A_main${pageMaker.makeSearch(idx)}">${idx }</a>
+					<a href="main${pageMaker.makeSearch(idx)}">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-				<li><a href="A_main?page=${pageMaker.endPage + 1}">&raquo;</a></li>
+				<li><a href="main?page=${pageMaker.endPage + 1}">&raquo;</a></li>
 			</c:if>
 			
 		</ul>
@@ -55,7 +56,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#searchBtn').on("click", function(event){
-			self.location = "A_main"
+			self.location = "main"
 				+ '${pageMaker.makeQuery(1)}'
 				+ "&searchType="
 				+ $("select option:selected").val()

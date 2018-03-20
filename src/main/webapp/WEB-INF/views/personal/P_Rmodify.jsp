@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/pheader.jsp"%>
-=======
-
-<%@include file="../include/pheader.jsp"%>
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 
 <!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
 <link rel="stylesheet" type="text/css"
@@ -27,7 +22,6 @@
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의이력서수정</h1>
 	<form role="form" method="post">
-<<<<<<< HEAD
 		<!-- r.code 03/15 -->
 		<input type="hidden" name="bno" value="${bno}">
 		<!-- end of r.code -->
@@ -163,18 +157,17 @@
 				id="salaryid" name="salaryid" value="${ResumeVO.salaryid}"></input>
 		</div>
 		<input type="text" class="form-control" id="bno" name="bno"
-			value="${ResumeVO.bno}" readonly> <br>
-=======
-		<br>
-			<input type="text" class="form-control" id="bno" name="bno" value="ResumeVO의 bno값 : ${ResumeVO.bno}" readonly> 
-			<input type="text" class="form-control" id="userid" name="userid" value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> 
-			<input type="text" class="form-control" id="id" name="id" value="PUserVO의 id값  : ${PUserVO.id}" readonly>
-		<br>	
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
+			value="${ResumeVO.bno}" readonly> <br> <br> <input
+			type="text" class="form-control" id="bno" name="bno"
+			value="ResumeVO의 bno값 : ${ResumeVO.bno}" readonly> <input
+			type="text" class="form-control" id="userid" name="userid"
+			value="ResumeVO의 userid값  : ${ResumeVO.userid}" readonly> <input
+			type="text" class="form-control" id="id" name="id"
+			value="PUserVO의 id값  : ${PUserVO.id}" readonly> <br>
 		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title" name="title" value="${ResumeVO.title}">
+			<label for="title">제목</label> <input class="form-control" id="title"
+				name="title" value="${ResumeVO.title}">
 		</div>
-<<<<<<< HEAD
 		<div class="company_info_content">
 			<div class="table-responsive">
 				<table class="table table-bordered">
@@ -277,199 +270,216 @@
 			</div>
 		</div>
 		<br>
-=======
+
+		<!-- j.Merge -->
 		<div class="form-group">
-			<label for="pname">이름</label> <input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
+			<label for="pname">이름</label> <input type="text" class="form-control"
+				id="pname" name="pname" value="${PUserVO.pname}">
 		</div>
 		<div class="form-group">
-			<label for="img">사진</label>
-			<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-     		<input type = 'hidden' id='uploadfilename' name = 'img' >
+			<label for="img">사진</label> <input type='file' id='fileupload'
+				accept=".jpg,.jpeg,.png,.gif,.bmp"> <input type='hidden'
+				id='uploadfilename' name='img'>
 		</div>
 		<div class="form-group">
 			<!-- ☆google search : datepicker -->
 			<!--   <div class="form-group col-lg-6"> -->
 			<label>생년월일</label>
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}"> 
-				<span class="input-group-addon">
+				<input type="text" class="form-control" id="" name="birth"
+					value="${PUserVO.birth}"> <span class="input-group-addon">
 					<i class="glyphicon glyphicon-calendar"></i>
 				</span>
 			</div>
 			<!--  </div>  -->
 		</div>
 		<div class="form-group">
-			<label for="email">이메일</label> 
-			<input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
+			<label for="email">이메일</label> <input type="text"
+				class="form-control" id="email" name="email"
+				value="${PUserVO.email}">
 		</div>
 		<div class="form-group">
-			<label for="teltitle">전화번호(종류)</label> 
-			<input type="text" class="form-control" id="teltitle" name="teltitle" value="${PTelVO.teltitle}">
+			<label for="teltitle">전화번호(종류)</label> <input type="text"
+				class="form-control" id="teltitle" name="teltitle"
+				value="${PTelVO.teltitle}">
 		</div>
 		<div class="form-group">
-			<label for="tel">전화번호</label> 
-			<input type="text" class="form-control" id="tel" name="tel" value="${PTelVO.tel}">
+			<label for="tel">전화번호</label> <input type="text" class="form-control"
+				id="tel" name="tel" value="${PTelVO.tel}">
 		</div>
 		<div class="form-group">
-			<label for="webtitle">웹사이트(종류)</label> 
-			<input type="text" class="form-control" id="webtitle" name="webtitle" value="${PWebSiteVO.title}">
+			<label for="webtitle">웹사이트(종류)</label> <input type="text"
+				class="form-control" id="webtitle" name="webtitle"
+				value="${PWebSiteVO.title}">
 		</div>
 		<div class="form-group">
-			<label for="webadd">웹사이트</label> 
-			<input type="text" class="form-control" id="webadd" name="webadd" value="${PWebSiteVO.webadd}">
+			<label for="webadd">웹사이트</label> <input type="text"
+				class="form-control" id="webadd" name="webadd"
+				value="${PWebSiteVO.webadd}">
 		</div>
 		<div class="form-group">
-			<label for="address">주소</label> 
-			<input class="form-control" id="address" name="address" value="${ResumeVO.address}"></input>
+			<label for="address">주소</label> <input class="form-control"
+				id="address" name="address" value="${ResumeVO.address}"></input>
 		</div>
 		<div class="form-group">
-			<label for="postcode">우편번호</label> 
-			<input class="form-control"	id="postcode" name="postcode" value="${ResumeVO.postcode}"></input>
-		</div>		
-		
+			<label for="postcode">우편번호</label> <input class="form-control"
+				id="postcode" name="postcode" value="${ResumeVO.postcode}"></input>
+		</div>
+
 		<div class="form-group">
-			<label for="schoolname">학교명</label> 
-			<input class="form-control"	id="schoolname" name="schoolname" value="${ResumeEduVO.schoolname}"></input>
+			<label for="schoolname">학교명</label> <input class="form-control"
+				id="schoolname" name="schoolname" value="${ResumeEduVO.schoolname}"></input>
 		</div>
 		<div class="form-group">
-			<label for="major">학과</label> 
-			<input class="form-control" id="major" name="major" value="${ResumeEduVO.major}"></input>
+			<label for="major">학과</label> <input class="form-control" id="major"
+				name="major" value="${ResumeEduVO.major}"></input>
 		</div>
 		<div class="form-group">
-			<label for="enterdate">입학일</label> 
-			<input class="form-control" id="enterdate" name="enterdate" value="${ResumeEduVO.enterdate}"></input>
+			<label for="enterdate">입학일</label> <input class="form-control"
+				id="enterdate" name="enterdate" value="${ResumeEduVO.enterdate}"></input>
 		</div>
 		<div class="form-group">
-			<label for="gradudate">졸업일</label> 
-			<input class="form-control" id="gradudate" name="gradudate" value="${ResumeEduVO.gradudate}"></input>
+			<label for="gradudate">졸업일</label> <input class="form-control"
+				id="gradudate" name="gradudate" value="${ResumeEduVO.gradudate}"></input>
 		</div>
 		<div class="form-group">
-			<label for="edustatus">졸업상태</label> 
-			<input class="form-control" id="edustatus" name="edustatus" value="${ResumeEduVO.edustatus}"></input>
-		</div>		
-		
+			<label for="edustatus">졸업상태</label> <input class="form-control"
+				id="edustatus" name="edustatus" value="${ResumeEduVO.edustatus}"></input>
+		</div>
+
 		<div class="form-group">
-			<label for="cname">회사명</label> 
-			<input class="form-control" id="cname" name="cname" value="${ResumeCareerVO.cname}"></input>
+			<label for="cname">회사명</label> <input class="form-control" id="cname"
+				name="cname" value="${ResumeCareerVO.cname}"></input>
 		</div>
 		<div class="form-group">
-			<label for="jobdescription">담당업무</label> 
-			<input class="form-control" id="jobdescription" name="jobdescription" value="${ResumeCareerVO.jobdescription}"></input>
+			<label for="jobdescription">담당업무</label> <input class="form-control"
+				id="jobdescription" name="jobdescription"
+				value="${ResumeCareerVO.jobdescription}"></input>
 		</div>
 		<div class="form-group">
-			<label for="startjob">입사일</label> 
-			<input class="form-control" id="startjob" name="startjob" value="${ResumeCareerVO.startjob}"></input>
+			<label for="startjob">입사일</label> <input class="form-control"
+				id="startjob" name="startjob" value="${ResumeCareerVO.startjob}"></input>
 		</div>
 		<div class="form-group">
-			<label for="finishjob">퇴사일</label> 
-			<input class="form-control" id="finishjob" name="finishjob" value="${ResumeCareerVO.finishjob}"></input>
+			<label for="finishjob">퇴사일</label> <input class="form-control"
+				id="finishjob" name="finishjob" value="${ResumeCareerVO.finishjob}"></input>
 		</div>
 		<div class="form-group">
-			<label for="salary">연봉</label> 
-			<input class="form-control" id="salary" name="salary" value="${ResumeCareerVO.salary}"></input>
+			<label for="salary">연봉</label> <input class="form-control"
+				id="salary" name="salary" value="${ResumeCareerVO.salary}"></input>
 		</div>
-				
+
 		<div class="form-group">
-			<label for="test">자격증명</label> 
-			<input class="form-control" id="test" name="test" value="${RLicenseVO.test}"></input>
-		</div>
-		<div class="form-group">
-			<label for="publeoffice">발행기관</label> 
-			<input class="form-control" id="publeoffice" name="publeoffice" value="${RLicenseVO.publeoffice}"></input>
+			<label for="test">자격증명</label> <input class="form-control" id="test"
+				name="test" value="${RLicenseVO.test}"></input>
 		</div>
 		<div class="form-group">
-			<label for="acquidate">취득일자</label> 
-			<input class="form-control" id="acquidate" name="acquidate" value="${RLicenseVO.acquidate}"></input>
+			<label for="publeoffice">발행기관</label> <input class="form-control"
+				id="publeoffice" name="publeoffice"
+				value="${RLicenseVO.publeoffice}"></input>
 		</div>
 		<div class="form-group">
-			<label for="testname">공인인증시험명</label> 
-			<input class="form-control" id="testname" name="testname" value="${ResumeLanguageVO.test}"></input>
+			<label for="acquidate">취득일자</label> <input class="form-control"
+				id="acquidate" name="acquidate" value="${RLicenseVO.acquidate}"></input>
 		</div>
 		<div class="form-group">
-			<label for="score">점수</label> 
-			<input class="form-control" id="score" name="score" value="${ResumeLanguageVO.score}"></input>
+			<label for="testname">공인인증시험명</label> <input class="form-control"
+				id="testname" name="testname" value="${ResumeLanguageVO.test}"></input>
 		</div>
 		<div class="form-group">
-			<label for="lanpubleoffice">발행기관</label> 
-			<input class="form-control" id="lanpubleoffice" name="lanpubleoffice" value="${ResumeLanguageVO.publeoffice}"></input>
+			<label for="score">점수</label> <input class="form-control" id="score"
+				name="score" value="${ResumeLanguageVO.score}"></input>
 		</div>
 		<div class="form-group">
-			<label for="lanacquidate">취득일자</label> 
-			<input class="form-control" id="lanacquidate" name="lanacquidate" value="${ResumeLanguageVO.acquidate}"></input>
-		</div>	
-						
-		<!-- 셀렉션박스만들기!  -->			
+			<label for="lanpubleoffice">발행기관</label> <input class="form-control"
+				id="lanpubleoffice" name="lanpubleoffice"
+				value="${ResumeLanguageVO.publeoffice}"></input>
+		</div>
 		<div class="form-group">
-			<label for="jobstateid">구직상태</label> 
-			<select class="form-control" name="jobstateid" id="jobstateid"> 
+			<label for="lanacquidate">취득일자</label> <input class="form-control"
+				id="lanacquidate" name="lanacquidate"
+				value="${ResumeLanguageVO.acquidate}"></input>
+		</div>
+
+		<!-- 셀렉션박스만들기!  -->
+		<div class="form-group">
+			<label for="jobstateid">구직상태</label> <select class="form-control"
+				name="jobstateid" id="jobstateid">
 				<c:forEach items="${CodeVOlist }" var="CodeVO">
 					<c:if test="${CodeVO.tid == 6 }">
-						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+						<option value="${CodeVO.id }"
+							<c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if>>
+							${CodeVO.career }</option>
 					</c:if>
 				</c:forEach>
 			</select>
 		</div>
-      
+
 		<div class="form-group">
-		<label for="jobgroupid">희망직종(대분류)</label> 
-			<select id="jobGroup" class="form-control" name="jobgroupid">
+			<label for="jobgroupid">희망직종(대분류)</label> <select id="jobGroup"
+				class="form-control" name="jobgroupid">
 				<option value="">모집직종</option>
 				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 				</c:forEach>
-			</select> 			
-			<label for="jobgroupid">희망직종(소분류)</label> 
-			<select id="subjobGroup" class="form-control" name="jobgroupid2">
+			</select> <label for="jobgroupid">희망직종(소분류)</label> <select id="subjobGroup"
+				class="form-control" name="jobgroupid2">
 				<option value="">희망직종(소분류)</option>
 			</select>
-		</div>    	
-      
-		<div class="form-group">
-		<label for="CodeList4">희망근무형태</label>
-			<select class="form-control" name="employstatusid" id="employstatusid"> 
-				<c:forEach items="${CodeVOlist }" var="CodeVO">
-					<c:if test="${CodeVO.tid == 4 }">
-						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if> > ${CodeVO.career } </option>
-					</c:if>
-				</c:forEach>
-			</select> 
 		</div>
 
-		<div class="form-group">	
-		<label for="jobgroupid">희망근무지(시/도)(구현X)</label> 
-			<select id="region" class="form-control" name='rgbid'>
+		<div class="form-group">
+			<label for="CodeList4">희망근무형태</label> <select class="form-control"
+				name="employstatusid" id="employstatusid">
+				<c:forEach items="${CodeVOlist }" var="CodeVO">
+					<c:if test="${CodeVO.tid == 4 }">
+						<option value="${CodeVO.id }"
+							<c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>>
+							${CodeVO.career }</option>
+					</c:if>
+				</c:forEach>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="jobgroupid">희망근무지(시/도)(구현X)</label> <select id="region"
+				class="form-control" name='rgbid'>
 				<option value="">희망근무지(시/도)(구현X)</option>
 				<c:forEach items="${RegionVOlist}" var="RegionVO">
 					<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 				</c:forEach>
-			</select>
-			<label for="jobgroupid">희망근무지(구현X)</label> 
-			<select id="subRegion" class="form-control" name='rgsid'>
+			</select> <label for="jobgroupid">희망근무지(구현X)</label> <select id="subRegion"
+				class="form-control" name='rgsid'>
 				<option value="">희망 근무지</option>
 			</select>
 		</div>
-       
+
 		<div class="form-group">
-		<label for="CodeList7">희망연봉</label>
-			<select class="form-control" name="salaryid" id="CodeList7">
+			<label for="CodeList7">희망연봉</label> <select class="form-control"
+				name="salaryid" id="CodeList7">
 				<c:forEach items="${CodeVOlist }" var="CodeVO">
 					<c:if test="${CodeVO.tid == 7 }">
-						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+						<option value="${CodeVO.id }"
+							<c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if>>
+							${CodeVO.career }</option>
 					</c:if>
 				</c:forEach>
 			</select>
 		</div>
-      
-      <!-- 셀렉션박스만들기 끝!!  -->
+
+		<!-- 셀렉션박스만들기 끝!!  -->
 
 		<div class="form-group">
 			<label for="coverletter">자기소개서</label>
-			<textarea class="form-control" rows="10" id="coverletter" name="coverletter">${ResumeVO.coverletter}</textarea>
+			<textarea class="form-control" rows="10" id="coverletter"
+				name="coverletter">${ResumeVO.coverletter}</textarea>
 		</div>
-			
-		<button id="btn-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
-		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
+
+		<button id="btn-success" class="btn btn-success col-md-offset-10"
+			type="submit">등록</button>
+		<button id="write-cancel" class="btn btn-danger"
+			onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';"
+			type="button">취소</button>
 	</form>
 	<button id="write-success" class="btn btn-success col-md-offset-10"
 		type="submit">등록</button>
@@ -797,14 +807,8 @@
 </script>
 
 <script type='text/javascript'>
-<<<<<<< HEAD
-=======
-   $(document).ready(function() {
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 
-<<<<<<< HEAD
 $(document).ready(function() {
-		
 		// r.code 03/14 Handlebars Helper 등록
 		Handlebars.registerHelper('select', function( value, options ){
 	        var $el = $('<select />').html( options.fn(this) );
@@ -814,22 +818,17 @@ $(document).ready(function() {
 
 		var formObj = $("form[role = 'form']");
 		var xornot = document.getElementById('xornot');
-=======
-      var formObj = $("form[role = 'form']");
-      var xornot = document.getElementById('xornot');
-      
-      $(function() {
-         $('.input-group.date').datepicker({
-            calendarWeeks : false,
-            todayHighlight : true,
-            autoclose : true,
-            format : "yyyy-mm-dd",
-            language : "kr"
-         });
-      });
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
-
-<<<<<<< HEAD
+		
+		$(function() {
+	         $('.input-group.date').datepicker({
+	            calendarWeeks : false,
+	            todayHighlight : true,
+	            autoclose : true,
+	            format : "yyyy-mm-dd",
+	            language : "kr"
+	         });
+	      });
+		
 		function datepick() {
 			$('.input-group.date').datepicker({
 			calendarWeeks : false,
@@ -839,17 +838,7 @@ $(document).ready(function() {
 			language : "kr"
 			});
 		}
-		
-		$(function() {
-			$('.input-group.date').datepicker({
-				calendarWeeks : false,
-				todayHighlight : true,
-				autoclose : true,
-				format : "yyyy-mm-dd",
-				language : "kr"
-			});
-		});
-=======
+
       console.log('${PWebSitelist}');
       var imgsrccheck = ('#imgsrccheck');
       
@@ -1014,17 +1003,9 @@ $(document).ready(function() {
             });
             formObj.attr("action", "/personal/Rmodify");
             formObj.attr("method", "post");
-            formObj.submit();
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
-
-<<<<<<< HEAD
-
-
-		$("#btn-success").on("click", function() {
-			formObj.attr("action", "/personal/Rmodify");
-			formObj.attr("method", "post");
 			numberingListr();
-			formObj.submit();
+            formObj.submit();
+
 		});
 
 		console.log('${PWebSitelist}');
@@ -1269,8 +1250,7 @@ $(document).ready(function() {
 		}		
 		edu_list();
 		exp_list();
-	});
-    
+<!-- }); -->    
 		function numberingList() {
  			$(".telclass").each(function(index){
 				var num = 3;
@@ -1342,6 +1322,7 @@ $(document).ready(function() {
 			var template_web = Handlebars.compile(source_web);
 			$("#web_div").append(template_web(item));
 		}
+		
 		function web_list() {
 			var len = (${PWebSiteVOlist.size()});
 			
@@ -1369,6 +1350,7 @@ $(document).ready(function() {
 			var template_license = Handlebars.compile(source_license);
 			$("#license_div").append(template_license(item));
 		}
+		
 		function license_list() {
 			var len = (${RLicenselist.size()});
 			
@@ -1384,6 +1366,7 @@ $(document).ready(function() {
 				add_license(item);
 			</c:forEach>
 		}
+		
 		//언어 추가 버튼 이벤트
 		$("#language_div").on("click", ".lang_plus_btn", function(){
 			var item = {
@@ -1397,6 +1380,7 @@ $(document).ready(function() {
 			var template_language = Handlebars.compile(source_language);
 			$("#language_div").append(template_language(item));
 		}
+		
 		function language_list() {
 			var len = (${RLanguagelist.size()});
 			
@@ -1420,7 +1404,6 @@ $(document).ready(function() {
 		license_list();
 		language_list(); 
 });
-=======
          }
       });
    });
@@ -1455,6 +1438,5 @@ $(document).ready(function() {
 			$("#subRegion").html(str);
 		})
 	}
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 </script>
 <%@include file="../include/cfooter.jsp"%>

@@ -7,8 +7,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.recruit.domain.AdminCriteria;
-import com.recruit.domain.AmainVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaVO;
 
@@ -60,13 +58,4 @@ public class CsqnaDAOImpl implements CsqnaDAO {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 
-	@Override
-	public List<CsqnaVO> listPage(int page) throws Exception {
-		if (page <= 0) {
-			page = 1;
-		}
-
-		page = (page - 1) * 10;
-		return session.selectList(namespace + ".listPage", page);
-	}
 }

@@ -2,8 +2,6 @@ package com.recruit.persistence;
 
 import java.util.List;
 
-import com.recruit.domain.AdminCriteria;
-import com.recruit.domain.AmainVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaVO;
 
@@ -22,8 +20,6 @@ public interface CsqnaDAO {
 	public void updateViewCnt(Integer bno) throws Exception;
 
 	public int countPaging(CsqnaCriteria cri) throws Exception;
-
-	public List<CsqnaVO> listPage(int page) throws Exception;
 
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception;
 }

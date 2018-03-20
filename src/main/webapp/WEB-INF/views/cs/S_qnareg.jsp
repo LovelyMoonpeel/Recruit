@@ -36,14 +36,14 @@
 				<th>게시글 비밀번호</th>
 			</tr>
 			<tr>
-				<td><input class="form-control" type="text" name="bpw" id="bpw"
+				<td><input class="form-control" type="password" name="bpw" id="bpw"
 					value="${CsfaqVO.bpw}"></td>
 			</tr>
 			<tr>
 				<th>게시글 비밀번호 확인</th>
 			</tr>
 			<tr>
-				<td><input class="form-control" type="text" name="bpwc" id="bpwc">
+				<td><input class="form-control" type="password" name="bpwc" id="bpwc">
 				<span id="bpwchk"></span></td>
 			</tr>
 			<tr>
@@ -58,7 +58,6 @@
 	<input type="button" class="btn btn-primary" value="취소">
 	</form>
 	
-		
 </div>
 <!-- //관리자정보수정 페이지 -->
 

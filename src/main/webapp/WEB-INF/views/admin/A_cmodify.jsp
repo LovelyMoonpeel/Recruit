@@ -25,12 +25,12 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${AmainVO.id}" readonly></td>
+				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td><input class="form-control" type="text" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${AmainVO.pw}" required></td>
+					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
@@ -41,21 +41,21 @@
 			</tr>
 			<tr>
 				<th>회사명</th>
-				<td><input class="form-control" type="text" name="cname" value="${AmainVO.cname}"></td>
+				<td><input class="form-control" type="text" name="cname" value="${BoardVO.cname}"></td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${AmainVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${AmainVO.email}" required></td>
+					value="${BoardVO.email}" required></td>
 			</tr>
 			<tr>
 				<th>사업자등록번호</th>
 				<td><input class="form-control" type="text" name="registnum"
-					value="${AmainVO.registnum}" required></td>
+					value="${BoardVO.registnum}" required></td>
 			</tr>
 		</table>
 	
@@ -121,7 +121,7 @@
 		<tr>
 			<td>${RecruitVO.bno}</td>
 			<td>${RecruitVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/A_rmodify?id=${AmainVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
+			<td><input type="button" onclick="location.href='/admin/rmodify?id=${BoardVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -193,7 +193,7 @@ $(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/admin/A_company?page=${cri.page}&perPageNum=${cri.perPageNum}"
+		self.location = "/admin/company?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
 });

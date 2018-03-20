@@ -19,7 +19,7 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 		<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><a href='/admin/A_qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}</a></td>
+			<td><a href='/admin/qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
@@ -33,48 +33,26 @@
 		<ul class="pagination">
 		
 			<c:if test="${pageMaker.prev }">
-				<li><a href="A_qna?page=${pageMaker.startPage-1}">&laquo;</a></li>
+				<li><a href="qna?page=${pageMaker.startPage-1}">&laquo;</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.page == idx? 'class=active':'' }"/>>
-					<a href="A_qna?page=${idx}">${idx }</a>
+					<a href="qna?page=${idx}">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-				<li><a href="A_qna?page=${pageMaker.endPage + 1}">&raquo;</a></li>
+				<li><a href="qna?page=${pageMaker.endPage + 1}">&raquo;</a></li>
 			</c:if>
 			
 		</ul>
 	</div>
 	<!-- //pagination-->
+
 </div>
-<!-- 버튼에 대한 스크립트  -->
-<script type="text/javascript">
 
-var formObj = $("form[role='form']");
-
-console.log(formObj);
-
-$("#bpwc").on("click", function(){
-	var bpw = $('#bpw').val();
-	var bpwchk = $('#bpwc');
-	
-	if(bpw != ""){
-		var bpwchk = prompt("비밀번호를 입력해주세요.");
-		if(bpw != bpwchk){
-			alert("비밀번호가 일치하지않습니다.");
-			/* bpwchk.attr("href", "/cs/S_qna"); */
-			self.location = "/cs/S_qna";
-		}
-	}
-		
-});
-
-</script>
-<!-- //버튼에 대한 스크립트  -->
 <!-- 수정, 삭제 처리시 -->
 <script type="text/javascript">
 var result = '${msg}';

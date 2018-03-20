@@ -24,44 +24,30 @@ import com.recruit.service.BoardService;
 import com.recruit.service.UserService;
 
 @Controller
-@RequestMapping("/rpjt/*")
+@RequestMapping("/user/*")
 public class UserController {
-
-	// 밑에서 boarservice를 쓰기 위해서
-	@Inject
-	private BoardService boardservice;
-	// 밑에서 service를 쓰기 위해서
 
 	@Inject
 	private UserService service;
 
-	//
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	// 무슨 역할 하는지 모름."localhost8080/rpjt/cheader"를 주소창에 넣으면 아래 내용이 출력
-	// @RequestMapping(value = "/cheader", method = RequestMethod.GET)
-	// public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-	// System.out.println("/rpjt/cheader 테스트입니다");
-	// }
-
-	// jsp에서 <form action="/rpjt/loginPost" method="post">으로 이리로 온다.
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 
-		// Q.뭘 받아와서 vo에 넣는거 같은데 service.logint(dto)해석 불가
+		System.out.println("dto값 출력 : "+dto);
+		
 		BoardVO vo = service.login(dto);
 
-		// Q.vo가 null이면 끝낸다는 소리인가?
+		System.out.println("로그인 정보 확인 : " + vo);
+		
 		if (vo == null) {
 			return;
 		}
 
-		// vo안에 있는 것을 BoardVO.xxx라고 쓰고 이용할 수 있게 하는 코든
-		// Model에 BoardVO객체를 추가
 		model.addAttribute("boardVO", vo);
-		System.out.println(dto.isUseCookie());
+//		System.out.println(dto.isUseCookie());
 
-		// 코드의 핵심은 loginCookie 값이 유지되는 시간 정보를 데이터베이스에 저장하는 것
 		if (dto.isUseCookie()) {
 
 			int amount = 60 * 60 * 24 * 7;
@@ -81,19 +67,19 @@ public class UserController {
 		Object obj = session.getAttribute("login");
 
 		if (obj != null) {
-			BoardVO vo = (BoardVO) obj;
+			/*BoardVO vo = (BoardVO) obj;*/
 
 			session.removeAttribute("login");
 			session.invalidate();
 
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			/*Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");*/
 
-			if (loginCookie != null) {
+/*			if (loginCookie != null) {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				service.keepLogin(vo.getId(), session.getId(), new Date());
-			}
+			}*/
 		}
 
 		return "redirect:/personal/index";
@@ -105,7 +91,6 @@ public class UserController {
 		logger.info("regist post ...........");
 		logger.info(board.toString());
 		System.out.println("1");
-		boardservice.regist(board);
 		System.out.println("vfrvwwervewvew2");
 
 		rttr.addFlashAttribute("msg", "success");
