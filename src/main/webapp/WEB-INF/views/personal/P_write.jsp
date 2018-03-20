@@ -207,7 +207,7 @@
 	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
+				<input type="text" class="form-control acquidate licenseacquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
 	</div>
@@ -291,7 +291,7 @@
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control acquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<input type="text" class="form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -334,6 +334,26 @@ $(document).ready(function(){
    });
    
    $("#write-success").on("click", function(){
+	   if($('#birth').val()==''){
+			console.log("#birth.val()==''");
+			$('#birth').val("0000-00-00");
+		}
+		$('.licenseacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".licenseacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		$('.languageacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
       formObj.attr("action", "/personal/write");
       formObj.attr("method", "post");
       numberingList();
@@ -444,7 +464,7 @@ $(document).ready(function(){
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		});
-			 $(".webclass").each(function(index){
+			$(".webclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
 			name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);

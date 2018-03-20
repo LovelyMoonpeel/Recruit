@@ -12,6 +12,7 @@
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
 	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
+	 	<input type="text" class="form-control" value="${ResumeLanguageVO.rid}" readonly>
 		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> <input class="form-control" id="title"
@@ -50,7 +51,7 @@
                   <td>
                   	<div class="form-group">
 						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
+							<input type="text" class="form-control" id="birth" name="birth" value="${PUserVO.birth}">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 						</div>
 					</div>
@@ -204,7 +205,7 @@
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control acquidate licenseclass"  name="rlicensevolist[].acquidate" value="{{acquidate}}">
+			<input type="text" class="form-control acquidate licenseacquidate licenseclass"  name="rlicensevolist[].acquidate" value="{{acquidate}}">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -227,7 +228,6 @@
  <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-2">
@@ -280,10 +280,15 @@
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
 
+	<div class="form-group col-md-4">
+		<label for="publeoffice">발행기관</label> 
+		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
+	</div>
+
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control acquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<input type="text" class="form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -299,6 +304,7 @@
 		</button>
 	</div>
 </div>
+
 <!-- end of row -->
 </script>     
  
@@ -452,6 +458,28 @@ $(document).ready(function() {
 				console.log("xornot.val()==0");
 				console.log("사진 삭제 안함");
 				
+				if($('#birth').val()==''){
+					console.log("#birth.val()==''");
+					$('#birth').val("0000-00-00");
+				}
+				
+				$('.licenseacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".licenseacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				$('.languageacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".languageacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
 				numberingList();
@@ -476,7 +504,28 @@ $(document).ready(function() {
 					}
 				}); 
 				
-			 	console.log("사진 삭제한 상태에서 submit직전");
+				if($('#birth').val()==''){
+					console.log("#birth.val()==''");
+					$('#birth').val("0000-00-00");
+				}
+				$('.licenseacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".licenseacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				$('.languageacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".languageacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				
+				console.log("사진 삭제한 상태에서 submit직전");
 				formObj.attr("action", "/personal/Rmodify");
 				formObj.attr("method", "post");
 				numberingList();
@@ -490,28 +539,28 @@ $(document).ready(function() {
 				var name = $(this).attr("name");
 				name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
 				$(this).attr("name", name);
-				console.log($(this).attr("name"));
+				console.log($(this).attr("name") + " : " + $(this).val());
 			});
  			 $(".webclass").each(function(index){
 				var num = 3;
 				var name = $(this).attr("name");
 				name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
 				$(this).attr("name", name);
-				console.log($(this).attr("name"));
+				console.log($(this).attr("name") + " : " + $(this).val());
 			}); 
  			 $(".langclass").each(function(index){
  				var num = 6;
  				var name = $(this).attr("name");
  				name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
  				$(this).attr("name", name);
- 				console.log($(this).attr("name"));
+ 				console.log($(this).attr("name") + " : " + $(this).val());
  			}); 
  			$(".licenseclass").each(function(index){
  				var num = 4;
  				var name = $(this).attr("name");
  				name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
  				$(this).attr("name", name);
- 				console.log($(this).attr("name"));
+ 				console.log($(this).attr("name") + " : " + $(this).val());
  			}); 
 		}
 		
@@ -615,7 +664,6 @@ $(document).ready(function() {
 			
 			<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 				var item = {
-						resumelangid : ${ResumeLanguageVO.resumelangid},
 						rid : ${ResumeLanguageVO.rid},
 						lid : ${ResumeLanguageVO.lid},
 						test : "${ResumeLanguageVO.test}", 

@@ -311,16 +311,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</delete>
 	
-
-	<!-- 이력서 RLang 확인 -->
+	
 	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
+	<![CDATA[
+	select c.career as resumelangid, r.rid, r.lid, r.test, r.score, r.publeoffice, r.acquidate
+	from tblcode c, tblresumelanguage r
+	where r.lid=  c.id
+	and
+	rid=#{bno};
+	]]>
+	</select>
+
+	 <!-- 이력서 RLang 확인 -->
+<!--	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
 	 select*
     from project.tblresumeLanguage
     where rid=#{bno};
 	]]>
 	</select>
-	
+	 -->
 	<!-- 이력서 RLang 수정 -->
 	<update id="updateResumeLanguage">
 	<![CDATA[

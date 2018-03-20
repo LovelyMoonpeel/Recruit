@@ -98,7 +98,7 @@
                  </tr>
                 <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 	               <tr>
-	               	<td>${ResumeLanguageVO.lid}</td>
+	               	<td>${ResumeLanguageVO.resumelangid}</td>
 	                <td>${ResumeLanguageVO.test}</td>
 	                <td>${ResumeLanguageVO.score}</td>
 	                <td>${ResumeLanguageVO.publeoffice}</td>

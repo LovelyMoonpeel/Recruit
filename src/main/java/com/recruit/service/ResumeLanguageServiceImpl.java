@@ -49,8 +49,12 @@ public class ResumeLanguageServiceImpl implements ResumeLanguageService{
 		//레주메 번호에 해당하는 모든 Lang을 지운다.
 
 		if (rlangvolist != null) {
-			for (int i = 0; i < rlangvolist.size(); i++)
-				dao.createResumeLanguage(rlangvolist.get(i));
+			for (int i = 0; i < rlangvolist.size(); i++){
+				
+				System.out.println("updateLList vo getTest()"+rlangvolist.get(i).getTest());
+				System.out.println("updateLList vo getRid()"+ rlangvolist.get(i).getRid());
+				dao.createRLanguageList(rid, rlangvolist.get(i));
+			}
 		}
 	}
 	
