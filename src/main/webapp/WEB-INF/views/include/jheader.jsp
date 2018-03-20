@@ -17,6 +17,29 @@
 	}
 %>
 
+<%
+	String id = "";
+	BoardVO login = null;
+	String cname = "";
+	String location = "";
+	
+	try{
+		login = (BoardVO)session.getAttribute("login");
+		if(login != null){
+		id = login.getId();
+		cname = login.getCname();
+		}
+		if(cname==null){
+			location = "/personal/index";
+		}else{
+			location = "/company/C_index";
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
+
 <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -56,7 +79,9 @@
 
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
-						<li><a href="#">MyPage</a></li>
+
+						<li><a href="<%= location%>">MyPage</a></li>
+						
 						
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
 						<li><a href="/user/logout">로그아웃</a></li>
@@ -478,8 +503,31 @@
         });
       });
     </script> -->
-
-
-
-
-
+    
+<!-- 로그인 부분 수정해볼 예정 -->
+<!-- <script>
+/* 로그인 버튼 */
+$("#replyAddBtn").on("click", function(){
+	var contentObj = $("#newReplyText");
+	var bnoObj = $("#bno");
+	var content = contentObj.val();
+	var bno = bnoObj.val();
+	
+	$.ajax({
+		type:'post',
+		url:'/user/loginpost',
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override": "POST"},
+		dataType:'text',
+		data: JSON.stringify({bno:bno, content:content}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'success'){
+				alert("등록완료");
+				contentObj.val("");
+				getPage("/replies/all/" + bno);
+			}
+		}});
+});
+</script> -->

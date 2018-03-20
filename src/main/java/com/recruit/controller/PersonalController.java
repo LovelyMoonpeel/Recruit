@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -23,16 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.PTelVO;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.PUserVO;
-import com.recruit.domain.PWebSiteVO;
-import com.recruit.domain.RLicenseVO;
-import com.recruit.domain.ResumeCareerVO;
-import com.recruit.domain.ResumeEduVO;
-import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
-import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.BoardService;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
@@ -87,24 +81,60 @@ public class PersonalController {
 
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexGET(Model model) throws Exception {
+	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		// public String indexGET(@RequestParam("id") String id, Model
 		// model)throws Exception {
 		logger.info("index GET, 개인정보 확인");
 
-		PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+//		PUserVO PUser = new PUserVO();
+		BoardVO login = (BoardVO)session.getAttribute("login");
+		if(login != null){
+			String id = login.getId();
+			System.out.println("아이디 출력 해봅니다. : "+id);
+//			PUser.setId(id);// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+			model.addAttribute(service.selectPUser(id));
+			return "personal/P_index";
+		}else{
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		
 		// logger.info(vo.toString());
 		// service.selectPUser(vo.getId());
-		model.addAttribute(service.selectPUser(PUser.getId()));
 
 		// service.updatePUser(vo.getId());
-		return "personal/P_index";
 	}
+	
+	// 이력서 관리 (리스트)
+		@RequestMapping(value = "/manage", method = RequestMethod.GET)
+		public String manageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
+//			String id = "jin3";
+//			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
+//			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			
+			BoardVO login = (BoardVO)session.getAttribute("login");
+			if(login != null){
+				String id = login.getId();
+				model.addAttribute("ResumeVOList", Rservice.selectRList(id));
+				model.addAttribute("PUserVO", service.selectPUser(id));
+				return "personal/P_manage";
+			}else{
+				rttr.addFlashAttribute("msg", "login");
+				return "redirect:/cs/S_faq";
+			}
+
+			// System.out.println(Rservice.selectRList(id));
+			// System.out.println(Rservice.selectRList(id).toString());
+
+//			return "personal/P_manage";
+		}
+
+	
 	// 개인정보수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String indexPOST(@RequestParam("id") String id, Model model) throws Exception {
+	public String indexGET(@RequestParam("id") String id, Model model) throws Exception {
 		// 수정하는 페이지
 		logger.info("index에서 넘겨받은 id" + id);
 		logger.info(service.selectPUser(id).toString());
@@ -134,6 +164,9 @@ public class PersonalController {
 		System.out.println("puser" + PUser);
 		model.addAttribute("PUserVO", PUser);
 		return "personal/P_write";
+	
+	
+	
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -221,19 +254,7 @@ public class PersonalController {
 															// controller
 	}
 
-	// 이력서 관리 (리스트)
-	@RequestMapping(value = "/manage", method = RequestMethod.GET)
-	public String manageGET(Model model) throws Exception {
-
-		String id = "jin3";
-		model.addAttribute("ResumeVOList", Rservice.selectRList(id));
-		model.addAttribute("PUserVO", service.selectPUser(id));
-
-		// System.out.println(Rservice.selectRList(id));
-		// System.out.println(Rservice.selectRList(id).toString());
-
-		return "personal/P_manage";
-	}
+	
 
 	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
 	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {

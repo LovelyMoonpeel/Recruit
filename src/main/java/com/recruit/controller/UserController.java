@@ -35,14 +35,18 @@ public class UserController {
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 
+		System.out.println("dto값 출력 : "+dto);
+		
 		BoardVO vo = service.login(dto);
 
+		System.out.println("로그인 정보 확인 : " + vo);
+		
 		if (vo == null) {
 			return;
 		}
 
 		model.addAttribute("boardVO", vo);
-		System.out.println(dto.isUseCookie());
+//		System.out.println(dto.isUseCookie());
 
 		if (dto.isUseCookie()) {
 

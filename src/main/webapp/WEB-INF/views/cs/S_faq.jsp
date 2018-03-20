@@ -34,6 +34,8 @@ if(result == 'modify'){
 	alert("삭제가 완료 되었습니다.");
 }else if(result == 'regist'){
 	alert("FAQ가 등록 되었습니다..");
+}else if(result == 'login'){
+	alert("로그인이 필요합니다.");
 }
 </script>
 <!-- //수정, 삭제 처리시 -->

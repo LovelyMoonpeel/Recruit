@@ -12,8 +12,9 @@
 
 <!--로그인 실패시 처리  -->
  <script type="text/javascript">
+ 	alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
     self.location = "/personal/index";
-  </script>
+ </script>
   
   
 </body>
