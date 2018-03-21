@@ -3,18 +3,21 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
+
+<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
 	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
-	 	<input type="text" class="form-control" value="${ResumeLanguageVO.rid}" readonly>
 		<br>	
 		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title"
-				name="title" value="${ResumeVO.title}">
+			<label for="title">제목</label> <input class="form-control" id="title" name="title" value="${ResumeVO.title}">
 		</div>
-  <div class="company_info_content">
-      <div class="table-responsive">
+      	<div class="table-responsive">
          <table class="table table-bordered">
             <tbody>
                <tr>
@@ -42,209 +45,618 @@
 				   	<input type = 'hidden' id = 'preexistenceimg' value = '0'>
                	 </td>
                </tr>
+               <tr>
+                  <th class="table-active" scope="row"><label>생년월일</label></th>
+                  <td>
+                  	<div class="form-group">
+						<div class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+					</div>
+				  </td>
+                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
+            	  <td>
+				  	<div class="form-group">
+					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
+					</div>
+				</td>
+               </tr>
              </tbody>
          </table>
-       </div>
-  </div>             
-   <br>
-   	</form>
+      	 </div>
+      	 
+      	<hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>연락처 목록</b>
+		</h4>
+		<div id="tel_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>사이트 목록</b>
+		</h4>
+		<div id="web_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>보유 자격증 목록</b>
+		</h4>
+		<div id="license_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	   <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>어학 능력(자격증) 목록</b>
+		</h4>
+		<div id="language_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	     
+	     <div class="table-responsive">
+	       <table class="table table-bordered">
+	          <tbody>
+	            <tr>
+	               <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
+	            </tr> 
+	            <tr>
+	             <td colspan="5" rowspan="2">
+	               	<div class="form-group">
+					<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;" required>${ResumeVO.coverletter}</textarea>
+					</div>
+	             </td>   
+	            </tr>
+	           </tbody>
+	       </table>      
+	    </div> 
+  	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
+</div>
+<script id="template_tel" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+
+	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
+	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-3">
+		<label for="teltitle">전화번호 (종류)</label> 
+		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
 	</div>
+	
+	<div class="form-group col-md-4">
+		<label for="tel">전화번호</label> 
+		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label>
+		<br>
+		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm tel_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
+<script id="template_web" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
+	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
+
+	<div class="form-group col-md-3">
+		<label for="webtitle">사이트 (종류)</label> 
+		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
+	</div>
+
+	<div class="form-group col-md-4">
+		<label for="webadd">주소</label> 
+		<input class="form-control webadd webclass" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default btn-sm web_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm web_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+
+</div>
+<!-- end of row -->
+</script>
+ <script id="template_license" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
+	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
+	
+	<div class="form-group col-md-3">
+		<label for="licensename">자격증명</label> 
+		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
+	</div>
+
+	<div class="form-group col-md-3">
+		<label for="publeoffice">발행기관</label> 
+		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
+	</div>
+	
+	<div class="form-group col-md-3">
+		<label for="acquidate">취득일자</label> 
+			<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="input-group date form-control acquidate licenseacquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+	</div>
+
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br/>
+		<button class="btn btn-default btn-sm license_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm license_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+
+</div>
+<!-- end of row -->
+</script>           
+            
+ <script id="template_language" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
+	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
+
+	<div class="form-group col-md-2">
+		<label for="lid">언어 선택</label>
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
+			{{#select lid}}
+			<option value="102">선택</option>
+			<option value="102" selected>선택</option>
+			<option value="52">영어</option>
+			<option value="53">일본어</option>
+			<option value="54">중국어</option>
+			<option value="55">그리스어</option>
+			<option value="56">네덜란드어</option>
+			<option value="57">노르웨이어</option>
+			<option value="58">독일어</option>
+			<option value="59">러시아어</option>
+			<option value="60">루마니아어</option>
+			<option value="61">마인어</option>
+			<option value="62">몽골어</option>
+			<option value="63">미얀마어</option>
+			<option value="64">베트남어</option>
+			<option value="65">세르비아어</option>
+			<option value="66">스웨덴어</option>
+			<option value="67">스페인어</option>
+			<option value="68">슬로바키아어</option>
+			<option value="69">아랍어</option>
+			<option value="70">유고어</option>
+			<option value="71">이란(페르시아어)</option>
+			<option value="72">이탈리아어</option>
+			<option value="73">체코어</option>
+			<option value="74">태국어</option>
+			<option value="75">터키어</option>
+			<option value="76">포르투갈어</option>
+			<option value="77">폴란드어</option>
+			<option value="78">프랑스어</option>
+			<option value="79">헝가리어</option>
+			<option value="80">히브리어</option>
+			<option value="81">히브리어</option>
+			<option value="82">그 외</option>
+			{{/select}}
+		</select>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="test">공인인증시험명</label> 
+		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="score">점수</label> 
+		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
+	</div>
+	<div class="form-group col-md-2">
+		<label for="publeoffice">발행기관</label> 
+		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="acquidate">취득일자</label> 
+		<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="input-group date form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
+	</div>
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br/>
+		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm lang_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
+
 
 <script type='text/javascript'>
 $(document).ready(function() {
 		
+	Handlebars.registerHelper('select', function( value, options ){
+        var $el = $('<select />').html( options.fn(this) );
+        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
+        return $el.html();
+    });
 	
-		var formObj = $("form[role = 'form']");
-		var xornot = document.getElementById('xornot');
-		var preexistenceimg = document.getElementById('preexistenceimg');
-		
-		
-		$(function() {
-			$('.input-group.date').datepicker({
-				calendarWeeks : false,
-				todayHighlight : true,
-				autoclose : true,
-				format : "yyyy-mm-dd",
-				language : "kr"
-			});
+	var formObj = $("form[role = 'form']");
+	var xornot = document.getElementById('xornot');
+	var preexistenceimg = document.getElementById('preexistenceimg');
+	
+	
+	function datepick() {
+		$('.input-group.date').datepicker({
+			calendarWeeks : false,
+			todayHighlight : true,
+			autoclose : true,
+			format : "yyyy-mm-dd",
+			language : "kr"
 		});
-		console.log('${PWebSitelist}');
-		var imgsrccheck = ('#imgsrccheck');
-		
- 		 if($('#imgsrccheck').val()!=""){
-			console.log(" val이 널값아님");
-			$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
-			var str = "";
-			str = 
-				  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
-				  +"</a>"
-				  +"<small data-src=${ResumeVO.img}>X</small>";
-			  $("#uploadedList").append(str); 
-			  console.log("uploadedlist에 x버튼 추가");
-			  $("#preexistenceimg").val("1");
-		}else{
-			console.log(" val이 널값이다");
-			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
-			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
-			$("#preexistenceimg").val("0");
-		}  
+	}
+	
+	console.log('${PWebSitelist}');
+	var imgsrccheck = ('#imgsrccheck');
+	
+		 if($('#imgsrccheck').val()!=""){
+		console.log(" val이 널값아님");
+		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+		var str = "";
+		str = 
+			  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
+			  +"</a>"
+			  +"<small data-src=${ResumeVO.img}>X</small>";
+		  $("#uploadedList").append(str); 
+		  console.log("uploadedlist에 x버튼 추가");
+		  $("#preexistenceimg").val("1");
+	}else{
+		console.log(" val이 널값이다");
+		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+		$("#preexistenceimg").val("0");
+	}  
 
- 		var upload = document.getElementById('fileupload');
-	    var uploadedList = document.getElementById('uploadedList');
+	var upload = document.getElementById('fileupload');
+    var uploadedList = document.getElementById('uploadedList');
+  
+	if (typeof window.FileReader === 'undefined') {
+	 console.log("window.FileReader 'fail'");
+	} else {
+	 console.log("window.FileReader 'success'");
+	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
 	  
-		if (typeof window.FileReader === 'undefined') {
-		 console.log("window.FileReader 'fail'");
-		} else {
-		 console.log("window.FileReader 'success'");
-		}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-		  
-	 	  upload.onchange = function (e) {
-		
-			 var file = upload.files[0];
-			 var reader = new FileReader();
-			 //p542다시 보기
-			 $("#uploadedList").empty();
-			 //reader.onload start
-			 reader.onload = function (event) {
-				 var image = new Image();
-				 image.src = event.target.result;
-				  
-				 uploadedList.innerHTML = '';
-				 image.height = 150;
-				 uploadedList.appendChild(image);
-			 };//reader.onload end
-		 
-				 event.preventDefault();
-				 //var files = event.originalEvent.dataTransfer.files;
-				 
-				 console.log("file name");
-				 console.log(file);
-				 
-				 var formData = new FormData();
-				 
-				 formData.append("file", file);
-				 
-				 $.ajax({
-					 url:'uploadAjax',
-					 data: formData,
-					 dataType : 'text',
-					 processData : false,
-					 contentType : false,
-					 type : 'POST',
-					 success : function(data){
-						   var str = "";
-						  
-						 	console.log(data);
-						 	
-							  str = 
-								  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-								  +"</a>"
-								  +"<small data-src="+data+">X</small>";
+ 	  upload.onchange = function (e) {
 	
-						  $("#uploadedList").append(str); 
-						  document.getElementById('uploadfilename').value = getImageLink(data);
-					  }//success : function(data){ end
-		 		  });//ajax end
-			//});//filedrop end
-		 console.log(file);
-		 reader.readAsDataURL(file);
-		};//upload change end   
-		
-  		$("#uploadedList").on("click", "small", function(event){
-			event.preventDefault();
-			var that = $(this);
-			
-			//console.log("this"+$(this).src);
-			
-			if($("#xornot").val()==0){
-				
-				fileName = $(this).attr("data-src"); //전역변수로 설정
-				var front = fileName.substring(0, 12);
-				var end = fileName.substring(12);
-				var thumcheck = fileName.substring(12,14);
-				
-				if(thumcheck!="s_"){
-					console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
-					fileName = front + "s_" + end;
-					console.log("썸네일 아니라서 바뀐 fileName" + fileName);
-				}else{
-					console.log(thumcheck + "썸네일인 fileName" + fileName);
-				}
-			
-				$("#fileupload").val("");
-				$("#uploadedList").empty();
-				console.log("img File appended deleted");
-				console.log("fileName"+fileName);
-				$('#uploadfilename').val('');
-				
-				$("#xornot").val("1");
-				console.log($("#xornot").val());
-			}else if($("#xornot").val()==1){
-				console.log("img File on server deleted");
-				$(this).parent("div").empty();
-				$("#fileupload").val("");
-				$('#uploadfilename').val('');
-				$("#uploadedList").empty();
-				console.log("2번 이상 삭제 누름 img File appended deleted");
-				console.log("2번 이상 삭제 누름 fileName"+fileName);
-				
-				$("#xornot").val("1");
-				console.log($("#xornot").val());
-			}
-		}); 
-		
-		function getOriginalName(fileName){
-	      	var idx = fileName.indexOf("_")+1;
-	      	return fileName.substr(idx);
-	      }
-		function getImageLink(fileName){
-	      	var front = fileName.substr(0,12);
-	      	var end = fileName.substr(14);
-	      	
-	      	return front + end;
-	      } 
-		 
-		$("#write-success").on("click", function() {
-			
-			console.log("write-success clicked");
-			
-			if($("#xornot").val()==0){
-				console.log("xornot.val()==0");
-				console.log("사진 삭제 안함");
+		 var file = upload.files[0];
+		 var reader = new FileReader();
+		 //p542다시 보기
+		 $("#uploadedList").empty();
+		 //reader.onload start
+		 reader.onload = function (event) {
+			 var image = new Image();
+			 image.src = event.target.result;
+			  
+			 uploadedList.innerHTML = '';
+			 image.height = 150;
+			 uploadedList.appendChild(image);
+		 };//reader.onload end
+	 
+			 event.preventDefault();
+			 //var files = event.originalEvent.dataTransfer.files;
+			 
+			 console.log("file name");
+			 console.log(file);
+			 
+			 var formData = new FormData();
+			 
+			 formData.append("file", file);
+			 
+			 $.ajax({
+				 url:'uploadAjax',
+				 data: formData,
+				 dataType : 'text',
+				 processData : false,
+				 contentType : false,
+				 type : 'POST',
+				 success : function(data){
+					   var str = "";
+					  
+					 	console.log(data);
+					 	
+						  str = 
+							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
+							  +"</a>"
+							  +"<small data-src="+data+">X</small>";
 
-			}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==1){
-				//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
-				console.log("사진 삭제 후 filename" + fileName);
-				console.log("사진 삭제함");		
-				$.ajax({
-					url:"deleteFile",
-					type:"post",
-					//data : {fileName:$(this).attr("data-src")},
-					data: {fileName:fileName},
-					dataType:"text",
-					success:function(result){
-						if(result=='deleted'){
-							console.log("img File on server deleted");
-							$(this).parent("div").remove();
-						}
-					}
-				}); 
-				
-			}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
-				console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
-				//$(this).parent("div").remove();
+					  $("#uploadedList").append(str); 
+					  document.getElementById('uploadfilename').value = getImageLink(data);
+				  }//success : function(data) end
+	 		  });//ajax end
+	 console.log(file);
+	 reader.readAsDataURL(file);
+	};//upload change end   
+	
+ 		$("#uploadedList").on("click", "small", function(event){
+		event.preventDefault();
+		var that = $(this);
+		
+		if($("#xornot").val()==0){
+			
+			fileName = $(this).attr("data-src"); //전역변수로 설정
+			var front = fileName.substring(0, 12);
+			var end = fileName.substring(12);
+			var thumcheck = fileName.substring(12,14);
+			
+			if(thumcheck!="s_"){
+				console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
+				fileName = front + "s_" + end;
+				console.log("썸네일 아니라서 바뀐 fileName" + fileName);
 			}else{
-				console.log("Exception : 어느 if문에도 들어가지 못함");
-				console.log(("#preexistenceimg").val());
+				console.log(thumcheck + "썸네일인 fileName" + fileName);
 			}
-			console.log("submit직전");
-			formObj.attr("action", "/personal/Rmodify");
-			formObj.attr("method", "post");
-			formObj.submit();
+		
+			$("#fileupload").val("");
+			$("#uploadedList").empty();
+			console.log("img File appended deleted");
+			console.log("fileName"+fileName);
+			$('#uploadfilename').val('');
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}else if($("#xornot").val()==1){
+			console.log("img File on server deleted");
+			$(this).parent("div").empty();
+			$("#fileupload").val("");
+			$('#uploadfilename').val('');
+			$("#uploadedList").empty();
+			console.log("2번 이상 삭제 누름 img File appended deleted");
+			console.log("2번 이상 삭제 누름 fileName"+fileName);
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}
+	}); 
+	
+	function getOriginalName(fileName){
+      	var idx = fileName.indexOf("_")+1;
+      	return fileName.substr(idx);
+      }
+	function getImageLink(fileName){
+      	var front = fileName.substr(0,12);
+      	var end = fileName.substr(14);
+      	
+      	return front + end;
+      } 
+	 
+	$("#write-success").on("click", function() {
+		
+		console.log("write-success clicked");
+		
+		if($('#birth').val()==''){
+			console.log("#birth.val()==''");
+			$('#birth').val("0000-00-00");
+		}
+		$('.licenseacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".licenseacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
 		});
-    
+		$('.languageacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
+		if($("#xornot").val()==0){
+			console.log("xornot.val()==0");
+			console.log("사진 삭제 안함");
+
+		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==1){
+			//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
+			console.log("사진 삭제 후 filename" + fileName);
+			console.log("사진 삭제함");		
+			$.ajax({
+				url:"deleteFile",
+				type:"post",
+				//data : {fileName:$(this).attr("data-src")},
+				data: {fileName:fileName},
+				dataType:"text",
+				success:function(result){
+					if(result=='deleted'){
+						console.log("img File on server deleted");
+						$(this).parent("div").remove();
+					}
+				}
+			}); 
+			
+		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
+			console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
+			//$(this).parent("div").remove();
+		}else{
+			console.log("Exception : 어느 if문에도 들어가지 못함");
+			console.log(("#preexistenceimg").val());
+		}
+		console.log("submit직전");
+		formObj.attr("action", "/personal/Rmodify");
+		formObj.attr("method", "post");
+		numberingList();
+		formObj.submit();
+	});
+	
+	function numberingList() {
+		$(".telclass").each(function(index){
+			var num = 3;
+			var name = $(this).attr("name");
+			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		});
+		$(".webclass").each(function(index){
+			var num = 3;
+			var name = $(this).attr("name");
+			name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		}); 
+	 	$(".langclass").each(function(index){
+			var num = 6;
+			var name = $(this).attr("name");
+			name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		}); 
+		$(".licenseclass").each(function(index){
+			var num = 4;
+			var name = $(this).attr("name");
+			name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		}); 
+	}
+	// tel 추가버튼 이벤트
+	$("#tel_div").on("click", ".tel_plus_btn", function(){
+		 var item = {
+				rid : ${ResumeVO.bno}
+			}; 
+		add_tel(item);
+	});
+	//웹 추가 버튼 이벤트
+	$("#web_div").on("click", ".web_plus_btn", function(){
+		var item = {
+				rid : ${ResumeVO.bno}
+			}
+		add_web(item);
+	});
+	//자격증 추가 버튼 이벤트
+	$("#license_div").on("click", ".license_plus_btn", function(){
+		var item = {
+				rid : ${ResumeVO.bno}
+		}
+			
+		add_license(item);
+	});
+	//언어 추가 버튼 이벤트
+	$("#language_div").on("click", ".lang_plus_btn", function(){
+		var item = {
+				rid : ${ResumeVO.bno}
+			};
+		add_language(item);
+	});
+	function add_tel(item) {
+		var source_tel = $("#template_tel").html();
+		var template_tel = Handlebars.compile(source_tel);
+		$("#tel_div").append(template_tel(item));
+		datepick();
+	}
+	function add_web(item) {
+		var source_web = $("#template_web").html();
+		var template_web = Handlebars.compile(source_web);
+		$("#web_div").append(template_web(item));
+		datepick();
+	}
+	function add_license(item) {
+		var source_license = $("#template_license").html();
+		var template_license = Handlebars.compile(source_license);
+		$("#license_div").append(template_license(item));
+		datepick();
+	}
+	function add_language(item) {
+		var source_language = $("#template_language").html();
+		var template_language = Handlebars.compile(source_language);
+		$("#language_div").append(template_language(item));
+		datepick();
+	}
+	function tel_list() {
+		var len = (${PTelVOlist.size()});
+		
+		<c:forEach items="${PTelVOlist}" var="PTelVO">
+			var item = {
+					telid : ${PTelVO.telid},
+					rid : ${PTelVO.rid},
+					teltitle : "${PTelVO.teltitle}", 
+					tel : "${PTelVO.tel}" 
+			};
+			add_tel(item);
+		</c:forEach>
+	}
+	function web_list() {
+		var len = (${PWebSiteVOlist.size()});
+		
+		<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
+			var item = {
+					webid : ${PWebSiteVO.webid},
+					rid : ${PWebSiteVO.rid},
+					webtitle : "${PWebSiteVO.webtitle}", 
+					webadd : "${PWebSiteVO.webadd}"
+			};
+			add_web(item);
+		</c:forEach>
+	}
+
+	function license_list() {
+		var len = (${RLicenselist.size()});
+		
+		<c:forEach items="${RLicenselist}" var="RLicenseVO">
+			var item = {
+					
+					licenseid : ${RLicenseVO.licenseid},
+					rid : ${RLicenseVO.rid},
+					licensename : "${RLicenseVO.licensename}", 
+					publeoffice : "${RLicenseVO.publeoffice}",
+					acquidate : "${RLicenseVO.acquidate}"
+			};
+			add_license(item);
+		</c:forEach>
+	}
+	function language_list() {
+		var len = (${RLanguagelist.size()});
+		
+		<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+			var item = {
+					rid : ${ResumeLanguageVO.rid},
+					lid : ${ResumeLanguageVO.lid},
+					test : "${ResumeLanguageVO.test}", 
+					score : "${ResumeLanguageVO.score}",
+					publeoffice : "${ResumeLanguageVO.publeoffice}",
+					acquidate : "${ResumeLanguageVO.acquidate}"
+			};
+			add_language(item);
+		</c:forEach>
+	}
+	
+	tel_list();
+	web_list();
+	license_list();
+	language_list();
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>

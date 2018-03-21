@@ -66,16 +66,6 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("라 ResumeDAOImpl updateROne");
 		session.update(namespace + ".updateROne", vo);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public void deleteROne(Integer bno) throws Exception {
@@ -90,10 +80,15 @@ public class ResumeDAOImpl implements ResumeDAO {
 		return session.selectList(namespace + ".selectRList", id);
 	}
 	
+	@Override//민경
+	public ResumeVO resumeRead(Integer bno) throws Exception {
+		System.out.println("ResumeDAOImpl selectRList" + bno);
+		return session.selectOne(namespace+".resumeRead", bno);
+	}
+
 	@Override
 	public void addRimgAttach(ResumeVO resume)throws Exception{
 		System.out.println("addRimgAttach ResumeDAOImpl 실행");
 		session.update(namespace+".addRimgAttach", resume);
 	};
-
 }

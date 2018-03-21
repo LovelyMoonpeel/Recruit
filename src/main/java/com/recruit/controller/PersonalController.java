@@ -93,7 +93,6 @@ public class PersonalController {
 
 		PUserVO PUser = new PUserVO();
 		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
-		//ResumeVO의 가장 
 		
 		model.addAttribute(service.selectPUser(PUser.getId()));
 
@@ -104,21 +103,20 @@ public class PersonalController {
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String indexPOST(@RequestParam("id") String id, Model model) throws Exception {
 		// 수정하는 페이지
-		logger.info("index에서 넘겨받은 id" + id);
-		logger.info(service.selectPUser(id).toString());
+		logger.info("index POST, 개인정보 수정");
+		
 		model.addAttribute("PUserVO", service.selectPUser(id));
+		
 		return "personal/P_modify";
 	}
 
 	// 수정한거 db로 전달하는 페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String indexPOST(PUserVO PUser, Model model, RedirectAttributes rttr) throws Exception {
+	public String indexPOST(PUserVO PUser, Model model) throws Exception {
 		logger.info("index POST, 개인정보 수정");
-		logger.info(PUser.toString());
 		
 		service.updatePUser(PUser);
 		model.addAttribute("result", "success");
-		rttr.addFlashAttribute("result", "success");
 		
 		return "redirect:/personal/index"; // redirect는 controller
 	}
@@ -126,24 +124,22 @@ public class PersonalController {
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(PUserVO puser, Model model) throws Exception {
-		// public String writeGET(@RequestParam("id") String id, PUserVO puser,
-		// Model model) throws Exception {
 		System.out.println("write GET controller");
+		
 		PUserVO PUser = service.selectPUser("jin3");
-		System.out.println("puser" + PUser);
 		model.addAttribute("PUserVO", PUser);
-	//model.addAttribute("codeList", Cservice.CodeList());
+		
+		//model.addAttribute("codeList", Cservice.CodeList());
 		//코드 테이블 가져오기
 		return "personal/P_write";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	//public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
-	public String writePOST(String id, String file, PUserVO puser, ResumeVO resume, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
-		//System.out.println("id값 뭐받아오냐" + id);
-		System.out.println("write get에서 받아오는 puser" + puser);
+		System.out.println("id값 뭐받아오냐" + id);
+		System.out.println("write get에서 받아오는 puser" + puser.toString());
 
 		System.out.println("file: " + file);
 
@@ -151,19 +147,11 @@ public class PersonalController {
 		// Rservice.readRLastCreatedOne(); 생성한 후 마지막으로 생성한 PK가져오기가 포함
 		System.out.println("레주메 정보 : "+ resume.toString());
 		
-/*		System.out.println(bno+  "ptvolist"+ ptvo.getPtelvolist().toString());
 		Telservice.createTList(bno, ptvo.getPtelvolist());
-
-		System.out.println(bno + "pwebsitesvolist" + pwvo.getPwebsitesvolist().toString());
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
-		
-		System.out.println(bno+ "rlicensevolist"+ plivo.getRlicensevolist().toString());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
+		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
 		
-		System.out.println(bno+ "rlangvolist"+ plavo.getRlangvolist().toString());
-		Langservice.createRLanguageList(bno, plavo.getRlangvolist());*/
-		
-
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
 	//이력서 하나 읽기
@@ -181,6 +169,9 @@ public class PersonalController {
 		   model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 		   model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
 		   
+		   model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+		   //민경
+		   
 	      return "personal/P_detail";
 	   }
 	   
@@ -197,6 +188,8 @@ public class PersonalController {
 		model.addAttribute("PTelVOlist", Telservice.selectPTelList(bno));
 		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+		
+		
 		
 		return "personal/P_Rmodify";
 	}

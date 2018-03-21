@@ -91,6 +91,11 @@ public class ResumeServiceImpl implements ResumeService {
 		return dao.selectRList(id);
 	}
 	
+	@Override
+	public ResumeVO resumeRead(Integer bno) throws Exception {
+		return dao.resumeRead(bno);
+	}//민경
+
 /*	@Override
 	public void addRimgAttach(String fullName)throws Exception{
 		System.out.println("addRimgAttach ResumeServiceImpl");

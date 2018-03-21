@@ -27,6 +27,8 @@ public interface ResumeService {
 	public void deleteROne(Integer bno) throws Exception;
 
 	public List<ResumeVO> selectRList(String id) throws Exception;
+	
+	public ResumeVO resumeRead(Integer bno) throws Exception;
 
 	//public void addRimgAttach(String fullName); dao만 만들어서 transaction처리
 }

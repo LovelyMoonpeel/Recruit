@@ -56,35 +56,11 @@
 	</form>
 		 <input class="btn btn-success" type='button' value='수정'
 			onClick="javascript:self.location='/personal/modify';"> -->
-		<button type = "submit" id = "modify-button" class="btn btn-success col-md-offset-11">수정</button>
+		<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-11" onclick = "location.href='/personal/modify'">수정</button>
 	
 	<!-- //수정 버튼 -->
 	<br> <br>
 </div>
 <!-- //개인 페이지 -->
-<script>
-$(document).ready(function(){
-	var formObj = $("form[role = 'form']");
-	
-	console.log(formObj);
-	
-	$("#modify-button").on("click", function(){
-		formObj.attr("action", "/personal/modify");
-		formObj.attr("method", "get");
-		formObj.submit();
-		console.log("#modify-button");
-	});
-	/* $("a").click(function(event){
-		event.preventDefault();
-	}); 
-	$("#P_favor").on("click", function(){
-		formObj.attr("action", "/personal/favor");
-		formObj.attr("method", "get");
-		formObj.submit();
-		console.log("#modify-button");
-	});*/
-});
-
-</script>
 
 <%@include file="../include/cfooter.jsp"%>

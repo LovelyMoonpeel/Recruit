@@ -57,6 +57,34 @@
 	               </tr>
                </c:forEach> 
                
+               <tr>
+               	  <th class="table-active" colspan="5" scope="row" style = "text-align: center;">희망 구직 정보</th>            
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">구직상태</th>
+                  <td>${resumeRead.jobstateid}</td>
+                  <th class="table-active" scope="row">희망근무형태</th>
+                  <td colspan="2">${resumeRead.employstatusid}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">희망직종(대분류)</th>
+                  <td>${resumeRead.jobgroupid}</td>
+                  <th class="table-active" scope="row">희망직종(소분류)</th>
+                  <td colspan="2">${resumeRead.jobgroupid2}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">희망근무지(시/도)</th>
+                  <td>${resumeRead.rgbid}</td>
+                  <th class="table-active" scope="row">희망근무지</th>
+                  <td colspan="2">${resumeRead.rgsid}</td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row">희망연봉</th>
+                  <td>${resumeRead.salaryid}</td>
+               </tr>
+               
+               
+               
 				<tr>
                   <th class="table-active" colspan="5" scope="row" style = "text-align: center;">웹사이트 목록</th>
                </tr> 
