@@ -71,11 +71,9 @@ public class ResumeEduVO {
 	public void setGradudate(String gradudate) {
 		this.gradudate = gradudate;
 	}
-
 	public int getEdustatus() {
 		return edustatus;
 	}
-
 	public void setEdustatus(int edustatus) {
 		this.edustatus = edustatus;
 	}

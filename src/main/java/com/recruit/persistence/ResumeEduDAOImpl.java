@@ -35,7 +35,7 @@ public class ResumeEduDAOImpl implements ResumeEduDAO {
 	public void deleteResumeEdu(Integer bno) throws Exception {
 		session.delete(namespace + ".deleteResumeEdu", bno);
 	}
-
+	
 	// r.code 03/13 추가
 	@Override
 	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {
@@ -46,4 +46,5 @@ public class ResumeEduDAOImpl implements ResumeEduDAO {
 	public void deleteResumeEduList(Integer resumenum) throws Exception {
 		session.delete(namespace + ".deleteResumeEduList", resumenum);
 	}
+
 }

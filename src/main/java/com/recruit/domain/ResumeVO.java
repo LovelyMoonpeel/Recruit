@@ -11,7 +11,6 @@ public class ResumeVO implements Bnoble {
 	private String jobstateid;
 	private String jobgroupid;
 	private String jobgroupid2;
-
 	private String rgbid;
 	private String rgsid;
 	private String employstatusid;
@@ -66,27 +65,21 @@ public class ResumeVO implements Bnoble {
 	public void setCoverletter(String coverletter) {
 		this.coverletter = coverletter;
 	}
-
 	public String getJobstateid() {
 		return jobstateid;
 	}
-
 	public void setJobstateid(String jobstateid) {
 		this.jobstateid = jobstateid;
 	}
-
 	public String getJobgroupid() {
 		return jobgroupid;
 	}
-
 	public void setJobgroupid(String jobgroupid) {
 		this.jobgroupid = jobgroupid;
 	}
-
 	public String getJobgroupid2() {
 		return jobgroupid2;
 	}
-
 	public void setJobgroupid2(String jobgroupid2) {
 		this.jobgroupid2 = jobgroupid2;
 	}
@@ -98,27 +91,21 @@ public class ResumeVO implements Bnoble {
 	public void setRgbid(String rgbid) {
 		this.rgbid = rgbid;
 	}
-
 	public String getRgsid() {
 		return rgsid;
 	}
-
 	public void setRgsid(String rgsid) {
 		this.rgsid = rgsid;
 	}
-
 	public String getEmploystatusid() {
 		return employstatusid;
 	}
-
 	public void setEmploystatusid(String employstatusid) {
 		this.employstatusid = employstatusid;
 	}
-
 	public String getSalaryid() {
 		return salaryid;
 	}
-
 	public void setSalaryid(String salaryid) {
 		this.salaryid = salaryid;
 	}

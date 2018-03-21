@@ -33,8 +33,11 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	}
 
 	@Override
-	public void createResumeLanguage(ResumeLanguageVO vo) throws Exception {
-		session.insert(namespace+".createResumeLanguage", vo);
+	public void createResumeLanguage(ResumeLanguageVO plavo) throws Exception {
+		System.out.println("vo getTest()"+plavo.getTest());
+		System.out.println("vo getRid()"+ plavo.getRid());
+		
+		session.insert(namespace+".createResumeLanguage", plavo);
 	}
 	
 	@Override
@@ -44,6 +47,8 @@ public class ResumeLanguageDAOImpl implements ResumeLanguageDAO{
 	
 	@Override
 	public void createRLanguageList(Integer rid, ResumeLanguageVO plavo) throws Exception {
+		System.out.println("createRLanguageList vo getTest()"+plavo.getTest());
+		System.out.println("createRLanguageList vo getRid()"+ plavo.getRid());
 		plavo.setRid(rid);
 		session.insert(namespace+".createResumeLanguage", plavo);
 	}

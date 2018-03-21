@@ -18,4 +18,5 @@ public interface ResumeEduDAO {
 	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception;
 
 	public void deleteResumeEduList(Integer resumenum) throws Exception;
+	
 }

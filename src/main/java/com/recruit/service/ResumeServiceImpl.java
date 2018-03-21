@@ -53,7 +53,6 @@ public class ResumeServiceImpl implements ResumeService {
 		System.out.println("라 ResumeServiceImpl dao updateROne");
 		dao.updateROne(resume);
 	}
-
 	@Override
 	public AdminResumeVO read(String id) throws Exception {
 		return dao.read(id);
@@ -77,11 +76,6 @@ public class ResumeServiceImpl implements ResumeService {
 	@Override
 	public ResumeVO readROne(Integer bno) throws Exception {
 		return dao.readROne(bno);
-	}
-
-	@Override
-	public ResumeVO resumeRead(Integer bno) throws Exception {
-		return dao.resumeRead(bno);
 	}
 
 	@Override
@@ -110,10 +104,10 @@ public class ResumeServiceImpl implements ResumeService {
 	public List<RegionVO> selectRegionList() throws Exception {
 		return dao.selectRegionList();
 	}
-
-	/*
-	 * @Override public void addRimgAttach(String fullName)throws Exception{
-	 * System.out.println("addRimgAttach ResumeServiceImpl");
-	 * dao.addRimgAttach(fullName); }
-	 */
+	
+	@Override
+	public ResumeVO resumeRead(Integer bno) throws Exception {
+		return dao.resumeRead(bno);
+	}//민경
+	
 }

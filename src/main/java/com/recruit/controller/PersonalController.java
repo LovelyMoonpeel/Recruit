@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
 import com.recruit.domain.PTelVO;
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -34,6 +34,7 @@ import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.BoardService;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
@@ -89,43 +90,56 @@ public class PersonalController {
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		// public String indexGET(@RequestParam("id") String id, Model
-		// model)throws Exception {
+
 		logger.info("index GET, 개인정보 확인");
 
-		// o.Merge
-		// PUserVO PUser = new PUserVO();
-		// PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
-		// ResumeVO의 가장
-
-		// model.addAttribute(service.selectPUser(PUser.getId()));
+		//j.code 세션수정03/21
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			System.out.println("아이디 출력 해봅니다. : " + id);
-			// PUser.setId(id);// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 			model.addAttribute(service.selectPUser(id));
 			return "personal/P_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
+	}
 
-		// logger.info(vo.toString());
-		// service.selectPUser(vo.getId());
+	// 개인정보수정
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String indexPOST(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		// 수정하는 페이지
 
-		// o.Merge
-		// return "personal/P_index";
+		//j.code 세션수정03/21
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			return "personal/P_modify";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+	}
+
+	// 수정한거 db로 전달하는 페이지
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String indexPOST(PUserVO PUser, Model model) throws Exception {
+		logger.info("index POST, 개인정보 수정");
+
+		service.updatePUser(PUser);
+		model.addAttribute("result", "success");
+
+		return "redirect:/personal/index"; // redirect는 controller
 	}
 
 	// 이력서 관리 (리스트)
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String manageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		System.out.println("manage GET Controller");
 
-		// String id = "jin3";
-		// model.addAttribute("ResumeVOList", Rservice.selectRList(id));
-		// model.addAttribute("PUserVO", service.selectPUser(id));
-
+		//j.code 세션수정03/21
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
@@ -136,226 +150,134 @@ public class PersonalController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-
-		// System.out.println(Rservice.selectRList(id));
-		// System.out.println(Rservice.selectRList(id).toString());
-
-		// return "personal/P_manage";
-	}
-
-	// o.Merge
-	// @RequestMapping(value = "/manage", method = RequestMethod.GET)
-	// public String manageGET(Model model) throws Exception {
-	// System.out.println("manage GET Controller");
-	// String id = "jin3";
-	// model.addAttribute("ResumeVOList", Rservice.selectRList(id));
-	// model.addAttribute("PUserVO", service.selectPUser(id));
-	//
-	// return "personal/P_manage";
-	// }
-
-	// 개인정보수정
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String modifyGET(@RequestParam("id") String id, Model model) throws Exception {
-		// 수정하는 페이지
-		logger.info("index에서 넘겨받은 id" + id);
-		logger.info(service.selectPUser(id).toString());
-		model.addAttribute("PUserVO", service.selectPUser(id));
-		return "personal/P_modify";
-	}
-
-	// 수정한거 db로 전달하는 페이지
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPOST(PUserVO PUser, Model model, RedirectAttributes rttr) throws Exception {
-		logger.info("index POST, 개인정보 수정");
-		logger.info(PUser.toString());
-
-		service.updatePUser(PUser);
-		model.addAttribute("result", "success");
-		rttr.addFlashAttribute("result", "success");
-
-		return "redirect:/personal/index"; // redirect는 controller
 	}
 
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(PUserVO puser, Model model) throws Exception {
-		// public String writeGET(@RequestParam("id") String id, PUserVO puser,
-		// Model model) throws Exception {
 		System.out.println("write GET controller");
-		PUserVO PUser = service.selectPUser("mely");
-		System.out.println("puser" + PUser);
-		model.addAttribute("PUserVO", PUser);
-		// model.addAttribute("codeList", Cservice.CodeList());
-		// 코드 테이블 가져오기
-		return "personal/P_write";
 
+		PUserVO PUser = service.selectPUser("jin3");
+		model.addAttribute("PUserVO", PUser);
+
+		//model.addAttribute("codeList", Cservice.CodeList());
+		//코드 테이블 가져오기
+		return "personal/P_write";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo,
-			ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
-		// public String writePOST(String id, String file, PUserVO puser,
-		// ResumeLanguageVO plavo, ResumeVO resume, Model model) throws
-		// Exception {
+	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 
-		// System.out.println("id값 뭐받아오냐" + id);
-		System.out.println("write get에서 받아오는 puser" + puser);
+		System.out.println("id값 뭐받아오냐" + id);
+		System.out.println("write get에서 받아오는 puser" + puser.toString());
 
 		System.out.println("file: " + file);
 
 		int bno = Rservice.createROne(resume, puser);
 		// Rservice.readRLastCreatedOne(); 생성한 후 마지막으로 생성한 PK가져오기가 포함
-		System.out.println("레주메 정보 : " + resume.toString());
+		System.out.println("레주메 정보 : "+ resume.toString());
 
-		System.out.println(bno + "ptvolist" + ptvo.getPtelvolist().toString());
 		Telservice.createTList(bno, ptvo.getPtelvolist());
-
-		System.out.println(bno + "pwebsitesvolist" + pwvo.getPwebsitesvolist().toString());
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
-
-		System.out.println(bno + "rlicensevolist" + plivo.getRlicensevolist().toString());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
-
-		System.out.println(bno + "rlangvolist" + plavo.getRlangvolist().toString());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
 
-		// Rservice.updateROne(resume);
+		return "redirect:/personal/detail?bno=" + bno + ""; 
+	}
+	//이력서 하나 읽기
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String modifyGET(int bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		return "redirect:/personal/detail?bno=" + bno + "";
+		//j.code 세션수정03/21
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals(Rservice.readROne(bno).getUserid())){
+				model.addAttribute("PUserVO", service.selectPUser(id));
+				model.addAttribute("ResumeVO", Rservice.readROne(bno));
+
+				model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+
+				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+
+				return "personal/P_detail";
+			} else {
+				rttr.addFlashAttribute("msg", "login");
+				return "redirect:/cs/S_faq";
+			}
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		//민경
 	}
 
 	// 이력서 하나 읽기
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detailGET(int bno, Model model) throws Exception {
-
-		PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
-
-		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-		model.addAttribute("ResumeVO", Rservice.readROne(bno));
-		model.addAttribute("resumeRead", Rservice.resumeRead(bno));
-		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
-		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
-		model.addAttribute("REduVO", Eduservice.read(bno));
-		System.out.println(Webservice.selectPWebSiteList(bno));
-
-		return "personal/P_detail";
-	}
 
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
-	public String RmodifyGET(String id, Integer bno, Model model) throws Exception {
+	public String RmodifyGET(PUserVO puser, Integer bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		// 수정하는 페이지
 		System.out.println("Rmodify GET Controller");
-		model.addAttribute("PUserVO", service.selectPUser("jin3"));
-		model.addAttribute("ResumeVO", Rservice.readROne(bno));
-		System.out.println("get bno" + bno);
 
-		model.addAttribute("PWebSiteVOlist", Webservice.selectPWebSiteList(bno));
-		model.addAttribute("PTelVOlist", Telservice.selectPTelList(bno));
-		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+		BoardVO login = (BoardVO) session.getAttribute("login");
 
-		// r.code 03/13
-		model.addAttribute("bno", bno);
+		if (login != null) {
+			String id = login.getId();
+			puser.setId(id);
+			puser.setPname(login.getPname());
 
-		List<ResumeEduVO> resumeEduVOList = Eduservice.readResumeEduList(bno);
-		int num = resumeEduVOList.size();
-		for (int i = 0; i < num; i++) {
-			System.out.println("Personal test: " + resumeEduVOList.get(i));
+			model.addAttribute("ResumeVO", Rservice.readROne(bno));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			model.addAttribute("PWebSiteVOlist", Webservice.selectPWebSiteList(bno));
+			model.addAttribute("PTelVOlist", Telservice.selectPTelList(bno));
+			model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+			model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+
+			// r.code 03/13
+			model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+			model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
+			// end of r.code 03/13
+
+			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+			//민경
+
+			return "personal/P_Rmodify";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
 		}
-		model.addAttribute("eduVOlist", resumeEduVOList);
-
-		List<ResumeCareerVO> resumeCareerVOList = Careerservice.readResumeCareerList(bno);
-		num = resumeCareerVOList.size();
-		for (int i = 0; i < num; i++) {
-			System.out.println("Personal test: " + resumeCareerVOList.get(i));
-		}
-		model.addAttribute("careerVOList", resumeCareerVOList);
-		// end of r.code 03/13
-
-		System.out.println(Webservice.selectPWebSiteList(bno));
-
-		model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
-		model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
-		model.addAttribute("RegionVOlist", Rservice.selectRegionList());
-
-		return "personal/P_Rmodify";
 	}
+
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
-			RLicenseVO plivo, ResumeVO resume, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, Model model,
-			RedirectAttributes rttr) throws Exception {
-		/*
-		 * PUserVO PUser = new PUserVO(); PUser.setId("jin3");// 이거는 로그인해서
-		 * id받아오도록 로그인 완성되면 합치면서 수정
-		 * 
-		 * model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-		 * 
-		 * model.addAttribute("ResumeVO", Rservice.readROne(bno));
-		 * 
-		 * model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-		 * 
-		 * model.addAttribute("RLicenselist",
-		 * Licenseservice.selectRLicenseList(bno));
-		 * 
-		 * model.addAttribute("RLanguagelist",
-		 * Langservice.selectResumeLanguageList(bno));
-		 */
-		System.out.println("Rmodify POST bno" + bno);
-		System.out.println("Rmodify POST id" + id);
-
-		System.out.println("Rmodify POST rgbid : " + resume.getRgbid());
-		System.out.println("Rmodify POST rgsid : " + resume.getRgsid());
-
-		System.out.println("Rmodify POST Controller");
-
-		System.out.println(bno + " 으으으" + ptvo.getPtelvolist().toString());
+	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
+	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model) throws Exception {
+		System.out.println("Rmodify POST Controller"); 
 
 		Telservice.updateTList(bno, ptvo.getPtelvolist());
-		// Rmodify에 rid값 줘야함
+		//Rmodify에 rid값 줘야함
 		Webservice.updateWList(bno, pwvo.getPwebsitesvolist());
-
-		System.out.println(bno + " 으아악" + plavo.getRlangvolist().toString());
 		Langservice.updateLList(bno, plavo.getRlangvolist());
-
-		System.out.println(bno + "라이센스 으아악" + plivo.getRlicensevolist().toString());
 		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
-		Rservice.updateROne(resume);
-
-		// r.code 03/14
-		System.out.println("r.code");
-		System.out.println(resume);
-
-		// int num = resumeEduVO.getListEdu().size();
-		// System.out.println("r: " + resumeEduVO.getListEdu().get(i));
 
 		// r.code 03/15 : update edu & career list in DB
 		int resumenum = resume.getBno();
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
-		// end of r.code
 
-		logger.info("index POST, 개인정보 수정");
-		// logger.info(PUser.toString());
-
-		System.out.println(resume.toString());
-		int bno1 = resume.getBno();
-		System.out.println("bno" + bno1);
-		Rservice.updateROne(resume);
-		model.addAttribute("result", "success");
-
-		// rttr.addFlashAttribute("result", "success");
-		rttr.addFlashAttribute("bno", "success");
-
-		return "redirect:/personal/detail?bno=" + bno + ""; // redirect는
+		return "redirect:/personal/detail?bno=" + bno + "";
 	}
+
+
 
 	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
 	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {
@@ -394,7 +316,9 @@ public class PersonalController {
 	public String appliedGET(@RequestParam("id") String id, Model model) throws Exception {
 		// private CRecruitService Cservice;
 		model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
+
 		model.addAttribute("PUserVO", service.selectPUser(id));
+
 		return "personal/P_applied";
 	}
 	////// IMG UPLOAD/////////////img
@@ -404,13 +328,13 @@ public class PersonalController {
 	private String uploadPath;
 
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
-	public void uploadAjaxGET() {
+	public void uploadAjax() {
 
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadAjaxPOST(MultipartFile file) throws Exception {
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
@@ -430,7 +354,9 @@ public class PersonalController {
 
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
 			MediaType mType = MediaUtils.getMediaType(formatName);
+
 			HttpHeaders headers = new HttpHeaders();
 
 			in = new FileInputStream(uploadPath + fileName);
@@ -455,10 +381,6 @@ public class PersonalController {
 		return entity;
 	}
 
-	/*
-	 * if(($'#birth').val()==''){ ($'#birth').val("0000-00-00"); }
-	 */
-
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
@@ -477,9 +399,11 @@ public class PersonalController {
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
 			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+			System.out.println("if문 마지막");
 		}
 
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 
@@ -499,4 +423,5 @@ public class PersonalController {
 
 		return "personal/P_example";
 	}
+
 }

@@ -25,13 +25,13 @@ public interface ResumeService {
 
 	public ResumeVO readROne(Integer bno) throws Exception;
 	
-	public ResumeVO resumeRead(Integer bno) throws Exception;
-
 	public void updateROne(ResumeVO resume) throws Exception;
 
 	public void deleteROne(Integer bno) throws Exception;
 
 	public List<ResumeVO> selectRList(String id) throws Exception;
+	
+	public ResumeVO resumeRead(Integer bno) throws Exception;
 	
 	public List<CodeVO> selectRCodeList() throws Exception;
 	   
