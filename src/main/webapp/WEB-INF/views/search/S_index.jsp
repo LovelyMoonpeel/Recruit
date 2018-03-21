@@ -92,39 +92,30 @@
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="row">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" style="color: white;">채용정보</a>
+					</div>
 					<ul class="nav navbar-nav">
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown"><a id="jobgroupMenu"
+							class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="jobgroup">
-								<li><a href="#">Page 1-1</a></li>
-								<li><a href="#">Page 1-2</a></li>
 								<li role=separator class=divider></li>
-								<li><a href="#">Page 1-3</a></li>
 							</ul></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown"><a id="regionMenu"
+							class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="region">
-								<li><a href="#">Page 2-1</a></li>
-								<li><a href="#">Page 2-2</a></li>
 								<li role=separator class=divider></li>
-								<li><a href="#">Page 2-3</a></li>
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태&nbsp;&nbsp;</a>
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태별&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="emp">
-								<li><a href="#">Page 3-1</a></li>
-								<li><a href="#">Page 3-2</a></li>
-								<li><a href="#">Page 3-3</a></li>
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력&nbsp;&nbsp;&nbsp;</a>
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="edu">
-								<li><a href="#">Page 4-1</a></li>
-								<li><a href="#">Page 4-2</a></li>
-								<li><a href="#">Page 4-3</a></li>
 							</ul></li>
 						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력&nbsp;&nbsp;&nbsp;</a>
+							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="exp">
 							</ul></li>
 					</ul>
@@ -167,34 +158,163 @@
 </script>
 
 <script>
-	// dropdown 전역변수
+	// DropDown Menu
+	// dropdown 근무형태, 학력, 경력
+	// 전역변수
+	var str;
 	var drop1ListItems;
 
-	// dropdown 1번째 생성하기
-	function drop1Handler(data) {
+	// dropdown 1번째 code 생성하기
+	function drop1CodHandler(data) {
 		str = "";
 		console.log(data.length);
-		var i = 0;
 		$(data).each(drop1ListItems);
+		var tid = data[0].tid;
+		if (tid === 1)
+			$("#exp").append(str); // experience(1)
+		else if (tid === 2)
+			$("#edu").append(str); // education(2)
+		else
+			$("#emp").append(str); // employment status(4)
 	}
 
 	// dropdown 1번째 코드(근무형태, 학력, 경력) list items 생성하기
 	function drop1CodListItems(index, that) {
-		str += '<li value="'+ that.id +'"><a href="#">' + that.career
-				+ '</a></li>';
+		str += '<li value="' + that.id +'"><a href="javascript:;">'
+				+ that.career + '</a></li>';
 	}
 
 	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
-	$.getJSON("/sresult/code/1", drop1Handler); // experience(1)
-	$("#exp").append(str);
+	$.getJSON("/sresult/code/1", drop1CodHandler); // experience(1)
+	$.getJSON("/sresult/code/2", drop1CodHandler); // education(2)
+	$.getJSON("/sresult/code/4", drop1CodHandler); // employment status(4)
+	// $.getJSON("/sresult/jobg", drop1JobHandler);
+	// $.getJSON("/sresult/region", drop1RegHandler);
 
-	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
-	$.getJSON("/sresult/code/2", drop1Handler); // education(2)
-	$("#edu").append(str);
+	$("#exp").on("click", "li", function() {
+		console.log($(this).attr("value"));
+	});
 
-	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
-	$.getJSON("/sresult/code/4", drop1Handler); // employment status(4)
-	$("#emp").append(str);
+	$("#edu").on("click", "li", function() {
+		console.log($(this).attr("value"));
+	});
+
+	$("#emp").on("click", "li", function() {
+		console.log($(this).attr("value"));
+	});
+
+	// dropdown 직무
+	// 전역변수
+	var jobcls = 0;
+	// dropdown 1번째 jobgroup 생성하기
+	function drop1JobHandler(data) {
+		jobcls = 1;
+		$("#jobgroup .cls1,#jobgroup .cls2").remove();
+		str = "";
+		console.log(data.length);
+		str += '<li class="cls1" style="text-align: center;" value="0"><a href="javascript:;">'
+				+ '<i class="glyphicon glyphicon-chevron-up"></i>'
+				+ '</a></li>';
+		$(data).each(drop1JobListItems);
+		str += '<li class="cls1" style="text-align: center;" value="0"><a href="javascript:;">'
+				+ '<i class="glyphicon glyphicon-chevron-down"></i>'
+				+ '</a></li>';
+		$("#jobgroup").append(str);
+	}
+
+	// dropdown 1번째 코드(직무) list items 생성하기
+	function drop1JobListItems(index, that) {
+		str += '<li class="cls1" value="' + that.id +'"><a href="javascript:;">'
+				+ that.jobgroup + '</a></li>';
+	}
+
+	// dropdown 2번째 jobgroup 생성하기
+	function drop2JobHandler(data) {
+		jobcls = 2;
+		$("#jobgroup .cls1").remove();
+		str = "";
+		console.log(data.length);
+		// data.length = 10;
+		$(data).each(drop2JobListItems);
+		$("#jobgroup").append(str);
+		$("#jobgroupMenu").trigger('click');
+	}
+
+	// dropdown 2번째 코드(직무) list items 생성하기
+	function drop2JobListItems(index, that) {
+		str += '<li class="cls2" value="' + that.id +'"><a href="javascript:;">'
+				+ that.jobgroup + '</a></li>';
+	}
+
+	$("#jobgroup").on("click", ".cls1", function() {
+		$.getJSON("/sresult/jobg/" + $(this).attr("value"), drop2JobHandler);
+	});
+
+	$("#jobgroup").on("click", ".cls2", function() {
+		jobcls = 0
+		$.getJSON("/sresult/jobg", drop1JobHandler);
+		console.log($(this).attr("value"));
+	});
+
+	// 직무별 Menu 클릭
+	$("#jobgroupMenu").on("click", function() {
+		if (jobcls !== 2)
+			$.getJSON("/sresult/jobg", drop1JobHandler);
+	});
+
+	// dropdown 지역
+	// 전역변수
+	var regcls = 0;
+	// dropdown 1번째 region 생성하기
+	function drop1RegHandler(data) {
+		regcls = 1;
+		$("#region .cls1,#region .cls2").remove();
+		str = "";
+		console.log(data.length);
+		$(data).each(drop1RegListItems);
+		$("#region").append(str);
+	}
+
+	// dropdown 1번째 코드(지역) list items 생성하기
+	function drop1RegListItems(index, that) {
+		str += '<li class="cls1" value="' + that.rgbid +'"><a href="javascript:;">'
+				+ that.rgbname + '</a></li>';
+	}
+
+	// dropdown 2번째 region 생성하기
+	function drop2RegHandler(data) {
+		regcls = 2;
+		$("#region .cls1").remove();
+		str = "";
+		console.log(data.length);
+		// data.length = 10;
+		$(data).each(drop2RegListItems);
+		$("#region").append(str);
+		$("#regionMenu").trigger('click');
+	}
+
+	// dropdown 2번째 코드(지역) list items 생성하기
+	function drop2RegListItems(index, that) {
+		str += '<li class="cls2" value="' + that.rgsid +'"><a href="javascript:;">'
+				+ that.rgsname + '</a></li>';
+	}
+
+	$("#region").on("click", ".cls1", function() {
+		$.getJSON("/sresult/region/" + $(this).attr("value"), drop2RegHandler);
+	});
+
+	$("#region").on("click", ".cls2", function() {
+		regcls = 0
+		$.getJSON("/sresult/region", drop1RegHandler);
+		console.log($(this).attr("value"));
+	});
+
+	// 지역별 Menu 클릭
+	$("#regionMenu").on("click", function() {
+		if (regcls !== 2)
+			$.getJSON("/sresult/region", drop1RegHandler);
+	});
+	// End of DropDown Menu
 
 	// text 검색 엔터키 처리
 	function onEnter() {
