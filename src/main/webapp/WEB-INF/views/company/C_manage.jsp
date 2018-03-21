@@ -66,16 +66,21 @@
 						</c:forEach>
 		
 	</table>
+	
+	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
+		<div
+			style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
+			<ul>
+				<li>관심 인재로 등록한 이력서는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
+				<li>관심 등록한 이력서는 <b>채용을 목적으로 하는 경우</b>에만 이용할 수 있으며, <br> <b>최초
+						개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다. <br>채용이 아닌 <r>영업이나
+					마케팅 등으로 이용하실 경우,</r> <br> <r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는
+					5,000만원 이하의 벌금에 처해질 수 있습니다.</r>
+				</li>
 
-				<form role="form" method="POST">
-				
-				<input type="hidden" name="id" value="${CInfoVO.id}"/>
-				
-				
-				</form>
-		
-
-		
+			</ul>
+		</div>
+	</div>
 			
 	
 </div>
@@ -91,7 +96,7 @@ var formObj = $("form[role='form']");
 		$(document).on("click", '#delete',function(){
 			var bno = $(this).attr('value');
 			/* formObj.attr("action", "/company/C_recruitRemove");  */
-			self.location = "/company/C_recruitRemove?bno="+bno+"&id=${CInfoVO.id}";
+			self.location = "/company/C_recruitRemove?bno="+bno+"";
 			/* formObj.attr("method", "get");		
 			formObj.submit(); */
 		});

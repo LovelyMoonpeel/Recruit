@@ -67,7 +67,7 @@
 	<!-- 공고 입력 부분 -->
 	<h3>모집부문</h3>
 	<form role="form" method="POST">
-	<input type="hidden" name="cid" value="${CInfoVO.id}"/>
+	
 	<h3>공고제목</h3>
 	<input type="text" name="title" class="form-control" value="${RecruitVO.title}"> <br>
 	

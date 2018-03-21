@@ -19,7 +19,7 @@
 					
 	
 
-<a>test ${CInfoVO.id}</a>
+
 		<div class="form-group col-lg-6">
 			<label>기업명</label> <input type="text" name="cname" class="form-control" id=""
 				value="${CInfoVO.cname}">
@@ -116,7 +116,7 @@
 			<label>로고이미지</label> <br> <input type="file" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp">
 		</div>  <!-- 컨트롤러 request에서 인식할 수 있게 임의의 name값을 지정해줘야한다 (controller랑 맞출 필요 X) -->
 		
-		<input type="hidden" name="img" value="${CInfoVO.img}">
+		<input type="hidden" name="img" value="${CInfoVO.img}"> 
 	</form>
 	
 	

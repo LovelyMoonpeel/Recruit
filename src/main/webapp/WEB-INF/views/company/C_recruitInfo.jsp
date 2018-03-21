@@ -92,7 +92,7 @@
 	홈페이지 ${CInfoVO.homepage}<br>
 	<br>
 	<div class="text-center">
-	<button class="btn btn-info" id="CInfo" value="${CInfoVO.id}">기업정보</button>
+	<button class="btn btn-info" id="CInfo">기업정보</button>
 	</div>
 	<br>
 	</div>
@@ -105,7 +105,7 @@
 <c:when test="${CInfoVO.id != null}">
 <div class="text-center">
 <button type="button" id="delete" class="btn btn-default btn-lg active">공고보기</button>
-<button type="submit" id ="modify" class="btn btn-primary btn-lg active">수정하기</button>
+<button type="submit" id ="modify" class="btn btn-primary btn-lg active" value="${RecruitVO.bno}">수정하기</button>
 </div>
 </c:when>
 <c:when test="${CInfoVO.id == null}">
@@ -305,7 +305,6 @@
 			
 			<form role="form" method="post">
 			<input type='hidden' name="bno" value="${RecruitVO.bno}">
-			<input type='hidden' name="id" value="${RecruitVO.cid}">
 			</form>
 			
 </div>
@@ -313,22 +312,25 @@
 <script>
 
 
+
 $('#CInfo').on("click",function(){
 	
-	self.location = "/company/C_index?id="+$('#CInfo').val()
+	self.location = "/company/C_index";
 	
 })
 
 var formObj = $("form[role='form']");
 
 		$(document).on("click", '#modify',function(){
-			/* var bno = $(this).attr('value');
-			alert(bno); */
+			
+			 /* var bno = $(this).attr('value'); */
+			
 		formObj.attr("action", "/company/C_recruitModify");
 			/* self.location = "/company/C_recruitModify"; */
 		formObj.attr("method", "get");		
-			formObj.submit(); 
+			formObj.submit();
 		});
+
 
 		
 </script>

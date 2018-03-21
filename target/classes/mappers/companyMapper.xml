@@ -169,7 +169,7 @@ delete from tblInterestPerson where cuserid = #{id} and presume = #{bno};
 
 	
 <select id="favorList" resultType="com.recruit.domain.CPersonInfoVO">
-	SELECT  distinct substring(u.pname,1,1) as name, p.title, r.rgbname as rgbid, n.career as salary, e.schoolname, e.major
+	SELECT  distinct p.bno, substring(u.pname,1,1) as name, p.title, r.rgbname as rgbid, n.career as salary, e.schoolname, e.major
 FROM tblInterestPerson f, tblresume p, tblRegion r, tblUser u , tblcode n, tblresumeedu e
 	where f.presume = p.bno and p.rgbid = r.rgbid and u.id = p.userid and n.id = p.salaryid and e.resumenum = p.bno and  f.cuserid = #{id};
 </select> <!-- 관심인재 리스트 -->
