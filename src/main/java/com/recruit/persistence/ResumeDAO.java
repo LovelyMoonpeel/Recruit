@@ -3,6 +3,9 @@ package com.recruit.persistence;
 import java.util.List;
 
 import com.recruit.domain.AdminResumeVO;
+import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 
 public interface ResumeDAO {
@@ -28,6 +31,12 @@ public interface ResumeDAO {
 	public List<ResumeVO> selectRList(String id)throws Exception;
 	
 	public ResumeVO resumeRead(Integer bno) throws Exception;
+	
+	public List<CodeVO> selectRCodeList()throws Exception;
+	   
+	public List<JobGroupVO> selectRGPList() throws Exception;
+	   
+	public List<RegionVO> selectRegionList() throws Exception;
 	
 	public void addRimgAttach(ResumeVO resume)throws Exception;
 	

@@ -1,5 +1,7 @@
 package com.recruit.domain;
 
+import java.util.List;
+
 public class ResumeCareerVO {
 	
 	private int bno;
@@ -10,6 +12,17 @@ public class ResumeCareerVO {
 	private String finishjob;
 	private int salary;
 	
+	// r.code 03/14 JSP에서 객체 리스트 받기
+	private List<ResumeCareerVO> listCareer;
+
+	public List<ResumeCareerVO> getListCareer() {
+		return listCareer;
+	}
+
+	public void setListCareer(List<ResumeCareerVO> listCareer) {
+		this.listCareer = listCareer;
+	}
+	// end of r.code
 	public int getBno() {
 		return bno;
 	}

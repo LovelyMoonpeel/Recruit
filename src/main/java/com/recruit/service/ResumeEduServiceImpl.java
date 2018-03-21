@@ -1,5 +1,7 @@
 package com.recruit.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +39,22 @@ public class ResumeEduServiceImpl implements ResumeEduService{
 	public void createResumeEdu(ResumeEduVO vo) throws Exception {
 		dao.createResumeEdu(vo);		
 	}
+	// r.code 03/13 추가
+	@Override
+	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {
+		return dao.readResumeEduList(bno);
+	}
 
+	// r.code 03/14 추가
+	@Override
+	public void changeResumeEduList(Integer resumenum, List<ResumeEduVO> resumeEduVOList) throws Exception {
+
+		dao.deleteResumeEduList(resumenum);
+		if (resumeEduVOList != null) {
+			int num = resumeEduVOList.size();
+			for (int i = 0; i < num; i++)
+				dao.createResumeEdu(resumeEduVOList.get(i));
+		}
+	}
 
 }

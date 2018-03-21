@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminResumeVO;
+import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeDAO;
 
@@ -52,7 +55,6 @@ public class ResumeServiceImpl implements ResumeService {
 		dao.updateROne(resume);
 	}
 	
-	
 	@Override
 	public AdminResumeVO read(String id) throws Exception {
 		return dao.read(id);
@@ -95,6 +97,21 @@ public class ResumeServiceImpl implements ResumeService {
 	public ResumeVO resumeRead(Integer bno) throws Exception {
 		return dao.resumeRead(bno);
 	}//민경
+	
+	@Override
+	public List<CodeVO> selectRCodeList() throws Exception{
+	    return dao.selectRCodeList();
+	}
+
+	@Override
+	public List<JobGroupVO> selectRGPList() throws Exception {
+	   return dao.selectRGPList();
+	}
+
+	@Override
+	public List<RegionVO> selectRegionList() throws Exception {
+	   return dao.selectRegionList();
+	}
 
 /*	@Override
 	public void addRimgAttach(String fullName)throws Exception{

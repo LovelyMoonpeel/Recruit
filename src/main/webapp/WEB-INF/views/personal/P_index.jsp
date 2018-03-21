@@ -5,7 +5,7 @@
 
 <!-- Main content -->
 <form role="form">
-		<input type='hidden' name='id' value="${PUserVO.id}">
+	<input type='hidden' name='id' id='id' value="${PUserVO.id}">
 </form>
 
 <!-- 개인 페이지 -->
@@ -27,8 +27,6 @@
 						<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
 						<th class="table-active" scope="row">아이디</th>
 						<td>${PUserVO.id}</td>
-						<th class="table-active" scope="row">비밀번호</th>
-						<td>${PUserVO.pw}</td>
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">이름</th>
@@ -48,16 +46,8 @@
 		</div>
 		<!-- //table-responsive -->
 	</div>
-	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	<!-- 수정 버튼 -->
-	<!--<form method = "post">
-		<input type = "hidden" name ="pid" value= "${PUserVO.id}">
-	</form>
-		 <input class="btn btn-success" type='button' value='수정'
-			onClick="javascript:self.location='/personal/modify';"> -->
 		<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-11" onclick = "location.href='/personal/modify'">수정</button>
-	
 	<!-- //수정 버튼 -->
 	<br> <br>
 </div>

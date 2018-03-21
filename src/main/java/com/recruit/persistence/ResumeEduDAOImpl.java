@@ -1,5 +1,7 @@
 package com.recruit.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -32,6 +34,17 @@ public class ResumeEduDAOImpl implements ResumeEduDAO{
 	@Override
 	public void deleteResumeEdu(Integer bno) throws Exception {
 		session.delete(namespace+".deleteResumeEdu", bno);
+	}
+	
+	// r.code 03/13 추가
+	@Override
+	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {
+		return session.selectList(namespace + ".readResumeEduList", bno);
+	}
+
+	@Override
+	public void deleteResumeEduList(Integer resumenum) throws Exception {
+		session.delete(namespace + ".deleteResumeEduList", resumenum);
 	}
 
 }

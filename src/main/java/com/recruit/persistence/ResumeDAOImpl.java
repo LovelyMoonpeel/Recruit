@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.AdminResumeVO;
-import com.recruit.domain.PUserVO;
+import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 
 @Repository
@@ -84,6 +86,21 @@ public class ResumeDAOImpl implements ResumeDAO {
 	public ResumeVO resumeRead(Integer bno) throws Exception {
 		System.out.println("ResumeDAOImpl selectRList" + bno);
 		return session.selectOne(namespace+".resumeRead", bno);
+	}
+	
+	@Override
+	public List<CodeVO> selectRCodeList() throws Exception {
+		return session.selectList(namespace + ".selectRCodeList");
+	}
+	
+	@Override
+	public List<JobGroupVO> selectRGPList() throws Exception {
+		return session.selectList(namespace + ".selectRGPList");
+	}
+	
+	@Override
+	public List<RegionVO> selectRegionList() throws Exception {
+		return session.selectList(namespace + ".selectRegionList");
 	}
 
 	@Override

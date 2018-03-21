@@ -3,7 +3,10 @@ package com.recruit.service;
 import java.util.List;
 
 import com.recruit.domain.AdminResumeVO;
+import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.PUserVO;
+import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 
 public interface ResumeService {
@@ -29,6 +32,12 @@ public interface ResumeService {
 	public List<ResumeVO> selectRList(String id) throws Exception;
 	
 	public ResumeVO resumeRead(Integer bno) throws Exception;
+	
+	public List<CodeVO> selectRCodeList() throws Exception;
+	   
+	public List<JobGroupVO> selectRGPList() throws Exception;
+	 
+	public List<RegionVO> selectRegionList() throws Exception;
 
 	//public void addRimgAttach(String fullName); dao만 만들어서 transaction처리
 }
