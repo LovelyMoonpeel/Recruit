@@ -11,22 +11,20 @@
 
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 작성</h1>
+	
 	<form role="form" method="post">
 	 <input type='hidden' name='id' value="${PUserVO.id}"> 
-	 
-		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>
 		</div>
-	  <div class="company_info_content">
       <div class="table-responsive">
          <table class="table table-bordered">
             <tbody>
                <tr>
                 <th class="table-active" scope="row"><label for="pname">이름</label> </th>
 	          	<td class="col-sm-4">
-	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}">
+	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
                 <th class="table-active" scope="row"><label for="img">사진</label></th>
                 <td class="col-sm-4">
@@ -35,9 +33,9 @@
 				   </div>
 				   	<!--  사진 보이는 div  -->
 				   	
-                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
+                   	<input type='hidden' id='imgsrccheck' value = "${ResumeVO.img}"/>
                    	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
-                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
+                   	<input type = 'hidden' id='uploadfilename' name = 'img' value=''>
 					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 					
 					<br>
@@ -48,60 +46,48 @@
                	 </td>
                </tr>
                <tr>
-                  <th class="table-active" scope="row"><label>생년월일</label></th>
-                  <td>
+                 <th class="table-active" scope="row"><label>생년월일</label></th>
+                 <td>
                   	<div class="form-group">
-						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						</div>
+						<input type="text" class="form-control" id="birth" name="birth" value="${PUserVO.birth}" readonly>
 					</div>
 				  </td>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
             	  <td>
 				  	<div class="form-group">
-					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}">
+					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}" readonly>
 					</div>
 				</td>
                </tr>
-               
              </tbody>
          </table>
-               
-    <!-- ------------------------------------------------------handlebar로 수정1 -->
-    <hr style="border: solid 4px #ccc;">
-	<h4>
-		<b>연락처 목록</b>
-	</h4>
-	<div id="tel_div"></div>
-	<hr style="border: solid 4px #ccc;">
-	
-	<!-- a.code 03/19 : 연락처 목록을  handlebars(template_tel)로 적용 -->
-    <!-- ------------------------------------------------------handlebar로 수정1 종료 -->
-    <!-- ------------------------------------------------------handlebar로 수정2 -->
-    <hr style="border: solid 4px #ccc;">
-	<h4>
-		<b>사이트 목록</b>
-	</h4>
-	<div id="web_div"></div>
-	<hr style="border: solid 4px #ccc;">
-   <!-- ------------------------------------------------------handlebar로 수정2 종료 -->     
-   <!-- ------------------------------------------------------handlebar로 수정3 -->  
-    <hr style="border: solid 4px #ccc;">
-	<h4>
-		<b>보유 자격증 목록</b>
-	</h4>
-	<div id="license_div"></div>
-	<hr style="border: solid 4px #ccc;">
-   <!-- ------------------------------------------------------handlebar로 수정3 종료 -->    
-    <!-- ------------------------------------------------------handlebar로 수정4 -->  
-   <hr style="border: solid 4px #ccc;">
-	<h4>
-		<b>어학 능력(자격증) 목록</b>
-	</h4>
-	<div id="language_div"></div>
-	<hr style="border: solid 4px #ccc;">
-   <!-- ------------------------------------------------------handlebar로 수정4 종료 -->    
+      </div>
+      
+	    <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>연락처 목록</b>
+		</h4>
+		<div id="tel_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>사이트 목록</b>
+		</h4>
+		<div id="web_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>보유 자격증 목록</b>
+		</h4>
+		<div id="license_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	   <hr style="border: solid 4px #ccc;">
+		<h4>
+			<b>어학 능력(자격증) 목록</b>
+		</h4>
+		<div id="language_div"></div>
+		<hr style="border: solid 4px #ccc;">
+	     
      <div class="table-responsive">
        <table class="table table-bordered">
           <tbody>
@@ -118,12 +104,10 @@
            </tbody>
        </table>      
     </div>
-      </div>
-   </div>
-   <br>
+   
    	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
-		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
+		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';" type="button">취소</button>
 </div>
 
 <script id="template_tel" type="text/x-handlebars-template">
@@ -207,7 +191,7 @@
 	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
+				<input type="text" class="input-group date form-control acquidate licenseacquidate licenseclass" name="rlicensevolist[].acquidate" value="{{acquidate}}">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
 	</div>
@@ -287,15 +271,13 @@
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
-
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control acquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<input type="text" class="input-group date form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
-
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
@@ -309,41 +291,59 @@
 </div>
 <!-- end of row -->
 </script>
-  <br>
-  <br>
 <script type='text/javascript'>
 $(document).ready(function(){
-   
+	
 	Handlebars.registerHelper('select', function( value, options ){
         var $el = $('<select />').html( options.fn(this) );
         $el.find('[value="' + value + '"]').attr({'selected':'selected'});
         return $el.html();
     });
 	
-	
 	var formObj = $("form[role = 'form']");
-   
-   $(function() {
-      $('.input-group.date').datepicker({
-         calendarWeeks : false,
-         todayHighlight : true,
-         autoclose : true,
-         format : "yyyy-mm-dd",
-         language : "kr"
-      });
-   });
-   
+	
+	function datepick() {
+		$('.input-group.date').datepicker({
+			calendarWeeks : false,
+			todayHighlight : true,
+			autoclose : true,
+			format : "yyyy-mm-dd",
+			language : "kr"
+		});
+	}
+	
    $("#write-success").on("click", function(){
+	   
+	   if($('#birth').val()==''){
+			console.log("#birth.val()==''");
+			$('#birth').val("0000-00-00");
+		}
+		$('.licenseacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".licenseacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		$('.languageacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
       formObj.attr("action", "/personal/write");
       formObj.attr("method", "post");
       numberingList();
       formObj.submit();
    });
    
-  ////////////img uploadedList start//////////////////////////////////////////////////////////
-  // var upload = document.getElementsByTagName('input')[0];
    var upload = document.getElementById('fileupload');
    var uploadedList = document.getElementById('uploadedList');
+   
 	if (typeof window.FileReader === 'undefined') {
 	 console.log("state.className = 'fail'");
 	} else {
@@ -362,7 +362,6 @@ $(document).ready(function(){
 			 image.src = event.target.result;
 			  
 			 uploadedList.innerHTML = '';
-			  // img.width = 200;
 			 image.height = 150;
 			 uploadedList.appendChild(image);
 		 };//reader.onload end
@@ -386,7 +385,6 @@ $(document).ready(function(){
 				 contentType : false,
 				 type : 'POST',
 				 success : function(data){
-				  	//alert(data);
 					   var str = "";
 					  
 					 	console.log(data);
@@ -407,19 +405,22 @@ $(document).ready(function(){
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
-		//$("#uploadedList").remove();
 		$("#uploadedList").empty();
 		console.log("img File appended deleted");
+		var fileName=$(this).attr("data-src");
+		console.log(fileName);
+		var uploadfilename = document.getElementById('uploadfilename');
 		
 		$.ajax({
 			url:"deleteFile",
 			type:"post",
 			data : {fileName:$(this).attr("data-src")},
 			dataType:"text",
-			succss:function(result){
+			success:function(result){
 				if(result=='deleted'){
-					console.log("img File on server eleted");
+					console.log("img File on server deleted");
 					that.parent("div").remove();
+					$('#uploadfilename').val('');
 				}
 			}
 		});
@@ -428,30 +429,29 @@ $(document).ready(function(){
 	function getOriginalName(fileName){
       	var idx = fileName.indexOf("_")+1;
       	return fileName.substr(idx);
-      }
+    }
 	function getImageLink(fileName){
       	var front = fileName.substr(0,12);
       	var end = fileName.substr(14);
       	
       	return front + end;
-      }
-	
+    }
 	function numberingList() {
-			$(".telclass").each(function(index){
+		$(".telclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
 			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		});
-			 $(".webclass").each(function(index){
+		$(".webclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
 			name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		}); 
-		 $(".langclass").each(function(index){
+	 	$(".langclass").each(function(index){
 			var num = 6;
 			var name = $(this).attr("name");
 			name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
@@ -466,7 +466,6 @@ $(document).ready(function(){
 			console.log($(this).attr("name"));
 		}); 
 	}
-	
 	// tel 추가버튼 이벤트
 	$("#tel_div").on("click", ".tel_plus_btn", function(){
 		 var item = {
@@ -479,6 +478,7 @@ $(document).ready(function(){
 		var source_tel = $("#template_tel").html();
 		var template_tel = Handlebars.compile(source_tel);
 		$("#tel_div").append(template_tel(item));
+		datepick();
 	}
 	function tel_list() {
 		var item = {
@@ -487,7 +487,6 @@ $(document).ready(function(){
 				tel : "${PTelVO.tel}" 
 				};
 		add_tel(item);
-		
 	}
 	
 	//웹 추가 버튼 이벤트
@@ -502,6 +501,7 @@ $(document).ready(function(){
 		var source_web = $("#template_web").html();
 		var template_web = Handlebars.compile(source_web);
 		$("#web_div").append(template_web(item));
+		datepick();
 	}
 	function web_list() {
 			var item = {
@@ -524,6 +524,7 @@ $(document).ready(function(){
 		var source_license = $("#template_license").html();
 		var template_license = Handlebars.compile(source_license);
 		$("#license_div").append(template_license(item));
+		datepick();
 	}
 	function license_list() {
 			var item = {
@@ -546,6 +547,7 @@ $(document).ready(function(){
 		var source_language = $("#template_language").html();
 		var template_language = Handlebars.compile(source_language);
 		$("#language_div").append(template_language(item));
+		datepick();
 	}
 	function language_list() {
 			var item = {

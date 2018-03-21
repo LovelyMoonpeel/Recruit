@@ -162,7 +162,7 @@
 
 <script>
 	// Menu 갯수
-	var mnum = 8;
+	var mnum = 9;
 
 	// DropDown Menu
 	// dropdown 근무형태, 학력, 경력
@@ -194,6 +194,7 @@
 	$.getJSON("/sresult/code/1", drop1CodHandler); // experience(1)
 	$.getJSON("/sresult/code/2", drop1CodHandler); // education(2)
 	$.getJSON("/sresult/code/4", drop1CodHandler); // employment status(4)
+	// $.getJSON("/sresult/region", drop1RegHandler);
 
 	$("#exp").on("click", "li", function() {
 		console.log($(this).attr("value"));
@@ -258,32 +259,72 @@
 			$.getJSON("/sresult/jobg", drop1JobHandler);
 	});
 
+	$("#jobgroup").on(
+			"click",
+			".cls1",
+			function() {
+				if ($(this).attr("id") === 'jup') {
+					console.log("jup");
+					console.log($(this).attr("value"));
+					j1page--;
+					jstate = 1;
+					console.log("jstate: " + jstate);
+					$.getJSON("/sresult/jobg", drop1JobHandler);
+				} else if ($(this).attr("id") === 'jdown') {
+					console.log("jdown");
+					console.log($(this).attr("value"));
+					j1page++;
+					jstate = 1;
+					console.log("jstate: " + jstate);
+					$.getJSON("/sresult/jobg", drop1JobHandler);
+				} else {
+					$.getJSON("/sresult/jobg/" + $(this).attr("value"),
+							drop2JobHandler);
+				}
+			});
+
+	/*
+	// dropdown 2번째 jobgroup 생성하기
+	function drop2JobHandler(data) {
+		jobcls = 2;
+		$("#jobgroup .cls1").remove();
+		str = "";
+		console.log(data.length);
+		// data.length = 10;
+		$(data).each(drop2JobListItems);
+		$("#jobgroup").append(str);
+		$("#jobgroupMenu").trigger('click');
+	}
+
+	// dropdown 2번째 코드(직무) list items 생성하기
+	function drop2JobListItems(index, that) {
+		str += '<li class="cls2" value="' + that.id +'"><a href="javascript:;">'
+				+ that.jobgroup + '</a></li>';
+	}
+
 	$("#jobgroup").on("click", ".cls1", function() {
-		if ($(this).attr("id") === 'jup') {
-			console.log("jup");
-			console.log($(this).attr("value"));
-			j1page--;
-			jstate = 1;
-			console.log("jstate: " + jstate);
-			$.getJSON("/sresult/jobg", drop1JobHandler);
-		} else if ($(this).attr("id") === 'jdown') {
-			console.log("jdown");
-			console.log($(this).attr("value"));
-			j1page++;
-			jstate = 1;
-			console.log("jstate: " + jstate);
-			$.getJSON("/sresult/jobg", drop1JobHandler);
-		} else {
-			console.log($(this).attr("value"));
-		}
+		$.getJSON("/sresult/jobg/" + $(this).attr("value"), drop2JobHandler);
 	});
+
+	$("#jobgroup").on("click", ".cls2", function() {
+		jobcls = 0
+		$.getJSON("/sresult/jobg", drop1JobHandler);
+		console.log($(this).attr("value"));
+	});
+	 */
 
 	// dropdown 지역
 	// 전역변수
-	var r1page = 0;
-	var rstate = 0;
-	// 0: 초기상태
-	// 1: 작동상태
+	var regcls = 0;
+	// dropdown 1번째 region 생성하기
+	function drop1RegHandler(data) {
+		regcls = 1;
+		$("#region .cls1,#region .cls2").remove();
+		str = "";
+		console.log(data.length);
+		$(data).each(drop1RegListItems);
+		$("#region").append(str);
+	}
 
 	// dropdown 1번째 코드(지역) list items 생성하기
 	function drop1RegListItems(index, that) {
@@ -291,51 +332,38 @@
 				+ that.rgbname + '</a></li>';
 	}
 
-	// dropdown 1번째 region 생성하기
-	function drop1RegHandler(data) {
-		$("#region .cls1,#region .cls2").remove();
+	// dropdown 2번째 region 생성하기
+	function drop2RegHandler(data) {
+		regcls = 2;
+		$("#region .cls1").remove();
 		str = "";
-		var tPage = parseInt((data.length - 1) / mnum);
-		var dataSlice = data.slice(mnum * r1page, mnum * (r1page + 1));
-		if (tPage !== 0 && r1page !== 0) {
-			str += '<li id="rup" class="cls1" style="text-align: center;" value="' + r1page + '"><a href="javascript:;">'
-					+ '<i class="glyphicon glyphicon-chevron-up"></i>'
-					+ '</a></li>';
-		}
-		$(dataSlice).each(drop1RegListItems);
-		if (tPage !== 0 && r1page !== tPage) {
-			str += '<li id="rdown" class="cls1" style="text-align: center;" value="' + r1page + '"><a href="javascript:;">'
-					+ '<i class="glyphicon glyphicon-chevron-down"></i>'
-					+ '</a></li>';
-		}
+		console.log(data.length);
+		// data.length = 10;
+		$(data).each(drop2RegListItems);
 		$("#region").append(str);
-		if (rstate !== 0)
-			$("#regionMenu").trigger('click');
+		$("#regionMenu").trigger('click');
 	}
+
+	// dropdown 2번째 코드(지역) list items 생성하기
+	function drop2RegListItems(index, that) {
+		str += '<li class="cls2" value="' + that.rgsid +'"><a href="javascript:;">'
+				+ that.rgsname + '</a></li>';
+	}
+
+	$("#region").on("click", ".cls1", function() {
+		$.getJSON("/sresult/region/" + $(this).attr("value"), drop2RegHandler);
+	});
+
+	$("#region").on("click", ".cls2", function() {
+		regcls = 0
+		$.getJSON("/sresult/region", drop1RegHandler);
+		console.log($(this).attr("value"));
+	});
 
 	// 지역별 Menu 클릭
 	$("#regionMenu").on("click", function() {
-		if ($(this).closest("li").hasClass("open")) {
-			r1page = 0;
-			rstate = 0;
-		}
-
-		if (rstate === 0)
+		if (regcls !== 2)
 			$.getJSON("/sresult/region", drop1RegHandler);
-	});
-
-	$("#region").on("click", ".cls1", function() {
-		if ($(this).attr("id") === 'rup') {
-			r1page--;
-			rstate = 1;
-			$.getJSON("/sresult/region", drop1RegHandler);
-		} else if ($(this).attr("id") === 'rdown') {
-			r1page++;
-			rstate = 1;
-			$.getJSON("/sresult/region", drop1RegHandler);
-		} else {
-			console.log($(this).attr("value"));
-		}
 	});
 	// End of DropDown Menu
 
