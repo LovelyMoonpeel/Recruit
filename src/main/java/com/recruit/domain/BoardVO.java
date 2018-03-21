@@ -10,6 +10,8 @@ public class BoardVO {
 	private String email;
 	private String registnum;
 	private String birth;
+	private String authCode;
+	
 	public String getId() {
 		return id;
 	}
@@ -52,10 +54,17 @@ public class BoardVO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	public String getAuthCode() {
+		return authCode;
+	}
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [id=" + id + ", pw=" + pw + ", cname=" + cname + ", pname=" + pname + ", email=" + email
-				+ ", registnum=" + registnum + ", birth=" + birth + "]";
+				+ ", registnum=" + registnum + ", birth=" + birth + ", authCode=" + authCode + "]";
 	}
+	
 	
 }

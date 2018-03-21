@@ -102,7 +102,7 @@ public class PersonalController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			System.out.println("아이디 출력 해봅니다. : " + id);
+			//System.out.println("아이디 출력 해봅니다. : " + id);
 			// PUser.setId(id);// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
 			model.addAttribute(service.selectPUser(id));
 			return "personal/P_index";

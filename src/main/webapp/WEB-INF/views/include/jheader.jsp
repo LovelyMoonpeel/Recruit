@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page import = "java.net.URLDecoder" %>
 <%@ page import = "com.recruit.domain.BoardVO" %>
 <%
-	String idc = "";
-	String chkc = "";
+	String pidc = "";
+	String pchkc = "";
+	String cidc = "";
+	String cchkc = "";
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null && cookies.length > 0){
 		for(int i=0;i<cookies.length;i++){
-			if(cookies[i].getName().equals("loginCookie")){
-				idc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
-				chkc = "checked='checked'";
+			if(cookies[i].getName().equals("PloginCookie")){
+				pidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
+				pchkc = "checked='checked'";
+			}else if(cookies[i].getName().equals("CloginCookie")){
+				cidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
+				cchkc = "checked='checked'";
 			}
 		}
 	}
@@ -139,7 +145,7 @@
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 개인 회원 로그인" value="<%=idc %>" required/> <span
+										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
@@ -156,7 +162,7 @@
 									<!--기억하기 체크버튼  -->
 									<div class="col-xs-8">
 										<div class="checkbox icheck">
-											<label> <input type="checkbox" name="useCookie" <%=chkc %>>
+											<label> <input type="checkbox" name="useCookie" <%=pchkc %>>
 												기억하기
 											</label>
 										</div>
@@ -190,7 +196,7 @@
 								<!--id입력 -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 기업회원 로그인" required/> <span
+										placeholder="ID 기업회원 로그인" value="<%=cidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
@@ -206,7 +212,7 @@
 									<!--기억하기 체크버튼  -->
 									<div class="col-xs-8">
 										<div class="checkbox icheck">
-											<label> <input type="checkbox" name="useCookie">
+											<label> <input type="checkbox" name="useCookie" <%=cchkc %>>
 												기억하기
 											</label>
 										</div>
@@ -279,16 +285,16 @@
 						<!--_____________________2-1.회원가입 개인 회원 시작_____________________ -->
 						<div id="join_person" class="tab-pane fade in active">
 
-							<!--action속성값이 rController랑 연결되는 거 같음  -->
 							<form role="form" action="/user/joinPost" method="post">
-
+							
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
 
 									<!--아이디 -->
 									<div class="form-group">
-										아이디<input type="text" name='id' class="form-control"
+										아이디<input type="text" id='pid' name='id' class="form-control"
 											placeholder="4~10자리를 입력하세요." required>
+										<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
 									</div>
 
 
@@ -303,33 +309,6 @@
 											placeholder="6자리를 입력하세요." required>
 									<span id="ppwchk"></span>
 									</div>
-									
-	<!-- 비밀번호 일치 여부  -->
-<script>
-	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-	var ppwchk = $('#ppwchk');
-	
-	$('#ppwc').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue")
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			ppwchk.attr("style", "color:red")
-		}
-	})
-	
-	$('#ppw').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue")
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			ppwchk.attr("style", "color:red")
-		}
-	})
-</script>
-<!-- //비밀번호 일치 여부  -->
 
 
 									<!--이름 -->
@@ -386,8 +365,9 @@
 
 									<!--아이디 -->
 									<div class="form-group">
-										회사 아이디<input type="text" name='id' class="form-control"
+										회사 아이디<input type="text" id="cid" name='id' class="form-control"
 											placeholder="4~10자리를 입력하세요." required>
+									<input class="btn btn-success" type="button" id="cid_overlap" value="중복체크">
 									</div>
 
 
@@ -548,6 +528,82 @@
 
 
 
+<!-- 비밀번호 일치 여부  -->
+<script>
+	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
+	var ppwchk = $('#ppwchk');
+	
+	$('#ppwc').keyup(function(){
+		if($('#ppw').val() == $('#ppwc').val()){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+			ppwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			ppwchk.attr("style", "color:red")
+		}
+	})
+	
+	$('#ppw').keyup(function(){
+		if($('#ppw').val() == $('#ppwc').val()){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+			ppwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			ppwchk.attr("style", "color:red")
+		}
+	})
+</script>
+<!-- //비밀번호 일치 여부  -->
+
+<!-- 개인회원 아이디 중복 체크 -->
+<script>
+$("#pid_overlap").on("click", function(){
+	var PidObj = $("#pid");
+	var Pid = PidObj.val();
+
+	$.ajax({
+		type:'POST',
+		url:'/user/idoverlap',
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override": "POST"},
+		dataType:'text',
+		data: JSON.stringify({id:Pid}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'success'){
+				alert("사용 가능한 아이디 입니다.");
+			}else{
+				alert("사용 불가능");
+			}
+		}});
+});
+</script>
+
+<!-- 기업회원 아이디 중복 체크 -->
+<script>
+$("#cid_overlap").on("click", function(){
+	var CidObj = $("#cid");
+	var Cid = CidObj.val();
+
+	$.ajax({
+		type:'POST',
+		url:'/user/idoverlap',
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override": "POST"},
+		dataType:'text',
+		data: JSON.stringify({id:Cid}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'success'){
+				alert("사용 가능한 아이디 입니다.");
+			}else{
+				alert("사용 불가능");
+			}
+		}});
+});
+</script>
 
 
 	<!--iCheck -->
