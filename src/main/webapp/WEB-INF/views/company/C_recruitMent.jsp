@@ -123,6 +123,7 @@
 
 				<form action="/personal/applynow" method="post">
 					<div class="row">
+					<h4>즉시지원하기 - ${PUserVO.id }님의 이력서 목록</h4>
 						<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 						<table class="table table-bordered">
 							<tr>

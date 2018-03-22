@@ -27,6 +27,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
+import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 
 
@@ -42,6 +43,8 @@ public class CompanyController {
 	private CompanyAjaxService ajaxService;
 	@Inject
 	private ResumeService Rservice;
+	@Inject
+	private PUserService Pservice;
 
 	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	private String uploadPath;
@@ -441,6 +444,7 @@ public class CompanyController {
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
+			model.addAttribute("PUserVO", Pservice.selectPUser(id));
 			
 			return "/company/C_recruitMent";
 		} 
