@@ -58,9 +58,6 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("Service readROne");
 		return session.selectOne(namespace + ".readROne", bno);
 	}
-
-	
-	
 	
 	@Override
 	public void updateROne(ResumeVO vo) throws Exception {
@@ -69,16 +66,6 @@ public class ResumeDAOImpl implements ResumeDAO {
 		session.update(namespace + ".updateROne", vo);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void deleteROne(Integer bno) throws Exception {
 		System.out.println("dao" + bno);

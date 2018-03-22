@@ -96,7 +96,8 @@ public class ResumeServiceImpl implements ResumeService {
 		System.out.println("ResumeServiceImpl" + id);
 		return dao.selectRList(id);
 	}
-
+	
+	@Override
 	public List<CodeVO> selectRCodeList() throws Exception {
 		return dao.selectRCodeList();
 	}
