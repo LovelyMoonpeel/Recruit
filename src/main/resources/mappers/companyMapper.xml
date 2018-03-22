@@ -128,37 +128,35 @@
  ]]>
  </select> <!-- 채용공고 정보 -->
  
-    <select id="ajaxRecruitList" resultType="com.recruit.domain.RecruitVO">
+  <select id="ajaxRecruitList" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
-  select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-,  if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt,
+ select @rownum:=@rownum+1 rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,
 if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
-  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  from (select @rownum:=0) a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
   where f.cid = #{id} and period != ' ' order by bno;
  ]]>  
  </select> <!-- ajax용 채용공고 리스트  -->
  
    <select id="ajaxIngRecruitList" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
-select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-, if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt,
-(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')) as period, SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1) AS week
-  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period >= curdate() order by bno desc;
+ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,
+if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
+  from (select @rownum:=0) a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() order by bno;
  ]]>  
  </select> <!-- ajax용 진행 중 채용공고 리스트  -->
  
     <select id="ajaxEndRecruitList" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
-  select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-,  if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt ,
-if(period != ' ',(select date_format((select e.period from 
-tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
-  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno
-  where f.cid = #{id} and period < curdate() and period != ' ' order by bno desc;
+ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,
+if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
+  from (select @rownum:=0) a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period < curdate() and period != ' '  order by bno;
  ]]>  
  </select> <!-- ajax용 마감된 채용공고 리스트  -->
-  
  
  
 	<update id="updateViewCnt">

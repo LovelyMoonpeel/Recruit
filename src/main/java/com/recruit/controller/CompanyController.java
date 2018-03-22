@@ -360,7 +360,7 @@ public class CompanyController {
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("컨트롤러 : " + id);
 
-			model.addAttribute("recruitList", service.RecruitList(id));
+			model.addAttribute("recruitList", service.RecomList(id));
 			model.addAttribute("FavorCompareList", service.FavorCompareList(id));
 
 			return "/company/C_recom";
@@ -400,28 +400,55 @@ public class CompanyController {
 
 	@RequestMapping(value = "C_info", method = RequestMethod.GET) // 개인이 보는 기업정보
 																	// 페이
-	public void C_info(int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+	public String C_info(HttpSession session,int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
 
-		String id = service.RecruitInfoRead2(recruitNum).getCid();
-		System.out.println("컨트롤러 아이디 값은 : " + id);
+	BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			System.out.println("컨트롤러 아이디 값은 : " + id);
 
-		model.addAttribute(service.CompanyInfoRead(id));
-		model.addAttribute("RecruitList", service.CInfoRecruitList(id));
+			model.addAttribute(service.CompanyInfoRead(id));
+			model.addAttribute("RecruitList", service.CInfoRecruitList(id));
+			
+
+			return "/company/C_info";
+
+		} 
+			else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		
 
 	}
 
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이
-																			// 보는
-																			// 채용공고
-																			// 정보
-	public void readRecruitMent(int recruitNum, Model model) throws Exception {
+	
+																			
+	 @RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지															// 정보
+	 public String readRecruitMent(HttpSession session, RedirectAttributes rttr,int recruitNum, Model model) throws Exception {
 
-		String id = service.RecruitInfoRead2(recruitNum).getCid();
-		System.out.println("컨트롤러 아이디 값은 : " + id);
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
+			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+			
 
-		model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
-		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
-		model.addAttribute("ApplyList", service.ApplyList(recruitNum));
+			return "/company/C_recruitMent";
+
+		} 
+			else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		
 
 	}
 
