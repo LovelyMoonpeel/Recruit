@@ -17,15 +17,15 @@
 
 	<update id="companyinfoUpdate">
 	update 
-		project.tblcinfo
+		project.tblcinfo as tci, project.tbluser as tu
 	set 
-		cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo},
+		tu.cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo},
 		ctype=#{ctype}
 		, form=#{form}, establish=#{establish}, numemp=#{numemp},
 		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} , img=#{img}
 		, location=#{location}, phone=#{phone} , email=#{email}
 	where 
-		id = #{id}
+		tu.id = #{id} and tci.id = tu.id
 	</update> 
   
  <!-- 

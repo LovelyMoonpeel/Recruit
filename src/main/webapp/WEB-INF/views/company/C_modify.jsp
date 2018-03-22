@@ -130,26 +130,26 @@
 		
 		<div class="row">	
 			<div class="form-group col-lg-6">
-				<label>회사 아이디</label> <input type="text" name="cname"
+				<label>회사 아이디</label> <input type="text" name="id"
 					class="form-control" id="" value="${CInfoVO.id}">
 			</div>
 			<div class="form-group col-lg-6">
-				<label>담당자</label> <input type="text" name="ceo"
+				<label>담당자</label> <input type="text" name="pname"
 					class="form-control" id="" value="${boardVO.pname}">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>휴대폰 번호</label> <input type="text" name="ctype"
+				<label>휴대폰 번호</label> <input type="text" name="phone"
 					class="form-control" id="" value="${CInfoVO.phone}">
 			</div>
 		
 			<div class="form-group col-lg-6">
-				<label>이메일</label> <input type="text" name="form"
+				<label>이메일</label> <input type="text" name="email"
 					class="form-control" id="" value="${CInfoVO.email}">
 			</div>
-
+	
 		</div>
 		
 		<br> 
