@@ -38,12 +38,10 @@
   line-height:20px;
   color:#9d9d9d; 
 }
-
 .navbar-brand-sub:hover,
 .navbar-brand-sub:focus {
   text-decoration: none;
 }
-
 .navbar-brand-sub:hover,
 .navbar-brand-sub:focus {
   color: #5e5e5e;

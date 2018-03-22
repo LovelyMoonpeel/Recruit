@@ -53,8 +53,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{
-//		System.out.println("comDAO부분 id : "+id);
-		return session.selectList(namespace + ".recruitListt", id);
+		return session.selectList(namespace + ".RecruitList", id);
+	}
+	@Override
+	public List<RecruitVO> RecomList(String id) throws Exception{
+		return session.selectList(namespace + ".RecomList", id);
 	}
 	@Override
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
@@ -130,6 +133,16 @@ public class CompanyDAOImpl implements CompanyDAO{
 	public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception{
 		
 		return session.selectList(namespace + ".cRecruitList", id);
+	}
+	@Override
+	public void C_RecruitExtension(String id, int bno)throws Exception{
+		
+		HashMap<String,Object> pp = new HashMap<>();
+		
+		pp.put("id", id);
+		pp.put("bno", bno);
+		
+		session.update(namespace + ".recruitExtension", pp);
 	}
 
 	

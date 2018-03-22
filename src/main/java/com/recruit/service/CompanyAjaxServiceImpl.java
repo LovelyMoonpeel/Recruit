@@ -40,9 +40,19 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.SubRegion(id2);
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitList1(String id) throws Exception{
+	 public List<RecruitVO> RecruitList(String id) throws Exception{
 		 System.out.println(id);
-		 return dao.RecruitList1(id);
+		 return dao.RecruitList(id);
+	 }
+	 @Override
+	 public List<RecruitVO> IngRecruitList(String id) throws Exception{
+		 System.out.println(id);
+		 return dao.IngRecruitList(id);
+	 }
+	 @Override
+	 public List<RecruitVO> EndRecruitList(String id) throws Exception{
+		 System.out.println(id);
+		 return dao.EndRecruitList(id);
 	 }
 
 	 @Override

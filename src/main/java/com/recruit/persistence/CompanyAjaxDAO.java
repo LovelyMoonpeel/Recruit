@@ -21,7 +21,11 @@ public interface CompanyAjaxDAO {
 
 	public List<RegionVO> SubRegion(String id2) throws Exception;
 	
-	public List<RecruitVO> RecruitList1(String id) throws Exception;
+	public List<RecruitVO> RecruitList(String id) throws Exception;
+	
+	public List<RecruitVO> IngRecruitList(String id) throws Exception;
+	
+	public List<RecruitVO> EndRecruitList(String id) throws Exception;
 	
 	public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception;
 	

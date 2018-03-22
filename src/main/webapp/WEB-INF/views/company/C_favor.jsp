@@ -5,22 +5,19 @@
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
-<div class="col-md-9" style="border: 1px;">
+<div class="col-md-9">
 	<br> <br> <br>
 	<h1>관심인재</h1>
 
-<input type="hidden" id="id" value="${CInfoVO.id}">
 
-	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
-		<div
-			style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
+	<div class="gobox1">
+		<div class="gobox2">
 			<ul>
 				<li>관심 인재로 등록한 이력서는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
-				<li>관심 등록한 이력서는 <b>채용을 목적으로 하는 경우</b>에만 이용할 수 있으며, <br> <b>최초
-						개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다. <br>채용이 아닌 <r>영업이나
-					마케팅 등으로 이용하실 경우,</r> <br> <r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는
-					5,000만원 이하의 벌금에 처해질 수 있습니다.</r>
-				</li>
+				<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.</li> <br> 
+				<li>공고를 등록하신 회원님께<b>공고 기반 추천 인재 서비스를 무료</b>로 제공합니다. </li>
+				<li>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요. (서류 결과 발표 버튼 클릭)</li><br>
+				<br>※ 사람인 채용정보 등록 규정상 부적합한 공고로 판별된 경우, 별도 통보 없이 공고가 마감/삭제 처리될 수 있습니다.
 
 			</ul>
 		</div>
@@ -33,29 +30,10 @@
 			<th class="text-center">이력서 요약</th>
 			<th style="width: 15%;" class="text-center">업데이트일</th>
 		</tr>
-<c:forEach items="${favorList}" var="CPersonInfoVO">
-		<tr>
+	
+		<tbody id="favList">
 		
-		
-			<td class="text-right" style="vertical-align: middle"><img
-				src="/resources/rpjt/img/on.png")" id="non" value="${CPersonInfoVO.bno}"></td>
-			<td class="text-center" style="vertical-align: middle"><strong>${CPersonInfoVO.name}  ⃝  ⃝  </strong>
-				<br> <span>1991년, 28세</span></td>
-			<td><span class="careerLine">경력 3년 5개월</span> <a target="_blank"
-				href="">${CPersonInfoVO.title}</a>
-				<p></p>
-				<div>
-					<div></div>
-					<div>${CPersonInfoVO.schoolname}${CPersonInfoVO.major}</div>
-				</div>
-				<p>${CPersonInfoVO.rgbid} ${CPersonInfoVO.salary}</p>
-				<div>
-					<a>핵심역량 마케팅전략·기획, 시장조사·분석, 프로모션, 온라인마케팅, 광고기획, 지배인</a>
-				</div></td>
-			<td class="text-center" style="vertical-align: middle">1분전</td>
-		
-		</tr>
-		</c:forEach>
+		</tbody>
 	</table>
 
 	<!-- //기업 페이지 -->
@@ -63,25 +41,27 @@
 
 <script>
 
-
-
-
+$(document).ready(function(){
 	
+	favList();
+	
+})
 	 
 	$(document).on("click", '#non', function() { //즐겨찾기
-
-			var id = $('#id').attr('value');
-			var bno = $(this).attr('value');
-			
-			favDel(bno, id);
-			
+		
+		var bno = $(this).attr('value');
+			if(confirm("삭제하시겠습니까?")){
+			favDel(bno);
+			}else{
+				return false;
+			}
 		})
 	
 	
 	
-	function favDel(bno, id){ 	// 관심인재 삭제
+	function favDel(bno){ 	// 관심인재 삭제
 		
-		$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+		$.getJSON("/companyAjax/favorDeleteRestart/"+bno+"", function(data){
 		var str = "";
 			
 			$(data).each(
@@ -91,7 +71,46 @@
 		})
 		
 		alert("삭제됐습니다.");
+		favList();
+	}
+	
+	function favList(){
+		$.getJSON("/companyAjax/favorList/", function(data){
+		var str = "";
+		
+		$(data).each(function(){
+			
+			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
+				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br><span>1991년, 28세</span></td>"
+				+ "<td><span class=careerLine>경력 3년 5개월</span><a target=_blank href=>"+this.title+"</a>"
+				+ "<div><div></div><div>"+this.schoolname+""+this.marjor+"</div></div>"
+				+ "<p>"+this.rgbid+""+this.salary+"</p>"
+				+ "<div><a>핵심역량 마케팅전략 기획</a></div></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+			
+			
+		});
+		
+		$("#favList").html(str);
+		
+		
+		
+		})
+		
+		
 	}
 </script>
+
+<style>
+
+.gobox1{
+	width: 740px; 
+	padding: 0 0 15px 0; margin: 0;
+}
+.gobox2{
+	border: 1px solid #c1d1f2; 
+	background-color: #f4f9ff; 
+	padding: 13px 0 8px 12px;
+}
+</style>
 
 <%@include file="../include/cfooter.jsp"%>

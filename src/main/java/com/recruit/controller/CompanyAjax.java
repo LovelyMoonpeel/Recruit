@@ -3,6 +3,7 @@ package com.recruit.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CompanyAjaxService;
@@ -98,24 +101,126 @@ public class CompanyAjax {
 		}
 		return entity;
 	}
+	@RequestMapping(value = "/favorList/", method = RequestMethod.GET)
+	public ResponseEntity<List<CPersonInfoVO>> favList(HttpSession session, Model model){
+		
+		
+		ResponseEntity<List<CPersonInfoVO>> entity = null;
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		String id = login.getId();
+		try {
+			entity = new ResponseEntity<>(jobService.FavorList(id), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;	
+	}
+	
 
 	@RequestMapping(value = "/favorAdd/{bno}/{id}",method = RequestMethod.GET)
 	public void faverAdd(@PathVariable("bno") int bno, @PathVariable("id") String id, RedirectAttributes rttr) throws Exception{
 		service.FavorPersonAdd(bno, id);
 	}
 	
-	@RequestMapping(value = "/favorDelete/{bno}/{id}",method = RequestMethod.GET)
-	public void faverDelete(@PathVariable("bno") int bno, @PathVariable("id") String id, RedirectAttributes rttr) throws Exception{
-		service.FavorPersonDelete(bno, id);
+	@RequestMapping(value = "/favorDeleteRestart/{bno}",method = RequestMethod.GET)
+	public String faverDeleteRestart(HttpSession session, @PathVariable("bno") int bno,  RedirectAttributes rttr) throws Exception{
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			System.out.println(id+""+bno);
+			service.FavorPersonDelete(bno, id);
+			
+			rttr.addFlashAttribute("msg", "DELESUCCESS");
+			
+			return "/company/C_favor";
+
+		} 
+			else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+		
 	}
 	
-	@RequestMapping(value = "/favorDeleteRestart/{bno}/{id}",method = RequestMethod.GET)
-	public String faverDeleteRestart(@PathVariable("bno") int bno,  @PathVariable("id") String id, RedirectAttributes rttr) throws Exception{
-		service.FavorPersonDelete(bno, id);
+	@RequestMapping(value = "/recruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> RecruitList(HttpSession session, Model model){
 		
-		rttr.addFlashAttribute("msg", "DELESUCCESS");
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
 		
-		return "redirect:/company/C_favor?id="+id;
+		if (login != null) {
+			
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.RecruitList(id), HttpStatus.OK);
+				System.out.println("컨트롤러 제네릭 : "+entity.toString());
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
+		
+	}
+	
+	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> IngRecruitList(HttpSession session, Model model){
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.IngRecruitList(id), HttpStatus.OK);
+				System.out.println(entity.getBody().get(0));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
+		
+	}
+	
+	
+	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> EndRecruitList(HttpSession session, Model model){
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.EndRecruitList(id), HttpStatus.OK);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
+		
 	}
 	
 	

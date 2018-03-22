@@ -57,10 +57,10 @@
 			<div class="col-md-3">
 				<p class="lead">기업정보관리</p>
 				<div class="list-group">
-					<a href="/company/C_index?id=${CInfoVO.id}" class="list-group-item">기업정보관리</a>
-					<a href="/company/C_write?id=${CInfoVO.id}" class="list-group-item">채용공고작성</a>
-					<a href="/company/C_manage?id=${CInfoVO.id}" class="list-group-item">채용공고관리</a>
-					<a href="/company/C_recom?id=${CInfoVO.id}" class="list-group-item">추천인재</a>
-					<a href="/company/C_favor?id=${CInfoVO.id}" class="list-group-item">관심인재</a>
+					<a href="/company/C_index" class="list-group-item">기업정보관리</a>
+					<a href="/company/C_write" class="list-group-item">채용공고작성</a>
+					<a href="/company/C_manage" class="list-group-item">채용공고관리</a>
+					<a href="/company/C_recom" class="list-group-item">추천인재</a>
+					<a href="/company/C_favor" class="list-group-item">관심인재</a>
 				</div>
 			</div>

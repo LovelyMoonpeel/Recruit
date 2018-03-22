@@ -29,8 +29,8 @@
 	<h1>채용 공고 목록</h1>
 	<table class="table table-bordered">
 		<tr class="active">
-			<th>순번</th>
-			<th>공고 제목</th>
+			<th>공고 상태</th>
+			<th>모집 내용</th>
 			<th style="text-align: center">기간</th>
 			<th>인재보기</th>
 			
@@ -43,7 +43,7 @@
 					<tr>
 					<th><%=manage%></th>
 					<th>${RecruitVO.title}</th>
-					<th>~${RecruitVO.period}</th>
+					<th>${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 					
@@ -123,7 +123,7 @@ function PersonList(bno){
 					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span><a  id="+this.bno+">"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
 					
 					comparison.push(this.bno)
-	
+					
 				});
 		
 		$("#recomList").html(str);

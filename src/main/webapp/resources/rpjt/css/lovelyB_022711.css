@@ -34,12 +34,12 @@ footer {
   font-size: 16px;
 }
 
+
+
 .careerLine {
-<<<<<<< HEAD
-  /*��õ���� ,�������� �� ��� �׵θ�*/
+
   border: 1px solid blue;
   border-radius: 7px;
-=======
      display: inline-block;
     margin: 2px 4px 0 0;
     padding: 0 9px 0 8px;
@@ -52,26 +52,8 @@ footer {
     line-height: 18px;
     vertical-align: top;
     background: #6b80f1;
->>>>>>> branch 'pbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 }
 
-#none {
-  /* ��õ���� ����� */
-  display: none;
-}
-
-#inline {
-  /* ��õ���� ���� */
-  display: inline;
-}
-
-#non {
-  background-image: url("img/on.png");
-}
-
-#on {
-  background-image: url("img/off.png");
-}
 
 .timeline {
   position: relative;

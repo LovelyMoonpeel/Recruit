@@ -21,6 +21,65 @@ public class RecruitVO implements Bnoble {
 	private String recruitform;
 	private String regdate;
 	private int viewcnt;
+	private String recruitstate;
+	private String week;
+	private String applynum;
+	private int rownum;
+	private String btnstate;
+	
+
+
+	@Override
+	public String toString() {
+		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
+				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc
+				+ ", recruitnum=" + recruitnum + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid
+				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
+				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt
+				+ ", recruitstate=" + recruitstate + ", week=" + week + ", applynum=" + applynum + ", rownum=" + rownum
+				+ ", btnstate=" + btnstate + "]";
+	}
+
+	public String getBtnstate() {
+		return btnstate;
+	}
+
+	public void setBtnstate(String btnstate) {
+		this.btnstate = btnstate;
+	}
+
+	public String getApplynum() {
+		return applynum;
+	}
+
+	public void setApplynum(String applynum) {
+		this.applynum = applynum;
+	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+	public String getRecruitstate() {
+		return recruitstate;
+	}
+
+	public void setRecruitstate(String recruitstate) {
+		this.recruitstate = recruitstate;
+	}
+
+	public String getWeek() {
+		return week;
+	}
+
+	public void setWeek(String week) {
+		this.week = week;
+	}
+	
 	// private int jobgroupid2; // merge
 
 	public int getBno() {
@@ -185,14 +244,7 @@ public class RecruitVO implements Bnoble {
 	// this.jobgroupid2 = jobgroupid2;
 	// }
 
-	@Override
-	public String toString() {
-		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
-				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc
-				+ ", recruitnum=" + recruitnum + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid
-				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
-				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
-	}
+	
 
 	@Override
 	public int hashCode() {
