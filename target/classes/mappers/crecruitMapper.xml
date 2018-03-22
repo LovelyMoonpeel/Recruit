@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 		
-	<!-- 지원한 채용공고 목록 -->
+	<!-- 지원한 채용공고 목록 안소연 사용 수정 -->
 	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
 		select *

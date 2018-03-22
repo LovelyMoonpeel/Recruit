@@ -36,7 +36,7 @@ public class ResumeCareerDAOImpl implements ResumeCareerDAO {
 	public void deleteResumeCareer(Integer bno) throws Exception {
 		session.delete(namespace + ".deleteResumeCareer", bno);
 	}
-
+	
 	// r.code 03/14 추가
 	@Override
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception {

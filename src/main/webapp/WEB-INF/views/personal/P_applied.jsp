@@ -21,19 +21,21 @@
 				<th style="width: 55px;">번호</th>
 				<th>회사명</th>
 				<th style="width: 200px;">공고 제목</th>
-				<th>모집 기간</th>
+				<th>등록 날짜</th>
+				<th>모집 마감 기한</th>
 				<th>지원자 수</th>
-				<th>내가 지원한 이력서</th>
+				<th>지원한 이력서</th>
 			</tr>
-			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO">
+			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
-				<td>${CRecruitVO.bno}</td>
+				<td>${status.count}</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = 'http://localhost:8080/company/C_recruitment?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
-				<td>${CRecruitVO.period}</td>
+				<td><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
+				<td>${CRecruitVO.period}</td>
+				<td>count하기</td>
 				<!--  매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td style="width: 20px;"><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>${ResumeVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>resumeVO title이랑 bno받아오기 ${ResumeVO.title}</a></td>
 			</tr>
 			</c:forEach>
 		</table>

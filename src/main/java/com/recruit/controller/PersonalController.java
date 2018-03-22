@@ -155,7 +155,6 @@ public class PersonalController {
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-
 		System.out.println("write GET controller");
 
 		//j.code 세션수정03/21
@@ -213,7 +212,6 @@ public class PersonalController {
 				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
-
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 
 				return "personal/P_detail";
@@ -237,7 +235,6 @@ public class PersonalController {
 		System.out.println("Rmodify GET Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-
 		if (login != null) {
 			String id = login.getId();
 			puser.setId(id);
@@ -268,7 +265,6 @@ public class PersonalController {
 		}
 	}
 
-
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model) throws Exception {
@@ -284,7 +280,7 @@ public class PersonalController {
 		int resumenum = resume.getBno();
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
-
+		
 		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
@@ -349,6 +345,8 @@ public class PersonalController {
 			
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
+			
+			
 			//model.addAttribute("ResumeVO",);
 			
 			return "personal/P_applied";

@@ -20,7 +20,7 @@ public class CRecruitServiceImpl implements CRecruitService {
 		return dao.selectCRList(id);
 	};
 	
-	@Override
+	@Override//안소연 사용
 	public List<CRecruitVO> selectAPList(String id)throws Exception{
 		return dao.selectAPList(id);
 	};

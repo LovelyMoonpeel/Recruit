@@ -1,9 +1,8 @@
 package com.recruit.domain;
 
-import java.util.Date;
-
 public class CRecruitVO {
-	public int bno;
+	public String bno;
+	//안소연 bno로 바꿈
 	public String title;
 	public String cid;
 	public int jobgroupid;
@@ -22,11 +21,11 @@ public class CRecruitVO {
 	public String regdate;
 	public int viewcnt;
 	
-	public int getBno() {
+	public String getBno() {
 		return bno;
 	}
 
-	public void setBno(int bno) {
+	public void setBno(String bno) {
 		this.bno = bno;
 	}
 

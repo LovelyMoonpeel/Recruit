@@ -427,6 +427,7 @@
 </div>
 <!-- end of row -->
 </script>
+
 <script type='text/javascript'>
 $(document).ready(function(){
 	

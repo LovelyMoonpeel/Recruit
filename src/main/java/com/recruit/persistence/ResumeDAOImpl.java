@@ -106,5 +106,4 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("ResumeDAOImpl selectRList" + bno);
 		return session.selectOne(namespace+".resumeRead", bno);
 	}
-
 }

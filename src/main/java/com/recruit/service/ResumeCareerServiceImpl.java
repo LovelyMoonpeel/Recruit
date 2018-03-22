@@ -40,7 +40,7 @@ public class ResumeCareerServiceImpl implements ResumeCareerService {
 	public void createResumeCareer(ResumeCareerVO vo) throws Exception {
 		dao.createResumeCareer(vo);
 	}
-
+	
 	// r.code 03/14 추가
 	@Override
 	public List<ResumeCareerVO> readResumeCareerList(Integer bno) throws Exception {

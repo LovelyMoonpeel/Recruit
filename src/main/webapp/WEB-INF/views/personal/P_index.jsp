@@ -3,10 +3,6 @@
 <%@include file="../include/pheader.jsp"%>
 
 <!-- Main content -->
-<%-- <form role="form">
-		<input type='hidden' name='id' value="${PUserVO.id}">
-</form> --%>
-
 <!-- 개인 페이지 -->
 <div class="col-md-9">
 	<!-- 개인 페이지 첫번째(이미지, 이름) -->
@@ -26,7 +22,6 @@
 						<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
 						<th class="table-active" scope="row">아이디</th>
 						<td>${PUserVO.id}</td>
-						
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">이름</th>
@@ -46,9 +41,7 @@
 		</div>
 		<!-- //table-responsive -->
 	</div>
-	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-
 		<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-11" onclick="location.href='/personal/modify'">수정</button>
 	<!-- //수정 버튼 -->
 	<br> <br>

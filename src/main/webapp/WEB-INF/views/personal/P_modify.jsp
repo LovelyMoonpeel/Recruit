@@ -27,13 +27,13 @@
 					<th class="table-active" scope="row"><label>아이디</label></th>
 					<td>
 						<div class="form-group">
-			 				<input type="text" name="id" class="form-control" id="" value="${PUserVO.id}" readonly="readonly">
+			 				<input type="text" name="id" class="form-control" id="id" value="${PUserVO.id}" readonly="readonly">
 						</div>
 					</td>
                        <th class="table-active" scope="row"><label>비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							<input type="password" name="pw" class="form-control" id="pw" value="${PUserVO.pw}">
+							<input type="password" name="pw" class="form-control" id="pw">
 						</div>
 					</td>
 					
@@ -42,7 +42,7 @@
 					<th class="table-active" scope="row"><label>이름</label></th>
 					<td>
 						<div >
-							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="" value="${PUserVO.pname}">
+							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}">
 						</div>
 					</td>
 					
@@ -58,7 +58,7 @@
 					<th class="table-active" scope="row"><label>email</label></th>
 					<td>
 						<div class="form-group">
-							<input type="text" name = "email" class="form-control" id="" value ="${PUserVO.email}">
+							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}">
 						</div>
 					</td>
 					<td colspan="2">

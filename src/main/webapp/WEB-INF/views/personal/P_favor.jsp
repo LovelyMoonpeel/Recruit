@@ -28,7 +28,7 @@
 			<tr>
 				<td>${CRecruitVO.bno}</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = 'http://localhost:8080/company/C_recruitment?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.period}</td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.viewcnt}</td>

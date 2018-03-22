@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ResumeLanguageVO {
 	
-	private int resumelangid;
+	private String resumelangid;
 	private int rid;
 	private int lid;
 	private String test;
@@ -19,10 +19,10 @@ public class ResumeLanguageVO {
 	public void setRlangvolist(List<ResumeLanguageVO> rlangvolist) {
 		this.rlangvolist = rlangvolist;
 	}
-	public int getResumelangid() {
+	public String getResumelangid() {
 		return resumelangid;
 	}
-	public void setResumelangid(int resumelangid) {
+	public void setResumelangid(String resumelangid) {
 		this.resumelangid = resumelangid;
 	}
 	public int getRid() {

@@ -39,7 +39,6 @@ public class ResumeEduServiceImpl implements ResumeEduService {
 	public void createResumeEdu(ResumeEduVO vo) throws Exception {
 		dao.createResumeEdu(vo);
 	}
-
 	// r.code 03/13 추가
 	@Override
 	public List<ResumeEduVO> readResumeEduList(Integer bno) throws Exception {

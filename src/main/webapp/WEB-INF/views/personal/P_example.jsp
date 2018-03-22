@@ -8,22 +8,17 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의 이력서 작성</h1>
+	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
-	<%-- <input type='hidden' name='id' value="${PUserVO.id}"> 
- 	 <input type='hidden' name='pw' value="${PUserVO.pw}">
-	 <input type='hidden' name='pname' value="${PUserVO.pname}">
-	 <input type='hidden' name='email' value="${PUserVO.email}">
-	 <input type='hidden' name='birth' value="${PUserVO.birth}"> --%>
-	 
+	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
+	 	<input type="text" class="form-control" value="${ResumeLanguageVO.rid}" readonly>
 		<br>	
 		<div class="form-group">
-			<label for="title">제목</label> 
-			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>
+			<label for="title">제목</label> <input class="form-control" id="title"
+				name="title" value="${ResumeVO.title}">
 		</div>
-	  <div class="company_info_content">
+  <div class="company_info_content">
       <div class="table-responsive">
          <table class="table table-bordered">
             <tbody>
@@ -56,7 +51,7 @@
                   <td>
                   	<div class="form-group">
 						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}">
+							<input type="text" class="form-control" id="birth" name="birth" value="${PUserVO.birth}">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 						</div>
 					</div>
@@ -71,7 +66,7 @@
                
              </tbody>
          </table>
-               
+  </div>             
     <!-- ------------------------------------------------------handlebar로 수정1 -->
    <hr style="border: solid 4px #ccc;">
 	<h4>
@@ -115,36 +110,35 @@
             <tr>
              <td colspan="5" rowspan="2">
                	<div class="form-group">
-				<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;" required>${ResumeVO.coverletter}</textarea>
+				<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;">${ResumeVO.coverletter}</textarea>
 				</div>
              </td>   
             </tr>
            </tbody>
        </table>      
     </div>
-      </div>
    </div>
    <br>
    	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
-</div>
+	</div>
 
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
-	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" placeholder="{{rid}}"></input>
+	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
 	
 	<div class="form-group col-md-3">
 		<label for="teltitle">전화번호 (종류)</label> 
-		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" placeholder="{{teltitle}}"></input>
+		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
 	</div>
 	
 	<div class="form-group col-md-4">
 		<label for="tel">전화번호</label> 
-		<input class="form-control tel telclass" name="ptelvolist[].tel" placeholder="{{tel}}"></input>
+		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
@@ -200,17 +194,20 @@
 	
 	<div class="form-group col-md-3">
 		<label for="licensename">자격증명</label> 
-		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" placeholder="{{licensename}}"></input>
+		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
 	</div>
 
 	<div class="form-group col-md-4">
 		<label for="publeoffice">발행기관</label> 
-		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" placeholder="{{publeoffice}}"></input>
+		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate licenseclass" name="rlicensevolist[].acquidate" placeholder="{{acquidate}}"></input>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control acquidate licenseacquidate licenseclass"  name="rlicensevolist[].acquidate" value="{{acquidate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -231,12 +228,11 @@
  <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
-	<input type="hidden" class="form-control id" value="{{id}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
-
+	
 	<div class="form-group col-md-2">
 		<label for="lid">언어 선택</label>
-		<select class="form-control lid langclass" name="rlangvolist[].lid" >
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}"></input>
 			{{#select lid}}
 			<option value="102" selected>선택</option>
 			<option value="52">영어</option>
@@ -273,7 +269,7 @@
 			{{/select}}
 		</select>
 	</div>
-	
+
 	<div class="form-group col-md-2">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
@@ -284,14 +280,17 @@
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
 
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-4">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 
 	<div class="form-group col-md-2">
 		<label for="acquidate">취득일자</label> 
-		<input class="form-control acquidate langclass" name="rlangvolist[].acquidate" value="{{acquidate}}"></input>
+		<div class="input-group date" data-provide="datepicker">
+				<input type="text" class="form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -305,269 +304,395 @@
 		</button>
 	</div>
 </div>
+
 <!-- end of row -->
-
-</script>
-
-  <br>
-  <br>
+</script>     
+ 
+            
+   <!--  -------------------------------------------------------------------------- -->
 
 <script type='text/javascript'>
-$(document).ready(function(){
-   
-	Handlebars.registerHelper('select', function( value, options ){
-        var $el = $('<select />').html( options.fn(this) );
-        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
-        return $el.html();
-    });
-	
-	
-	var formObj = $("form[role = 'form']");
-   
-   $(function() {
-      $('.input-group.date').datepicker({
-         calendarWeeks : false,
-         todayHighlight : true,
-         autoclose : true,
-         format : "yyyy-mm-dd",
-         language : "kr"
-      });
-   });
-   
-   $("#write-success").on("click", function(){
-      formObj.attr("action", "/personal/write");
-      formObj.attr("method", "post");
-      numberingList();
-      formObj.submit();
-   });
-   
-  ////////////img uploadedList start//////////////////////////////////////////////////////////
-  // var upload = document.getElementsByTagName('input')[0];
-   var upload = document.getElementById('fileupload');
-   var uploadedList = document.getElementById('uploadedList');
-
-	if (typeof window.FileReader === 'undefined') {
-	 console.log("state.className = 'fail'");
-	} else {
-	 console.log("state.className = 'success'");
-	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-	
-	upload.onchange = function (e) {
-	
-		 var file = upload.files[0];
-		 var reader = new FileReader();
-		 //p542다시 보기
-	
-		 //reader.onload start
-		 reader.onload = function (event) {
-			 var image = new Image();
-			 image.src = event.target.result;
-			  
-			 uploadedList.innerHTML = '';
-			  // img.width = 200;
-			 image.height = 150;
-			 uploadedList.appendChild(image);
-		 };//reader.onload end
+$(document).ready(function() {
+		
+		// a.code 03/19 Handlebars Helper 등록
+		Handlebars.registerHelper('select', function( value, options ){
+	        var $el = $('<select />').html( options.fn(this) );
+	        $el.find('[value="' + value + '"]').attr({'selected':'selected'});
+	        return $el.html();
+		});
+		
+		var formObj = $("form[role = 'form']");
+		var xornot = document.getElementById('xornot');
+		
+		$(function() {
+			$('.input-group.date').datepicker({
+				calendarWeeks : false,
+				todayHighlight : true,
+				autoclose : true,
+				format : "yyyy-mm-dd",
+				language : "kr"
+			});
+		});
+		console.log('${PWebSitelist}');
+		var imgsrccheck = ('#imgsrccheck');
+		
+ 		 if($('#imgsrccheck').val()!=""){
+			console.log(" val이 널값아님");
+			$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+			var str = "";
+			str = 
+				  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
+				  +"</a>"
+				  +"<small data-src=${ResumeVO.img}>X</small>";
+			  $("#uploadedList").append(str); 
+			  console.log("uploadedlist에 x버튼 추가");
+		}else{
+			console.log(" val이 널값이다");
+			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+		}  
+	  ////////////img uploadedList start//////////////////////////////////////////////////////////
+ 	  // var upload = document.getElementsByTagName('input')[0];
+	   var upload = document.getElementById('fileupload');
+	   var uploadedList = document.getElementById('uploadedList');
+	  
+		if (typeof window.FileReader === 'undefined') {
+		 console.log("window.FileReader 'fail'");
+		} else {
+		 console.log("window.FileReader 'success'");
+		}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+		  
+	 	  upload.onchange = function (e) {
+		
+			 var file = upload.files[0];
+			 var reader = new FileReader();
+			 //p542다시 보기
+			 $("#uploadedList").empty();
+			 //reader.onload start
+			 reader.onload = function (event) {
+				 var image = new Image();
+				 image.src = event.target.result;
+				  
+				 uploadedList.innerHTML = '';
+				  // img.width = 200;
+				 image.height = 150;
+				 uploadedList.appendChild(image);
+			 };//reader.onload end
+		 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
 		 
-	 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
-	 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
-			 event.preventDefault();
-			 
-			 console.log("file name");
-			 console.log(file);
-			 
-			 var formData = new FormData();
-			 
-			 formData.append("file", file);
-			 
-			 $.ajax({
-				 url:'uploadAjax',
-				 data: formData,
-				 dataType : 'text',
-				 processData : false,
-				 contentType : false,
-				 type : 'POST',
-				 success : function(data){
-				  	//alert(data);
-					   var str = "";
-					  
-					 	console.log(data);
-					 	
-						  str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
-
-					  $("#uploadedList").append(str); 
-					  document.getElementById('uploadfilename').value = getImageLink(data);
-				  }//success : function(data){ end
-	 		  });//ajax end
-		//});//filedrop end
-	 console.log(file);
-	 reader.readAsDataURL(file);
-	};//upload change end
+		 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
+				 event.preventDefault();
+				 //var files = event.originalEvent.dataTransfer.files;
+				 
+				 console.log("file name");
+				 console.log(file);
+				 
+				 var formData = new FormData();
+				 
+				 formData.append("file", file);
+				 
+				 $.ajax({
+					 url:'uploadAjax',
+					 data: formData,
+					 dataType : 'text',
+					 processData : false,
+					 contentType : false,
+					 type : 'POST',
+					 success : function(data){
+						   var str = "";
+						  
+						 	console.log(data);
+						 	
+							  str = 
+								  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
+								  +"</a>"
+								  +"<small data-src="+data+">X</small>";
 	
-	$("#uploadedList").on("click", "small", function(event){
-		event.preventDefault();
-		var that = $(this);
-		//$("#uploadedList").remove();
-		$("#uploadedList").empty();
-		console.log("img File appended deleted");
+						  $("#uploadedList").append(str); 
+						  document.getElementById('uploadfilename').value = getImageLink(data);
+					  }//success : function(data){ end
+		 		  });//ajax end
+			//});//filedrop end
+		 console.log(file);
+		 reader.readAsDataURL(file);
+		};//upload change end   
 		
-		$.ajax({
-			url:"deleteFile",
-			type:"post",
-			data : {fileName:$(this).attr("data-src")},
-			dataType:"text",
-			succss:function(result){
-				if(result=='deleted'){
-					console.log("img File on server eleted");
-					that.parent("div").remove();
-				}
-			}
-		});
-	});
-	
-	function getOriginalName(fileName){
-      	var idx = fileName.indexOf("_")+1;
-      	return fileName.substr(idx);
-      }
-	function getImageLink(fileName){
-      	var front = fileName.substr(0,12);
-      	var end = fileName.substr(14);
-      	
-      	return front + end;
-      }
-	
-	function numberingList() {
-			$(".telclass").each(function(index){
-			var num = 3;
-			var name = $(this).attr("name");
-			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
-			$(this).attr("name", name);
-			console.log($(this).attr("name"));
-		});
-			 $(".webclass").each(function(index){
-			var num = 3;
-			var name = $(this).attr("name");
-			name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
-			$(this).attr("name", name);
-			console.log($(this).attr("name"));
-		}); 
-		 $(".langclass").each(function(index){
-			var num = 6;
-			var name = $(this).attr("name");
-			name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
-			$(this).attr("name", name);
-			console.log($(this).attr("name"));
-		}); 
-		$(".licenseclass").each(function(index){
-			var num = 4;
-			var name = $(this).attr("name");
-			name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
-			$(this).attr("name", name);
-			console.log($(this).attr("name"));
-		}); 
-	}
-	
-	// tel 추가버튼 이벤트
-	$("#tel_div").on("click", ".tel_plus_btn", function(){
-		/* var item = {
-				rid : ${ResumeVO.bno}
-			}; */
-		add_tel(item);
-	});
-	
-	function add_tel(item) {
-		var source_tel = $("#template_tel").html();
-		var template_tel = Handlebars.compile(source_tel);
-		$("#tel_div").append(template_tel(item));
-	}
-	function tel_list() {
-		
-		var item = {
-				//rid :  ${ResumeVO.bno},
-				teltitle : "${PTelVO.teltitle}", 
-				tel : "${PTelVO.tel}" 
-				};
-		add_tel(item);
-		
-	}
-	
-	//웹 추가 버튼 이벤트
-	$("#web_div").on("click", ".web_plus_btn", function(){
-		var item = {
-				//rid : ${ResumeVO.bno}
-			}
-		add_web(item);
-	});
-	
-	function add_web(item) {
-		var source_web = $("#template_web").html();
-		var template_web = Handlebars.compile(source_web);
-		$("#web_div").append(template_web(item));
-	}
-	function web_list() {
-			var item = {
-					//rid :  ${ResumeVO.bno},
-					webtitle : "", 
-					webadd : ""
-			}
-			add_web(item);
-	}
-	//자격증 추가 버튼 이벤트
-	$("#license_div").on("click", ".license_plus_btn", function(){
-		var item = {
-				//rid : ${ResumeVO.bno}
-		}
+  		$("#uploadedList").on("click", "small", function(event){
+			event.preventDefault();
+			var that = $(this);
 			
-		add_license(item);
-	});
-	
-	function add_license(item) {
-		var source_license = $("#template_license").html();
-		var template_license = Handlebars.compile(source_license);
-		$("#license_div").append(template_license(item));
-	}
-	function license_list() {
+			console.log($(this));
+			
+			if($("#xornot").val()==0){
+				fileName = $(this).attr("data-src"); //전역변수로 설정
+				var front = fileName.substring(0, 12);
+				var end = fileName.substring(12);
+				
+				fileName = front + "s_" + end;
+				
+				$("#fileupload").val("");
+				$("#uploadedList").empty();
+				console.log("img File appended deleted");
+				console.log("fileName"+fileName);
+				
+				$("#xornot").val("1");
+				console.log($("#xornot").val());
+			}else if($("#xornot").val()==1){
+				
+				$("#fileupload").val("");
+				$("#uploadedList").empty();
+				console.log("2번 이상 삭제 누름 img File appended deleted");
+				console.log("2번 이상 삭제 누름 fileName"+fileName);
+				
+				$("#xornot").val("1");
+				console.log($("#xornot").val());
+			}
+		}); 
+		
+		function getOriginalName(fileName){
+	      	var idx = fileName.indexOf("_")+1;
+	      	return fileName.substr(idx);
+	      }
+		function getImageLink(fileName){
+	      	var front = fileName.substr(0,12);
+	      	var end = fileName.substr(14);
+	      	
+	      	return front + end;
+	      } 
+		 
+		$("#write-success").on("click", function() {
+			
+			console.log("write-success clicked");
+			
+			if($("#xornot").val()==0){
+				console.log("xornot.val()==0");
+				console.log("사진 삭제 안함");
+				
+				/* if($('#birth').val()==''){
+					console.log("#birth.val()==''");
+					$('#birth').val("0000-00-00");
+				}
+				
+				$('.licenseacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".licenseacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				$('.languageacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".languageacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				}); 
+				
+				formObj.attr("action", "/personal/Rmodify");
+				formObj.attr("method", "post");
+				numberingList();
+				console.log("사진 삭제 안한 상태에서 submit직전");
+				formObj.submit();
+				*/
+			}else if($("#xornot").val()==1){
+				//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
+				console.log("xornot.val()==1");
+				console.log("사진 삭제함");		
+				$.ajax({
+					url:"deleteFile",
+					type:"post",
+					//data : {fileName:$(this).attr("data-src")},
+					data: {fileName:fileName},
+					dataType:"text",
+					succss:function(result){
+						if(result=='deleted'){
+							console.log("img File on server deleted");
+							that.parent("div").remove();
+						}
+					}
+				}); 
+			} 
+			  
+			  
+			  
+			  	if($('#birth').val()==''){
+					console.log("#birth.val()==''");
+					$('#birth').val("0000-00-00");
+				}
+				$('.licenseacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".licenseacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				$('.languageacquidate').each(function(){ 
+					if($(this).val()==''){
+						console.log($(this).val());
+						console.log(".languageacquidate.val()==''");
+						$(this).val("0000-00-00");
+						console.log($(this).val());
+					}
+				});
+				
+				console.log("submit직전");
+				formObj.attr("action", "/personal/Rmodify");
+				formObj.attr("method", "post");
+				numberingList();
+				formObj.submit();
+		});
+    
+		function numberingList() {
+ 			$(".telclass").each(function(index){
+				var num = 3;
+				var name = $(this).attr("name");
+				name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
+				$(this).attr("name", name);
+				console.log($(this).attr("name") + " : " + $(this).val());
+			});
+ 			 $(".webclass").each(function(index){
+				var num = 3;
+				var name = $(this).attr("name");
+				name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
+				$(this).attr("name", name);
+				console.log($(this).attr("name") + " : " + $(this).val());
+			}); 
+ 			 $(".langclass").each(function(index){
+ 				var num = 6;
+ 				var name = $(this).attr("name");
+ 				name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
+ 				$(this).attr("name", name);
+ 				console.log($(this).attr("name") + " : " + $(this).val());
+ 			}); 
+ 			$(".licenseclass").each(function(index){
+ 				var num = 4;
+ 				var name = $(this).attr("name");
+ 				name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
+ 				$(this).attr("name", name);
+ 				console.log($(this).attr("name") + " : " + $(this).val());
+ 			}); 
+		}
+		
+		// tel 추가버튼 이벤트
+		$("#tel_div").on("click", ".tel_plus_btn", function(){
 			var item = {
-					//rid :  "${ResumeVO.bno}",
-					licensename : "", 
-					publeoffice : "",
-					acquidate : ""
-			};
+					rid : ${ResumeVO.bno}
+				};
+			add_tel(item);
+		});
+		
+		function add_tel(item) {
+			var source_tel = $("#template_tel").html();
+			var template_tel = Handlebars.compile(source_tel);
+			$("#tel_div").append(template_tel(item));
+		}
+		function tel_list() {
+			var len = (${PTelVOlist.size()});
+			
+			<c:forEach items="${PTelVOlist}" var="PTelVO">
+				var item = {
+						telid : ${PTelVO.telid},
+						rid : ${PTelVO.rid},
+						teltitle : "${PTelVO.teltitle}", 
+						tel : "${PTelVO.tel}" 
+				};
+				add_tel(item);
+			</c:forEach>
+		}
+		
+		//웹 추가 버튼 이벤트
+		$("#web_div").on("click", ".web_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
+			add_web(item);
+		});
+		
+		function add_web(item) {
+			var source_web = $("#template_web").html();
+			var template_web = Handlebars.compile(source_web);
+			$("#web_div").append(template_web(item));
+		}
+		function web_list() {
+			var len = (${PWebSiteVOlist.size()});
+			
+			<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
+				var item = {
+						
+						webid : ${PWebSiteVO.webid},
+						rid : ${PWebSiteVO.rid},
+						webtitle : "${PWebSiteVO.webtitle}", 
+						webadd : "${PWebSiteVO.webadd}"
+				};
+				add_web(item);
+			</c:forEach>
+		}
+		//자격증 추가 버튼 이벤트
+		$("#license_div").on("click", ".license_plus_btn", function(){
+			var item = {
+					rid : ${ResumeVO.bno}
+				};
 			add_license(item);
-	}
-	//언어 추가 버튼 이벤트
-	$("#language_div").on("click", ".lang_plus_btn", function(){
-		var item = {
-				//rid : ${ResumeVO.bno}
-			};
-		add_language(item);
-	});
-	
-	function add_language(item) {
-		var source_language = $("#template_language").html();
-		var template_language = Handlebars.compile(source_language);
-		$("#language_div").append(template_language(item));
-	}
-	function language_list() {
+		});
+		
+		function add_license(item) {
+			var source_license = $("#template_license").html();
+			var template_license = Handlebars.compile(source_license);
+			$("#license_div").append(template_license(item));
+		}
+		function license_list() {
+			var len = (${RLicenselist.size()});
+			
+			<c:forEach items="${RLicenselist}" var="RLicenseVO">
+				var item = {
+						
+						licenseid : ${RLicenseVO.licenseid},
+						rid : ${RLicenseVO.rid},
+						licensename : "${RLicenseVO.licensename}", 
+						publeoffice : "${RLicenseVO.publeoffice}",
+						acquidate : "${RLicenseVO.acquidate}"
+				};
+				add_license(item);
+			</c:forEach>
+		}
+		//언어 추가 버튼 이벤트
+		$("#language_div").on("click", ".lang_plus_btn", function(){
 			var item = {
-					//rid :  ${ResumeVO.bno},
-					//lid : ${ResumeLanguageVO.lid},
-					test : "", 
-					score : "",
-					publeoffice : "",
-					acquidate : ""
-			};
+					rid : ${ResumeVO.bno}
+				};
 			add_language(item);
-	}
-	
-	tel_list();
-	web_list();
-	license_list();
-	language_list();
-	
+		});
+		
+		function add_language(item) {
+			var source_language = $("#template_language").html();
+			var template_language = Handlebars.compile(source_language);
+			$("#language_div").append(template_language(item));
+		}
+		function language_list() {
+			var len = (${RLanguagelist.size()});
+			
+			<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
+				var item = {
+						rid : ${ResumeLanguageVO.rid},
+						lid : ${ResumeLanguageVO.lid},
+						test : "${ResumeLanguageVO.test}", 
+						score : "${ResumeLanguageVO.score}",
+						publeoffice : "${ResumeLanguageVO.publeoffice}",
+						acquidate : "${ResumeLanguageVO.acquidate}"
+				};
+				
+				add_language(item);
+			</c:forEach>
+		}
+		
+		tel_list();
+		web_list();
+		license_list();
+		language_list(); 
+		
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>

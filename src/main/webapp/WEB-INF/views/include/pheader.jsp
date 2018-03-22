@@ -22,7 +22,7 @@
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+         <![endif]-->
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
@@ -49,16 +49,14 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
-
-			<div class="col-md-3">
-				<p class="lead">마이페이지(개인)</p>
-				<div class="list-grozup">
-					<a href="/personal/index" class="list-group-item">개인정보관리 P_index</a><!-- p08 --> <a
-						href="/personal/write" class="list-group-item">이력서 작성</a> <!-- p02 --><a
-						href="/personal/manage" class="list-group-item">이력서 관리</a> <!-- p01 --><a
-						href="/personal/recom?id=${PUserVO.id}" class="list-group-item">추천채용공고 P_recom</a> <!-- p04 --><a
-						href="/personal/favor?id=${PUserVO.id}" id = "P_favor" class="list-group-item">관심채용공고 P_favor</a> <!-- p05 --><a
-						href="/personal/applied?id=${PUserVO.id}" class="list-group-item">지원현황리스트 P_applied</a><!-- p07 -->
-				</div>
+		<div class="col-md-3">
+			<p class="lead">마이페이지(개인)</p>
+			<div class="list-grozup">
+				<a href="/personal/index" class="list-group-item">개인정보관리</a><!-- p08 --> <a
+					href="/personal/write" class="list-group-item">이력서 작성</a> <!-- p02 --><a
+					href="/personal/manage" class="list-group-item">이력서 관리</a> <!-- p01 --><a
+					href="/personal/recom" class="list-group-item">추천채용공고</a> <!-- p04 --><a
+					href="/personal/favor" id = "P_favor" class="list-group-item">관심채용공고</a> <!-- p05 --><a
+					href="/personal/applied" class="list-group-item">지원현황리스트</a><!-- p07 -->
 			</div>
+		</div>
