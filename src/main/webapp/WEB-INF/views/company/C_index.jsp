@@ -26,7 +26,7 @@
 		<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 		<div class="table-responsive">
 			<!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
-			<table class="table table-bordered">
+			<table class="table table-bordered ">
 			
 			
 				<tbody>
@@ -80,6 +80,36 @@
                         <td colspan="3">하하하하하하 </td>
                       </tr> -->
 				</tbody>
+
+
+				<tbody>
+				
+					
+						<span><center><br><h2>인사담당자 정보</h2><br><br></center></span>
+				
+							
+					<tr>
+						<th class="table-active" scope="row" >회사 아이디</th>
+						<td colspan="3">${CInfoVO.id}</td>
+					</tr>
+					
+					<tr>
+						<th class="table-active" scope="row" >담당자</th>
+						<td colspan="3">${boardVO.pname}</td>
+					</tr>
+					
+					<tr>
+						<th class="table-active" scope="row" name="phone" >휴대폰번호</th>
+						<td colspan="3">${CInfoVO.phone}</td>
+					</tr> 
+					
+					<tr>
+						<th class="table-active" scope="row" >이메일</th>
+						<td colspan="3">${CInfoVO.email}</td>
+					</tr>
+				</tbody>
+
+				
 			</table>
 			
 			<form role="form" method="post">

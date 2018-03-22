@@ -7,16 +7,18 @@
 
   <select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO"> 
   select
-   id, cname, img, homepage, intro, ceo, ctype, form, establish, numemp, sales, tel, fax, sns, location 
+   email1.id, email1.cname, img, homepage, intro, ceo, ctype, form, establish, numemp, sales, tel, fax, sns, location, phone, email 
   from
-   tblcinfo
-    where id = #{id}
+   tblcinfo as email1, tbluser as email2
+  where 
+   email1.id  = #{id} and email1.id = email2.id  <!--문> email관련 추가  -->
   </select> <!-- 기업정보 출력 -->
   
+ 
  <update id="companyinfoUpdate"> 
  update project.tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
  , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} , img=#{img}
- , location=#{location}
+ , location=#{location}, phone=#{phone} , email=#{email}  <!--문> email=#{email}추가  -->
  where id = #{id}
  </update> <!-- 기업정보 수정  -->
   

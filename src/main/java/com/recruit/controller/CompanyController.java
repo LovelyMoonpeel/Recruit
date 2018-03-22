@@ -50,7 +50,9 @@ public class CompanyController {
 		
 	if (login != null) {
 			String id = login.getId();
+			System.out.println(id);
 			model.addAttribute(service.CompanyInfoRead(id));
+			model.addAttribute(login);   //문> 이 줄 추가
 			return "/company/C_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
