@@ -162,6 +162,8 @@ $(document).ready(function() {
 	$("#applynow_btn").on("click", function() {
 		
 		console.log("applynow_btn clicked");
+		
+		
 		//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
 		formObj.attr("action", "/company/applynow");
 		formObj.attr("method", "post");

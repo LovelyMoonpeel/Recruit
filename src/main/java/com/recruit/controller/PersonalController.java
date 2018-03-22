@@ -345,6 +345,8 @@ public class PersonalController {
 			
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
+			
+			
 			//model.addAttribute("ResumeVO",);
 			
 			return "personal/P_applied";
