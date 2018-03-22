@@ -245,6 +245,7 @@
 		var imgsrccheck = ('#imgsrccheck');
 
 		if ($('#imgsrccheck').val() != "") {
+			console.log(" val값 뭐임? "+$('#imgsrccheck').val());
 			console.log(" val이 널값아님");
 			$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 		} else {

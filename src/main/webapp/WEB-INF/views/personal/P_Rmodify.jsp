@@ -84,14 +84,12 @@
 		<div class="form-group">
 		<label for="jobgroupid">희망직종(대분류)</label> 
 			<select id="jobGroup" class="form-control" name="jobgroupid">
-				<option value="">모집직종</option>
 				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 				</c:forEach>
 			</select> 			
 			<label for="jobgroupid">희망직종(소분류)</label> 
 			<select id="subjobGroup" class="form-control" name="jobgroupid2">
-				<option value="">희망직종(소분류)</option>
 			</select>
 		</div>    	
       
@@ -107,16 +105,14 @@
 		</div>
 
 		<div class="form-group">	
-		<label for="jobgroupid">희망근무지(시/도)(구현X)</label> 
+		<label for="jobgroupid">희망근무지(시/도)</label> 
 			<select id="region" class="form-control" name='rgbid'>
-				<option value="">희망근무지(시/도)(구현X)</option>
 				<c:forEach items="${RegionVOlist}" var="RegionVO">
 					<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 				</c:forEach>
 			</select>
-			<label for="jobgroupid">희망근무지(구현X)</label> 
+			<label for="jobgroupid">희망근무지</label> 
 			<select id="subRegion" class="form-control" name='rgsid'>
-				<option value="">희망 근무지</option>
 			</select>
 		</div>
        
@@ -227,8 +223,6 @@
 				name="listEdu[].enterdate" value="{{enterdate}}"> <span
 				class="input-group-addon"> </span>
 		</div>
-		<!-- <input class="form-control" id="enterdate" name="enterdate" -->
-		<!-- value="${ResumeEduVO.enterdate}"></input> -->
 	</div>
 	<div class="form-group col-md-2">
 		<label>졸업일</label>
@@ -287,8 +281,6 @@
 				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
-		<!-- <input class="form-control" name="startjob" -->
-		<!-- value="${ResumeCareerVO.startjob}"></input> -->
 	</div>
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>

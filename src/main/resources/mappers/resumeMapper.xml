@@ -88,8 +88,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateROne">
 	<!-- 안소연 -->
 	<![CDATA[
-	update project.tblresume 
-	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = 1, jobgroupid = 1, rgbid = 'Z', rgsid = 102, employstatusid = 1, salaryid = 1, img = #{img}
+    update project.tblresume 
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
 	where bno = #{bno}
     ]]>
 	</update>

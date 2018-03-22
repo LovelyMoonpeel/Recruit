@@ -235,7 +235,6 @@ public class PersonalController {
 		System.out.println("Rmodify GET Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-
 		if (login != null) {
 			String id = login.getId();
 			puser.setId(id);
@@ -301,38 +300,60 @@ public class PersonalController {
 
 	// 추천채용공고
 	@RequestMapping(value = "/recom", method = RequestMethod.GET)
-	public String recomGET(@RequestParam("id") String id, Model model) throws Exception {
+	public String recomGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("recom GET Controller");
 
-		model.addAttribute("PUserVO", service.selectPUser(id));
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
 
-		return "personal/P_recom";
+			return "personal/P_recom";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
 	}
 
 	// 관심채용공고
 	@RequestMapping(value = "/favor", method = RequestMethod.GET)
-	public String favorGET(@RequestParam("id") String id, Model model) throws Exception {
-		logger.info("favor GET, 관심채용공고 확인");
-		System.out.println("관심채용공고 누구꺼냐" + id);
+	public String favorGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
 
-		model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
-		model.addAttribute("PUserVO", service.selectPUser(id));
-
-		return "personal/P_favor";
+			return "personal/P_favor";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
 	}
 	// 지원현황리스트
 
 	@RequestMapping(value = "/applied", method = RequestMethod.GET)
-	public String appliedGET(@RequestParam("id") String id, Model model) throws Exception {
+	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		// private CRecruitService Cservice;
-		model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
-
-		model.addAttribute("PUserVO", service.selectPUser(id));
-
-		return "personal/P_applied";
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			//model.addAttribute("ResumeVO",);
+			
+			return "personal/P_applied";
+			
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
 	}
-	////// IMG UPLOAD/////////////img
-	////// upload/////////////////////////////////////////////////////////////
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
