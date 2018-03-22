@@ -169,7 +169,7 @@ $(function(){
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
 		
-		if(pw==pwc&&(pw!="" || pwc!="")){
+		if(pw==pwc){
 			if(confirm("수정하시겠습니까?")){
 				formObj.submit();
 			}
@@ -182,7 +182,7 @@ $(function(){
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
 		
-		if(pw==pwc&&(pw!="" || pwc!="")){
+		if(pw==pwc){
 			if(confirm("삭제하시겠습니까?")){
 				formObj.attr("action", "/admin/cremove");
 				formObj.submit();

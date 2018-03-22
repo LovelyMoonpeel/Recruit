@@ -89,4 +89,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 	email = #{email}
 	</select>
+	
+	<update id="ppwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
+	</update>
+	
+	<update id="cpwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
+	</update>
+	
+	<select id="getPw" resultType="BoardVO">
+	select
+	pw
+	from
+	project.tbluser
+	where
+	id = #{id}
+	</select>
+	
+	<select id="getId" resultType="String">
+	select
+	id
+	from
+	project.tbluser
+	where
+	id = #{id}
+	</select>
 </mapper>

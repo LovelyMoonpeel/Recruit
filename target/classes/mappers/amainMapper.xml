@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="read" resultType="BoardVO">
 	select
-		id, pw, pname, email, birth
+		id, pname, email, birth
 	from
 		project.tbluser
 	where id = #{id}
@@ -126,4 +126,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pw = #{pw}, pname = #{pname}, email = #{email}, birth = #{birth}
 		where id = 'admin'
 	</update>
+	
+	<select id="readpw" resultType="String">
+	select
+		pw
+	from
+		project.tbluser
+	where id = #{id}
+	</select>
 </mapper>

@@ -29,4 +29,8 @@ public interface UserService {
 	public BoardVO cread(LoginDTO dto) throws Exception;
 	
 	public BoardVO emailoverlap(String email) throws Exception;
+	
+	public void ppwchk(LoginDTO dto) throws Exception;
+	
+	public void cpwchk(LoginDTO dto) throws Exception;
 }

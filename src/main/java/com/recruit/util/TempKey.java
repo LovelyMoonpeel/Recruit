@@ -12,7 +12,14 @@ public class TempKey {
         this.lowerCheck = lowerCheck;
         return init();
     }
+    
+    public String getPw(int size, boolean lowerCheck) {
+    	this.size = size;
+        this.lowerCheck = lowerCheck;
+        return create_key();
+    }
 
+    //이메일 인증용도
     private String init() {
         Random  ran = new Random();
         StringBuffer sb = new StringBuffer();
@@ -30,4 +37,15 @@ public class TempKey {
         }
         return sb.toString();
     }
+    
+    //임시 비밀번호 생성용도
+    public String create_key() {
+		String key = "";
+		Random rd = new Random();
+
+		for (int i = 0; i < 8; i++) {
+			key += rd.nextInt(10);
+		}
+		return key;
+	}
 }

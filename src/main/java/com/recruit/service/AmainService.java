@@ -27,4 +27,6 @@ public interface AmainService {
 	public BoardVO aread() throws Exception;
 
 	public void amodify(BoardVO vo) throws Exception;
+	
+	public String readpw(BoardVO vo) throws Exception;
 }

@@ -32,35 +32,40 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+	
+	@RequestMapping(value = "/loginPost", method = RequestMethod.GET)
+	public void loginGET(Model model) throws Exception{
+		
+	}
+	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
+	public String loginPOST(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 //		System.out.println("dto값 출력 : " + dto);
 		BoardVO vo = service.login(dto);
 //		System.out.println("로그인 정보 확인 : " + vo);
 		if (vo == null) {
 			//loginPost로 날라감
-			return;
+			rttr.addFlashAttribute("msg", "login_fail");
+			return "redirect:/user/loginPost";
 		}
 		
 		if(vo.getAuthCode()!= null){
-			return;
+			rttr.addFlashAttribute("msg", "email");
+			return "redirect:/user/loginPost";
 		}
 		
-//		System.out.println("이름값 출력 테스트"+vo.getCname());
 		if(dto.getIndex().equals("per")){
 			if(vo.getCname()!=null){
-				return;
+				rttr.addFlashAttribute("msg", "company");
+				return "redirect:/user/loginPost";
 			}
 		}else{
 			if(vo.getCname()==null){
-				return;
+				rttr.addFlashAttribute("msg", "personal");
+				return "redirect:/user/loginPost";
 			}
 		}
 		
-//		if(vo.getCname()==null){ //개인회원으로 로그인시 로그인 실패
-//			return;
-//		}
-
 		model.addAttribute("boardVO", vo); 
 
 		if (dto.isUseCookie()) {
@@ -72,6 +77,8 @@ public class UserController {
 			service.keepLogin(vo.getId(), session.getId(), sessionLimit);
 			
 		}
+		
+		return "/cs/S_faq";
 		
 	}
 
@@ -190,5 +197,27 @@ public class UserController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
-	}	
+	}
+	
+	@RequestMapping(value = "/PWsearch", method = RequestMethod.GET)
+	public void PWsearchGET(Model model) throws Exception {
+
+	}
+	
+	@RequestMapping(value = "/PWsearch", method = RequestMethod.POST)
+	public ResponseEntity<String> PWsearchPOST(@RequestBody LoginDTO dto, Model model) throws Exception {
+		ResponseEntity<String> entity = null;
+		try{
+			if(dto.getCname()==null){
+				service.ppwchk(dto);				
+			}else{
+				service.cpwchk(dto);
+			}
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

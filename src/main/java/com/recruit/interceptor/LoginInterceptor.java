@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object boardVO = modelMap.get("boardVO");
-		System.out.println("인터셉터 들어오니 ? "+boardVO);
+//		System.out.println("인터셉터 들어오니 ? "+boardVO);
 
 		
 		if (boardVO != null) {

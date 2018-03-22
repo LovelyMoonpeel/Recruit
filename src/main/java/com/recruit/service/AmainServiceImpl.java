@@ -66,5 +66,10 @@ public class AmainServiceImpl implements AmainService {
 	public void amodify(BoardVO vo) throws Exception {
 		dao.aupdate(vo);
 	}
+	
+	@Override
+	public String readpw(BoardVO vo) throws Exception{
+		return dao.readpw(vo);
+	}
 
 }

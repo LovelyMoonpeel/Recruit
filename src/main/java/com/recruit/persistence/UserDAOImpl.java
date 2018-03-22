@@ -101,4 +101,34 @@ public class UserDAOImpl implements UserDAO {
 	public BoardVO emailoverlap(String email) throws Exception{
 		return session.selectOne(namespace+".emailoverlap", email);
 	}
+
+	@Override
+	public void ppwchk(LoginDTO dto, String pw) throws Exception{
+		BoardVO vo = new BoardVO();
+		vo.setId(dto.getId());
+		vo.setEmail(dto.getEmail());
+		vo.setPname(dto.getPname());
+		vo.setPw(pw);
+		session.update(namespace+".ppwchk", vo);
+	}
+	
+	@Override
+	public void cpwchk(LoginDTO dto, String pw) throws Exception{
+		BoardVO vo = new BoardVO();
+		vo.setId(dto.getId());
+		vo.setEmail(dto.getEmail());
+		vo.setCname(dto.getCname());
+		vo.setPw(pw);
+		session.update(namespace+".cpwchk", vo);
+	}
+	
+	@Override
+	public BoardVO getPw(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace+".getPw", dto);
+	}
+	
+	@Override
+	public String getId(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace + ".getId",dto);
+	}
 }

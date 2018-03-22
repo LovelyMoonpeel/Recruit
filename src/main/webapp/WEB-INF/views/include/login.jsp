@@ -94,7 +94,7 @@
 								<!--아이디, 패스워드 까먹었을 경우를 대비  -->
 								<a href="/user/IDsearch">아이디를 잊어버렸어요</a> 
 								<br> 
-								<a href="#">패스워드를 잊어버렸어요</a>
+								<a href="/user/PWsearch">패스워드를 잊어버렸어요</a>
 								
 							</form>
 							
@@ -144,7 +144,7 @@
 								<!--아이디, 패스워드 까먹었을 경우를 대비  -->
 								<a href="/user/IDsearch">아이디를 잊어버렸어요</a> 
 								<br> 
-								<a href="#">패스워드를 잊어버렸어요</a>
+								<a href="/user/PWsearch">패스워드를 잊어버렸어요</a>
 							</form>
 							
 						</div>

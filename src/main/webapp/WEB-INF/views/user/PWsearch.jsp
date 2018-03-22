@@ -3,12 +3,15 @@
 <%@include file="../include/sheader.jsp"%>
 <div class="col-md-9">
 
-<h2>아이디 찾기</h2>
-<form action="IDsearch" method="POST">
+<h2>비밀번호 찾기</h2>
+<form action="PWsearch" method="POST">
 <table>
 	<tr>
 		<td style="width:100px;"><input type="radio" name="index" id="pname" checked="checked">개인회원</td>
 		<td><input type="radio" name="index" id="cname">기업회원</td>
+	</tr>
+	<tr>
+		<td>아이디</td><td><input type="text" id="id" name="id" value="${LoginDTO.id}" placeholder="아이디를 입력해주세요."></td>
 	</tr>
 	<tr>
 		<td>이름</td><td><input type="text" id="name" value="" placeholder="이름이나 기업명을 입력해주세요."></td>
@@ -18,11 +21,10 @@
 	</tr>
 </table>
 </form>
-<input type="button" id="submit" value="ID 찾기">
+<input type="button" id="submit" value="비밀번호 찾기">
 </div>
+
 <script>
-//라디오로 체크된 값을 구분해서 pname과 cname을 구분지어 넣어 줌
-//name="name" value="${LoginDTO.name }"
 $("#pname").on("click", function(){
 	$("#pname").attr("checked","checked");
 	$("#cname").removeAttr("checked");
@@ -35,29 +37,29 @@ $("#cname").on("click", function(){
 
 
 $("#submit").on("click", function(){
+	var idObj = $("#id");
+	var id = idObj.val();
+	var emailObj = $("#email");
+	var email = emailObj.val();
+	
 	if($("#pname").attr("checked")!=null){
 		$("#name").attr("name","pname");
 		$("#name").attr("value", "${LoginDTO.pname}");
 		
 		var pnameObj = $("#name");
-		var emailObj = $("#email");
 		var pname = pnameObj.val();
-		var email = emailObj.val();
 		
 		$.ajax({
 		type:"post",
-		url:"/user/IDsearch",
+		url:"/user/PWsearch",
 		headers:{
 			"Content-Type": "application/json; charset=UTF-8",
 			"X-HTTP-Method-Override": "post"},
 		dataType:'text',
-		data: JSON.stringify({pname:pname, email:email}),
+		data: JSON.stringify({id:id, pname:pname, email:email}),
 		success:function(result){
-			if(result == 'fail'){
-				alert("이름이나 이메일을 다시 확인해주세요.");
-			}else{
-				alert("당신의 아이디는 "+result+" 입니다.");
-				self.location="/cs/S_faq";
+			if(result == 'success'){
+				alert("이메일에서 임시 비밀번호를 확인해주세요.");
 			}
 		}
 	})
@@ -66,27 +68,22 @@ $("#submit").on("click", function(){
 		$("#name").attr("value", "${LoginDTO.cname}");
 
 		var cnameObj = $("#name");
-		var emailObj = $("#email");
 		var cname = cnameObj.val();
-		var email = emailObj.val();
 		
 		$.ajax({
 		type:"post",
-		url:"/user/IDsearch",
+		url:"/user/PWsearch",
 		headers:{
 			"Content-Type": "application/json; charset=UTF-8",
 			"X-HTTP-Method-Override": "post"},
 		dataType:'text',
-		data: JSON.stringify({cname:cname, email:email}),
+		data: JSON.stringify({id:id, cname:cname, email:email}),
 		success:function(result){
-			if(result == 'fail'){
-				alert("이름이나 이메일을 다시 확인해주세요.");
-			}else{
-				alert("당신의 아이디는 "+result+" 입니다.");
-				self.location="/cs/S_faq";
+			if(result == 'success'){
+				alert("이메일에서 임시 비밀번호를 확인해주세요.");
 			}
 		}
-	})
+	}) 
 	}
 });
 

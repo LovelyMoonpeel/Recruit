@@ -30,4 +30,12 @@ public interface UserDAO {
 	public BoardVO cread(LoginDTO dto) throws Exception;
 	
 	public BoardVO emailoverlap(String email) throws Exception;
+	
+	public void ppwchk(LoginDTO dto, String pw) throws Exception;
+	
+	public void cpwchk(LoginDTO dto, String pw) throws Exception;
+	
+	public BoardVO getPw(LoginDTO dto) throws Exception;
+	
+	public String getId(LoginDTO dto) throws Exception;
 }
