@@ -134,7 +134,7 @@
 
 							<c:forEach items="${ResumeVOList}" var="ResumeVO">
 								<tr>
-									<td><input id="${ResumeVO.bno}" type="checkbox"></td>
+									<td><input id="${ResumeVO.bno}" type="radio"></td>
 									<td>${ResumeVO.bno}</td>
 									<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
 								</tr>
