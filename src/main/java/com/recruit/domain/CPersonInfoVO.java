@@ -19,13 +19,32 @@ public class CPersonInfoVO {
 	private String jobgroup1;
 	private String jobgroup2;
 	private String period;
+	private String recruitstate;
+	private String week;
 	
 	@Override
 	public String toString() {
 		return "CPersonInfoVO [bno=" + bno + ", recruitnum=" + recruitnum + ", name=" + name + ", title=" + title
 				+ ", img=" + img + ", career=" + career + ", edu=" + edu + ", rgbid=" + rgbid + ", rgsid=" + rgsid
 				+ ", salary=" + salary + ", schoolname=" + schoolname + ", major=" + major + ", jobgroup1=" + jobgroup1
-				+ ", jobgroup2=" + jobgroup2 + ", period=" + period + "]";
+				+ ", jobgroup2=" + jobgroup2 + ", period=" + period + ", recruitstate=" + recruitstate + ", week="
+				+ week + "]";
+	}
+
+	public String getRecruitstate() {
+		return recruitstate;
+	}
+
+	public void setRecruitstate(String recruitstate) {
+		this.recruitstate = recruitstate;
+	}
+
+	public String getWeek() {
+		return week;
+	}
+
+	public void setWeek(String week) {
+		this.week = week;
 	}
 	
 	public int getBno() {

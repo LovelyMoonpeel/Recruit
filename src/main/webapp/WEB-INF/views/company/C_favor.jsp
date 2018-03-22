@@ -5,14 +5,13 @@
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
-<div class="col-md-9" style="border: 1px;">
+<div class="col-md-9">
 	<br> <br> <br>
 	<h1>관심인재</h1>
 
 
-	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
-		<div
-			style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
+	<div class="gobox1">
+		<div class="gobox2">
 			<ul>
 				<li>관심 인재로 등록한 이력서는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
 				<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.</li> <br> 
@@ -47,16 +46,15 @@ $(document).ready(function(){
 	favList();
 	
 })
-
-	
-	
 	 
 	$(document).on("click", '#non', function() { //즐겨찾기
 		
 		var bno = $(this).attr('value');
-	
+			if(confirm("삭제하시겠습니까?")){
 			favDel(bno);
-			
+			}else{
+				return false;
+			}
 		})
 	
 	
@@ -79,7 +77,6 @@ $(document).ready(function(){
 	function favList(){
 		$.getJSON("/companyAjax/favorList/", function(data){
 		var str = "";
-			
 		
 		$(data).each(function(){
 			
@@ -102,5 +99,18 @@ $(document).ready(function(){
 		
 	}
 </script>
+
+<style>
+
+.gobox1{
+	width: 740px; 
+	padding: 0 0 15px 0; margin: 0;
+}
+.gobox2{
+	border: 1px solid #c1d1f2; 
+	background-color: #f4f9ff; 
+	padding: 13px 0 8px 12px;
+}
+</style>
 
 <%@include file="../include/cfooter.jsp"%>

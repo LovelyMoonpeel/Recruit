@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CompanyAjaxService;
@@ -145,6 +146,80 @@ public class CompanyAjax {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
+		
+	}
+	
+	@RequestMapping(value = "/recruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> RecruitList(HttpSession session, Model model){
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
+		
+		if (login != null) {
+			
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.RecruitList(id), HttpStatus.OK);
+				System.out.println("컨트롤러 제네릭 : "+entity.toString());
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
+		
+	}
+	
+	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> IngRecruitList(HttpSession session, Model model){
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.IngRecruitList(id), HttpStatus.OK);
+				System.out.println(entity.getBody().get(0));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
+		
+	}
+	
+	
+	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.GET)
+	public ResponseEntity<List<RecruitVO>> EndRecruitList(HttpSession session, Model model){
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		ResponseEntity<List<RecruitVO>> entity = null;
+		
+		if (login != null) {
+			
+			String id = login.getId();
+			
+			try {
+				entity = new ResponseEntity<>(service.EndRecruitList(id), HttpStatus.OK);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		return entity;
 		
 	}
 	

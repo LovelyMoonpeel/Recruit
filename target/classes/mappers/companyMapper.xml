@@ -28,7 +28,7 @@
  where id2 = 0 
  </select> <!-- 직업 선택 대분류(채용공고 작성) -->
  
-  <select id="jobgroupSubList" resultType="JobGroupVO">
+  <select id="ajaxSubJobgroup" resultType="JobGroupVO">
 		select
 		id, jobgroup, id2
 		from
@@ -99,7 +99,7 @@
    tblRecruit
    where cid = #{id}
  ]]>  
- </select> <!-- 채용공고 리스트 -->
+ </select> <!-- 채용공고 리스트 (*여러곳에서 사용) -->
  
  <select id="cRecruitList" resultType="com.recruit.domain.CPersonInfoVO">
  select distinct f.bno, title, (select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%m/%d')) as period, r.rgbname as rgbid, c.career as career, m.career as edu, j.jobgroup as jobgroup1 
@@ -128,14 +128,38 @@
  ]]>
  </select> <!-- 채용공고 정보 -->
  
-  <select id="recruitListt" resultType="com.recruit.domain.RecruitVO">
+    <select id="ajaxRecruitList" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
- select f.bno, title, (select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%Y%m%d')) as period, viewcnt
-  from
-   tblRecruit f
-   where cid = #{id}
+  select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+,  if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt,
+if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
+  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period != ' ' order by bno;
  ]]>  
- </select>
+ </select> <!-- ajax용 채용공고 리스트  -->
+ 
+   <select id="ajaxIngRecruitList" resultType="com.recruit.domain.RecruitVO">
+ <![CDATA[
+select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+, if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt,
+(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')) as period, SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1) AS week
+  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() order by bno desc;
+ ]]>  
+ </select> <!-- ajax용 진행 중 채용공고 리스트  -->
+ 
+    <select id="ajaxEndRecruitList" resultType="com.recruit.domain.RecruitVO">
+ <![CDATA[
+  select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+,  if(h.applyNum != '', h.applyNum, 0 )as applyNum, f.viewcnt ,
+if(period != ' ',(select date_format((select e.period from 
+tblrecruit e where e.bno = f.bno),'~ %m/%d')),' ') as period, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week
+  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno
+  where f.cid = #{id} and period < curdate() and period != ' ' order by bno desc;
+ ]]>  
+ </select> <!-- ajax용 마감된 채용공고 리스트  -->
+  
+ 
  
 	<update id="updateViewCnt">
 		update project.tblrecruit set viewcnt = viewcnt +1 where
@@ -151,7 +175,17 @@
 ]]>
 </select>
 
-<select id="personRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
+ <select id="RecomList" resultType="com.recruit.domain.RecruitVO">
+ <![CDATA[
+select distinct f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+, h.applyNum, f.viewcnt,
+(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %m/%d')) as period, SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1) AS week
+  from tblapply a,tblRecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applyNum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() order by bno desc;
+ ]]>  
+ </select> <!--추천 인재용 진행 중 채용공고 리스트  -->
+
+<select id="ajaxPersonRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
 select distinct p.bno as bno, substring(u.pname,1,1) as name, p.title as title,  r.rgbname as rgbid, n.career as salary , e.schoolname, e.major
 	from tblresume p, tblRecruit c, tblJobGroup j, tblRegion r, tblcode m, tblcode n, tblUser u, tblresumeedu e
 where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid and p.jobstateid = 1 and p.salaryid = c.salaryid
@@ -159,11 +193,11 @@ and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id and c
 and c.bno = #{bno};
 </select> <!-- 추천인재 리스트(조건이 완전 일치하는 인재만 뜨게끔 돼있음)  -->
 	
-<insert id="favorPersonAdd" parameterType="hashMap">
+<insert id="ajaxFavorPersonAdd" parameterType="hashMap">
 insert into tblInterestPerson(cuserid, presume) values(#{id}, #{bno});
 </insert> <!-- 관심인재 등록 -->
 
-<insert id="favorPersonDelete" parameterType="hashMap">
+<insert id="ajaxFavorPersonDelete" parameterType="hashMap">
 delete from tblInterestPerson where cuserid = #{id} and presume = #{bno};
 </insert> <!-- 관심인재 삭제 -->
 

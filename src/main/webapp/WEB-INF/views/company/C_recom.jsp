@@ -43,7 +43,7 @@
 					<tr>
 					<th><%=manage%></th>
 					<th>${RecruitVO.title}</th>
-					<th>~${RecruitVO.period}</th>
+					<th>${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 					

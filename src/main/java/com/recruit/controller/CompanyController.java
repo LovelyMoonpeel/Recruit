@@ -38,7 +38,7 @@ public class CompanyController {
 	@Inject
 	private CompanyService service;
 	@Inject
-	private CompanyAjaxService jobService;
+	private CompanyAjaxService ajaxService;
 
 	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	private String uploadPath;
@@ -202,7 +202,7 @@ public class CompanyController {
 				String id = login.getId();
 				
 				model.addAttribute(service.CompanyInfoRead(id));
-				model.addAttribute("jobgroupList", jobService.jobgroupList());
+				model.addAttribute("jobgroupList", ajaxService.jobgroupList());
 				model.addAttribute("codeList", service.CodeList());
 				model.addAttribute("regionList", service.RegionList());
 
@@ -245,9 +245,7 @@ public class CompanyController {
 			String id = login.getId();
 			
 			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute("recruitList", service.RecruitList(id));
-
-
+			
 			return "/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -298,7 +296,7 @@ public class CompanyController {
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("아이디입니당." + id);
 			System.out.println("bno값입니당." + bno);
-			model.addAttribute("jobgroupList", jobService.jobgroupList());
+			model.addAttribute("jobgroupList", ajaxService.jobgroupList());
 			model.addAttribute("codeList", service.CodeList());
 			model.addAttribute("regionList", service.RegionList());
 
@@ -320,7 +318,7 @@ public class CompanyController {
 
 		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
-		return "redirect:/company/C_manage";
+		return "redirect:/company/C_recruitInfo?recruitNum="+recruitModify.getBno();
 
 	}
 	

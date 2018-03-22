@@ -26,7 +26,7 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	
 	@Override
 	public List<JobGroupVO> list(int id2)throws Exception{
-		return session.selectList(namespace + ".jobgroupSubList", id2);
+		return session.selectList(namespace + ".ajaxSubJobgroup", id2);
 	}
 	
 	@Override
@@ -37,17 +37,27 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	
 	@Override
 	public List<RegionVO> SubRegion(String id2) throws Exception{
-		return session.selectList(namespace + ".subRegion", id2);
+		return session.selectList(namespace + ".ajaxubRegion", id2);
 	}
 	@Override
-	public List<RecruitVO> RecruitList1(String id) throws Exception{
+	public List<RecruitVO> RecruitList(String id) throws Exception{
 		System.out.println("jobDAO부분 id : "+id);
-		return session.selectList(namespace + ".recruitListt", id);
+		return session.selectList(namespace + ".ajaxRecruitList", id);
+	}
+	@Override
+	public List<RecruitVO> IngRecruitList(String id) throws Exception{
+		System.out.println("jobDAO부분 id : "+id);
+		return session.selectList(namespace + ".ajaxIngRecruitList", id);
+	}
+	@Override
+	public List<RecruitVO> EndRecruitList(String id) throws Exception{
+		System.out.println("jobDAO부분 id : "+id);
+		return session.selectList(namespace + ".ajaxEndRecruitList", id);
 	}
 	
 	@Override
 	public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception{
-		return session.selectList(namespace + ".personRecomList", bno);
+		return session.selectList(namespace + ".ajaxPersonRecomList", bno);
 	}
 	
 	@Override
@@ -59,7 +69,7 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		paraMap.put("id", id);
 		
 
-	 session.insert(namespace + ".favorPersonAdd" , paraMap);
+	 session.insert(namespace + ".ajaxFavorPersonAdd" , paraMap);
 	}
 	
 	@Override
@@ -70,7 +80,7 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		paraMap.put("bno", bno);
 		paraMap.put("id", id);
 			
-	 session.insert(namespace + ".favorPersonDelete" , paraMap);
+	 session.insert(namespace + ".ajaxFavorPersonDelete" , paraMap);
 	}
 	
 

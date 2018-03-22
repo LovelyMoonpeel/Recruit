@@ -23,7 +23,9 @@ public interface CompanyService {
 	  
 	  public void RecruitWrite(RecruitVO recruitWrtie) throws Exception;
 	 
-	  public List<RecruitVO> RecruitList(String id) throws Exception;
+	  public List<RecruitVO> RecruitList(String id) throws Exception; // 여러곳에서 사용함
+	  
+	  public List<RecruitVO> RecomList(String id) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  

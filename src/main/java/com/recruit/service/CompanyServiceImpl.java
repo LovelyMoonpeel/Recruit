@@ -35,6 +35,12 @@ public class CompanyServiceImpl implements CompanyService {
 	    dao.CompanyInfoUpdate(CInfo);
 	  }
 	 @Override
+	 public List<RecruitVO> RecruitList(String id) throws Exception{
+			
+		 return dao.RecruitList(id);
+	 }
+	 
+	 @Override
 	 public List<CodeVO> CodeList() throws Exception{
 		 
 		 return dao.CodeList();
@@ -52,10 +58,9 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitList(String id) throws Exception{
-//		 System.out.println("Service의 id : "+id);
+	 public List<RecruitVO> RecomList(String id) throws Exception{
 			
-		 return dao.RecruitList(id);
+		 return dao.RecomList(id);
 	 }
 	 
 	 @Transactional
