@@ -51,10 +51,10 @@ public class CompanyController {
 
 	@RequestMapping(value = "/C_index", method = RequestMethod.GET) // 기업 메인 화면
 	public String read(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-	
-	BoardVO login = (BoardVO) session.getAttribute("login");
-		
-	if (login != null) {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			return "/company/C_index";
@@ -62,58 +62,58 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		 		
+
 	}
-	
+
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
-																		// GET
+	// GET
 	public String modifyGET(HttpSession session, HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
-		
-		
+
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
-			
-		
+
+
 		if (login != null) {
-				String id = login.getId();
-				model.addAttribute(service.CompanyInfoRead(id));
-				return "/company/C_modify";
-			} else {
-				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
-			}
-		
+			String id = login.getId();
+			model.addAttribute(service.CompanyInfoRead(id));
+			return "/company/C_modify";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+
 	}
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.POST) // 기업정보 수정
-																		// POST
+	// POST
 	public String modifyPOST(CInfoVO CInfo, HttpSession session, HttpServletRequest request, Model model, RedirectAttributes rttr)
 			throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-			
-		
-		if (login != null) {
-				String id = login.getId();
-				CInfo.setId(id);
-				InfoFileUpload(CInfo, request, id);
-				System.out.println("시작 CINFO : "+CInfo);
-				service.CompanyInfoModify(CInfo);
-				System.out.println("끝난 CINFO : "+CInfo);
-				rttr.addFlashAttribute("msg", "SUCCESS");
 
-				return "redirect:/company/C_index";
-			} else {
-				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
-			}
-		
+
+		if (login != null) {
+			String id = login.getId();
+			CInfo.setId(id);
+			InfoFileUpload(CInfo, request, id);
+			System.out.println("시작 CINFO : "+CInfo);
+			service.CompanyInfoModify(CInfo);
+			System.out.println("끝난 CINFO : "+CInfo);
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+			return "redirect:/company/C_index";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+
 
 	}
 
 	public void InfoFileUpload(CInfoVO CInfo, HttpServletRequest request, String id) { // 사진
-																			// 업로드
-																			// 메서드
+		// 업로드
+		// 메서드
 		String path = uploadPath; // 에너테이션에 연결된 저장경로를 String에 저장
 
 		// Map returnObject = new HashMap();
@@ -145,7 +145,7 @@ public class CompanyController {
 				String origName;
 
 				origName = new String(mfile.getOriginalFilename().getBytes("8859_1"), "UTF-8"); // 한글깨짐
-																								// 방지
+				// 방지
 				// 파일명이 없다면
 
 				if ("".equals(origName)) {
@@ -154,19 +154,19 @@ public class CompanyController {
 
 				// 파일 명 변경
 				String ext = origName.substring(origName.lastIndexOf('.')); // 확장자
-																			// 지정
+				// 지정
 				String saveFileName = origName; // 기업 id + 확장자로 경로에 저장
 
 				String imgName = id + ext;
-				
-				
+
+
 
 				System.out.println("이미지 파일명은 = "+imgName);
-				
+
 				CInfo.setImg(imgName); // DB 이미지 저장
-				
-				
-				
+
+
+
 				System.out.println("CInfo 파일명은 = "+ CInfo.getImg());
 
 				// 설정한 path에 파일저장
@@ -179,7 +179,7 @@ public class CompanyController {
 				// file.put("sfile", serverFile);
 				// resultList.add(file);
 
-				
+
 			}
 
 			// returnObject.put("files", resultList);
@@ -202,23 +202,23 @@ public class CompanyController {
 	public String writeGET(HttpSession session,  Model model, RedirectAttributes rttr ) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-			
-		
+
+
 		if (login != null) {
-				String id = login.getId();
-				
-				model.addAttribute(service.CompanyInfoRead(id));
-				model.addAttribute("jobgroupList", ajaxService.jobgroupList());
-				model.addAttribute("codeList", service.CodeList());
-				model.addAttribute("regionList", service.RegionList());
+			String id = login.getId();
+
+			model.addAttribute(service.CompanyInfoRead(id));
+			model.addAttribute("jobgroupList", ajaxService.jobgroupList());
+			model.addAttribute("codeList", service.CodeList());
+			model.addAttribute("regionList", service.RegionList());
 
 
-				return "/company/C_write";
-			} else {
-				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
-			}
-		
+			return "/company/C_write";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+
 
 	}
 
@@ -226,13 +226,13 @@ public class CompanyController {
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		String id = login.getId();
 		logger.info("write Register..........");
-		
+
 
 		writeRecruit.setCid(id);
-		
+
 		logger.info(writeRecruit.toString());
 
 		service.RecruitWrite(writeRecruit);
@@ -246,18 +246,18 @@ public class CompanyController {
 	public String manage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
 			String id = login.getId();
-			
+
 			model.addAttribute(service.CompanyInfoRead(id));
-			
+
 			return "/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
+
 
 	}
 
@@ -265,11 +265,11 @@ public class CompanyController {
 	public String readRecruit(int recruitNum,HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
-			
+
 			String id = login.getId();
-			
+
 			String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
 			String adddesc2 = adddesc.replace("\r\n", "<br>");
 			String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
@@ -277,7 +277,7 @@ public class CompanyController {
 
 			model.addAttribute("adddesc", adddesc2);
 			model.addAttribute("jobdesc", jobdesc2);
-			
+
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 			model.addAttribute("ApplyList", service.ApplyList(recruitNum));
@@ -288,15 +288,15 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
+
 	}
-	
-	
+
+
 	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.GET) // 채용공고
 	public String C_recruitModfiy(HttpSession session, RedirectAttributes rttr, int bno, Model model) throws Exception { // 채용공고 수정
-		
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
@@ -307,17 +307,17 @@ public class CompanyController {
 			model.addAttribute("regionList", service.RegionList());
 
 			model.addAttribute("RecruitVO", service.RecruitModifyRead(bno, id));
-				return "/company/C_recruitModify";
-			} else {
-				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
-			}
-			 		
+			return "/company/C_recruitModify";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
 		}
-		
+
+	}
+
 
 	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.POST) // 채용공고
-																				// 수정
+	// 수정
 	public String C_recruitModfiy2(RecruitVO recruitModify, RedirectAttributes rttr) throws Exception {
 
 		service.RecruitModify(recruitModify);
@@ -327,17 +327,17 @@ public class CompanyController {
 		return "redirect:/company/C_recruitInfo?recruitNum="+recruitModify.getBno();
 
 	}
-	
+
 	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
-																			// 삭제
-		public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr)throws Exception {
+	// 삭제
+	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr)throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
-			
+
 			String id = login.getId();
-			
+
 			service.RecruitRemove(bno, id);
 
 			rttr.addFlashAttribute("msg", "DELESUCCESS");
@@ -345,24 +345,24 @@ public class CompanyController {
 			return "redirect:/company/C_manage";
 
 		} 
-			else {
+		else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-	
-		
+
+
 	}
 
-	
+
 	@RequestMapping(value = "C_recom", method = RequestMethod.GET)
 	public String readRecom(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
-			
+
 			String id = login.getId();
-			
+
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("컨트롤러 : " + id);
 
@@ -372,71 +372,71 @@ public class CompanyController {
 			return "/company/C_recom";
 
 		} 
-			else {
+		else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
-		
+
+
 	}
 
 	@RequestMapping(value = "C_favor", method = RequestMethod.GET) // 관심인재 리스트
 	public String readfavor(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		if (login != null) {
-			
+
 			String id = login.getId();
-			
+
 			model.addAttribute(service.CompanyInfoRead(id));
-			
+
 
 			return "/company/C_favor";
 
 		} 
-			else {
+		else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
+
 
 	}
 
 
 	@RequestMapping(value = "C_info", method = RequestMethod.GET) // 개인이 보는 기업정보
-																	// 페이
+	// 페이
 	public String C_info(HttpSession session,int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
 
-	BoardVO login = (BoardVO) session.getAttribute("login");
-		
-	String cid = service.RecruitInfoRead2(recruitNum).getCid();
-	
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+
 		if (login != null) {
-			
+
 			String id = login.getId();
-			
-			
-			
+
+
+
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 
 			model.addAttribute(service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
-			
+
 
 			return "/company/C_info";
 
 		} 
-			else {
+		else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
 	}
 
-	 @RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지															// 정보
-	 public String readRecruitMent(HttpSession session, RedirectAttributes rttr,int recruitNum, Model model) throws Exception {
-		 //안소연 수정
-		 
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지															// 정보
+	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model) throws Exception {
+		//안소연 수정
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		if (login != null) {
@@ -445,10 +445,30 @@ public class CompanyController {
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", Pservice.selectPUser(id));
+
+			return "/company/C_recruitMent";
+		} 
+		else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+	}
+	
+	@RequestMapping(value = "/applynow", method = RequestMethod.POST) // 개인이 보는 페이지															// 정보
+	public String applynowPOST(HttpSession session, int bno, RedirectAttributes rttr, int recruitNum, Model model) throws Exception {
+		//안소연 수정
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+		if (login != null) {
+			String id = login.getId();
+			
+			System.out.println("넘어온 Resume정보" + Rservice.readROne(bno).toString());
+			System.out.println("applynow로 넘어옴");
+			//applytbl update 시키면 된다.
 			
 			return "/company/C_recruitMent";
 		} 
-			else {
+		else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}

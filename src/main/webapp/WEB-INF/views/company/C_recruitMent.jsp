@@ -121,7 +121,7 @@
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button><!--x표시 누르면 창 사라지게 하는 코드 -->
 
-				<form action="/personal/applynow" method="post">
+				<form action="/company/applynow" method="post">
 					<div class="row">
 					<h4>즉시지원하기 - ${PUserVO.id }님의 이력서 목록</h4>
 						<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
@@ -131,12 +131,11 @@
 								<th style="width: 55px;">순번</th>
 								<th>이력서 제목</th>
 							</tr>
-
 							<c:forEach items="${ResumeVOList}" var="ResumeVO">
 								<tr>
-									<td><input id="${ResumeVO.bno}" type="radio"></td>
-									<td>${ResumeVO.bno}</td>
-									<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
+									<td><input type="radio" name="check" value="${ResumeVO.bno}" ></td>
+									<td >${ResumeVO.bno}</td>
+									<td><a href="/personal/detail?bno=${ResumeVO.bno}" target="_blank">${ResumeVO.title}</a></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -149,7 +148,6 @@
 					</div>
 					<!--//row -->
 				</form>
-
 			</div><!--//class="modal-body"  -->
 		</div><!--//class="modal-content col-xs-8"-->
 	</div><!--//modal-dialog -->
@@ -157,11 +155,19 @@
 
 <!-- 소연 코드 -->
 <script>
-	$(document).ready(function() {
-		$("#applynow").click(function() {
-			$("#applynow_modal").modal();
-		});
+$(document).ready(function() {
+	$("#applynow").click(function() {
+		$("#applynow_modal").modal();
 	});
+	$("#applynow_btn").on("click", function() {
+		
+		console.log("applynow_btn clicked");
+		//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
+		formObj.attr("action", "/company/applynow");
+		formObj.attr("method", "post");
+		formObj.submit();
+	});
+});
 </script>
 <br>
 <!-- 공고 메인 -->
