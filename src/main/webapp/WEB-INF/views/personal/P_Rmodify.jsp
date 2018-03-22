@@ -514,7 +514,6 @@ $(document).ready(function() {
 	var xornot = document.getElementById('xornot');
 	var preexistenceimg = document.getElementById('preexistenceimg');
 	
-	
 	function datepick() {
 		$('.input-group.date').datepicker({
 			calendarWeeks : false,
@@ -599,6 +598,7 @@ $(document).ready(function() {
 							  +"<small data-src="+data+">X</small>";
 
 					  $("#uploadedList").append(str); 
+					  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
 					  document.getElementById('uploadfilename').value = getImageLink(data);
 				  }//success : function(data) end
 	 		  });//ajax end
@@ -606,7 +606,7 @@ $(document).ready(function() {
 	 reader.readAsDataURL(file);
 	};//upload change end   
 	
- 		$("#uploadedList").on("click", "small", function(event){
+	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
 		
@@ -704,7 +704,6 @@ $(document).ready(function() {
 					}
 				}
 			}); 
-			
 		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
 			console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
 			//$(this).parent("div").remove();
@@ -967,6 +966,7 @@ $(document).ready(function() {
 			$("#subRegion").html(str);
 		})
 	}
+	
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>

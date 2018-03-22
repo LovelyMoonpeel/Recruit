@@ -278,13 +278,11 @@
 
 
 <script>
-
 $('#CInfo').on("click",function(){
 	
 	self.location = "/company/C_info?recruitNum="+$('#CInfo').val()
 	
 })
-
 		
 </script>
 

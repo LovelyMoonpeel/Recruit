@@ -266,10 +266,8 @@ public class PersonalController {
 		}
 	}
 
-
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
 	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 
@@ -283,6 +281,8 @@ public class PersonalController {
 		int resumenum = resume.getBno();
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
+		
+		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}

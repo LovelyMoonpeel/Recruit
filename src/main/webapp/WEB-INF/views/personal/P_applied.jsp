@@ -29,7 +29,7 @@
 			<tr>
 				<td>${CRecruitVO.bno}</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = 'http://localhost:8080/company/C_recruitment?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.period}</td>
 				<td>${CRecruitVO.regdate}</td>
 				<!--  매퍼에서 일치하는 bno 번호 받아오기  -->
