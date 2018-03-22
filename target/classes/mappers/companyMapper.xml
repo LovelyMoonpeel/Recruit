@@ -5,21 +5,38 @@
   
 <mapper namespace="com.recruit.mapper.CompanyMapper">
 
-  <select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO"> 
-  select
-   id, cname, img, homepage, intro, ceo, ctype, form, establish, numemp, sales, tel, fax, sns, location 
-  from
-   tblcinfo
-    where id = #{id}
-  </select> <!-- 기업정보 출력 -->
+	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
+	select
+		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form, establish,
+		numemp, sales, tel, fax, sns, location, phone, email
+	from
+		tblcinfo as tci, tbluser as tu
+	where
+		tci.id = #{id} and tci.id = tu.id  <!--문> email관련 추가 -->
+	</select> <!-- 기업정보 출력 -->
+
+	<update id="companyinfoUpdate">
+	update 
+		project.tblcinfo as tci, project.tbluser as tu
+	set 
+		tu.cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo},
+		ctype=#{ctype}
+		, form=#{form}, establish=#{establish}, numemp=#{numemp},
+		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} , img=#{img}
+		, location=#{location}, phone=#{phone} , email=#{email}
+	where 
+		tu.id = #{id} and tci.id = tu.id
+	</update> 
   
+ <!-- 
  <update id="companyinfoUpdate"> 
- update project.tblcinfo set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
+ update project.tblcinfo 
+ set cname =#{cname}, homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype}
  , form=#{form}, establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} , img=#{img}
- , location=#{location}
+ , location=#{location}, phone=#{phone} , email=#{email}  문> email=#{email}추가 
  where id = #{id}
- </update> <!-- 기업정보 수정  -->
-  
+ </update> 기업정보 수정 
+  --> 
    <select id="jobgroupList" resultType="com.recruit.domain.JobGroupVO"> 
  select 
    id, id2, jobgroup
