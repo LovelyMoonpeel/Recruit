@@ -73,6 +73,7 @@ public class CompanyController {
 		if (login != null) {
 				String id = login.getId();
 				model.addAttribute(service.CompanyInfoRead(id));
+				model.addAttribute(login);  
 				return "/company/C_modify";
 			} else {
 				rttr.addFlashAttribute("msg", "login");

@@ -6,9 +6,24 @@
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
+
+
+
+
+
 <div class="col-md-9">
+
+	<div class="row">
+		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;회사 정보</h2></label>
+	</div>	
+
+
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
 	<div class="top_cont">
+	
+	
+
+	
 		<div class="corp_logo">
 			<img src="/resources/rpjt/img/${CInfoVO.img}"
 				 name="img" value="${CInfoVO.img}" style="width:200px;"/> <br> <br>
@@ -20,15 +35,13 @@
 		</div>
 	</div>
 	<!-- //기업 페이지 첫번째 -->
-	<br> <br>
+	<br>
 	<!-- 기업 페이지 두번째(기본 정보) -->
 	<div class="company_info_content">
 		<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 		<div class="table-responsive">
 			<!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
 			<table class="table table-bordered ">
-			
-			
 				<tbody>
 					<tr>
 						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
@@ -80,14 +93,18 @@
                         <td colspan="3">하하하하하하 </td>
                       </tr> -->
 				</tbody>
+			</table>
 
 
-				<tbody>
-				
-					
-						<span><center><br><h2>인사담당자 정보</h2><br><br></center></span>
-				
-							
+
+			
+			<div class="form-group col-lg-6">
+				<label><h2><br>담당자 정보</h2></label>
+			</div>
+
+
+			<table class="table table-bordered ">	
+				<tbody>				
 					<tr>
 						<th class="table-active" scope="row" >회사 아이디</th>
 						<td colspan="3">${CInfoVO.id}</td>
@@ -99,7 +116,7 @@
 					</tr>
 					
 					<tr>
-						<th class="table-active" scope="row" name="phone" >휴대폰번호</th>
+						<th class="table-active" scope="row" name="phone" >휴대폰 번호</th>
 						<td colspan="3">${CInfoVO.phone}</td>
 					</tr> 
 					
@@ -108,8 +125,6 @@
 						<td colspan="3">${CInfoVO.email}</td>
 					</tr>
 				</tbody>
-
-				
 			</table>
 			
 			<form role="form" method="post">
