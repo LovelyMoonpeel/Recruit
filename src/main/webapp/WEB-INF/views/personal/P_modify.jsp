@@ -33,7 +33,7 @@
                        <th class="table-active" scope="row"><label>비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							<input type="password" name="pw" class="form-control" id="pw" value="${PUserVO.pw}">
+							<input type="password" name="pw" class="form-control" id="pw">
 						</div>
 					</td>
 					

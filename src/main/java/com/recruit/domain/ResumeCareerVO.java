@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ResumeCareerVO {
 
-	private int bno;
+	private String bno; //안소연 수정
 	private String resumenum;
 	private String cname;
 	private String jobdescription;
@@ -24,11 +24,11 @@ public class ResumeCareerVO {
 	}
 	// end of r.code
 
-	public int getBno() {
+	public String getBno() {
 		return bno;
 	}
 
-	public void setBno(int bno) {
+	public void setBno(String bno) {
 		this.bno = bno;
 	}
 

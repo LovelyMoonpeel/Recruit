@@ -136,16 +136,14 @@
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
 		<h4>
-			<b>학력</b>
+			<b>학력사항</b>
 		</h4>
 		<div id="edu_div"></div>
-		<!-- r.code 03/13 : 학력폼을  handlebars(template_edu)로 적용 -->
 		<hr style="border: solid 1px #ccc;">
 		<h4>
-			<b>경력</b>
+			<b>경력사항</b>
 		</h4>
 		<div id="exp_div"></div>
-		<!-- r.code 03/13 : 경력폼을  handlebars(template_exp)로 적용 -->
 		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
@@ -937,6 +935,38 @@ $(document).ready(function() {
 	web_list();
 	license_list();
 	language_list();
+	
+	
+   $("#region").change(function() {
+		var largeNum = $(this).val();
+		SubRegion(largeNum)
+	})
+	$("#jobGroup").change(function() {
+		var largeNum = $(this).val();
+		SubJobGroup(largeNum);
+	})
+	function SubJobGroup(largeNum) {
+		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='jobgruopid' value="+this.id+">"
+								+ this.jobgroup + "</option>";
+					});
+			$("#subjobGroup").html(str);
+		})
+	}
+	function SubRegion(largeNum) {
+		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+								+ "</option>";
+					});
+			$("#subRegion").html(str);
+		})
+	}
 });
 </script>
 <%@include file="../include/cfooter.jsp"%>

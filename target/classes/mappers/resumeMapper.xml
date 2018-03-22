@@ -247,13 +247,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<!-- r.code 03/13 추가 -->
+	<!-- r.code 03/13 추가 0322 안소연 수정 -->
 	<!-- 이력서 EduList 확인 -->
 	<select id="readResumeEduList" resultType="com.recruit.domain.ResumeEduVO">
-		select *
-		from
-		project.tblResumeEdu
-		where resumenum=#{bno}
+		select c.career as bno, re.resumenum, re.schoolname, re.major, re.enterdate, re.gradudate, re.edustatus
+		from tblresumeedu re, tblcode c
+		where re.edustatus=c.id
+		and resumenum=#{bno};
 	</select>
 	<!-- end of r.code -->
 	
@@ -299,13 +299,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<!-- r.code 03/14 추가 -->
+	<!-- r.code 03/14 추가  0322 안소연 수정-->
 	<!-- 이력서 CareerList 확인 -->
 	<select id="readResumeCareerList" resultType="com.recruit.domain.ResumeCareerVO">
-		select *
-		from
-		project.tblResumeCareer
-		where resumenum=#{bno}
+	select c.career as bno, rc.resumenum, rc.cname, rc.jobdescription, rc.startjob, rc.finishjob, rc.salary
+	from tblresumecareer rc, tblcode c
+	where rc.salary=c.id
+	and resumenum=#{bno};
 	</select>
 	<!-- end of r.code -->
 	

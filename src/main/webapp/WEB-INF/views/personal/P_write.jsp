@@ -69,6 +69,21 @@
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
+		
+		<!-- r.code 03/13 : 학력/경력 폼 수정-->
+		<hr style="border: solid 1px #ccc;">
+		<h4>
+			<b>학력 사항</b>
+		</h4>
+		<div id="edu_div"></div>
+		<hr style="border: solid 1px #ccc;">
+		<h4>
+			<b>경력 사항</b>
+		</h4>
+		<div id="exp_div"></div>
+		<hr style="border: solid 1px #ccc;">
+		<!-- end of r.code -->
+		
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
@@ -141,6 +156,128 @@
 </div>
 <!-- end of row -->
 </script>
+<script id="template_edu" type="text/x-handlebars-template">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<div class="form-group col-md-2">
+		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
+		<label>입학일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control enterdate edu" name="listEdu[].enterdate" value="{{enterdate}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label>졸업일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control gradudate edu"name="listEdu[].gradudate" value="{{gradudate}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
+	</div>
+
+	<div class="form-group col-md-3">
+		<label for="schoolname">학교명</label> 
+		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="major">학과</label> 
+		<input class="form-control major edu" name="listEdu[].major" value="{{major}}"></input>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label for="edustatus">졸업상태</label>
+		<select class="form-control edustatus edu" name="listEdu[].edustatus">
+			{{#select edustatus}}
+			<option value="0">선택</option>
+			<option value="15">재학</option>
+			<option value="16">졸업</option>
+			<option value="17">중퇴</option>
+			<option value="18">졸업예정</option>
+			<option value="19">휴학</option>
+			{{/select}}
+		</select>
+	</div>
+	
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default btn-sm edu_minus_btn" type="button" onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+</script>
+
+<script id="template_exp" type="text/x-handlebars-template">
+<div class="row">
+	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
+	<hr style="border: solid 0.5px #ccc;">
+	<div class="form-group col-md-3">
+		<label>입사일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control career" name="listCareer[].startjob" value="{{startjob}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
+	</div>
+	<div class="form-group col-md-3">
+		<label>퇴사일</label>
+		<div class="input-group date" data-provide="datepicker">
+			<input type="text" class="form-control career" name="listCareer[].finishjob" value="{{finishjob}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		</div>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="cname">회사명</label>
+		<input class="form-control career" name="listCareer[].cname" value="{{cname}}"></input>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="jobdescription">담당업무</label>
+		<input class="form-control career" name="listCareer[].jobdescription" value="{{jobdescription}}">
+		</input>
+	</div>
+	<div class="form-group col-md-3">
+		<label for="salary">연봉</label>
+		<select class="form-control career" name="listCareer[].salary">
+			{{#select salary}}
+			<option value="0">선택</option>
+			<option value="34">~ 2,000</option>
+			<option value="35">2,000 ~ 2,500</option>
+			<option value="36">2,500 ~ 3,000</option>
+			<option value="37">3,000 ~ 3,500</option>
+			<option value="38">3,500 ~ 4,000</option>
+			<option value="39">4,000 ~ 4,500</option>
+			<option value="40">4,500 ~ 5,000</option>
+			<option value="41">5,000 ~ 6,000</option>
+			<option value="42">6,000 ~ 6,500</option>
+			<option value="43">6,500 ~ 7,000</option>
+			<option value="44">7,000 ~ 7,500</option>
+			<option value="45">7,500 ~ 8,000</option>
+			<option value="46">8,000 ~ 8,500</option>
+			<option value="47">8,500 ~ 9,000</option>
+			<option value="48">9,000 ~ 9,500</option>
+			<option value="49">9,500 ~ 10,000</option>
+			<option value="50">10,000 ~ 10,500</option>
+			<option value="51">10,500 ~</option>
+			{{/select}}
+		</select>
+	</div>
+	<div class="form-group col-md-2">
+		<label>추가/삭제</label><br />
+		<button class="btn btn-default exp_plus_btn" type="button">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button class="btn btn-default exp_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
+			<i class="glyphicon glyphicon-minus"></i>
+		</button>
+	</div>
+</div>
+<!-- end of row -->
+</script>
 
 <script id="template_web" type="text/x-handlebars-template">
 <div class="row">
@@ -168,7 +305,6 @@
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
-
 </div>
 <!-- end of row -->
 </script>
@@ -445,6 +581,20 @@ $(document).ready(function(){
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		});
+		$(".edu").each(function(index){
+			var num = 6;
+			var name = $(this).attr("name");
+			name = name.substring(0, 8) + parseInt(index/num) + name.substring(8);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		});
+		$(".career").each(function(index){
+			var num = 6;
+			var name = $(this).attr("name");
+			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
+			$(this).attr("name", name);
+			console.log($(this).attr("name"));
+		});
 		$(".webclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
@@ -474,11 +624,75 @@ $(document).ready(function(){
 			}; 
 		add_tel(item);
 	});
-	
+	// edu 추가버튼 이벤트
+	$("#edu_div").on("click", ".edu_plus_btn", function(){
+		var item = {
+				resumenum : 0
+			};
+		add_edu(item);
+	});
+	// exp 추가버튼 이벤트
+	$("#exp_div").on("click", ".exp_plus_btn", function(){
+		var item = {
+				resumenum : 0
+			};
+		add_exp(item);
+	});
+	//웹 추가 버튼 이벤트
+	$("#web_div").on("click", ".web_plus_btn", function(){
+		var item = {
+				rid : 0
+			}
+		add_web(item);
+	});
+	//자격증 추가 버튼 이벤트
+	$("#license_div").on("click", ".license_plus_btn", function(){
+		var item = {
+				rid : 0
+		}
+		add_license(item);
+	});
+	//언어 추가 버튼 이벤트
+	$("#language_div").on("click", ".lang_plus_btn", function(){
+		var item = {
+				rid : 0
+			};
+		add_language(item);
+	});
 	function add_tel(item) {
 		var source_tel = $("#template_tel").html();
 		var template_tel = Handlebars.compile(source_tel);
 		$("#tel_div").append(template_tel(item));
+		datepick();
+	}
+	function add_edu(item) {
+		var source_edu = $("#template_edu").html();
+		var template_edu = Handlebars.compile(source_edu);
+		$("#edu_div").append(template_edu(item));
+		datepick();
+	}
+	function add_exp(item) {
+		var source_exp = $("#template_exp").html();
+		var template_exp = Handlebars.compile(source_exp);
+		$("#exp_div").append(template_exp(item));
+		datepick();
+	}
+	function add_web(item) {
+		var source_web = $("#template_web").html();
+		var template_web = Handlebars.compile(source_web);
+		$("#web_div").append(template_web(item));
+		datepick();
+	}
+	function add_license(item) {
+		var source_license = $("#template_license").html();
+		var template_license = Handlebars.compile(source_license);
+		$("#license_div").append(template_license(item));
+		datepick();
+	}
+	function add_language(item) {
+		var source_language = $("#template_language").html();
+		var template_language = Handlebars.compile(source_language);
+		$("#language_div").append(template_language(item));
 		datepick();
 	}
 	function tel_list() {
@@ -489,66 +703,47 @@ $(document).ready(function(){
 				};
 		add_tel(item);
 	}
-	
-	//웹 추가 버튼 이벤트
-	$("#web_div").on("click", ".web_plus_btn", function(){
+	function edu_list() {
 		var item = {
-				rid : 0
-			}
-		add_web(item);
-	});
-	
-	function add_web(item) {
-		var source_web = $("#template_web").html();
-		var template_web = Handlebars.compile(source_web);
-		$("#web_div").append(template_web(item));
-		datepick();
+				resumenum : 0,
+				//schoolname : "${eduVO.schoolname}",
+				schoolname : "",
+				major : "",
+				enterdate : "",
+				gradudate : "",
+				edustatus : ""
+			};
+		add_edu(item);
 	}
+	
+	function exp_list() {
+		var item = {
+				resumenum : 0,
+				//cname : "${careerVO.cname}",
+				cname : "",
+				jobdescription : "",
+				startjob : "",
+				finishjob : "",
+				salary : ""
+			};
+		add_exp(item);
+	}		
 	function web_list() {
-			var item = {
-					rid : 0,
-					webtitle : "${PWebSiteVO.webtitle}", 
-					webadd : "${PWebSiteVO.webadd}"
-			}
-			add_web(item);
-	}
-	//자격증 추가 버튼 이벤트
-	$("#license_div").on("click", ".license_plus_btn", function(){
 		var item = {
-				rid : 0
+				rid : 0,
+				webtitle : "${PWebSiteVO.webtitle}", 
+				webadd : "${PWebSiteVO.webadd}"
 		}
-			
-		add_license(item);
-	});
-	
-	function add_license(item) {
-		var source_license = $("#template_license").html();
-		var template_license = Handlebars.compile(source_license);
-		$("#license_div").append(template_license(item));
-		datepick();
+		add_web(item);
 	}
 	function license_list() {
-			var item = {
-					rid :  0,
-					licensename : "", 
-					publeoffice : "",
-					acquidate : ""
-			};
-			add_license(item);
-	}
-	//언어 추가 버튼 이벤트
-	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
-				rid : 0
-			};
-		add_language(item);
-	});
-	
-	function add_language(item) {
-		var source_language = $("#template_language").html();
-		var template_language = Handlebars.compile(source_language);
-		$("#language_div").append(template_language(item));
-		datepick();
+				rid :  0,
+				licensename : "", 
+				publeoffice : "",
+				acquidate : ""
+		};
+		add_license(item);
 	}
 	function language_list() {
 			var item = {
@@ -563,6 +758,8 @@ $(document).ready(function(){
 	}
 	
 	tel_list();
+	edu_list();
+	exp_list();
 	web_list();
 	license_list();
 	language_list();

@@ -154,15 +154,20 @@ public class PersonalController {
 
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String writeGET(PUserVO puser, Model model) throws Exception {
+	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("write GET controller");
 
-		PUserVO PUser = service.selectPUser("jin3");
-		model.addAttribute("PUserVO", PUser);
-
-		//model.addAttribute("codeList", Cservice.CodeList());
-		//코드 테이블 가져오기
-		return "personal/P_write";
+		//j.code 세션수정03/21
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			return "personal/P_write";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -182,6 +187,8 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
+		
+		
 
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
@@ -201,6 +208,9 @@ public class PersonalController {
 				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+				
+				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 

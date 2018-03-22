@@ -4,7 +4,8 @@ import java.util.List;
 
 public class ResumeEduVO {
 
-	private int bno;
+	private String bno;
+	//스트링으로 바꿔줌 그 edustatus 한글로 불러오려고
 	private int resumenum;
 	private String schoolname;
 	private String major;
@@ -24,11 +25,11 @@ public class ResumeEduVO {
 	}
 	// end of r.code
 
-	public int getBno() {
+	public String getBno() {
 		return bno;
 	}
 
-	public void setBno(int bno) {
+	public void setBno(String bno) {
 		this.bno = bno;
 	}
 
