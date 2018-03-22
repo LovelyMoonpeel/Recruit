@@ -25,7 +25,7 @@ public class RecruitVO implements Bnoble {
 	private String week;
 	private String applynum;
 	private int rownum;
-
+	private String btnstate;
 	
 
 
@@ -37,7 +37,15 @@ public class RecruitVO implements Bnoble {
 				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
 				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt
 				+ ", recruitstate=" + recruitstate + ", week=" + week + ", applynum=" + applynum + ", rownum=" + rownum
-				+ "]";
+				+ ", btnstate=" + btnstate + "]";
+	}
+
+	public String getBtnstate() {
+		return btnstate;
+	}
+
+	public void setBtnstate(String btnstate) {
+		this.btnstate = btnstate;
 	}
 
 	public String getApplynum() {

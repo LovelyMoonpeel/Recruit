@@ -131,6 +131,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.CInfoRecruitList(id);
 	 }
+	 @Override
+	 public void C_RecruitExtension(String id, int bno)throws Exception{
+		 
+		 dao.C_RecruitExtension(id,bno);
+	 }
 	  
 
 }

@@ -14,13 +14,12 @@
 	<table class="table table-bordered">
 	<thead>
 		<tr>
-			<th>순번</th>
-			<th>공고 제목</th>
-			<th style="text-align: center">기간</th>
-			<th>조회수</th>
-			<th style="text-align: center">지원자수</th>
-			<th>진행/완료</th>
-			<th style="text-align: center">공고관리</th>
+			<th>공고 상태</th>
+			<th>모집 내용</th>
+			<th style="text-align: center">공고 관리</th>
+			<th>지원자 관리</th>
+			<th style="text-align: center">조회수</th>
+			
 		</tr>
 		</thead>
 		<div>
@@ -30,6 +29,10 @@
 		</div>		
 		
 	</table>
+	
+	<form>	
+	<div><select><option value="1">공고제목</option><option value="2">담당자명</option></select><input type="text"><input type="button"></div>
+	</form>
 	
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
@@ -96,6 +99,28 @@ var formObj = $("form[role='form']");
 			/* formObj.attr("method", "get");		
 			formObj.submit(); */
 		});
+
+		$(document).on("click", '#modify',function(){
+			
+			  var bno = $(this).attr('value');
+			  
+			  var text = $(this).html();
+			  
+			  if(text == "수정"){
+				  self.location = "/company/C_recruitModify?bno="+bno+"";
+			  }else if(confirm("수정 후 재등록하시겠습니까? 그냥 재등록시 30일 연장")){
+				  
+				  self.location = "/company/C_recruitModify?bno="+bno+"";
+			  
+			  }else{
+				  
+				  self.location = "/company/C_recruitExtension?bno"+bno+"";
+				  
+				  alert("해당 공고가 재등록됐습니다.");
+				  
+			  }
+			  
+		});
 		
 		
 		var result = '${msg}';
@@ -116,14 +141,15 @@ var formObj = $("form[role='form']");
 				
 				
 				
-				str += "<tr><th><span class=badge badge-inverse>"+this.rownum+"</span></th>"
-					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
-							+"<th>"+this.period+"("+this.week+")</th>"
-							+"<th>"+this.viewcnt+"</th>"
-							+"<th>"+this.applynum+"</th>"
-							+"<th>"+this.recruitstate+"</th>"
-							+"<th><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-							+"</th></tr>"
+				str += "<tr><th class=colspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
+					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+							+"<li>근무형태 : "+this.employstatusid+"</li>"
+							+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
+							+"<li>경력 : "+this.exp+"</li>"
+							+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
+							+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+							+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
+							+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th><th></th></tr>"
 			
 				});
 				
@@ -145,16 +171,17 @@ var formObj = $("form[role='form']");
 					
 					
 					
-					str += "<tr><th><span class=badge badge-inverse>"+this.rownum+"</span></th>"
-						+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
-								+"<th>"+this.period+"("+this.week+")</th>"
-								+"<th>"+this.viewcnt+"</th>"
-								+"<th>"+this.applynum+"</th>"
-								+"<th>"+this.recruitstate+"</th>"
-								+"<th><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-								+"</th></tr>"
-				
-					});
+					str += "<tr><th class=colspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
+					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+							+"<li>근무형태 : "+this.employstatusid+"</li>"
+							+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
+							+"<li>경력 : "+this.exp+"</li>"
+							+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
+							+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+							+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
+							+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th><th></th></tr>"
+			
+				});
 				
 				text += ""
 					
@@ -174,16 +201,17 @@ var formObj = $("form[role='form']");
 					
 					
 					
-					str += "<tr><th><span class=badge badge-inverse>"+this.rownum+"</span></th>"
-						+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
-								+"<th>"+this.period+"("+this.week+")</th>"
-								+"<th>"+this.viewcnt+"</th>"
-								+"<th>"+this.applynum+"</th>"
-								+"<th>"+this.recruitstate+"</th>"
-								+"<th><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-								+"</th></tr>"
-				
-					});
+					str += "<tr><th class=colspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
+					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+							+"<li>근무형태 : "+this.employstatusid+"</li>"
+							+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
+							+"<li>경력 : "+this.exp+"</li>"
+							+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
+							+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+							+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
+							+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th><th></th></tr>"
+			
+				});
 					
 				
 					$("#recruitList").html(str);			

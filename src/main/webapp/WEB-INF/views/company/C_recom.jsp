@@ -29,8 +29,8 @@
 	<h1>채용 공고 목록</h1>
 	<table class="table table-bordered">
 		<tr class="active">
-			<th>순번</th>
-			<th>공고 제목</th>
+			<th>공고 상태</th>
+			<th>모집 내용</th>
 			<th style="text-align: center">기간</th>
 			<th>인재보기</th>
 			

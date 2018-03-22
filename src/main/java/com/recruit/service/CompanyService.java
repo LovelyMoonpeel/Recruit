@@ -48,4 +48,6 @@ public interface CompanyService {
 	  public List<CInterestPersonVO> FavorCompareList(String id)throws Exception;
 	  
 	  public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception;
+	  
+	  public void C_RecruitExtension(String id, int bno)throws Exception;
 }

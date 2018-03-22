@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.BoardVO;
 
 import org.slf4j.Logger;
@@ -237,14 +239,12 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
-	public String manage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+	public String manage(HttpSession session,  Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
 		if (login != null) {
 			String id = login.getId();
-			
-			model.addAttribute(service.CompanyInfoRead(id));
 			
 			return "/company/C_manage";
 		} else {
@@ -253,6 +253,24 @@ public class CompanyController {
 		}
 		
 
+	}
+	
+	@RequestMapping(value="/C_recruitExtension", method = RequestMethod.GET)
+	public void recruitExtension(HttpSession session, int bno, Model model, RedirectAttributes rttr)throws Exception{
+		
+			BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			String id = login.getId();
+			
+			System.out.println("bno랑 id 는 = " +bno+""+id);
+			
+			service.C_RecruitExtension(id,bno);
+			
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+		}
+		
 	}
 
 	@RequestMapping(value = "/C_recruitInfo", method = RequestMethod.GET)

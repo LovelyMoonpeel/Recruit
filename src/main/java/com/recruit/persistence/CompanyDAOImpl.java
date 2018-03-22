@@ -134,6 +134,16 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 		return session.selectList(namespace + ".cRecruitList", id);
 	}
+	@Override
+	public void C_RecruitExtension(String id, int bno)throws Exception{
+		
+		HashMap<String,Object> pp = new HashMap<>();
+		
+		pp.put("id", id);
+		pp.put("bno", bno);
+		
+		session.update(namespace + ".recruitExtension", pp);
+	}
 
 	
 }
