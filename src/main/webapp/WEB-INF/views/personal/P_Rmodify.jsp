@@ -84,14 +84,12 @@
 		<div class="form-group">
 		<label for="jobgroupid">희망직종(대분류)</label> 
 			<select id="jobGroup" class="form-control" name="jobgroupid">
-				<option value="">모집직종</option>
 				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
 					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
 				</c:forEach>
 			</select> 			
 			<label for="jobgroupid">희망직종(소분류)</label> 
 			<select id="subjobGroup" class="form-control" name="jobgroupid2">
-				<option value="">희망직종(소분류)</option>
 			</select>
 		</div>    	
       
@@ -107,16 +105,14 @@
 		</div>
 
 		<div class="form-group">	
-		<label for="jobgroupid">희망근무지(시/도)(구현X)</label> 
+		<label for="jobgroupid">희망근무지(시/도)</label> 
 			<select id="region" class="form-control" name='rgbid'>
-				<option value="">희망근무지(시/도)(구현X)</option>
 				<c:forEach items="${RegionVOlist}" var="RegionVO">
 					<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 				</c:forEach>
 			</select>
-			<label for="jobgroupid">희망근무지(구현X)</label> 
+			<label for="jobgroupid">희망근무지</label> 
 			<select id="subRegion" class="form-control" name='rgsid'>
-				<option value="">희망 근무지</option>
 			</select>
 		</div>
        
@@ -905,7 +901,6 @@ $(document).ready(function() {
 		
 		<c:forEach items="${RLicenselist}" var="RLicenseVO">
 			var item = {
-					
 					licenseid : ${RLicenseVO.licenseid},
 					rid : ${RLicenseVO.rid},
 					licensename : "${RLicenseVO.licensename}", 
@@ -918,9 +913,10 @@ $(document).ready(function() {
 	function language_list() {
 		var len = (${RLanguagelist.size()});
 		
+		
 		<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 			var item = {
-					rid : ${ResumeLanguageVO.rid},
+					rid : ${ResumeLanguageVO.rid},					
 					lid : ${ResumeLanguageVO.lid},
 					test : "${ResumeLanguageVO.test}", 
 					score : "${ResumeLanguageVO.score}",
@@ -937,39 +933,40 @@ $(document).ready(function() {
 	web_list();
 	license_list();
 	language_list();
+	
 });
 
 //j.code 18.03.22 
-$("#region").change(function() {
-	var largeNum = $(this).val();
-	SubRegion(largeNum)
-})
-$("#jobGroup").change(function() {
-	var largeNum = $(this).val();
-	SubJobGroup(largeNum);
-})
-function SubJobGroup(largeNum) {
-	$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
-		var str = "";
-		$(data).each(
-				function() {
-					str += "<option name='jobgruopid' value="+this.id+">"
-							+ this.jobgroup + "</option>";
-				});
-		$("#subjobGroup").html(str);
+ $("#region").change(function() {
+		var largeNum = $(this).val();
+		SubRegion(largeNum)
 	})
-}
-function SubRegion(largeNum) {
-	$.getJSON("/companyAjax/region/" + largeNum, function(data) {
-		var str = "";
-		$(data).each(
-				function() {
-					str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
-							+ "</option>";
-				});
-		$("#subRegion").html(str);
+	$("#jobGroup").change(function() {
+		var largeNum = $(this).val();
+		SubJobGroup(largeNum);
 	})
-}
+	function SubJobGroup(largeNum) {
+		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='jobgruopid' value="+this.id+">"
+								+ this.jobgroup + "</option>";
+					});
+			$("#subjobGroup").html(str);
+		})
+	}
+	function SubRegion(largeNum) {
+		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
+			var str = "";
+			$(data).each(
+					function() {
+						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+								+ "</option>";
+					});
+			$("#subRegion").html(str);
+		})
+	}
 //j.code 18.03.22
 
 </script>

@@ -37,32 +37,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<!-- <insert id="createROne"> <![CDATA[ insert into project.tblresume (userid, 
-		title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, 
-		employstatusid, salaryid, img) values(#{userid}, #{title}, #{address}, #{postcode}, 
-		#{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, 
-		#{salaryid}, #{img}) ]]> </insert> -->
-
-
 	<insert id="createROne">
 	  <![CDATA[
 	  insert 
 	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-	  values("jin3", #{title}, #{coverletter}, #{jobstateid}, #{jobgroupid})
-	  ]]>
-	</insert>
-
+	  values("jin3", #{title}, #{coverletter}, 102, 102)
+	  ]]><!-- 민경언니꺼랑 merge전에 임의로 102넣어놓음 -->
+	</insert> 
+	
 	<!-- 이력서 등록한 거 바로 확인 -->
 	<select id="readRLastCreatedOne" resultType="java.lang.Integer">
-		select MAX(bno)
-		from
-		project.tblresume
-		where userid = #{id}
-		;
+  	select MAX(bno)
+	from project.tblresume
+	where userid = #{id}
+	;
 	</select>
 
-	<!-- 이력서 확인 -->
-	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
+		<!-- 이력서 확인 -->
+		<select id="readROne" resultType="com.recruit.domain.ResumeVO">
     <![CDATA[
   select *
   from
@@ -70,28 +62,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where 
   	bno = #{bno}
       ]]>
-	</select>
+		</select>
+		
+   <!-- 이력서화면에 출력 -->
+    <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
+	    <![CDATA[
+	    select a.bno, a.userid, a.title, a.address, a.postcode, 
+			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
+            b.jobgroup as jobgroupid, 
+			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
+			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid
+			
+		from 
+			tblresume a, tbljobgroup b, tblcode c, tblregion d
+		where 	a.bno = #{bno}
+			and a.jobstateid = c.id
+			and a.jobgroupid = b.id
+			and a.rgbid = d.rgbid
+			and a.rgsid = d.rgsid;
+		]]>
+	</select>	
+		
 
 	<!-- 이력서 수정 -->
 	<update id="updateROne">
-		<!-- 안소연 -->
+	<!-- 안소연 -->
 	<![CDATA[
 	update project.tblresume 
-<<<<<<< HEAD
-	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = 1, jobgroupid = 1, rgbid = 'Z', rgsid = 102, employstatusid = 1, salaryid = 1, img = #{img}
-=======
 	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
->>>>>>> branch 'jbranch3' of https://github.com/LovelyMoonpeel/Recruit.git
 	where bno = #{bno}
     ]]>
 	</update>
 
 	<!-- 이력서 삭제 -->
 	<delete id="deleteROne">
-		delete
-		from
-		tblresume
-		where bno = #{bno}
+	delete
+	from
+	tblresume
+	where bno = #{bno}
 	</delete>
 
 	<select id="selectRList" resultType="com.recruit.domain.ResumeVO">
@@ -125,61 +133,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       project.tblregion
       ]]>
     </select>
-    
-    <!-- 이력서화면에 출력 -->
-    <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
-	    <![CDATA[
-	    select a.bno, a.userid, a.title, a.address, a.postcode, 
-			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
-            b.jobgroup as jobgroupid, 
-			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
-			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid
-			
-		from 
-			tblresume a, tbljobgroup b, tblcode c, tblregion d
-		where 	a.bno = #{bno}
-			and a.jobstateid = c.id
-			and a.jobgroupid = b.id
-			and a.rgbid = d.rgbid
-			and a.rgsid = d.rgsid;
-		]]>
-	</select>
 	
-
-	<!-- 이력서 이미지 등록 -->
-	<!-- update project.tblresume set img = #{img} where bno = MAX(bno); update 
-		tblresume R1 set img = #{img} where bno = (select * FROM (SELECT Max(bno) 
-		from tblresume R2 where userid = #{id}) R3); -->
-
+	
+	 					
 	<update id="addRimgAttach">
-	<![CDATA[
-		
-		update tblresume R1
-		set img = #{img}
-		where bno = (select *
-					from (select Max(bno)
-							from tblresume R2) R3);
-	]]>
+  <![CDATA[
+	
+	update tblresume R1
+	set img = #{img}
+	where bno = (select *
+				from (select Max(bno)
+						from tblresume R2) R3);
+  ]]>
 	</update>
 
-
-
-
-	<!-- Rmodify POST 일 경우 무조건 함께 가도록 -->
+	<!-- Rmodify POST 일 경우 무조건 함께 가도록  -->
 	<!-- 이력서 PTel 삭제 -->
 	<delete id="deleteTOne">
 	<![CDATA[
 	delete from project.tbltel where telid= #{telid}
 	]]>
-	</delete>
-
+	</delete>	
+	
 	<!-- 이력서 PTel 목록 삭제 -->
 	<delete id="deleteTList">
 	<![CDATA[
 	delete from project.tbltel where rid= #{rid}
 	]]>
-	</delete>
-
+	</delete>	
+	
 	<!-- 이력서 PTel 등록 -->
 	<insert id="createTOne">
 	<![CDATA[
@@ -188,7 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	]]>
 	</insert>
-
+	
 	<!-- 이력서 PTel 확인 -->
 	<select id="selectPTelList" resultType="com.recruit.domain.PTelVO">
  	<![CDATA[
@@ -197,7 +179,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where t.rid=#{bno}
   	]]>
 	</select>
-
+	
 	<!-- 이력서 PTel 수정 -->
 	<update id="updateTOne">
 	<![CDATA[
@@ -205,18 +187,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set teltitle = #{teltitle}, tel = #{tel} 
 	where rid = #{ptvoid}
 	]]>
-		<!-- front에서 name이 ptvoid인거 -->
+	<!-- front에서 name이 ptvoid인거 -->
 	</update>
-
-
-	<!-- 이력서 PTel 삭제 -->
-	<delete id="deletePTel">
-	<![CDATA[
-	delete from project.tbltel where rid= #{bno}
-	]]>
-	</delete>
-
-
+	
 	<!-- 이력서 PWebsite 등록 -->
 	<insert id="createPWebSite">
 	<![CDATA[
@@ -224,7 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{rid}, #{webtitle}, #{webadd})
 	]]><!-- 안소연 사용 pwebsitedao에서 p_write -->
 	</insert>
-
+	
 	<!-- 이력서 PWebsite 확인 -->
 	<select id="selectPWebSiteList" resultType="com.recruit.domain.PWebSiteVO">
 	<![CDATA[
@@ -233,7 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     where rid=#{bno};
 	]]>
 	</select>
-
+	
 	<!-- 이력서 PWebsite 수정 -->
 	<update id="updatePWebSite">
 	<![CDATA[
@@ -242,21 +215,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where rid = #{rid}
 	]]>
 	</update>
-
+	
 	<!-- 이력서 PWebsite 삭제 -->
 	<delete id="deletePWebSite">
 	<![CDATA[
 	delete from project.tblwebsite where rid= #{bno}
 	]]>
 	</delete>
-
+	
 	<!-- 이력서 PWebsiteList 삭제 -->
 	<delete id="deleteWList">
 	<![CDATA[
 	delete from project.tblwebsite where rid= #{rid}
 	]]>
 	</delete>
-
+	
 	<!-- 이력서 REdu 등록 -->
 	<insert id="createResumeEdu">
 	<![CDATA[
@@ -264,26 +237,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{resumenum}, #{schoolname}, #{major}, #{enterdate}, #{gradudate}, #{edustatus})
 	]]>
 	</insert>
-
+	
 	<!-- 이력서 REdu 확인 -->
 	<select id="readResumeEdu" resultType="com.recruit.domain.ResumeEduVO">
 	<![CDATA[
-	select e.*
-	from project.tblResumeEdu e
-	where e.resumenum=#{bno}
+	select e.*, r.*
+	from project.tblResumeEdu e, project.tblresume r
+	where e.resumenum=r.bno
 	]]>
 	</select>
-
-	<!-- r.code 03/13 추가 -->
+	
+	<!-- r.code 03/13 추가 0322 안소연 수정 -->
 	<!-- 이력서 EduList 확인 -->
 	<select id="readResumeEduList" resultType="com.recruit.domain.ResumeEduVO">
-		select *
-		from
-		project.tblResumeEdu
-		where resumenum=#{bno}
+		select c.career as bno, re.resumenum, re.schoolname, re.major, re.enterdate, re.gradudate, re.edustatus
+		from tblresumeedu re, tblcode c
+		where re.edustatus=c.id
+		and resumenum=#{bno};
 	</select>
 	<!-- end of r.code -->
-
+	
 	<!-- 이력서 REdu 수정 -->
 	<update id="updateResumeEdu">
 	<![CDATA[
@@ -292,14 +265,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where resumenum = #{resumenum}
 	]]>
 	</update>
-
+	
 	<!-- 이력서 REdu 삭제 -->
 	<delete id="deleteResumeEdu">
 	<![CDATA[
 	delete from project.tblResumeEdu where resumenum= #{bno}
 	]]>
 	</delete>
-
+	
 	<!-- r.code 03/14 추가 -->
 	<select id="deleteResumeEduList">
 		delete from
@@ -308,7 +281,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resumenum=#{resumenum}
 	</select>
 	<!-- end of r.code -->
-
+	
 	<!-- 이력서 RCareer 등록 -->
 	<insert id="createResumeCareer">
 	<![CDATA[
@@ -316,7 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{resumenum}, #{cname}, #{jobdescription}, #{startjob}, #{finishjob}, #{salary})
 	]]>
 	</insert>
-
+	
 	<!-- 이력서 RCareer 확인 -->
 	<select id="readResumeCareer" resultType="com.recruit.domain.ResumeCareerVO">
 	<![CDATA[
@@ -325,17 +298,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where c.resumenum=r.bno
 	]]>
 	</select>
-
-	<!-- r.code 03/14 추가 -->
+	
+	<!-- r.code 03/14 추가  0322 안소연 수정-->
 	<!-- 이력서 CareerList 확인 -->
 	<select id="readResumeCareerList" resultType="com.recruit.domain.ResumeCareerVO">
-		select *
-		from
-		project.tblResumeCareer
-		where resumenum=#{bno}
+	select c.career as bno, rc.resumenum, rc.cname, rc.jobdescription, rc.startjob, rc.finishjob, rc.salary
+	from tblresumecareer rc, tblcode c
+	where rc.salary=c.id
+	and resumenum=#{bno};
 	</select>
 	<!-- end of r.code -->
-
+	
 	<!-- 이력서 RCareer 수정 -->
 	<update id="updateResumeCareer">
 	<![CDATA[
@@ -344,14 +317,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where resumenum = #{resumenum}
 	]]>
 	</update>
-
+	
 	<!-- 이력서 RCareer 삭제 -->
 	<delete id="deleteResumeCareer">
 	<![CDATA[
 	delete from project.tblResumeCareer where resumenum= #{bno}
 	]]>
 	</delete>
-
+	
 	<!-- r.code 03/15 추가 : 경력 리스트 삭제 -->
 	<select id="deleteResumeCareerList">
 		delete from
@@ -360,7 +333,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resumenum=#{resumenum}
 	</select>
 	<!-- end of r.code -->
-
+	
 	<!-- 이력서 RLicense 등록 -->
 	<insert id="createRLicense">
 	<![CDATA[
@@ -368,7 +341,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values(#{rid}, #{licensename}, #{publeoffice}, #{acquidate})
 	]]>
 	</insert>
-
+	
 	<!-- 이력서 RLicense 확인 -->
 	<select id="selectRLicenseList" resultType="com.recruit.domain.RLicenseVO">
 	<![CDATA[
@@ -377,7 +350,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where rid=#{bno};
 	]]>
 	</select>
-
+	
 	<!-- 이력서 RLicense 수정 -->
 	<update id="updateRLicense">
 	<![CDATA[
@@ -386,28 +359,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where rid = #{rid}
 	]]>
 	</update>
-
+	
 	<!-- 이력서 RLicense 삭제 -->
 	<delete id="deleteRLicense">
 	<![CDATA[
 	delete from project.tbllicense where rid= #{bno}
 	]]>
 	</delete>
-
-	<!-- 이력서 RLang 등록 -->
-	<insert id="createResumeLanguage">
-	<![CDATA[
-	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
-	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
-	]]><!-- 소연 사용 -->
-	</insert>
-
-	<!-- 이력서 RLang 확인 -->
+	
+	
 	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
-	 select*
-    from project.tblresumeLanguage
-    where rid=#{bno};
+	select c.career as resumelangid, r.rid, r.lid, r.test, r.score, r.publeoffice, r.acquidate
+	from tblcode c, tblresumelanguage r
+	where r.lid=  c.id
+	and
+	rid=#{bno};
 	]]>
 	</select>
 
@@ -419,14 +386,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where rid = #{rid}
 	]]>
 	</update>
-
+	
 	<!-- 이력서 RLang 삭제 -->
 	<delete id="deleteResumeLanguage">
 	<![CDATA[
 	delete from project.tblResumeLanguage where rid= #{bno}
 	]]>
 	</delete>
-
+	
+	<!-- 이력서 RLang 등록 -->
+	<insert id="createResumeLanguage">
+	<![CDATA[
+	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
+	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
+	]]><!-- 소연 사용 -->
+	</insert>
+	
 	<!-- 이력서 RLang 삭제 -->
 	<delete id="deleteRLangList">
 	<![CDATA[

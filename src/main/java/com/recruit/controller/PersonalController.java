@@ -188,9 +188,6 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
-		Rservice.selectRCodeList();
-		Rservice.selectRegionList();
-		Rservice.selectRGPList();
 		
 
 		return "redirect:/personal/detail?bno=" + bno + ""; 
@@ -211,7 +208,11 @@ public class PersonalController {
 				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
 				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
 				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
-
+				
+				model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			    model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			    model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+			    
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 
 				return "personal/P_detail";
@@ -271,7 +272,6 @@ public class PersonalController {
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
-	//public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeVO resume, Model model) throws Exception {
 	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model) throws Exception {
 		System.out.println("Rmodify POST Controller"); 
 
@@ -286,6 +286,8 @@ public class PersonalController {
 		int resumenum = resume.getBno();
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
+		
+		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
