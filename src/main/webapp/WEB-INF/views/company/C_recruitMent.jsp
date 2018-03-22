@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@include file="../include/cheader.jsp"%>
+<%@include file="../include/pheader.jsp"%>
 
 <!-- Main content -->
 <!-- 메인 바디 부분 -->

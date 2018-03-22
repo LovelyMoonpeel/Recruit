@@ -270,10 +270,7 @@ public class CompanyController {
 
 	}
 
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이
-																			// 보는
-																			// 채용공고
-																			// 정보
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 채용공고 정보
 	public void readRecruitMent(int recruitNum, Model model) throws Exception {
 
 		String id = service.RecruitInfoRead2(recruitNum).getCid();
@@ -282,7 +279,5 @@ public class CompanyController {
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		model.addAttribute("ApplyList", service.ApplyList(recruitNum));
-
 	}
-
 }
