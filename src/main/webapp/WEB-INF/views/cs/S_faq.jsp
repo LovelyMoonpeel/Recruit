@@ -36,6 +36,10 @@ if(result == 'modify'){
 	alert("FAQ가 등록 되었습니다..");
 }else if(result == 'login'){
 	alert("로그인이 필요합니다.");
+}else if(result == 'NO_per'){
+	alert("기업 회원이 아닙니다.");
+}else if(result == 'logout'){
+	alert("로그아웃 되었습니다.");
 }
 </script>
 <!-- //수정, 삭제 처리시 -->

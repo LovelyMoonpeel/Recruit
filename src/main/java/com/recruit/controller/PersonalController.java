@@ -284,6 +284,7 @@ public class PersonalController {
 		int resumenum = resume.getBno();
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
+
 		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";

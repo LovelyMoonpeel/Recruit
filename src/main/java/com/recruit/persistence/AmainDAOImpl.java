@@ -78,5 +78,10 @@ public class AmainDAOImpl implements AmainDAO {
 	public void aupdate(BoardVO vo) throws Exception {
 		session.update(namespace + ".aupdate", vo);
 	}
+	
+	@Override
+	public String readpw(BoardVO vo) throws Exception{
+		return session.selectOne(namespace + ".readpw", vo);
+	}
 
 }

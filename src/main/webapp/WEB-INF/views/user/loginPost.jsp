@@ -12,8 +12,17 @@
 
 <!--로그인 실패시 처리  -->
  <script type="text/javascript">
- 	alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
-    self.location = "/personal/index";
+ 	var result = '${msg}';
+ 	if(result == 'login_fail'){
+		alert("아이디 혹은 비밀번호를 다시 확인해주세요."); 		
+ 	}else if(result == 'email'){
+ 		alert("이메일 인증을 진행해주세요.");
+ 	}else if(result == 'company'){
+ 		alert("기업 회원으로 로그인 해주세요.");
+ 	}else if(result == 'personal'){
+ 		alert("개인 회원으로 로그인 해주세요.");
+ 	}
+    self.location = "/cs/S_faq";
  </script>
   
   

@@ -33,6 +33,21 @@
 	
 	<%@include file="../include/jheader.jsp"%>
 
+<%
+	try{
+		if(cname == null){
+			%>
+			<script>
+			alert("기업 회원이 아닙니다.");
+			self.location = "/personal/index";
+			</script>
+			<%
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
 
 	<!-- Page Content -->
 	<div class="container">

@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,6 +56,9 @@ public class AdminController {
 
 	@Inject
 	private CompanyAjaxService jobService;
+	
+    @Inject
+    private PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
@@ -87,6 +91,14 @@ public class AdminController {
 		logger.info("modify post...........");
 		logger.info(vo.toString());
 
+		if(vo.getPw()==""){
+			vo.setPw(aservice.readpw(vo));
+		}else{
+			String encPassword = passwordEncoder.encode(vo.getPw());
+			vo.setPw(encPassword);
+		}
+		
+		
 		aservice.modify(vo);
 
 		rttr.addAttribute("page", cri.getPage());
@@ -261,6 +273,13 @@ public class AdminController {
 		logger.info("cmodify post...........");
 		logger.info(vo.toString());
 
+		if(vo.getPw()==""){
+			vo.setPw(aservice.readpw(vo));
+		}else{
+			String encPassword = passwordEncoder.encode(vo.getPw());
+			vo.setPw(encPassword);
+		}
+		
 		// System.out.println("controller test1");
 		cservice.modify(vo);
 		pservice.CompanyInfoModify(cinfo);

@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object boardVO = modelMap.get("boardVO");
-		
+//		System.out.println("인터셉터 들어오니 ? "+boardVO);
 
 		
 		if (boardVO != null) {
@@ -40,23 +40,42 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 				logger.info("remember me................");
 				BoardVO login = (BoardVO)session.getAttribute("login");
+				if(login.getCname()==null){
+					Cookie PloginCookie = new Cookie("PloginCookie", login.getId());
+					PloginCookie.setPath("/");
+					PloginCookie.setMaxAge(60 * 60 * 24 * 7); //60초*60분*24시간*7일
+					response.addCookie(PloginCookie);		
+					Cookie CloginCookie = new Cookie("CloginCookie", "");
+					CloginCookie.setPath("/");
+					CloginCookie.setMaxAge(0); //쿠키 제거
+					response.addCookie(CloginCookie);
+				}else{
+					Cookie CloginCookie = new Cookie("CloginCookie", login.getId());
+					CloginCookie.setPath("/");
+					CloginCookie.setMaxAge(60 * 60 * 24 * 7); //60초*60분*24시간*7일
+					response.addCookie(CloginCookie);
+					Cookie PloginCookie = new Cookie("PloginCookie", "");
+					PloginCookie.setPath("/");
+					PloginCookie.setMaxAge(0); //쿠키 제거
+					response.addCookie(PloginCookie);
+				}
 				//System.out.println("아이디값 출력 한번 해봅니다. "+ id);
-				Cookie loginCookie = new Cookie("loginCookie", login.getId());
-				loginCookie.setPath("/");
-				loginCookie.setMaxAge(60 * 60 * 24 * 7); //60초*60분*24시간*7일
-				response.addCookie(loginCookie);
 			}else{
 				//System.out.println("확인절차");
-				Cookie loginCookie = new Cookie("loginCookie", "");
-				loginCookie.setPath("/");
-				loginCookie.setMaxAge(0); //쿠키 제거
-				response.addCookie(loginCookie);
+				Cookie PloginCookie = new Cookie("PloginCookie", "");
+				PloginCookie.setPath("/");
+				PloginCookie.setMaxAge(0); //쿠키 제거
+				response.addCookie(PloginCookie);
+				Cookie CloginCookie = new Cookie("CloginCookie", "");
+				CloginCookie.setPath("/");
+				CloginCookie.setMaxAge(0); //쿠키 제거
+				response.addCookie(CloginCookie);
 			}
 
 			Object dest = session.getAttribute("dest");
 			
 			
-			response.sendRedirect(dest != null ? (String) dest : "/personal/index");
+			response.sendRedirect(dest != null ? (String) dest : "/cs/S_qna");
 			
 		}
 		

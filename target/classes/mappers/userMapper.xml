@@ -4,22 +4,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.recruit.mapper.UserMapper">
-	<!--문> 안쓰는 거 같아서 주석 처리 <select id="read" resultType="com.recruit.domain.UserVO"> 
-		select id, pw, name from tblUser where id = #{id} </select> <select id="listAll" 
-		resultType="BoardVO"> select uid, upw, uname, upoint from tblUser </select> -->
 
+	<insert id="create">
+		insert into tblUser (id, pw, cname, pname, email, registnum, birth)
+		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
+		#{birth})
+	</insert>
+	
+	<insert id="Ccreate">
+		insert into project.tblcinfo (id, cname)
+		select #{id}, #{cname} from dual 
+		where exists (select id from project.tbluser where id = #{id})
+		;
+	</insert>
 
 	<!--문> 로그인 처리 -->
 	<select id="login" resultType="BoardVO">
 
-		select id, pw, pname, cname
+		select id, pw, pname, cname, authCode
 		from
 		Project.tblUser
 		where id = #{id} and pw = #{pw}
 	</select>
 	<!--// -->
 
-	<!--문> 자동로그인 -->
+	<select id="idoverlap" resultType="BoardVO">
+	select
+	id
+	from
+	project.tbluser
+	where
+	id = #{id}
+	</select>
+	
+	<update id="createAuthKey">
+		update project.tbluser set authCode = #{authCode} where email = #{email}
+	</update>
+	<!--// -->
+	
+		<!--문> 자동로그인 -->
 	<update id="keepLogin">
 
 		update tblUser
@@ -40,4 +63,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!--// -->
 
+	<update id="userAuth">
+		update project.tbluser set authCode = null where email = #{email}
+	</update>
+	
+	<select id="pread" resultType="BoardVO">
+	select id
+	from project.tbluser
+	where pname = #{pname}
+	and email = #{email}
+	</select>
+	
+	<select id="cread" resultType="BoardVO">
+	select id
+	from project.tbluser
+	where cname = #{cname}
+	and email = #{email}
+	</select>
+	
+	<select id="emailoverlap" resultType="BoardVO">
+	select
+	email
+	from
+	project.tbluser
+	where
+	email = #{email}
+	</select>
+	
+	<update id="ppwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
+	</update>
+	
+	<update id="cpwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
+	</update>
+	
+	<select id="getPw" resultType="BoardVO">
+	select
+	pw
+	from
+	project.tbluser
+	where
+	id = #{id}
+	</select>
+	
+	<select id="getId" resultType="String">
+	select
+	id
+	from
+	project.tbluser
+	where
+	id = #{id}
+	</select>
 </mapper>

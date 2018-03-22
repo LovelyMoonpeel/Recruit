@@ -60,17 +60,17 @@
 <%@include file="../include/jheader.jsp"%>
 <%@ page import = "com.recruit.domain.BoardVO" %>
 
-<%-- <%
-	String id = "";
-	BoardVO login = null;
+<%
+/* 	String id = "";
+	BoardVO login = null; */
 	
 	try{
 		/* System.out.println("첫번째"); */
-		login = (BoardVO)session.getAttribute("login");
+		/* login = (BoardVO)session.getAttribute("login"); */
 		/* System.out.println("로그인"+login);
 		System.out.println("두번째"); */
-		if(login != null){
-		id = login.getId();}
+		/* if(login != null){
+		id = login.getId();} */
 /* 		System.out.println("세번째");
 		System.out.println("아이디값 출력" + id); */
 		if(!id.equals("admin")){
@@ -88,7 +88,7 @@
 		e.printStackTrace();
 	}
 	
-%> --%>
+%>
 
 
 	<!-- Page Content -->

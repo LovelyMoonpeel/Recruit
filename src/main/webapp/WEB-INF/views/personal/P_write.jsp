@@ -580,7 +580,6 @@ $(document).ready(function(){
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		});
-
 		$(".edu").each(function(index){
 			var num = 6;
 			var name = $(this).attr("name");
@@ -595,7 +594,6 @@ $(document).ready(function(){
 			$(this).attr("name", name);
 			console.log($(this).attr("name"));
 		});
-
 		$(".webclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
@@ -736,7 +734,6 @@ $(document).ready(function(){
 				webadd : "${PWebSiteVO.webadd}"
 		}
 		add_web(item);
-
 	}
 	function license_list() {
 		var item = {

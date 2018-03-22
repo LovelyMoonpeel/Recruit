@@ -29,4 +29,6 @@ public interface AmainDAO {
 	public BoardVO aread() throws Exception;
 
 	public void aupdate(BoardVO vo) throws Exception;
+	
+	public String readpw(BoardVO vo) throws Exception;
 }

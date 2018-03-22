@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
+import com.recruit.controller.AdminController;
 import com.recruit.domain.BoardVO;
 import com.recruit.service.UserService;
 
@@ -38,7 +39,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
       
       if(loginCookie != null) { 
-        
+        System.out.println("로그인 쿠키 확인 : "+loginCookie);
+    	
         BoardVO boardVO = service.checkLoginBefore(loginCookie.getValue());
         
         logger.info("USERVO: " + boardVO);
@@ -50,7 +52,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         
       }
       
-      response.sendRedirect("/personal/index");
+      response.sendRedirect("/cs/S_faq");
       return false;
     }
     

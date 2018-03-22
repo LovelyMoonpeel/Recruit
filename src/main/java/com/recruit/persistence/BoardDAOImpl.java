@@ -22,6 +22,10 @@ public class BoardDAOImpl implements BoardDAO {
     session.insert(namespace + ".create", vo);
   }
 
+  @Override
+  public void Ccreate(BoardVO vo) throws Exception{
+	  session.insert(namespace+".Ccreate", vo);
+  }
 
 
 }
