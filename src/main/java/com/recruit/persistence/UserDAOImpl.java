@@ -2,7 +2,6 @@ package com.recruit.persistence;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -86,5 +85,20 @@ public class UserDAOImpl implements UserDAO {
 	public void userAuth(String email) throws Exception {
 		// TODO Auto-generated method stub
 		session.update(namespace + ".userAuth", email);
+	}
+	
+	@Override
+	public BoardVO pread(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace+".pread", dto);
+	}
+	
+	@Override
+	public BoardVO cread(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace+".cread", dto);
+	}
+	
+	@Override
+	public BoardVO emailoverlap(String email) throws Exception{
+		return session.selectOne(namespace+".emailoverlap", email);
 	}
 }

@@ -129,6 +129,25 @@ public class UserController {
 		return entity;
 	}
 	
+	@RequestMapping(value = "/emailoverlap", method = RequestMethod.POST)
+	public ResponseEntity<String> Emailoverlap(@RequestBody BoardVO board) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try{
+			String email = board.getEmail();
+			System.out.println(email);
+			if(service.emailoverlap(email)==null){
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);				
+			}else{
+				entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
 	public String emailConfirm(String email, Model model) throws Exception { // 이메일인증
 		service.userAuth(email);
@@ -137,4 +156,39 @@ public class UserController {
 		return "/user/emailConfirm";
 	}
 	
+	@RequestMapping(value = "/IDsearch", method = RequestMethod.GET)
+	public void IDsearchGET(Model model) throws Exception {
+
+	}
+	
+	@RequestMapping(value = "/IDsearch", method = RequestMethod.POST)
+	public ResponseEntity<String> IDsearchPOST(@RequestBody LoginDTO dto, Model model) throws Exception {
+		ResponseEntity<String> entity = null;
+		try{
+			String id = "";
+			if(dto.getCname()==null){
+				if(service.pread(dto)!=null){
+					id = service.pread(dto).getId();
+				}
+				if(id != ""){
+					entity = new ResponseEntity<String>(id, HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
+			}else{
+				if(service.cread(dto)!=null){
+					id = service.cread(dto).getId();
+				}
+				if(id != ""){
+					entity = new ResponseEntity<String>(id, HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}	
 }

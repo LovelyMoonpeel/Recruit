@@ -23,4 +23,10 @@ public interface UserService {
 	public BoardVO checkLoginBefore(String value);
 	
 	public void userAuth(String email) throws Exception;
+	
+	public BoardVO pread(LoginDTO dto) throws Exception;
+	
+	public BoardVO cread(LoginDTO dto) throws Exception;
+	
+	public BoardVO emailoverlap(String email) throws Exception;
 }

@@ -24,4 +24,10 @@ public interface UserDAO {
 	public void createAuthKey(String email, String authCode) throws Exception;
 	
 	public void userAuth(String email) throws Exception;
+	
+	public BoardVO pread(LoginDTO dto) throws Exception;
+	
+	public BoardVO cread(LoginDTO dto) throws Exception;
+	
+	public BoardVO emailoverlap(String email) throws Exception;
 }

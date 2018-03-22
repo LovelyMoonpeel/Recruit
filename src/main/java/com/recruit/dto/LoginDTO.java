@@ -4,6 +4,9 @@ package com.recruit.dto;
 public class LoginDTO {
 	private String id;
 	private String pw;
+	private String pname;
+	private String cname;
+	private String email;
 	private String index; //개인로그인과 기업로그인을 비교하기 위해 들어간 변수
 	private boolean useCookie;
 	public String getId() {
@@ -17,6 +20,24 @@ public class LoginDTO {
 	}
 	public void setPw(String pw) {
 		this.pw = pw;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public String getCname() {
+		return cname;
+	}
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getIndex() {
 		return index;
@@ -32,10 +53,10 @@ public class LoginDTO {
 	}
 	@Override
 	public String toString() {
-		return "LoginDTO [id=" + id + ", pw=" + pw + ", index=" + index + ", useCookie=" + useCookie + "]";
+		return "LoginDTO [id=" + id + ", pw=" + pw + ", pname=" + pname + ", cname=" + cname + ", email=" + email
+				+ ", index=" + index + ", useCookie=" + useCookie + "]";
 	}
 	
-
 	
 	
 }

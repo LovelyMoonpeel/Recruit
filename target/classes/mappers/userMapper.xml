@@ -66,4 +66,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="userAuth">
 		update project.tbluser set authCode = null where email = #{email}
 	</update>
+	
+	<select id="pread" resultType="BoardVO">
+	select id
+	from project.tbluser
+	where pname = #{pname}
+	and email = #{email}
+	</select>
+	
+	<select id="cread" resultType="BoardVO">
+	select id
+	from project.tbluser
+	where cname = #{cname}
+	and email = #{email}
+	</select>
+	
+	<select id="emailoverlap" resultType="BoardVO">
+	select
+	email
+	from
+	project.tbluser
+	where
+	email = #{email}
+	</select>
 </mapper>
