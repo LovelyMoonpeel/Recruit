@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.recruit.domain.SrchVO"%>
 <%@ include file="../include/sheader2.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
@@ -9,21 +10,43 @@
 
 <!-- Page Content -->
 <div class="container">
+	<%
+		//String stypeM = (String) request.getAttribute("stypeModel");
+		SrchVO srchVO = (SrchVO) request.getAttribute("srchVO");
+		String stitle;
+		if ("2".equals(srchVO.getStype())) {
+			stitle = "인재 검색";
+		} else {
+			srchVO.setStype("1");
+			stitle = "채용공고 검색";
+		}
+
+		String tmp = "";
+		if (srchVO.getSfilter() == null) {
+			tmp = "Sfilter null";
+		} else if ("".equals(srchVO.getSfilter())) {
+			tmp = "Sfilter ___";
+		}
+	%>
+	<script>
+		console.log("tmp");
+	</script>
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
+			<!-- r.code -->
+			<h4>r.code</h4>
+			<input readonly class="form-control" type="text"
+				value="stype: ${srchVO.stype}">
+			<!-- -->
+			<input readonly class="form-control" type="text"
+				value="skeyword: ${srchVO.skeyword}">
+			<!-- -->
+			<input readonly class="form-control" type="text"
+				value="sfilter: ${srchVO.sfilter}">
+			<!-- end of r.code -->
 			<br />
 			<h3 align="center">
-				<%
-					String stypeM = (String) request.getAttribute("stypeModel");
-					String stitle;
-					if ("2".equals(stypeM)) {
-						stitle = "인재 검색";
-					} else {
-						stypeM = "1";
-						stitle = "채용공고 검색";
-					}
-				%>
 				<%=stitle%>
 			</h3>
 			<br />
@@ -33,7 +56,8 @@
 			<form onsubmit="return false;">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="${sdesc}"
-						name="skeyword" id="sinput" onKeyDown="onEnter();">
+						name="skeyword" id="sinput" value="${srchVO.skeyword}"
+						onKeyDown="onEnter();">
 					<div class="input-group-btn">
 						<!-- <button class="btn btn-default" type="submit"> -->
 						<!-- form button default type : submit -->
@@ -42,7 +66,7 @@
 						</button>
 					</div>
 				</div>
-				<input id="stype" type='hidden' name='stype' value="<%=stypeM%>">
+				<input id="stype" type='hidden' name='stype' value="${srchVO.stype}">
 				<input id="ttype" type='hidden' name='ttype' value="c1">
 			</form>
 
@@ -72,7 +96,7 @@
 				<div class="well col-md-11" id="well"
 					style="background-color: Gainsboro;"></div>
 				<div class="col-md-1">
-					<button type="button" class="btn btn-default" id="opt_search_btn">
+					<button type="button" class="btn btn-default" id="sel_search_btn">
 						<i class="glyphicon glyphicon-search"></i>
 					</button>
 				</div>
@@ -172,7 +196,7 @@
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
-		$("#sinput").val("");
+		// $("#sinput").val("");
 
 		console.log(sinp);
 		if (sinp === "all") {
@@ -352,7 +376,7 @@
 	// select 검색으로 관련 정보를 를 보여주다.(1)
 	// select 검색 버튼 click 이벤트 핸들러
 	// ajax로 select filters 전송 to controller
-	$("#opt_search_btn").on("click", function() {
+	$("#sel_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
 		$("#well > .sfilter_btn").each(function() {
@@ -371,7 +395,7 @@
 			data : JSON.stringify(array),
 			success : function(result) {
 				if (result == 'SUCCESS') {
-					alert('SUCCESS');
+					console.log('sel: SUCCESS');
 					if ($("#stype").attr("value") === "1") { // recruits 검색 
 						getList_sel('recruits');
 					} else {
@@ -383,7 +407,7 @@
 	});
 
 	// select filter(버튼) 추가하기
-	function add_tmpl_sfilter(that) {
+	function add_tmpl_sfilter_ori(that) {
 		var alreadyhave = false;
 		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
 			if ($(this).val() === $(that).val())
@@ -396,6 +420,23 @@
 		var item = {
 			sflt_val : $(that).val(),
 			sflt_title : $(that).find(":selected").text()
+		};
+		$("#well").append(template_sflt(item)); // add a search_filter
+	}
+
+	function add_tmpl_sfilter(flt_val, flt_title) {
+		var alreadyhave = false;
+		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
+			if ($(this).val() === flt_val)
+				alreadyhave = true;
+		})
+		if (alreadyhave) // deduplication
+			return;
+		var source_sflt = $("#tmpl_sfilter").html();
+		var template_sflt = Handlebars.compile(source_sflt);
+		var item = {
+			sflt_val : flt_val,
+			sflt_title : flt_title
 		};
 		$("#well").append(template_sflt(item)); // add a search_filter
 	}
@@ -427,39 +468,49 @@
 	}
 
 	// select 1번째 change 이벤트 핸들러 
-	$("#sel1").change(function() {
-		$("#sel2").attr('style', 'visibility: hidden;');
-		$(".opt2").remove();
-		if ($(this).val() !== '0') {
-			if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
-				sel2Options = sel2JobOptions;
-				$.getJSON("/sresult/jobg/" + $(this).val(), sel2Handler);
-			} // end of #sel1 c1 change
-			else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
-				that_val = $(this).val();
-				sel2Options = sel2RegOptions;
-				$.getJSON("/sresult/region/" + $(this).val(), sel2Handler);
-			} // end of #sel1 c2 change
-			else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
-				add_tmpl_sfilter(this);
-			} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
-				add_tmpl_sfilter(this);
-			} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
-				add_tmpl_sfilter(this);
-			}
-		}
-	}); // $("#sel1").change
+	$("#sel1").change(
+			function() {
+				$("#sel2").attr('style', 'visibility: hidden;');
+				$(".opt2").remove();
+				if ($(this).val() !== '0') {
+					if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
+						sel2Options = sel2JobOptions;
+						$
+								.getJSON("/sresult/jobg/" + $(this).val(),
+										sel2Handler);
+					} // end of #sel1 c1 change
+					else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
+						that_val = $(this).val();
+						sel2Options = sel2RegOptions;
+						$.getJSON("/sresult/region/" + $(this).val(),
+								sel2Handler);
+					} // end of #sel1 c2 change
+					else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
+						add_tmpl_sfilter($(this).val(), $(this).find(
+								":selected").text());
+					} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
+						add_tmpl_sfilter($(this).val(), $(this).find(
+								":selected").text());
+					} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
+						add_tmpl_sfilter($(this).val(), $(this).find(
+								":selected").text());
+					}
+				}
+			}); // $("#sel1").change
 
 	// select 2번째 change 이벤트 핸들러
-	$("#sel2").change(function() {
-		if ($(this).val() !== '0') {
-			if ($("#ttype").val() === 'c1') { // #sel1 c1 change
-				add_tmpl_sfilter(this);
-			} else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
-				add_tmpl_sfilter(this);
-			}
-		}
-	});
+	$("#sel2").change(
+			function() {
+				if ($(this).val() !== '0') {
+					if ($("#ttype").val() === 'c1') { // #sel1 c1 change
+						add_tmpl_sfilter($(this).val(), $(this).find(
+								":selected").text());
+					} else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
+						add_tmpl_sfilter($(this).val(), $(this).find(
+								":selected").text());
+					}
+				}
+			});
 
 	// sfilter click > delete
 	// $("#well").on("click", ".sfilter_btn", function() {
@@ -522,6 +573,13 @@
 			$.getJSON("/sresult/code/" + tid, sel1Handler);
 		}
 	}
+<%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
+	$("#search_btn").trigger('click');
+<%} else if (!(srchVO.getSfilter() == null)) {%>
+	add_tmpl_sfilter(${srchVO.sfilter}, "filter from main");
+	$("#sel_search_btn").trigger('click');
+<%}%>
+	
 </script>
 
 <%@include file="../include/sfooter.jsp"%>

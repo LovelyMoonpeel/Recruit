@@ -15,23 +15,27 @@ public class SearchController {
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	// public String main1GET(@ModelAttribute("type") int type, Model model)
-	public String mainGET(HttpServletRequest request, SrchVO srch, Model model) throws Exception {
+	public String mainGET(HttpServletRequest request, SrchVO srchVO, Model model) throws Exception {
 		String stype = request.getParameter("stype");
-		System.out.println("stype: " + stype);
-		String sfilter = request.getParameter("sfilter");
-		System.out.println("sfilter: " + sfilter);
 		String skeyword = request.getParameter("skeyword");
+		String sfilter = request.getParameter("sfilter");
+
+		System.out.println("stype: " + stype);
 		System.out.println("skeyword: " + skeyword);
+		System.out.println("sfilter: " + sfilter);
+
+		srchVO.setStype(stype);
+		srchVO.setSkeyword(skeyword);
+		srchVO.setSfilter(sfilter);
 
 		if ((null == skeyword) || ("".equals(skeyword))) {
-			srch.setSdesc("키워드가 입력되지 않았습니다.");
+			srchVO.setSdesc("키워드가 입력되지 않았습니다.");
 		} else {
-			srch.setSdesc("찾으시는 키워드는 " + skeyword + "입니다.");
+			srchVO.setSdesc("찾으시는 키워드는 " + skeyword + "입니다.");
 		}
-		model.addAttribute(srch);
+		model.addAttribute(srchVO);
 		model.addAttribute("sdesc", "키워드를 입력후 돋보기 아이콘을 누르세요.");
-		model.addAttribute("stypeModel", stype);
-
+		// model.addAttribute("stypeModel", stype);
 		return "search/S_main";
 	}
 

@@ -374,7 +374,7 @@
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
-		$("#sinput").val("");
+		// $("#sinput").val("");
 		console.log(sinp);
 		location.href = "/srch/main?skeyword=" + sinp;
 	});
