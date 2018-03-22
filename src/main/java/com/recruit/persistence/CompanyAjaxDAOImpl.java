@@ -37,7 +37,7 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	
 	@Override
 	public List<RegionVO> SubRegion(String id2) throws Exception{
-		return session.selectList(namespace + ".ajaxubRegion", id2);
+		return session.selectList(namespace + ".ajaxsubRegion", id2);
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{

@@ -1,141 +1,172 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
-<link rel="stylesheet" type="text/css"
-	href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의이력서수정</h1>
+	<h1>${PUserVO.id}님의 이력서 수정</h1>
 	<form role="form" method="post">
-		<input type="text" class="form-control" id="bno" name="bno"
-			value="${ResumeVO.bno}" readonly> <br>
+	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
+		<br>	
 		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title"
-				name="title" value="${ResumeVO.title}">
+			<label for="title">제목</label> <input class="form-control" id="title" name="title" value="${ResumeVO.title}">
 		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<th class="table-active" scope="row"><label for="pname">이름</label>
-						</th>
-						<td class="col-sm-4"><input type="text" class="form-control"
-							id="pname" name="pname" value="${PUserVO.pname}" readonly>
-						</td>
-						<th class="table-active" scope="row"><label for="img">사진</label></th>
-						<td class="col-sm-4">
-							<div id='uploadedList'
-								style='width: 127px; height: 152px; border: 1px dotted blue;'>
-								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
-							</div> <!--  사진 보이는 div  --> <input id='imgsrccheck' type='hidden'
-							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img'> <!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-
-							<br> <input type='file' id='fileupload'
-							accept=".jpg,.jpeg,.png,.gif,.bmp"> <!--파일 업로드 하는 버튼--> <input
-							type='hidden' id='xornot' value='0'> <input type='hidden'
-							id='preexistenceimg' value='0'>
-						</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row"><label>생년월일</label></th>
-						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" id="" name="birth"
-									value="${PUserVO.birth}" readonly>
-							</div>
-						</td>
-						<th class="table-active" scope="row"><label for="email">이메일</label></th>
-						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email"
-									value="${PUserVO.email}" readonly>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<hr style="border: solid 4px #ccc;">
+      	<div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+               <tr>
+                <th class="table-active" scope="row"><label for="pname">이름</label> </th>
+	          	<td class="col-sm-4">
+	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
+	           	</td>
+                <th class="table-active" scope="row"><label for="img">사진</label></th>
+                <td class="col-sm-4">
+                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
+				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+				   </div>
+				   	<!--  사진 보이는 div  -->
+				   	
+                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
+                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
+                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
+					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+					
+					<br>
+					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+					<!--파일 업로드 하는 버튼-->
+					
+				   	<input type = 'hidden' id = 'xornot' value = '0'>
+				   	<input type = 'hidden' id = 'preexistenceimg' value = '0'>
+               	 </td>
+               </tr>
+               <tr>
+                  <th class="table-active" scope="row"><label>생년월일</label></th>
+                  <td>
+                  	<div class="form-group">
+						<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}" readonly>
+					</div>
+				  </td>
+                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
+            	  <td>
+				  	<div class="form-group">
+					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}" readonly>
+					</div>
+				</td>
+               </tr>
+             </tbody>
+         </table>
+      	 </div>
+      	 
+      	<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>연락처 목록</b>
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<!-- 셀렉션박스만들기!  -->
-		<div class="form-group">
-			<label for="jobstateid">구직상태</label> <select class="form-control"
-				name="jobstateid" id="jobstateid">
-				<c:forEach items="${CodeVOlist }" var="CodeVO">
-					<c:if test="${CodeVO.tid == 6 }">
-						<option value="${CodeVO.id }"
-							<c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if>>
-							${CodeVO.career }</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="jobgroupid">희망직종(대분류)</label> <select id="jobGroup"
-				class="form-control" name="jobgroupid">
-				<c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
-					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
-				</c:forEach>
-			</select> <label for="jobgroupid">희망직종(소분류)</label> <select id="subjobGroup"
-				class="form-control" name="jobgroupid2">
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="CodeList4">희망근무형태</label> <select class="form-control"
-				name="employstatusid" id="employstatusid">
-				<c:forEach items="${CodeVOlist }" var="CodeVO">
-					<c:if test="${CodeVO.tid == 4 }">
-						<option value="${CodeVO.id }"
-							<c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>>
-							${CodeVO.career }</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="jobgroupid">희망근무지(시/도)</label> <select id="region"
-				class="form-control" name='rgbid'>
-				<c:forEach items="${RegionVOlist}" var="RegionVO">
-					<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
-				</c:forEach>
-			</select> <label for="jobgroupid">희망근무지</label> <select id="subRegion"
-				class="form-control" name='rgsid'>
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="CodeList7">희망연봉</label> <select class="form-control"
-				name="salaryid" id="CodeList7">
-				<c:forEach items="${CodeVOlist }" var="CodeVO">
-					<c:if test="${CodeVO.tid == 7 }">
-						<option value="${CodeVO.id }"
-							<c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if>>
-							${CodeVO.career }</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</div>
-
-		<!-- 셀렉션박스만들기 끝!!  -->
-
+		
+		<!--j.code 03/22 : select태그 테이블형태로 수정  -->
+      <div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+                <tr>
+                  <th>구직상태</th>
+                  <td>
+                     <div class="form-group col-md-5">
+                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 6 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+               </tr>
+               
+                 <tr>
+                   <th>모집직종</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <label for="jobgroupid">대분류</label> 
+                     <select id="jobGroup" class="form-control" name="jobgroupid" >
+                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                           <c:if test="${JobGroupVO.id2 == 0}">
+                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                           </c:if>
+                        </c:forEach>
+                     </select>          
+                  <br>
+                  <label for="jobgroupid">소분류</label> 
+                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+               <th>희망근무형태</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <!-- <label for="CodeList4">희망근무형태</label> -->
+                     <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 4 }">
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
+                              >${CodeVO.career }</option>
+                           </c:if>
+                        </c:forEach>
+                     </select> 
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망근무지</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <label for="jobgroupid">시/도</label> 
+                        <select id="region" class="form-control" name='rgbid'>
+                           <c:forEach items="${RegionVOlist}" var="RegionVO">
+                              <option value="${RegionVO.rgbid}" 
+                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                              >${RegionVO.rgbname}</option>
+                           </c:forEach>
+                        </select>
+                     <label for="jobgroupid">시/군/구</label> 
+                     <select id="subRegion" class="form-control" name='rgsid'>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망연봉</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <!-- <label for="CodeList7">희망연봉</label> -->
+                     <select class="form-control" name="salaryid" id="CodeList7">
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 7 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+             </tbody>
+         </table>
+          </div>
+      <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
+		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
 		<h4>
@@ -149,49 +180,44 @@
 		<div id="exp_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
-		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
+	   <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
 		<div id="language_div"></div>
 		<hr style="border: solid 4px #ccc;">
-
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<th class="table-active" colspan="5" scope="row"
-							style="text-align: center;">자기소개서</th>
-					</tr>
-					<tr>
-						<td colspan="5" rowspan="2">
-							<div class="form-group">
-								<textarea class="form-control" rows="13" id="coverletter"
-									name="coverletter" style="resize: none;" required>${ResumeVO.coverletter}</textarea>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</form>
-	<button id="write-success" class="btn btn-success col-md-offset-10"
-		type="submit">등록</button>
-	<button id="write-cancel" class="btn btn-danger"
-		onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';"
-		type="button">취소</button>
+	     
+	     <div class="table-responsive">
+	       <table class="table table-bordered">
+	          <tbody>
+	            <tr>
+	               <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
+	            </tr> 
+	            <tr>
+	             <td colspan="5" rowspan="2">
+	               	<div class="form-group">
+					<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;" required>${ResumeVO.coverletter}</textarea>
+					</div>
+	             </td>   
+	            </tr>
+	           </tbody>
+	       </table>      
+	    </div> 
+  	</form>
+		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
+		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
@@ -382,7 +408,7 @@
 </div>
 <!-- end of row -->
 </script>
-<script id="template_license" type="text/x-handlebars-template">
+ <script id="template_license" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
@@ -419,9 +445,9 @@
 
 </div>
 <!-- end of row -->
-</script>
-
-<script id="template_language" type="text/x-handlebars-template">
+</script>           
+            
+ <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
@@ -503,6 +529,13 @@
 </script>
 <script type='text/javascript'>
 $(document).ready(function() {
+		
+	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
+   var largeNum = $('#jobGroup option:selected').val();
+   SubJobGroup2(largeNum);
+   var largeNum2 = $('#region option:selected').val();
+   SubRegion2(largeNum2);
+   //<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업 끝-->
 		
 	Handlebars.registerHelper('select', function( value, options ){
         var $el = $('<select />').html( options.fn(this) );
@@ -926,45 +959,90 @@ $(document).ready(function() {
 			add_language(item);
 		</c:forEach>
 	}
-	
 	tel_list();
 	edu_list();
 	exp_list();
 	web_list();
 	license_list();
 	language_list();
-	
-	
-   $("#region").change(function() {
-		var largeNum = $(this).val();
-		SubRegion(largeNum)
-	})
-	$("#jobGroup").change(function() {
-		var largeNum = $(this).val();
-		SubJobGroup(largeNum);
-	})
-	function SubJobGroup(largeNum) {
-		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
-			var str = "";
-			$(data).each(
-					function() {
-						str += "<option name='jobgruopid' value="+this.id+">"
-								+ this.jobgroup + "</option>";
-					});
-			$("#subjobGroup").html(str);
-		})
-	}
-	function SubRegion(largeNum) {
-		$.getJSON("/companyAjax/region/" + largeNum, function(data) {
-			var str = "";
-			$(data).each(
-					function() {
-						str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
-								+ "</option>";
-					});
-			$("#subRegion").html(str);
-		})
-	}
 });
+</script>
+
+<script>
+//<!--j.code 03/22 : jobGroup, region 소분류 받는 작업-->
+   function SubJobGroup2(largeNum) {
+      $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+         var str = "";
+         <c:set value="${ResumeVO.jobgroupid2}" var="select"/>
+         var sel = '<c:out value="${select}"/>';
+         var selected = "";
+         
+         $(data).each(
+               function() {
+                  if(sel==this.id){
+                     selected = "selected";
+                  }else{
+                     selected = "";
+                  }
+                  str += "<option value="+this.id+
+                  " "+selected+">"+ this.jobgroup + "</option>";
+               });
+         $("#subjobGroup").html(str);
+      })
+   }
+   function SubRegion2(largeNum) {
+      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+         var str = "";
+         <c:set value="${ResumeVO.rgsid}" var="sid"/>
+         var selec = '<c:out value="${sid}"/>';
+         var select = "";
+         $(data).each(
+               function() {
+                  if(selec==this.rgsid){
+                     select = "selected";
+                  }else{
+                     select = "";
+                  }
+                  str += "<option value="+this.rgsid+
+                  " " + select + ">" + this.rgsname + "</option>";
+               });
+         $("#subRegion").html(str);
+      })
+   }
+   $("#region").change(function() {
+      var largeNum = $(this).val();
+      SubRegion(largeNum)
+   })
+   $("#jobGroup").change(function() {
+	   console.log("1026번째줄");
+      var largeNum = $(this).val();
+      SubJobGroup(largeNum);
+   })
+   function SubJobGroup(largeNum) {
+	   console.log(largeNum);
+      $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+    	  console.log("getJason");
+         var str = "";
+         $(data).each(
+               function() {
+                  str += "<option name='jobgruopid' value="+this.id+">"
+                        + this.jobgroup + "</option>";
+               });
+         $("#subjobGroup").html(str);
+      })
+   }
+   function SubRegion(largeNum) {
+      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+         var str = "";
+         $(data).each(
+               function() {
+                  str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+                        + "</option>";
+               });
+         $("#subRegion").html(str);
+      })
+   }
+   
+  // <!--j.code 03/22 : jobGroup, region 소분류 받는 작업 끝-->
 </script>
 <%@include file="../include/cfooter.jsp"%>

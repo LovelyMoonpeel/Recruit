@@ -70,7 +70,7 @@
 		tblRegion
 	</select>  <!-- 지역 테이블 대분류(채용공고 작성) -->
 
-	<select id="subRegion" resultType="com.recruit.domain.RegionVO">
+	<select id="ajaxsubRegion" resultType="com.recruit.domain.RegionVO">
 
 		select
 		rgbid, rgbname, rgsid,
