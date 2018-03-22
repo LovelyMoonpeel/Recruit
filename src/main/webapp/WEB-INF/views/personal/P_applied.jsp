@@ -33,9 +33,9 @@
 				<td><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
-				<td>${CRecruitVO.regdate}</td>
+				<td>count하기</td>
 				<!--  매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>${ResumeVO.title}</a></td>
+				<td><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>resumeVO title이랑 bno받아오기 ${ResumeVO.title}</a></td>
 			</tr>
 			</c:forEach>
 		</table>

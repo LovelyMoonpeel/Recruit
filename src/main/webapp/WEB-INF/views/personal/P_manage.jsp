@@ -6,10 +6,6 @@
 <%@include file="../include/pheader.jsp"%>
 
 <!-- Main content -->
-<%-- <form role="form">
-		<input type='hidden' name='id' value="${PUserVO.id}">
-</form> --%>
-<!-- 기업 채용공고 목록 -->
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>

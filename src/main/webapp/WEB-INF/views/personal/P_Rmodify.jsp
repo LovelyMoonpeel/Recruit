@@ -289,8 +289,6 @@
 				name="listCareer[].finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
-		<!-- <input class="form-control" name="finishjob" -->
-		<!-- value="${ResumeCareerVO.finishjob}"></input> -->
 	</div>
 	<div class="form-group col-md-3">
 		<label for="cname">회사명</label>

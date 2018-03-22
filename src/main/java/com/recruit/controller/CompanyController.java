@@ -27,6 +27,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
+import com.recruit.service.ResumeService;
 
 
 @Controller
@@ -39,6 +40,8 @@ public class CompanyController {
 	private CompanyService service;
 	@Inject
 	private CompanyAjaxService ajaxService;
+	@Inject
+	private ResumeService Rservice;
 
 	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	private String uploadPath;
@@ -425,38 +428,25 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
-
 	}
 
-	
-																			
 	 @RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지															// 정보
 	 public String readRecruitMent(HttpSession session, RedirectAttributes rttr,int recruitNum, Model model) throws Exception {
-
+		 //안소연 수정
 		 
-		
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
-		
 		if (login != null) {
-			
 			String id = login.getId();
-			
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			
-
 			return "/company/C_recruitMent";
-
 		} 
 			else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
-
 	}
-
 }
