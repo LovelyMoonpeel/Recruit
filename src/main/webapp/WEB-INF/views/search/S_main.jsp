@@ -15,12 +15,12 @@
 			<br />
 			<h3 align="center">
 				<%
-					String stype2 = (String) request.getAttribute("stype_");
+					String stypeM = (String) request.getAttribute("stypeModel");
 					String stitle;
-					if ("2".equals(stype2)) {
+					if ("2".equals(stypeM)) {
 						stitle = "인재 검색";
 					} else {
-						stype2 = "1";
+						stypeM = "1";
 						stitle = "채용공고 검색";
 					}
 				%>
@@ -42,7 +42,7 @@
 						</button>
 					</div>
 				</div>
-				<input id="stype" type='hidden' name='stype' value="<%=stype2%>">
+				<input id="stype" type='hidden' name='stype' value="<%=stypeM%>">
 				<input id="ttype" type='hidden' name='ttype' value="c1">
 			</form>
 
@@ -78,17 +78,16 @@
 				</div>
 			</div>
 			<br />
-			<h3 align="center" id="sdesc"></h3>
+			<h3 align="center" id="sdesc">프로그래밍 명언</h3>
 			<br />
 		</div>
 		<div class="col-md-2"></div>
 	</div>
 	<!-- row -->
 	<div class="row" id="spanel">
-		<h3 style="text-align: center;">
-			<a style="color: black;" href="http://blog.fupfin.com/?p=11">프로그래밍
-				명언</a>
-		</h3>
+		<!-- <h3 align="center"> -->
+		<!-- <a style="color: black;" href="http://blog.fupfin.com/?p=11">프로그래밍 명언</a> -->
+		<!-- </h3> -->
 		<br />
 		<div class="col-md-6">
 			<blockquote>1. "소프트웨어 설계를 구성하는 데에는 두 가지 방법이 있다. 한가지 방법은
@@ -167,6 +166,7 @@
 	// 검색 결과 판넬 list 제거
 	function deletelist() {
 		$(".result").remove();
+		$("#spanel").children().remove();
 	}
 
 	// text 검색 버튼 click 이벤트 핸들러
@@ -176,7 +176,6 @@
 
 		console.log(sinp);
 		if (sinp === "all") {
-			$("#sdesc").html("검색결과");
 			console.log($("#stype").attr("value"));
 			console.log($("#stype").attr("value") === "1");
 			if ($("#stype").attr("value") === "1") {
@@ -249,13 +248,14 @@
 
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
-		deletelist();
 		if (users === "recruits") { // "/sresult/recruits"
 			$.getJSON("/sresult/" + users, function(data) {
 				var source_pnl = $("#tmpnl_recruit").html();
 				template_pnl = Handlebars.compile(source_pnl);
 				console.log(data.length);
 				i = 0;
+				deletelist();
+				$("#sdesc").html("검색결과");
 				$(data).each(recruitPnl);
 			});
 		} else { // "/sresult/resumes"
@@ -264,6 +264,8 @@
 				template_pnl = Handlebars.compile(source_pnl);
 				console.log(data.length);
 				i = 0;
+				deletelist();
+				$("#sdesc").html("검색결과");
 				$(data).each(resumePnl);
 			});
 		}
@@ -272,13 +274,13 @@
 	// text 검색으로 관련 정보를 를 보여주다.
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getList(users, skey) {
-		deletelist();
 		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
 			var source_pnl = $("#template_pnl").html();
 			var template_pnl = Handlebars.compile(source_pnl);
 			console.log(data.length);
 			var i = 0;
 			var item;
+			deletelist()
 			$(data).each(function() {
 				item = {
 					num : ++i,
@@ -308,6 +310,7 @@
 		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
 		i = 0;
+		deletelist();
 		$(data).each(recruitPnl);
 		var str;
 		if (data.length > 0) {
@@ -324,6 +327,7 @@
 		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
 		i = 0;
+		deletelist();
 		$(data).each(resumePnl);
 
 		var str;
@@ -338,7 +342,6 @@
 	// select 검색으로 관련 정보를 를 보여주다.(2)
 	// 검색분류(users: recruits or resumes)
 	function getList_sel(users) {
-		deletelist();
 		if (users == 'recruits') // 'recruits'
 			$.getJSON("/sresult/sel_search/" + users, selRecruitHandler);
 		else
