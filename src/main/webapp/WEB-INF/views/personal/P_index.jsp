@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@include file="../include/pheader.jsp"%>
 
 <!-- Main content -->
-<form role="form">
+<%-- <form role="form">
 		<input type='hidden' name='id' value="${PUserVO.id}">
-</form>
+</form> --%>
 
 <!-- 개인 페이지 -->
 <div class="col-md-9">
@@ -27,8 +26,7 @@
 						<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
 						<th class="table-active" scope="row">아이디</th>
 						<td>${PUserVO.id}</td>
-						<th class="table-active" scope="row">비밀번호</th>
-						<td>${PUserVO.pw}</td>
+						
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">이름</th>
@@ -50,41 +48,11 @@
 	</div>
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	<!-- 수정 버튼 -->
-	<!--<form method = "post">
-		<input type = "hidden" name ="pid" value= "${PUserVO.id}">
-	</form>
-		 <input class="btn btn-success" type='button' value='수정'
-			onClick="javascript:self.location='/personal/modify';"> -->
-		<button type = "submit" id = "modify-button" class="btn btn-success col-md-offset-11">수정</button>
-	
+
+		<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-11" onclick="location.href='/personal/modify'">수정</button>
 	<!-- //수정 버튼 -->
 	<br> <br>
 </div>
 <!-- //개인 페이지 -->
-<script>
-$(document).ready(function(){
-	var formObj = $("form[role = 'form']");
-	
-	console.log(formObj);
-	
-	$("#modify-button").on("click", function(){
-		formObj.attr("action", "/personal/modify");
-		formObj.attr("method", "get");
-		formObj.submit();
-		console.log("#modify-button");
-	});
-	/* $("a").click(function(event){
-		event.preventDefault();
-	}); 
-	$("#P_favor").on("click", function(){
-		formObj.attr("action", "/personal/favor");
-		formObj.attr("method", "get");
-		formObj.submit();
-		console.log("#modify-button");
-	});*/
-});
-
-</script>
 
 <%@include file="../include/cfooter.jsp"%>

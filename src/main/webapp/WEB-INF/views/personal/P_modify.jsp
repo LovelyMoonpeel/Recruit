@@ -33,7 +33,7 @@
                        <th class="table-active" scope="row"><label>비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							<input type="text" name="pw" class="form-control" id="pw" value="${PUserVO.pw}">
+							<input type="password" name="pw" class="form-control" id="pw" value="${PUserVO.pw}">
 						</div>
 					</td>
 					
@@ -49,7 +49,7 @@
 					 <th class="table-active" scope="row"><label>비밀번호 확인</label></th>
 					<td>
 						<div class="form-group">
-							 <input type="text" name="pwc" class="form-control" id="pwc">
+							 <input type="password" name="pwc" class="form-control" id="pwc">
 						<span id="pwchk"></span>	
 						</div>
 					</td>
@@ -78,12 +78,11 @@
 				</tr>
 				</tbody>
 			</table>
-		</div>
 	</form>
-	<button id ="modify-finish" class="btn btn-success col-md-offset-10" type='submit'>완료</button>
-	<button id ="modify-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/index?id={PUserVO.id}';" type="button">취소</button>
-	<br> <br>
 </div>
+<button id ="modify-finish" class="btn btn-success col-md-offset-10" type='submit'>완료</button>
+<button id ="modify-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/index';" type="button">취소</button>
+<br> <br>
 
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -154,7 +153,6 @@ $(document).ready(function(){
 		}
 	}); 
 	<!-- //비밀번호 일치 여부  -->
-	
 });
 	
 </script>

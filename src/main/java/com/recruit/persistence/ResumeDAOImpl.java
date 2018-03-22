@@ -69,16 +69,6 @@ public class ResumeDAOImpl implements ResumeDAO {
 		session.update(namespace + ".updateROne", vo);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void deleteROne(Integer bno) throws Exception {
 		System.out.println("dao" + bno);
