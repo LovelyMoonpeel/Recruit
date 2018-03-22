@@ -404,14 +404,18 @@ public class CompanyController {
 
 	BoardVO login = (BoardVO) session.getAttribute("login");
 		
+	String cid = service.RecruitInfoRead2(recruitNum).getCid();
+	
 		if (login != null) {
 			
 			String id = login.getId();
 			
+			
+			
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 
-			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute("RecruitList", service.CInfoRecruitList(id));
+			model.addAttribute(service.CompanyInfoRead(cid));
+			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
 			
 
 			return "/company/C_info";
@@ -430,14 +434,17 @@ public class CompanyController {
 	 @RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지															// 정보
 	 public String readRecruitMent(HttpSession session, RedirectAttributes rttr,int recruitNum, Model model) throws Exception {
 
+		 
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		
 		if (login != null) {
 			
 			String id = login.getId();
 			
-			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
+			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 			
 
