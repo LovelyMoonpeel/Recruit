@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 
-<!-- 개인정보수정 페이지 -->
+<!-- 기업정보수정 페이지 -->
 <div class="col-md-9">
 
 
@@ -127,7 +127,7 @@
 	</table>
 	<!-- //이력서 보기 -->
 </div>
-<!-- //개인정보수정 페이지 -->
+<!-- //기업정보수정 페이지 -->
 
 <!-- 비밀번호 일치 여부  -->
 <script>
@@ -166,6 +166,27 @@ $(function(){
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){
+		if($('#birth').val()==''){
+			console.log("#birth.val()==''");
+			$('#birth').val("0000-00-00");
+		}
+		$('.licenseacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".licenseacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		$('.languageacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
 		
