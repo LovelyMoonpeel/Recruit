@@ -188,6 +188,10 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
+		Rservice.selectRCodeList();
+		Rservice.selectRegionList();
+		Rservice.selectRGPList();
+		
 
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
@@ -251,7 +255,9 @@ public class PersonalController {
 			// end of r.code 03/13
 
 			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			System.out.println("민경 코드VO"+Rservice.selectRCodeList());
 			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			System.out.println("민경 코드VO"+Rservice.selectRGPList());
 			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
 			//민경
 

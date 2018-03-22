@@ -938,5 +938,39 @@ $(document).ready(function() {
 	license_list();
 	language_list();
 });
+
+//j.code 18.03.22 
+$("#region").change(function() {
+	var largeNum = $(this).val();
+	SubRegion(largeNum)
+})
+$("#jobGroup").change(function() {
+	var largeNum = $(this).val();
+	SubJobGroup(largeNum);
+})
+function SubJobGroup(largeNum) {
+	$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+		var str = "";
+		$(data).each(
+				function() {
+					str += "<option name='jobgruopid' value="+this.id+">"
+							+ this.jobgroup + "</option>";
+				});
+		$("#subjobGroup").html(str);
+	})
+}
+function SubRegion(largeNum) {
+	$.getJSON("/companyAjax/region/" + largeNum, function(data) {
+		var str = "";
+		$(data).each(
+				function() {
+					str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+							+ "</option>";
+				});
+		$("#subRegion").html(str);
+	})
+}
+//j.code 18.03.22
+
 </script>
 <%@include file="../include/cfooter.jsp"%>
