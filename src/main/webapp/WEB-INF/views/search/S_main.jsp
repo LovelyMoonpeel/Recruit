@@ -12,19 +12,21 @@
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<h1 align="center">
+			<br />
+			<h3 align="center">
 				<%
 					String stype2 = (String) request.getAttribute("stype_");
 					String stitle;
 					if ("2".equals(stype2)) {
-						stitle = "인재검색";
+						stitle = "인재 검색";
 					} else {
 						stype2 = "1";
-						stitle = "기업검색";
+						stitle = "채용공고 검색";
 					}
 				%>
 				<%=stitle%>
-			</h1>
+			</h3>
+			<br />
 			<!-- BS Inputs 2 -->
 			<!-- <p>${srchVO.sdesc}</p> -->
 			<!-- <form action="/srch/main" method="get"> -->
@@ -39,11 +41,12 @@
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
-					<input id="stype" type='hidden' name='stype' value="<%=stype2%>">
-					<input id="ttype" type='hidden' name='ttype' value="c1">
 				</div>
+				<input id="stype" type='hidden' name='stype' value="<%=stype2%>">
+				<input id="ttype" type='hidden' name='ttype' value="c1">
 			</form>
-			<br />
+
+			<br /> <br />
 			<ul class="nav nav-tabs">
 				<li id="c1" class="active stab"><a href="#">직무</a></li>
 				<li id="c2" class="stab"><a href="#">지역</a></li>
@@ -66,10 +69,12 @@
 			</div>
 			<br />
 			<div class="row">
-				<div class="well col-md-10" id="well"
-					style="background-color: #c8c8c8;"></div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-default" id="opt_search_btn">&nbsp;검색&nbsp;</button>
+				<div class="well col-md-11" id="well"
+					style="background-color: Gainsboro;"></div>
+				<div class="col-md-1">
+					<button type="button" class="btn btn-default" id="opt_search_btn">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
 				</div>
 			</div>
 			<br />
@@ -79,7 +84,37 @@
 		<div class="col-md-2"></div>
 	</div>
 	<!-- row -->
-	<div class="row" id="spanel"></div>
+	<div class="row" id="spanel">
+		<h3 style="text-align: center;">
+			<a style="color: black;" href="http://blog.fupfin.com/?p=11">프로그래밍
+				명언</a>
+		</h3>
+		<br />
+		<div class="col-md-6">
+			<blockquote>1. "소프트웨어 설계를 구성하는 데에는 두 가지 방법이 있다. 한가지 방법은
+				아주 단순하게 만들어서 명백히 결함이 없게 된다. 그리고 다른 방법은 너무 복잡하게 만들어서 명백한 결함이 없게 된다."</blockquote>
+			<blockquote>2. "결국 당신 코드를 유지보수하게 될 친구가 당신이 어디에 사는지 아는
+				광폭한 싸이코패스가 될 것이라고 여기고 코드를 작성하라."</blockquote>
+			<blockquote>3. "좋은 프로그래머 대부분은 돈이나 대중에게 받을 찬사를 기대하고
+				프로그래밍을 하지 않고 프로그래밍이 재미 있어서 한다."</blockquote>
+			<blockquote>4. "[의회 의원에게] 두 번 이런 질문을 받았다. '배비지 선생님, 그
+				기계에 잘못된 수를 집어 넣어도 올바른 답이 나오는지 말씀해 주시겠습니까?' 나는 어떤 유형의 개념적 혼란이 이런 질문을
+				유발하는지 바로 이해할 수 없다."</blockquote>
+			<blockquote>5. "인간적인 반복, 성스러운 재귀"</blockquote>
+		</div>
+		<div class="col-md-6">
+			<blockquote>6. "프로그래머가 격는 어려움은 프로그래머가 무엇을 하는지 너무 늦기 전에
+				말할 수 없다는 점이다."</blockquote>
+			<BLOCKQUOTE>7. "오늘날 소프트웨어 대부분은 이집트 피라미드와 매우 비슷한데, 수많은
+				블럭을 차곡차곡 쌓은 이것은, 구조적 무결성은 없고, 그저 마구잡이로 노예 수천을 동원해 완성됐다."</BLOCKQUOTE>
+			<BLOCKQUOTE>8. "당신 대부분은 프로그래머의 미덕과 친숙하다. 미덕은 세 가지인데,
+				당연히, 게으름, 성급함, 오만이다."</BLOCKQUOTE>
+			<BLOCKQUOTE>9. "먼저 컴퓨터 과학과 모든 이론을 배워라. 다음엔 프로그래밍 방식을
+				개발하라. 그러고 나선 모두 잊고 그냥 파헤쳐라."</BLOCKQUOTE>
+			<BLOCKQUOTE>10. "사람들은 컴퓨터 과학이 천재들의 기예이라고 생각하지만 사실 현실은
+				반대로, 단지 많은 사람이, 작은 돌로 된 담처럼, 다른 사람의 작업 위에 쌓아 올릴 뿐이다."</BLOCKQUOTE>
+		</div>
+	</div>
 </div>
 <!-- /Page Content -->
 

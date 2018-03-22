@@ -72,8 +72,9 @@
 		<div class="col-md-8 col-md-offset-2">
 			<form onsubmit="return false;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="${sdesc}"
-						name="skeyword" id="sinput" onKeyDown="onEnter();">
+					<input type="text" class="form-control"
+						placeholder="채용공고 검색, 키워드를 입력후 돋보기 아이콘을 누르세요." name="skeyword"
+						id="sinput" onKeyDown="onEnter();">
 					<div class="input-group-btn">
 						<button class="btn btn-default" id="search_btn" type="button">
 							<i class="glyphicon glyphicon-search"></i>
@@ -129,7 +130,37 @@
 </nav>
 
 <div class="container">
-	<div class="row" id="spanel"></div>
+	<div class="row" id="spanel">
+		<h3 style="text-align: center;">
+			<a style="color: black;" href="http://blog.fupfin.com/?p=11">프로그래밍
+				명언</a>
+		</h3>
+		<br />
+		<div class="col-md-6">
+			<blockquote>1. "소프트웨어 설계를 구성하는 데에는 두 가지 방법이 있다. 한가지 방법은
+				아주 단순하게 만들어서 명백히 결함이 없게 된다. 그리고 다른 방법은 너무 복잡하게 만들어서 명백한 결함이 없게 된다."</blockquote>
+			<blockquote>2. "결국 당신 코드를 유지보수하게 될 친구가 당신이 어디에 사는지 아는
+				광폭한 싸이코패스가 될 것이라고 여기고 코드를 작성하라."</blockquote>
+			<blockquote>3. "좋은 프로그래머 대부분은 돈이나 대중에게 받을 찬사를 기대하고
+				프로그래밍을 하지 않고 프로그래밍이 재미 있어서 한다."</blockquote>
+			<blockquote>4. "[의회 의원에게] 두 번 이런 질문을 받았다. '배비지 선생님, 그
+				기계에 잘못된 수를 집어 넣어도 올바른 답이 나오는지 말씀해 주시겠습니까?' 나는 어떤 유형의 개념적 혼란이 이런 질문을
+				유발하는지 바로 이해할 수 없다."</blockquote>
+			<blockquote>5. "인간적인 반복, 성스러운 재귀"</blockquote>
+		</div>
+		<div class="col-md-6">
+			<blockquote>6. "프로그래머가 격는 어려움은 프로그래머가 무엇을 하는지 너무 늦기 전에
+				말할 수 없다는 점이다."</blockquote>
+			<BLOCKQUOTE>7. "오늘날 소프트웨어 대부분은 이집트 피라미드와 매우 비슷한데, 수많은
+				블럭을 차곡차곡 쌓은 이것은, 구조적 무결성은 없고, 그저 마구잡이로 노예 수천을 동원해 완성됐다."</BLOCKQUOTE>
+			<BLOCKQUOTE>8. "당신 대부분은 프로그래머의 미덕과 친숙하다. 미덕은 세 가지인데,
+				당연히, 게으름, 성급함, 오만이다."</BLOCKQUOTE>
+			<BLOCKQUOTE>9. "먼저 컴퓨터 과학과 모든 이론을 배워라. 다음엔 프로그래밍 방식을
+				개발하라. 그러고 나선 모두 잊고 그냥 파헤쳐라."</BLOCKQUOTE>
+			<BLOCKQUOTE>10. "사람들은 컴퓨터 과학이 천재들의 기예이라고 생각하지만 사실 현실은
+				반대로, 단지 많은 사람이, 작은 돌로 된 담처럼, 다른 사람의 작업 위에 쌓아 올릴 뿐이다."</BLOCKQUOTE>
+		</div>
+	</div>
 </div>
 <!-- /Page Content -->
 
@@ -142,19 +173,6 @@
 			({{jobgroupid}}, {{jobgroupid2}})<br />
 			{{edu}}, {{exp}}<br />
 			({{rgbid}}, {{rgsid}})<br />
-		</div>
-	</div>
-</div>
-</script>
-
-<script id="tmpnl_resume" type="text/x-handlebars-template">
-<div class="col-md-3 result">
-	<div class="panel panel-default">
-		<div class="panel-body">
-			{{pname}} ({{jobstateid}})<br />
-			{{jobgroupid}}, {{jobgroupid2}}<br />
-			{{title}}<br />
-			({{rgbid}}, {{rgsid}})
 		</div>
 	</div>
 </div>
@@ -186,8 +204,8 @@
 
 	// dropdown 1번째 코드(근무형태, 학력, 경력) list items 생성하기
 	function drop1CodListItems(index, that) {
-		str += '<li value="' + that.id +'"><a href="javascript:;">'
-				+ that.career + '</a></li>';
+		str += '<li value="' + that.id +'"><a href="/srch/main?sfilter='
+				+ that.id + '">' + that.career + '</a></li>';
 	}
 
 	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
@@ -215,9 +233,9 @@
 	// 1: 작동상태
 
 	// dropdown 1번째 코드(직무) list items 생성하기
-	function drop1JobListItems(index, that) {
-		str += '<li class="cls1" value="' + that.id +'"><a href="javascript:;">'
-				+ that.jobgroup + '</a></li>';
+	function drop1JobListItems(index, that) { // J + job code
+		str += '<li class="cls1" value="' + that.id +'"><a href="/srch/main?sfilter=J'
+				+ that.id + '">' + that.jobgroup + '</a></li>';
 	}
 
 	// dropdown 1번째 jobgroup 생성하기
@@ -286,9 +304,9 @@
 	// 1: 작동상태
 
 	// dropdown 1번째 코드(지역) list items 생성하기
-	function drop1RegListItems(index, that) {
-		str += '<li class="cls1" value="' + that.rgbid +'"><a href="javascript:;">'
-				+ that.rgbname + '</a></li>';
+	function drop1RegListItems(index, that) { // R + region code
+		str += '<li class="cls1" value="' + that.rgbid +'"><a href="/srch/main?sfilter=R'
+				+ that.rgbid + '">' + that.rgbname + '</a></li>';
 	}
 
 	// dropdown 1번째 region 생성하기
@@ -348,8 +366,9 @@
 	}
 
 	// 검색 결과 판넬 list 제거
-	function deletelist() {
+	function deletequote() {
 		$(".result").remove();
+		$("#spanel").children().remove();
 	}
 
 	// text 검색 버튼 click 이벤트 핸들러
@@ -357,6 +376,7 @@
 		var sinp = $("#sinput").val();
 		$("#sinput").val("");
 		console.log(sinp);
+		location.href = "/srch/main?skeyword=" + sinp;
 	});
 
 	// 채용공고 판넬 전역변수
@@ -385,12 +405,12 @@
 
 	// 모든 채용공고(recruits)를 보여주다.
 	function getRecruitAllList() {
-		deletelist();
 		$.getJSON("/sresult/recruits", function(data) {
 			var source_pnl = $("#tmpnl_recruit").html();
 			template_pnl = Handlebars.compile(source_pnl);
 			console.log(data.length);
-			data.length = 16;
+			data.length = 20;
+			deletequote();
 			$(data).each(recruitPnl);
 		});
 	}
