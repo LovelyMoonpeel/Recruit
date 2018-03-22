@@ -202,4 +202,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		;
 	</select>
 
+	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
+		select bno, title,
+		cid, jobgroupid, jobgroupid2, rgbid, rgsid,
+		jobdesc, recruitnum,
+		employstatusid, salaryid, edu, exp, adddesc,
+		period, acceptmethod,
+		recruitform, regdate, viewcnt
+		from tblrecruit;
+	</select>
+
+	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">
+		select bno, userid,
+		title, address, postcode, coverletter, jobstateid,
+		jobgroupid, rgbid,
+		rgsid, employstatusid, salaryid, img, regdate,
+		jobgroupid2
+		from
+		tblresume;
+	</select>
 </mapper>

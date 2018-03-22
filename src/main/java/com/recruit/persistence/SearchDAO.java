@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.domain.SpanelVO;
 
 public interface SearchDAO {
 
@@ -22,4 +23,8 @@ public interface SearchDAO {
 	public List<ResumeVO> selectResumes_selRgn(List<String> sel_skeys) throws Exception;
 
 	public List<ResumeVO> selectResumes_selCod(List<String> sel_skeys, int[] arr) throws Exception;
+
+	public List<RecruitVO> selectRecruitsAll() throws Exception;
+
+	public List<ResumeVO> selectResumesAll() throws Exception;
 }

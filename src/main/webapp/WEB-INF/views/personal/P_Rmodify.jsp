@@ -140,6 +140,7 @@
 			<b>경력사항</b>
 		</h4>
 		<div id="exp_div"></div>
+
 		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
@@ -596,6 +597,7 @@ $(document).ready(function() {
 	};//upload change end   
 	
 	$("#uploadedList").on("click", "small", function(event){
+
 		event.preventDefault();
 		var that = $(this);
 		
@@ -693,6 +695,7 @@ $(document).ready(function() {
 					}
 				}
 			}); 
+
 		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
 			console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
 			//$(this).parent("div").remove();

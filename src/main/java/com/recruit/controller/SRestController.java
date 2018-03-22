@@ -42,12 +42,16 @@ public class SRestController {
 		return "Hello Spring";
 	}
 
-	@RequestMapping(value = "/pusers", method = RequestMethod.GET)
-	public ResponseEntity<List<PUserVO>> listPUserAll() {
+	// getAllList 전체 resume 로딩
+	@RequestMapping(value = "/resumes", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> listResumeAll() {
 
-		ResponseEntity<List<PUserVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			entity = new ResponseEntity<>(searchService.selectPUserAll(), HttpStatus.OK);
+			System.out.println("TEST1");
+			List<SpanelVO> pList = searchService.selectResumesAll();
+			System.out.println(pList);
+			entity = new ResponseEntity<>(searchService.selectResumesAll(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -69,14 +73,15 @@ public class SRestController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/cusers", method = RequestMethod.GET)
-	public ResponseEntity<List<CUserVO>> listCUserAll() {
+	// getAllList 전체 recruit 로딩
+	@RequestMapping(value = "/recruits", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> listRecruitAll() {
 
-		ResponseEntity<List<CUserVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			List<CUserVO> cList = searchService.selectCUserAll();
-			System.out.println(cList);
-			entity = new ResponseEntity<>(searchService.selectCUserAll(), HttpStatus.OK);
+			// List<SpanelVO> cList = searchService.selectRecruitsAll();
+			// System.out.println(cList);
+			entity = new ResponseEntity<>(searchService.selectRecruitsAll(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
