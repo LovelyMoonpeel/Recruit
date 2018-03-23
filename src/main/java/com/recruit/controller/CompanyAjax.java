@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CPersonInfoVO;
+import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanyPageMaker;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -35,7 +38,6 @@ public class CompanyAjax {
 	private CompanyAjaxService service;
 	@Inject
 	private CompanyService jobService;
-	
 	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list() {
@@ -150,7 +152,7 @@ public class CompanyAjax {
 	}
 	
 	@RequestMapping(value = "/recruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<RecruitVO>> RecruitList(HttpSession session, Model model){
+	public ResponseEntity<List<RecruitVO>> RecruitList(HttpSession session,CompanyCriteria cri, Model model){
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<RecruitVO>> entity = null;
@@ -161,7 +163,14 @@ public class CompanyAjax {
 			String id = login.getId();
 			
 			try {
-				entity = new ResponseEntity<>(service.RecruitList(id), HttpStatus.OK);
+							
+				entity = new ResponseEntity<>(service.RecruitCriteria(cri), HttpStatus.OK);
+				CompanyPageMaker pageMaker = new CompanyPageMaker();
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(131);
+				
+				model.addAttribute("pageMaker",pageMaker);
+				
 				System.out.println("컨트롤러 제네릭 : "+entity.toString());
 				
 				

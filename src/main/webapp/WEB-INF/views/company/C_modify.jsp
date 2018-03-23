@@ -191,7 +191,7 @@
 			calendarWeeks : false,
 			todayHighlight : true,
 			autoclose : true,
-			format : "yyyy-mm-dd",
+			dateFormat : "yy-mm-dd",
 			language : "kr"
 		});
 	});

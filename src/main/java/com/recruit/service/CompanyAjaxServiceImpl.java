@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -40,9 +41,13 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.SubRegion(id2);
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.RecruitList(id);
+	 public List<RecruitVO> RecruitList(String id, int page) throws Exception{
+
+		 return dao.RecruitList(id, page);
+	 }
+	 @Override
+	 public List<RecruitVO> RecruitCriteria(CompanyCriteria cri)throws Exception{
+		 return dao.RecruitCriteria(cri);
 	 }
 	 @Override
 	 public List<RecruitVO> IngRecruitList(String id) throws Exception{

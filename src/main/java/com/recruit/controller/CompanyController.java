@@ -314,6 +314,22 @@ public class CompanyController {
 		return "redirect:/company/C_recruitInfo?recruitNum=" + recruitModify.getBno();
 
 	}
+	@RequestMapping(value ="/C_recruitReregister", method = RequestMethod.GET)
+	public String Reregister(@RequestParam("bno") int bno, @RequestParam("day") int day,  HttpSession session, RedirectAttributes rttr)throws Exception{
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			service.RecruitReRegister(id, bno, day);
+			rttr.addFlashAttribute("msg", "DELESUCCESS");
+			return "/company/C_manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+	}
+
 
 	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
 	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {

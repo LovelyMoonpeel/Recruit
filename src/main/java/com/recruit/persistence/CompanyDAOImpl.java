@@ -106,6 +106,19 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectOne(namespace + ".recruitModifyRead", rr);
 	}
 	@Override
+	public void RecruitReRegister(String id, int bno, int day)throws Exception{
+		
+		HashMap<String,Object> RR = new HashMap<>();
+		
+		RR.put("id",id);
+		RR.put("bno", bno);
+		RR.put("day", day);
+		
+		session.update(namespace +".recruitReRegister", RR);
+		
+	}
+	
+	@Override
 	public void RecruitRemove(int bno, String id)throws Exception{
 		
 		HashMap<String, Object> RR = new HashMap<>();

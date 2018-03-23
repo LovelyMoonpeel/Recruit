@@ -107,6 +107,10 @@ public class CompanyServiceImpl implements CompanyService {
 		System.out.println("출력결과는 : " +dao.RecruitModifyRead(bno,id));
 		return dao.RecruitModifyRead(bno,id);
 	}
+	@Override
+	public void RecruitReRegister(String id, int bno, int day)throws Exception{
+		dao.RecruitReRegister(id,bno,day);
+	}
 
 	@Override
 	public void RecruitRemove(int bno, String id) throws Exception {

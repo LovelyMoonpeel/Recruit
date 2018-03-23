@@ -41,6 +41,8 @@ public interface CompanyDAO {
 	
 	public RecruitVO RecruitModifyRead(int bno,String id)throws Exception;
 	
+	public void RecruitReRegister(String id, int bno, int day)throws Exception;
+	
 	public void RecruitRemove(int bno, String id)throws Exception;
 	
 	public List<ResumeVO> ApplyList(int recruitNum)throws Exception;

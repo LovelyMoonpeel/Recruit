@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -40,9 +41,21 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		return session.selectList(namespace + ".ajaxsubRegion", id2);
 	}
 	@Override
-	public List<RecruitVO> RecruitList(String id) throws Exception{
+	public List<RecruitVO> RecruitList(String id, int page) throws Exception{
 		System.out.println("jobDAO부분 id : "+id);
-		return session.selectList(namespace + ".ajaxRecruitList", id);
+		
+		if(page <= 0){
+			page = 1;
+		}
+		
+		page = (page - 1) * 10;
+		
+		HashMap<String,Object> pp = new HashMap<>();
+		
+		pp.put("id", id);
+		pp.put("page", page);
+		
+		return session.selectList(namespace + ".ajaxRecruitList", pp);
 	}
 	@Override
 	public List<RecruitVO> IngRecruitList(String id) throws Exception{
@@ -81,6 +94,12 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		paraMap.put("id", id);
 			
 	 session.insert(namespace + ".ajaxFavorPersonDelete" , paraMap);
+	}
+
+	@Override
+	public List<RecruitVO> RecruitCriteria(CompanyCriteria cri) throws Exception {
+		
+		return session.selectList(namespace+".recruitCriteria",cri);
 	}
 	
 

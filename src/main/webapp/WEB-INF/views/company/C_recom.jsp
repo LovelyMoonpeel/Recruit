@@ -37,12 +37,14 @@
 		</tr>
 		
 
-					<% int manage = 0; %>
-						<c:forEach items="${recruitList}" var="RecruitVO">
-					<%manage++; %>
+						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
-					<th><%=manage%></th>
-					<th>${RecruitVO.title}</th>
+					<th rowspan=2>${RecruitVO.recruitstate}</th>
+					<th><a target="_blank">${RecruitVO.title}</a>
+					<li>근무형태 : ${RecruitVO.employstatusid}</li>
+					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
+					<li>경력 : ${RecruitVO.exp} </li>
+					<li>접수기간 : ${RecruitVO.period}</li></th>
 					<th>${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
