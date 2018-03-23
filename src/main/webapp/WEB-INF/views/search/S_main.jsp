@@ -20,17 +20,7 @@
 			srchVO.setStype("1");
 			stitle = "채용공고 검색";
 		}
-
-		String tmp = "";
-		if (srchVO.getSfilter() == null) {
-			tmp = "Sfilter null";
-		} else if ("".equals(srchVO.getSfilter())) {
-			tmp = "Sfilter ___";
-		}
 	%>
-	<script>
-		console.log("tmp");
-	</script>
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -210,7 +200,7 @@
 		} else if (sinp === "") {
 			deletelist();
 			$("#sdesc").html("키워드가 입력되지 않았습니다.");
-		} else {
+		} else { // 키워드 검색
 			if ($("#stype").attr("value") === "1") {
 				getList("recruits", sinp);
 			} else {
