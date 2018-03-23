@@ -18,8 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePUser">
 		update project.tbluser
 		set
-		pw = #{pw}, pname =
-		#{pname}, email = #{email}, birth = #{birth}
+		pw = #{pw}, pname =	#{pname}, email = #{email}, birth = #{birth}
 		where id = #{id}
 	</update>
 
