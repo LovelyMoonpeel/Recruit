@@ -30,14 +30,17 @@
 			 				<input type="text" name="id" class="form-control" id="id" value="${PUserVO.id}" readonly="readonly">
 						</div>
 					</td>
-                       <th class="table-active" scope="row"><label>비밀번호</label></th>
+                     <!--j.code 03/23 : '비밀번호' -> '기존 비밀번호'로 변경  -->
+                    <th class="table-active" scope="row"><label>기존 비밀번호</label></th>
 					<td>
+					<input type="hidden" name ="pw" class="form-control" id="pw">
 						<div class="form-group">
-							<input type="password" name="pw" class="form-control" id="pw">
+							<input type="password" name="pwc" class="form-control" id="pwc">
+							<span id="pwchk"></span>
 						</div>
 					</td>
 					
-                   </tr>
+                </tr>
 				<tr>
 					<th class="table-active" scope="row"><label>이름</label></th>
 					<td>
@@ -46,11 +49,12 @@
 						</div>
 					</td>
 					
-					 <th class="table-active" scope="row"><label>비밀번호 확인</label></th>
+					<!--j.code 03/23 : '비밀번호 확인' -> '새 비밀번호'로 변경  -->
+					<th class="table-active" scope="row"><label>새 비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							 <input type="password" name="pwc" class="form-control" id="pwc">
-						<span id="pwchk"></span>	
+							 <input type="password" name="npw" class="form-control" id="npw">
+						<!-- <span id="pwchk"></span> -->	
 						</div>
 					</td>
 				</tr>
@@ -61,8 +65,18 @@
 							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}">
 						</div>
 					</td>
-					<td colspan="2">
+					<!-- <td colspan="2">
+					</td> -->
+					
+					<!--j.code 03/23 : '새 비밀번호 확인'추가  -->
+					 <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
+					<td>
+						<div class="form-group">
+							 <input type="password" name="npwc" class="form-control" id="npwc">
+						<!-- <span id="pwchk"></span>	 -->
+						</div>
 					</td>
+					<!--j.code 03/23 : '새 비밀번호 확인'추가 끝 -->
 				</tr>
 				<tr>
 					<th class="table-active" scope="row"><label>생일</label></th>
@@ -103,18 +117,24 @@ $(document).ready(function(){
 		//self.location = "/person/modify";
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
+		/* j.code 03/23 : npw, npwc추가 */
+		var npw = $('#npw').val();
+		var npwc = $('#npwc').val();
+		/* j.code 03/23 : npw, npwc추가 끝*/
 		
 		if(pw==pwc){
-			if(confirm("수정하시겠습니까?")){
-				<!-- //birth null값인지 확인  -->
-				//	birth가 ''면 null
-				if($('#birth').val()==''){
-					$('#birth').val("0000-00-00");
+			if(npw==npwc){
+				if(confirm("수정하시겠습니까?")){
+					<!-- //birth null값인지 확인  -->
+					//	birth가 ''면 null
+					if($('#birth').val()==''){
+						$('#birth').val("0000-00-00");
+					}
+					// null이면 0000-00-00으로 반환
+					formObj.attr("action", "/personal/modify");
+					formObj.attr("method", "post");
+					formObj.submit();
 				}
-				// null이면 0000-00-00으로 반환
-				formObj.attr("action", "/personal/modify");
-				formObj.attr("method", "post");
-				formObj.submit();
 			}
 		}else{
 			alert("비밀번호를 확인해주세요.");
@@ -135,24 +155,46 @@ $(document).ready(function(){
 	
 	$('#pwc').keyup(function(){
 		if($('#pwc').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
+			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치합니다.";
 			pwchk.attr("style", "color:blue")
 		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
 			pwchk.attr("style", "color:red")
 		}
 	});
 	
  	$('#pw').keyup(function(){
 		if($('#pw').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
+			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치합니다.";
 			pwchk.attr("style", "color:blue")
 		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
 			pwchk.attr("style", "color:red")
 		}
 	}); 
 	<!-- //비밀번호 일치 여부  -->
+	
+	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가*/
+	$('#npwc').keyup(function(){
+		if($('#npwc').val()!=""&&$('#npw').val() == $('#npwc').val()){
+			document.getElementById("pwchk").innerHTML = "새 비밀번호가 일치합니다.";
+			pwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("pwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+			pwchk.attr("style", "color:red")
+		}
+	});
+	
+ 	$('#npw').keyup(function(){
+		if($('#npw').val()!=""&&$('#npw').val() == $('#npwc').val()){
+			document.getElementById("pwchk").innerHTML = "새 비밀번호가 일치합니다.";
+			pwchk.attr("style", "color:blue")
+		}else{
+			document.getElementById("pwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+			pwchk.attr("style", "color:red")
+		}
+	}); 
+ 	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가 끝*/
 });
 	
 </script>
