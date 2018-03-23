@@ -102,7 +102,7 @@ public class PersonalController {
 			return "personal/P_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -119,7 +119,7 @@ public class PersonalController {
 			return "personal/P_modify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -148,7 +148,7 @@ public class PersonalController {
 			return "personal/P_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -166,7 +166,7 @@ public class PersonalController {
 			return "personal/P_write";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -217,11 +217,11 @@ public class PersonalController {
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
+				return "redirect:/";
 			}
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 		//민경
 	}
@@ -261,7 +261,7 @@ public class PersonalController {
 			return "personal/P_Rmodify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -313,7 +313,7 @@ public class PersonalController {
 			return "personal/P_recom";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -330,7 +330,7 @@ public class PersonalController {
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 	// 지원현황리스트
@@ -353,7 +353,7 @@ public class PersonalController {
 			
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 

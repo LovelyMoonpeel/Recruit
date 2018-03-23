@@ -418,4 +418,19 @@
 	getRecruitAllList();
 </script>
 
+
+<script type="text/javascript">
+var result = '${msg}';
+
+if(result == 'login'){
+	alert("로그인이 필요합니다.");
+}else if(result == 'logout'){
+	alert("로그아웃 되었습니다.");
+}else if(result == 'join'){
+	alert("회원가입이 완료 되었습니다. 이메일 인증을 진행 해주세요.");
+}else if(result == 'fail'){
+	alert("접근권한이 없습니다.");
+}
+</script>
+
 <%@include file="../include/sfooter.jsp"%>

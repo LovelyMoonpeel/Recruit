@@ -55,8 +55,11 @@ public class CompanyController {
 			throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-
 		if (login != null) {
+			if (login.getCname() == null){
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			System.out.println(id);
 			model.addAttribute(service.CompanyInfoRead(id));
@@ -64,7 +67,7 @@ public class CompanyController {
 			return "/company/C_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -82,7 +85,7 @@ public class CompanyController {
 			return "/company/C_modify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -103,7 +106,7 @@ public class CompanyController {
 			return "redirect:/company/C_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 

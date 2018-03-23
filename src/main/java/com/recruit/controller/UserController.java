@@ -78,7 +78,7 @@ public class UserController {
 			
 		}
 		
-		return "/cs/S_faq";
+		return "search/S_index";
 		
 	}
 
@@ -96,7 +96,7 @@ public class UserController {
 
 		}
 		rttr.addFlashAttribute("msg", "logout");
-		return "redirect:/cs/S_faq";
+		return "redirect:/";
 	}
 
 	
@@ -113,9 +113,9 @@ public class UserController {
 			service.cregist(board);
 			rttr.addFlashAttribute("msg", "authmsg");
 		}
-		rttr.addFlashAttribute("msg", "success");
+		rttr.addFlashAttribute("msg", "join");
 
-		return "redirect:/cs/S_faq";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/idoverlap", method = RequestMethod.POST)
@@ -209,7 +209,7 @@ public class UserController {
 		ResponseEntity<String> entity = null;
 		try{
 			if(dto.getCname()==null){
-				service.ppwchk(dto);				
+				service.ppwchk(dto);
 			}else{
 				service.cpwchk(dto);
 			}

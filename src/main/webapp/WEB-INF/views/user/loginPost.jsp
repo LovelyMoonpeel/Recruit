@@ -22,7 +22,7 @@
  	}else if(result == 'personal'){
  		alert("개인 회원으로 로그인 해주세요.");
  	}
-    self.location = "/cs/S_faq";
+    self.location = "/";
  </script>
   
   

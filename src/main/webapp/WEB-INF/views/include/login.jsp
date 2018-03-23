@@ -216,6 +216,7 @@
 									<div class="form-group">
 										비밀번호<input type="password" id='ppw' name='pw' class="form-control"
 											placeholder="6자리를 입력하세요." required>
+									<span>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</span>
 									</div>
 									
 									<div class="form-group">
@@ -418,6 +419,7 @@
 	<!--//날짜입력 모달 관련내용  -->
 
 <!-- 회원가입 시 아이디 및 비밀번호 변경여부 확인 -->
+<!-- 유효성 검사 추가 -->
 <script>
 var pidchk = "";
 var pemailchk = "";
@@ -444,6 +446,7 @@ $('#pjoin').on("click", function(event){
 		alert("아이디 중복체크를 진행해주세요.");
 		event.preventDefault();
 	}
+
 })
 
 $('#cjoin').on("click", function(event){
@@ -470,8 +473,54 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var ppwchk = $('#ppwchk');
 	
-	$('#ppwc').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
+	var ppwReg = /^[A-za-z0-9]{6,20}$/g;
+
+	$('#ppwc').keyup(function(){	
+		var ppwcval = $('#ppwc').val();
+		var ppwval = $('#ppw').val();
+		
+		if(ppwcval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#ppwc').val(ppwcval.slice(0, -1));
+		}
+
+		
+		if(ppwcval.length < 6 || ppwcval.length > 20){
+			document.getElementById("ppwchk").innerHTML = "6자리 ~ 20자리 이내로 입력해주세요.";
+			ppwchk.attr("style", "color:red");
+			ppwc = "no";
+		}
+		
+		if(!ppwReg.test(ppwcval)){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			ppwchk.attr("style", "color:red");
+			ppwc = "no";
+		}else{
+			if(ppwval == ppwcval){
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+				ppwchk.attr("style", "color:blue");
+				ppwc = "ok";
+			}else{
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				ppwchk.attr("style", "color:red");
+				ppwc = "no";
+			}
+		}
+	})
+	
+	$('#ppw').keyup(function(){
+		var ppwval = $('#ppw').val();
+		var ppwcval = $('#ppwc').val();
+		if(ppwval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#ppw').val(ppwval.slice(0, -1));
+		}
+		if(!ppwReg.test(ppwval)){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			ppwchk.attr("style", "color:red");
+			ppwc = "no";
+		}else{
+		if(ppwval == ppwcval){
 			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
 			ppwchk.attr("style", "color:blue");
 			ppwc = "ok";
@@ -480,17 +529,6 @@ $('#cjoin').on("click", function(event){
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}
-	})
-	
-	$('#ppw').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue");
-			ppwc = "ok";
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			ppwchk.attr("style", "color:red");
-			ppwc = "no";
 		}
 	})
 </script>
@@ -501,8 +539,22 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var cpwchk = $('#cpwchk');
 	
+	var pwReg = /^[A-za-z0-9]{6,20}$/g;
+
 	$('#cpwc').keyup(function(){
-		if($('#cpw').val() == $('#cpwc').val()){
+		var cpwcval = $('#cpwc').val();
+		var cpwval = $('#cpw').val();
+		
+		if(cpwcval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#cpwc').val(cpwcval.slice(0, -1));
+		}
+		if(!cpwReg.test(cpwcval)){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			cpwchk.attr("style", "color:red");
+			cpwc = "no";
+		}else{
+		if(cpwcval == cpwval){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
 			cpwchk.attr("style", "color:blue");
 			cpwc = "ok";
@@ -511,17 +563,31 @@ $('#cjoin').on("click", function(event){
 			cpwchk.attr("style", "color:red")
 			cpwc = "no";
 		}
+		}
 	})
 	
 	$('#cpw').keyup(function(){
-		if($('#cpw').val() == $('#cpwc').val()){
-			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
-			cpwchk.attr("style", "color:blue");
-			cpwc = "ok";
-		}else{
-			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+		var cpwval = $('#cpw').val();
+		var cpwcval = $('#cpwc').val();
+		
+		if(cpwval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#cpw').val(cpwval.slice(0, -1));
+		}
+		if(!pwReg.test(cpwval)){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
+		}else{
+			if(cpwval == cpwcval){
+				document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
+				cpwchk.attr("style", "color:blue");
+				cpwc = "ok";
+			}else{
+				document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				cpwchk.attr("style", "color:red");
+				cpwc = "no";
+			}
 		}
 	})
 </script>
@@ -529,10 +595,18 @@ $('#cjoin').on("click", function(event){
 
 <!-- 개인회원 아이디 중복 체크 -->
 <script>
-$("#pid_overlap").on("click", function(){
+$("#pid_overlap").on("click", function(event){
 	var PidObj = $("#pid");
 	var Pid = PidObj.val();
 
+	/* 유효성 검사 */
+	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var pjoinidchk = document.getElementById("pid").value;
+	if(!idReg.test(pjoinidchk)){
+		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
+		event.preventDefault();
+	}else{
+	
 	$.ajax({
 		type:'POST',
 		url:'/user/idoverlap',
@@ -550,6 +624,7 @@ $("#pid_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+	}
 });
 </script>
 
@@ -559,6 +634,14 @@ $("#cid_overlap").on("click", function(){
 	var CidObj = $("#cid");
 	var Cid = CidObj.val();
 
+	/* 유효성 검사 */
+	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var cjoinidchk = document.getElementById("cid").value;
+	if(!idReg.test(cjoinidchk)){
+		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
+		event.preventDefault();
+	}else{
+	
 	$.ajax({
 		type:'POST',
 		url:'/user/idoverlap',
@@ -576,6 +659,7 @@ $("#cid_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+	}
 });
 </script>
 
@@ -585,6 +669,11 @@ $("#pemail_overlap").on("click", function(){
 	var PemailObj = $("#pemail");
 	var Pemail = PemailObj.val();
 
+    var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    
+    if(!regEmail.test(Pemail)){
+    	alert("이메일 주소가 유효하지 않습니다.");
+    }else{
 	$.ajax({
 		type:'POST',
 		url:'/user/emailoverlap',
@@ -601,7 +690,8 @@ $("#pemail_overlap").on("click", function(){
 			}else{
 				alert("사용 불가능");
 			}
-		}});
+		}});    	
+    }
 });
 </script>
 
@@ -611,6 +701,11 @@ $("#cemail_overlap").on("click", function(){
 	var CemailObj = $("#cemail");
 	var Cemail = CemailObj.val();
 
+    var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    
+    if(!regEmail.test(Pemail)){
+    	alert("이메일 주소가 유효하지 않습니다.");
+    }else{
 	$.ajax({
 		type:'POST',
 		url:'/user/emailoverlap',
@@ -628,5 +723,6 @@ $("#cemail_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+    }
 });
 </script>
