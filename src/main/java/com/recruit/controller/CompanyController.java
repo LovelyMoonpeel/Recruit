@@ -14,8 +14,11 @@ import com.recruit.domain.BoardVO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -415,10 +418,8 @@ public class CompanyController {
 	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
 		// 소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		System.out.println("recruitNum 뭔데?"+recruitNum);
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		Integer bno = resume.getBno();
-		System.out.println("지원한 이력서 bno가 뭡니까"+bno);
 		
 		if (login != null) {
 			String id = login.getId();
@@ -434,12 +435,34 @@ public class CompanyController {
 			pavo.setRcno(recruitNum+"");
 			pavo.setCoverletter(" ");
 			PAPService.createAPOne(pavo);
-			
 			// applytbl update 시키면 된다.
+			
+			
 			return "redirect:C_recruitMent?recruitNum="+recruitNum;
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
+	}
+
+	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)
+	public ResponseEntity<String> applycheckPOST(@RequestBody PApplyVO pavo){
+		// 소연 수정
+		System.out.println("아 applycheck POST CONTROLLER");
+		ResponseEntity<String> entity = null;
+		try{
+			System.out.println("pavo"+pavo);
+			entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			//실행하고 싶은 서비스 실행
+/*			if(true){//지원한 적 있을 때
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			}else{//지원한 적 없을 때
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}
+	*/	}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 }

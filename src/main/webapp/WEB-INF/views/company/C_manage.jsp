@@ -139,8 +139,6 @@ var formObj = $("form[role='form']");
 				
 			$(data).each(function(){
 				
-				
-				
 				str += "<tr><th class=colspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
 					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 							+"<li>근무형태 : "+this.employstatusid+"</li>"
@@ -150,14 +148,10 @@ var formObj = $("form[role='form']");
 							+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 							+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
 							+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th><th></th></tr>"
-			
 				});
-				
 			
 				$("#recruitList").html(str);			
 			})
-			
-			
 		}
 		
 		function RecruitIngList(){
@@ -168,9 +162,6 @@ var formObj = $("form[role='form']");
 				var text = "";
 				
 				$(data).each(function(){
-					
-					
-					
 					str += "<tr><th class=colspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
 					+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 							+"<li>근무형태 : "+this.employstatusid+"</li>"
