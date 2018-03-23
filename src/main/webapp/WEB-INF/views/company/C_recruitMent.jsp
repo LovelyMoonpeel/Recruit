@@ -115,15 +115,18 @@
 	<button class="btn btn-default btn-lg disabled">스크랩하기</button>
 </div>
 
+<!-- 소연 모달 -->
 <div class="modal" id="applynow_modal">
 	<div class="modal-dialog"><!--★ 뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
 		<div class="modal-content col-xs-8"><!--★ col-xs-8을 아래 붙이면 css적용이 안 됨 , col-xs-8을 써서 모달 가로 폭을 조정 -->
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button><!--x표시 누르면 창 사라지게 하는 코드 -->
 
-				<form action="/company/applynow" method="post">
+				<form role="form">
 					<div class="row">
 					<h4>즉시지원하기 - ${PUserVO.id }님의 이력서 목록</h4>
+					<input type="text" name="pid" value="${PUserVO.id }" >
+					<%-- <input type="hidden" name="rcno" value="${PUserVO.id }" > --%>
 						<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 						<table class="table table-bordered">
 							<tr>
@@ -133,20 +136,20 @@
 							</tr>
 							<c:forEach items="${ResumeVOList}" var="ResumeVO">
 								<tr>
-									<td><input type="radio" name="check" value="${ResumeVO.bno}" ></td>
-									<td >${ResumeVO.bno}</td>
+									<td><input type="radio" name="bno" value="${ResumeVO.bno}" >
+									</td>
+									<td>${ResumeVO.bno}</td>
 									<td><a href="/personal/detail?bno=${ResumeVO.bno}" target="_blank">${ResumeVO.title}</a></td>
 								</tr>
 							</c:forEach>
 						</table>
-
-						<div class="col-xs-4">
-							<!--즉시지원 버튼 -->
+						<!-- <input type="text" id="coverletter" name = "coverletter" value=" "> -->
+						<input type="text" id="recruitNum" name = "recruitNum" value="${RecruitVO.bno}">
+						<div class="col-xs-4"><!--즉시지원 버튼 -->
 							<button type="submit" id="applynow_btn"
 								class="btn btn-primary btn-block btn-flat">즉시 지원</button>
 						</div>
-					</div>
-					<!--//row -->
+					</div><!--//row -->
 				</form>
 			</div><!--//class="modal-body"  -->
 		</div><!--//class="modal-content col-xs-8"-->
@@ -156,21 +159,31 @@
 <!-- 소연 코드 -->
 <script>
 $(document).ready(function() {
+	
+	var formObj = $("form[role = 'form']");
+	
 	$("#applynow").click(function() {
 		$("#applynow_modal").modal();
 	});
+	
 	$("#applynow_btn").on("click", function() {
 		
 		console.log("applynow_btn clicked");
 		
-		
 		//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
 		formObj.attr("action", "/company/applynow");
 		formObj.attr("method", "post");
-		formObj.submit();
+		
+		if(true){//지원여부 유효성 검사!!
+			alert("지원하였습니다.");
+		}else{
+			alert("이미 지원한 공고 입니다.");
+		}
+		//formObj.submit(); button type이 submit라서 필요 없음
 	});
 });
 </script>
+
 <br>
 <!-- 공고 메인 -->
 <div

@@ -9,7 +9,7 @@ public class CRecruitVO {
 	public String rgbid;
 	public int rgsid;
 	public String jobdesc;
-	public int recruitnum;
+	public String recruitnum;
 	public int employstatusid;
 	public int salaryid;
 	public int edu;
@@ -77,11 +77,11 @@ public class CRecruitVO {
 		this.jobdesc = jobdesc;
 	}
 
-	public int getRecruitnum() {
+	public String getRecruitnum() {
 		return recruitnum;
 	}
 
-	public void setRecruitnum(int recruitnum) {
+	public void setRecruitnum(String recruitnum) {
 		this.recruitnum = recruitnum;
 	}
 

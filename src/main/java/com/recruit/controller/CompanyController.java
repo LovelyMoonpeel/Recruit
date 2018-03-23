@@ -25,10 +25,12 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.CInfoVO;
+import com.recruit.domain.PApplyVO;
 import com.recruit.domain.RecruitVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
-
+import com.recruit.service.PApplyService;
 import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 
@@ -46,6 +48,8 @@ public class CompanyController {
 	private ResumeService Rservice;
 	@Inject
 	private PUserService Pservice;
+	@Inject
+	private PApplyService PAPService;
 
 	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	private String uploadPath;
@@ -389,13 +393,8 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이
-																			// 보는
-																			// 페이지
-																			// //
-																			// 정보
-	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model)
-			throws Exception {
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지 정보
+	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model) throws Exception {
 		// 안소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
@@ -413,19 +412,31 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/applynow", method = RequestMethod.POST)
-	public String applynowPOST(HttpSession session, int bno, RedirectAttributes rttr, int recruitNum, Model model)
-			throws Exception {
-		// 안소연 수정
+	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+		// 소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
+		System.out.println("recruitNum 뭔데?"+recruitNum);
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+		Integer bno = resume.getBno();
+		System.out.println("지원한 이력서 bno가 뭡니까"+bno);
+		
 		if (login != null) {
 			String id = login.getId();
 
 			System.out.println("넘어온 Resume정보" + Rservice.readROne(bno).toString());
 			System.out.println("applynow로 넘어옴");
+			
+			PApplyVO pavo = new PApplyVO();
+			pavo.setBno(bno);
+			pavo.setRsno(bno+"");
+			System.out.println("레주메에서 받아오는 유저아이디"+id);
+			pavo.setPid(id);
+			pavo.setRcno(recruitNum+"");
+			pavo.setCoverletter(" ");
+			PAPService.createAPOne(pavo);
+			
 			// applytbl update 시키면 된다.
-
-			return "/company/C_recruitMent";
+			return "redirect:C_recruitMent?recruitNum="+recruitNum;
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";

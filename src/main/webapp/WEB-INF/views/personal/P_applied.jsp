@@ -18,24 +18,24 @@
 		<table class="table table-bordered">
 			<!-- 공고 메인 공고 테이블 순서 번호는 java문 counter로 처리-->
 			<tr class="active">
-				<th style="width: 55px;">번호</th>
-				<th>회사명</th>
-				<th style="width: 200px;">공고 제목</th>
-				<th>등록 날짜</th>
-				<th>모집 마감 기한</th>
-				<th>지원자 수</th>
-				<th>지원한 이력서</th>
+				<th style="width: 79px; text-align:center;">공고 번호</th>
+				<th style="text-align:center;">회사명</th>
+				<th style="width: 200px; text-align:center;">공고 제목</th>
+				<th style="width: 90px;">등록 날짜</th>
+				<th style="width: 90px;">마감 기한</th>
+				<th style="width: 79px;">지원자 수</th>
+				<th style="text-align:center;">지원한 이력서</th>
 			</tr>
 			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
-				<td>${status.count}</td>
+				<td style="text-align:center;">${CRecruitVO.bno }</td>
 				<td>${CRecruitVO.cid}</td>
-				<td><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
-				<td>select rcno, count(*) from tblapply group by rcno;</td>
-				<!--  매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>resumeVO title이랑 bno받아오기 ${ResumeVO.title}</a></td>
+				<td style="text-align:center;">2차개발</td>
+				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
+				<td style="text-align:center;"><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>2차개발 ${ResumeVO.title}</a></td>
 			</tr>
 			</c:forEach>
 		</table>

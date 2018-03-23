@@ -75,7 +75,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			Object dest = session.getAttribute("dest");
 			
 			
-			response.sendRedirect(dest != null ? (String) dest : "/cs/S_qna");
+			response.sendRedirect(dest != null ? (String) dest : "/");
 			
 		}
 		

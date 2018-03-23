@@ -134,8 +134,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ]]>
     </select>
 	
-	
-	 					
 	<update id="addRimgAttach">
   <![CDATA[
 	
@@ -366,7 +364,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from project.tbllicense where rid= #{bno}
 	]]>
 	</delete>
-	
 	
 	<select id="selectResumeLanguageList" resultType="com.recruit.domain.ResumeLanguageVO">
 	<![CDATA[
