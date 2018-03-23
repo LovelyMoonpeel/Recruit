@@ -15,4 +15,10 @@ public interface CodeDAO {
 	public JobGroupVO selectJobGroup(String id) throws Exception;
 
 	public RegionVO selectRegion(String rgbid, String rgsid) throws Exception;
+
+	public String codeToJobName(String code) throws Exception;
+
+	public String codeToRegName(String code) throws Exception;
+
+	public String codeToCodName(String code) throws Exception;
 }

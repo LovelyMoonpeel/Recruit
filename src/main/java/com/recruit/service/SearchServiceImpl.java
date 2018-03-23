@@ -219,4 +219,17 @@ public class SearchServiceImpl implements SearchService {
 		List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
 		return convertToResumePanel(list_tmp);
 	}
+
+	@Override
+	public String codeToName(String scode) throws Exception {
+		String code1 = scode.substring(0, 1);
+		if ("J".equals(code1)) {
+			scode = codedao.codeToJobName(scode.substring(1));
+		} else if ("R".equals(code1)) {
+			scode = codedao.codeToRegName(scode.substring(1));
+		} else {
+			scode = codedao.codeToCodName(scode);
+		}
+		return scode;
+	}
 }

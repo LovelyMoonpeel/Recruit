@@ -407,22 +407,22 @@
 	});
 
 	// select filter(버튼) 추가하기
-	function add_tmpl_sfilter_ori(that) {
-		var alreadyhave = false;
-		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
-			if ($(this).val() === $(that).val())
-				alreadyhave = true;
-		})
-		if (alreadyhave) // deduplication
-			return;
-		var source_sflt = $("#tmpl_sfilter").html();
-		var template_sflt = Handlebars.compile(source_sflt);
-		var item = {
-			sflt_val : $(that).val(),
-			sflt_title : $(that).find(":selected").text()
-		};
-		$("#well").append(template_sflt(item)); // add a search_filter
-	}
+	// 	function add_tmpl_sfilter_ori(that) {
+	// 		var alreadyhave = false;
+	// 		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
+	// 			if ($(this).val() === $(that).val())
+	// 				alreadyhave = true;
+	// 		})
+	// 		if (alreadyhave) // deduplication
+	// 			return;
+	// 		var source_sflt = $("#tmpl_sfilter").html();
+	// 		var template_sflt = Handlebars.compile(source_sflt);
+	// 		var item = {
+	// 			sflt_val : $(that).val(),
+	// 			sflt_title : $(that).find(":selected").text()
+	// 		};
+	// 		$("#well").append(template_sflt(item)); // add a search_filter
+	// 	}
 
 	function add_tmpl_sfilter(flt_val, flt_title) {
 		var alreadyhave = false;
@@ -576,8 +576,14 @@
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');
 <%} else if (!(srchVO.getSfilter() == null)) {%>
-	add_tmpl_sfilter(${srchVO.sfilter}, "filter from main");
-	$("#sel_search_btn").trigger('click');
+	$.getJSON("/sresult/scode/${srchVO.sfilter}", scodeHandler);
+	// code to name
+	console.log("data: 123");
+	function scodeHandler(data) {
+		console.log("data: " + data);
+		add_tmpl_sfilter("${srchVO.sfilter}", data);
+		$("#sel_search_btn").trigger('click');
+	}
 <%}%>
 	
 </script>

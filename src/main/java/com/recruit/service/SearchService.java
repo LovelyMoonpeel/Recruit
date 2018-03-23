@@ -36,4 +36,6 @@ public interface SearchService {
 	public List<SpanelVO> selectRecruitsAll() throws Exception;
 
 	public List<SpanelVO> selectResumesAll() throws Exception;
+	
+	public String codeToName(String scode) throws Exception;
 }

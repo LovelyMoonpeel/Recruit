@@ -27,7 +27,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="java.util.Map">
 		select rgbid, rgbname, rgsid, rgsname
 		from
-		tblregion where rgbid =
+		tblregion where
+		rgbid =
 		#{rgbid} and rgsid = #{rgsid};
+	</select>
+
+	<select id="codeToJobName" resultType="String">
+		select jobgroup from
+		tbljobgroup where id = #{code};
+	</select>
+
+	<select id="codeToRegName" resultType="String" parameterType="java.util.Map">
+		select rgsname from tblregion where
+		rgbid = #{rgbid} and rgsid =
+		#{rgsid};
+	</select>
+
+	<select id="codeToCodName" resultType="String">
+		select career from
+		tblcode
+		where id = #{code};
 	</select>
 </mapper>  

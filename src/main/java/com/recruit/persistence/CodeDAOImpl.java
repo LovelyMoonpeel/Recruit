@@ -46,4 +46,24 @@ public class CodeDAOImpl implements CodeDAO {
 
 		return session.selectOne(namespace + ".selectRegion", map);
 	}
+
+	@Override
+	public String codeToJobName(String code) throws Exception {
+		return session.selectOne(namespace + ".codeToJobName", code);
+	}
+
+	@Override
+	public String codeToRegName(String code) throws Exception {
+
+		Map map = new HashMap();
+		map.put("rgbid", code.substring(0, 1));
+		map.put("rgsid", code.substring(1));
+
+		return session.selectOne(namespace + ".codeToRegName", map);
+	}
+
+	@Override
+	public String codeToCodName(String code) throws Exception {
+		return session.selectOne(namespace + ".codeToCodName", code);
+	}
 }
