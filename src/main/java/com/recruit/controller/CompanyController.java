@@ -57,6 +57,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){  // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든 requestMapping에 다 넣었음
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			System.out.println(id);
 			model.addAttribute(service.CompanyInfoRead(id));
@@ -64,9 +68,10 @@ public class CompanyController {
 			return "/company/C_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
+	
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
 																		// GET
@@ -76,13 +81,17 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			model.addAttribute(login);
 			return "/company/C_modify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -93,6 +102,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			CInfo.setId(id);
 			InfoFileUpload(CInfo, request, id);
@@ -103,7 +116,7 @@ public class CompanyController {
 			return "redirect:/company/C_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -192,6 +205,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 
 			model.addAttribute(service.CompanyInfoRead(id));
@@ -201,7 +218,7 @@ public class CompanyController {
 			return "/company/C_write";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -226,12 +243,16 @@ public class CompanyController {
 	public String manage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 
 			return "/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -241,6 +262,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         /*if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }*///문> 3.23 지훈이가 넣으라고 한 건데 오류가 나서 일단 주석처리
 			String id = login.getId();
 
 			System.out.println("bno랑 id 는 = " + bno + "" + id);
@@ -258,6 +283,10 @@ public class CompanyController {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 
 			String id = login.getId();
 
@@ -276,7 +305,7 @@ public class CompanyController {
 			return "/company/C_recruitInfo";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 
 	}
@@ -287,6 +316,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("아이디입니당." + id);
@@ -298,7 +331,7 @@ public class CompanyController {
 			return "/company/C_recruitModify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 
 	}
@@ -321,13 +354,17 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			service.RecruitRemove(bno, id);
 			rttr.addFlashAttribute("msg", "DELESUCCESS");
 			return "redirect:/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -337,6 +374,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 
 			String id = login.getId();
 
@@ -350,7 +391,7 @@ public class CompanyController {
 
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -360,13 +401,17 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			return "/company/C_favor";
 
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -377,6 +422,10 @@ public class CompanyController {
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 			model.addAttribute(service.CompanyInfoRead(cid));
@@ -385,7 +434,7 @@ public class CompanyController {
 
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -400,6 +449,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
 			String id = login.getId();
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
@@ -408,7 +461,7 @@ public class CompanyController {
 			return "/company/C_recruitMent";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -428,7 +481,34 @@ public class CompanyController {
 			return "/company/C_recruitMent";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
+	
+	// 문> 3.23 패스워드 변경 관련해서 추가
+	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
+	public String pass(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
+			String id = login.getId();
+			System.out.println(id);
+			model.addAttribute(service.CompanyInfoRead(id));
+			return "/company/C_pass";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	
+	
+	
+	
 }
