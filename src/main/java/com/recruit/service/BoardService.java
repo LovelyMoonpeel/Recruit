@@ -9,4 +9,7 @@ public interface BoardService {
   public void pregist(BoardVO board) throws Exception;
 
   public void cregist(BoardVO board) throws Exception;
+  
+  public void updateCP(BoardVO board) throws Exception;
+  
 }

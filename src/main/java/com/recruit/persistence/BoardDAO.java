@@ -8,4 +8,6 @@ public interface BoardDAO {
 	  public void create(BoardVO vo)throws Exception;
 
 	  public void Ccreate(BoardVO vo) throws Exception;
+	  
+	  public void updateCP(BoardVO board) throws Exception; //문> 3.23 companyPasswordChange
 }

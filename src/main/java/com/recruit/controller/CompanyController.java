@@ -9,11 +9,11 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.recruit.domain.AdminCriteria;
-import com.recruit.domain.BoardVO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +21,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.RecruitVO;
+import com.recruit.dto.LoginDTO;
+import com.recruit.persistence.UserDAO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
-
 import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
+
 
 @Controller
 @RequestMapping("/company/*")
@@ -47,6 +50,22 @@ public class CompanyController {
 	@Inject
 	private PUserService Pservice;
 
+	
+	// 문> 3.23 밑에 3개 추가
+	@Inject
+	private UserDAO dao;
+
+	@Inject
+	private JavaMailSender mailSender;
+	
+    @Inject
+    private PasswordEncoder passwordEncoder;	
+	
+	@Inject
+	private UserService servicePw;
+
+
+
 	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	private String uploadPath;
 
@@ -55,6 +74,8 @@ public class CompanyController {
 			throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		String pw = login.getPw();
 
 		if (login != null) {
 	         if (login.getCname() == null){  // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든 requestMapping에 다 넣었음
@@ -485,30 +506,88 @@ public class CompanyController {
 		}
 	}
 	
-	// 문> 3.23 패스워드 변경 관련해서 추가
+	
 	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
-	public String pass(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
+	public String pass1(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
-
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
-
+		
+		System.out.println("야호get");
+		
 		if (login != null) {
 	         if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
+	             System.out.println("메인으로~~");
 	             return "redirect:/";
 	          }
 			String id = login.getId();
-			System.out.println(id);
 			model.addAttribute(service.CompanyInfoRead(id));
 			return "/company/C_pass";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
+		
 	}
 	
 	
+	// 문> 3.23 패스워드 변경 관련해서 추가
+	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
+	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
+		
+		BoardVO login = (BoardVO)session.getAttribute("login");
+			
+		dto.setId(login.getId());  //BoardVO에서 id를 가져와서 dto에 넣는다.
+				
+		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             System.out.println("메인으로~~");
+	             return "redirect:/";
+	          }
+	         
+	 		String pw = ""; //디비값
+			String rawPw = "";  //입력받은 값
+			
+			if(dao.getId(dto) != null){
+				pw = dao.getPw(dto).getPw();
+				rawPw = dto.getPw();			
+			}
+
+			System.out.println("pw인데 가입할 때 입력한 값: "+pw);
+			System.out.println("rawPw인데 입력된 값: "+rawPw);
+			System.out.println("입력된 값들 나열: "+dto);
 	
+			if(passwordEncoder.matches(rawPw, pw)){
+				System.out.println("비밀번호 일치");
+				System.out.println("if 안, pw인데 가입할 때 입력한 :"+pw);
+				System.out.println("if 안, rawPw인데 입력된 값:"+rawPw);
+				
+				BoardVO board = new BoardVO();
+				board.setPw(pw2);
+				board.setId(login.getId());
+				
+				servicePw.pregist(board);
+				System.out.println("if 안 비밀번호 주입 후, pw인데 가입할 때 입력한 :"+pw);
+				System.out.println("if 안 비밀번호 주입 후, rawPw인데 입력된 값:"+rawPw);
+			}else{
+				System.out.println("비밀번호 불일치");
+				System.out.println("else 안, pw인데 가입할 때 입력한 :"+pw);
+				System.out.println("else 안, rawPw인데 입력된 값:"+rawPw);
+			}
+		/*	return dao.login(dto);*/
+			return "/company/C_pass";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
 	
-	
+	}	
 }
+	
+	
+	
+	
+	

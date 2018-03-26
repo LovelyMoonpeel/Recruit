@@ -171,7 +171,6 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		var fileformObj = $("form[role='fileForm']");
 		var fileObject = document.getElementById("file1");
 
 		console.log(formObj);

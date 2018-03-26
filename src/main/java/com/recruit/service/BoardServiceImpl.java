@@ -26,4 +26,11 @@ public class BoardServiceImpl implements BoardService {
     dao.create(board);
     dao.Ccreate(board);
   }
+  
+  
+  public void updateCP(BoardVO board) throws Exception{
+	  dao.updateCP(board);
+  }
+  
+  
 }
