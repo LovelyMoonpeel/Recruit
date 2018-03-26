@@ -16,8 +16,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,7 @@ import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.ResumeDAO;
 import com.recruit.service.BoardService;
 import com.recruit.service.CRecruitService;
@@ -87,6 +90,9 @@ public class PersonalController {
 	@Inject
 	private ResumeLanguageService Langservice;
 
+	@Inject
+	private PasswordEncoder passwordEncoder;
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -134,6 +140,43 @@ public class PersonalController {
 		return "redirect:/personal/index"; // redirect는 controller
 	}
 
+	//pw변경하는 POST
+	@RequestMapping(value = "/pwmodify", method = RequestMethod.POST)
+	public ResponseEntity<String> pwPOST(@RequestBody PUserVO PUser, HttpSession session, Model model) throws Exception {
+		logger.info("index POST, 개인정보 수정");
+		ResponseEntity<String> entity = null;
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		System.out.println("PUser.getPw() : " + PUser.getPw());
+		System.out.println("login.getPw() : " + login.getPw());
+		
+		if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
+			try {
+				entity = new ResponseEntity<>("success", HttpStatus.OK);
+				service.updatePUser(PUser);
+				model.addAttribute("result", "success");
+				return entity;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				return entity;
+			}
+
+		} else {
+			System.out.println("★ 비밀번호 불일치");
+
+		}
+
+		/*service.updatePUser(PUser);
+		model.addAttribute("result", "success");*/
+
+		return entity; // redirect는 controller
+	}
+	
+	
+
 	// 이력서 관리 (리스트)
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String manageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -163,6 +206,9 @@ public class PersonalController {
 			String id = login.getId();
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
 			return "personal/P_write";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -187,6 +233,7 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
+		
 		
 		
 

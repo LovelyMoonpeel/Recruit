@@ -14,6 +14,7 @@
 	
 	<form role="form" method="post">
 	 <input type='hidden' name='id' value="${PUserVO.id}"> 
+	  <input type='hidden' name='userid' value="${PUserVO.id}"> 
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>
@@ -69,6 +70,105 @@
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
+		
+		
+		<!--j.code 03/26 : 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가-->
+		<div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+                <tr>
+                  <th>구직상태</th>
+                  <td>
+                     <div class="form-group col-md-5">
+                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 6 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+               </tr>
+               
+                 <tr>
+                   <th>모집직종</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <label for="jobgroupid">대분류</label> 
+                     <select id="jobGroup" class="form-control" name="jobgroupid" >
+                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                           <c:if test="${JobGroupVO.id2 == 0}">
+                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                           </c:if>
+                        </c:forEach>
+                     </select>          
+                  <br>
+                  <label for="jobgroupid">소분류</label> 
+                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+               <th>희망근무형태</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <!-- <label for="CodeList4">희망근무형태</label> -->
+                     <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 4 }">
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
+                              >${CodeVO.career }</option>
+                           </c:if>
+                        </c:forEach>
+                     </select> 
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망근무지</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <label for="jobgroupid">시/도</label> 
+                        <select id="region" class="form-control" name='rgbid'>
+                           <c:forEach items="${RegionVOlist}" var="RegionVO">
+                              <option value="${RegionVO.rgbid}" 
+                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                              >${RegionVO.rgbname}</option>
+                           </c:forEach>
+                        </select>
+                     <label for="jobgroupid">시/군/구</label> 
+                     <select id="subRegion" class="form-control" name='rgsid'>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망연봉</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <!-- <label for="CodeList7">희망연봉</label> -->
+                     <select class="form-control" name="salaryid" id="CodeList7">
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 7 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+             </tbody>
+         </table>
+          </div>
+        <!--j.code 03/26 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가 끝--> 
+         
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
@@ -431,6 +531,13 @@
 <script type='text/javascript'>
 $(document).ready(function(){
 	
+	//<!--j.code 03/26 : jobGroup, region 입력 추가-->
+	var largeNum = $('#jobGroup option:selected').val();
+	SubJobGroup2(largeNum);
+	var largeNum2 = $('#region option:selected').val();
+	SubRegion2(largeNum2);
+	//<!--j.code 03/26 : jobGroup, region 입력 추가 끝-->
+	
 	Handlebars.registerHelper('select', function( value, options ){
         var $el = $('<select />').html( options.fn(this) );
         $el.find('[value="' + value + '"]').attr({'selected':'selected'});
@@ -765,5 +872,79 @@ $(document).ready(function(){
 	language_list();
 	
 });
+
+//<!--j.code 03/26 : jobGroup, region 소분류 받는 작업-->
+function SubJobGroup2(largeNum) {
+   $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+      var str = "";
+      <c:set value="${ResumeVO.jobgroupid2}" var="select"/>
+      var sel = '<c:out value="${select}"/>';
+      var selected = "";
+      
+      $(data).each(
+            function() {
+               if(sel==this.id){
+                  selected = "selected";
+               }else{
+                  selected = "";
+               }
+               str += "<option value="+this.id+
+               " "+selected+">"+ this.jobgroup + "</option>";
+            });
+      $("#subjobGroup").html(str);
+   })
+}
+function SubRegion2(largeNum) {
+   $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+      var str = "";
+      <c:set value="${ResumeVO.rgsid}" var="sid"/>
+      var selec = '<c:out value="${sid}"/>';
+      var select = "";
+      $(data).each(
+            function() {
+               if(selec==this.rgsid){
+                  select = "selected";
+               }else{
+                  select = "";
+               }
+               str += "<option value="+this.rgsid+
+               " " + select + ">" + this.rgsname + "</option>";
+            });
+      $("#subRegion").html(str);
+   })
+}
+$("#region").change(function() {
+   var largeNum = $(this).val();
+   SubRegion(largeNum)
+})
+$("#jobGroup").change(function() {
+   var largeNum = $(this).val();
+   SubJobGroup(largeNum);
+})
+function SubJobGroup(largeNum) {
+	   console.log(largeNum);
+   $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+ 	  console.log("getJason");
+      var str = "";
+      $(data).each(
+            function() {
+               str += "<option name='jobgruopid' value="+this.id+">"
+                     + this.jobgroup + "</option>";
+            });
+      $("#subjobGroup").html(str);
+   })
+}
+function SubRegion(largeNum) {
+   $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+      var str = "";
+      $(data).each(
+            function() {
+               str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+                     + "</option>";
+            });
+      $("#subRegion").html(str);
+   })
+}
+
 </script>
 <%@include file="../include/cfooter.jsp"%>

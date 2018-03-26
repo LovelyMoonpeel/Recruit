@@ -27,42 +27,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="listAll" resultType="com.recruit.domain.AdminResumeVO">
 	<![CDATA[
-	select
-		bno, title
-	from
-		project.tblresume
-	where
-		userid = #{id}
-	order by bno
+		select
+			bno, title
+		from
+			project.tblresume
+		where
+			userid = #{id}
+		order by bno
 	]]>
 	</select>
-
+	
+	<!--j.code 03/26 : createROne 입력 수정-->
 	<insert id="createROne">
-	  <![CDATA[
-	  insert 
-	  into project.tblresume (userid, title, coverletter, jobstateid, jobgroupid)
-	  values("jin3", #{title}, #{coverletter}, 102, 102)
-	  ]]><!-- 민경언니꺼랑 merge전에 임의로 102넣어놓음 -->
+	<![CDATA[
+		insert 
+	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
+	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
+    ]]>
 	</insert> 
 	
 	<!-- 이력서 등록한 거 바로 확인 -->
 	<select id="readRLastCreatedOne" resultType="java.lang.Integer">
-  	select MAX(bno)
-	from project.tblresume
-	where userid = #{id}
-	;
+	  	select MAX(bno)
+		from project.tblresume
+		where userid = #{id}
+		;
 	</select>
 
-		<!-- 이력서 확인 -->
-		<select id="readROne" resultType="com.recruit.domain.ResumeVO">
-    <![CDATA[
-  select *
-  from
-  	project.tblresume
-  where 
-  	bno = #{bno}
-      ]]>
-		</select>
+	<!-- 이력서 확인 -->
+	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
+	<![CDATA[
+		select *
+		from
+			project.tblresume
+		where 
+			bno = #{bno}
+	]]>
+	</select>
 		
    <!-- 이력서화면에 출력 -->
     <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
@@ -138,7 +139,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 					
 	<update id="addRimgAttach">
   <![CDATA[
-	
 	update tblresume R1
 	set img = #{img}
 	where bno = (select *

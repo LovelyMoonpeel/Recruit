@@ -43,5 +43,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		like if(#{skey} regexp '[^0-9]', '' , CONCAT('%',#{skey},'%'))
 		)
 	</select>
+	
+	<update id="pwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
+	</update>
+	
+	<update id="npwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
+	</update>
+	
+	<select id="pwmodify" resultType="com.recruit.domain.PUserVO">
+		select pw
+		from project.tbluser
+		where id = #{id}
+	</select>
 
 </mapper>

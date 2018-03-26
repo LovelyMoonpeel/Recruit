@@ -1,4 +1,4 @@
-package com.recruit.controller;
+/*package com.recruit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,9 +49,9 @@ import com.recruit.service.ResumeService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.UploadFileUtils;
 
-/**
+*//**
  * Handles requests for the application home page.
- */
+ *//*
 @Controller
 @RequestMapping("/personal/*")
 public class PersonalController2 {
@@ -117,12 +117,12 @@ public class PersonalController2 {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 //		PUserVO puvo = (PUserVO) session.getAttribute("puvo");
 		if (login != null) {
-/*			String pw = "";
+			String pw = "";
 			String rawPw = "";
-*/			String id = login.getId();
+			String id = login.getId();
 			
 			
-			/*if(id != null){
+			if(id != null){
 				pw = dao.getPw(puvo).getPw();
 				rawPw = puvo.getPw();			
 			}
@@ -133,7 +133,7 @@ public class PersonalController2 {
 				System.out.println("비밀번호 불일치");
 			}
 			return dao.login(puvo);
-			*/
+			
 			
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			return "personal/P_modify";
@@ -481,4 +481,4 @@ public class PersonalController2 {
 		return "personal/P_example";
 	}
 
-}
+}*/
