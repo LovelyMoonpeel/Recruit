@@ -30,7 +30,8 @@
 			 				<input type="text" name="id" class="form-control" id="id" value="${PUserVO.id}" readonly="readonly">
 						</div>
 					</td>
-                     <!--j.code 03/23 : '비밀번호' -> '기존 비밀번호'로 변경  -->
+					
+                    <!--j.code 03/23 : '기존 비밀번호'추가  -->
                     <th class="table-active" scope="row"><label>기존 비밀번호</label></th>
 					<td>
 						<div class="form-group">
@@ -38,7 +39,7 @@
 							<span id="pwchk"></span>
 						</div>
 					</td>
-					
+					<!--j.code 03/23 : '기존 비밀번호'추가  끝-->
                 </tr>
 				<tr>
 					<th class="table-active" scope="row"><label>이름</label></th>
@@ -48,13 +49,14 @@
 						</div>
 					</td>
 					
-					<!--j.code 03/23 : '비밀번호 확인' -> '새 비밀번호'로 변경  -->
+					<!--j.code 03/23 :'새 비밀번호' 추가  -->
 					<th class="table-active" scope="row"><label>새 비밀번호</label></th>
 					<td>
 						<div class="form-group">
 							 <input type="password" name="npw" class="form-control" id="npw">
 						</div>
 					</td>
+					<!--j.code 03/23 :'새 비밀번호' 추가  끝-->
 				</tr>
 				<tr>
 					<th class="table-active" scope="row"><label>email</label></th>
@@ -63,8 +65,6 @@
 							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}">
 						</div>
 					</td>
-					<!-- <td colspan="2">
-					</td> -->
 					
 					<!--j.code 03/23 : '새 비밀번호 확인'추가  -->
 					 <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
@@ -111,17 +111,14 @@ $(document).ready(function(){
 		});
 	});
 	
+	/* j.code 03/27 : 비밀번호 처리 */
 	//수정버튼 누르면 제출되고 post방식으로 modify controller로  Mapping된다.
 	$('#modify-finish').on("click", function(){
-		//self.location = "/person/modify";
-		var pw = $('#pw').val();
-		var pwc = $('#pwc').val();
-		/* j.code 03/23 : npw, npwc추가 */
+		//id값이 pwc인 element값 가져오기.
+		var pwc = $("#pwc").val();	
 		var npw = $('#npw').val();
 		var npwc = $('#npwc').val();
-		/* j.code 03/23 : npw, npwc추가 끝*/
 		
-		if(pw==pwc){
 			if(npw==npwc){
 				if(confirm("수정하시겠습니까?")){
 					<!-- //birth null값인지 확인  -->
@@ -131,83 +128,44 @@ $(document).ready(function(){
 					}
 					// null이면 0000-00-00으로 반환
 					
-					$("#modify-finish").on("click", function() {     
-					var pw = $("#pw");      
-					var pwc = $("#pwc").val();
-					
+					console.log( $("#pwc").val());
 					$.ajax({
 						type : 'POST',
-						url : '/personal/modify',
+						url : '/personal/pwmodify',
 						headers : {
 							"Content-Type" : "application/json; charset=UTF-8",
 							"X-HTTP-Method-Override" : "POST"
 						},
 						dataType : 'text',
 						data : JSON.stringify({
-							pw : pwc   //dto의 pw로 보내고
+							//pw라는 이름으로 POST방식으로 컨트롤러로 보냄
+							pw : pwc,   
+							npw : npw	
 						}),
-						success : function(result) {        //result값을 데리고 온다.
-							// console.log("☆☆inputPw2:"+inputPw2);   
+						//result값을 데리고 온다.
+						success : function(result) {        
 							console.log("result: " + result);
 							if (result == 'success') {
-								alert("비밀번호가 맞았습니다.");
-								formObj.attr("action", "/personal/pwmodify");
-								formObj.attr("method", "post");
-								formObj.submit();
+								alert("success");
+								location.href="/personal/index";
 							} else {
-								alert("비밀번호가 틀렸습니다.");
+								alert("failed");
+								document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
 							}
 						}
 					});
-					alert();
-				});
-					
-					/* formObj.attr("action", "/personal/modify");
-					formObj.attr("method", "post");
-					formObj.submit();  ajax 처리 성공했을때 */
-					
-					
 				}
 			}
-		}else{
-			alert("비밀번호를 확인해주세요.");
-		}
-		console.log("#modify-finish");
-		//controller안바뀌고 form method = "post"대로 제출됨
 	});
+	/* j.code 03/27 : 비밀번호 처리 끝 */
 	
 	//취소버튼 누르면 이력서 관리 페이지로 넘어간다. index controller로 Mapping된다.
 	$('#modify-cancel').on("click", function(){
-		//formObj.attr("action", "/personal/modify");
 		console.log("#modify-cancel");
 		self.location = "/personal/index";
 	});
 	
-	/*<!-- 비밀번호 일치 여부  -->*/
-	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-	var pwchk = $('#pwchk');
-	
-	$('#pwc').keyup(function(){
-		if($('#pwc').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치합니다.";
-			$("#pwchk").attr('style', "color:blue");
-		}else{
-			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
-			$("#pwchk").attr('style', "color:red");
-		}
-	});
-	
- 	$('#pw').keyup(function(){
-		if($('#pw').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치합니다.";
-			$("#pwchk").attr('style', "color:blue");
-		}else{
-			document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
-			$("#pwchk").attr('style', "color:red");
-		}
-	}); 
-	<!-- //비밀번호 일치 여부  -->
-	
+//	<!-- //비밀번호 일치 여부  -->	
 	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가*/
 	$('#npwc').keyup(function(){
 		if($('#npwc').val()!=""&&$('#npw').val() == $('#npwc').val()){
@@ -231,34 +189,5 @@ $(document).ready(function(){
  	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가 끝*/
 });
 
-/* $("#changePw").on("click", function() {     //changePw는 확인 버튼 id값
-	var Pw = $("#pw1");        //pw1은 기존 비번 확인할 때 입력받은 값
-	var inputPw = Pw.val();
-	console.log("★★inputPw:"+inputPw);     //브라우저의 콘솔창
-	
-	$.ajax({
-		type : 'POST',
-		url : '/personal/modify',
-		headers : {
-			"Content-Type" : "application/json; charset=UTF-8",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType : 'text',
-		data : JSON.stringify({
-			pw : inputPw   //dto의 pw로 보내고
-		}),
-		success : function(result) {        //result값을 데리고 온다.
-			/* console.log("☆☆inputPw2:"+inputPw2);   
-			console.log("result: " + result);
-			if (result == 'success') {
-				alert("비밀번호가 맞았습니다.");
-			} else {
-				alert("비밀번호가 틀렸습니다.");
-			}
-		}
-	});
-	alert();
-}); */
-	
 </script>
 <%@include file="../include/cfooter.jsp"%>

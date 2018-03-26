@@ -52,10 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
 	</update>
 	
-	<select id="pwmodify" resultType="com.recruit.domain.PUserVO">
-		select pw
-		from project.tbluser
+	<update id="pwmodify">
+		update project.tbluser
+		set
+		pw = #{pw}
 		where id = #{id}
-	</select>
+	</update>
 
 </mapper>

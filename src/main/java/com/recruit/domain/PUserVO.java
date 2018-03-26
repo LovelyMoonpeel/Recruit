@@ -4,6 +4,7 @@ public class PUserVO {
 
 	private String id;
 	private String pw;
+	private String npw;
 	private String pname;
 	private String email;
 	private String birth;
@@ -22,6 +23,14 @@ public class PUserVO {
 
 	public void setPw(String pw) {
 		this.pw = pw;
+	}
+
+	public String getNpw() {
+		return npw;
+	}
+
+	public void setNpw(String npw) {
+		this.npw = npw;
 	}
 
 	public String getPname() {
@@ -50,7 +59,8 @@ public class PUserVO {
 
 	@Override
 	public String toString() {
-		return "PUserVO [id=" + id + ", pw=" + pw + ", pname=" + pname + ", email=" + email + ", birth=" + birth + "]";
+		return "PUserVO [id=" + id + ", pw=" + pw + ", npw=" + npw + ", pname=" + pname + ", email=" + email
+				+ ", birth=" + birth + "]";
 	}
 
 }

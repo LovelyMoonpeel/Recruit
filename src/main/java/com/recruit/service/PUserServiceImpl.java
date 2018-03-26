@@ -20,4 +20,9 @@ public class PUserServiceImpl implements PUserService {
 	public void updatePUser(PUserVO vo)throws Exception{
 		dao.updatePUser(vo);
 	}
+
+	@Override
+	public int pwmodify(PUserVO vo) throws Exception {
+		return dao.pwmodify(vo);
+	}
 }

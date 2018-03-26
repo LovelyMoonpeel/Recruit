@@ -37,4 +37,9 @@ public class PUserDAOImpl implements PUserDAO {
 		System.out.println("test001");
 		return session.selectList(namespace + ".selectPUsers", skey);
 	}
+
+	@Override
+	public int pwmodify(PUserVO vo) throws Exception {
+		return session.update(namespace + ".pwmodify", vo);
+	}
 }
