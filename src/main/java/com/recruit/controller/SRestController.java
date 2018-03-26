@@ -146,7 +146,7 @@ public class SRestController {
 		if ("J".equals(scode.substring(0, 1)) && scode.length() > 1) {
 			int jnum = Integer.parseInt(scode.substring(1));
 			if (jnum < jobcode[0])
-				scode = "J" + (jobcode[jnum - 1] + 1);
+				scode = "J" + (jobcode[jnum - 1]);
 		}
 		// Region
 		if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)

@@ -172,7 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<select id="selectRecruits_selJob" resultType="com.recruit.domain.RecruitVO"
+	<select id="selectRecruits_selJob1" resultType="com.recruit.domain.RecruitVO"
 		parameterType="java.util.List">
 		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
 		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
@@ -184,6 +184,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			jobgroupid2 = #{item}
 		</foreach>
 		;
+	</select>
+
+	<select id="selectRecruits_selJob" resultType="com.recruit.domain.RecruitVO"
+		parameterType="java.util.List">
+		select *
+		from tblrecruit
+		where jobgroupid2 = 1000 or
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			jobgroupid2 = #{item}
+		</foreach>
+		union
+		select * from tblrecruit
+		where jobgroupid in
+		(select id2 from
+		tbljobgroup where
+		jobgroup='전체' and
+		(
+		id = 1000 or
+		<foreach item="item" index="index" collection="list"
+			separator=" or ">
+			id = #{item}
+		</foreach>
+		))
+		order by bno
+		;
+	</select>
+
+	<select id="selectJobCode" resultType="com.recruit.domain.RecruitVO">
+		select id from tbljobgroup
+		where jobgroup='전체';
 	</select>
 
 	<!-- <select id="selectRecruits_selRgn" resultType="com.recruit.domain.RecruitVO" -->
