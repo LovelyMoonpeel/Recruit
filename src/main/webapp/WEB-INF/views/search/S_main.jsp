@@ -184,29 +184,40 @@
 	}
 
 	// text 검색 버튼 click 이벤트 핸들러
-	$("#search_btn").on("click", function() {
-		var sinp = $("#sinput").val();
-		// $("#sinput").val("");
+	$("#search_btn").on(
+			"click",
+			function() {
+				var sinp = $("#sinput").val();
+				// $("#sinput").val("");
 
-		console.log(sinp);
-		if (sinp === "all") {
-			if ($("#stype").attr("value") === "1") {
-				getAllList("recruits");
-			} else {
-				console.log("getAllList");
-				getAllList("resumes");
-			}
-		} else if (sinp === "") {
-			deletelist();
-			$("#sdesc").html("키워드가 입력되지 않았습니다.");
-		} else { // 키워드 검색
-			if ($("#stype").attr("value") === "1") {
-				getList("recruits", sinp);
-			} else {
-				getList("resumes", sinp);
-			}
-		}
-	});
+				console.log(sinp);
+				if (sinp === "all") {
+					if ($("#stype").attr("value") === "1") {
+						getAllList("recruits");
+					} else {
+						console.log("getAllList");
+						getAllList("resumes");
+					}
+				} else if (sinp === "") {
+					deletelist();
+					$("#sdesc").html("키워드가 입력되지 않았습니다.");
+				} else { // 키워드 검색
+					var sout = "";
+					console.log(sinp);
+					var len = sinp.length;
+					for (var j = 0; j < len; j++) {
+						console.log("TEST: " + j + " "
+								+ sinp.charCodeAt(j).toString(16));
+						sout += '%' + sinp.charCodeAt(j).toString(16);
+					}
+					console.log(sout);
+					if ($("#stype").attr("value") === "1") {
+						getList("recruits", sout);
+					} else {
+						getList("resumes", sout);
+					}
+				}
+			});
 
 	// select 검색 탭 click 이벤트 핸들러
 	$(".stab").on("click", function() {

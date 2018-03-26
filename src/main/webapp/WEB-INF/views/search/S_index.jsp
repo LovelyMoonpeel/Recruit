@@ -374,9 +374,15 @@
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
-		// $("#sinput").val("");
+		var sout = "";
 		console.log(sinp);
-		location.href = "/srch/main?skeyword=" + sinp;
+		var len = sinp.length;
+		for (var j = 0; j < len; j++) {
+			// console.log("TEST: " + j + " " + sinp.charCodeAt(j).toString(16));
+			sout += '%' + sinp.charCodeAt(j).toString(16);
+		}
+		console.log(sout);
+		location.href = "/srch/main?skeyword=" + sout;
 	});
 
 	// 채용공고 판넬 전역변수
