@@ -424,4 +424,4 @@
 	getRecruitAllList();
 </script>
 
-<%@include file="../include/sfooter.jsp"%>
+<%@include file="../include/cfooter.jsp"%>

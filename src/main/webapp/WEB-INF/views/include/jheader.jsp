@@ -49,9 +49,8 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">기업찾기</a></li>
-					<li><a href="#">인재찾기</a></li>
-					<li><a href="#">검색</a></li>
+					<li><a href="/srch/main?stype=1">기업찾기</a></li>
+					<li><a href="/srch/main?stype=2">인재찾기</a></li>
 
 					<!--회원가입, 로그인 부분 -->
 					<!--★ a href="#" 삭제하면 안됨  -->
