@@ -506,7 +506,7 @@ public class CompanyController {
 		}
 	}
 	
-	
+	//get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
 	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
 	public String pass1(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
@@ -531,7 +531,7 @@ public class CompanyController {
 		
 	}
 	
-	
+	/*
 	// 문> 3.23 패스워드 변경 관련해서 추가
 	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
 	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
@@ -540,6 +540,7 @@ public class CompanyController {
 		BoardVO login = (BoardVO)session.getAttribute("login");
 			
 		dto.setId(login.getId());  //BoardVO에서 id를 가져와서 dto에 넣는다.
+		dto.setPname(login.getPname()); 
 				
 		if (login != null) {
 	         if (login.getCname() == null){
@@ -566,8 +567,11 @@ public class CompanyController {
 				System.out.println("if 안, rawPw인데 입력된 값:"+rawPw);
 				
 				BoardVO board = new BoardVO();
+				System.out.println("여긴가? board:"+board);
 				board.setPw(pw2);
+				System.out.println("여긴가? pw2:"+pw2);
 				board.setId(login.getId());
+				System.out.println("여긴가? 끝:");
 				
 				servicePw.pregist(board);
 				System.out.println("if 안 비밀번호 주입 후, pw인데 가입할 때 입력한 :"+pw);
@@ -577,14 +581,14 @@ public class CompanyController {
 				System.out.println("else 안, pw인데 가입할 때 입력한 :"+pw);
 				System.out.println("else 안, rawPw인데 입력된 값:"+rawPw);
 			}
-		/*	return dao.login(dto);*/
+			return dao.login(dto);
 			return "/company/C_pass";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
 	
-	}	
+	}	*/
 }
 	
 	

@@ -33,7 +33,7 @@
 			<label for="inputEmail3" class="col-sm-2 control-label">현재
 				비밀번호</label>
 			<div class="col-sm-6" id="beforePw">
-				<input type="password" class="form-control" id="" name="pw" 
+				<input type="password" class="form-control" id="pw1" name="pw" 
 					placeholder="기존의 Password를 입력해주세요.">
 			</div>
 		</div>
@@ -58,13 +58,13 @@
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">확인</button>
+				<button type="submit" class="btn btn-default" id="changePw">확인</button>
 			</div>
 		</div>
 
 	</form>
 
-	<script>
+<!-- 	<script>
 		$(document).ready(function() {
 			var formObj = $("form[role='form']");
 
@@ -74,6 +74,46 @@
 			});
 		});
 	</script>
+ -->
+
+
+	<script>
+		$("#changePw").on("click", function() {     //changePw는 확인 버튼 id값
+			var Pw = $("#pw1");        //pw1은 기존 비번 확인할 때 입력받은 값
+			var inputPw = Pw.val();
+			console.log("★★inputPw:"+inputPw);     //브라우저의 콘솔창
+			
+			$.ajax({
+				type : 'POST',
+				url : '/companyAjax/changePassword',
+				headers : {
+					"Content-Type" : "application/json; charset=UTF-8",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					pw : inputPw   //dto의 pw로 보내고
+				}),
+				success : function(result) {        //result값을 데리고 온다.
+					/* console.log("☆☆inputPw2:"+inputPw2);   */
+					console.log("result: " + result);
+					if (result == 'success') {
+						alert("비밀번호가 맞았습니다.");
+					} else {
+						alert("비밀번호가 틀렸습니다.");
+					}
+				}
+			});
+			alert();
+		});
+	</script>
+
+
+
+
+
+
+
 
 	<div class="row">
 		<label><h3>&nbsp;&nbsp;&nbsp;&nbsp;♥&nbsp;비밀번호 이렇게
