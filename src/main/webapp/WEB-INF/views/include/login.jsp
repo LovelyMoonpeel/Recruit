@@ -7,15 +7,26 @@
 	String pchkc = "";
 	String cidc = "";
 	String cchkc = "";
+	String pactive = "active in";
+	String cactive = "";
+	String pexpand = "true";
+	String cexpand = "false";
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null && cookies.length > 0){
 		for(int i=0;i<cookies.length;i++){
 			if(cookies[i].getName().equals("PloginCookie")){
 				pidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
 				pchkc = "checked='checked'";
+				pactive = "active in";
+				pexpand = "true";
+				cexpand = "false";
 			}else if(cookies[i].getName().equals("CloginCookie")){
 				cidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
 				cchkc = "checked='checked'";
+				cactive = "active in";
+				pactive = "";
+				cexpand = "true";
+				pexpand = "false";
 			}
 		}
 	}
@@ -41,8 +52,8 @@
 					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
 						<!--★ href부분 값은 밑에 id랑 연결된다  -->
-						<li class="active"><a data-toggle="tab" href="#login_person">개인회원</a></li>
-						<li><a data-toggle="tab" href="#login_company">기업회원</a></li>
+						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" aria-expanded=<%= pexpand%>>개인회원</a></li>
+						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" aria-expanded=<%= cexpand%>>기업회원</a></li>
 					</ul>
 					
 					<br>
@@ -50,7 +61,7 @@
 					<!--모달 안의 내용/개인회원&기업회원  -->
 					<div class="tab-content">
 						<!--_____________________1-1.로그인 개인 회원 시작_____________________ -->
-						<div id="login_person" class="tab-pane fade in active">
+						<div id="login_person" class="tab-pane fade <%= pactive%>">
 							
 							<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
 							<form action="/user/loginPost" method="post">
@@ -103,7 +114,7 @@
 
 
 						<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
-						<div id="login_company" class="tab-pane fade">
+						<div id="login_company" class="tab-pane fade <%= cactive%>">
 							
 							<form action="/user/loginPost" method="post">
 								<input type="hidden" name="index" value="com">
@@ -215,13 +226,13 @@
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" id='ppw' name='pw' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 									<span>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</span>
 									</div>
 									
 									<div class="form-group">
 										비밀번호 확인<input type="password" id="ppwc" class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 									<span id="ppwchk"></span>
 									</div>
 
@@ -290,12 +301,12 @@
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" id='cpw' name='pw' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 									</div>
 									
 									<div class="form-group">
 										비밀번호 확인<input type="password" id='cpwc' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 										<span id="cpwchk"></span>
 									</div>
 
@@ -473,25 +484,21 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var ppwchk = $('#ppwchk');
 	
-	var ppwReg = /^[A-za-z0-9]{6,20}$/g;
+	var ppwReg = /[A-za-z0-9]$/;
 
 	$('#ppwc').keyup(function(){	
 		var ppwcval = $('#ppwc').val();
 		var ppwval = $('#ppw').val();
-		
 		if(ppwcval.search(/\s/) != -1){
 			alert("공백 금지");
 			$('#ppwc').val(ppwcval.slice(0, -1));
 		}
 
-		
-		if(ppwcval.length < 6 || ppwcval.length > 20){
-			document.getElementById("ppwchk").innerHTML = "6자리 ~ 20자리 이내로 입력해주세요.";
-			ppwchk.attr("style", "color:red");
-			ppwc = "no";
-		}
-		
-		if(!ppwReg.test(ppwcval)){
+		ppwcval = $('#ppwc').val();
+		ppwval = $('#ppw').val();
+		var chk = "";
+        chk = (ppwReg.test(ppwcval)) && !(ppwcval.length > 5 && ppwcval.length <= 20);
+		if(chk){
 			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
@@ -508,6 +515,7 @@ $('#cjoin').on("click", function(event){
 		}
 	})
 	
+	
 	$('#ppw').keyup(function(){
 		var ppwval = $('#ppw').val();
 		var ppwcval = $('#ppwc').val();
@@ -515,21 +523,26 @@ $('#cjoin').on("click", function(event){
 			alert("공백 금지");
 			$('#ppw').val(ppwval.slice(0, -1));
 		}
-		if(!ppwReg.test(ppwval)){
+		
+		ppwval = $('#ppw').val();
+		ppwcval = $('#ppwc').val();
+		var chk2 = "";
+        chk2 = (ppwReg.test(ppwval)) && !(ppwval.length > 5 && ppwval.length <= 20);
+		if(chk2){
 			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}else{
-		if(ppwval == ppwcval){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue");
-			ppwc = "ok";
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			ppwchk.attr("style", "color:red");
-			ppwc = "no";
-		}
-		}
+			if(ppwval == ppwcval){
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+				ppwchk.attr("style", "color:blue");
+				ppwc = "ok";
+			}else{
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				ppwchk.attr("style", "color:red");
+				ppwc = "no";
+			}
+		};
 	})
 </script>
 <!-- //개인 회원 가입 비밀번호 일치 여부  -->
@@ -539,7 +552,7 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var cpwchk = $('#cpwchk');
 	
-	var pwReg = /^[A-za-z0-9]{6,20}$/g;
+	var cpwReg = /[A-za-z0-9]$/;
 
 	$('#cpwc').keyup(function(){
 		var cpwcval = $('#cpwc').val();
@@ -549,7 +562,11 @@ $('#cjoin').on("click", function(event){
 			alert("공백 금지");
 			$('#cpwc').val(cpwcval.slice(0, -1));
 		}
-		if(!cpwReg.test(cpwcval)){
+		
+		cpwcval = $('#cpwc').val();
+		cpwval = $('#cpw').val();
+		
+		if(cpwReg.test(cpwcval) && !(cpwcval.length > 5 && cpwcval.length <= 20)){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
@@ -574,7 +591,11 @@ $('#cjoin').on("click", function(event){
 			alert("공백 금지");
 			$('#cpw').val(cpwval.slice(0, -1));
 		}
-		if(!pwReg.test(cpwval)){
+		
+		cpwcval = $('#cpwc').val();
+		cpwval = $('#cpw').val();
+		
+		if(cpwReg.test(cpwval) && !(cpwval.length > 5 && cpwval.length <= 20)){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
