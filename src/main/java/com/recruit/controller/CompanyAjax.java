@@ -28,10 +28,6 @@ import com.recruit.service.CompanyService;
 import com.recruit.service.PApplyService;
 import com.recruit.service.PInterestJobService;
 
-
-
-
-
 @RestController
 @RequestMapping("/companyAjax")
 public class CompanyAjax {

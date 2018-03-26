@@ -48,53 +48,52 @@
 					<td>${CRecruitVO.regdate}</td>
 					<td>${CRecruitVO.period}</td>
 					<td style="text-align: center;">${CRecruitVO.viewcnt}</td>
-					<td style="text-align: center;"><input type="hidden"
-						id="rcno${status.index}" value="${CRecruitVO.bno}" readonly />
-						<button name="clipping_cancel"
-							onclick="clipping_cancel(rcno${status.index})">스크랩 취소</button></td>
+					<td style="text-align: center;">
+					<input type="hidden" id="rcno${status.index}" value="${CRecruitVO.bno}" />
+						<img src=/resources/rpjt/img/on.png id="non" name="clipping_cancel" onclick="clipping_cancel_function(rcno${status.index}.value)">
+						</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 	<br> <br>
 </div>
-<!-- //스크랩한 채용공고 페이지 -->
-<script>
-function clipping_cancel(rcno){
-	
-	var rcno = rcno.value;
-	var userid = $("#userid").val();
-	
-	console.log(rcno);
-	console.log(userid);
-	  $.ajax({
-		type:'post',
-		url:'/companyAjax/clippingcancel',
-		headers:{
-			"Content-Type":"application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType:'text',
-		data:JSON.stringify({
-			rcbno : rcno,
-			userid : userid 
-		}),
-		success:function(result){
-			console.log("result가 뭐냐?"+result);
-			if(result=='TRUE'){
-				alert("이미 스크랩 해제된 공고 입니다.");
-			}else if(result=='FALSE'){
-				alert("관심채용공고에서 삭제되었습니다.");
-				self.location="/personal/favor";
-				//self.location = "/company/C_recruitRemove?bno="+bno+"";
-			}else{
-				alert("어느 if문에도 들어가지 못함.");
-				console.log("어느 if문에도 들어가지 못함.");
-			}
-		}//success end
-	 })//ajax end 
-}
+<!-- //스크랩한 채용공고 페이지 --><%-- <button name="clipping_cancel" onclick="clipping_cancel(rcno${status.index})">스크랩 취소</button> 스크랩 취소--%>
+<script type="text/javascript">
 
-
+function clipping_cancel_function(rcno){
+		//var rcno = rcno.value;
+		var userid = $("#userid").val();
+		
+		console.log(rcno);
+		console.log(userid);
+		  $.ajax({
+			type:'post',
+			url:'/companyAjax/clippingcancel',
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'text',
+			data:JSON.stringify({
+				rcbno : rcno,
+				userid : userid 
+			}),
+			success:function(result){
+				console.log("result가 뭐냐?"+result);
+				if(result=='TRUE'){
+					alert("이미 스크랩 해제된 공고 입니다.");
+				}else if(result=='FALSE'){
+					alert("관심채용공고에서 삭제되었습니다.");
+					self.location="/personal/favor";
+					//self.location = "/company/C_recruitRemove?bno="+bno+"";
+				}else{
+					alert("어느 if문에도 들어가지 못함.");
+					console.log("어느 if문에도 들어가지 못함.");
+				}
+			}//success end
+		 })//ajax end 
+	}
+	
 </script>
 <%@include file="../include/cfooter.jsp"%>

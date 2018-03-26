@@ -283,9 +283,7 @@ public class PersonalController {
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
-
-
-
+/*
 	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
 	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("Rremove POST Controller");
@@ -294,8 +292,7 @@ public class PersonalController {
 		// model.addAttribute(service.selectPUser(id));
 		// rttr.addFlashAttribute("result", "success");
 		return "redirect:/personal/manage";
-	}
-
+	}*/
 	// 추천채용공고
 	@RequestMapping(value = "/recom", method = RequestMethod.GET)
 	public String recomGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
@@ -437,22 +434,41 @@ public class PersonalController {
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
+	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+		System.out.println("deleteResumeList POST Controller");
 
-	@RequestMapping(value = "/example", method = RequestMethod.GET)
-	public String exmapleGET(Model model) throws Exception {
-		int bno = 1;
-		PUserVO PUser = new PUserVO();
-		PUser.setId("jin3");// 이거는 로그인해서 id받아오도록 로그인 완성되면 합치면서 수정
+		BoardVO login = (BoardVO) session.getAttribute("login");
 
-		model.addAttribute("PUserVO", service.selectPUser(PUser.getId()));
-		model.addAttribute("ResumeVO", Rservice.readROne(bno));
-
-		model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-		model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-		model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
-		model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
-
-		return "personal/P_example";
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
+			//Rservice.deleteROne(bno);
+			rttr.addFlashAttribute("msg", "DELETE");
+			return "personal/P_manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
 	}
+	
+	@RequestMapping(value = "/deleteOneResume", method = RequestMethod.GET)
+	public String deleteOneResumeGET(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+		System.out.println("deleteOneResume POST Controller");
 
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
+			Rservice.deleteROne(bno);
+			rttr.addFlashAttribute("msg", "DELETE");
+			return "redirect:/personal/manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
 }
