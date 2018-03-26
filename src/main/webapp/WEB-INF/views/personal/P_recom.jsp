@@ -30,8 +30,8 @@
 				<th style="width: 80px;">공고 번호</th>
 				<th style="text-align:center;">회사명</th>
 				<th style="text-align:center;">공고 제목</th>
-				<th style="width: 90px; text-align:center;">마감 기한</th>
 				<th style="width: 90px; text-align:center;">등록일</th>
+				<th style="width: 90px; text-align:center;">마감 기한</th>
 				<th style="width: 65px;">조회수</th>
 				<th style="width: 80px;">지원여부</th>
 			</tr>
@@ -41,8 +41,8 @@
 				<td style="text-align:center;">${CRecruitVO.bno}</td>
 				<td style="text-align:center;">${CRecruitVO.cid}</td>
 				<td style="text-align:center;"><a href = ''>${CRecruitVO.title}</a></td>
-				<td>${CRecruitVO.period}</td>
 				<td>${CRecruitVO.regdate}</td>
+				<td>${CRecruitVO.period}</td>
 				<td style="text-align:center;">${CRecruitVO.viewcnt}</td>
 				<td style="text-align:center;">2차개발</td>
 			</tr>

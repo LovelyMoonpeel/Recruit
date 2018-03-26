@@ -18,4 +18,10 @@ public class PApplyServiceImpl implements PApplyService {
 		
 		dao.createAPOne(pavo);
 	}
+	
+	public PApplyVO selectAPOne(PApplyVO pavo)throws Exception{
+		
+		return dao.selectAPOne(pavo);
+	}
+	
 }

@@ -103,7 +103,7 @@
 
 	<div class="text-center">
 		<button id="applynow" class="btn btn-primary btn-lg disabled">즉시지원</button>
-		<button class="btn btn-default btn-lg disabled">스크랩하기</button>
+		<button id="clipping" class="btn btn-default btn-lg disabled">스크랩하기</button>
 	</div>
 
 	<!-- 소연 모달 -->
@@ -118,9 +118,9 @@
 
 					<form role="form">
 						<div class="row">
-							<h4>즉시지원하기 - ${PUserVO.id }님의 이력서 목록</h4>
-							<input type="text" name="pid" value="${PUserVO.id }">
-							<%-- <input type="hidden" name="rcno" value="${PUserVO.id }" > --%>
+							<h4>즉시지원하기 - [${PUserVO.pname }]님의 이력서 목록</h4>
+							<br>
+							<input type="hidden" id="modal_pid" name="pid" value="${PUserVO.id }">
 							<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 							<table class="table table-bordered">
 								<tr>
@@ -138,7 +138,7 @@
 									</tr>
 								</c:forEach>
 							</table>
-							<input type="text" id="recruitNum" name="recruitNum"
+							<input type="text" id="modal_recruitNum" name="recruitNum"
 								value="${RecruitVO.bno}">
 							<div class="col-xs-4">
 								<!--즉시지원 버튼 -->
@@ -160,47 +160,78 @@
 $(document).ready(function() {
 	
 	var formObj = $("form[role = 'form']");
-	
+	var rcno = $("#modal_recruitNum").val();
+	var pid = $("#modal_pid").val();
+
 	$("#applynow").click(function() {
 		$("#applynow_modal").modal();
 	});
 	
 	$("#applynow_btn").on("click", function() {
+		console.log("applynow_btn clicked");
 		
-		alert("applynow_btn clicked");
+		var rsno = $('input[name="bno"]:checked').val();
 		
-		ajax();
+		alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
 		
-		function ajax(){
-			$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-				type:'post',
-				url:'/company/applycheck',
-				headers:{
-					"Content-Type":"application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				dataType:'text',
-				data:JSON.stringify({ //name에 설정해줘야 함
-					rcno : recruitNum,
-					pid : pid 
-				}),
-				success:function(result){
-					if(result == 'TRUE'){
-						alert("지원하였습니다.");
-						//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
-						//formObj.attr("action", "/company/applynow");
-						//formObj.attr("method", "post");
-						//formObj.submit(); button type이 submit라서 필요 없음
-					}else if(reulst=='FALSE'){
-						alert("이미 지원한 공고 입니다.");
-						//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-					}else{
-						alert("어느 if문에도 들어가지 못함.");
-						console.log("어느 if문에도 들어가지 못함.");
-					}
+		$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+			type:'post',
+			url:'/companyAjax/applycheck',
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'text',
+			data:JSON.stringify({ //name에 설정해줘야 함
+				rsno : rsno,
+				rcno : rcno,
+				pid : pid 
+			}),
+			success:function(result){
+				console.log("result가 뭐냐?"+result);
+				if(result=='TRUE'){
+					alert("지원하였습니다.");
+					//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
+					formObj.attr("action", "/company/applynow");
+					formObj.attr("method", "post");
+					formObj.submit(); //button type이 submit라서 필요 없음
+					alert("submit됐니");
+				}else if(result=='FALSE'){
+					alert("이미 지원한 공고 입니다.");
+					//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+				}else{
+					alert("어느 if문에도 들어가지 못함.");
+					console.log("어느 if문에도 들어가지 못함.");
 				}
-			})//ajax end
-		}
+			}//success end
+		})//ajax end
+	});
+	
+	$("#clipping").click(function() {
+		$.ajax({
+			type:'post',
+			url:'/companyAjax/clipping',
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'text',
+			data:JSON.stringify({ //name에 설정해줘야 함
+				rcbno : rcno,
+				userid : pid 
+			}),
+			success:function(result){
+				console.log("result가 뭐냐?"+result);
+				if(result=='TRUE'){
+					alert("관심채용공고에 스크랩하였습니다.");
+				}else if(result=='FALSE'){
+					alert("이미 스크랩했습니다.");
+				}else{
+					alert("어느 if문에도 들어가지 못함.");
+					console.log("어느 if문에도 들어가지 못함.");
+				}
+			}//success end
+		})//ajax end
 	});
 });
 </script>
@@ -338,11 +369,11 @@ $(document).ready(function() {
 	<br> <br>
 </div>
 
-<form role="form" method="post">
+<%-- <form role="form" method="post">
 	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
 	<input type='hidden' name="id" value="${RecruitVO.cid}">
 </form>
-
+ --%>
 <script>
 	$('#CInfo').on("click", function() {
 		self.location = "/company/C_info?recruitNum=" + $('#CInfo').val()

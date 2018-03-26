@@ -20,4 +20,8 @@ public class PApplyDAOImpl implements PApplyDAO{
 		session.insert(namespace+".createAPOne", pavo);
 	}
 	
+	@Override
+	public PApplyVO selectAPOne(PApplyVO pavo)throws Exception{
+		return session.selectOne(namespace + ".selectAPOne", pavo);
+	}
 }

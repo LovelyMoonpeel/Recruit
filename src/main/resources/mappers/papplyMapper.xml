@@ -12,7 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ]]>
 	</insert>
 	
-	
+	<select id="selectAPOne" resultType="PApplyVO">
+	select rsno, rcno, pid
+	from tblapply
+	where rcno=#{rcno}
+	AND pid=#{pid};
+	</select>
 
 	<!-- <select id="read" resultType="BoardVO"> select id, pname, email, birth 
 		from project.tbluser where id = #{id} </select> -->

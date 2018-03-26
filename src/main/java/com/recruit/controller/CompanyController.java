@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.HandlerMapping;
@@ -414,9 +415,9 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/applynow", method = RequestMethod.POST)
+	@RequestMapping(value = "/applynow", method = RequestMethod.POST)// 소연
 	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
-		// 소연 수정
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		Integer bno = resume.getBno();
@@ -437,7 +438,6 @@ public class CompanyController {
 			PAPService.createAPOne(pavo);
 			// applytbl update 시키면 된다.
 			
-			
 			return "redirect:C_recruitMent?recruitNum="+recruitNum;
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -445,24 +445,4 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)
-	public ResponseEntity<String> applycheckPOST(@RequestBody PApplyVO pavo){
-		// 소연 수정
-		System.out.println("아 applycheck POST CONTROLLER");
-		ResponseEntity<String> entity = null;
-		try{
-			System.out.println("pavo"+pavo);
-			entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
-			//실행하고 싶은 서비스 실행
-/*			if(true){//지원한 적 있을 때
-				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
-			}else{//지원한 적 없을 때
-				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
-			}
-	*/	}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
 }
