@@ -14,6 +14,7 @@
 	
 	<form role="form" method="post">
 	 <input type='hidden' name='id' value="${PUserVO.id}"> 
+	 <input type='hidden' name='userid' value="${PUserVO.id}"> 
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>

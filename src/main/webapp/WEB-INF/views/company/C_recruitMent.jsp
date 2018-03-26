@@ -182,7 +182,7 @@ $(document).ready(function() {
 				"X-HTTP-Method-Override" : "POST"
 			},
 			dataType:'text',
-			data:JSON.stringify({ //name에 설정해줘야 함
+			data:JSON.stringify({
 				rsno : rsno,
 				rcno : rcno,
 				pid : pid 
@@ -372,7 +372,7 @@ $(document).ready(function() {
 <%-- <form role="form" method="post">
 	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
 	<input type='hidden' name="id" value="${RecruitVO.cid}">
-</form>
+</form> 소연 수정 이거 name 겹쳐서 에러나서 걍 주석처리함
  --%>
 <script>
 	$('#CInfo').on("click", function() {

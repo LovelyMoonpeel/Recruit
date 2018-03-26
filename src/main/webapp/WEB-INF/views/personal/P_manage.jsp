@@ -25,7 +25,7 @@
 				<td><input id="${ResumeVO.bno}" type="checkbox"></td>
 				<td>${ResumeVO.bno}</td>
 				<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
-				<td><button type = "submit" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'">수정</button></td>
+				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'">수정</button></td>
 			</tr>
 			</c:forEach>
 		</table>

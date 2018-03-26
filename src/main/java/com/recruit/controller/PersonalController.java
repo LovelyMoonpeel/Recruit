@@ -188,8 +188,6 @@ public class PersonalController {
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
 		
-		
-
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
 	//이력서 하나 읽기

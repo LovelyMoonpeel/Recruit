@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.PIneterestJobMapper">
+	
+	<select id="selectPIJOne" resultType="PInterestJobVO">
+	<![CDATA[
+	select userid, rcbno
+	from tblinterestjob
+	where userid=#{userid}
+	AND rcbno=#{rcbno};
+	]]>
+	</select>
+	
+	<insert id="insertPIJOne">
+	<![CDATA[
+	insert into tblinterestjob
+	set userid=#{userid}, rcbno=#{rcbno};
+	]]>
+	</insert>
+	
+	<delete id="deletePIJOne">
+	delete
+	from tblinterestjob
+	where userid = #{userid}
+	and rcbno = #{rcbno};
+	</delete>
+	
+</mapper>
