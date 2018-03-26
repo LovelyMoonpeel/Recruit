@@ -142,7 +142,7 @@
 <div class="col-md-3 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			{{cname}} (~{{period}})<br />
+			{{bno}} {{cname}} (~{{period}})<br />
 			{{title}}<br />
 			({{jobgroupid}}, {{jobgroupid2}})<br />
 			{{edu}}, {{exp}}<br />
@@ -156,7 +156,7 @@
 <div class="col-md-3 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			{{pname}} ({{jobstateid}})<br />
+			{{bno}} {{pname}} ({{jobstateid}})<br />
 			{{jobgroupid}}, {{jobgroupid2}}<br />
 			{{title}}<br />
 			({{rgbid}}, {{rgsid}})
@@ -190,11 +190,10 @@
 
 		console.log(sinp);
 		if (sinp === "all") {
-			console.log($("#stype").attr("value"));
-			console.log($("#stype").attr("value") === "1");
 			if ($("#stype").attr("value") === "1") {
 				getAllList("recruits");
 			} else {
+				console.log("getAllList");
 				getAllList("resumes");
 			}
 		} else if (sinp === "") {
@@ -288,32 +287,39 @@
 	// text 검색으로 관련 정보를 를 보여주다.
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getList(users, skey) {
-		$.getJSON("/sresult/" + users + "/" + skey, function(data) {
-			var source_pnl = $("#template_pnl").html();
-			var template_pnl = Handlebars.compile(source_pnl);
-			console.log(data.length);
-			var i = 0;
-			var item;
-			deletelist()
-			$(data).each(function() {
-				item = {
-					num : ++i,
-					id : this.bno,
-					pw : this.rgbid,
-					pname : this.title,
-					email : this.employstatusid,
-					birth : this.regdate
-				};
-				$("#spanel").append(template_pnl(item));
+		if (users == "recruits") {
+			$.getJSON("/sresult/recruits/" + skey, function(data) {
+				var source_pnl = $("#tmpnl_recruit").html();
+				template_pnl = Handlebars.compile(source_pnl);
+				console.log(data.length);
+				i = 0;
+				deletelist();
+				$(data).each(recruitPnl);
+				var str;
+				if (data.length > 0) {
+					str = data.length + "개의 검색결과가 있습니다.";
+				} else {
+					str = "검색결과가 없습니다."
+				}
+				$("#sdesc").html(str);
 			});
-			var str;
-			if (data.length > 0) {
-				str = data.length + "개의 검색결과가 있습니다.";
-			} else {
-				str = "검색결과가 없습니다."
-			}
-			$("#sdesc").html(str);
-		});
+		} else { // resumes
+			$.getJSON("/sresult/resumes/" + skey, function(data) {
+				var source_pnl = $("#tmpnl_resume").html();
+				template_pnl = Handlebars.compile(source_pnl);
+				console.log(data.length);
+				i = 0;
+				deletelist();
+				$(data).each(resumePnl);
+				var str;
+				if (data.length > 0) {
+					str = data.length + "개의 검색결과가 있습니다.";
+				} else {
+					str = "검색결과가 없습니다."
+				}
+				$("#sdesc").html(str);
+			});
+		}
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(3)

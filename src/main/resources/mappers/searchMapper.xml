@@ -6,45 +6,170 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.recruit.mapper.SearchMapper">
 
 	<select id="selectRecruits" resultType="com.recruit.domain.RecruitVO">
-		select bno, title, cid,
-		jobgroupid, rgbid, rgsid, jobdesc, recruitnum,
-		employstatusid,
-		salaryid, edu, exp, adddesc, period, acceptmethod,
-		recruitform,
-		regdate, viewcnt, jobgroupid2
-		from tblrecruit
-		where title like
-		CONCAT('%',#{skey},'%') or cid like CONCAT('%',#{skey},'%')
-		or
-		jobgroupid like CONCAT('%',#{skey},'%') or rgbid like
-		CONCAT('%',#{skey},'%') or
-		rgsid like CONCAT('%',#{skey},'%') or
-		jobdesc like CONCAT('%',#{skey},'%') or recruitnum like
-		CONCAT('%',#{skey},'%') or
-		employstatusid like CONCAT('%',#{skey},'%')
-		or salaryid like CONCAT('%',#{skey},'%') or edu like
-		CONCAT('%',#{skey},'%') or exp
-		like CONCAT('%',#{skey},'%') or adddesc
-		like CONCAT('%',#{skey},'%') or
-		period like CONCAT('%',#{skey},'%');
+	<![CDATA[
+		select * from(
+		select
+		a.bno, a.title, a.cid, a.jobgroupid, a.jobgroupid2, a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid, a.edu, a.exp,
+		a.adddesc, a.period, a.acceptmethod,
+		a.recruitform, a.regdate,
+		a.viewcnt
+		from tblrecruit a
+		where a.title like CONCAT('%',#{skey},'%')
+		or a.jobdesc like CONCAT('%',#{skey},'%')
+		or a.adddesc like
+		CONCAT('%',#{skey},'%')
+		union
+		select a.bno, a.title, a.cid,
+		a.jobgroupid, a.jobgroupid2, a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid, a.edu, a.exp, a.adddesc, a.period,
+		a.acceptmethod,
+		a.recruitform, a.regdate, a.viewcnt
+		from tblrecruit a,
+		(select * from tbluser where cname like
+		CONCAT('%',#{skey},'%')) b
+		where a.cid = b.id
+		union
+		select a.bno, a.title, a.cid, a.jobgroupid,
+		a.jobgroupid2, a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid, a.edu, a.exp, a.adddesc, a.period,
+		a.acceptmethod,
+		a.recruitform, a.regdate, a.viewcnt
+		from tblrecruit a,
+		(select * from tbljobgroup where jobgroup like
+		CONCAT('%',#{skey},'%')) b
+		where a.jobgroupid2 = b.id or a.jobgroupid =
+		b.id
+		union
+		select a.bno, a.title, a.cid, a.jobgroupid, a.jobgroupid2,
+		a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid,
+		a.edu, a.exp, a.adddesc, a.period, a.acceptmethod,
+		a.recruitform,
+		a.regdate, a.viewcnt
+		from tblrecruit a, (select * from tblregion where
+		rgbname like
+		CONCAT('%',#{skey},'%') or rgsname like
+		CONCAT('%',#{skey},'%')) b
+		where a.rgbid = b.rgbid and a.rgsid =
+		b.rgsid
+		union
+		select a.bno, a.title, a.cid, a.jobgroupid, a.jobgroupid2,
+		a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid,
+		a.edu, a.exp, a.adddesc, a.period, a.acceptmethod,
+		a.recruitform,
+		a.regdate, a.viewcnt
+		from tblrecruit a, (select * from tblcode where
+		tid = 4 and career like
+		CONCAT('%',#{skey},'%')) b
+		where
+		a.employstatusid = b.id
+		union
+		select a.bno, a.title, a.cid,
+		a.jobgroupid, a.jobgroupid2, a.rgbid, a.rgsid,
+		a.jobdesc, a.recruitnum,
+		a.employstatusid, a.salaryid, a.edu, a.exp, a.adddesc, a.period,
+		a.acceptmethod,
+		a.recruitform, a.regdate, a.viewcnt
+		from tblrecruit a,
+		(select * from tblcode where tid = 2 and career like
+		CONCAT('%',#{skey},'%')) b
+		where a.edu = b.id
+		) d
+		order by bno
+		;
+	]]>
 	</select>
 
 	<select id="selectResumes" resultType="com.recruit.domain.ResumeVO">
-		select bno, userid, title,
-		address, postcode, coverletter, jobstateid, jobgroupid, rgbid,
-		rgsid,
-		employstatusid, salaryid, img, regdate
-		from tblresume
-		where userid like
-		CONCAT('%',#{skey},'%') or title like CONCAT('%',#{skey},'%') or
-		address like CONCAT('%',#{skey},'%') or
-		postcode like
-		CONCAT('%',#{skey},'%') or coverletter like CONCAT('%',#{skey},'%') or
-		jobstateid like CONCAT('%',#{skey},'%') or jobgroupid like
-		CONCAT('%',#{skey},'%') or rgbid like CONCAT('%',#{skey},'%') or
-		rgsid
-		like CONCAT('%',#{skey},'%') or employstatusid like
-		CONCAT('%',#{skey},'%') or salaryid like CONCAT('%',#{skey},'%');
+	<![CDATA[
+		select * from(
+		select bno,
+		userid, title, address, postcode, coverletter,
+		jobstateid,
+		jobgroupid,
+		rgbid, rgsid, employstatusid, salaryid, img,
+		regdate, jobgroupid2
+		from
+		tblresume
+		where title like
+		CONCAT('%',#{skey},'%')
+		or coverletter like
+		CONCAT('%'#{skey},'%')
+		union
+		select a.bno, a.userid, a.title, a.address,
+		a.postcode,
+		a.coverletter,
+		a.jobstateid, a.jobgroupid,
+		a.rgbid, a.rgsid,
+		a.employstatusid, a.salaryid, a.img, a.regdate,
+		a.jobgroupid2
+		from
+		tblresume a, (select * from tbllicense where licensename like
+		CONCAT('%',#{skey},'%')) b
+		where a.bno = b.rid
+		union
+		select distinct
+		a.bno, a.userid, a.title, a.address, a.postcode,
+		a.coverletter,
+		a.jobstateid, a.jobgroupid,
+		a.rgbid, a.rgsid, a.employstatusid,
+		a.salaryid, a.img, a.regdate,
+		a.jobgroupid2
+		from tblresume a, (
+		select
+		a.resumelangid, a.rid from tblresumelanguage a,
+		(select * from tblcode
+		where tid = 8 and career like CONCAT('%',#{skey},'%'))
+		b
+		where b.id =
+		lid) b
+		where a.bno = b.rid
+		union
+		select a.bno, a.userid, a.title,
+		a.address, a.postcode, a.coverletter,
+		a.jobstateid, a.jobgroupid,
+		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
+		a.jobgroupid2
+		from tblresume a, (select * from tblregion where rgbname
+		like
+		CONCAT('%',#{skey},'%')
+		or rgsname like CONCAT('%',#{skey},'%')) b
+		where a.rgbid = b.rgbid and a.rgsid = b.rgsid
+		union
+		select a.bno,
+		a.userid, a.title, a.address, a.postcode, a.coverletter,
+		a.jobstateid,
+		a.jobgroupid,
+		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img,
+		a.regdate,
+		a.jobgroupid2
+		from tblresume a, (select * from tblcode where
+		tid = 4 and career like
+		CONCAT('%',#{skey},'%')) b
+		where
+		a.employstatusid = b.id
+		union
+		select a.bno, a.userid, a.title,
+		a.address, a.postcode, a.coverletter,
+		a.jobstateid, a.jobgroupid,
+		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
+		a.jobgroupid2
+		from tblresume a, (select * from tbljobgroup where
+		jobgroup like
+		CONCAT('%',#{skey},'%')) b
+		where a.jobgroupid2 = b.id or
+		a.jobgroupid = b.id
+		) d
+		order by bno
+		;
+	]]>
 	</select>
 
 	<select id="selectRecruits_selJob" resultType="com.recruit.domain.RecruitVO"

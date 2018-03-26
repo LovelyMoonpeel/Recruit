@@ -25,9 +25,9 @@ public interface SearchService {
 
 	public List<CodeVO> CodeList(int tid) throws Exception;
 
-	public List<RecruitVO> selectRecruits(String skey) throws Exception;
+	public List<SpanelVO> selectRecruits(String skey) throws Exception;
 
-	public List<ResumeVO> selectResumes(String skey) throws Exception;
+	public List<SpanelVO> selectResumes(String skey) throws Exception;
 
 	public List<SpanelVO> selectRecruits_sel(List<String> sel_skeys) throws Exception;
 
@@ -36,6 +36,6 @@ public interface SearchService {
 	public List<SpanelVO> selectRecruitsAll() throws Exception;
 
 	public List<SpanelVO> selectResumesAll() throws Exception;
-	
+
 	public String codeToName(String scode) throws Exception;
 }

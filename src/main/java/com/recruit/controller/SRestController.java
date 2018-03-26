@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,8 @@ import com.recruit.service.SearchService;
 @RestController
 @RequestMapping("/sresult")
 public class SRestController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(SRestController.class);
 
 	@Inject
 	private SearchService searchService;
@@ -78,10 +82,10 @@ public class SRestController {
 	// B.getList 키워드 검색
 	// B-1.recruit 로딩
 	@RequestMapping(value = "/recruits/{skey}", method = RequestMethod.GET)
-	public ResponseEntity<List<RecruitVO>> listRecruits(@PathVariable("skey") String skey) {
+	public ResponseEntity<List<SpanelVO>> listRecruits(@PathVariable("skey") String skey) {
 
 		System.out.println("Skey: " + skey);
-		ResponseEntity<List<RecruitVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			System.out.println(searchService.selectRecruits(skey));
 			entity = new ResponseEntity<>(searchService.selectRecruits(skey), HttpStatus.OK);
@@ -94,10 +98,9 @@ public class SRestController {
 
 	// B-2.resume 로딩
 	@RequestMapping(value = "/resumes/{skey}", method = RequestMethod.GET)
-	public ResponseEntity<List<ResumeVO>> listResumes(@PathVariable("skey") String skey) {
-
+	public ResponseEntity<List<SpanelVO>> listResumes(@PathVariable("skey") String skey) {
 		System.out.println("Skey: " + skey);
-		ResponseEntity<List<ResumeVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			System.out.println(searchService.selectResumes(skey));
 			entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);

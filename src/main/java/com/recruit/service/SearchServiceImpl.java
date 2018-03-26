@@ -75,13 +75,13 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<RecruitVO> selectRecruits(String skey) throws Exception {
-		return searchDAO.selectRecruits(skey);
+	public List<SpanelVO> selectRecruits(String skey) throws Exception {
+		return convertToRecruitPanel(searchDAO.selectRecruits(skey));
 	}
 
 	@Override
-	public List<ResumeVO> selectResumes(String skey) throws Exception {
-		return searchDAO.selectResumes(skey);
+	public List<SpanelVO> selectResumes(String skey) throws Exception {
+		return convertToResumePanel(searchDAO.selectResumes(skey));
 	}
 
 	// 채용공고
@@ -165,8 +165,12 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setBno(listResume.get(i).getBno());
 			spanelVO.setUserid(listResume.get(i).getUserid());
 			spanelVO.setTitle(listResume.get(i).getTitle());
-			spanelVO.setJobstateid(codedao.readCode(listResume.get(i).getJobstateid()).getCareer());
-			spanelVO.setJobgroupid(codedao.selectJobGroup(listResume.get(i).getJobgroupid()).getJobgroup());
+
+			if (listResume.get(i).getJobstateid() != null)
+				spanelVO.setJobstateid(codedao.readCode(listResume.get(i).getJobstateid()).getCareer());
+
+			if (listResume.get(i).getJobgroupid() != null)
+				spanelVO.setJobgroupid(codedao.selectJobGroup(listResume.get(i).getJobgroupid()).getJobgroup());
 
 			if (listResume.get(i).getJobgroupid2() != null)
 				spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
