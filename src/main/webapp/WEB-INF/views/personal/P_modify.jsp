@@ -40,12 +40,13 @@
 						</div>
 					</td>
 					<!--j.code 03/23 : '기존 비밀번호'추가  끝-->
+					<!--j.code 03/27 : '이름, 생일, 이메일' readonly로 변경 -->
                 </tr>
 				<tr>
 					<th class="table-active" scope="row"><label>이름</label></th>
 					<td>
 						<div >
-							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}">
+							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}" readonly="readonly">
 						</div>
 					</td>
 					
@@ -62,7 +63,7 @@
 					<th class="table-active" scope="row"><label>email</label></th>
 					<td>
 						<div class="form-group">
-							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}">
+							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}" readonly="readonly">
 						</div>
 					</td>
 					
@@ -70,7 +71,7 @@
 					 <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
 					<td>
 						<div class="form-group">
-							 <input type="password" name="npwc" class="form-control" id="npwc">
+							 <input type="password" name="npwc" class="form-control" id="npwc" >
 						<span id="npwchk"></span>
 						</div>
 					</td>
@@ -78,13 +79,9 @@
 				</tr>
 				<tr>
 					<th class="table-active" scope="row"><label>생일</label></th>
-					<td colspan="3">
+					<td >
 						<div class="form-group">
-							<div class="input-group date" data-provide="datepicker">
-								<input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}">
-								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
-								</span>
-							</div>
+								<input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}" readonly="readonly">
 						</div>
 					</td>
 				</tr>
@@ -100,16 +97,6 @@
 $(document).ready(function(){
 	
 	var formObj = $("form[role = 'form']");
-	
-	$(function() {
-		$('.input-group.date').datepicker({
-			calendarWeeks : false,
-			todayHighlight : true,
-			autoclose : true,
-			format : "yyyy-mm-dd",
-			language : "kr"
-		});
-	});
 	
 	/* j.code 03/27 : 비밀번호 처리 */
 	//수정버튼 누르면 제출되고 post방식으로 modify controller로  Mapping된다.

@@ -150,12 +150,15 @@ public class PersonalController {
 		ResponseEntity<String> entity = null;
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
+		System.out.println("PUser.getPw()#### : " + PUser.getPw());
+		System.out.println("login.getPw()#### : " + login.getPw());
+		
 		if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
 			try {
 				entity = new ResponseEntity<>("success", HttpStatus.OK);
 				PUser.setId(login.getId());	//로그인한 아이디를 PUser에 setId해주기
-//				PUser.setPw(passwordEncoder.encode(PUser.getNpw())); //인코드처리..여기는 안되는건가요? 묻기전에 회원가입부분 먼저 살펴보기
-				PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
+				PUser.setPw(passwordEncoder.encode(PUser.getNpw())); //인코드처리..여기는 안되는건가요? 묻기전에 회원가입부분 먼저 살펴보기
+//				PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
 				service.pwmodify(PUser);
 			} catch (Exception e) {
 				e.printStackTrace();

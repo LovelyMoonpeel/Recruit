@@ -14,7 +14,7 @@
 	
 	<form role="form" method="post">
 	 <input type='hidden' name='id' value="${PUserVO.id}"> 
-	  <input type='hidden' name='userid' value="${PUserVO.id}"> 
+	 <input type='hidden' name='userid' value="${PUserVO.id}"> 
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>
@@ -70,7 +70,6 @@
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		
 		
 		<!--j.code 03/26 : 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가-->
 		<div class="table-responsive">
@@ -168,7 +167,6 @@
          </table>
           </div>
         <!--j.code 03/26 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가 끝--> 
-         
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
@@ -527,7 +525,6 @@
 </div>
 <!-- end of row -->
 </script>
-
 <script type='text/javascript'>
 $(document).ready(function(){
 	
@@ -677,7 +674,6 @@ $(document).ready(function(){
 	function getImageLink(fileName){
       	var front = fileName.substr(0,12);
       	var end = fileName.substr(14);
-      	
       	return front + end;
     }
 	function numberingList() {
@@ -945,6 +941,5 @@ function SubRegion(largeNum) {
       $("#subRegion").html(str);
    })
 }
-
 </script>
 <%@include file="../include/cfooter.jsp"%>

@@ -9,67 +9,70 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
-		<!-- button type = "button" id = "delete-button" class="btn btn-success" onclick="location.href='/personal/Rremove?bno=${ResumeVO.bno}'">삭제</button -->
-		<button type = "button" id = "delete-button" class="btn btn-danger col-md-offset-11">삭제</button>
+		<button type = "button" id = "deleteList-button" class="btn btn-danger col-md-offset-11">선택 삭제</button>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
-				<th style="width: 55px;">관리</th>
-				<th style="width: 55px;">순번</th>
+				<th style="width: 65px;">전체    <input type="checkbox" id="allcheck"></th>
+				<th style="width: 55px; text-align: center;">순번</th>
 				<th>이력서 제목</th>
-				<th style="width: 60px;">관리</th>
+				<th style="width: 60px; text-align: center;">수정</th>
+				<th style="width: 60px; text-align: center;">삭제</th>
 			</tr>
 			
 			<c:forEach items="${ResumeVOList}" var="ResumeVO">		
 			<tr>
-				<td><input id="${ResumeVO.bno}" type="checkbox"></td>
-				<td>${ResumeVO.bno}</td>
+				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"></td>
+				<td style="text-align: center;">${ResumeVO.bno}</td>
 				<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
-				<td><button type = "submit" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'">수정</button></td>
+				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'">수정</button></td>
+				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})">삭제</button></td>			
 			</tr>
 			</c:forEach>
 		</table>
 	</div>
 </div>
 <script>
-$(document).ready(function(){
-/* 	var formObj = $("form[role = 'form']");
-	var formBno = $("form[role = 'formbno']");
+function deleteOneResume(bno){
 	
-	$('#delete-button').on("click", function(){
-		console.log("#delete-button");
-		console.log(formBno);
-		formBno.attr("action", "/personal/Rremove");
-		formBno.attr("method", "post");
-		formBno.submit();
+	console.log("#delete-button");
+	console.log(bno);
+	
+	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
+		location.href='/personal/deleteOneResume?bno='+bno;
+	}
+}
+$(document).ready(function(){
+	$("#allcheck").click(function(){
+		if($("#allcheck").prop("checked")) {// 전체 선택 체크박스가 체크된상태일경우  해당화면에 전체 checkbox들을 체크
+		 $("input[type=checkbox]").prop("checked",true); 
+		}else { //전체선택 체크박스가 해제된 경우  해당화면에 모든 checkbox들의 체크를해제
+		 $("input[type=checkbox]").prop("checked",false); 
+		}
 	});
- */	
- var formObj = $("form[role = 'form']");
- 
-	$('#delete-button').on("click", function(){
-		console.log("#delete-button");
-		console.log(formObj);
-		/* 
-		$.ajax({
-			type : 'delete',
-			url : '/personal' + ${ResumeVO.bno},
-			headers:{
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "DELETE"
-			},
-			dataType : 'text',
-			success:function(result){
-				console.log("result : " + result);
-				if(result == 'SUCCESS'){
-					alert("삭제되었습니다.");
-				}
-			} 
-		});*/
-		formObj.submit();
+	
+	$("#deleteList-button").click(function(){
+		
 	});
 });
+/* $.ajax({
+type : 'delete',
+url : '/personal/deleteResume' + ${ResumeVO.bno},
+headers:{
+	"Content-Type" : "application/json",
+	"X-HTTP-Method-Override" : "DELETE"
+},
+data:JSON.stringify({
+	
+}),
+dataType : 'text',
+success:function(result){
+	console.log("result : " + result);
+	if(result == 'SUCCESS'){
+		alert("삭제되었습니다.");
+	}
+} 
+});//formObj.submit();*/
 </script>
-
-<!-- //기업 채용공고 목록 끝 -->
-
+		
 <%@include file="../include/cfooter.jsp"%>
