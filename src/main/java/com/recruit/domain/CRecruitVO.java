@@ -9,12 +9,12 @@ public class CRecruitVO {
 	public String rgbid;
 	public int rgsid;
 	public String jobdesc;
-	public int recruitnum;
+	public String recruitnum;
 	public int employstatusid;
 	public int salaryid;
 	public int edu;
 	public int exp;
-	public String adddesc;
+	public String addesc;
 	public String period;
 	public String acceptmethod;
 	public String recruitform;
@@ -77,11 +77,11 @@ public class CRecruitVO {
 		this.jobdesc = jobdesc;
 	}
 
-	public int getRecruitnum() {
+	public String getRecruitnum() {
 		return recruitnum;
 	}
 
-	public void setRecruitnum(int recruitnum) {
+	public void setRecruitnum(String recruitnum) {
 		this.recruitnum = recruitnum;
 	}
 
@@ -117,12 +117,12 @@ public class CRecruitVO {
 		this.exp = exp;
 	}
 
-	public String getAdddesc() {
-		return adddesc;
+	public String getAddesc() {
+		return addesc;
 	}
 
-	public void setAdddesc(String adddesc) {
-		this.adddesc = adddesc;
+	public void setAddesc(String addesc) {
+		this.addesc = addesc;
 	}
 
 	public String getPeriod() {
@@ -170,7 +170,7 @@ public class CRecruitVO {
 		return "CRecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
 				+ ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc + ", recruitnum=" + recruitnum
 				+ ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", edu=" + edu + ", exp=" + exp
-				+ ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
+				+ ", addesc=" + addesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
 				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
 	}
 }

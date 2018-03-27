@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 		
 	<!-- 지원한 채용공고 목록 안소연 사용 수정 -->
-	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
+<!-- 	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
 		select *
 		from project.tblrecruit
@@ -28,6 +28,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						where rsno in ( select bno 
 										from project.tblresume
 										where userid = #{id}))
+	]]>
+	</select> -->
+	
+		<!-- 지원한 채용공고 목록 안소연 사용 수정 -->
+	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.regdate, rc.period
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) addesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt                                
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})));
 	]]>
 	</select>
 	

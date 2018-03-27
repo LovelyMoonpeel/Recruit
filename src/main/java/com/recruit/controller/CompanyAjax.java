@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,15 +18,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.PApplyVO;
+import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
-
-
-
-
+import com.recruit.service.PApplyService;
+import com.recruit.service.PInterestJobService;
 
 @RestController
 @RequestMapping("/companyAjax")
@@ -35,7 +36,10 @@ public class CompanyAjax {
 	private CompanyAjaxService service;
 	@Inject
 	private CompanyService jobService;
-	
+	@Inject
+	private PApplyService papService;
+	@Inject
+	private PInterestJobService PIJService;
 	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list() {
@@ -223,6 +227,87 @@ public class CompanyAjax {
 		
 	}
 	
+	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)//소연
+	public ResponseEntity<String> applycheckPOST(@RequestBody PApplyVO pavo){
+		System.out.println("아 applycheck POST CONTROLLER");
+		ResponseEntity<String> entity = null;
+		try{
+			//실행하고 싶은 서비스 실행
+			System.out.println(pavo.getPid() + "가 지원한 " + pavo.getRsno() + "번째 이력서" + pavo.getRcno() + "번 채용공고");
+			System.out.println("아아"+papService.selectAPOne(pavo));
+			
+			//select 해서 null이면 true
+			if(papService.selectAPOne(pavo)==null){//지원한 적 없을 때
+				System.out.println("true if문으로 들어옴");
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}else{//지원한 적 있을 때
+				System.out.println("false if문으로 들어옴");
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
 	
+	@RequestMapping(value = "/clipping", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> clippingPOST(@RequestBody PInterestJobVO pijvo) throws Exception {
+		System.out.println("clipping POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+		Integer rcbno = pijvo.getRcbno();
+		String userid = pijvo.getUserid();
+	
+		System.out.println("rcbno : " + rcbno + "userid : " + userid);
+		System.out.println("pijvo값 뭐냐"+pijvo.toString());
+		System.out.println(PIJService.selectPIJOne(pijvo));
+		try{
+			if(PIJService.selectPIJOne(pijvo)==null){//스크랩한 적 없을 때
+				System.out.println("true if문으로 들어옴");
+				PIJService.insertPIJOne(pijvo);
+				//insert 시키는거
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}else{//스크랩한 적 있을 때
+				System.out.println("false if문으로 들어옴");
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
+	
+	@RequestMapping(value = "/clippingcancel", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> clippingcancelPOST(@RequestBody PInterestJobVO pijvo) throws Exception {
+		System.out.println("clippingcancel POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+		Integer rcbno = pijvo.getRcbno();
+		String userid = pijvo.getUserid();
+	
+		System.out.println("rcbno : " + rcbno + "userid : " + userid);
+		System.out.println("pijvo값 뭐냐"+pijvo.toString());
+		System.out.println(PIJService.selectPIJOne(pijvo));
+		try{
+			if(PIJService.selectPIJOne(pijvo)==null){//스크랩한 내역이 없을 때
+				System.out.println("true if문으로 들어옴");
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}else{//스크랩한 내역이 있을 때
+				System.out.println("false if문으로 들어옴");
+				PIJService.deletePIJOne(pijvo);
+				//delete 시키는 ajax
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
 }
 	 

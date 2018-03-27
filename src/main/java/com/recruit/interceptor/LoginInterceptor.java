@@ -71,11 +71,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 			Object location = session.getAttribute("location");
 			session.removeAttribute("location");
-			
 			response.sendRedirect(location != null ? (String) location : "/");
-			
 		}
-		
 	}
 
 	@Override

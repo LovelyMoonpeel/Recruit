@@ -50,7 +50,7 @@
 	<!-- Page Content -->
 	<div class="container">
 		<div class="col-md-3">
-			<p class="lead">마이페이지(개인)</p>
+			<p class="lead">마이페이지</p>
 			<div class="list-grozup">
 				<a href="/personal/index" class="list-group-item">개인정보관리</a><!-- p08 --> <a
 					href="/personal/write" class="list-group-item">이력서 작성</a> <!-- p02 --><a
