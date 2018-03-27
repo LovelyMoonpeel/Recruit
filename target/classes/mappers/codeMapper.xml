@@ -54,4 +54,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		tblcode
 		where id = #{code};
 	</select>
+
+	<select id="getTbljobgroup" resultType="com.recruit.domain.JobGroupVO">
+		select * from
+		tbljobgroup;
+	</select>
+
+	<select id="getTblregion1" resultType="com.recruit.domain.RegionVO">
+		select distinct rgbid,
+		rgbname from tblregion;
+	</select>
+
+	<select id="getTblregion2" resultType="com.recruit.domain.RegionVO">
+		select * from tblregion;
+	</select>
+
+	<select id="getTblcode" resultType="com.recruit.domain.CodeVO">
+		select * from tblcode;
+	</select>
 </mapper>  

@@ -379,7 +379,12 @@
 		var len = sinp.length;
 		for (var j = 0; j < len; j++) {
 			// console.log("TEST: " + j + " " + sinp.charCodeAt(j).toString(16));
-			sout += '%' + sinp.charCodeAt(j).toString(16);
+			var sinpcode = sinp.charCodeAt(j);
+			console.log(sinpcode);
+			if (sinpcode < 128)
+				sout += '%' + sinpcode.toString(16);
+			else
+				sout += sinp[j];
 		}
 		console.log(sout);
 		location.href = "/srch/main?skeyword=" + sout;

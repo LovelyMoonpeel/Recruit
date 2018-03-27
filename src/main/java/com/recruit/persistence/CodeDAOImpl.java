@@ -66,4 +66,25 @@ public class CodeDAOImpl implements CodeDAO {
 	public String codeToCodName(String code) throws Exception {
 		return session.selectOne(namespace + ".codeToCodName", code);
 	}
+
+	@Override
+	public List<JobGroupVO> getTbljobgroup() throws Exception {
+		return session.selectList(namespace + ".getTbljobgroup");
+	}
+
+	@Override
+	public List<RegionVO> getTblregion1() throws Exception {
+		return session.selectList(namespace + ".getTblregion1");
+	}
+
+	@Override
+	public List<RegionVO> getTblregion2() throws Exception {
+		return session.selectList(namespace + ".getTblregion2");
+	}
+
+	@Override
+	public List<CodeVO> getTblcode() throws Exception {
+		return session.selectList(namespace + ".getTblcode");
+	}
+
 }

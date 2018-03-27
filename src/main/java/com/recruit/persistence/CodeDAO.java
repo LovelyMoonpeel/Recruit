@@ -21,4 +21,12 @@ public interface CodeDAO {
 	public String codeToRegName(String code) throws Exception;
 
 	public String codeToCodName(String code) throws Exception;
+
+	public List<JobGroupVO> getTbljobgroup() throws Exception;
+
+	public List<RegionVO> getTblregion1() throws Exception;
+
+	public List<RegionVO> getTblregion2() throws Exception;
+
+	public List<CodeVO> getTblcode() throws Exception;
 }

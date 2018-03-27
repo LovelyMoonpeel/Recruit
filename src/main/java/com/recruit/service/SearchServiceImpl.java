@@ -1,7 +1,9 @@
 package com.recruit.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.Bnoble;
 import com.recruit.domain.CUserVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -122,33 +125,70 @@ public class SearchServiceImpl implements SearchService {
 		return listSp_tmp;
 	}
 
+	Map<String, String> jobGroupMap = null;
+	Map<String, String> region1Map = null;
+	Map<String, String> region2Map = null;
+	Map<String, String> codeMap = null;
+
+	public void makeCodeMap() throws Exception {
+		if (jobGroupMap == null) {
+			List<JobGroupVO> jobGroupVOList = codedao.getTbljobgroup();
+			jobGroupMap = new HashMap<String, String>();
+			int jobGroupVOListLen = jobGroupVOList.size();
+			for (int i = 0; i < jobGroupVOListLen; i++)
+				jobGroupMap.put(jobGroupVOList.get(i).getId() + "", jobGroupVOList.get(i).getJobgroup());
+		}
+
+		if (region1Map == null || region2Map == null) {
+			List<RegionVO> regionVO1List = codedao.getTblregion1();
+			region1Map = new HashMap<String, String>();
+			int regionVO1ListLen = regionVO1List.size();
+			for (int i = 0; i < regionVO1ListLen; i++)
+				region1Map.put(regionVO1List.get(i).getRgbid(), regionVO1List.get(i).getRgbname());
+
+			List<RegionVO> regionVO2List = codedao.getTblregion2();
+			region2Map = new HashMap<String, String>();
+			int regionVO2ListLen = regionVO2List.size();
+			for (int i = 0; i < regionVO2ListLen; i++) {
+				region2Map.put(regionVO2List.get(i).getRgbid() + regionVO2List.get(i).getRgsid(),
+						regionVO2List.get(i).getRgsname());
+			}
+		}
+
+		if (codeMap == null) {
+			List<CodeVO> codeVOList = codedao.getTblcode();
+			codeMap = new HashMap<String, String>();
+			int codeVOListLen = codeVOList.size();
+			for (int i = 0; i < codeVOListLen; i++)
+				codeMap.put(codeVOList.get(i).getId() + "", codeVOList.get(i).getCareer());
+		}
+	}
+
 	// 채용공고 판넬 변환
 	public List<SpanelVO> convertToRecruitPanel(List<RecruitVO> listRecruit) throws Exception {
 		int num = listRecruit.size();
+		makeCodeMap();
+
 		List<SpanelVO> listPanel = new ArrayList<SpanelVO>();
+
 		for (int i = 0; i < num; i++) {
 			SpanelVO spanelVO = new SpanelVO();
 			spanelVO.setBno(listRecruit.get(i).getBno());
 			spanelVO.setCid(listRecruit.get(i).getCid());
 			spanelVO.setTitle(listRecruit.get(i).getTitle());
-			spanelVO.setJobgroupid(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid()).getJobgroup());
 
+			spanelVO.setJobgroupid(jobGroupMap.get(listRecruit.get(i).getJobgroupid()));
 			if (listRecruit.get(i).getJobgroupid2() != null)
-				spanelVO.setJobgroupid2(codedao.selectJobGroup(listRecruit.get(i).getJobgroupid2()).getJobgroup());
+				spanelVO.setJobgroupid2(jobGroupMap.get(listRecruit.get(i).getJobgroupid2()));
 
-			String rgbid = listRecruit.get(i).getRgbid();
-			String rgsid = listRecruit.get(i).getRgsid();
-			if (rgbid != null && rgsid != null) {
-				RegionVO regionVO = codedao.selectRegion(rgbid, rgsid);
-				spanelVO.setRgbid(regionVO.getRgbname());
-				spanelVO.setRgsid(regionVO.getRgsname());
-			}
+			spanelVO.setRgbid(region1Map.get(listRecruit.get(i).getRgbid()));
+			spanelVO.setRgsid(region2Map.get(listRecruit.get(i).getRgbid() + listRecruit.get(i).getRgsid()));
 			// spanelVO.setImg(listRecruit.get(i).getImg());
 
 			// 기업회원용
 			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
-			spanelVO.setEdu(codedao.readCode(listRecruit.get(i).getEdu()).getCareer());
-			spanelVO.setExp(codedao.readCode(listRecruit.get(i).getExp()).getCareer());
+			spanelVO.setEdu(codeMap.get(listRecruit.get(i).getEdu()));
+			spanelVO.setExp(codeMap.get(listRecruit.get(i).getExp()));
 			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
 
 			listPanel.add(spanelVO);
@@ -159,6 +199,8 @@ public class SearchServiceImpl implements SearchService {
 	// 이력서 판넬 변환
 	public List<SpanelVO> convertToResumePanel(List<ResumeVO> listResume) throws Exception {
 		int num = listResume.size();
+		makeCodeMap();
+
 		List<SpanelVO> listPanel = new ArrayList<SpanelVO>();
 		for (int i = 0; i < num; i++) {
 			SpanelVO spanelVO = new SpanelVO();
@@ -167,21 +209,13 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setTitle(listResume.get(i).getTitle());
 
 			if (listResume.get(i).getJobstateid() != null)
-				spanelVO.setJobstateid(codedao.readCode(listResume.get(i).getJobstateid()).getCareer());
-
-			if (listResume.get(i).getJobgroupid() != null)
-				spanelVO.setJobgroupid(codedao.selectJobGroup(listResume.get(i).getJobgroupid()).getJobgroup());
+				spanelVO.setJobgroupid(jobGroupMap.get(listResume.get(i).getJobstateid()));
 
 			if (listResume.get(i).getJobgroupid2() != null)
-				spanelVO.setJobgroupid2(codedao.selectJobGroup(listResume.get(i).getJobgroupid2()).getJobgroup());
+				spanelVO.setJobgroupid2(jobGroupMap.get(listResume.get(i).getJobgroupid2()));
 
-			String rgbid = listResume.get(i).getRgbid();
-			String rgsid = listResume.get(i).getRgsid();
-			if (rgbid != null && rgsid != null) {
-				RegionVO regionVO = codedao.selectRegion(rgbid, rgsid);
-				spanelVO.setRgbid(regionVO.getRgbname());
-				spanelVO.setRgsid(regionVO.getRgsname());
-			}
+			spanelVO.setRgbid(region1Map.get(listResume.get(i).getRgbid()));
+			spanelVO.setRgsid(region2Map.get(listResume.get(i).getRgbid() + listResume.get(i).getRgsid()));
 			spanelVO.setImg(listResume.get(i).getImg());
 
 			// 개인회원용
@@ -214,8 +248,12 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<SpanelVO> selectRecruitsAll() throws Exception {
+		System.out.println("Performance: 01");
 		List<RecruitVO> list_tmp = searchDAO.selectRecruitsAll();
-		return convertToRecruitPanel(list_tmp);
+		System.out.println("Performance: 02");
+		List<SpanelVO> list_tmp2 = convertToRecruitPanel(list_tmp);
+		System.out.println("Performance: 03");
+		return list_tmp2;
 	}
 
 	@Override
