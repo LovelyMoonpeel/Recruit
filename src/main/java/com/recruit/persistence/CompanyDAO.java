@@ -56,4 +56,6 @@ public interface CompanyDAO {
 	
 	public void C_RecruitExtension(String id, int bno)throws Exception;
 	
+	public void updatePassword(String pw) throws Exception; //일단 이렇게 쓰고 
+	
 }

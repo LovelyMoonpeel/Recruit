@@ -148,5 +148,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 dao.C_RecruitExtension(id,bno);
 	 }
 	  
+	 
+	 
+	 @Override
+	 public void updatePassword(String pw)throws Exception{
+		 //일단 이렇게 쓰고
+	 }
 
 }

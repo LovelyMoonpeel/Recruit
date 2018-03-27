@@ -45,4 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--664 end -->
 
 
+	<!-- 문> 3.23 패스워드 추가관련해서 추가함  -->
+	<update id="updateCP">
+		update tblUser set pw = #{pw}
+		where id = #{id}
+	</update>
+
+
+
 </mapper>

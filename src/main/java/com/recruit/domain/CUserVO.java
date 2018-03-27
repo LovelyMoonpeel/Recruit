@@ -3,7 +3,7 @@ package com.recruit.domain;
 public class CUserVO {
 
 	private String id;
-	private String pw;
+	private String pw;  //문> 이거 사용하려고
 	private String cname;
 	private String pname;
 	private String email;
