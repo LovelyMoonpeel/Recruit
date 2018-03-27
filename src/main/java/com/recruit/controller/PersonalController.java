@@ -332,7 +332,6 @@ public class PersonalController {
 
 	@RequestMapping(value = "/applied", method = RequestMethod.GET)
 	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
-		// private CRecruitService Cservice;
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
@@ -341,8 +340,6 @@ public class PersonalController {
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			
-			
-			//model.addAttribute("ResumeVO",);
 			
 			return "personal/P_applied";
 			

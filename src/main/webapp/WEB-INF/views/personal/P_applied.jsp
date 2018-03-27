@@ -38,14 +38,14 @@
 			<!-- 소연 crecruitMapper.selectAPList -->
 			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
-				<td style="text-align:center;">${CRecruitVO.bno }</td>
-				<td>${CRecruitVO.cid}</td>
+				<td style="text-align:center;">${CRecruitVO.bno}</td>
+				<td>${CRecruitVO.recruitform}</td>
 				<td style="text-align:center;"><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
-				<td style="text-align:center;">2차개발</td>
+				<td style="text-align:center;">${CRecruitVO.addesc}</td>
 				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td style="text-align:center;"><a href = 'http://localhost:8080/personal/detail?bno=${ResumeVO.bno}'>2차개발 ${ResumeVO.title}</a></td>
+				<td style="text-align:center;"><a href = 'http://localhost:8080/personal/detail?bno=${CRecruitVO.viewcnt}'>${CRecruitVO.acceptmethod}</a></td>
 			</tr>
 			</c:forEach>
 		</table>
