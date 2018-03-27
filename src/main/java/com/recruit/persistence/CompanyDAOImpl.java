@@ -53,6 +53,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 	@Override
 	public List<RecruitVO> RecruitList(String id) throws Exception{
+		System.out.println("다오 테스트");
 		return session.selectList(namespace + ".RecruitList", id);
 	}
 	@Override

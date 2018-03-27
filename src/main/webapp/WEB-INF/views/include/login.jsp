@@ -66,17 +66,18 @@
 							<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
 							<form action="/user/loginPost" method="post">
 								<input type="hidden" name="index" value="per">
+								<input type="hidden" name="location" class="location">
 								<!--id입력  -->
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
-									<input type="text" name="id" class="form-control"
-										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" autofocus required/> <span
+									<input type="text" id="loginpid" name="id" class="form-control"
+										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
-									<input type="password" name="pw" class="form-control"
+									<input type="password" id="loginppw" name="pw" class="form-control"
 										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
@@ -118,16 +119,17 @@
 							
 							<form action="/user/loginPost" method="post">
 								<input type="hidden" name="index" value="com">
+								<input type="hidden" name="location" class="location">
 								<!--id입력 -->
 								<div class="form-group has-feedback">
-									<input type="text" name="id" class="form-control"
-										placeholder="ID 기업회원 로그인" value="<%=cidc %>" autofocus required/> <span
+									<input type="text" id="logincid" name="id" class="form-control"
+										placeholder="ID 기업회원 로그인" value="<%=cidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
-									<input type="password" name="pw" class="form-control"
+									<input type="password" id="logincpw" name="pw" class="form-control"
 										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
@@ -391,6 +393,16 @@
 		$(document).ready(function() {
 			$("#myBtn_login").click(function() {
 				$("#modal_login").modal();
+				if($("#loginpid").val()!=""){
+					$("#loginppw").focus();
+				}else{
+					if($("#logincid").val()!=""){
+						$("#logincpw").focus();
+					}else{
+						$("#logincid").focus();
+					}
+					$("#loginpid").focus();
+				}
 			});
 		});
 	</script>
@@ -745,5 +757,13 @@ $("#cemail_overlap").on("click", function(){
 			}
 		}});
     }
+});
+</script>
+
+<!-- 로그인한 페이지값 넘김 -->
+<script>
+$(".btn-block").on("click", function(){
+	var locationObj = $(".location")
+	locationObj.val(window.location.href);
 });
 </script>

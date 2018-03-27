@@ -29,12 +29,12 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input class="form-control" type="text" name="pw" id="pw"
+				<td><input class="form-control" type="password" name="pw" id="pw"
 					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
-				<td><input class="form-control" type="text" name="pwc" id="pwc"
+				<td><input class="form-control" type="password" name="pwc" id="pwc"
 					placeholder="비밀번호를 다시 입력하세요." required>
 				<span id="pwchk"></span>				
 				</td>

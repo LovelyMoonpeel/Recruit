@@ -26,9 +26,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object boardVO = modelMap.get("boardVO");
-//		System.out.println("인터셉터 들어오니 ? "+boardVO);
+		//System.out.println("인터셉터 들어오니 ? "+boardVO);
 
-		
 		if (boardVO != null) {
 
 			logger.info("new login success");
@@ -59,9 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 					PloginCookie.setMaxAge(0); //쿠키 제거
 					response.addCookie(PloginCookie);
 				}
-				//System.out.println("아이디값 출력 한번 해봅니다. "+ id);
 			}else{
-				//System.out.println("확인절차");
 				Cookie PloginCookie = new Cookie("PloginCookie", "");
 				PloginCookie.setPath("/");
 				PloginCookie.setMaxAge(0); //쿠키 제거
@@ -72,12 +69,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				response.addCookie(CloginCookie);
 			}
 
-			Object dest = session.getAttribute("dest");
+			Object location = session.getAttribute("location");
+			session.removeAttribute("location");
 			
+			response.sendRedirect(location != null ? (String) location : "/");
 			
-			response.sendRedirect(dest != null ? (String) dest : "/");
-			
-			//window.location.href 이용해서 장난질 해보기
 		}
 		
 	}
