@@ -21,12 +21,44 @@
 
 %>
 
+
 	
 	<input type="hidden" id="id" value="${CInfoVO.id}">
 	
 	
 	<div class="col-md-9">
 	<h1>채용 공고 목록</h1>
+	
+		<div class='box-body'>
+
+					<select name="searchType">
+						<option value="n"
+							<c:out value="${cri.searchType == null?'selected':''}"/>>
+							---</option>
+						<option value="t"
+							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
+							Title</option>
+						<option value="c"
+							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
+							Content</option>
+						<option value="w"
+							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
+							Writer</option>
+						<option value="tc"
+							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
+							Title OR Content</option>
+						<option value="cw"
+							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
+							Content OR Writer</option>
+						<option value="tcw"
+							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
+							Title OR Content OR Writer</option>
+					</select> <input type="text" name='keyword' id="keywordInput"
+						value='${cri.keyword }'>
+					<button id='searchBtn'>Search</button>
+				
+
+				</div>
 	<table class="table table-bordered">
 		<tr class="active">
 			<th>공고 상태</th>
@@ -37,12 +69,14 @@
 		</tr>
 		
 
-					<% int manage = 0; %>
-						<c:forEach items="${recruitList}" var="RecruitVO">
-					<%manage++; %>
+						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
-					<th><%=manage%></th>
-					<th>${RecruitVO.title}</th>
+					<th>${RecruitVO.recruitstate}</th>
+					<th><a target="_blank">${RecruitVO.title}</a>
+					<li>근무형태 : ${RecruitVO.employstatusid}</li>
+					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
+					<li>경력 : ${RecruitVO.exp} </li>
+					<li>접수기간 : ${RecruitVO.period}</li></th>
 					<th>${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
@@ -82,6 +116,34 @@
        </div>
     </div>
 	
+	
+	<div class="box-footer">
+
+					<div class="text-center">
+						<ul class="pagination">
+
+							<c:if test="${pageMaker.prev}">
+								<li><a
+									href="C_recom${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+							</c:if>
+
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="idx">
+								<li
+									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+									<a href="C_recom${pageMaker.makeSearch(idx)}">${idx}</a>
+								</li>
+							</c:forEach>
+
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+								<li><a
+									href="C_recom${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:if>
+
+						</ul>
+					</div>
+
+				</div>
 
 </div>
 
@@ -216,6 +278,25 @@ function favDel(bno, id){ 	// 관심인재 삭제
 	alert("관심인재에서 삭제 됐습니다.")
 	
 }
+
+$(document).ready(
+		function() {
+
+			$('#searchBtn').on(
+					"click",
+					function(event) {
+
+						self.location = "C_recom"
+								+ '${pageMaker.makeQuery(1)}'
+								+ "&searchType="
+								+ $("select option:selected").val()
+								+ "&keyword=" + $('#keywordInput').val();
+
+					});
+
+		
+
+		});
 </script>
 
 

@@ -69,7 +69,7 @@
 	<form role="form" method="POST">
 	
 	<h3>공고제목</h3>
-	<input type="text" name="title" class="form-control" value="${RecruitVO.title}"> <br>
+	<input type="text" name="title" class="form-control" value="${RecruitVO.title}" required> <br>
 	
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
@@ -209,10 +209,12 @@
 			</tr>
 			
 		</table>
-	</form>
-		<br> <br> <input class="btn btn-primary" type="submit"
+		
+			<br> <br> <input class="btn btn-primary" type="submit"
 			value="등록">
 	<br>
+	</form>
+		
 	<!-- // 공고 입력 부분 끝 -->
 </div>
 <!-- // 공고 작성 바디 끝 -->

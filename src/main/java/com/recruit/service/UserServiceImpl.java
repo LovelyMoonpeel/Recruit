@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public BoardVO login(LoginDTO dto) throws Exception {
-		String pw = "";
-		String rawPw = "";
+		String pw = ""; //디비값
+		String rawPw = "";  //입력받은 값
 		if(dao.getId(dto) != null){
 			pw = dao.getPw(dto).getPw();
 			rawPw = dto.getPw();			

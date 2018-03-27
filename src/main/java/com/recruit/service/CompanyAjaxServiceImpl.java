@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -40,19 +41,38 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.SubRegion(id2);
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.RecruitList(id);
+	 public List<RecruitVO> RecruitList(String id, int page) throws Exception{
+
+		 return dao.RecruitList(id, page);
 	 }
 	 @Override
-	 public List<RecruitVO> IngRecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.IngRecruitList(id);
+	 public List<RecruitVO> RecruitCriteria(CompanyCriteria cri, String id)throws Exception{
+		 return dao.RecruitCriteria(cri,id);
 	 }
 	 @Override
-	 public List<RecruitVO> EndRecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.EndRecruitList(id);
+	 public List<RecruitVO> IngRecruitList(CompanyCriteria cri, String id) throws Exception{
+		
+		 return dao.IngRecruitList(cri, id);
+	 }
+	 @Override
+	 public List<RecruitVO> EndRecruitList(CompanyCriteria cri, String id) throws Exception{
+		
+		 return dao.EndRecruitList(cri, id);
+	 }
+	 @Override
+	 public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.SearchList(cri,id,srchTxt);
+	 }
+	 @Override
+	 public List<RecruitVO> IngSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.IngSearchList(cri,id,srchTxt);
+	 }
+	 @Override
+	 public List<RecruitVO> EndSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.EndSearchList(cri,id,srchTxt);
 	 }
 
 	 @Override

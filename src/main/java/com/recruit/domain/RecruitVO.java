@@ -1,5 +1,8 @@
 package com.recruit.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class RecruitVO implements Bnoble {
 
 	private int bno;
@@ -26,8 +29,6 @@ public class RecruitVO implements Bnoble {
 	private String applynum;
 	private int rownum;
 	private String btnstate;
-	
-
 
 	@Override
 	public String toString() {

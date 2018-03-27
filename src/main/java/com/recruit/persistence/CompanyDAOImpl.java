@@ -12,6 +12,8 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -57,8 +59,32 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectList(namespace + ".RecruitList", id);
 	}
 	@Override
-	public List<RecruitVO> RecomList(String id) throws Exception{
-		return session.selectList(namespace + ".RecomList", id);
+	public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception{
+		
+		HashMap<String, Object> paraMap = new HashMap<>();
+
+		CompanySearchCriteria pp = (CompanySearchCriteria)cri;
+		paraMap.put("id", id);
+		paraMap.put("searchType", pp.getSearchType());
+		paraMap.put("keyword", pp.getKeyword());
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		
+		
+		
+		return session.selectList(namespace + ".reComList", paraMap);
+	}
+	@Override
+	public int listSearchCount(CompanyCriteria cri, String id) throws Exception{
+		
+		HashMap<String, Object> paraMap = new HashMap<>();
+		
+		paraMap.put("id", id);	
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		
+		
+		return session.selectOne(namespace + ".reComListSearchCount", paraMap);
 	}
 	@Override
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
@@ -107,6 +133,19 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectOne(namespace + ".recruitModifyRead", rr);
 	}
 	@Override
+	public void RecruitReRegister(String id, int bno, int day)throws Exception{
+		
+		HashMap<String,Object> RR = new HashMap<>();
+		
+		RR.put("id",id);
+		RR.put("bno", bno);
+		RR.put("day", day);
+		
+		session.update(namespace +".recruitReRegister", RR);
+		
+	}
+	
+	@Override
 	public void RecruitRemove(int bno, String id)throws Exception{
 		
 		HashMap<String, Object> RR = new HashMap<>();
@@ -146,5 +185,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 		session.update(namespace + ".recruitExtension", pp);
 	}
 
+	
+	
+	@Override
+	public void updatePassword(String pw) throws Exception {
+		session.update(namespace + ".updatePassword", pw);
+	}
 	
 }

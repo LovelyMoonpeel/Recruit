@@ -7,8 +7,7 @@
 	href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript"
 	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script type="text/javascript" src="/resources/rpjt/js/upload.js"></script>
 
 <!-- Main content -->
@@ -131,11 +130,11 @@
 		<div class="row">	
 			<div class="form-group col-lg-6">
 				<label>회사 아이디</label> <input type="text" name="id"
-					class="form-control" id="" value="${CInfoVO.id}">
+					class="form-control" id="" value="${CInfoVO.id}" readonly>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>담당자</label> <input type="text" name="pname"
-					class="form-control" id="" value="${boardVO.pname}">
+					class="form-control" id="" value="${boardVO.pname}" readonly>
 			</div>
 		</div>
 
@@ -158,7 +157,7 @@
 		<!-- 수정 버튼 -->
 		<div class="box-footer">
 			<button type="submit" class="btn btn-primary">SAVE</button>
-			<button type="submit" class="btn btn-warning" id="modify">CANCEL</button>
+			<button type="button" class="btn btn-warning" id="modify">CANCEL</button>
 		</div>
 		<!-- //수정 버튼 -->
 		<br> 
@@ -171,7 +170,6 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		var fileformObj = $("form[role='fileForm']");
 		var fileObject = document.getElementById("file1");
 
 		console.log(formObj);
@@ -191,7 +189,7 @@
 			calendarWeeks : false,
 			todayHighlight : true,
 			autoclose : true,
-			format : "yyyy-mm-dd",
+			dateFormat : "yy-mm-dd",
 			language : "kr"
 		});
 	});

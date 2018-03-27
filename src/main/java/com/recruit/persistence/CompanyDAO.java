@@ -6,6 +6,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.domain.RecruitVO;
@@ -23,8 +24,10 @@ public interface CompanyDAO {
 	
 	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception;
 	
-	public List<RecruitVO> RecomList(String id) throws Exception;
+	public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception;
 	
+	public int listSearchCount(CompanyCriteria cri, String id) throws Exception;
+	  
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
@@ -41,6 +44,8 @@ public interface CompanyDAO {
 	
 	public RecruitVO RecruitModifyRead(int bno,String id)throws Exception;
 	
+	public void RecruitReRegister(String id, int bno, int day)throws Exception;
+	
 	public void RecruitRemove(int bno, String id)throws Exception;
 	
 	public List<ResumeVO> ApplyList(int recruitNum)throws Exception;
@@ -50,5 +55,7 @@ public interface CompanyDAO {
 	public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception;
 	
 	public void C_RecruitExtension(String id, int bno)throws Exception;
+	
+	public void updatePassword(String pw) throws Exception; //일단 이렇게 쓰고 
 	
 }

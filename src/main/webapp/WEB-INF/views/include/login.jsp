@@ -478,7 +478,7 @@ $('#cjoin').on("click", function(event){
 			if(cpwc == "ok"){
 				$('#cjoin').submit();			
 			}else{
-				alert("비밀번호를 확인해주세요.");
+				alert("비밀번호를 확인해주세요.^^");
 			}
 		}else{
 			alert("이메일 중복체크를 진행해주세요.");
