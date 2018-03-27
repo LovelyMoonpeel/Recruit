@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createROne">
 	<![CDATA[
 		insert 
-	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
-	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
+	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, levelofeducation, lastcareer)
+	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img}, #{levelofeducation}, #{lastcareer})
     ]]>
 	</insert> 
 	
@@ -72,15 +72,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
             b.jobgroup as jobgroupid, 
 			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
-			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid
-			
+			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid,
+			(select career from tblcode where a.levelofeducation = id)levelofeducation,  (select career from tblcode where a.lastcareer = id)lastcareer 
 		from 
 			tblresume a, tbljobgroup b, tblcode c, tblregion d
 		where 	a.bno = #{bno}
 			and a.jobstateid = c.id
 			and a.jobgroupid = b.id
 			and a.rgbid = d.rgbid
-			and a.rgsid = d.rgsid;
+			and a.rgsid = d.rgsid
+			and a.lastcareer = c.id
+			and a.levelofeducation = c.id;
 		]]>
 	</select>	
 		
@@ -90,7 +92,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 안소연 -->
 	<![CDATA[
     update project.tblresume 
-	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, 
+	jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, 
+	employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}, levelofeducation = #{levelofeducation}, lastcareer = #{lastcareer}
 	where bno = #{bno}
     ]]>
 	</update>

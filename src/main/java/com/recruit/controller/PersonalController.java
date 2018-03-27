@@ -229,9 +229,6 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
-		
-		
-		
 
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}

@@ -94,6 +94,7 @@
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
 						style="text-align: center;">경력사항</th>
+						
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label

@@ -17,6 +17,8 @@ public class ResumeVO implements Bnoble {
 	private String salaryid;
 	private String img;
 	private String regdate;
+	private String levelofeducation;
+	private String lastcareer;
 
 	public int getBno() {
 		return bno;
@@ -65,21 +67,27 @@ public class ResumeVO implements Bnoble {
 	public void setCoverletter(String coverletter) {
 		this.coverletter = coverletter;
 	}
+	
 	public String getJobstateid() {
 		return jobstateid;
 	}
+	
 	public void setJobstateid(String jobstateid) {
 		this.jobstateid = jobstateid;
 	}
+	
 	public String getJobgroupid() {
 		return jobgroupid;
 	}
+	
 	public void setJobgroupid(String jobgroupid) {
 		this.jobgroupid = jobgroupid;
 	}
+	
 	public String getJobgroupid2() {
 		return jobgroupid2;
 	}
+	
 	public void setJobgroupid2(String jobgroupid2) {
 		this.jobgroupid2 = jobgroupid2;
 	}
@@ -91,21 +99,27 @@ public class ResumeVO implements Bnoble {
 	public void setRgbid(String rgbid) {
 		this.rgbid = rgbid;
 	}
+	
 	public String getRgsid() {
 		return rgsid;
 	}
+	
 	public void setRgsid(String rgsid) {
 		this.rgsid = rgsid;
 	}
+	
 	public String getEmploystatusid() {
 		return employstatusid;
 	}
+	
 	public void setEmploystatusid(String employstatusid) {
 		this.employstatusid = employstatusid;
 	}
+	
 	public String getSalaryid() {
 		return salaryid;
 	}
+	
 	public void setSalaryid(String salaryid) {
 		this.salaryid = salaryid;
 	}
@@ -125,6 +139,22 @@ public class ResumeVO implements Bnoble {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	
+	public String getLevelofeducation() {
+		return levelofeducation;
+	}
+
+	public void setLevelofeducation(String levelofeducation) {
+		this.levelofeducation = levelofeducation;
+	}
+
+	public String getLastcareer() {
+		return lastcareer;
+	}
+
+	public void setLastcareer(String lastcareer) {
+		this.lastcareer = lastcareer;
+	}
 
 	@Override
 	public String toString() {
@@ -132,7 +162,8 @@ public class ResumeVO implements Bnoble {
 				+ ", postcode=" + postcode + ", coverletter=" + coverletter + ", jobstateid=" + jobstateid
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
 				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
-				+ ", regdate=" + regdate + "]";
+				+ ", regdate=" + regdate + ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer
+				+ "]";
 	}
 
 	@Override

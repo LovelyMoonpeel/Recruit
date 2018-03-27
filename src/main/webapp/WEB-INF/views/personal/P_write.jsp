@@ -172,11 +172,29 @@
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>학력 사항</b>
+			<div class="form-group col-md-3">
+			<select class="form-control" name=levelofeducation id="CodeList2">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 2 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       </div>
 		</h4>
 		<div id="edu_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>경력 사항</b>
+			<div class="form-group col-md-3">
+			<select class="form-control" name="lastcareer" id="CodeList1">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 1 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       </div>
 		</h4>
 		<div id="exp_div"></div>
 		<hr style="border: solid 1px #ccc;">
