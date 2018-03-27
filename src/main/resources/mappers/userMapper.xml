@@ -115,4 +115,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 	id = #{id}
 	</select>
+	
+	<select id="userRead" resultType="BoardVO">
+		select id, pname, cname
+		from
+		Project.tblUser
+		where id = #{id}
+	</select>
 </mapper>

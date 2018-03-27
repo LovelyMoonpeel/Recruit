@@ -77,6 +77,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			response.sendRedirect(dest != null ? (String) dest : "/");
 			
+			//window.location.href 이용해서 장난질 해보기
 		}
 		
 	}

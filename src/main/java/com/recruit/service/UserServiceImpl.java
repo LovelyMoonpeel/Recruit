@@ -183,4 +183,9 @@ public class UserServiceImpl implements UserService{
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
 	}
+	
+	@Override
+	public BoardVO userread(String id) throws Exception{
+		return dao.userread(id);
+	}
 }

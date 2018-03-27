@@ -70,7 +70,7 @@
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" required/> <span
+										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" autofocus required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
@@ -121,7 +121,7 @@
 								<!--id입력 -->
 								<div class="form-group has-feedback">
 									<input type="text" name="id" class="form-control"
-										placeholder="ID 기업회원 로그인" value="<%=cidc %>" required/> <span
+										placeholder="ID 기업회원 로그인" value="<%=cidc %>" autofocus required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								

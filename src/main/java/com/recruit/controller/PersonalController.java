@@ -35,7 +35,7 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeDAO;
-import com.recruit.service.BoardService;
+
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
@@ -56,9 +56,6 @@ import com.recruit.util.UploadFileUtils;
 public class PersonalController {
 	// p194 앞 뒤로
 	private static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
-
-	@Inject
-	private BoardService boardservice;
 
 	@Inject
 	private PUserService service;

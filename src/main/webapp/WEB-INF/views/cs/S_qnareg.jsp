@@ -23,14 +23,14 @@
 			</tr>
 			<tr>
 				<td><input class="form-control" type="text" name="title" id="title"
-					value="${CsfaqVO.title}" required></td>
+					value="${CsfaqVO.title}" autofocus required></td>
 			</tr>
 			<tr>
 				<th>아이디</th>
 			</tr>
 			<tr>
 				<td><input required class="form-control" type="text" name="user" id="user"
-					value="${CsfaqVO.user}"></td>
+					value="${id}" readonly></td>
 			</tr>
 			<tr>
 				<th>게시글 비밀번호</th>
@@ -77,6 +77,7 @@ $(".btn-warning").on("click", function(){
 	if(title != "" && content != ""){
 		if(bpw == bpwc){
 			if(confirm("등록할랭?")){
+				formObj.attr("action", "/cs/S_qnareg");
 				formObj.submit();
 			}
 		}else{
@@ -88,7 +89,7 @@ $(".btn-warning").on("click", function(){
 });
 
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/S_qna";
+	self.location = "/cs/qna";
 });
 
 </script>

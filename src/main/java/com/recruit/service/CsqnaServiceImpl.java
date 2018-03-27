@@ -58,5 +58,9 @@ public class CsqnaServiceImpl implements CsqnaService {
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
-
+	
+	@Override
+	public CsqnaVO read2(Integer bno) throws Exception {
+		return dao.read(bno);
+	}
 }
