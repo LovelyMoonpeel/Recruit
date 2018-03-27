@@ -68,7 +68,7 @@
 	<input type="submit" id="sremove" class="btn btn-danger" value="삭제">
 	<input type="submit" class="btn btn-primary" value="목록">
 	
-	
+	<!-- 댓글달기 창 -->
 	<div class="row">
 	<div class="col-md-12">
 	 <div class="box box-success">

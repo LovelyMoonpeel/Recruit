@@ -164,28 +164,12 @@ $(function(){
 	var formObj = $("form[role='form']");
 	
 	console.log(formObj);
-	
+	/* 수정버튼 */
 	$(".btn-warning").on("click", function(){
 		if($('#birth').val()==''){
 			console.log("#birth.val()==''");
 			$('#birth').val("0000-00-00");
 		}
-		$('.licenseacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".licenseacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
-		$('.languageacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".languageacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
 		
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
@@ -199,6 +183,7 @@ $(function(){
 		}
 	});
 	
+	/* 기업 회원 계정 삭제버튼 */
 	$(".btn-danger").on("click", function(){
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
@@ -213,6 +198,7 @@ $(function(){
 		}
 	});
 	
+	/* 기업회원 목록으로 */
 	$(".btn-primary").on("click", function(){
 		self.location = "/admin/company?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";

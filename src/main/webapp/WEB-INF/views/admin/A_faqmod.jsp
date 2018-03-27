@@ -48,20 +48,20 @@
 var formObj = $("form[role='form']");
 
 console.log(formObj);
-
+/* 수정 버튼 */
 $(".btn-warning").on("click", function(){
 	if(confirm("수정할랭?")){
 		formObj.submit();
 	}
 });
-
+/* 삭제 버튼 */
 $(".btn-danger").on("click", function(){
 	if(confirm("삭제하시겠습니까?")){
 		formObj.attr("action", "/admin/sremove");
 		formObj.submit();
 	}
 });
-
+/* 목록 버튼 */
 $(".btn-primary").on("click", function(){
 	self.location = "/admin/faq";
 });
