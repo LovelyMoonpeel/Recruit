@@ -11,6 +11,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -58,10 +59,16 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 	 }
 	 @Override
-	 public List<RecruitVO> RecomList(String id) throws Exception{
+	 public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception{
 			
-		 return dao.RecomList(id);
+		 return dao.RecomList(cri, id);
 	 }
+	 @Override
+	 public int listSearchCount(CompanyCriteria cri, String id) throws Exception{
+		 
+		 return dao.listSearchCount(cri, id);
+	 }
+	   
 	 
 	 @Transactional
 	 @Override

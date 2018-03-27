@@ -24,11 +24,17 @@ public interface CompanyAjaxDAO {
 	
 	public List<RecruitVO> RecruitList(String id, int page) throws Exception;
 	
-	public List<RecruitVO> RecruitCriteria(CompanyCriteria cri)throws Exception;
+	public List<RecruitVO> RecruitCriteria(CompanyCriteria cri, String id)throws Exception;
 	
-	public List<RecruitVO> IngRecruitList(String id) throws Exception;
+	public List<RecruitVO> IngRecruitList(CompanyCriteria cri, String id) throws Exception;
 	
-	public List<RecruitVO> EndRecruitList(String id) throws Exception;
+	public List<RecruitVO> EndRecruitList(CompanyCriteria cri, String id) throws Exception;
+	
+	public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
+	
+	public List<RecruitVO> IngSearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
+	
+	public List<RecruitVO> EndSearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
 	
 	public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception;
 	

@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,8 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.CInfoVO;
+import com.recruit.domain.CompanyPageMaker;
+import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.RecruitVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
@@ -348,7 +351,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "C_recom", method = RequestMethod.GET)
-	public String readRecom(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+	public String readRecom(@ModelAttribute("cri") CompanySearchCriteria cri,HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
@@ -356,10 +359,21 @@ public class CompanyController {
 
 			String id = login.getId();
 
+			logger.info(cri.toString());
+			
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("컨트롤러 : " + id);
 
-			model.addAttribute("recruitList", service.RecomList(id));
+			model.addAttribute("recruitList", service.RecomList(cri,id));
+			CompanyPageMaker pageMaker = new CompanyPageMaker();
+			pageMaker.setCri(cri);
+			System.out.println("페이지 메이커는 = "+pageMaker.getCri());
+//			pageMaker.setTotalCount(131);
+			
+			 pageMaker.setTotalCount(service.listSearchCount(cri,id));
+
+			 model.addAttribute("pageMaker", pageMaker);
+			    
 			model.addAttribute("FavorCompareList", service.FavorCompareList(id));
 
 			return "/company/C_recom";

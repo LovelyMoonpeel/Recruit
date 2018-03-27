@@ -46,18 +46,33 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.RecruitList(id, page);
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitCriteria(CompanyCriteria cri)throws Exception{
-		 return dao.RecruitCriteria(cri);
+	 public List<RecruitVO> RecruitCriteria(CompanyCriteria cri, String id)throws Exception{
+		 return dao.RecruitCriteria(cri,id);
 	 }
 	 @Override
-	 public List<RecruitVO> IngRecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.IngRecruitList(id);
+	 public List<RecruitVO> IngRecruitList(CompanyCriteria cri, String id) throws Exception{
+		
+		 return dao.IngRecruitList(cri, id);
 	 }
 	 @Override
-	 public List<RecruitVO> EndRecruitList(String id) throws Exception{
-		 System.out.println(id);
-		 return dao.EndRecruitList(id);
+	 public List<RecruitVO> EndRecruitList(CompanyCriteria cri, String id) throws Exception{
+		
+		 return dao.EndRecruitList(cri, id);
+	 }
+	 @Override
+	 public List<RecruitVO> SerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.SearchList(cri,id,srchTxt);
+	 }
+	 @Override
+	 public List<RecruitVO> IngSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.IngSearchList(cri,id,srchTxt);
+	 }
+	 @Override
+	 public List<RecruitVO> EndSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+		 
+		 return dao.EndSearchList(cri,id,srchTxt);
 	 }
 
 	 @Override
