@@ -253,6 +253,8 @@ public class PersonalController {
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+				
+				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
 
 				return "personal/P_detail";
 			} else {

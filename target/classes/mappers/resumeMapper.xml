@@ -68,21 +68,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- 이력서화면에 출력 -->
     <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
 	    <![CDATA[
-	    select a.bno, a.userid, a.title, a.address, a.postcode, 
+	select a.bno, a.userid, a.title, a.address, a.postcode, 
 			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
-            b.jobgroup as jobgroupid, 
+			b.jobgroup as jobgroupid, 
 			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
 			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid,
-			(select career from tblcode where a.levelofeducation = id)levelofeducation,  (select career from tblcode where a.lastcareer = id)lastcareer 
+            (select career from tblcode where a.levelofeducation = id)levelofeducation,  (select career from tblcode where a.lastcareer = id)lastcareer 
+			
 		from 
 			tblresume a, tbljobgroup b, tblcode c, tblregion d
 		where 	a.bno = #{bno}
 			and a.jobstateid = c.id
 			and a.jobgroupid = b.id
 			and a.rgbid = d.rgbid
-			and a.rgsid = d.rgsid
-			and a.lastcareer = c.id
-			and a.levelofeducation = c.id;
+			and a.rgsid = d.rgsid;
 		]]>
 	</select>	
 		

@@ -1,98 +1,192 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
 <%@include file="../include/pheader.jsp"%>
 
-<link rel="stylesheet" type="text/css"
-	href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의이력서 작성</h1>
-
+	<h1>${PUserVO.id}님의 이력서 작성</h1>
+	
 	<form role="form" method="post">
-		<input type='hidden' name='id' value="${PUserVO.id}"> <input
-			type='hidden' name='userid' value="${PUserVO.id}">
+	 <input type='hidden' name='id' value="${PUserVO.id}"> 
+	 <input type='hidden' name='userid' value="${PUserVO.id}"> 
 		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title"
-				name="title" value="${ResumeVO.title}" required>
+			<label for="title">제목</label> 
+			<input class="form-control" id="title" name="title" value="${ResumeVO.title}" required>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<th class="table-active" scope="row"><label for="pname">이름</label>
-						</th>
-						<td class="col-sm-4"><input type="text" class="form-control"
-							id="pname" name="pname" value="${PUserVO.pname}" readonly>
-						</td>
-						<th rowspan="3" class="table-active" scope="row"><label
-							for="img">사진</label></th>
-						<td rowspan="3" class="col-sm-4">
-							<div id='uploadedList'
-								style='width: 127px; height: 152px; border: 1px dotted blue;'>
-								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
-							</div> <!--  사진 보이는 div  --> <input type='hidden' id='imgsrccheck'
-							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img' value=''>
-							<!-- db에 올라갈 file img 이름 받아오는 hidden input --> <br> <input
-							type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-							<!--파일 업로드 하는 버튼--> <input type='hidden' id='xornot' value='0'>
-						</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row"><label>생년월일</label></th>
-						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" id="birth" name="birth"
-									value="${PUserVO.birth}" readonly>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row"><label for="email">이메일</label></th>
-						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email"
-									value="${PUserVO.email}" readonly>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<hr style="border: solid 4px #ccc;">
+      <div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+               <tr>
+                <th class="table-active" scope="row"><label for="pname">이름</label> </th>
+	          	<td class="col-sm-4">
+	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
+	           	</td>
+                <th class="table-active" scope="row"><label for="img">사진</label></th>
+                <td class="col-sm-4">
+                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
+				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
+				   </div>
+				   	<!--  사진 보이는 div  -->
+				   	
+                   	<input type='hidden' id='imgsrccheck' value = "${ResumeVO.img}"/>
+                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
+                   	<input type = 'hidden' id='uploadfilename' name = 'img' value=''>
+					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+					
+					<br>
+					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+					<!--파일 업로드 하는 버튼-->
+					
+				   	<input type = 'hidden' id = 'xornot' value = '0'>
+               	 </td>
+               </tr>
+               <tr>
+                 <th class="table-active" scope="row"><label>생년월일</label></th>
+                 <td>
+                  	<div class="form-group">
+						<input type="text" class="form-control" id="birth" name="birth" value="${PUserVO.birth}" readonly>
+					</div>
+				  </td>
+                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
+            	  <td>
+				  	<div class="form-group">
+					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}" readonly>
+					</div>
+				</td>
+               </tr>
+             </tbody>
+         </table>
+      </div>
+      
+	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>연락처 목록</b>
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
+		
+		<!--j.code 03/26 : 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가-->
+		<div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+                <tr>
+                  <th>구직상태</th>
+                  <td>
+                     <div class="form-group col-md-5">
+                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 6 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+               </tr>
+               
+                 <tr>
+                   <th>모집직종</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <label for="jobgroupid">대분류</label> 
+                     <select id="jobGroup" class="form-control" name="jobgroupid" >
+                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                           <c:if test="${JobGroupVO.id2 == 0}">
+                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                           </c:if>
+                        </c:forEach>
+                     </select>          
+                  <br>
+                  <label for="jobgroupid">소분류</label> 
+                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+               <th>희망근무형태</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <!-- <label for="CodeList4">희망근무형태</label> -->
+                     <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 4 }">
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
+                              >${CodeVO.career }</option>
+                           </c:if>
+                        </c:forEach>
+                     </select> 
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망근무지</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <label for="jobgroupid">시/도</label> 
+                        <select id="region" class="form-control" name='rgbid'>
+                           <c:forEach items="${RegionVOlist}" var="RegionVO">
+                              <option value="${RegionVO.rgbid}" 
+                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                              >${RegionVO.rgbname}</option>
+                           </c:forEach>
+                        </select>
+                     <label for="jobgroupid">시/군/구</label> 
+                     <select id="subRegion" class="form-control" name='rgsid'>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망연봉</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <!-- <label for="CodeList7">희망연봉</label> -->
+                     <select class="form-control" name="salaryid" id="CodeList7">
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 7 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+             </tbody>
+         </table>
+          </div>
+        <!--j.code 03/26 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가 끝--> 
+		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 4px #ccc;">
 		
 		<div style="font-size:18px;" class="form-group col-md-2"><b>학력 사항</b></div>
 		<div class="form-group col-md-2"><label for="edustatus">최종학력</label>
 		</div>
-		<div class="form-group col-md-3">
-			<select class="form-control" name=levelofeducation id="CodeList2">
-	          <c:forEach items="${CodeVOlist }" var="CodeVO">
-	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-	             </c:if>
-	          </c:forEach>
-	       </select>
-	     </div>
+		<div class="form-group col-md-2">
+		<select class="form-control" name=levelofeducation id="CodeList2">
+          <c:forEach items="${CodeVOlist }" var="CodeVO">
+             <c:if test="${CodeVO.tid == 2 }">
+                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+             </c:if>
+          </c:forEach>
+     	</select>
+        </div>
 		<div id="edu_div"></div>
-		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
-		<div style="font-size:18px;" class="form-group col-md-2"><b>경력 사항</b></div>
+		
+		<hr style="border: solid 1px #ccc;">
+		<div style="font-size:18px;" class="form-group col-md-2"><b>경력</b></div>
 		<div class="form-group col-md-2"><label for="career">경력</label>
 		</div>
 		<div class="form-group col-md-3">
@@ -105,52 +199,48 @@
      	</select>
         </div>
 		<div id="exp_div"></div>
-		<hr style="border: solid 4px #ccc;">
+		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
-		<hr style="border: solid 4px #ccc;">
+		
+	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
+	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
+	   <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
 		<div id="language_div"></div>
 		<hr style="border: solid 4px #ccc;">
-
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<th class="table-active" colspan="5" scope="row"
-							style="text-align: center;">자기소개서</th>
-					</tr>
-					<tr>
-						<td colspan="5" rowspan="2">
-							<div class="form-group">
-								<textarea class="form-control" rows="13" id="coverletter"
-									name="coverletter" style="resize: none;"
-									placeholder="자기소개서를 입력해주세요." required></textarea>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<button id="write-success" class="btn btn-success col-md-offset-10"
-			type="submit">등록</button>
-		<button id="write-cancel" class="btn btn-danger"
-			onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';"
-			type="button">취소</button>
-	</form>
+	     
+     <div class="table-responsive">
+       <table class="table table-bordered">
+          <tbody>
+            <tr>
+               <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
+            </tr> 
+            <tr>
+             <td colspan="5" rowspan="2">
+               	<div class="form-group">
+				<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;" required>${ResumeVO.coverletter}</textarea>
+				</div>
+             </td>   
+            </tr>
+           </tbody>
+       </table>      
+    </div>
+   
+   	</form>
+		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
+		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';" type="button">취소</button>
 </div>
 
 <script id="template_tel" type="text/x-handlebars-template">
@@ -176,40 +266,18 @@
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm tel_minus_btn" type="button">
+		<button class="btn btn-default btn-sm tel_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
 </div>
 <!-- end of row -->
 </script>
-
-<!-- 
-	<div style="font-size:18px;" class="col-md-3"><b>학력 사항</b></div>
-	
-	<div class="form-group col-md-2">
-		<label for="edustatus">최종학력</label>
-	</div>
-	<div class="form-group col-md-2">
-		<select class="form-control edustatus edu" name="levelofeducation">
-			{{#select edustatus}}
-			<option value="0">선택</option>
-			<option value="15">재학</option>
-			<option value="16">졸업</option>
-			<option value="17">중퇴</option>
-			<option value="18">졸업예정</option>
-			<option value="19">휴학</option>
-			{{/select}}
-		</select>
-	</div>
-	<br>
-	<br> -->
 <script id="template_edu" type="text/x-handlebars-template">
-<div class="row"><!-- 첫번째는 hidden 시키기 -->
-
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
-	
-	<div class="form-group col-md-3">
+<div class="row">
+	<hr style="border: solid 0.5px #ccc;">
+	<div class="form-group col-md-2">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -218,7 +286,7 @@
 		</div>
 	</div>
 	
-	<div class="form-group col-md-3">
+	<div class="form-group col-md-2">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control gradudate edu"name="listEdu[].gradudate" value="{{gradudate}}"> 
@@ -226,7 +294,7 @@
 		</div>
 	</div>
 
-	<div class="form-group col-md-3" >
+	<div class="form-group col-md-3">
 		<label for="schoolname">학교명</label> 
 		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
@@ -255,8 +323,7 @@
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-
-		<button class="btn btn-default btn-sm edu_minus_btn" type="button">
+		<button class="btn btn-default btn-sm edu_minus_btn" type="button" onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -266,8 +333,7 @@
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -318,11 +384,12 @@
 		</select>
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br/>
+		<label>추가/삭제</label><br />
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default exp_minus_btn" type="button">
+		<button class="btn btn-default exp_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -351,14 +418,15 @@
 		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm web_minus_btn" type="button">
+		<button class="btn btn-default btn-sm web_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
 </div>
 <!-- end of row -->
 </script>
-<script id="template_license" type="text/x-handlebars-template">
+ <script id="template_license" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
@@ -387,16 +455,17 @@
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm license_minus_btn" type="button">
+		<button class="btn btn-default btn-sm license_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
 
 </div>
 <!-- end of row -->
-</script>
-
-<script id="template_language" type="text/x-handlebars-template">
+</script>           
+            
+ <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
@@ -468,7 +537,8 @@
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm lang_minus_btn" type="button">
+		<button class="btn btn-default btn-sm lang_minus_btn" type="button"
+			onclick="$(this).closest('.row').remove();">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -477,6 +547,13 @@
 </script>
 <script type='text/javascript'>
 $(document).ready(function(){
+	
+	//<!--j.code 03/26 : jobGroup, region 입력 추가-->
+	var largeNum = $('#jobGroup option:selected').val();
+	SubJobGroup2(largeNum);
+	var largeNum2 = $('#region option:selected').val();
+	SubRegion2(largeNum2);
+	//<!--j.code 03/26 : jobGroup, region 입력 추가 끝-->
 	
 	Handlebars.registerHelper('select', function( value, options ){
         var $el = $('<select />').html( options.fn(this) );
@@ -498,34 +575,31 @@ $(document).ready(function(){
 	
    $("#write-success").on("click", function(){
 	   
-	   if($('#title').val()==''){
-		   alert("제목을 입력해주세요!");
-	   }else{
-		   if($('#birth').val()==''){
-				console.log("#birth.val()==''");
-				$('#birth').val("0000-00-00");
+	   if($('#birth').val()==''){
+			console.log("#birth.val()==''");
+			$('#birth').val("0000-00-00");
+		}
+		$('.licenseacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".licenseacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
 			}
-			$('.licenseacquidate').each(function(){ 
-				if($(this).val()==''){
-					console.log($(this).val());
-					console.log(".licenseacquidate.val()==''");
-					$(this).val("0000-00-00");
-					console.log($(this).val());
-				}
-			});
-			$('.languageacquidate').each(function(){ 
-				if($(this).val()==''){
-					console.log($(this).val());
-					console.log(".languageacquidate.val()==''");
-					$(this).val("0000-00-00");
-					console.log($(this).val());
-				}
-			});
-		   formObj.attr("action", "/personal/write");
-	       formObj.attr("method", "post");
-	       numberingList();
-	       formObj.submit();
-	   }
+		});
+		$('.languageacquidate').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
+      formObj.attr("action", "/personal/write");
+      formObj.attr("method", "post");
+      numberingList();
+      formObj.submit();
    });
    
    var upload = document.getElementById('fileupload');
@@ -620,7 +694,6 @@ $(document).ready(function(){
 	function getImageLink(fileName){
       	var front = fileName.substr(0,12);
       	var end = fileName.substr(14);
-      	
       	return front + end;
     }
 	function numberingList() {
@@ -674,32 +747,12 @@ $(document).ready(function(){
 			}; 
 		add_tel(item);
 	});
-	// tel 삭제버튼 이벤트
-	$("#tel_div").on("click", ".tel_minus_btn", function(){
-		 var tel_index = $(".tel_minus_btn").index(this);  // 존재하는 tel_minus_btn를 기준으로 index
-		 console.log(tel_index);
-		 if(tel_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
-	});
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
-				resumenum : 0,
+				resumenum : 0
 			};
 		add_edu(item);
-	});
-	//edu minus 버튼 이벤트
-	$("#edu_div").on("click", ".edu_minus_btn", function(){
-		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
-		 console.log(edu_index);
-		 if(edu_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
 	});
 	// exp 추가버튼 이벤트
 	$("#exp_div").on("click", ".exp_plus_btn", function(){
@@ -708,32 +761,12 @@ $(document).ready(function(){
 			};
 		add_exp(item);
 	});
-	//exp minus 버튼 이벤트
-	$("#exp_div").on("click", ".exp_minus_btn", function(){
-		 var exp_index = $(".exp_minus_btn").index(this);  // 존재하는 exp_minus_btn를 기준으로 index
-		 console.log(exp_index);
-		 if(exp_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
-	});
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
 				rid : 0
 			}
 		add_web(item);
-	});
-	//웹 삭제 버튼 이벤트
-	$("#web_div").on("click", ".web_minus_btn", function(){
-		 var web_index = $(".web_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(web_index);
-		 if(web_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
 	});
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
@@ -742,32 +775,12 @@ $(document).ready(function(){
 		}
 		add_license(item);
 	});
-	//자격증 삭제 버튼 이벤트
-	$("#license_div").on("click", ".license_minus_btn", function(){
-		 var license_index = $(".license_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(license_index);
-		 if(license_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
-	});
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
 				rid : 0
 			};
 		add_language(item);
-	});
-	//언어 삭제 버튼 이벤트
-	$("#language_div").on("click", ".lang_minus_btn", function(){
-		var lang_index = $(".lang_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(lang_index);
-		 if(lang_index!=0){
-			 $(this).closest('.row').remove();
-		 }else{
-			 alert("기본 칸입니다.");
-		 }
 	});
 	function add_tel(item) {
 		var source_tel = $("#template_tel").html();
@@ -814,14 +827,14 @@ $(document).ready(function(){
 		add_tel(item);
 	}
 	function edu_list() {
-		
 		var item = {
 				resumenum : 0,
+				//schoolname : "${eduVO.schoolname}",
 				schoolname : "",
 				major : "",
 				enterdate : "",
 				gradudate : "",
-				edustatus : "",
+				edustatus : ""
 			};
 		add_edu(item);
 	}
@@ -875,5 +888,78 @@ $(document).ready(function(){
 	language_list();
 	
 });
+
+//<!--j.code 03/26 : jobGroup, region 소분류 받는 작업-->
+function SubJobGroup2(largeNum) {
+   $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+      var str = "";
+      <c:set value="${ResumeVO.jobgroupid2}" var="select"/>
+      var sel = '<c:out value="${select}"/>';
+      var selected = "";
+      
+      $(data).each(
+            function() {
+               if(sel==this.id){
+                  selected = "selected";
+               }else{
+                  selected = "";
+               }
+               str += "<option value="+this.id+
+               " "+selected+">"+ this.jobgroup + "</option>";
+            });
+      $("#subjobGroup").html(str);
+   })
+}
+function SubRegion2(largeNum) {
+   $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+      var str = "";
+      <c:set value="${ResumeVO.rgsid}" var="sid"/>
+      var selec = '<c:out value="${sid}"/>';
+      var select = "";
+      $(data).each(
+            function() {
+               if(selec==this.rgsid){
+                  select = "selected";
+               }else{
+                  select = "";
+               }
+               str += "<option value="+this.rgsid+
+               " " + select + ">" + this.rgsname + "</option>";
+            });
+      $("#subRegion").html(str);
+   })
+}
+$("#region").change(function() {
+   var largeNum = $(this).val();
+   SubRegion(largeNum)
+})
+$("#jobGroup").change(function() {
+   var largeNum = $(this).val();
+   SubJobGroup(largeNum);
+})
+function SubJobGroup(largeNum) {
+	   console.log(largeNum);
+   $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+ 	  console.log("getJason");
+      var str = "";
+      $(data).each(
+            function() {
+               str += "<option name='jobgruopid' value="+this.id+">"
+                     + this.jobgroup + "</option>";
+            });
+      $("#subjobGroup").html(str);
+   })
+}
+function SubRegion(largeNum) {
+   $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+      var str = "";
+      $(data).each(
+            function() {
+               str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+                     + "</option>";
+            });
+      $("#subRegion").html(str);
+   })
+}
 </script>
 <%@include file="../include/cfooter.jsp"%>
