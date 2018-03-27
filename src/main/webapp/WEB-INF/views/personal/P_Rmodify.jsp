@@ -25,8 +25,8 @@
 	          	<td class="col-sm-4">
 	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
-                <th class="table-active" scope="row"><label for="img">사진</label></th>
-                <td class="col-sm-4">
+                <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
+                <td rowspan = "3" class="col-sm-4">
                     <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
 				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 				   </div>
@@ -52,6 +52,8 @@
 						<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}" readonly>
 					</div>
 				  </td>
+			    </tr>
+			  	<tr>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
             	  <td>
 				  	<div class="form-group">
