@@ -25,12 +25,12 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input class="form-control" type="text" name="pw" id="pw"
+				<td><input class="form-control" type="password" name="pw" id="pw"
 					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}"></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
-				<td><input class="form-control" type="text" name="pwc" id="pwc"
+				<td><input class="form-control" type="password" name="pwc" id="pwc"
 					placeholder="비밀번호를 다시 입력하세요.">
 				<span id="pwchk"></span>				
 				</td>
@@ -48,7 +48,7 @@
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" name="birth" value="${BoardVO.birth}" required>
+				<input type="text" class="form-control birth" name="birth" value="${BoardVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
@@ -111,27 +111,13 @@ $(function(){
 	
 	console.log(formObj);
 	
+	/* 수정 버튼 */
 	$(".btn-warning").on("click", function(){
 		if($('#birth').val()==''){
+			/* 생년월일이 null인 경우 */
 			console.log("#birth.val()==''");
 			$('#birth').val("0000-00-00");
 		}
-		$('.licenseacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".licenseacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
-		$('.languageacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".languageacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
 		
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();

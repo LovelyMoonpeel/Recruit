@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<p>Copyright &copy; 퍼팩트 매칭 2017</p>
-				<a href="/cs/S_faq" style="color:white">고객센터</a>
+				<a href="/cs/faq" style="color:white">고객센터</a>
 			</div>
 		</div>
 	</div>

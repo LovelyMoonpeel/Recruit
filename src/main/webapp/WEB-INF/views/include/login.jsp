@@ -7,15 +7,26 @@
 	String pchkc = "";
 	String cidc = "";
 	String cchkc = "";
+	String pactive = "active in";
+	String cactive = "";
+	String pexpand = "true";
+	String cexpand = "false";
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null && cookies.length > 0){
 		for(int i=0;i<cookies.length;i++){
 			if(cookies[i].getName().equals("PloginCookie")){
 				pidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
 				pchkc = "checked='checked'";
+				pactive = "active in";
+				pexpand = "true";
+				cexpand = "false";
 			}else if(cookies[i].getName().equals("CloginCookie")){
 				cidc = URLDecoder.decode(cookies[i].getValue(),"UTF-8");
 				cchkc = "checked='checked'";
+				cactive = "active in";
+				pactive = "";
+				cexpand = "true";
+				pexpand = "false";
 			}
 		}
 	}
@@ -41,8 +52,8 @@
 					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
 						<!--★ href부분 값은 밑에 id랑 연결된다  -->
-						<li class="active"><a data-toggle="tab" href="#login_person">개인회원</a></li>
-						<li><a data-toggle="tab" href="#login_company">기업회원</a></li>
+						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" aria-expanded=<%= pexpand%>>개인회원</a></li>
+						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" aria-expanded=<%= cexpand%>>기업회원</a></li>
 					</ul>
 					
 					<br>
@@ -50,22 +61,23 @@
 					<!--모달 안의 내용/개인회원&기업회원  -->
 					<div class="tab-content">
 						<!--_____________________1-1.로그인 개인 회원 시작_____________________ -->
-						<div id="login_person" class="tab-pane fade in active">
+						<div id="login_person" class="tab-pane fade <%= pactive%>">
 							
 							<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
 							<form action="/user/loginPost" method="post">
 								<input type="hidden" name="index" value="per">
+								<input type="hidden" name="location" class="location">
 								<!--id입력  -->
 								<!--★ required는 빈칸을 두지않게 하는 장치  -->
 								<div class="form-group has-feedback">
-									<input type="text" name="id" class="form-control"
+									<input type="text" id="loginpid" name="id" class="form-control"
 										placeholder="ID 개인 회원 로그인" value="<%=pidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
-									<input type="password" name="pw" class="form-control"
+									<input type="password" id="loginppw" name="pw" class="form-control"
 										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
@@ -103,20 +115,21 @@
 
 
 						<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
-						<div id="login_company" class="tab-pane fade">
+						<div id="login_company" class="tab-pane fade <%= cactive%>">
 							
 							<form action="/user/loginPost" method="post">
 								<input type="hidden" name="index" value="com">
+								<input type="hidden" name="location" class="location">
 								<!--id입력 -->
 								<div class="form-group has-feedback">
-									<input type="text" name="id" class="form-control"
+									<input type="text" id="logincid" name="id" class="form-control"
 										placeholder="ID 기업회원 로그인" value="<%=cidc %>" required/> <span
 										class="glyphicon  form-control-feedback"></span>
 								</div>
 								
 								<!--password입력 -->
 								<div class="form-group has-feedback">
-									<input type="password" name="pw" class="form-control"
+									<input type="password" id="logincpw" name="pw" class="form-control"
 										placeholder="Password" required/> <span
 										class="glyphicon form-control-feedback"></span>
 								</div>
@@ -215,12 +228,13 @@
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" id='ppw' name='pw' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
+									<span>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</span>
 									</div>
 									
 									<div class="form-group">
 										비밀번호 확인<input type="password" id="ppwc" class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 									<span id="ppwchk"></span>
 									</div>
 
@@ -289,12 +303,12 @@
 									<!--비밀번호 -->
 									<div class="form-group">
 										비밀번호<input type="password" id='cpw' name='pw' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 									</div>
 									
 									<div class="form-group">
 										비밀번호 확인<input type="password" id='cpwc' class="form-control"
-											placeholder="6자리를 입력하세요." required>
+											placeholder="6자리를 입력하세요." maxlength="20" required>
 										<span id="cpwchk"></span>
 									</div>
 
@@ -379,6 +393,16 @@
 		$(document).ready(function() {
 			$("#myBtn_login").click(function() {
 				$("#modal_login").modal();
+				if($("#loginpid").val()!=""){
+					$("#loginppw").focus();
+				}else{
+					if($("#logincid").val()!=""){
+						$("#logincpw").focus();
+					}else{
+						$("#logincid").focus();
+					}
+					$("#loginpid").focus();
+				}
 			});
 		});
 	</script>
@@ -418,6 +442,7 @@
 	<!--//날짜입력 모달 관련내용  -->
 
 <!-- 회원가입 시 아이디 및 비밀번호 변경여부 확인 -->
+<!-- 유효성 검사 추가 -->
 <script>
 var pidchk = "";
 var pemailchk = "";
@@ -444,6 +469,7 @@ $('#pjoin').on("click", function(event){
 		alert("아이디 중복체크를 진행해주세요.");
 		event.preventDefault();
 	}
+
 })
 
 $('#cjoin').on("click", function(event){
@@ -470,28 +496,65 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var ppwchk = $('#ppwchk');
 	
-	$('#ppwc').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue");
-			ppwc = "ok";
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+	var ppwReg = /[A-za-z0-9]$/;
+
+	$('#ppwc').keyup(function(){	
+		var ppwcval = $('#ppwc').val();
+		var ppwval = $('#ppw').val();
+		if(ppwcval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#ppwc').val(ppwcval.slice(0, -1));
+		}
+
+		ppwcval = $('#ppwc').val();
+		ppwval = $('#ppw').val();
+		var chk = "";
+        chk = (ppwReg.test(ppwcval)) && !(ppwcval.length > 5 && ppwcval.length <= 20);
+		if(chk){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
+		}else{
+			if(ppwval == ppwcval){
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+				ppwchk.attr("style", "color:blue");
+				ppwc = "ok";
+			}else{
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				ppwchk.attr("style", "color:red");
+				ppwc = "no";
+			}
 		}
 	})
 	
+	
 	$('#ppw').keyup(function(){
-		if($('#ppw').val() == $('#ppwc').val()){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
-			ppwchk.attr("style", "color:blue");
-			ppwc = "ok";
-		}else{
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+		var ppwval = $('#ppw').val();
+		var ppwcval = $('#ppwc').val();
+		if(ppwval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#ppw').val(ppwval.slice(0, -1));
+		}
+		
+		ppwval = $('#ppw').val();
+		ppwcval = $('#ppwc').val();
+		var chk2 = "";
+        chk2 = (ppwReg.test(ppwval)) && !(ppwval.length > 5 && ppwval.length <= 20);
+		if(chk2){
+			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
-		}
+		}else{
+			if(ppwval == ppwcval){
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치합니다.";
+				ppwchk.attr("style", "color:blue");
+				ppwc = "ok";
+			}else{
+				document.getElementById("ppwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				ppwchk.attr("style", "color:red");
+				ppwc = "no";
+			}
+		};
 	})
 </script>
 <!-- //개인 회원 가입 비밀번호 일치 여부  -->
@@ -501,8 +564,26 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var cpwchk = $('#cpwchk');
 	
+	var cpwReg = /[A-za-z0-9]$/;
+
 	$('#cpwc').keyup(function(){
-		if($('#cpw').val() == $('#cpwc').val()){
+		var cpwcval = $('#cpwc').val();
+		var cpwval = $('#cpw').val();
+		
+		if(cpwcval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#cpwc').val(cpwcval.slice(0, -1));
+		}
+		
+		cpwcval = $('#cpwc').val();
+		cpwval = $('#cpw').val();
+		
+		if(cpwReg.test(cpwcval) && !(cpwcval.length > 5 && cpwcval.length <= 20)){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			cpwchk.attr("style", "color:red");
+			cpwc = "no";
+		}else{
+		if(cpwcval == cpwval){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
 			cpwchk.attr("style", "color:blue");
 			cpwc = "ok";
@@ -511,17 +592,35 @@ $('#cjoin').on("click", function(event){
 			cpwchk.attr("style", "color:red")
 			cpwc = "no";
 		}
+		}
 	})
 	
 	$('#cpw').keyup(function(){
-		if($('#cpw').val() == $('#cpwc').val()){
-			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
-			cpwchk.attr("style", "color:blue");
-			cpwc = "ok";
-		}else{
-			document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+		var cpwval = $('#cpw').val();
+		var cpwcval = $('#cpwc').val();
+		
+		if(cpwval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#cpw').val(cpwval.slice(0, -1));
+		}
+		
+		cpwcval = $('#cpwc').val();
+		cpwval = $('#cpw').val();
+		
+		if(cpwReg.test(cpwval) && !(cpwval.length > 5 && cpwval.length <= 20)){
+			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
+		}else{
+			if(cpwval == cpwcval){
+				document.getElementById("cpwchk").innerHTML = "비밀번호가 일치합니다.";
+				cpwchk.attr("style", "color:blue");
+				cpwc = "ok";
+			}else{
+				document.getElementById("cpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				cpwchk.attr("style", "color:red");
+				cpwc = "no";
+			}
 		}
 	})
 </script>
@@ -529,10 +628,18 @@ $('#cjoin').on("click", function(event){
 
 <!-- 개인회원 아이디 중복 체크 -->
 <script>
-$("#pid_overlap").on("click", function(){
+$("#pid_overlap").on("click", function(event){
 	var PidObj = $("#pid");
 	var Pid = PidObj.val();
 
+	/* 유효성 검사 */
+	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var pjoinidchk = document.getElementById("pid").value;
+	if(!idReg.test(pjoinidchk)){
+		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
+		event.preventDefault();
+	}else{
+	
 	$.ajax({
 		type:'POST',
 		url:'/user/idoverlap',
@@ -550,6 +657,7 @@ $("#pid_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+	}
 });
 </script>
 
@@ -559,6 +667,14 @@ $("#cid_overlap").on("click", function(){
 	var CidObj = $("#cid");
 	var Cid = CidObj.val();
 
+	/* 유효성 검사 */
+	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var cjoinidchk = document.getElementById("cid").value;
+	if(!idReg.test(cjoinidchk)){
+		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
+		event.preventDefault();
+	}else{
+	
 	$.ajax({
 		type:'POST',
 		url:'/user/idoverlap',
@@ -576,6 +692,7 @@ $("#cid_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+	}
 });
 </script>
 
@@ -585,6 +702,11 @@ $("#pemail_overlap").on("click", function(){
 	var PemailObj = $("#pemail");
 	var Pemail = PemailObj.val();
 
+    var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    
+    if(!regEmail.test(Pemail)){
+    	alert("이메일 주소가 유효하지 않습니다.");
+    }else{
 	$.ajax({
 		type:'POST',
 		url:'/user/emailoverlap',
@@ -601,7 +723,8 @@ $("#pemail_overlap").on("click", function(){
 			}else{
 				alert("사용 불가능");
 			}
-		}});
+		}});    	
+    }
 });
 </script>
 
@@ -611,6 +734,11 @@ $("#cemail_overlap").on("click", function(){
 	var CemailObj = $("#cemail");
 	var Cemail = CemailObj.val();
 
+    var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    
+    if(!regEmail.test(Pemail)){
+    	alert("이메일 주소가 유효하지 않습니다.");
+    }else{
 	$.ajax({
 		type:'POST',
 		url:'/user/emailoverlap',
@@ -628,5 +756,14 @@ $("#cemail_overlap").on("click", function(){
 				alert("사용 불가능");
 			}
 		}});
+    }
+});
+</script>
+
+<!-- 로그인한 페이지값 넘김 -->
+<script>
+$(".btn-block").on("click", function(){
+	var locationObj = $(".location")
+	locationObj.val(window.location.href);
 });
 </script>

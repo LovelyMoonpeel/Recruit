@@ -129,6 +129,11 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public String getId(LoginDTO dto) throws Exception{
-		return session.selectOne(namespace + ".getId",dto);
+		return session.selectOne(namespace + ".getId", dto);
+	}
+	
+	@Override
+	public BoardVO userread(String id) throws Exception{
+		return session.selectOne(namespace+".userRead", id);
 	}
 }

@@ -36,14 +36,14 @@
 			<th>게시글 비밀번호</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="bpw" id="bpw"
+			<td><input class="form-control" type="password" name="bpw" id="bpw"
 				value="${CsqnaVO.bpw}"></td>
 		</tr>
 		<tr>
 			<th>게시글 비밀번호 확인</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="bpwc" id="bpwc">
+			<td><input class="form-control" type="password" name="bpwc" id="bpwc">
 			<span id="bpwchk"></span></td>
 		</tr>
 		<tr>
@@ -77,6 +77,8 @@ $(".btn-warning").on("click", function(){
 	if(title != "" && content != ""){
 		if(bpw == bpwc){
 			if(confirm("수정할랭?")){
+				formObj.attr("action", "/cs/S_qnamod");
+				formObj.attr("method", "post");
 				formObj.submit();
 			}
 		}else{
@@ -88,7 +90,7 @@ $(".btn-warning").on("click", function(){
 });
 
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/S_qna";
+	self.location = "/cs/qna";
 });
 
 </script>

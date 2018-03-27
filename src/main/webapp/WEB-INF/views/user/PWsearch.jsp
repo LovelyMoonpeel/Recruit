@@ -60,6 +60,7 @@ $("#submit").on("click", function(){
 		success:function(result){
 			if(result == 'success'){
 				alert("이메일에서 임시 비밀번호를 확인해주세요.");
+				self.location = "/search/S_index";
 			}
 		}
 	})
@@ -81,6 +82,7 @@ $("#submit").on("click", function(){
 		success:function(result){
 			if(result == 'success'){
 				alert("이메일에서 임시 비밀번호를 확인해주세요.");
+				self.location = "/search/S_index";
 			}
 		}
 	}) 

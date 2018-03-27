@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
@@ -39,10 +40,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public String loginPOST(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+	public String loginPOST(@RequestParam("location") String location ,HttpServletRequest request, LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 //		System.out.println("dto값 출력 : " + dto);
 		BoardVO vo = service.login(dto);
 //		System.out.println("로그인 정보 확인 : " + vo);
+		
 		if (vo == null) {
 			//loginPost로 날라감
 			rttr.addFlashAttribute("msg", "login_fail");
@@ -66,6 +68,7 @@ public class UserController {
 			}
 		}
 		
+		
 		model.addAttribute("boardVO", vo); 
 
 		if (dto.isUseCookie()) {
@@ -78,7 +81,8 @@ public class UserController {
 			
 		}
 		
-		return "/cs/S_faq";
+		session.setAttribute("location", location);
+		return "/search/S_index";
 		
 	}
 
@@ -96,7 +100,7 @@ public class UserController {
 
 		}
 		rttr.addFlashAttribute("msg", "logout");
-		return "redirect:/cs/S_faq";
+		return "redirect:/";
 	}
 
 	
@@ -113,9 +117,9 @@ public class UserController {
 			service.cregist(board);
 			rttr.addFlashAttribute("msg", "authmsg");
 		}
-		rttr.addFlashAttribute("msg", "success");
+		rttr.addFlashAttribute("msg", "join");
 
-		return "redirect:/cs/S_faq";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/idoverlap", method = RequestMethod.POST)
@@ -209,7 +213,7 @@ public class UserController {
 		ResponseEntity<String> entity = null;
 		try{
 			if(dto.getCname()==null){
-				service.ppwchk(dto);				
+				service.ppwchk(dto);
 			}else{
 				service.cpwchk(dto);
 			}

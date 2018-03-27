@@ -33,4 +33,6 @@ public interface UserService {
 	public void ppwchk(LoginDTO dto) throws Exception;
 	
 	public void cpwchk(LoginDTO dto) throws Exception;
+	
+	public BoardVO userread(String id) throws Exception;
 }

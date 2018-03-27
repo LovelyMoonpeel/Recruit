@@ -71,12 +71,20 @@
 		id = login.getId();} */
 /* 		System.out.println("세번째");
 		System.out.println("아이디값 출력" + id); */
+		if(login == null){
+%>
+		<script>
+			alert("접근 권한이 없습니다.");
+			location.href= "/";
+		</script>
+<%			
+		}
 		if(!id.equals("admin")){
 			/* System.out.println("아이디 입니다요" + id); */
 %>
 		<script>
 			alert("접근 권한이 없습니다.");
-			location.href= "/cs/S_faq";
+			location.href= "/";
 		</script>
 <%
 			/* response.sendRedirect("/cs/S_faq"); */

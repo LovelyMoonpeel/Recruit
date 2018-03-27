@@ -35,7 +35,7 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.ResumeDAO;
-import com.recruit.service.BoardService;
+
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
@@ -56,9 +56,6 @@ import com.recruit.util.UploadFileUtils;
 public class PersonalController {
 	// p194 앞 뒤로
 	private static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
-
-	@Inject
-	private BoardService boardservice;
 
 	@Inject
 	private PUserService service;
@@ -102,7 +99,7 @@ public class PersonalController {
 			return "personal/P_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -119,7 +116,7 @@ public class PersonalController {
 			return "personal/P_modify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -148,7 +145,7 @@ public class PersonalController {
 			return "personal/P_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -166,7 +163,7 @@ public class PersonalController {
 			return "personal/P_write";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -217,11 +214,11 @@ public class PersonalController {
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
-				return "redirect:/cs/S_faq";
+				return "redirect:/";
 			}
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 		//민경
 	}
@@ -261,7 +258,7 @@ public class PersonalController {
 			return "personal/P_Rmodify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -313,7 +310,7 @@ public class PersonalController {
 			return "personal/P_recom";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 
@@ -330,7 +327,7 @@ public class PersonalController {
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 	// 지원현황리스트
@@ -353,7 +350,7 @@ public class PersonalController {
 			
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
+			return "redirect:/";
 		}
 	}
 

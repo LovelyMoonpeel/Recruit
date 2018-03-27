@@ -44,12 +44,14 @@ var formObj = $("form[role='form']");
 
 console.log(formObj);
 
+/* 등록버튼 */
 $(".btn-warning").on("click", function(){
 	if(confirm("등록할랭?")){
 		formObj.submit();
 	}
 });
 
+/* 목록버튼 */
 $(".btn-primary").on("click", function(){
 	self.location = "/admin/faq";
 });

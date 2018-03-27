@@ -40,7 +40,7 @@
 			<div class="col-md-3">
 				<p class="lead">고객센터</p>
 				<div class="list-group">
-					<a href="/cs/S_faq" class="list-group-item">FAQ</a> <a
-						href="/cs/S_qna" class="list-group-item">Q&A</a>
+					<a href="/cs/faq" class="list-group-item">FAQ</a> <a
+						href="/cs/qna" class="list-group-item">Q&A</a>
 				</div>
 			</div>

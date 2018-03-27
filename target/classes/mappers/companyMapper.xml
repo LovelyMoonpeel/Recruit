@@ -113,11 +113,11 @@
 		)
 	</insert> <!-- 채용공고 작성 -->
 
-	<select id="recruitList" resultType="com.recruit.domain.RecruitVO">
+	<select id="RecruitList" resultType="RecruitVO">
  <![CDATA[
  select bno, title, period, viewcnt
   from
-   tblRecruit
+   project.tblRecruit
    where cid = #{id}
  ]]>
 	</select> <!-- 채용공고 리스트 (*여러곳에서 사용) -->

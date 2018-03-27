@@ -14,7 +14,7 @@
 		</tr>		
 	<c:forEach items="${list}" var="CsfaqVO">
 		<tr>
-			<td><a href='/cs/S_faqread?bno=${CsfaqVO.bno}'>${CsfaqVO.title}</a></td>
+			<td><a href='/cs/faqread?bno=${CsfaqVO.bno}'>${CsfaqVO.title}</a></td>
 		</tr>
 	</c:forEach>
 			

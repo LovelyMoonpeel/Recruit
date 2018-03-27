@@ -1,6 +1,7 @@
 package com.recruit.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
@@ -33,17 +35,21 @@ public class CsController {
 
 	@Inject
 	private CsqnaService qservice;
-
-	@RequestMapping(value = "/S_faq", method = RequestMethod.GET)
-	public void faqGET(Model model) throws Exception {
+	
+	@RequestMapping(value = "/faq", method = RequestMethod.GET)
+	public String faqGET(Model model) throws Exception {
 		logger.info("faq..........");
 		model.addAttribute("list", fservice.listAll());
+		
+		return "/cs/S_faq";
 	}
 
-	@RequestMapping(value = "/S_faqread", method = RequestMethod.GET)
-	public void faqreadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/faqread", method = RequestMethod.GET)
+	public String faqreadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("faqread..........");
 		model.addAttribute("CsfaqVO", fservice.read(bno));
+		
+		return "/cs/S_faqread";
 	}
 
 	@RequestMapping(value = "/S_faqmod", method = RequestMethod.GET)
@@ -61,11 +67,11 @@ public class CsController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/cs/S_faq";
+		return "redirect:/cs/faq";
 	}
 
-	@RequestMapping(value = "/S_qna", method = RequestMethod.GET)
-	public void qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/qna", method = RequestMethod.GET)
+	public String qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna..........");
 		model.addAttribute("list", qservice.listCriteria(cri));
 		CsqnaPageMaker pageMaker = new CsqnaPageMaker();
@@ -74,11 +80,25 @@ public class CsController {
 		pageMaker.setTotalCount(qservice.listCountCriteria(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/cs/S_qna";
 	}
 
-	@RequestMapping(value = "/S_qnareg", method = RequestMethod.GET)
-	public void qnaRegisterGET(Model model) throws Exception {
+	@RequestMapping(value = "/qnareg", method = RequestMethod.GET)
+	public String qnaRegisterGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("qna Register..........");
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			String id = login.getId();
+			//System.out.println("아이디 출력 해봅니다. : " + id);
+			model.addAttribute("id", id);
+			return "/cs/S_qnareg";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/qna";
+		}
 	}
 
 	@RequestMapping(value = "/S_qnareg", method = RequestMethod.POST)
@@ -90,13 +110,35 @@ public class CsController {
 
 		rttr.addFlashAttribute("msg", "regist");
 
-		return "redirect:/cs/S_qna";
+		return "redirect:/cs/qna";
 	}
 
-	@RequestMapping(value = "/S_qnaread", method = RequestMethod.GET)
-	public void qnareadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/qnaread", method = RequestMethod.GET)
+	public String qnareadGET(@RequestParam("bno") Integer bno, HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("qna read..........");
-		model.addAttribute("CsqnaVO", qservice.read(bno));
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if(qservice.read2(bno).getBpw() != null){
+			if (login != null) {
+				String id = login.getId();
+				String idc = qservice.read2(bno).getUser();
+				if(id.equals(idc)){
+					model.addAttribute("CsqnaVO", qservice.read(bno));
+					session.setAttribute("idc", idc);
+					return "/cs/S_qnaread";				
+				}else{
+					rttr.addFlashAttribute("msg", "fail");
+					return "redirect:/cs/qna";
+				}
+			} else {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/qna";
+			}			
+		}else{
+			model.addAttribute("CsqnaVO", qservice.read(bno));
+			return "/cs/S_qnaread";
+		}
 	}
 
 	@RequestMapping(value = "/qremove", method = RequestMethod.POST)
@@ -105,13 +147,29 @@ public class CsController {
 
 		rttr.addFlashAttribute("msg", "remove");
 
-		return "redirect:/cs/S_qna";
+		return "redirect:/cs/qna";
 	}
 
-	@RequestMapping(value = "/S_qnamod", method = RequestMethod.GET)
-	public void qnaModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/qnamod", method = RequestMethod.GET)
+	public String qnaModifyGET(HttpSession session, RedirectAttributes rttr, @RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("qna Modify Get..........");
-		model.addAttribute("CsqnaVO", qservice.read(bno));
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		if (login != null) {
+			String id = login.getId();
+			String idc = qservice.read2(bno).getUser();
+			if(id.equals(idc)){
+				model.addAttribute("CsqnaVO", qservice.read2(bno));
+				return "/cs/S_qnamod";				
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/qna";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/qna";
+		}
 	}
 
 	@RequestMapping(value = "/S_qnamod", method = RequestMethod.POST)
@@ -123,7 +181,7 @@ public class CsController {
 
 		rttr.addFlashAttribute("msg", "modify");
 
-		return "redirect:/cs/S_qna";
+		return "redirect:/cs/qna";
 	}
 	
 	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")

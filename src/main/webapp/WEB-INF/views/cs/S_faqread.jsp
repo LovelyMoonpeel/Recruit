@@ -49,7 +49,7 @@ var formObj = $("form[role='form']");
 console.log(formObj);
 
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/S_faq";
+	self.location = "/cs/faq";
 });
 
 </script>

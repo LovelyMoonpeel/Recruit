@@ -57,7 +57,7 @@ $("#submit").on("click", function(){
 				alert("이름이나 이메일을 다시 확인해주세요.");
 			}else{
 				alert("당신의 아이디는 "+result+" 입니다.");
-				self.location="/cs/S_faq";
+				self.location="/";
 			}
 		}
 	})
@@ -83,7 +83,7 @@ $("#submit").on("click", function(){
 				alert("이름이나 이메일을 다시 확인해주세요.");
 			}else{
 				alert("당신의 아이디는 "+result+" 입니다.");
-				self.location="/cs/S_faq";
+				self.location="/";
 			}
 		}
 	})

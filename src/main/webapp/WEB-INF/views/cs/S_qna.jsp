@@ -28,25 +28,25 @@
 			
 	</table>
 	
-	<button class="btn btn-success" type="button" onclick="location.href='/cs/S_qnareg'">작성</button>
+	<button class="btn btn-success" type="button" onclick="location.href='/cs/qnareg'">작성</button>
 
 	<!-- pagination -->
 	<div style="text-align: center">
 		<ul class="pagination">
 		
 			<c:if test="${pageMaker.prev }">
-				<li><a href="S_qna?page=${pageMaker.startPage-1}">&laquo;</a></li>
+				<li><a href="qna?page=${pageMaker.startPage-1}">&laquo;</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.page == idx? 'class=active':'' }"/>>
-					<a href="S_qna?page=${idx}">${idx }</a>
+					<a href="qna?page=${idx}">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-				<li><a href="S_qna?page=${pageMaker.endPage + 1}">&raquo;</a></li>
+				<li><a href="qna?page=${pageMaker.endPage + 1}">&raquo;</a></li>
 			</c:if>
 			
 		</ul>
@@ -63,7 +63,7 @@
      <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body" data-bno>
-     <p><input type="text" id="bpwchk" class="form-control" placeholder="비밀번호를 입력해주세요."></p>
+     <p><input type="password" id="bpwchk" class="form-control" placeholder="비밀번호를 입력해주세요." autofocus></p>
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-info" id="qnabpw">확인</button>
@@ -96,7 +96,7 @@ $(".qnadetail").on("click", function(){
 		dataType:'text',
 		success:function(result){
 			if(result == ""){
-				self.location = "/cs/S_qnaread?bno="+bno;
+				self.location = "/cs/qnaread?bno="+bno;
 			}else{
 				$("."+bno).click();
 			}
@@ -138,7 +138,7 @@ $("#qnabpw").on("click", function(){
 			if(result == bpw){
 				/* alert("비밀번호가 일치합니다."); */
 				bpwObj.val("");
-				self.location = "/cs/S_qnaread?bno="+bno;
+				self.location = "/cs/qnaread?bno="+bno;
 			}else{
 				alert("비밀번호 불일치");
 				bpwObj.val("");
@@ -163,6 +163,10 @@ if(result == 'modify'){
 	alert("삭제가 완료 되었습니다.");
 }else if(result == 'regist'){
 	alert("Q&A가 등록 되었습니다..");
+}else if(result == 'login'){
+	alert("로그인이 필요합니다.");
+}else if(result == 'fail'){
+	alert("잘못된 접근입니다.");
 }
 </script>
 <!-- //수정, 삭제 처리시 -->

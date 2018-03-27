@@ -23,4 +23,5 @@ public interface CsqnaService {
 
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception;
 
+	public CsqnaVO read2(Integer bno) throws Exception;
 }

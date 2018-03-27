@@ -40,14 +40,14 @@
 			<th>게시글 비밀번호</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="bpw" id="bpw"
+			<td><input class="form-control" type="password" name="bpw" id="bpw"
 				value="${CsqnaVO.bpw}"></td>
 		</tr>
 		<tr>
 			<th>게시글 비밀번호 확인</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="bpwc" id="bpwc">
+			<td><input class="form-control" type="password" name="bpwc" id="bpwc">
 			<span id="bpwchk"></span></td>
 		</tr>
 		<tr>
@@ -68,7 +68,7 @@
 	<input type="submit" id="sremove" class="btn btn-danger" value="삭제">
 	<input type="submit" class="btn btn-primary" value="목록">
 	
-	
+	<!-- 댓글달기 창 -->
 	<div class="row">
 	<div class="col-md-12">
 	 <div class="box box-success">

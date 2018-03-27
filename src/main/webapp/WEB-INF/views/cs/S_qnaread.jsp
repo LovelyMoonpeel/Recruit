@@ -13,6 +13,22 @@
 <!-- Font Awesome Icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+<%
+	String mod = "hidden";
+	try{
+		String idc = "";
+		idc = (String)session.getAttribute("idc");
+		System.out.println("id : "+id+" idc : "+idc);
+		if(id.equalsIgnoreCase(idc)){
+			mod = "submit";
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
+<% session.removeAttribute("idc"); %>
+
 <!-- 개인정보수정 페이지 -->
 <div class="col-md-9">
 
@@ -47,12 +63,12 @@
 	</table>
 	
 	<ul class="timeline">
-	 <li class="time-label" id="repliesDiv"><span class="bg-green">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></span></li>
+	 <li class="time-label" id="repliesDiv"><button class="bg-green">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
 	</ul>
 	<ul id="replies"></ul>
 	
-<!-- 	<input type="submit" class="btn btn-warning" value="수정">
-	<input type="submit" class="btn btn-danger" value="삭제"> -->
+	<input type="<%=mod %>" class="btn btn-warning" value="수정">
+	<!-- <input type="submit" class="btn btn-danger" value="삭제"> -->
 	<input type="submit" class="btn btn-primary" value="목록">
 	
 </div>
@@ -120,7 +136,7 @@ console.log(formObj);
 
 $(".btn-warning").on("click", function(){
 	if(confirm("수정할랭?")){
-		formObj.attr("action", "/cs/S_qnamod");
+		formObj.attr("action", "/cs/qnamod");
 		formObj.attr("method", "GET");
 		formObj.submit();
 	}
@@ -134,7 +150,7 @@ $(".btn-danger").on("click", function(){
 });
 
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/S_qna";
+	self.location = "/cs/qna";
 });
 
 </script>
