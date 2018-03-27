@@ -75,17 +75,27 @@
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>학력 사항</b>
-		</h4>
+		<hr style="border: solid 4px #ccc;">
+		
+		<div style="font-size:18px;" class="form-group col-md-2"><b>학력 사항</b></div>
+		<div class="form-group col-md-2"><label for="edustatus">최종학력</label>
+		</div>
+		<div class="form-group col-md-2">
+			<select class="form-control" name=levelofeducation id="CodeList2">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 2 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	     </div>
 		<div id="edu_div"></div>
-		<hr style="border: solid 1px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>경력 사항</b>
 		</h4>
 		<div id="exp_div"></div>
-		<hr style="border: solid 1px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<!-- end of r.code -->
 		<hr style="border: solid 4px #ccc;">
 		<h4>
@@ -163,9 +173,32 @@
 </div>
 <!-- end of row -->
 </script>
+
+<!-- 
+	<div style="font-size:18px;" class="col-md-3"><b>학력 사항</b></div>
+	
+	<div class="form-group col-md-2">
+		<label for="edustatus">최종학력</label>
+	</div>
+	<div class="form-group col-md-2">
+		<select class="form-control edustatus edu" name="levelofeducation">
+			{{#select edustatus}}
+			<option value="0">선택</option>
+			<option value="15">재학</option>
+			<option value="16">졸업</option>
+			<option value="17">중퇴</option>
+			<option value="18">졸업예정</option>
+			<option value="19">휴학</option>
+			{{/select}}
+		</select>
+	</div>
+	<br>
+	<br> -->
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
-	<hr style="border: solid 0.5px #ccc;">
+
+	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	
 	<div class="form-group col-md-2">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
