@@ -50,4 +50,7 @@ public interface CompanyService {
 	  public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception;
 	  
 	  public void C_RecruitExtension(String id, int bno)throws Exception;
+	  
+	  public void updatePassword(String pw) throws Exception;  //일단 이렇게 쓰고
+	  
 }

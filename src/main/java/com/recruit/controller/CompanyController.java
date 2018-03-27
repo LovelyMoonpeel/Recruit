@@ -531,6 +531,19 @@ public class CompanyController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
+	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
+		
+		//pw2는 좀 더 살펴봐야 함 
+		service.updatePassword(pw2);
+		
+		return "/company/C_pass";   //확인을 누른다음 보여주는 페이지
+	}
+	
+	
+	
 	/*
 	// 문> 3.23 패스워드 변경 관련해서 추가
 	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 

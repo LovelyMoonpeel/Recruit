@@ -146,4 +146,10 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 
 	
+	
+	@Override
+	public void updatePassword(String pw) throws Exception {
+		session.update(namespace + ".updatePassword", pw);
+	}
+	
 }
