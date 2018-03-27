@@ -33,11 +33,11 @@ public interface SearchService {
 
 	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception;
 
-	public List<SpanelVO> selectRecruitsAll() throws Exception;
+	public List<SpanelVO> selectRecruitsAll(int snum) throws Exception;
 
-	public List<SpanelVO> selectResumesAll() throws Exception;
+	public List<SpanelVO> selectResumesAll(int snum) throws Exception;
 
 	public String codeToName(String scode) throws Exception;
-	
+
 	public List<Integer> selectJobCode() throws Exception;
 }

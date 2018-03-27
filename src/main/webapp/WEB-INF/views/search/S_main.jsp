@@ -25,15 +25,15 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 			<!-- r.code -->
-			<h4>r.code</h4>
+			<h4 style="display: none;">r.code</h4>
 			<input readonly class="form-control" type="text"
-				value="stype: ${srchVO.stype}">
+				value="stype: ${srchVO.stype}" style="display: none;">
 			<!-- -->
 			<input readonly class="form-control" type="text"
-				value="skeyword: ${srchVO.skeyword}">
+				value="skeyword: ${srchVO.skeyword}" style="display: none;">
 			<!-- -->
 			<input readonly class="form-control" type="text"
-				value="sfilter: ${srchVO.sfilter}">
+				value="sfilter: ${srchVO.sfilter}" style="display: none;">
 			<!-- end of r.code -->
 			<br />
 			<h3 align="center">
@@ -92,42 +92,13 @@
 				</div>
 			</div>
 			<br />
-			<h3 align="center" id="sdesc">프로그래밍 명언</h3>
+			<h3 align="center" id="sdesc"></h3>
 			<br />
 		</div>
 		<div class="col-md-2"></div>
 	</div>
 	<!-- row -->
-	<div class="row" id="spanel">
-		<!-- <h3 align="center"> -->
-		<!-- <a style="color: black;" href="http://blog.fupfin.com/?p=11">프로그래밍 명언</a> -->
-		<!-- </h3> -->
-		<br />
-		<div class="col-md-6">
-			<blockquote>1. "소프트웨어 설계를 구성하는 데에는 두 가지 방법이 있다. 한가지 방법은
-				아주 단순하게 만들어서 명백히 결함이 없게 된다. 그리고 다른 방법은 너무 복잡하게 만들어서 명백한 결함이 없게 된다."</blockquote>
-			<blockquote>2. "결국 당신 코드를 유지보수하게 될 친구가 당신이 어디에 사는지 아는
-				광폭한 싸이코패스가 될 것이라고 여기고 코드를 작성하라."</blockquote>
-			<blockquote>3. "좋은 프로그래머 대부분은 돈이나 대중에게 받을 찬사를 기대하고
-				프로그래밍을 하지 않고 프로그래밍이 재미 있어서 한다."</blockquote>
-			<blockquote>4. "[의회 의원에게] 두 번 이런 질문을 받았다. '배비지 선생님, 그
-				기계에 잘못된 수를 집어 넣어도 올바른 답이 나오는지 말씀해 주시겠습니까?' 나는 어떤 유형의 개념적 혼란이 이런 질문을
-				유발하는지 바로 이해할 수 없다."</blockquote>
-			<blockquote>5. "인간적인 반복, 성스러운 재귀"</blockquote>
-		</div>
-		<div class="col-md-6">
-			<blockquote>6. "프로그래머가 격는 어려움은 프로그래머가 무엇을 하는지 너무 늦기 전에
-				말할 수 없다는 점이다."</blockquote>
-			<BLOCKQUOTE>7. "오늘날 소프트웨어 대부분은 이집트 피라미드와 매우 비슷한데, 수많은
-				블럭을 차곡차곡 쌓은 이것은, 구조적 무결성은 없고, 그저 마구잡이로 노예 수천을 동원해 완성됐다."</BLOCKQUOTE>
-			<BLOCKQUOTE>8. "당신 대부분은 프로그래머의 미덕과 친숙하다. 미덕은 세 가지인데,
-				당연히, 게으름, 성급함, 오만이다."</BLOCKQUOTE>
-			<BLOCKQUOTE>9. "먼저 컴퓨터 과학과 모든 이론을 배워라. 다음엔 프로그래밍 방식을
-				개발하라. 그러고 나선 모두 잊고 그냥 파헤쳐라."</BLOCKQUOTE>
-			<BLOCKQUOTE>10. "사람들은 컴퓨터 과학이 천재들의 기예이라고 생각하지만 사실 현실은
-				반대로, 단지 많은 사람이, 작은 돌로 된 담처럼, 다른 사람의 작업 위에 쌓아 올릴 뿐이다."</BLOCKQUOTE>
-		</div>
-	</div>
+	<div class="row" id="spanel"></div>
 </div>
 <!-- /Page Content -->
 
@@ -167,6 +138,7 @@
 
 <script>
 	// select 검색 탭 초기화
+	var blank_ = "<span style='color: white;'>blank</span>";
 	stabsel("c1"); // c1: job group tab
 
 	// text 검색 엔터키 처리
@@ -178,7 +150,8 @@
 	}
 
 	// 검색 결과 판넬 list 제거
-	function deletelist() {
+	function deletespanel() {
+		$("#sdesc").html("");
 		$(".result").remove();
 		$("#spanel").children().remove();
 	}
@@ -187,19 +160,19 @@
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
 		// $("#sinput").val("");
-
 		console.log(sinp);
 		if (sinp === "all") {
+			waitForSearching("검색중...", 4);
 			if ($("#stype").attr("value") === "1") {
 				getAllList("recruits");
 			} else {
-				console.log("getAllList");
 				getAllList("resumes");
 			}
 		} else if (sinp === "") {
-			deletelist();
-			$("#sdesc").html("키워드가 입력되지 않았습니다.");
+			waitForSearching("키워드가 입력되지 않았습니다.", 4);
+			// $("#sdesc").html("키워드가 입력되지 않았습니다.");
 		} else { // 키워드 검색
+			waitForSearching("검색중...", 4);
 			var sout = "";
 			console.log(sinp);
 			var len = sinp.length;
@@ -272,28 +245,48 @@
 		$("#spanel").append(template_pnl(item));
 	}
 
+	function keyRecruitHandler(data) {
+		var source_pnl = $("#tmpnl_recruit").html();
+		template_pnl = Handlebars.compile(source_pnl);
+		console.log(data.length);
+		i = 0;
+		deletespanel();
+		$(data).each(recruitPnl);
+		if (data.length > 0) {
+			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			if (data.length < 5)
+				waitForSearching(blank_, 2, false);
+			else if (data.length < 9)
+				waitForSearching(blank_, 1, false);
+		} else {
+			waitForSearching("검색결과가 없습니다.", 4);
+		}
+	}
+
+	function keyResumeHandler(data) {
+		var source_pnl = $("#tmpnl_resume").html();
+		template_pnl = Handlebars.compile(source_pnl);
+		console.log(data.length);
+		i = 0;
+		deletespanel();
+		$(data).each(resumePnl);
+		if (data.length > 0) {
+			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			if (data.length < 5)
+				waitForSearching(blank_, 2, false);
+			else if (data.length < 9)
+				waitForSearching(blank_, 1, false);
+		} else {
+			waitForSearching("검색결과가 없습니다.", 4);
+		}
+	}
+
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/" + users, function(data) {
-				var source_pnl = $("#tmpnl_recruit").html();
-				template_pnl = Handlebars.compile(source_pnl);
-				console.log(data.length);
-				i = 0;
-				deletelist();
-				$("#sdesc").html("검색결과");
-				$(data).each(recruitPnl);
-			});
+			$.getJSON("/sresult/" + users + "all/0", keyRecruitHandler);
 		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/" + users, function(data) {
-				var source_pnl = $("#tmpnl_resume").html();
-				template_pnl = Handlebars.compile(source_pnl);
-				console.log(data.length);
-				i = 0;
-				deletelist();
-				$("#sdesc").html("검색결과");
-				$(data).each(resumePnl);
-			});
+			$.getJSON("/sresult/" + users + "all/0", keyResumeHandler);
 		}
 	}
 
@@ -301,37 +294,9 @@
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getList(users, skey) {
 		if (users == "recruits") {
-			$.getJSON("/sresult/recruits/" + skey, function(data) {
-				var source_pnl = $("#tmpnl_recruit").html();
-				template_pnl = Handlebars.compile(source_pnl);
-				console.log(data.length);
-				i = 0;
-				deletelist();
-				$(data).each(recruitPnl);
-				var str;
-				if (data.length > 0) {
-					str = data.length + "개의 검색결과가 있습니다.";
-				} else {
-					str = "검색결과가 없습니다."
-				}
-				$("#sdesc").html(str);
-			});
+			$.getJSON("/sresult/recruits/" + skey, keyRecruitHandler);
 		} else { // resumes
-			$.getJSON("/sresult/resumes/" + skey, function(data) {
-				var source_pnl = $("#tmpnl_resume").html();
-				template_pnl = Handlebars.compile(source_pnl);
-				console.log(data.length);
-				i = 0;
-				deletelist();
-				$(data).each(resumePnl);
-				var str;
-				if (data.length > 0) {
-					str = data.length + "개의 검색결과가 있습니다.";
-				} else {
-					str = "검색결과가 없습니다."
-				}
-				$("#sdesc").html(str);
-			});
+			$.getJSON("/sresult/resumes/" + skey, keyResumeHandler);
 		}
 	}
 
@@ -343,15 +308,17 @@
 		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
 		i = 0;
-		deletelist();
+		deletespanel();
 		$(data).each(recruitPnl);
-		var str;
 		if (data.length > 0) {
-			str = data.length + "개의 검색결과가 있습니다.";
+			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			if (data.length < 5)
+				waitForSearching(blank_, 2, false);
+			else if (data.length < 9)
+				waitForSearching(blank_, 1, false);
 		} else {
-			str = "검색결과가 없습니다."
+			waitForSearching("검색결과가 없습니다.", 4);
 		}
-		$("#sdesc").html(str);
 	}
 
 	// url: /sresult/sel_search/resumes
@@ -360,16 +327,17 @@
 		template_pnl = Handlebars.compile(source_pnl);
 		console.log(data.length);
 		i = 0;
-		deletelist();
+		deletespanel();
 		$(data).each(resumePnl);
-
-		var str;
 		if (data.length > 0) {
-			str = data.length + "개의 검색결과가 있습니다.";
+			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			if (data.length < 5)
+				waitForSearching(blank_, 2, false);
+			else if (data.length < 9)
+				waitForSearching(blank_, 1, false);
 		} else {
-			str = "검색결과가 없습니다."
+			waitForSearching("검색결과가 없습니다.", 4);
 		}
-		$("#sdesc").html(str);
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(2)
@@ -388,6 +356,7 @@
 	$("#sel_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
+		waitForSearching("검색중...", 4);
 		$("#well > .sfilter_btn").each(function() {
 			array[i] = $(this).val(); // select filter를 배열에 담기
 			i++;
@@ -414,24 +383,6 @@
 			}
 		}); // ajax
 	});
-
-	// select filter(버튼) 추가하기
-	// 	function add_tmpl_sfilter(flt_val, flt_title) {
-	// 		var alreadyhave = false;
-	// 		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
-	// 			if ($(this).val() === flt_val)
-	// 				alreadyhave = true;
-	// 		})
-	// 		if (alreadyhave) // deduplication
-	// 			return;
-	// 		var source_sflt = $("#tmpl_sfilter").html();
-	// 		var template_sflt = Handlebars.compile(source_sflt);
-	// 		var item = {
-	// 			sflt_val : flt_val,
-	// 			sflt_title : flt_title
-	// 		};
-	// 		$("#well").append(template_sflt(item)); // add a search_filter
-	// 	}
 
 	// select filter(버튼) 추가하기
 	function add_tmpl_sfilter(flt_val) {
@@ -579,6 +530,18 @@
 			$.getJSON("/sresult/code/" + tid, sel1Handler);
 		}
 	}
+
+	function waitForSearching(str, num, del) {
+		if (del !== false)
+			deletespanel();
+		str = '<h3 align="center">' + str + '</h3>';
+		for (var i = 0; i < num; i++) {
+			str = '<br/>' + str + '<br/><br/><br/>';
+		}
+		$("#spanel").append(str);
+	}
+
+	waitForSearching(blank_, 4);
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');
 <%} else if (!(srchVO.getSfilter() == null)) {%>

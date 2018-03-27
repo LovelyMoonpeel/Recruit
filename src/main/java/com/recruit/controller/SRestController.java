@@ -47,14 +47,15 @@ public class SRestController {
 
 	// A.getAllList 전체검색
 	// A-1.recruit 로딩
-	@RequestMapping(value = "/recruits", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listRecruitAll() {
+	@RequestMapping(value = "/recruitsall/{snum}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> listRecruitAll(@PathVariable("snum") int snum) {
 
+		System.out.println("snum: " + snum);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			// List<SpanelVO> cList = searchService.selectRecruitsAll();
 			// System.out.println(cList);
-			entity = new ResponseEntity<>(searchService.selectRecruitsAll(), HttpStatus.OK);
+			entity = new ResponseEntity<>(searchService.selectRecruitsAll(snum), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,15 +64,14 @@ public class SRestController {
 	}
 
 	// A-2.resume 로딩
-	@RequestMapping(value = "/resumes", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listResumeAll() {
+	@RequestMapping(value = "/resumesall/{snum}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> listResumeAll(@PathVariable("snum") int snum) {
 
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			System.out.println("TEST1");
-			List<SpanelVO> pList = searchService.selectResumesAll();
-			System.out.println(pList);
-			entity = new ResponseEntity<>(searchService.selectResumesAll(), HttpStatus.OK);
+			// List<SpanelVO> pList = searchService.selectResumesAll();
+			// System.out.println(pList);
+			entity = new ResponseEntity<>(searchService.selectResumesAll(snum), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

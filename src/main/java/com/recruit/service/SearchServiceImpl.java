@@ -247,18 +247,28 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<SpanelVO> selectRecruitsAll() throws Exception {
-		System.out.println("Performance: 01");
+	public List<SpanelVO> selectRecruitsAll(int snum) throws Exception {
 		List<RecruitVO> list_tmp = searchDAO.selectRecruitsAll();
-		System.out.println("Performance: 02");
-		List<SpanelVO> list_tmp2 = convertToRecruitPanel(list_tmp);
-		System.out.println("Performance: 03");
-		return list_tmp2;
+		if (snum != 0 && list_tmp.size() > snum) {
+			List<RecruitVO> list_tmp1 = new ArrayList<RecruitVO>();
+			for (int i = 0; i < snum; i++) {
+				list_tmp1.add(list_tmp.get(i));
+			}
+			list_tmp = list_tmp1;
+		}
+		return convertToRecruitPanel(list_tmp);
 	}
 
 	@Override
-	public List<SpanelVO> selectResumesAll() throws Exception {
+	public List<SpanelVO> selectResumesAll(int snum) throws Exception {
 		List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
+		if (snum != 0 && list_tmp.size() > snum) {
+			List<ResumeVO> list_tmp1 = new ArrayList<ResumeVO>();
+			for (int i = 0; i < snum; i++) {
+				list_tmp1.add(list_tmp.get(i));
+			}
+			list_tmp = list_tmp1;
+		}
 		return convertToResumePanel(list_tmp);
 	}
 
