@@ -244,8 +244,7 @@
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm tel_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm tel_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -302,8 +301,7 @@
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm edu_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm edu_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -372,8 +370,7 @@
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default exp_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default exp_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -401,8 +398,7 @@
 		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm web_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm web_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -439,8 +435,7 @@
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm license_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm license_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -521,8 +516,7 @@
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm lang_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm lang_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -803,12 +797,32 @@ $(document).ready(function() {
 			}; 
 		add_tel(item);
 	});
+	// tel 삭제버튼 이벤트
+	$("#tel_div").on("click", ".tel_minus_btn", function(){
+		 var tel_index = $(".tel_minus_btn").index(this);  // 존재하는 tel_minus_btn를 기준으로 index
+		 console.log(tel_index);
+		 if(tel_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
 				resumenum : ${ResumeVO.bno}
 			};
 		add_edu(item);
+	});
+	//edu minus 버튼 이벤트
+	$("#edu_div").on("click", ".edu_minus_btn", function(){
+		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
+		 console.log(edu_index);
+		 if(edu_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	// exp 추가버튼 이벤트
 	$("#exp_div").on("click", ".exp_plus_btn", function(){
@@ -817,12 +831,32 @@ $(document).ready(function() {
 			};
 		add_exp(item);
 	});
+	//exp minus 버튼 이벤트
+	$("#exp_div").on("click", ".exp_minus_btn", function(){
+		 var exp_index = $(".exp_minus_btn").index(this);  // 존재하는 exp_minus_btn를 기준으로 index
+		 console.log(exp_index);
+		 if(exp_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
 				rid : ${ResumeVO.bno}
 			}
 		add_web(item);
+	});
+	//웹 삭제 버튼 이벤트
+	$("#web_div").on("click", ".web_minus_btn", function(){
+		 var web_index = $(".web_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(web_index);
+		 if(web_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
@@ -831,12 +865,32 @@ $(document).ready(function() {
 		}
 		add_license(item);
 	});
+	//자격증 삭제 버튼 이벤트
+	$("#license_div").on("click", ".license_minus_btn", function(){
+		 var license_index = $(".license_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(license_index);
+		 if(license_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
 				rid : ${ResumeVO.bno}
 			};
 		add_language(item);
+	});
+	//언어 삭제 버튼 이벤트
+	$("#language_div").on("click", ".lang_minus_btn", function(){
+		var lang_index = $(".lang_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(lang_index);
+		 if(lang_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	function add_tel(item) {
 		var source_tel = $("#template_tel").html();
