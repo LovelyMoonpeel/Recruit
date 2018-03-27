@@ -183,4 +183,9 @@ public class SearchDAOImpl implements SearchDAO {
 	public List<ResumeVO> selectResumesAll() throws Exception {
 		return session.selectList(namespace + ".selectResumesAll");
 	}
+
+	@Override
+	public List<Integer> selectJobCode() throws Exception {
+		return session.selectList(namespace + ".selectJobCode");
+	}
 }

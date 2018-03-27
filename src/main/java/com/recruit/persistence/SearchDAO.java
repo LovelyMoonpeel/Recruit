@@ -27,4 +27,6 @@ public interface SearchDAO {
 	public List<RecruitVO> selectRecruitsAll() throws Exception;
 
 	public List<ResumeVO> selectResumesAll() throws Exception;
+
+	public List<Integer> selectJobCode() throws Exception;
 }

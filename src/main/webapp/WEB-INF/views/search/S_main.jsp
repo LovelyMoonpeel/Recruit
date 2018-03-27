@@ -414,10 +414,10 @@
 	});
 
 	// select filter(버튼) 추가하기
-	// 	function add_tmpl_sfilter_ori(that) {
+	// 	function add_tmpl_sfilter(flt_val, flt_title) {
 	// 		var alreadyhave = false;
 	// 		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
-	// 			if ($(this).val() === $(that).val())
+	// 			if ($(this).val() === flt_val)
 	// 				alreadyhave = true;
 	// 		})
 	// 		if (alreadyhave) // deduplication
@@ -425,13 +425,14 @@
 	// 		var source_sflt = $("#tmpl_sfilter").html();
 	// 		var template_sflt = Handlebars.compile(source_sflt);
 	// 		var item = {
-	// 			sflt_val : $(that).val(),
-	// 			sflt_title : $(that).find(":selected").text()
+	// 			sflt_val : flt_val,
+	// 			sflt_title : flt_title
 	// 		};
 	// 		$("#well").append(template_sflt(item)); // add a search_filter
 	// 	}
 
-	function add_tmpl_sfilter(flt_val, flt_title) {
+	// select filter(버튼) 추가하기
+	function add_tmpl_sfilter(flt_val) {
 		var alreadyhave = false;
 		$("#well > .sfilter_btn").each(function() { // 중복검사(deduplication)
 			if ($(this).val() === flt_val)
@@ -439,13 +440,18 @@
 		})
 		if (alreadyhave) // deduplication
 			return;
-		var source_sflt = $("#tmpl_sfilter").html();
-		var template_sflt = Handlebars.compile(source_sflt);
-		var item = {
-			sflt_val : flt_val,
-			sflt_title : flt_title
-		};
-		$("#well").append(template_sflt(item)); // add a search_filter
+		var btnclick = arguments[1];
+		$.getJSON("/sresult/scode/" + flt_val, function(data) {
+			var source_sflt = $("#tmpl_sfilter").html();
+			var template_sflt = Handlebars.compile(source_sflt);
+			var item = {
+				sflt_val : flt_val,
+				sflt_title : data
+			};
+			$("#well").append(template_sflt(item)); // add a search_filter
+			if (btnclick === true)
+				$("#sel_search_btn").trigger('click');
+		});
 	}
 
 	var str;
@@ -475,49 +481,40 @@
 	}
 
 	// select 1번째 change 이벤트 핸들러 
-	$("#sel1").change(
-			function() {
-				$("#sel2").attr('style', 'visibility: hidden;');
-				$(".opt2").remove();
-				if ($(this).val() !== '0') {
-					if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
-						sel2Options = sel2JobOptions;
-						$
-								.getJSON("/sresult/jobg/" + $(this).val(),
-										sel2Handler);
-					} // end of #sel1 c1 change
-					else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
-						that_val = $(this).val();
-						sel2Options = sel2RegOptions;
-						$.getJSON("/sresult/region/" + $(this).val(),
-								sel2Handler);
-					} // end of #sel1 c2 change
-					else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
-						add_tmpl_sfilter($(this).val(), $(this).find(
-								":selected").text());
-					} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
-						add_tmpl_sfilter($(this).val(), $(this).find(
-								":selected").text());
-					} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
-						add_tmpl_sfilter($(this).val(), $(this).find(
-								":selected").text());
-					}
-				}
-			}); // $("#sel1").change
+	$("#sel1").change(function() {
+		$("#sel2").attr('style', 'visibility: hidden;');
+		$(".opt2").remove();
+		if ($(this).val() !== '0') {
+			if ($("#ttype").val() === 'c1') { // #sel1 c1(job group) change
+				sel2Options = sel2JobOptions;
+				$.getJSON("/sresult/jobg/" + $(this).val(), sel2Handler);
+			} // end of #sel1 c1 change
+			else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
+				that_val = $(this).val();
+				sel2Options = sel2RegOptions;
+				$.getJSON("/sresult/region/" + $(this).val(), sel2Handler);
+			} // end of #sel1 c2 change
+			else if ($("#ttype").val() === 'c3') { // #sel1 c3 change
+				// add_tmpl_sfilter($(this).val(), $(this).find(":selected").text());
+				add_tmpl_sfilter($(this).val());
+			} else if ($("#ttype").val() === 'c4') { // #sel1 c4 change
+				add_tmpl_sfilter($(this).val());
+			} else if ($("#ttype").val() === 'c5') { // #sel1 c4 change
+				add_tmpl_sfilter($(this).val());
+			}
+		}
+	}); // $("#sel1").change
 
 	// select 2번째 change 이벤트 핸들러
-	$("#sel2").change(
-			function() {
-				if ($(this).val() !== '0') {
-					if ($("#ttype").val() === 'c1') { // #sel1 c1 change
-						add_tmpl_sfilter($(this).val(), $(this).find(
-								":selected").text());
-					} else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
-						add_tmpl_sfilter($(this).val(), $(this).find(
-								":selected").text());
-					}
-				}
-			});
+	$("#sel2").change(function() {
+		if ($(this).val() !== '0') {
+			if ($("#ttype").val() === 'c1') { // #sel1 c1 change
+				add_tmpl_sfilter($(this).val());
+			} else if ($("#ttype").val() === 'c2') { // #sel1 c2 change
+				add_tmpl_sfilter($(this).val());
+			}
+		}
+	});
 
 	// sfilter click > delete
 	// $("#well").on("click", ".sfilter_btn", function() {
@@ -583,14 +580,7 @@
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');
 <%} else if (!(srchVO.getSfilter() == null)) {%>
-	$.getJSON("/sresult/scode/${srchVO.sfilter}", scodeHandler);
-	// code to name
-	console.log("data: 123");
-	function scodeHandler(data) {
-		console.log("data: " + data);
-		add_tmpl_sfilter("${srchVO.sfilter}", data);
-		$("#sel_search_btn").trigger('click');
-	}
+	add_tmpl_sfilter("${srchVO.sfilter}", true);
 <%}%>
 	
 </script>

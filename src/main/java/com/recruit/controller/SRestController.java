@@ -28,7 +28,7 @@ import com.recruit.service.SearchService;
 @RestController
 @RequestMapping("/sresult")
 public class SRestController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(SRestController.class);
 
 	@Inject
@@ -122,7 +122,7 @@ public class SRestController {
 		for (int i = 0; i < num; i++) {
 			String scode = scodes.get(i);
 			System.out.println("Scode: " + scode);
-			scodes.set(i, convertCodeTmp(scode));
+			scodes.set(i, convertJob1to2(scode));
 		}
 		sel_scodes = scodes;
 		System.out.println("Scodes 1: " + sel_scodes);
@@ -136,21 +136,24 @@ public class SRestController {
 		return entity;
 	}
 
-	// 임시코드변경 메소드
-	public String convertCodeTmp(String scode) {
-		int[] jobcode = { //
-				18, 43, 86, 94, 107, 129, 142, 150, 161, //
-				171, 194, 203, 223, 232, 238, 244, 260 };
+	// 임시코드변경 메소드 (직무 1차 분류 > 2차 전체)
+	public String convertJob1to2(String scode) {
+
 		System.out.println("Scode: " + scode);
-		// Job
-		if ("J".equals(scode.substring(0, 1)) && scode.length() > 1) {
-			int jnum = Integer.parseInt(scode.substring(1));
-			if (jnum < jobcode[0])
-				scode = "J" + (jobcode[jnum - 1]);
+		try {
+			List<Integer> jobcode = searchService.selectJobCode();
+			// Job
+			if ("J".equals(scode.substring(0, 1)) && scode.length() > 1) {
+				int jnum = Integer.parseInt(scode.substring(1));
+				if (jnum < jobcode.get(0))
+					scode = "J" + (jobcode.get(jnum - 1));
+			}
+		} catch (Exception e) {
 		}
+
 		// Region
-		if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
-			scode = scode + "1";
+		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
+		// scode = scode + "99";
 		return scode;
 	}
 
@@ -268,7 +271,7 @@ public class SRestController {
 		try {
 			List<String> scodeList = new ArrayList<String>();
 			System.out.println("scodes: " + scode);
-			scodeList.add(searchService.codeToName(convertCodeTmp(scode)));
+			scodeList.add(searchService.codeToName(convertJob1to2(scode)));
 			System.out.println("scodeList: " + scodeList);
 			// entity = new ResponseEntity<>("scodes", HttpStatus.OK);
 			entity = new ResponseEntity<>(scodeList, HttpStatus.OK);

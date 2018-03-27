@@ -38,4 +38,6 @@ public interface SearchService {
 	public List<SpanelVO> selectResumesAll() throws Exception;
 
 	public String codeToName(String scode) throws Exception;
+	
+	public List<Integer> selectJobCode() throws Exception;
 }

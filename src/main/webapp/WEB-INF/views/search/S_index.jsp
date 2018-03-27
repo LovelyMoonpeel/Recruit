@@ -306,7 +306,7 @@
 	// dropdown 1번째 코드(지역) list items 생성하기
 	function drop1RegListItems(index, that) { // R + region code
 		str += '<li class="cls1" value="' + that.rgbid +'"><a href="/srch/main?sfilter=R'
-				+ that.rgbid + '">' + that.rgbname + '</a></li>';
+				+ that.rgbid + '99">' + that.rgbname + '</a></li>';
 	}
 
 	// dropdown 1번째 region 생성하기

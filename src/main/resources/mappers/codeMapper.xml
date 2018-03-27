@@ -33,14 +33,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="codeToJobName" resultType="String">
-		select jobgroup from
-		tbljobgroup where id = #{code};
+		select
+		if(a.jobgroup='전체',b.jobgroup,concat(b.jobgroup,', ', a.jobgroup))
+		from tbljobgroup a, tbljobgroup b
+		where a.id = #{code}
+		and a.id2 = b.id;
 	</select>
 
 	<select id="codeToRegName" resultType="String" parameterType="java.util.Map">
-		select rgsname from tblregion where
-		rgbid = #{rgbid} and rgsid =
-		#{rgsid};
+		select if(#{rgsid} = 99, rgbname, concat(rgbname,', ', rgsname)) from
+		tblregion
+		where if(#{rgsid} = 99, rgbid = #{rgbid} and rgsid = 1 ,
+		rgbid = #{rgbid}
+		and rgsid = #{rgsid})
+		;
 	</select>
 
 	<select id="codeToCodName" resultType="String">

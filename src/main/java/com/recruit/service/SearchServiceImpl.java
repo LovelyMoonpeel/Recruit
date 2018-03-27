@@ -227,13 +227,18 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public String codeToName(String scode) throws Exception {
 		String code1 = scode.substring(0, 1);
-		if ("J".equals(code1)) {
+		if ("J".equals(code1)) { // Job
 			scode = codedao.codeToJobName(scode.substring(1));
-		} else if ("R".equals(code1)) {
+		} else if ("R".equals(code1)) { // Region
 			scode = codedao.codeToRegName(scode.substring(1));
 		} else {
 			scode = codedao.codeToCodName(scode);
 		}
 		return scode;
+	}
+
+	@Override
+	public List<Integer> selectJobCode() throws Exception {
+		return searchDAO.selectJobCode();
 	}
 }
