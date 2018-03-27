@@ -37,32 +37,30 @@
       <form class="navbar-form navbar-left" role="search">
         <div class="input-group">
      
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">공고제목 <span class="caret"></span></button>
-        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-          <li><a href="#">담당자 이름</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
+     
+    <!--  	<div>
+	<select><option id="searchOpt" value="1">공고제목</option></select><input id = "searchText" type="text" /><input id="searchBar" type ="button" value="검색">
+	</div>  -->
+     
+     
+      <div class="input-group-btn" style="">
+      <select  name="searchType">
+     <option value="n"<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+	<option value="t"<c:out value="${cri.searchType eq 't'?'selected':''}"/>>Title</option>
+      </select>
+       <!--  <button type="button" class="btn btn-default" id="searchOpt" value="1">공고제목 <span class="caret"></span></button> -->
+        
       </div><!-- /btn-group -->
-       <input type="text" class="form-control" aria-label="...">
+      <input type="text" class="form-control" name='keyword' id="keywordInput" value='${cri.keyword }'>
      
          </div><!-- /input-group -->
-         <input type="submit" class="form-control aria-label="...">
+         <input type="button" class="form-control" id="searchBtn" value="검색하기">
       </form>
+      
       <ul class="nav navbar-nav navbar-right">
         
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">10개씩보기 <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
+          <a href="#" class="dropdown-toggle" role="button" aria-expanded="false">10개씩보기 <span class="caret"></span></a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -92,7 +90,7 @@
 		
 			<div class="row" id="recruitList">
   
-</div>
+			</div>
 		
 		
 			
@@ -108,9 +106,6 @@
     </div>
 	 
 
-	<div>
-	<select><option id="searchOpt" value="1">공고제목</option></select><input id = "searchText" type="text" /><input id="searchBar" type ="button" value="검색">
-	</div>
 
 	
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
@@ -137,14 +132,17 @@ $(document).ready(function(){
 		
 		var opt = $('#searchOpt').val(); // 카테고리 구분 2차때 할 예정
 		var srchTxt = $('#searchText').val();
+		alert(srchTxt)
 		var pN = 1;
 		
 		SearchList(pN, srchTxt);
 		
 	})
 	
-	var pN = 1;
+	  var pN = 1;
+
 	RecruitList(pN);
+	 
 	
 	$(document).on("click",'#RecruitList',function(){
 		var pN = $(this).html();
@@ -188,17 +186,16 @@ $(document).ready(function(){
 		
 		if($(this).text()=="전체"){
 			var srchTxt = $('#searchText').val();
-			$("tbody > * ").remove()
+			
 			SearchList(1,srchTxt);
 				
 		}else if($(this).text()=="진행중"){
 			var srchTxt = $('#searchText').val();
-			$("tbody > * ").remove()
+			
 			IngSearchList(1,srchTxt);
 		
 		}else{
-			var srchTxt = $('#searchText').val();
-			$("tbody > * ").remove()
+			var srchTxt = $('#searchText').val();	
 			EndSearchList(1,srchTxt);
 			
 		}
@@ -206,16 +203,18 @@ $(document).ready(function(){
 	})
 	
 	
-	$(document).on("click",'#deletego',function(){
+	/* $(document).on("click",'#deletego',function(){
 		
 	$("#topBar > * ").remove()
 	
 	$("tbody > * ").remove()
 	
 
-	})
+	}) */
 	
 })
+
+
 
 var formObj = $("form[role='form']");
 
@@ -274,12 +273,10 @@ var formObj = $("form[role='form']");
 				var length = data.length;
 				var i = 0;
 				
+			
 				$(data).each(function(){
 					i++;
-					
-					
 				
-					
 					if(i < length){
 					str += "<div class=col-sm-6 col-md-4><div class=thumbnail><div class=cation><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span>"
 						+ "<a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
@@ -306,27 +303,16 @@ var formObj = $("form[role='form']");
 					 	if(this.next&&this.endPage>0){
 							chr += "<li><a href=RecruitList("+this.startPage+")>&raquo;</a></li>";
 						} 
-	 				}
+	 				} 
 					
 					});
 				
-				$("#topBar > * ").remove()
-				src += "<button  id=searchBtns>전체</button><button id=searchBtns>진행중</button><button id=searchBtns>마감</button><br>";
-				$("#topBar").html(src);
+					
+				 $("#recruitList").html(str);	
 				
-					$("#searchBtns").each(function(){
-						$("button").addClass("btn btn-default");
-						
-					});
-				
-				$("#recruitList").html(str);	
+				 $("#listPage").html(chr); 
 					
-					
-					
-					 $("#listPage").html(chr); 
-					
-					
-				})
+			})
 				
 				
 			}
@@ -461,11 +447,94 @@ var formObj = $("form[role='form']");
 		
 		
 		
+ 		$('#searchBtn').on("click",function(event) {
+
+			var pN = 1;
+			var searchType = $("select option:selected").val();
+			var keyword = $('#keywordInput').val();
+			
+			alert(searchType)
+			alert(keyword) 
+			RecruitList(pN, searchType, keyword)
+			
+ 		});
 	
 		
-		function RecruitList(pN){
+		function RecruitList(pN,searchType,keyword){
 			
-			$.getJSON("/companyAjax/recruitList/?page="+pN , function(data){
+		alert(arguments.length);
+			var array = [];
+			
+			for(var p = 0; p<arguments.length; p++){
+			array[p] = arguments[p];
+			}
+			
+			  $.ajax({
+					type:'POST',
+					url:'/companyAjax/recruitList/',
+					headers: { 
+					      "Content-Type": "application/json; ",
+					      "X-HTTP-Method-Override": "POST" },
+					dataType:'json', 
+					data:JSON.stringify(array), 
+					success : function(data) {
+						
+						
+						var str = "";	
+						var chr = "";
+						var length = data.length;
+						var i = 0;
+						
+						
+						
+						$(data).each(function(){
+							i++;
+							
+							if(i < length){
+								str += "<div class=col-sm-6 col-md-4><div class=thumbnail><div class=cation><br><b id=states>"+this.recruitstate+"</b>"
+									+ "<a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+											+"<li>근무형태 : "+this.employstatusid+"</li>"
+											+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
+											+"<li>경력 : "+this.exp+"</li>"
+											+"<li>접수기간 : "+this.period+"("+this.week+")</li>"
+											+"<button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+											+"<li>지원자수 : "+this.applynum+"</li>"+this.viewcnt+""
+											+"<li>최근수정 : "+this.regdate+" (담당자:)</li></div></div></div>"
+								}else{
+									
+
+				 					if(this.prev){
+										chr += "<li><a href=RecruitList("+this.startPage+")>&laquo;</a></li>";
+									}
+									
+									
+									for(var z = this.startPage; z<this.endPage; z++){
+										chr += "<li><a id=RecruitList>"+z+"</a></li>"
+										
+									} 
+								 	if(this.next&&this.endPage>0){
+										chr += "<li><a href=RecruitList("+this.startPage+")>&raquo;</a></li>";
+									} 
+				 				}
+			
+						});			
+					
+						$("#recruitList").html(str);	
+					
+						 $("#listPage").html(chr); 
+							 
+					}	
+					      
+					     
+			 
+			 }); 
+
+		}			 
+			
+			
+			
+			
+		 /* 	$.getJSON("/companyAjax/recruitList/?page="+pN , function(data){
 			
 			var str = "";	
 			var chr = "";
@@ -524,20 +593,22 @@ var formObj = $("form[role='form']");
 			})
 			
 			
-		}
-		
+		} 
+		 */
 
 		
 		
 		
 		function RecruitIngList(pN){
-			
 			$.getJSON("/companyAjax/ingRecruitList/?page="+pN , function(data){
 				
 				var str = "";	
 				var chr = "";
 				var length = data.length;
 				var i = 0;
+				
+				alert(data);
+				alert(length);
 				
 				$(data).each(function(){
 					
@@ -631,6 +702,8 @@ var formObj = $("form[role='form']");
 				})
 				
 		}
+		
+	
 		
 
 		

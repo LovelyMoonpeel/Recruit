@@ -7,8 +7,7 @@
 	href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript"
 	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script type="text/javascript" src="/resources/rpjt/js/upload.js"></script>
 
 <!-- Main content -->

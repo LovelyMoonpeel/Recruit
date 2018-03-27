@@ -1,7 +1,9 @@
 package com.recruit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +23,7 @@ import com.recruit.domain.BoardVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanyPageMaker;
+import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -156,18 +160,38 @@ public class CompanyAjax {
 		
 	
 }
+	private List<String> sel_skeys;
 
-	@RequestMapping(value = "/recruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> RecruitList(@ModelAttribute("cri") CompanyCriteria cri, int page, HttpSession session, Model model){
+	@RequestMapping(value = "/recruitList/",method = RequestMethod.POST)
+	public Object RecruitList(@RequestBody List<String> array,CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
 		
+		System.out.println(array);
 		
-		cri.setPage(page);
+		String page = "";
+		String  searchType = "";
+		String keyword = "";
+		if(array.size() == 3){
+		page = array.get(0);	
+		searchType = array.get(1);
+		keyword = array.get(2);
 		
+		cri.setPage(Integer.parseInt(page));
+		cri.setSearchType(searchType);
+		cri.setKeyword(keyword);
+	
+		}else{
+			page = array.get(0);
+			cri.setPage(Integer.parseInt(page));
+		}
+		
+		System.out.println("page는"+page);
+		System.out.println("searchType는"+searchType);
+		System.out.println("keyword는"+keyword);
+			
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
-		
+		Map<String, Object> result = new HashMap<String,Object>();
 		if (login != null) {
-			
 			
 			String id = login.getId();
 			
@@ -185,10 +209,11 @@ public class CompanyAjax {
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(131);
-//				pageMaker.setTotalCount(service.listSearchCount(cri));
+//				pageMaker.setTotalCount(131);
+				pageMaker.setTotalCount(jobService.listSearchCount(cri,id));
 				System.out.println(pageMaker);
 				b.add(pageMaker);
+				
 				
 				entity = new ResponseEntity<>(b, HttpStatus.OK);
 
@@ -205,13 +230,15 @@ public class CompanyAjax {
 			}
 			
 		}
+		
+		
 		return entity;
 		
 	}
 	
 	
 	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> IngRecruitList(@ModelAttribute("cri") CompanyCriteria cri, HttpSession session,  int page, Model model){
+	public ResponseEntity<List<Object>> IngRecruitList(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session,  int page, Model model){
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
@@ -252,7 +279,7 @@ public class CompanyAjax {
 	
 	
 	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> EndRecruitList(@ModelAttribute("cri") CompanyCriteria cri, int page, HttpSession session, Model model){
+	public ResponseEntity<List<Object>> EndRecruitList(@ModelAttribute("cri") CompanySearchCriteria cri, int page, HttpSession session, Model model){
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
@@ -292,7 +319,7 @@ public class CompanyAjax {
 	}
 	
 	@RequestMapping(value="/searchList/",method = RequestMethod.GET)
-		public ResponseEntity<List<Object>> serachList(@ModelAttribute("cri") CompanyCriteria cri, int page, String srchTxt, HttpSession session, Model model){
+		public ResponseEntity<List<Object>> serachList(@ModelAttribute("cri") CompanySearchCriteria cri, int page, String srchTxt, HttpSession session, Model model){
 			
 			BoardVO login = (BoardVO) session.getAttribute("login");
 			ResponseEntity<List<Object>> entity = null;
@@ -304,8 +331,7 @@ public class CompanyAjax {
 				String id = login.getId();
 				cri.setPage(page);
 				try {
-					
-					List<RecruitVO> a = service.SerachList(cri,id,srchTxt);
+					List<RecruitVO> a = service.SearchList(cri,id,srchTxt);
 					List<Object> b = new ArrayList<Object>();
 					
 					for(int i =0; i<a.size(); i++){

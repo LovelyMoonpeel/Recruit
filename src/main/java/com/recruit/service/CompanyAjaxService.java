@@ -29,7 +29,7 @@ public interface CompanyAjaxService {
 	 
 	 public List<RecruitVO> EndRecruitList(CompanyCriteria cri,String id) throws Exception;
 	 
-	 public List<RecruitVO> SerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
+	 public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
 	 
 	 public List<RecruitVO> IngSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception;
 	 

@@ -225,18 +225,6 @@ public class CompanyController {
 		return "redirect:/company/C_manage";
 	}
 
-	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
-	public String manage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-
-			return "/company/C_manage";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
-		}
-	}
 
 	@RequestMapping(value = "/C_recruitExtension", method = RequestMethod.GET)
 	public void recruitExtension(HttpSession session, int bno, Model model, RedirectAttributes rttr) throws Exception {
@@ -344,6 +332,23 @@ public class CompanyController {
 			service.RecruitRemove(bno, id);
 			rttr.addFlashAttribute("msg", "DELESUCCESS");
 			return "redirect:/company/C_manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/cs/S_faq";
+		}
+	}
+	
+	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
+	public String manage(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			CompanyPageMaker pageMaker = new CompanyPageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(131);
+
+			 model.addAttribute("pageMaker", pageMaker);
+			return "/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";

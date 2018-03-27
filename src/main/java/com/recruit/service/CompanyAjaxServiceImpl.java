@@ -60,7 +60,7 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.EndRecruitList(cri, id);
 	 }
 	 @Override
-	 public List<RecruitVO> SerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
+	 public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
 		 
 		 return dao.SearchList(cri,id,srchTxt);
 	 }
