@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/pheader.jsp"%>
-
 <!-- Main content -->
 <form role="form">
 	<input type='hidden' id='userid' name='id' value="${PUserVO.id}">
@@ -30,24 +29,25 @@
 	<div>
 		<table class="table table-bordered">
 			<tr class="active">
-				<th style="width: 80px;">공고 번호</th>
+				<th style="text-align: center;">상태</th>
 				<th style="text-align: center;">회사명</th>
-				<th style="text-align: center;">공고 제목</th>
-				<th style="width: 90px; text-align: center;">등록일</th>
-				<th style="width: 90px; text-align: center;">마감 기한</th>
+				<th colspan="4" style="text-align: center;">공고 제목</th>
+				<th style="text-align: center;">모집기간</th>
+				<!--  th style="text-align: center;">마감일</th-->
 				<th style="width: 65px;">조회수</th>
 				<th style="text-align: center;">관리</th>
 			</tr>
 			<c:forEach items="${CRecruitVOList}" var="CRecruitVO"
 				varStatus="status">
 				<tr>
-					<td style="text-align: center;">${CRecruitVO.bno}</td>
+					<td style="text-align: center;">
+					<span class="acceptmethod badge badge-pill">${CRecruitVO.acceptmethod}</span></td>
 					<td style="text-align: center;">${CRecruitVO.cid}</td>
-					<td style="text-align: center;"><a
-						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
-					<td>${CRecruitVO.regdate}</td>
-					<td>${CRecruitVO.period}</td>
-					<td style="text-align: center;">${CRecruitVO.viewcnt}</td>
+					<td colspan="4" style="text-align: center;"><a
+						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.bno} : ${CRecruitVO.title}</a>
+					</td>
+					<td style="text-align: center;">${CRecruitVO.regdate} ~ ${CRecruitVO.jobdesc}</td><!-- jobdesc가 period -->
+					<td style="text-align: center;"><span class="badge badge-pill badge-primary">${CRecruitVO.viewcnt}</span></td>
 					<td style="text-align: center;">
 					<input type="hidden" id="rcno${status.index}" value="${CRecruitVO.bno}" />
 						<img src=/resources/rpjt/img/on.png id="non" name="clipping_cancel" onclick="clipping_cancel_function(rcno${status.index}.value)">
@@ -60,6 +60,24 @@
 </div>
 <!-- //스크랩한 채용공고 페이지 --><%-- <button name="clipping_cancel" onclick="clipping_cancel(rcno${status.index})">스크랩 취소</button> 스크랩 취소--%>
 <script type="text/javascript">
+
+$(document).ready(function(){
+	
+	console.log("각각 무슨 값이냐 "+$(".acceptmethod").text());
+
+ 	$(".acceptmethod").each(function(index){
+ 		
+ 		console.log("아"+$(this).text());
+	 	
+ 		if($(this).text()=='모집완료'){
+ 			$(this).addClass('');
+		}else if($(this).text()=='모집중'){
+			$(this).addClass('badge-info');
+		}else{
+			$(this).addClass('badge-warning');
+		} 
+	}); 
+});
 
 function clipping_cancel_function(rcno){
 		//var rcno = rcno.value;
