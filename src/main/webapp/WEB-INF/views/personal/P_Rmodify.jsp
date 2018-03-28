@@ -177,7 +177,9 @@
 			<select class="form-control" name=levelofeducation id="CodeList2">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+		             <c:if test="${CodeVO.id<=13 }">
+		                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+		             </c:if>
 	             </c:if>
 	          </c:forEach>
 	       </select>
@@ -191,7 +193,9 @@
 			<select class="form-control" name="lastcareer" id="CodeList1">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 1 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+		             <c:if test="${CodeVO.id<=7 }">
+		                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+		             </c:if>
 	             </c:if>
 	          </c:forEach>
 	       </select>

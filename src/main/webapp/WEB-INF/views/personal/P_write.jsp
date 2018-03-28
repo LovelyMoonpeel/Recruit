@@ -84,7 +84,9 @@
 			<select class="form-control" name=levelofeducation id="CodeList2">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             	<c:if test="${CodeVO.id<=13 }">
+	                	<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             	</c:if>
 	             </c:if>
 	          </c:forEach>
 	       </select>
@@ -99,7 +101,9 @@
 		<select class="form-control" name=lastcareer id="CodeList1">
           <c:forEach items="${CodeVOlist }" var="CodeVO">
              <c:if test="${CodeVO.tid == 1 }">
-                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             <c:if test="${CodeVO.id<=7 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
              </c:if>
           </c:forEach>
      	</select>
@@ -231,7 +235,7 @@
 		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="major">학과</label> 
 		<input class="form-control major edu" name="listEdu[].major" value="{{major}}"></input>
 	</div>
@@ -443,7 +447,7 @@
 		</select>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
 	</div>
@@ -452,7 +456,7 @@
 		<label for="score">점수</label> 
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
