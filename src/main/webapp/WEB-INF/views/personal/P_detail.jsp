@@ -26,9 +26,9 @@
 						for="pname">이름</label></th>
 					<td class="col-sm-4" id="pname" name="pname"
 						style="text-align: center;">${PUserVO.pname}</td>
-					<th class="table-active" scope="row" style="text-align: center;"><label
+					<th rowspan="3" class="table-active" scope="row" style="text-align: center;"><label
 						for="img">사진</label></th>
-					<td colspan="3" class="col-sm-4">
+					<td colspan="3" rowspan="3" class="col-sm-4">
 						<div id='uploadedList'
 							style='width: 127px; height: 152px; border: 1px dotted blue;'>
 							<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
@@ -41,9 +41,11 @@
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label>생년월일</label></th>
 					<td style="text-align: center;">${PUserVO.birth}</td>
+				</tr>
+				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="email">이메일</label></th>
-					<td colspan="3" style="text-align: center;">${PUserVO.email}</td>
+					<td style="text-align: center;">${PUserVO.email}</td>
 				</tr>
 
 				<tr>
