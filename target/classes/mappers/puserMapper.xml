@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 개인정보 확인 -->
 	<select id="selectPUser" resultType="com.recruit.domain.PUserVO">
 		select
-		id, pw, pname, email, birth
+		id, pname, email, birth
 		from
 		project.tbluser
 		where id = #{id}
@@ -18,8 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePUser">
 		update project.tbluser
 		set
-		pw = #{pw}, pname =
-		#{pname}, email = #{email}, birth = #{birth}
+		pw = #{pw}, pname =	#{pname}, email = #{email}, birth = #{birth}
 		where id = #{id}
 	</update>
 
@@ -44,5 +43,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		like if(#{skey} regexp '[^0-9]', '' , CONCAT('%',#{skey},'%'))
 		)
 	</select>
+	
+	<update id="pwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
+	</update>
+	
+	<update id="npwchk">
+		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
+	</update>
+	
+	<update id="pwmodify">
+		update project.tbluser
+		set
+		pw = #{pw}
+		where id = #{id}
+	</update>
 
 </mapper>

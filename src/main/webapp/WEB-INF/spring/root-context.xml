@@ -12,11 +12,11 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-<!-- 	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+ 	 <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property> 
 		<property name="username" value="root"></property> <property name="password" 
-		value="apmsetup"></property> </bean> -->
+		value="root"></property> </bean> --> 
 
  	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

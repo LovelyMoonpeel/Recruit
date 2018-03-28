@@ -60,7 +60,6 @@
 </div>
 <!-- //스크랩한 채용공고 페이지 --><%-- <button name="clipping_cancel" onclick="clipping_cancel(rcno${status.index})">스크랩 취소</button> 스크랩 취소--%>
 <script type="text/javascript">
-
 $(document).ready(function(){
 	
 	console.log("각각 무슨 값이냐 "+$(".acceptmethod").text());

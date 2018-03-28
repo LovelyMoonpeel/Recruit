@@ -30,49 +30,58 @@
 			 				<input type="text" name="id" class="form-control" id="id" value="${PUserVO.id}" readonly="readonly">
 						</div>
 					</td>
-                       <th class="table-active" scope="row"><label>비밀번호</label></th>
+					
+                    <!--j.code 03/23 : '기존 비밀번호'추가  -->
+                    <th class="table-active" scope="row"><label>기존 비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							<input type="password" name="pw" class="form-control" id="pw">
+							<input type="password" name="pwc" class="form-control" id="pwc">
+							<span id="pwchk"></span>
 						</div>
 					</td>
-					
-                   </tr>
+					<!--j.code 03/23 : '기존 비밀번호'추가  끝-->
+					<!--j.code 03/27 : '이름, 생일, 이메일' readonly로 변경 -->
+                </tr>
 				<tr>
 					<th class="table-active" scope="row"><label>이름</label></th>
 					<td>
 						<div >
-							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}">
+							<input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}" readonly="readonly">
 						</div>
 					</td>
 					
-					 <th class="table-active" scope="row"><label>비밀번호 확인</label></th>
+					<!--j.code 03/23 :'새 비밀번호' 추가  -->
+					<th class="table-active" scope="row"><label>새 비밀번호</label></th>
 					<td>
 						<div class="form-group">
-							 <input type="password" name="pwc" class="form-control" id="pwc">
-						<span id="pwchk"></span>	
+							 <input type="password" name="npw" class="form-control" id="npw">
 						</div>
 					</td>
+					<!--j.code 03/23 :'새 비밀번호' 추가  끝-->
 				</tr>
 				<tr>
 					<th class="table-active" scope="row"><label>email</label></th>
 					<td>
 						<div class="form-group">
-							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}">
+							<input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}" readonly="readonly">
 						</div>
 					</td>
-					<td colspan="2">
+					
+					<!--j.code 03/23 : '새 비밀번호 확인'추가  -->
+					 <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
+					<td>
+						<div class="form-group">
+							 <input type="password" name="npwc" class="form-control" id="npwc" >
+						<span id="npwchk"></span>
+						</div>
 					</td>
+					<!--j.code 03/23 : '새 비밀번호 확인'추가 끝 -->
 				</tr>
 				<tr>
 					<th class="table-active" scope="row"><label>생일</label></th>
-					<td colspan="3">
+					<td >
 						<div class="form-group">
-							<div class="input-group date" data-provide="datepicker">
-								<input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}">
-								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
-								</span>
-							</div>
+								<input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}" readonly="readonly">
 						</div>
 					</td>
 				</tr>
@@ -89,71 +98,83 @@ $(document).ready(function(){
 	
 	var formObj = $("form[role = 'form']");
 	
-	$(function() {
-		$('.input-group.date').datepicker({
-			calendarWeeks : false,
-			todayHighlight : true,
-			autoclose : true,
-			format : "yyyy-mm-dd",
-			language : "kr"
-		});
-	});
+	/* j.code 03/27 : 비밀번호 처리 */
 	//수정버튼 누르면 제출되고 post방식으로 modify controller로  Mapping된다.
 	$('#modify-finish').on("click", function(){
-		//self.location = "/person/modify";
-		var pw = $('#pw').val();
-		var pwc = $('#pwc').val();
+		//id값이 pwc인 element값 가져오기.
+		var pwc = $("#pwc").val();	
+		var npw = $('#npw').val();
+		var npwc = $('#npwc').val();
 		
-		if(pw==pwc){
-			if(confirm("수정하시겠습니까?")){
-				<!-- //birth null값인지 확인  -->
-				//	birth가 ''면 null
-				if($('#birth').val()==''){
-					$('#birth').val("0000-00-00");
+			if(npw==npwc){
+				if(confirm("수정하시겠습니까?")){
+					<!-- //birth null값인지 확인  -->
+					//	birth가 ''면 null
+					if($('#birth').val()==''){
+						$('#birth').val("0000-00-00");
+					}
+					// null이면 0000-00-00으로 반환
+					
+					console.log( $("#pwc").val());
+					$.ajax({
+						type : 'POST',
+						url : '/personal/pwmodify',
+						headers : {
+							"Content-Type" : "application/json; charset=UTF-8",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							//pw라는 이름으로 POST방식으로 컨트롤러로 보냄
+							pw : pwc,   
+							npw : npw	
+						}),
+						//result값을 데리고 온다.
+						success : function(result) {        
+							console.log("result: " + result);
+							if (result == 'success') {
+								alert("success");
+								location.href="/personal/index";
+							} else {
+								alert("failed");
+								document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
+							}
+						}
+					});
 				}
-				// null이면 0000-00-00으로 반환
-				formObj.attr("action", "/personal/modify");
-				formObj.attr("method", "post");
-				formObj.submit();
 			}
-		}else{
-			alert("비밀번호를 확인해주세요.");
-		}
-		console.log("#modify-finish");
-		//controller안바뀌고 form method = "post"대로 제출됨
 	});
+	/* j.code 03/27 : 비밀번호 처리 끝 */
+	
 	//취소버튼 누르면 이력서 관리 페이지로 넘어간다. index controller로 Mapping된다.
 	$('#modify-cancel').on("click", function(){
-		//formObj.attr("action", "/personal/modify");
 		console.log("#modify-cancel");
 		self.location = "/personal/index";
 	});
 	
-	/*<!-- 비밀번호 일치 여부  -->*/
-	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-	var pwchk = $('#pwchk');
-	
-	$('#pwc').keyup(function(){
-		if($('#pwc').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
+//	<!-- //비밀번호 일치 여부  -->	
+	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가*/
+	$('#npwc').keyup(function(){
+		if($('#npwc').val()!=""&&$('#npw').val() == $('#npwc').val()){
+			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
+			$("#npwchk").attr('style', "color:blue");
 		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+			$("#npwchk").attr('style', "color:red");
 		}
 	});
 	
- 	$('#pw').keyup(function(){
-		if($('#pw').val()!=""&&$('#pw').val() == $('#pwc').val()){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
+ 	$('#npw').keyup(function(){
+		if($('#npw').val()!=""&&$('#npw').val() == $('#npwc').val()){
+			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
+			$("#npwchk").attr('style', "color:blue");
 		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+			$("#npwchk").attr('style', "color:red");
 		}
 	}); 
-	<!-- //비밀번호 일치 여부  -->
+ 	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가 끝*/
 });
-	
+
 </script>
 <%@include file="../include/cfooter.jsp"%>

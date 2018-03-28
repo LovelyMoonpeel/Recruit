@@ -13,4 +13,6 @@ public interface PUserDAO {
 	public List<PUserVO> selectPUserAll() throws Exception;
 	
 	public List<PUserVO> selectPUsers(String skey) throws Exception;
+
+	public int pwmodify(PUserVO vo) throws Exception;
 }

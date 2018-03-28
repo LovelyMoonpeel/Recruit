@@ -56,4 +56,3 @@
 <!-- //스크랩한 채용공고 페이지 -->
 
 <%@include file="../include/cfooter.jsp"%>
-

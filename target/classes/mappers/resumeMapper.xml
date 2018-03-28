@@ -27,24 +27,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="listAll" resultType="com.recruit.domain.AdminResumeVO">
 	<![CDATA[
-	select
-		bno, title
-	from
-		project.tblresume
-	where
-		userid = #{id}
-	order by bno
+		select
+			bno, title
+		from
+			project.tblresume
+		where
+			userid = #{id}
+		order by bno
 	]]>
 	</select>
-
+	
+	<!--j.code 03/26 : createROne 입력 수정-->
 	<insert id="createROne">
 	<![CDATA[
-	insert 
-    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img)
-    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img})
+		insert 
+	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, levelofeducation, lastcareer)
+	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img}, #{levelofeducation}, #{lastcareer})
     ]]>
-	</insert>
-
+	</insert> 
+	
 	<!-- 이력서 등록한 거 바로 확인 -->
 	<select id="readRLastCreatedOne" resultType="java.lang.Integer">
 		select MAX(bno)
@@ -64,14 +65,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ]]>
 	</select>
 
-	<!-- 이력서화면에 출력 -->
-	<select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
+   <!-- 이력서화면에 출력 -->
+    <select id="resumeRead" resultType="com.recruit.domain.ResumeVO">
 	    <![CDATA[
-	    select a.bno, a.userid, a.title, a.address, a.postcode, 
+	select a.bno, a.userid, a.title, a.address, a.postcode, 
 			a.coverletter, a.img, a.regdate, (select career from tblcode where a.jobstateid = id)jobstateid , 
-            b.jobgroup as jobgroupid, 
+			b.jobgroup as jobgroupid, 
 			(select jobgroup from tbljobgroup where a.jobgroupid2=id)jobgroupid2 ,
-			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid
+			d.rgbname as rgbid, d.rgsname as rgsid, (select career from tblcode where a.employstatusid = id) employstatusid, (select career from tblcode where a.salaryid = id) salaryid,
+            (select career from tblcode where a.levelofeducation = id)levelofeducation,  (select career from tblcode where a.lastcareer = id)lastcareer 
 			
 		from 
 			tblresume a, tbljobgroup b, tblcode c, tblregion d
@@ -89,7 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 안소연 -->
 	<![CDATA[
     update project.tblresume 
-	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}
+	set title = #{title}, address = #{address}, postcode = #{postcode}, coverletter = #{coverletter}, 
+	jobstateid = #{jobstateid}, jobgroupid = #{jobgroupid}, jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, 
+	employstatusid = #{employstatusid}, salaryid = #{salaryid}, img = #{img}, levelofeducation = #{levelofeducation}, lastcareer = #{lastcareer}
 	where bno = #{bno}
     ]]>
 	</update>
@@ -136,7 +140,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="addRimgAttach">
   <![CDATA[
-	
 	update tblresume R1
 	set img = #{img}
 	where bno = (select *

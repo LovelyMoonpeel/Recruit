@@ -68,12 +68,12 @@
 				</c:forEach>
 
 				<tr>
-					<th class="table-active" colspan="2" scope="row"
-						style="text-align: center;">학력사항</th>
-					<th class="table-active" scope="row" style="text-align: center;"><label
-						for="test">최종학력</label></th>	
-					<td style="text-align: center;" colspan="2">${eduVO.schoolname}</td>
-				</tr>
+	               <th class="table-active" colspan="2" scope="row"
+	                  style="text-align: center;">학력사항</th>
+	               <th class="table-active" scope="row" style="text-align: center;"><label
+	                  for="test">최종학력</label></th>   
+	               <td style="text-align: center;" colspan="2">${resumeRead.levelofeducation}</td>
+           		</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="test">학교명</label></th>
@@ -97,11 +97,11 @@
 				</c:forEach>
 
 				<tr>
-					<th class="table-active" colspan="2" scope="row"
-						style="text-align: center;">경력사항</th>
-					<th class="table-active" scope="row" style="text-align: center;"><label
-						for="test">경력</label></th>	
-					<td style="text-align: center;" colspan="2">${eduVO.schoolname}</td>
+	               <th class="table-active" colspan="2" scope="row"
+	                  style="text-align: center;">경력사항</th>
+	               <th class="table-active" scope="row" style="text-align: center;"><label
+	                  for="test">경력</label></th>   
+	               <td style="text-align: center;" colspan="2">${resumeRead.lastcareer}</td>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label

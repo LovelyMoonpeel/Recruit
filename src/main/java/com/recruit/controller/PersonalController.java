@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -16,8 +17,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +37,7 @@ import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.ResumeDAO;
 
 import com.recruit.service.CRecruitService;
@@ -84,6 +88,9 @@ public class PersonalController {
 	@Inject
 	private ResumeLanguageService Langservice;
 
+	@Inject
+	private PasswordEncoder passwordEncoder;
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -126,10 +133,42 @@ public class PersonalController {
 		logger.info("index POST, 개인정보 수정");
 
 		service.updatePUser(PUser);
+		
 		model.addAttribute("result", "success");
 
 		return "redirect:/personal/index"; // redirect는 controller
 	}
+
+	//j.code 03/27 : pw변경하는 ajax 컨트롤러
+	//pw변경하는 POST
+	@RequestMapping(value = "/pwmodify", method = RequestMethod.POST)
+	public ResponseEntity<String> pwPOST(@RequestBody PUserVO PUser, HttpSession session, Model model) throws Exception {
+		logger.info("index POST, 개인정보 수정");
+		ResponseEntity<String> entity = null;
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		System.out.println("PUser.getPw()#### : " + PUser.getPw());
+		System.out.println("login.getPw()#### : " + login.getPw());
+		
+		if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
+			try {
+				entity = new ResponseEntity<>("success", HttpStatus.OK);
+				PUser.setId(login.getId());	//로그인한 아이디를 PUser에 setId해주기
+				PUser.setPw(passwordEncoder.encode(PUser.getNpw())); //인코드처리..여기는 안되는건가요? 묻기전에 회원가입부분 먼저 살펴보기
+//				PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
+				service.pwmodify(PUser);
+			} catch (Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+
+		} else {
+			System.out.println("★ 비밀번호 불일치");
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity; // redirect는 controller
+	}
+	
 
 	// 이력서 관리 (리스트)
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
@@ -160,6 +199,9 @@ public class PersonalController {
 			String id = login.getId();
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
 			return "personal/P_write";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -184,7 +226,7 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
-		
+
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
 	//이력서 하나 읽기
@@ -208,6 +250,8 @@ public class PersonalController {
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+				
+				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
 
 				return "personal/P_detail";
 			} else {

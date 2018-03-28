@@ -173,11 +173,29 @@
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>학력사항</b>
+			<div class="form-group col-md-3">
+			<select class="form-control" name=levelofeducation id="CodeList2">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 2 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       </div>
 		</h4>
 		<div id="edu_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>경력사항</b>
+			<div class="form-group col-md-3">
+			<select class="form-control" name="lastcareer" id="CodeList1">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 1 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       </div>
 		</h4>
 		<div id="exp_div"></div>
 		<hr style="border: solid 1px #ccc;">
@@ -793,8 +811,8 @@ $(document).ready(function() {
 	// tel 추가버튼 이벤트
 	$("#tel_div").on("click", ".tel_plus_btn", function(){
 		 var item = {
-				rid : ${ResumeVO.bno}
-			}; 
+			rid : ${ResumeVO.bno}
+		}; 
 		add_tel(item);
 	});
 	// tel 삭제버튼 이벤트
@@ -810,8 +828,8 @@ $(document).ready(function() {
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
-				resumenum : ${ResumeVO.bno}
-			};
+			resumenum : ${ResumeVO.bno}
+		};
 		add_edu(item);
 	});
 	//edu minus 버튼 이벤트
@@ -827,8 +845,8 @@ $(document).ready(function() {
 	// exp 추가버튼 이벤트
 	$("#exp_div").on("click", ".exp_plus_btn", function(){
 		var item = {
-				resumenum : ${ResumeVO.bno}
-			};
+			resumenum : ${ResumeVO.bno}
+		};
 		add_exp(item);
 	});
 	//exp minus 버튼 이벤트
@@ -844,8 +862,8 @@ $(document).ready(function() {
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
-				rid : ${ResumeVO.bno}
-			}
+			rid : ${ResumeVO.bno}
+		};
 		add_web(item);
 	});
 	//웹 삭제 버튼 이벤트
@@ -861,8 +879,8 @@ $(document).ready(function() {
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
 		var item = {
-				rid : ${ResumeVO.bno}
-		}
+			rid : ${ResumeVO.bno}
+		};
 		add_license(item);
 	});
 	//자격증 삭제 버튼 이벤트
@@ -878,8 +896,8 @@ $(document).ready(function() {
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
-				rid : ${ResumeVO.bno}
-			};
+			rid : ${ResumeVO.bno}
+		};
 		add_language(item);
 	});
 	//언어 삭제 버튼 이벤트
@@ -933,10 +951,10 @@ $(document).ready(function() {
 		
 		<c:forEach items="${PTelVOlist}" var="PTelVO">
 			var item = {
-					telid : ${PTelVO.telid},
-					rid : ${PTelVO.rid},
-					teltitle : "${PTelVO.teltitle}", 
-					tel : "${PTelVO.tel}" 
+				telid : ${PTelVO.telid},
+				rid : ${PTelVO.rid},
+				teltitle : "${PTelVO.teltitle}", 
+				tel : "${PTelVO.tel}" 
 			};
 			add_tel(item);
 		</c:forEach>
@@ -946,13 +964,13 @@ $(document).ready(function() {
 		
 		<c:forEach items="${eduVOlist}" var="eduVO">
 			var item = {
-					resumenum : ${eduVO.resumenum},
-					schoolname : "${eduVO.schoolname}",
-					major : "${eduVO.major}",
-					enterdate : "${eduVO.enterdate}",
-					gradudate : "${eduVO.gradudate}",
-					edustatus : ${eduVO.edustatus}
-				};
+				resumenum : ${eduVO.resumenum},
+				schoolname : "${eduVO.schoolname}",
+				major : "${eduVO.major}",
+				enterdate : "${eduVO.enterdate}",
+				gradudate : "${eduVO.gradudate}",
+				edustatus : ${eduVO.edustatus}
+			};
 			add_edu(item);
 		</c:forEach>
 	}
@@ -961,13 +979,13 @@ $(document).ready(function() {
 		var len = (${careerVOList.size()});
 		<c:forEach items="${careerVOList}" var="careerVO">
 			var item = {
-					resumenum : ${careerVO.resumenum},
-					cname : "${careerVO.cname}",
-					jobdescription : "${careerVO.jobdescription}",
-					startjob : "${careerVO.startjob}",
-					finishjob : "${careerVO.finishjob}",
-					salary : ${careerVO.salary}
-				};
+				resumenum : ${careerVO.resumenum},
+				cname : "${careerVO.cname}",
+				jobdescription : "${careerVO.jobdescription}",
+				startjob : "${careerVO.startjob}",
+				finishjob : "${careerVO.finishjob}",
+				salary : ${careerVO.salary}
+			};
 			
 			add_exp(item);
 		</c:forEach>
@@ -976,10 +994,10 @@ $(document).ready(function() {
 		var len = (${PWebSiteVOlist.size()});
 		<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
 			var item = {
-					webid : ${PWebSiteVO.webid},
-					rid : ${PWebSiteVO.rid},
-					webtitle : "${PWebSiteVO.webtitle}", 
-					webadd : "${PWebSiteVO.webadd}"
+				webid : ${PWebSiteVO.webid},
+				rid : ${PWebSiteVO.rid},
+				webtitle : "${PWebSiteVO.webtitle}", 
+				webadd : "${PWebSiteVO.webadd}"
 			};
 			add_web(item);
 		</c:forEach>
@@ -990,12 +1008,10 @@ $(document).ready(function() {
 		
 		<c:forEach items="${RLicenselist}" var="RLicenseVO">
 			var item = {
-					
-					licenseid : ${RLicenseVO.licenseid},
-					rid : ${RLicenseVO.rid},
-					licensename : "${RLicenseVO.licensename}", 
-					publeoffice : "${RLicenseVO.publeoffice}",
-					acquidate : "${RLicenseVO.acquidate}"
+				rid : ${RLicenseVO.rid},
+				licensename : "${RLicenseVO.licensename}", 
+				publeoffice : "${RLicenseVO.publeoffice}",
+				acquidate : "${RLicenseVO.acquidate}"
 			};
 			add_license(item);
 		</c:forEach>
@@ -1005,12 +1021,12 @@ $(document).ready(function() {
 		
 		<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 			var item = {
-					rid : ${ResumeLanguageVO.rid},
-					lid : ${ResumeLanguageVO.lid},
-					test : "${ResumeLanguageVO.test}", 
-					score : "${ResumeLanguageVO.score}",
-					publeoffice : "${ResumeLanguageVO.publeoffice}",
-					acquidate : "${ResumeLanguageVO.acquidate}"
+				rid : ${ResumeLanguageVO.rid},
+				lid : ${ResumeLanguageVO.lid},
+				test : "${ResumeLanguageVO.test}", 
+				score : "${ResumeLanguageVO.score}",
+				publeoffice : "${ResumeLanguageVO.publeoffice}",
+				acquidate : "${ResumeLanguageVO.acquidate}"
 			};
 			add_language(item);
 		</c:forEach>

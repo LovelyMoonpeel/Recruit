@@ -42,7 +42,6 @@ function deleteOneResume(bno){
 		location.href='/personal/deleteOneResume?bno='+bno;
 	}
 }
-
 $(document).ready(function(){
 	$("#allcheck").click(function(){
 		if($("#allcheck").prop("checked")) {// 전체 선택 체크박스가 체크된상태일경우  해당화면에 전체 checkbox들을 체크
@@ -56,7 +55,6 @@ $(document).ready(function(){
 		
 	});
 });
-
 /* $.ajax({
 type : 'delete',
 url : '/personal/deleteResume' + ${ResumeVO.bno},
@@ -76,5 +74,4 @@ success:function(result){
 } 
 });//formObj.submit();*/
 </script>
-		
 <%@include file="../include/cfooter.jsp"%>
