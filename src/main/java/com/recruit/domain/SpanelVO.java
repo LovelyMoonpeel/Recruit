@@ -1,28 +1,26 @@
 package com.recruit.domain;
 
 public class SpanelVO implements Bnoble {
-	// ResumeVO
+
 	private int bno;
-	private String userid;
+	private String userid; // c.cid
 	private String title;
-	private String jobstateid;
 	private String jobgroupid;
 	private String jobgroupid2;
 	private String rgbid;
 	private String rgsid;
-	private String img;
+	private String employstatusid;
+	private String edu; // p.levelofeducation
+	private String exp; // p.lastcareer
+	private String img; // c.tblcinfo.img
 
-	// 개인회원용
-	private String pname;
-
-	// RecruitVO
-	private String cid;
-	private String edu;
-	private String exp;
+	// recruit
+	private String cname; // c.tbluser.cname
 	private String period;
 
-	// 기업회원용
-	private String cname;
+	// resume
+	private String pname; // p.tbluser.pname
+	private String jobstateid;
 
 	public int getBno() {
 		return bno;
@@ -46,14 +44,6 @@ public class SpanelVO implements Bnoble {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getJobstateid() {
-		return jobstateid;
-	}
-
-	public void setJobstateid(String jobstateid) {
-		this.jobstateid = jobstateid;
 	}
 
 	public String getJobgroupid() {
@@ -88,28 +78,12 @@ public class SpanelVO implements Bnoble {
 		this.rgsid = rgsid;
 	}
 
-	public String getImg() {
-		return img;
+	public String getEmploystatusid() {
+		return employstatusid;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public String getPname() {
-		return pname;
-	}
-
-	public void setPname(String pname) {
-		this.pname = pname;
-	}
-
-	public String getCid() {
-		return cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
+	public void setEmploystatusid(String employstatusid) {
+		this.employstatusid = employstatusid;
 	}
 
 	public String getEdu() {
@@ -128,12 +102,12 @@ public class SpanelVO implements Bnoble {
 		this.exp = exp;
 	}
 
-	public String getPeriod() {
-		return period;
+	public String getImg() {
+		return img;
 	}
 
-	public void setPeriod(String period) {
-		this.period = period;
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public String getCname() {
@@ -144,11 +118,35 @@ public class SpanelVO implements Bnoble {
 		this.cname = cname;
 	}
 
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public String getJobstateid() {
+		return jobstateid;
+	}
+
+	public void setJobstateid(String jobstateid) {
+		this.jobstateid = jobstateid;
+	}
+
 	@Override
 	public String toString() {
-		return "SpanelVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", jobstateid=" + jobstateid
-				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
-				+ rgsid + ", img=" + img + ", pname=" + pname + ", cid=" + cid + ", edu=" + edu + ", exp=" + exp
-				+ ", period=" + period + ", cname=" + cname + "]";
+		return "SpanelVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", jobgroupid=" + jobgroupid
+				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
+				+ employstatusid + ", edu=" + edu + ", exp=" + exp + ", img=" + img + ", cname=" + cname + ", period="
+				+ period + ", pname=" + pname + ", jobstateid=" + jobstateid + "]";
 	}
 }

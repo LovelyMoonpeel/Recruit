@@ -91,11 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 		select * from(
 		select bno,
-		userid, title, address, postcode, coverletter,
-		jobstateid,
-		jobgroupid,
-		rgbid, rgsid, employstatusid, salaryid, img,
-		regdate, jobgroupid2
+		userid, title, address, postcode, coverletter, jobstateid, jobgroupid,
+		rgbid, rgsid, employstatusid, salaryid, img, regdate, jobgroupid2,
+		levelofeducation, lastcareer
 		from
 		tblresume
 		where title like
@@ -103,25 +101,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or coverletter like
 		CONCAT('%'#{skey},'%')
 		union
-		select a.bno, a.userid, a.title, a.address,
-		a.postcode,
-		a.coverletter,
-		a.jobstateid, a.jobgroupid,
-		a.rgbid, a.rgsid,
-		a.employstatusid, a.salaryid, a.img, a.regdate,
-		a.jobgroupid2
+		select a.bno, a.userid, a.title, a.address, a.postcode, a.coverletter,
+		a.jobstateid, a.jobgroupid, a.rgbid, a.rgsid, a.employstatusid,
+		a.salaryid, a.img, a.regdate, a.jobgroupid2, a.levelofeducation,
+		a.lastcareer
 		from
-		tblresume a, (select * from tbllicense where licensename like
+		tblresume a, (select * from tbllicense where
+		licensename like
 		CONCAT('%',#{skey},'%')) b
 		where a.bno = b.rid
 		union
-		select distinct
-		a.bno, a.userid, a.title, a.address, a.postcode,
-		a.coverletter,
-		a.jobstateid, a.jobgroupid,
-		a.rgbid, a.rgsid, a.employstatusid,
-		a.salaryid, a.img, a.regdate,
-		a.jobgroupid2
+		select distinct a.bno, a.userid, a.title, a.address, a.postcode,
+		a.coverletter, a.jobstateid, a.jobgroupid, a.rgbid, a.rgsid,
+		a.employstatusid, a.salaryid, a.img, a.regdate, a.jobgroupid2,
+		a.levelofeducation, a.lastcareer
 		from tblresume a, (
 		select
 		a.resumelangid, a.rid from tblresumelanguage a,
@@ -133,41 +126,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.bno = b.rid
 		union
 		select a.bno, a.userid, a.title,
-		a.address, a.postcode, a.coverletter,
-		a.jobstateid, a.jobgroupid,
+		a.address, a.postcode, a.coverletter, a.jobstateid, a.jobgroupid,
 		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
-		a.jobgroupid2
-		from tblresume a, (select * from tblregion where rgbname
+		a.jobgroupid2, a.levelofeducation, a.lastcareer
+		from tblresume a,
+		(select * from tblregion where rgbname
 		like
 		CONCAT('%',#{skey},'%')
-		or rgsname like CONCAT('%',#{skey},'%')) b
-		where a.rgbid = b.rgbid and a.rgsid = b.rgsid
+		or
+		rgsname like CONCAT('%',#{skey},'%')) b
+		where a.rgbid = b.rgbid and
+		a.rgsid = b.rgsid
 		union
-		select a.bno,
-		a.userid, a.title, a.address, a.postcode, a.coverletter,
-		a.jobstateid,
-		a.jobgroupid,
-		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img,
-		a.regdate,
-		a.jobgroupid2
-		from tblresume a, (select * from tblcode where
+		select a.bno, a.userid, a.title, a.address,
+		a.postcode, a.coverletter, a.jobstateid,
+		a.jobgroupid, a.rgbid,
+		a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
+		a.jobgroupid2, a.levelofeducation, a.lastcareer
+		from tblresume a,
+		(select * from
+		tblcode where
 		tid = 4 and career like
 		CONCAT('%',#{skey},'%')) b
 		where
 		a.employstatusid = b.id
 		union
-		select a.bno, a.userid, a.title,
+		select
+		a.bno, a.userid, a.title,
 		a.address, a.postcode, a.coverletter,
 		a.jobstateid, a.jobgroupid,
-		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
-		a.jobgroupid2
-		from tblresume a, (select * from tbljobgroup where
-		jobgroup like
-		CONCAT('%',#{skey},'%')) b
+		a.rgbid, a.rgsid, a.employstatusid,
+		a.salaryid, a.img, a.regdate,
+		a.jobgroupid2, a.levelofeducation,
+		a.lastcareer
+		from tblresume a,
+		(select * from tbljobgroup where
+		jobgroup
+		like
+		CONCAT('%',#{skey},'%'))
+		b
 		where a.jobgroupid2 = b.id or
 		a.jobgroupid = b.id
+		union
+		select a.bno,
+		a.userid, a.title, a.address,
+		a.postcode, a.coverletter, a.jobstateid,
+		a.jobgroupid,
+		a.rgbid, a.rgsid,
+		a.employstatusid, a.salaryid, a.img,
+		a.regdate,
+		a.jobgroupid2,
+		a.levelofeducation, a.lastcareer
+		from
+		tblresume a, (select * from
+		tblcode where tid = 2 and career like
+		CONCAT('%',#{skey},'%')) b
+		where
+		a.levelofeducation = b.id
 		) d
-		order by bno
+		order by
+		bno
 		;
 	]]>
 	</select>
@@ -260,10 +278,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRecruits_selEmp" resultType="com.recruit.domain.RecruitVO"
 		parameterType="java.util.List">
-		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
-		period, acceptmethod, recruitform, regdate, viewcnt
-		from tblrecruit
+		select * from tblrecruit
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
@@ -274,10 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRecruits_selExp" resultType="com.recruit.domain.RecruitVO"
 		parameterType="java.util.List">
-		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
-		period, acceptmethod, recruitform, regdate, viewcnt
-		from tblrecruit
+		select * from tblrecruit
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
@@ -288,10 +300,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRecruits_selEdu" resultType="com.recruit.domain.RecruitVO"
 		parameterType="java.util.List">
-		select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-		jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc,
-		period, acceptmethod, recruitform, regdate, viewcnt
-		from tblrecruit
+		select * from tblrecruit
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
@@ -337,10 +346,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectResumes_selEmp" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
-		select bno, userid, title, address, postcode, coverletter, jobstateid,
-		jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
-		from
-		tblresume
+		select * from tblresume
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
@@ -351,49 +357,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectResumes_selExp" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
-		select bno, userid, title, address, postcode, coverletter, jobstateid,
-		jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
-		from
-		tblresume
+		select * from tblresume
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
-			exp = #{item}
+			lastcareer = #{item}
 		</foreach>
 		;
 	</select>
 
 	<select id="selectResumes_selEdu" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
-		select bno, userid, title, address, postcode, coverletter, jobstateid,
-		jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
-		from
-		tblresume
+		select * from tblresume
 		where
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
-			edu = #{item}
+			levelofeducation = #{item}
 		</foreach>
 		;
 	</select>
 
 	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
-		select bno, title,
-		cid, jobgroupid, jobgroupid2, rgbid, rgsid,
-		jobdesc, recruitnum,
-		employstatusid, salaryid, edu, exp, adddesc,
-		period, acceptmethod,
-		recruitform, regdate, viewcnt
-		from tblrecruit;
+		select * from
+		tblrecruit;
 	</select>
 
 	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">
-		select bno, userid,
-		title, address, postcode, coverletter, jobstateid,
-		jobgroupid, rgbid,
-		rgsid, employstatusid, salaryid, img, regdate,
-		jobgroupid2
-		from
+		select * from
 		tblresume;
 	</select>
 </mapper>

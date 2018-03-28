@@ -117,7 +117,8 @@
 			{{title}}<br />
 			({{jobgroupid}}, {{jobgroupid2}})<br />
 			{{edu}}, {{exp}}<br />
-			({{rgbid}}, {{rgsid}})<br />
+			{{employstatusid}}<br />
+			({{rgbid}}, {{rgsid}})
 		</div>
 	</div>
 </div>
@@ -128,8 +129,10 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			{{bno}} {{pname}} ({{jobstateid}})<br />
-			{{jobgroupid}}, {{jobgroupid2}}<br />
 			{{title}}<br />
+			({{jobgroupid}}, {{jobgroupid2}})<br />
+			{{edu}}, {{exp}}<br />
+			{{employstatusid}}<br />
 			({{rgbid}}, {{rgsid}})
 		</div>
 	</div>
@@ -204,24 +207,26 @@
 		}
 	});
 
-	var i;
+	var inum;
 	var item;
 	var template_pnl;
 
 	// 채용공고 판넬 연결
 	function recruitPnl(index, that) {
 		item = {
-			num : ++i,
+			num : ++inum,
 			bno : that.bno,
-			cid : that.cid,
+			userid : that.userid,
 			title : that.title,
 			jobgroupid : that.jobgroupid,
 			jobgroupid2 : that.jobgroupid2,
 			rgbid : that.rgbid,
 			rgsid : that.rgsid,
-			cname : that.cname,
+			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
+			img : that.img,
+			cname : that.cname,
 			period : that.period
 		};
 		$("#spanel").append(template_pnl(item));
@@ -230,17 +235,20 @@
 	// 이력서 판넬 연결
 	function resumePnl(index, that) {
 		item = {
-			num : ++i,
+			num : ++inum,
 			bno : that.bno,
 			userid : that.userid,
 			title : that.title,
-			jobstateid : that.jobstateid,
 			jobgroupid : that.jobgroupid,
 			jobgroupid2 : that.jobgroupid2,
 			rgbid : that.rgbid,
 			rgsid : that.rgsid,
+			employstatusid : that.employstatusid,
+			edu : that.edu,
+			exp : that.exp,
 			img : that.img,
-			pname : that.pname
+			pname : that.pname,
+			jobstateid : that.jobstateid
 		};
 		$("#spanel").append(template_pnl(item));
 	}

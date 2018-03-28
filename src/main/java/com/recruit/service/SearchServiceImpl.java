@@ -164,7 +164,7 @@ public class SearchServiceImpl implements SearchService {
 		}
 	}
 
-	// 채용공고 판넬 변환
+	// recruit to panel
 	public List<SpanelVO> convertToRecruitPanel(List<RecruitVO> listRecruit) throws Exception {
 		int num = listRecruit.size();
 		makeCodeMap();
@@ -174,7 +174,7 @@ public class SearchServiceImpl implements SearchService {
 		for (int i = 0; i < num; i++) {
 			SpanelVO spanelVO = new SpanelVO();
 			spanelVO.setBno(listRecruit.get(i).getBno());
-			spanelVO.setCid(listRecruit.get(i).getCid());
+			spanelVO.setUserid(listRecruit.get(i).getCid());
 			spanelVO.setTitle(listRecruit.get(i).getTitle());
 
 			spanelVO.setJobgroupid(jobGroupMap.get(listRecruit.get(i).getJobgroupid()));
@@ -183,12 +183,13 @@ public class SearchServiceImpl implements SearchService {
 
 			spanelVO.setRgbid(region1Map.get(listRecruit.get(i).getRgbid()));
 			spanelVO.setRgsid(region2Map.get(listRecruit.get(i).getRgbid() + listRecruit.get(i).getRgsid()));
-			// spanelVO.setImg(listRecruit.get(i).getImg());
-
-			// 기업회원용
-			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
+			spanelVO.setEmploystatusid(codeMap.get(listRecruit.get(i).getEmploystatusid()));
 			spanelVO.setEdu(codeMap.get(listRecruit.get(i).getEdu()));
 			spanelVO.setExp(codeMap.get(listRecruit.get(i).getExp()));
+			// spanelVO.setImg(listRecruit.get(i).getImg()); // c.tblcinfo.img
+
+			// recruit
+			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
 			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
 
 			listPanel.add(spanelVO);
@@ -196,7 +197,7 @@ public class SearchServiceImpl implements SearchService {
 		return listPanel;
 	}
 
-	// 이력서 판넬 변환
+	// resume to panel
 	public List<SpanelVO> convertToResumePanel(List<ResumeVO> listResume) throws Exception {
 		int num = listResume.size();
 		makeCodeMap();
@@ -209,17 +210,21 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setTitle(listResume.get(i).getTitle());
 
 			if (listResume.get(i).getJobstateid() != null)
-				spanelVO.setJobgroupid(jobGroupMap.get(listResume.get(i).getJobstateid()));
+				spanelVO.setJobgroupid(jobGroupMap.get(listResume.get(i).getJobgroupid()));
 
 			if (listResume.get(i).getJobgroupid2() != null)
 				spanelVO.setJobgroupid2(jobGroupMap.get(listResume.get(i).getJobgroupid2()));
 
 			spanelVO.setRgbid(region1Map.get(listResume.get(i).getRgbid()));
 			spanelVO.setRgsid(region2Map.get(listResume.get(i).getRgbid() + listResume.get(i).getRgsid()));
+			spanelVO.setEmploystatusid(codeMap.get(listResume.get(i).getEmploystatusid()));
+			spanelVO.setEdu(codeMap.get(listResume.get(i).getLevelofeducation()));
+			spanelVO.setExp(codeMap.get(listResume.get(i).getLastcareer()));
 			spanelVO.setImg(listResume.get(i).getImg());
 
-			// 개인회원용
+			// resume
 			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
+			spanelVO.setJobstateid(listResume.get(i).getJobstateid());
 
 			listPanel.add(spanelVO);
 		}

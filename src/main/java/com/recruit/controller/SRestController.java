@@ -164,7 +164,8 @@ public class SRestController {
 		System.out.println("Scodes 2: " + sel_scodes);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			System.out.println("controller: " + searchService.selectRecruits_sel(sel_scodes));
+			// System.out.println("controller: " +
+			// searchService.selectRecruits_sel(sel_scodes));
 			entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_scodes), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,7 +181,8 @@ public class SRestController {
 		System.out.println("Scodes 2: " + sel_scodes);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			System.out.println("controller: " + searchService.selectResumes_sel(sel_scodes));
+			// System.out.println("controller: " +
+			// searchService.selectResumes_sel(sel_scodes));
 			entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_scodes), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

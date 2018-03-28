@@ -138,11 +138,12 @@
 <div class="col-md-3 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			{{cname}} (~{{period}})<br />
+			{{bno}} {{cname}} (~{{period}})<br />
 			{{title}}<br />
 			({{jobgroupid}}, {{jobgroupid2}})<br />
 			{{edu}}, {{exp}}<br />
-			({{rgbid}}, {{rgsid}})<br />
+			{{employstatusid}}<br />
+			({{rgbid}}, {{rgsid}})
 		</div>
 	</div>
 </div>
@@ -370,15 +371,17 @@
 		item = {
 			num : ++inum,
 			bno : that.bno,
-			cid : that.cid,
+			userid : that.userid,
 			title : that.title,
 			jobgroupid : that.jobgroupid,
 			jobgroupid2 : that.jobgroupid2,
 			rgbid : that.rgbid,
 			rgsid : that.rgsid,
-			cname : that.cname,
+			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
+			img : that.img,
+			cname : that.cname,
 			period : that.period
 		};
 		$("#spanel").append(template_pnl(item));
