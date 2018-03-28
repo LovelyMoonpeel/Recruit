@@ -184,10 +184,9 @@
 <!-- end of row -->
 </script>
 
-<script id="template_edu" type="text/x-handlebars-template">
-<div class="row"><!-- 첫번째는 hidden 시키기 -->
-
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+<!-- 
+	<div style="font-size:18px;" class="col-md-3"><b>학력 사항</b></div>
+	
 	<div class="form-group col-md-2">
 		<label for="edustatus">최종학력</label>
 	</div>
@@ -204,7 +203,7 @@
 		</select>
 	</div>
 	<br>
-	<br>
+	<br> -->
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
 
@@ -476,7 +475,6 @@
 </div>
 <!-- end of row -->
 </script>
-
 <script type='text/javascript'>
 $(document).ready(function(){
 	

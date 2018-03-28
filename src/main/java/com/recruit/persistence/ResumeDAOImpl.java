@@ -44,6 +44,7 @@ public class ResumeDAOImpl implements ResumeDAO {
 	@Override
 	public void createROne(ResumeVO resume) throws Exception {
 		System.out.println("Service createROne");
+		System.out.println(" 아아" + resume);
 		session.insert(namespace + ".createROne", resume);
 	}
 	

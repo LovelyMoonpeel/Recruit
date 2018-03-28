@@ -212,6 +212,8 @@ public class PersonalController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
+		
+		System.out.println("레주메"+resume);
 
 		System.out.println("id값 뭐받아오냐" + id);
 		System.out.println("write get에서 받아오는 puser" + puser.toString());
@@ -249,6 +251,7 @@ public class PersonalController {
 				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
+				System.out.println("언니"+Rservice.resumeRead(bno));
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 				
 				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
