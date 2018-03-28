@@ -45,17 +45,23 @@ public class SRestController {
 		return "Hello Spring";
 	}
 
-	// A.getAllList 전체검색
-	// A-1.recruit 로딩
-	@RequestMapping(value = "/recruitsall/{snum}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listRecruitAll(@PathVariable("snum") int snum) {
+	// A.전체검색 (recruits, resumes)
+	@RequestMapping(value = "/getall/{users}/{snum}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> getAllList(@PathVariable("users") String users,
+			@PathVariable("snum") int snum) {
 
 		System.out.println("snum: " + snum);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			// List<SpanelVO> cList = searchService.selectRecruitsAll();
-			// System.out.println(cList);
-			entity = new ResponseEntity<>(searchService.selectRecruitsAll(snum), HttpStatus.OK);
+			if ("recruits".equals(users)) {
+				// List<SpanelVO> cList = searchService.selectRecruitsAll();
+				// System.out.println(cList);
+				entity = new ResponseEntity<>(searchService.selectRecruitsAll(snum), HttpStatus.OK);
+			} else { // resumes
+				// List<SpanelVO> pList = searchService.selectResumesAll();
+				// System.out.println(pList);
+				entity = new ResponseEntity<>(searchService.selectResumesAll(snum), HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,32 +69,21 @@ public class SRestController {
 		return entity;
 	}
 
-	// A-2.resume 로딩
-	@RequestMapping(value = "/resumesall/{snum}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listResumeAll(@PathVariable("snum") int snum) {
-
-		ResponseEntity<List<SpanelVO>> entity = null;
-		try {
-			// List<SpanelVO> pList = searchService.selectResumesAll();
-			// System.out.println(pList);
-			entity = new ResponseEntity<>(searchService.selectResumesAll(snum), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// B.getList 키워드 검색
-	// B-1.recruit 로딩
-	@RequestMapping(value = "/recruits/{skey}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listRecruits(@PathVariable("skey") String skey) {
+	// B.키워드 검색 (recruit, resume)
+	@RequestMapping(value = "/getkey/{users}/{skey}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> getKeyList(@PathVariable("users") String users,
+			@PathVariable("skey") String skey) {
 
 		System.out.println("Skey: " + skey);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			System.out.println(searchService.selectRecruits(skey));
-			entity = new ResponseEntity<>(searchService.selectRecruits(skey), HttpStatus.OK);
+			if ("recruits".equals(users)) {
+				// System.out.println(searchService.selectRecruits(skey));
+				entity = new ResponseEntity<>(searchService.selectRecruits(skey), HttpStatus.OK);
+			} else { // resumes
+				// System.out.println(searchService.selectResumes(skey));
+				entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -96,27 +91,12 @@ public class SRestController {
 		return entity;
 	}
 
-	// B-2.resume 로딩
-	@RequestMapping(value = "/resumes/{skey}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listResumes(@PathVariable("skey") String skey) {
-		System.out.println("Skey: " + skey);
-		ResponseEntity<List<SpanelVO>> entity = null;
-		try {
-			System.out.println(searchService.selectResumes(skey));
-			entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// C.getList_sel 필터 검색
+	// C.필터 검색 (recruit, resume)
 	// C-1.필터 전역변수
 	private List<String> sel_scodes;
 
 	// C-2.필터코드 저장
-	@RequestMapping(value = "/sel_search", method = RequestMethod.POST)
+	@RequestMapping(value = "/getsel", method = RequestMethod.POST)
 	public ResponseEntity<String> selectSearch(@RequestBody List<String> scodes) {
 		int num = scodes.size();
 		for (int i = 0; i < num; i++) {
@@ -157,33 +137,22 @@ public class SRestController {
 		return scode;
 	}
 
-	// C-3.recruit 로딩
-	@RequestMapping(value = "/sel_search/recruits", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listRecruits() {
+	// C-3.recruit, resume 로딩
+	@RequestMapping(value = "/getsel/{users}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> getSelList(@PathVariable("users") String users) {
 
 		System.out.println("Scodes 2: " + sel_scodes);
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
-			// System.out.println("controller: " +
-			// searchService.selectRecruits_sel(sel_scodes));
-			entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_scodes), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// C-4.resume 로딩
-	@RequestMapping(value = "/sel_search/resumes", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> listResumes() {
-
-		System.out.println("Scodes 2: " + sel_scodes);
-		ResponseEntity<List<SpanelVO>> entity = null;
-		try {
-			// System.out.println("controller: " +
-			// searchService.selectResumes_sel(sel_scodes));
-			entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_scodes), HttpStatus.OK);
+			if ("recruits".equals(users)) {
+				// System.out.println("controller: " +
+				// searchService.selectRecruits_sel(sel_scodes));
+				entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_scodes), HttpStatus.OK);
+			} else { // resumes
+				// System.out.println("controller: " +
+				// searchService.selectResumes_sel(sel_scodes));
+				entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_scodes), HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
