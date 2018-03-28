@@ -20,11 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 스크랩한 채용공고 목록 소연 수정-->
 	<select id = "selectCRList" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
-		select bno, cid, title, viewcnt
+		select bno, title, viewcnt
+		, (select cname from tblcinfo where id = rc.cid) recruitform
 		, if(period!='',period,'채용시까지') as jobdesc
 		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
 		, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as acceptmethod
-		from tblrecruit
+		from tblrecruit rc
 		where bno in (select rcbno
 						from tblinterestjob
 						where userid = #{id})
@@ -56,7 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 													where rcno = rc.bno
                                                     )
                                                     and userid=#{id}) acceptmethod
-        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt                                
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as jobdesc                               
 		from tblrecruit rc
 		where rc.bno in(
 		select bno

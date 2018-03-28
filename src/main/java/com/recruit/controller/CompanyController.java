@@ -67,7 +67,6 @@ public class CompanyController {
 	@Inject
 	private PApplyService PAPService;
 
-	
 	// 문> 3.23 밑에 3개 추가
 	@Inject
 	private UserDAO dao;
@@ -487,10 +486,10 @@ public class CompanyController {
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
 		if (login != null) {
-	         if (login.getCname() == null){
+	         /*if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*/
 			String id = login.getId();
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 			model.addAttribute(service.CompanyInfoRead(cid));
@@ -509,10 +508,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		if (login != null) {
-	         if (login.getCname() == null){
+	         /*if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*/
 			String id = login.getId();
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));

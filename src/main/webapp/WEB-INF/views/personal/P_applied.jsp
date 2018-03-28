@@ -27,7 +27,7 @@
 		<table class="table table-bordered">
 			<!-- 공고 메인 공고 테이블 순서 번호는 java문 counter로 처리-->
 			<tr class="active">
-				<th style="width: 79px; text-align:center;">공고 번호</th>
+				<th style="width: 79px; text-align:center;">상태</th>
 				<th style="text-align:center;">회사명</th>
 				<th style="width: 200px; text-align:center;">공고 제목</th>
 				<th style="width: 90px;">등록 날짜</th>
@@ -38,12 +38,12 @@
 			<!-- 소연 crecruitMapper.selectAPList -->
 			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
-				<td style="text-align:center;">${CRecruitVO.bno}</td>
+				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
 				<td>${CRecruitVO.recruitform}</td>
-				<td style="text-align:center;"><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' target='_blank'>${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
-				<td style="text-align:center;">${CRecruitVO.addesc}</td>
+				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
 				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
 				<td style="text-align:center;"><a href = '/personal/detail?bno=${CRecruitVO.viewcnt}'>${CRecruitVO.acceptmethod}</a></td>
 			</tr>
@@ -53,6 +53,23 @@
 	<br> <br>
 </div>
 <script>
+$(document).ready(function(){
+	
+	console.log("각각 무슨 값이냐 "+$(".jobdesc").text());
+
+ 	$(".jobdesc").each(function(index){
+ 		
+ 		console.log("아"+$(this).text());
+	 	
+ 		if($(this).text()=='모집완료'){
+ 			$(this).addClass('');
+		}else if($(this).text()=='모집중'){
+			$(this).addClass('badge-info');
+		}else{
+			$(this).addClass('badge-warning');
+		} 
+	}); 
+});
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

@@ -41,8 +41,8 @@
 				varStatus="status">
 				<tr>
 					<td style="text-align: center;">
-					<span class="acceptmethod badge badge-pill">${CRecruitVO.acceptmethod}</span></td>
-					<td style="text-align: center;">${CRecruitVO.cid}</td>
+					<span class="acceptmethod badge badge-pill">${CRecruitVO.acceptmethod}</span></td><!-- acceptmethod가 모집중 모집완료 -->
+					<td style="text-align: center;">${CRecruitVO.recruitform}</td>
 					<td colspan="4" style="text-align: center;"><a
 						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.bno} : ${CRecruitVO.title}</a>
 					</td>

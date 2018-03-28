@@ -153,6 +153,31 @@
 	</form>
 </div>
 
+<!-- 소연 모달 -->
+	<div class="modal" id="ORIGINAL_modal">
+		<div class="modal-dialog modal-dialog-centered">
+			
+			<div class="modal-content modal-dialog-centered">
+				<div class="modal-head" style="text-align:center; vertical-align : middle ; margin:10px;">
+				<br>
+					<button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
+					이미지 크게 보기
+				</div>
+			
+				<div class="modal-body modal-dialog-centered">
+					
+					<!--x표시 누르면 창 사라지게 하는 코드 -->
+					<div class="row" style="border: solid 3px #ccc; padding:10px; margin:10px;">
+						<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+					</div>
+				</div>
+				<!--//class="modal-body"  -->
+			</div>
+			<!--//class="modal-content"-->
+		</div>
+		<!--//modal-dialog -->
+	</div>
+	<!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
@@ -184,26 +209,6 @@
 <!-- end of row -->
 </script>
 
-<!-- 
-	<div style="font-size:18px;" class="col-md-3"><b>학력 사항</b></div>
-	
-	<div class="form-group col-md-2">
-		<label for="edustatus">최종학력</label>
-	</div>
-	<div class="form-group col-md-2">
-		<select class="form-control edustatus edu" name="levelofeducation">
-			{{#select edustatus}}
-			<option value="0">선택</option>
-			<option value="15">재학</option>
-			<option value="16">졸업</option>
-			<option value="17">중퇴</option>
-			<option value="18">졸업예정</option>
-			<option value="19">휴학</option>
-			{{/select}}
-		</select>
-	</div>
-	<br>
-	<br> -->
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
 
@@ -484,6 +489,15 @@ $(document).ready(function(){
         return $el.html();
     });
 	
+
+	$(".licenseclass").each(function(index){
+		var license_index_2= $(".license_minus_btn").index(this);
+		console.log("새로한거"+license_index_2);
+		if(license_index_2==0){
+			$(this).hide();
+		}
+	}); 
+	
 	var formObj = $("form[role = 'form']");
 	
 	function datepick() {
@@ -576,11 +590,27 @@ $(document).ready(function(){
 					  
 					 	console.log(data);
 					 	
-						  str = 
+						  /* str = 
 							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
 							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
+							  +"<small data-src="+data+">X</small>"; */
+							  
+						  /* str = 
+							  "<a class='ORIGINAL'>원본 확인"
+							  +"</a>"
+							  +"<small data-src="+data+">X</small>"; */
+							  str = 
+								  "<a id='ORIGINAL'>크게보기</a>"
+								  +"<small data-src="+data+">X</small>";  
+								  
 					  $("#uploadedList").append(str); 
+					  $("#ORIGINAL").on("click", function(){
+							console.log("ORIGINAL click");
+							console.log(getImageLink(data));
+							var src = "displayFile?fileName="+getImageLink(data);
+							$("#ORIGINAL_modal").modal();
+							$("#modal_get_Imgname1").attr("src", src);
+						});
 					  document.getElementById('uploadfilename').value = getImageLink(data);
 				  }//success : function(data){ end
 	 		  });//ajax end
@@ -876,4 +906,5 @@ $(document).ready(function(){
 	
 });
 </script>
+
 <%@include file="../include/cfooter.jsp"%>
