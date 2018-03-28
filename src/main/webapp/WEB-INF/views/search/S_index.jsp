@@ -409,6 +409,8 @@
 
 	waitForSearching("데이터 로딩중...", 8);
 	getRecruitAllList();
+	
+	$("#sinput").focus();
 </script>
 
 <script type="text/javascript">

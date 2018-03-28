@@ -550,6 +550,7 @@
 	}
 
 	waitForSearching(blank_, 4);
+	$("#sinput").focus();
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');
 <%} else if (!(srchVO.getSfilter() == null)) {%>
