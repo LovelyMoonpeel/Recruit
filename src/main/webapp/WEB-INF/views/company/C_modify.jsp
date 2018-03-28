@@ -38,7 +38,7 @@
 		<div class="row">	
 			<div class="form-group col-lg-6">
 				<label>기업명</label> <input type="text" name="cname"
-					class="form-control" id="" value="${CInfoVO.cname}">
+					class="form-control" id="" value="${CInfoVO.cname}" readonly>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>대표자명</label> <input type="text" name="ceo"
@@ -134,7 +134,7 @@
 			</div>
 			<div class="form-group col-lg-6">
 				<label>담당자</label> <input type="text" name="pname"
-					class="form-control" id="" value="${boardVO.pname}" readonly>
+					class="form-control" id="" value="${boardVO.pname}">
 			</div>
 		</div>
 
@@ -146,7 +146,7 @@
 		
 			<div class="form-group col-lg-6">
 				<label>이메일</label> <input type="text" name="email"
-					class="form-control" id="" value="${CInfoVO.email}">
+					class="form-control" id="" value="${CInfoVO.email}" readonly>
 			</div>
 	
 		</div>

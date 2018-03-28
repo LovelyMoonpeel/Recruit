@@ -8,6 +8,17 @@ public class CUserVO {
 	private String pname;
 	private String email;
 	private String registnum;
+	private String pw2;
+	
+	
+
+	public String getPw2() {
+		return pw2;
+	}
+
+	public void setPw2(String pw2) {
+		this.pw2 = pw2;
+	}
 
 	public String getId() {
 		return id;
@@ -60,6 +71,8 @@ public class CUserVO {
 	@Override
 	public String toString() {
 		return "CUserVO [id=" + id + ", pw=" + pw + ", cname=" + cname + ", pname=" + pname + ", email=" + email
-				+ ", registnum=" + registnum + "]";
+				+ ", registnum=" + registnum + ", pw2=" + pw2 + "]";
 	}
+
+	
 }

@@ -327,37 +327,51 @@ public class CompanyAjax {
 		
 	}
 
-	// 문> 3.26
+	// 문> 밑에 패스워드 체크할 때 사용할 객체임. 그래서 주입해줘야 함
 	@Inject
 	private PasswordEncoder passwordEncoder;
 
-	// 문> 3.26 매개변수에 @RequestBody를 써줘야 ajax처리된 값을 가져올 수 있다. 
+
+	// 문> 매개변수에 @RequestBody를 써줘야 ajax처리된 값을 가져올 수 있다. JSON데이터를 처리하기 위해서 그런다는 말도 있다. @RequestBody는 여러 번 쓸 수 없다. 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public ResponseEntity<String> pwPost(@RequestBody LoginDTO dto, HttpSession session, Model model,
 			HttpServletRequest request, RedirectAttributes rttr) {
 
+		// 문Q> HTTP 상태 및 콘텐츠 형식 이외의 응답 헤더를 지정하고 싶을 때 반환 값을 ResponseEntity로 한다고 하는데 무슨말인지..
+		// 문> 아무튼 반환타입의 객체를 하나 만들어 준다.
 		ResponseEntity<String> entity = null;
 
+		// 문> login을 데리고 온다.
 		BoardVO login = (BoardVO) session.getAttribute("login");
-
-		System.out.println("하하하");
-
-		System.out.println("★ login: " + login);
-
-		System.out.println("★ login.getPw(): " + login.getPw());
-
-		System.out.println("★ LoginDto: " + dto);
 		
-		System.out.println("★ dto.getPw(): " + dto.getPw());
-		
-		System.out.println("★ entity: " + entity);
-		
+		// 문> 값을 확인하기 위해 찍어본 것들
+		System.out.println("확인 차 입력받은 pw__dto.getPw() : "+dto.getPw());
+		System.out.println("디비에 있는 pw__login.getPw() : "+login.getPw());
+		System.out.println("암호화 안 된 pw2__dto.getPw2() : "+dto.getPw2());
+		System.out.println("암호화 된 pw2 : "+passwordEncoder.encode(dto.getPw2()));
+
+		// 문> DB에 있는 비밀번호와 입력받은 비밀번호가 일치하면 다음을 진행
+		// dto.getPw()는 새로 입력받은 내용, login.getPw()는 원래 디비에 있던 내용
 		if (passwordEncoder.matches(dto.getPw(), login.getPw())) {
-			System.out.println("★ 비밀번호 일치");
-			System.out.println("★if안 entity: " + entity);
 			try {
+				
+				// 문Q> entity에 success를 넣는다는 얘기 같은데 자세한 건 잘 모르겠음.
 				entity = new ResponseEntity<>("success", HttpStatus.OK);
-				System.out.println("★if안 try안 entity: " + entity);
+				
+				// 문> id랑 새로운 패스워드를 서비스로 넘긴다. 값이 두 개니깐 HashMap을 쓴다.
+				HashMap<String, Object> newCpPw = new HashMap<>();
+								
+				newCpPw.put("id", login.getId());	
+				newCpPw.put("pw", passwordEncoder.encode(dto.getPw2()));
+				
+				// 문> 확인 차
+				System.out.println("CompanyAjax__newCpPw : "+newCpPw);
+				
+				// 문> 이제부터 디비에 있는 비밀번호를 교체, 컨트롤러 -> 서비스 -> DAO -> mapper -> DAO -> 서비스 -> 컨트롤러
+				// 문> jobService는 CompanyService의 객체, 그래서 CompanyService로 가자.
+				jobService.updateCpPw(newCpPw);
+				
+				// 문> jsp파일로 success를 실어보낸다.
 				return entity;
 				
 			} catch (Exception e) {
@@ -367,11 +381,14 @@ public class CompanyAjax {
 			}
 
 		} else {
+			
+			// 문> 확인 차
 			System.out.println("★ 비밀번호 불일치");
+			
+			// 문> jsp파일에 null값을 실어보낸다.
+			return entity;
 
-		}
-
-		return entity;
+		}// if절 끝
 
 	}
 	

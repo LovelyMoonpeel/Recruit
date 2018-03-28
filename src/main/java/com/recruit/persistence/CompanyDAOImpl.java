@@ -186,10 +186,15 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 
 	
-	
+	// 문> 기업회원 비밀번호 새로 수정하기 위해서 
 	@Override
-	public void updatePassword(String pw) throws Exception {
-		session.update(namespace + ".updatePassword", pw);
+	public void updateCpPw(HashMap<String, Object> newCpPw) throws Exception {
+		
+		// 문> 확인 차
+		System.out.println("CompanyDAOImpl__newCpPw : "+newCpPw);
+
+		// 문> companyMapper로 출발
+		session.update(namespace + ".updateCpPw", newCpPw);
 	}
 	
 }

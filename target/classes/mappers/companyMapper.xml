@@ -5,14 +5,14 @@
 
 <mapper namespace="com.recruit.mapper.CompanyMapper">
 
-	<!--> 비밀번호 변경 때문에 -->
-	<update id="updatePassword">
+	<!-- 문> 기업회원 비밀번호 새로 수정하기 위해서 -->
+	<update id="updateCpPw">
 		update 
-		project.tbluser as tu
+		project.tbluser
 		set
-		tu.pw = #{pw}
+		pw = #{pw}
 		where
-		tu.id = #{id}
+		id = #{id}
 	</update>
 	
 	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
@@ -41,11 +41,6 @@
 		tu.id = #{id} and tci.id = tu.id
 	</update>
 
-	<!-- <update id="companyinfoUpdate"> update project.tblcinfo set cname =#{cname}, 
-		homepage=#{homepage}, intro=#{intro}, ceo=#{ceo}, ctype=#{ctype} , form=#{form}, 
-		establish=#{establish}, numemp=#{numemp}, sales=#{sales}, tel=#{tel}, fax=#{fax}, 
-		sns=#{sns} , img=#{img} , location=#{location}, phone=#{phone} , email=#{email} 
-		문> email=#{email}추가 where id = #{id} </update> 기업정보 수정 -->
 	<select id="jobgroupList" resultType="com.recruit.domain.JobGroupVO">
 		select
 		id, id2, jobgroup

@@ -15,7 +15,7 @@
 <div class="col-md-9">
 
 	<div class="row">
-		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;회사 정보</h2></label>
+		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;기업 정보</h2></label>
 	</div>	
 
 
@@ -161,7 +161,6 @@ $(document).ready(function(){
 	console.log(formObj);
 	
 	$("#cinfoModify").on("click", function(){
-		alert("hi");
 		formObj.attr("action", "/company/C_modify");
 		formObj.attr("method", "get");		
 		formObj.submit();

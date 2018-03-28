@@ -487,10 +487,6 @@ public class CompanyController {
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
 			String id = login.getId();
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 			model.addAttribute(service.CompanyInfoRead(cid));
@@ -509,10 +505,7 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+
 			String id = login.getId();
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
@@ -555,26 +548,35 @@ public class CompanyController {
 		}
 	}
 	
-	//get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
+	// 문> get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
 	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
 	public String pass1(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 		
+		// 문> login을 데리고 와서
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
-		System.out.println("야호get");
-		
+		// 문> login이 null이 아니면, 즉, 로그인 되어 있으면 진행
 		if (login != null) {
-	         if (login.getCname() == null){
+			
+			// 문> login을 조사해서 Cname이 null이면, 즉, 기업 회원이 아니면 다음을 진행
+			if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             System.out.println("메인으로~~");
 	             return "redirect:/";
 	          }
+			
+			/*
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
+			*/
+			
+			// 문> 이것때문에 화면을 볼 수 있다.
 			return "/company/C_pass";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
+			
+			// 문> 로그인 안 되어 있으면 메인으로
 			return "redirect:/";
 		}
 		
@@ -585,70 +587,7 @@ public class CompanyController {
 	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 		
-		//pw2는 좀 더 살펴봐야 함 
-		service.updatePassword(pw2);
 		
 		return "/company/C_pass";   //확인을 누른다음 보여주는 페이지
 	}
-	
-	
-	
-	/*
-	// 문> 3.23 패스워드 변경 관련해서 추가
-	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
-	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
-			throws Exception {
-		
-		BoardVO login = (BoardVO)session.getAttribute("login");
-			
-		dto.setId(login.getId());  //BoardVO에서 id를 가져와서 dto에 넣는다.
-		dto.setPname(login.getPname()); 
-				
-		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             System.out.println("메인으로~~");
-	             return "redirect:/";
-	          }
-	         
-	 		String pw = ""; //디비값
-			String rawPw = "";  //입력받은 값
-			
-			if(dao.getId(dto) != null){
-				pw = dao.getPw(dto).getPw();
-				rawPw = dto.getPw();			
-			}
-
-			System.out.println("pw인데 가입할 때 입력한 값: "+pw);
-			System.out.println("rawPw인데 입력된 값: "+rawPw);
-			System.out.println("입력된 값들 나열: "+dto);
-	
-			if(passwordEncoder.matches(rawPw, pw)){
-				System.out.println("비밀번호 일치");
-				System.out.println("if 안, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("if 안, rawPw인데 입력된 값:"+rawPw);
-				
-				BoardVO board = new BoardVO();
-				System.out.println("여긴가? board:"+board);
-				board.setPw(pw2);
-				System.out.println("여긴가? pw2:"+pw2);
-				board.setId(login.getId());
-				System.out.println("여긴가? 끝:");
-				
-				servicePw.pregist(board);
-				System.out.println("if 안 비밀번호 주입 후, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("if 안 비밀번호 주입 후, rawPw인데 입력된 값:"+rawPw);
-			}else{
-				System.out.println("비밀번호 불일치");
-				System.out.println("else 안, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("else 안, rawPw인데 입력된 값:"+rawPw);
-			}
-			return dao.login(dto);
-			return "/company/C_pass";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	
-	}	*/
 }

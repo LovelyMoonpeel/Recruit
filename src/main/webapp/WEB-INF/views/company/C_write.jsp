@@ -14,58 +14,11 @@
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <div class="col-md-9">
+	<div class="row">
+		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;채용공고작성</h2></label>
+	</div>
 
-
-	<!-- 회사 기본 정보  -->
-	<!-- DB에서 값을 불러와서 td에 채워 넣어야 함  -->
-	
-	<h3>기본정보</h3>
-	<table class="table table-bordered">
-		<tr>
-			<th>기업명</th>
-			<td>${CInfoVO.cname}</td>
-			<th>대표자명</th>
-			<td>${CInfoVO.ceo}</td>
-		</tr>
-		<tr> 
-			<th>업종</th>
-			<td colspan="3">${CInfoVO.ctype}</td>
-		</tr>
-		<tr>
-			<th>기업형태</th>
-			<td colspan="3">${CInfoVO.form}</td>
-		</tr>
-		<tr>
-			<th>설립일</th>
-			<td colspan="3">${CInfoVO.establish}</td>
-		</tr>
-		<tr>
-			<th>매출액</th>
-			<td colspan="3">${CInfoVO.sales}</td>
-		</tr>
-		<tr>
-			<th>대표전화</th>
-			<td>${CInfoVO.tel}</td>
-			<th>FAX</th>
-			<td>${CInfoVO.fax}</td>
-		</tr>
-		<tr>
-			<th>홈페이지</th>
-			<td><a href="${CInfoVO.homepage}" class="link_site"
-				target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
-			<th>SNS / 블로그</th>
-			<td><a href="{cinfoVO.sns}" class="link_site"
-				target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
-		</tr>
-		<tr>
-			<th>기업주소</th>
-			<td colspan="3">${CInfoVO.location}</td>
-		</tr>
-	</table>
-	<br> <br> <br>
-	<!-- // 회사 기본 정보 끝 -->
 	<!-- 공고 입력 부분 -->
-	<h3>모집부문</h3>
 	<form role="form" method="POST">
 	
 	<h3>공고제목</h3>

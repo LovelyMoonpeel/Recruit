@@ -9,6 +9,15 @@ public class LoginDTO {
 	private String email;
 	private String index; //개인로그인과 기업로그인을 비교하기 위해 들어간 변수
 	private boolean useCookie;
+	private String pw2;
+
+	
+	public String getPw2() {
+		return pw2;
+	}
+	public void setPw2(String pw2) {
+		this.pw2 = pw2;
+	}
 	public String getId() {
 		return id;
 	}
@@ -54,8 +63,9 @@ public class LoginDTO {
 	@Override
 	public String toString() {
 		return "LoginDTO [id=" + id + ", pw=" + pw + ", pname=" + pname + ", cname=" + cname + ", email=" + email
-				+ ", index=" + index + ", useCookie=" + useCookie + "]";
+				+ ", index=" + index + ", useCookie=" + useCookie + ", pw2=" + pw2 + "]";
 	}
+	
 	
 	
 	

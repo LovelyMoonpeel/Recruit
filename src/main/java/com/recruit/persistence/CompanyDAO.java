@@ -1,5 +1,6 @@
 package com.recruit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.recruit.domain.CInfoVO;
@@ -55,7 +56,8 @@ public interface CompanyDAO {
 	public List<CPersonInfoVO> CInfoRecruitList(String id)throws Exception;
 	
 	public void C_RecruitExtension(String id, int bno)throws Exception;
-	
-	public void updatePassword(String pw) throws Exception; //일단 이렇게 쓰고 
+
+	// 문> 기업회원 비밀번호 새로 수정하기 위해서 
+	public void updateCpPw(HashMap<String, Object> newCpPw)throws Exception;
 	
 }

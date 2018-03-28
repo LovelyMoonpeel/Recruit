@@ -1,5 +1,6 @@
 package com.recruit.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -149,10 +150,16 @@ public class CompanyServiceImpl implements CompanyService {
 	 }
 	  
 	 
-	 
+	 // 문> 기업회원 비밀번호 새로 수정하기 위해서 
 	 @Override
-	 public void updatePassword(String pw)throws Exception{
-		 //일단 이렇게 쓰고
+	 public void updateCpPw(HashMap<String, Object> newCpPw) throws Exception{
+		 
+		 // 문> 확인 차
+		 System.out.println("CompanyServiceImpl__newCpPw : "+newCpPw);
+
+		 // 문> CompanyDAO로 출발
+		 dao.updateCpPw(newCpPw);
+		 	 
 	 }
 
 }
