@@ -254,8 +254,6 @@ public class PersonalController {
 				System.out.println("언니"+Rservice.resumeRead(bno));
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 				
-				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
-
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
@@ -265,11 +263,44 @@ public class PersonalController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
-		//민경
 	}
 
 	// 이력서 하나 읽기
+	@RequestMapping(value = "/detail_nonavi", method = RequestMethod.GET)
+	public String detail_nonaviGET(int bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
+		//j.code 세션수정03/21
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals(Rservice.readROne(bno).getUserid())){
+				model.addAttribute("PUserVO", service.selectPUser(id));
+				model.addAttribute("ResumeVO", Rservice.readROne(bno));
+
+				model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+				
+				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
+
+				System.out.println("언니"+Rservice.resumeRead(bno));
+				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+				
+				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
+
+				return "personal/P_detail_nonavi";
+			} else {
+				rttr.addFlashAttribute("msg", "login");
+				return "redirect:/";
+			}
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyGET(PUserVO puser, Integer bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {

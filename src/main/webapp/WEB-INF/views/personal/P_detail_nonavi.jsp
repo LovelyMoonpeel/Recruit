@@ -2,8 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
-<%@include file="../include/header_nonavi.jsp"%>
-
+<%@include file="../include/header_nonavi_resume.jsp"%>
          
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의이력서상세</h1>
@@ -236,13 +235,13 @@
 
 	<br> <br>
 	<!-- 수정, 목록 버튼 -->
-	<div class="form-group">
+	<%-- <div class="form-group">
 		<button id="write-success" class="btn btn-success col-md-offset-10"
 			type='button'
 			onClick="javascript:self.location='/personal/Rmodify?bno=${ResumeVO.bno}';">수정</button>
 		<button id="write-cancel" class="btn btn-danger"
 			onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';">목록</button>
-	</div>
+	</div> --%>
 	<!-- //수정, 목록 버튼 -->
 	<br> <br>
 </div>

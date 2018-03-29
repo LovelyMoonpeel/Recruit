@@ -40,7 +40,7 @@
 			<tr>
 				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
 				<td>${CRecruitVO.recruitform}</td>
-				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
