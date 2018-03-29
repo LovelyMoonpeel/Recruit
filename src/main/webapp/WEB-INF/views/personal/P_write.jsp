@@ -196,7 +196,7 @@
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label>
+		<label>라벨 추가/삭제</label>
 		<br>
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -387,7 +387,7 @@
 			</div>
 	</div>
 
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-2 license_button">
 		<label>추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -481,6 +481,8 @@
 <!-- end of row -->
 </script>
 <script type='text/javascript'>
+
+
 $(document).ready(function(){
 	
 	Handlebars.registerHelper('select', function( value, options ){
@@ -488,15 +490,6 @@ $(document).ready(function(){
         $el.find('[value="' + value + '"]').attr({'selected':'selected'});
         return $el.html();
     });
-	
-
-	$(".licenseclass").each(function(index){
-		var license_index_2= $(".license_minus_btn").index(this);
-		console.log("새로한거"+license_index_2);
-		if(license_index_2==0){
-			$(this).hide();
-		}
-	}); 
 	
 	var formObj = $("form[role = 'form']");
 	
@@ -904,6 +897,52 @@ $(document).ready(function(){
 	license_list();
 	language_list();
 	
+	minus_btn();
+	
+	function minus_btn(){
+		$(".tel_minus_btn").each(function(){
+			console.log("$('.tel_minus_btn').index()"+$(".tel_minus_btn").index());
+			if($(".tel_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".edu_minus_btn").each(function(){
+			console.log("$('.edu_minus_btn').index()"+$(".edu_minus_btn").index());
+			if($(".edu_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".exp_minus_btn").each(function(){
+			console.log("$('.exp_minus_btn').index()"+$(".exp_minus_btn").index());
+			if($(".exp_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".web_minus_btn").each(function(){
+			console.log("$('.web_minus_btn').index()"+$(".web_minus_btn").index());
+			if($(".web_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".license_minus_btn").each(function(){
+			console.log("$('.license_minus_btn').index()"+$(".license_minus_btn").index());
+			if($(".license_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".lang_minus_btn").each(function(){
+			console.log("$('.lang_minus_btn').index()"+$(".lang_minus_btn").index());
+			if($(".lang_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+	}
 });
 </script>
 

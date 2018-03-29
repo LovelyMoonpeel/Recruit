@@ -45,7 +45,7 @@
 				<td>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
 				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td style="text-align:center;"><a href = '/personal/detail?bno=${CRecruitVO.viewcnt}'>${CRecruitVO.acceptmethod}</a></td>
+				<td style="text-align:center;"><a href = '/personal/detail?bno=${CRecruitVO.viewcnt}' target='_blank'>${CRecruitVO.acceptmethod}</a></td>
 			</tr>
 			</c:forEach>
 		</table>
