@@ -3,7 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/pheader.jsp"%>
+<%@include file="../include/header_nonavi.jsp"%>
 
 <!-- Main content -->
 <div class="col-md-9 ">
