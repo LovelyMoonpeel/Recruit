@@ -48,6 +48,10 @@
 				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
 			</tr>
 			<tr>
+				<th>담당자 연락처</th>
+				<td><input class="form-control" type="text" name="phone" value="${CInfoVO.phone}" required></td>
+			</tr>
+			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
 					value="${BoardVO.email}" required></td>

@@ -43,22 +43,19 @@
 			<th>제목</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="title"
-				value="${CsqnaVO.title}" readonly></td>
+			<td>${CsqnaVO.title}</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="user"
-				value="${CsqnaVO.user}" readonly></td>
+			<td>${CsqnaVO.user}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content" 
-			readonly>${CsqnaVO.content}</textarea></td>
+			<td>${content}</td>
 		</tr>
 	</table>
 	
@@ -83,7 +80,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly>{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly style="resize: none;">{{content}}</textarea> </div>
   </div>
  </div>
 </li>

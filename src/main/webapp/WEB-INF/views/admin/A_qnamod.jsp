@@ -54,7 +54,7 @@
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" id="decontent" name="content">${CsqnaVO.content}</textarea></td>
+			<td><textarea class="form-control" id="decontent" rows="10" name="content" style="resize: none;">${CsqnaVO.content}</textarea></td>
 		</tr>
 	</table>
 	</form>
@@ -77,7 +77,7 @@
 	  </div>
 	  <div class="box-body">
 	   <input type='hidden' id='bno' name='bno' value="${CsqnaVO.bno}">
-	   <textarea class="form-control" placeholder="댓글 내용" id="newReplyText"></textarea>
+	   <textarea class="form-control" placeholder="댓글 내용" id="newReplyText" rows="5" style="resize: none;"></textarea>
 	  </div>
 	  <div class="box-footer">
 	   <button type="submit" class="btn btn-success" id="replyAddBtn">댓글 달기</button>
@@ -104,7 +104,7 @@
      <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body" data-rno>
-     <p><input type="text" id="content" class="form-control"></p>
+     <p><textarea id="content" class="form-control" rows="5" style="resize: none;"></textarea></p>
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-info" id="replyModBtn">수정</button>
@@ -127,7 +127,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly>{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly style="resize: none;">{{content}}</textarea> </div>
    <a class="btn btn-primary btn-xs"
      data-toggle="modal" data-target="#modifyModal">Modify</a>
   </div>
@@ -222,12 +222,16 @@ $(".btn-primary").on("click", function(){
 });
 
 /* 댓글 달기 버튼 */
-$("#replyAddBtn").on("click", function(){
+$("#replyAddBtn").on("click", function(event){
 	var contentObj = $("#newReplyText");
 	var bnoObj = $("#bno");
 	var content = contentObj.val();
 	var bno = bnoObj.val();
 	
+	if(content==""){
+		alert("댓글 내용을 입력해주세요.");
+		event.preventDefault();
+	}else{
 	$.ajax({
 		type:'post',
 		url:'/replies/',
@@ -243,7 +247,9 @@ $("#replyAddBtn").on("click", function(){
 				contentObj.val("");
 				getPage("/replies/all/" + bno);
 			}
-		}});
+		}});		
+	}
+	
 });
 
 /* 댓글 수정 Modal */

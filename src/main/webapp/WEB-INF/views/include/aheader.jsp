@@ -102,7 +102,7 @@
 
 		<div class="row">
 
-			<div class="col-md-3">
+			<div id="sidebar" class="col-md-3">
 				<p class="lead">관리자페이지</p>
 				<div class="list-group">
 					<a href="/admin/main" class="list-group-item">개인관리</a>

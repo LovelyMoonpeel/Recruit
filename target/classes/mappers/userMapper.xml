@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	id
 	from
-	project.tbluser
+	tblUser
 	where
 	id = #{id}
 	</select>
@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	email
 	from
-	project.tbluser
+	project.tblUser
 	where
 	email = #{email}
 	</select>
@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	id
 	from
-	project.tbluser
+	tblUser
 	where
 	id = #{id}
 	</select>

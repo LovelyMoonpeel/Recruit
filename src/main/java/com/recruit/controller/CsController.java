@@ -131,6 +131,12 @@ public class CsController {
 				String id = login.getId();
 				String idc = qservice.read2(bno).getUser();
 				if(id.equals(idc) || id.equals("admin")){
+					String content = qservice.modread(bno).getContent();
+					String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+					String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+					String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+					
+					model.addAttribute("content", content4);
 					model.addAttribute("CsqnaVO", qservice.read(bno));
 					session.setAttribute("idc", idc);
 					return "/cs/S_qnaread";				
@@ -141,8 +147,14 @@ public class CsController {
 			} else {
 				rttr.addFlashAttribute("msg", "fail");
 				return "redirect:/cs/qna";
-			}			
+			}	
 		}else{
+			String content = qservice.modread(bno).getContent();
+			String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+			String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+			String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+			
+			model.addAttribute("content", content4);
 			model.addAttribute("CsqnaVO", qservice.read(bno));
 			return "/cs/S_qnaread";
 		}
@@ -192,15 +204,16 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
-	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno){
+	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno, HttpSession session){
 		ResponseEntity<String> entity = null;
-		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		String result = "fail"; //반환해줄 결과값
 		try{
-//			String dbpw = qservice.modread(bno).getBpw();
-//			String inputpw = bpw;
-//			System.out.println("bpw 출력 : "+ inputpw);
-			String result = qservice.modread(bno).getBpw();
-//			System.out.println("비밀번호는 무엇 ? "+result);
+			if(login != null){
+				if(login.getId().equals(qservice.modread(bno).getUser())){
+					result = qservice.modread(bno).getBpw();
+				}
+			}
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

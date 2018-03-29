@@ -41,12 +41,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@RequestParam("location") String location ,HttpServletRequest request, LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-//		System.out.println("dto값 출력 : " + dto);
 		BoardVO vo = service.login(dto);
-//		System.out.println("로그인 정보 확인 : " + vo);
 		
 		if (vo == null) {
-			//loginPost로 날라감
 			rttr.addFlashAttribute("msg", "login_fail");
 			return "redirect:/user/loginPost";
 		}
@@ -85,7 +82,7 @@ public class UserController {
 		return "/search/S_index";
 		
 	}
-
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes rttr)
 			throws Exception {
@@ -129,7 +126,8 @@ public class UserController {
 		try{
 			String id = board.getId();
 			if(service.idoverlap(id)==null){
-				entity = new ResponseEntity<String>("success", HttpStatus.OK);				
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				System.out.println("1");
 			}else{
 				entity = new ResponseEntity<String>("fail", HttpStatus.OK);
 			}

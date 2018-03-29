@@ -52,8 +52,8 @@
 					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
 						<!--★ href부분 값은 밑에 id랑 연결된다  -->
-						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" aria-expanded=<%= pexpand%>>개인회원</a></li>
-						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" aria-expanded=<%= cexpand%>>기업회원</a></li>
+						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" id="person" aria-expanded=<%= pexpand%>>개인회원</a></li>
+						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" id="company" aria-expanded=<%= cexpand%>>기업회원</a></li>
 					</ul>
 					
 					<br>
@@ -406,8 +406,7 @@
 			});
 		});
 	</script>
-
-
+	
 
 	<!--회원가입 모달  -->
 	<script>
@@ -546,7 +545,7 @@ $('#cjoin').on("click", function(event){
 		
 		if(!(ppwReg.test(ppwval)) && pexpReg.test(ppwval)){
 			alert("특수문자 금지");
-			$('#ppw').val(ppwcval.slice(0, -1));
+			$('#ppw').val(ppwval.slice(0, -1));
 		}
 		
 		ppwval = $('#ppw').val();
@@ -791,6 +790,29 @@ $("#cemail_overlap").on("click", function(){
 <script>
 $(".btn-block").on("click", function(){
 	var locationObj = $(".location")
-	locationObj.val(window.location.href);
+	locationObj.val(window.location.pathname);
 });
+</script>
+
+<!-- 로그인 모달 개인회원 기업회원 클릭 -->
+<script>
+$("#person").on("click", function(){
+	setTimeout(function(){
+		if($("#loginpid").val()!=""){
+			$("#loginppw").focus();
+		}else{
+			$("#loginpid").focus();
+		}		
+	}, 500)
+})
+
+$("#company").on("click", function(){
+	setTimeout(function(){
+		if($("#logincid").val()!=""){
+			$("#logincpw").focus();
+		}else{
+			$("#logincid").focus();
+		}
+	}, 500)
+})
 </script>

@@ -1,28 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../include/sheader.jsp"%>
+<%@include file="../include/uheader.jsp"%>
 <div class="col-md-9">
 
 <h2>비밀번호 찾기</h2>
 <form action="PWsearch" method="POST">
-<table>
+<table class="table table-bordered">
 	<tr>
-		<td style="width:100px;"><input type="radio" name="index" id="pname" checked="checked">개인회원</td>
-		<td><input type="radio" name="index" id="cname">기업회원</td>
+		<td style="width:100px;" colspan="2"><input type="radio" name="index" id="pname" checked="checked">개인회원 &nbsp; &nbsp;
+		<input type="radio" name="index" id="cname">기업회원</td>
 	</tr>
 	<tr>
-		<td>아이디</td><td><input type="text" id="id" name="id" value="${LoginDTO.id}" placeholder="아이디를 입력해주세요."></td>
+		<td>아이디</td><td><input type="text" id="id" class="form-control" name="id" value="${LoginDTO.id}" placeholder="아이디를 입력해주세요." autofocus></td>
 	</tr>
 	<tr>
-		<td>이름</td><td><input type="text" id="name" value="" placeholder="이름이나 기업명을 입력해주세요."></td>
+		<td>이름</td><td><input type="text" id="name" class="form-control" value="" placeholder="이름이나 기업명을 입력해주세요."></td>
 	</tr>
 	<tr>
-		<td>이메일</td><td><input type="text" id="email" name="email" value="${LoginDTO.email }" placeholder = "이메일을 입력해주세요."></td>
+		<td>이메일</td><td><input type="text" id="email" class="form-control" name="email" value="${LoginDTO.email }" placeholder = "이메일을 입력해주세요."></td>
 	</tr>
 </table>
 </form>
-<input type="button" id="submit" value="비밀번호 찾기">
+<input type="button" class="btn btn-success" id="submit" value="비밀번호 찾기">
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
+
 
 <script>
 $("#pname").on("click", function(){
@@ -88,7 +90,13 @@ $("#submit").on("click", function(){
 	}) 
 	}
 });
-
 </script>
 
+<script>
+$('#email').keypress(function(event){
+			if(event.which == 13){
+				$('#submit').click();
+			}
+		});
+</script>
 <%@include file="../include/cfooter.jsp"%>

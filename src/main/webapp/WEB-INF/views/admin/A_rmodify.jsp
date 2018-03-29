@@ -108,7 +108,7 @@
 			</tr>
 			<tr>
 				<th>담당업무</th>
-				<td><textarea name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
+				<td><textarea class="form-control" name="jobdesc" cols="30" rows="5" style="resize: none;">${RecruitVO.jobdesc}</textarea></td>
 			</tr>
 			<tr>
 				<th>모집인원</th>
@@ -183,7 +183,7 @@
 			</tr>
 			<tr>
 				<th>상세내용 및 우대사항</th>
-				<td><textarea name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea></td>
+				<td><textarea class="form-control" name="adddesc" cols="30" rows="10" style="resize: none;">${RecruitVO.adddesc}</textarea></td>
 			</tr>
 		<!-- 	<tr>
 				<th>접수기간</th>
@@ -219,8 +219,9 @@
 		</table>
 	</form>
 		<br> <br>
-		<input class="btn btn-primary" type="submit" value="수정">
-		<input type="submit" class="btn btn-danger" value="삭제">
+		<input class="btn btn-warning" type="submit" value="수정">
+		<input class="btn btn-danger" type="submit" value="삭제">
+		<input class="btn btn-primary" type="button" value="목록">
 		
 	<br>
 	<!-- // 공고 입력 부분 끝 -->
@@ -239,13 +240,14 @@
 	});	
 </script>
 
+<!-- 버튼에 대한 스크립트 -->
 <script>
 	$(document).ready(function() {
 
 		var formObj = $("form[role='form']");
 
 
-		$(".btn-primary").on("click", function() {
+		$(".btn-warning").on("click", function() {
 			formObj.attr("action", "A_rmodify");
 			formObj.submit();
 		});
@@ -257,9 +259,14 @@
 				formObj.submit();
 			}
 		});
+		
+		$(".btn-primary").on("click", function() {
+			self.location = "/admin/cmodify?id=${CInfoVO.id}"
+		});
 
 	});
 </script>
+<!-- //버튼에 대한 스크립트 -->
 
 <script>
 $(document).ready(function(){

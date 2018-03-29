@@ -50,7 +50,7 @@
 				<th>내용</th>
 			</tr>
 			<tr>
-				<td><textarea class="form-control" name="content" id="content" required>${CsfaqVO.content}</textarea>
+				<td><textarea class="form-control" name="content" id="content" rows="10" required style="resize: none;">${CsfaqVO.content}</textarea>
 				</td>
 			</tr>
 		</table>

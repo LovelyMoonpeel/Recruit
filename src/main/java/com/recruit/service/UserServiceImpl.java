@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public BoardVO idoverlap(String id) throws Exception {
+		System.out.println("2");
 		return dao.idoverlap(id);
 	}
 

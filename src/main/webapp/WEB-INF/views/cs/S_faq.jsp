@@ -21,7 +21,7 @@
 	</table>
 	
 	<!-- <button class="btn btn-success" type="button" onclick="location.href='/cs/S_faqreg'">작성</button> -->
-
+<br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 <!-- 수정, 삭제 처리시 -->
