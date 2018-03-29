@@ -135,7 +135,7 @@
 <!-- /Page Content -->
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
-<div class="col-md-3 result">
+<div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			{{bno}} {{cname}} (~{{period}})<br />
@@ -390,12 +390,19 @@
 	// 모든 채용공고(recruits)를 보여주다.
 	function getRecruitAllList() {
 		$.getJSON("/sresult/recruits/getall/24", function(data) {
-			var source_pnl = $("#tmpnl_recruit").html();
-			template_pnl = Handlebars.compile(source_pnl);
-			console.log(data.length);
 			inum = 0;
 			deletespanel();
-			$(data).each(recruitPnl);
+
+			// cinfo & recruit 분류
+			var dataR = new Array();
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].period !== 'etern')
+					dataR.push(data[i]);
+			}
+
+			var source_pnl = $("#tmpnl_recruit").html();
+			template_pnl = Handlebars.compile(source_pnl);
+			$(dataR).each(recruitPnl);
 		});
 	}
 

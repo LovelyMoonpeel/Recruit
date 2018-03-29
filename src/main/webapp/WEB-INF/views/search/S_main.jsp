@@ -108,22 +108,18 @@
 </script>
 
 <script id="tmpnl_cinfo" type="text/x-handlebars-template">
-<div class="col-md-12 result">
+<div class="col-lg-12 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			{{bno}} {{cname}} (~{{period}})<br />
-			{{title}}<br />
-			({{jobgroupid}}, {{jobgroupid2}})<br />
-			{{edu}}, {{exp}}<br />
-			{{employstatusid}}<br />
-			({{rgbid}}, {{rgsid}})
+			{{cname}} ({{userid}})<br />
+			{{title}}
 		</div>
 	</div>
 </div>
 </script>
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
-<div class="col-md-3 result">
+<div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			{{bno}} {{cname}} (~{{period}})<br />
@@ -138,7 +134,7 @@
 </script>
 
 <script id="tmpnl_resume" type="text/x-handlebars-template">
-<div class="col-md-3 result">
+<div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			{{bno}} {{pname}} ({{jobstateid}})<br />
@@ -236,8 +232,8 @@
 			rgbid : that.rgbid,
 			rgsid : that.rgsid,
 			employstatusid : that.employstatusid,
-			edu : that.period,
-			exp : that.period,
+			edu : that.edu,
+			exp : that.exp,
 			img : that.img,
 			cname : that.cname,
 			period : that.period
