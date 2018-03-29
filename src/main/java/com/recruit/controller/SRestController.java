@@ -45,19 +45,14 @@ public class SRestController {
 		return "Hello Spring";
 	}
 
-	// A.전체검색 (recruits, resumes)
-	@RequestMapping(value = "/getall/{users}/{snum}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> getAllList(@PathVariable("users") String users,
-			@PathVariable("snum") int snum) {
+	// A.code list 받기
+	// A-1.job1 code
+	@RequestMapping(value = "/jobg", method = RequestMethod.GET)
+	public ResponseEntity<List<JobGroupVO>> jobgroup() {
 
-		System.out.println("snum: " + snum);
-		ResponseEntity<List<SpanelVO>> entity = null;
+		ResponseEntity<List<JobGroupVO>> entity = null;
 		try {
-			if ("recruits".equals(users)) {
-				entity = new ResponseEntity<>(searchService.selectRecruitsAll(snum), HttpStatus.OK);
-			} else { // resumes
-				entity = new ResponseEntity<>(searchService.selectResumesAll(snum), HttpStatus.OK);
-			}
+			entity = new ResponseEntity<>(companyAjaxService.jobgroupList(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,19 +60,13 @@ public class SRestController {
 		return entity;
 	}
 
-	// B.키워드 검색 (recruit, resume)
-	@RequestMapping(value = "/getkey/{users}/{skey}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> getKeyList(@PathVariable("users") String users,
-			@PathVariable("skey") String skey) {
+	// A-2.job2 code
+	@RequestMapping(value = "/jobg/{jobg2}", method = RequestMethod.GET)
+	public ResponseEntity<List<JobGroupVO>> jobgroup2(@PathVariable("jobg2") int jobg2) {
 
-		System.out.println("Skey: " + skey);
-		ResponseEntity<List<SpanelVO>> entity = null;
+		ResponseEntity<List<JobGroupVO>> entity = null;
 		try {
-			if ("recruits".equals(users)) {
-				entity = new ResponseEntity<>(searchService.selectRecruits(skey), HttpStatus.OK);
-			} else { // resumes
-				entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);
-			}
+			entity = new ResponseEntity<>(companyAjaxService.SubJobGroup(jobg2), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -85,11 +74,93 @@ public class SRestController {
 		return entity;
 	}
 
-	// C.필터 검색 (recruit, resume)
-	// C-1.필터 전역변수
+	// A-3.region1 code
+	@RequestMapping(value = "/region", method = RequestMethod.GET)
+	public ResponseEntity<List<RegionVO>> region() {
+
+		ResponseEntity<List<RegionVO>> entity = null;
+		try {
+			entity = new ResponseEntity<>(companyService.RegionList(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// A-4.region2 code
+	@RequestMapping(value = "/region/{reg2}", method = RequestMethod.GET)
+	public ResponseEntity<List<RegionVO>> region2(@PathVariable("reg2") String reg2) {
+
+		ResponseEntity<List<RegionVO>> entity = null;
+		try {
+			entity = new ResponseEntity<>(companyAjaxService.SubRegion(reg2), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// A-5.code table
+	@RequestMapping(value = "/code/{tid}", method = RequestMethod.GET)
+	public ResponseEntity<List<CodeVO>> getCode(@PathVariable("tid") int tid) {
+
+		ResponseEntity<List<CodeVO>> entity = null;
+		try {
+			System.out.println("code2: ");
+			System.out.println(searchService.CodeList(tid));
+			entity = new ResponseEntity<>(searchService.CodeList(tid), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// A-6.code to title for search filter
+	@RequestMapping(value = "/scode/{scode}", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> getScode(@PathVariable("scode") String scode) {
+
+		ResponseEntity<List<String>> entity = null;
+		try {
+			List<String> scodeList = new ArrayList<String>();
+			System.out.println("scodes: " + scode);
+			scodeList.add(searchService.codeToName(convertJob1to2(scode)));
+			System.out.println("scodeList: " + scodeList);
+			entity = new ResponseEntity<>(scodeList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// A-7.임시코드변경 메소드 (직무 1차 분류 > 2차 전체)
+	public String convertJob1to2(String scode) {
+
+		System.out.println("Scode: " + scode);
+		try {
+			List<Integer> jobcode = searchService.selectJobCode();
+			// Job
+			if ("J".equals(scode.substring(0, 1)) && scode.length() > 1) {
+				int jnum = Integer.parseInt(scode.substring(1));
+				if (jnum < jobcode.get(0))
+					scode = "J" + (jobcode.get(jnum - 1));
+			}
+		} catch (Exception e) {
+		}
+		// Region
+		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
+		// scode = scode + "99";
+		return scode;
+	}
+
+	// B.필터 검색준비
+	// B-1.필터 전역변수
 	private List<String> sel_scodes;
 
-	// C-2.필터코드 저장
+	// B-2.필터코드 저장
 	@RequestMapping(value = "/getsel", method = RequestMethod.POST)
 	public ResponseEntity<String> getSelCode(@RequestBody List<String> scodes) {
 		int num = scodes.size();
@@ -110,38 +181,27 @@ public class SRestController {
 		return entity;
 	}
 
-	// 임시코드변경 메소드 (직무 1차 분류 > 2차 전체)
-	public String convertJob1to2(String scode) {
+	// C.recruits 검색 (전체, 키워드, 필터)
+	@RequestMapping(value = "/recruits/{getdoc}/{skey}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> getRecruits(@PathVariable("getdoc") String getdoc,
+			@PathVariable("skey") String skey) {
 
-		System.out.println("Scode: " + scode);
-		try {
-			List<Integer> jobcode = searchService.selectJobCode();
-			// Job
-			if ("J".equals(scode.substring(0, 1)) && scode.length() > 1) {
-				int jnum = Integer.parseInt(scode.substring(1));
-				if (jnum < jobcode.get(0))
-					scode = "J" + (jobcode.get(jnum - 1));
-			}
-		} catch (Exception e) {
-		}
-		// Region
-		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
-		// scode = scode + "99";
-		return scode;
-	}
-
-	// C-3.recruit, resume 로딩
-	@RequestMapping(value = "/getsel/{users}", method = RequestMethod.GET)
-	public ResponseEntity<List<SpanelVO>> getSelList(@PathVariable("users") String users) {
-
-		System.out.println("Scodes 2: " + sel_scodes);
 		ResponseEntity<List<SpanelVO>> entity = null;
+		List<SpanelVO> spanelVOList = null;
 		try {
-			if ("recruits".equals(users)) {
-				entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_scodes), HttpStatus.OK);
-			} else { // resumes
-				entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_scodes), HttpStatus.OK);
+			if ("getall".equals(getdoc)) {
+				int snum = Integer.parseInt(skey);
+				System.out.println("getall: " + snum);
+				spanelVOList = searchService.selectRecruitsAll(snum);
+			} else if ("getkey".equals(getdoc)) {
+				System.out.println("getkey: " + skey);
+				spanelVOList = searchService.selectRecruits(skey);
+			} else { // getsel
+				System.out.println("getsel: " + sel_scodes);
+				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
 			}
+			searchService.getCInforList(spanelVOList);
+			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -149,90 +209,26 @@ public class SRestController {
 		return entity;
 	}
 
-	// D.code list 받기
-	// D-1.job1 code
-	@RequestMapping(value = "/jobg", method = RequestMethod.GET)
-	public ResponseEntity<List<JobGroupVO>> jobgroup() {
+	// D.resumes 검색 (전체, 키워드, 필터)
+	@RequestMapping(value = "/resumes/{getdoc}/{skey}", method = RequestMethod.GET)
+	public ResponseEntity<List<SpanelVO>> getResumes(@PathVariable("getdoc") String getdoc,
+			@PathVariable("skey") String skey) {
 
-		ResponseEntity<List<JobGroupVO>> entity = null;
+		ResponseEntity<List<SpanelVO>> entity = null;
+		List<SpanelVO> spanelVOList = null;
 		try {
-			entity = new ResponseEntity<>(companyAjaxService.jobgroupList(), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// D-2.job2 code
-	@RequestMapping(value = "/jobg/{jobg2}", method = RequestMethod.GET)
-	public ResponseEntity<List<JobGroupVO>> jobgroup2(@PathVariable("jobg2") int jobg2) {
-
-		ResponseEntity<List<JobGroupVO>> entity = null;
-		try {
-			entity = new ResponseEntity<>(companyAjaxService.SubJobGroup(jobg2), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// D-3.region1 code
-	@RequestMapping(value = "/region", method = RequestMethod.GET)
-	public ResponseEntity<List<RegionVO>> region() {
-
-		ResponseEntity<List<RegionVO>> entity = null;
-		try {
-			entity = new ResponseEntity<>(companyService.RegionList(), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// D-4.region2 code
-	@RequestMapping(value = "/region/{reg2}", method = RequestMethod.GET)
-	public ResponseEntity<List<RegionVO>> region2(@PathVariable("reg2") String reg2) {
-
-		ResponseEntity<List<RegionVO>> entity = null;
-		try {
-			entity = new ResponseEntity<>(companyAjaxService.SubRegion(reg2), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// D-5.code table
-	@RequestMapping(value = "/code/{tid}", method = RequestMethod.GET)
-	public ResponseEntity<List<CodeVO>> getCode(@PathVariable("tid") int tid) {
-
-		ResponseEntity<List<CodeVO>> entity = null;
-		try {
-			System.out.println("code2: ");
-			System.out.println(searchService.CodeList(tid));
-			entity = new ResponseEntity<>(searchService.CodeList(tid), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-
-	// code to title for search filter
-	@RequestMapping(value = "/scode/{scode}", method = RequestMethod.GET)
-	public ResponseEntity<List<String>> getScode(@PathVariable("scode") String scode) {
-
-		ResponseEntity<List<String>> entity = null;
-		try {
-			List<String> scodeList = new ArrayList<String>();
-			System.out.println("scodes: " + scode);
-			scodeList.add(searchService.codeToName(convertJob1to2(scode)));
-			System.out.println("scodeList: " + scodeList);
-			entity = new ResponseEntity<>(scodeList, HttpStatus.OK);
+			if ("getall".equals(getdoc)) {
+				int snum = Integer.parseInt(skey);
+				System.out.println("getall: " + snum);
+				spanelVOList = searchService.selectResumesAll(snum);
+			} else if ("getkey".equals(getdoc)) {
+				System.out.println("getkey: " + skey);
+				spanelVOList = searchService.selectResumes(skey);
+			} else { // getsel
+				System.out.println("getsel: " + sel_scodes);
+				spanelVOList = searchService.selectResumes_sel(sel_scodes);
+			}
+			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

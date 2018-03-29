@@ -2,8 +2,11 @@ package com.recruit.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -293,5 +296,15 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<Integer> selectJobCode() throws Exception {
 		return searchDAO.selectJobCode();
+	}
+
+	@Override
+	public List<SpanelVO> getCInforList(List<SpanelVO> spanelVOList) throws Exception {
+		Set<String> cSet = new HashSet<String>();
+		for (Iterator<SpanelVO> itr = spanelVOList.iterator(); itr.hasNext();)
+			cSet.add(itr.next().getUserid());
+
+		List<String> cList = new ArrayList<String>(cSet);
+		return searchDAO.selectCInfo(cList);
 	}
 }

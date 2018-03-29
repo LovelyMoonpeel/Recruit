@@ -389,7 +389,7 @@
 
 	// 모든 채용공고(recruits)를 보여주다.
 	function getRecruitAllList() {
-		$.getJSON("/sresult/getall/recruits/24", function(data) {
+		$.getJSON("/sresult/recruits/getall/24", function(data) {
 			var source_pnl = $("#tmpnl_recruit").html();
 			template_pnl = Handlebars.compile(source_pnl);
 			console.log(data.length);
@@ -409,7 +409,7 @@
 
 	waitForSearching("데이터 로딩중...", 8);
 	getRecruitAllList();
-	
+
 	$("#sinput").focus();
 </script>
 

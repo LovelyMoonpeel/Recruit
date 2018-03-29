@@ -386,4 +386,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from
 		tblresume;
 	</select>
+
+	<select id="selectCInfo" resultType="com.recruit.domain.SpanelVO"
+		parameterType="java.util.List">
+		select id as userid, intro as title, img, cname from tblcinfo where
+		img = 'img.img'
+		<foreach item="item" index="index" collection="list" open="or"
+			separator=" or ">
+			id = #{item}
+		</foreach>
+		;
+	</select>
 </mapper>

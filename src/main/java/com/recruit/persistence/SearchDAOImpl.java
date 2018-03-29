@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.recruit.domain.Bnoble;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.domain.SpanelVO;
 
 @Repository
 public class SearchDAOImpl implements SearchDAO {
@@ -187,5 +188,10 @@ public class SearchDAOImpl implements SearchDAO {
 	@Override
 	public List<Integer> selectJobCode() throws Exception {
 		return session.selectList(namespace + ".selectJobCode");
+	}
+
+	@Override
+	public List<SpanelVO> selectCInfo(List<String> cList) throws Exception {
+		return session.selectList(namespace + ".selectCInfo", cList);
 	}
 }

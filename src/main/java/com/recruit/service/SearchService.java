@@ -40,4 +40,6 @@ public interface SearchService {
 	public String codeToName(String scode) throws Exception;
 
 	public List<Integer> selectJobCode() throws Exception;
+
+	public List<SpanelVO> getCInforList(List<SpanelVO> spanelVOList) throws Exception;
 }

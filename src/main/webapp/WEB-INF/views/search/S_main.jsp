@@ -292,9 +292,9 @@
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/getall/recruits/0", keyRecruitHandler);
+			$.getJSON("/sresult/recruits/getall/0", keyRecruitHandler);
 		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/getall/resumes/0", keyResumeHandler);
+			$.getJSON("/sresult/resumes/getall/0", keyResumeHandler);
 		}
 	}
 
@@ -302,15 +302,15 @@
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getKeyList(users, skey) {
 		if (users == "recruits") {
-			$.getJSON("/sresult/getkey/recruits/" + skey, keyRecruitHandler);
+			$.getJSON("/sresult/recruits/getkey/" + skey, keyRecruitHandler);
 		} else { // resumes
-			$.getJSON("/sresult/getkey/resumes/" + skey, keyResumeHandler);
+			$.getJSON("/sresult/resumes/getkey/" + skey, keyResumeHandler);
 		}
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(3)
 	// 결과 판넬 List 생성
-	// url: /sresult/getsel/recruits
+	// url: /sresult/recruits/getsel/0
 	function selRecruitHandler(data) {
 		var source_pnl = $("#tmpnl_recruit").html();
 		template_pnl = Handlebars.compile(source_pnl);
@@ -329,7 +329,7 @@
 		}
 	}
 
-	// url: /sresult/getsel/resumes
+	// url: /sresult/resumes/getsel/0
 	function selResumeHandler(data) {
 		var source_pnl = $("#tmpnl_resume").html();
 		template_pnl = Handlebars.compile(source_pnl);
@@ -352,10 +352,10 @@
 	// 검색분류(users: recruits or resumes)
 	function getSelList(users) {
 		if (users == 'recruits') // 'recruits'
-			$.getJSON("/sresult/getsel/recruits", selRecruitHandler);
+			$.getJSON("/sresult/recruits/getsel/0", selRecruitHandler);
 		else
 			// 'resumes'
-			$.getJSON("/sresult/getsel/resumes", selResumeHandler);
+			$.getJSON("/sresult/resumes/getsel/0", selResumeHandler);
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(1)

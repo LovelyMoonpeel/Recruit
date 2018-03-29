@@ -3,8 +3,8 @@ package com.recruit.domain;
 public class SpanelVO implements Bnoble {
 
 	private int bno;
-	private String userid; // c.cid
-	private String title;
+	private String userid; // c.cid | c.tblcinfo.id
+	private String title; // | c.tblcinfo.intro
 	private String jobgroupid;
 	private String jobgroupid2;
 	private String rgbid;
@@ -12,10 +12,11 @@ public class SpanelVO implements Bnoble {
 	private String employstatusid;
 	private String edu; // p.levelofeducation
 	private String exp; // p.lastcareer
-	private String img; // c.tblcinfo.img
+	private String img; // c.tblcinfo.img | c.tblcinfo.img
+	private String url;
 
 	// recruit
-	private String cname; // c.tbluser.cname
+	private String cname; // c.tbluser.cname | c.tblcinfo.cname
 	private String period;
 
 	// resume
@@ -110,6 +111,14 @@ public class SpanelVO implements Bnoble {
 		this.img = img;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public String getCname() {
 		return cname;
 	}
@@ -146,7 +155,7 @@ public class SpanelVO implements Bnoble {
 	public String toString() {
 		return "SpanelVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", jobgroupid=" + jobgroupid
 				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
-				+ employstatusid + ", edu=" + edu + ", exp=" + exp + ", img=" + img + ", cname=" + cname + ", period="
-				+ period + ", pname=" + pname + ", jobstateid=" + jobstateid + "]";
+				+ employstatusid + ", edu=" + edu + ", exp=" + exp + ", img=" + img + ", url=" + url + ", cname="
+				+ cname + ", period=" + period + ", pname=" + pname + ", jobstateid=" + jobstateid + "]";
 	}
 }
