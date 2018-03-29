@@ -54,12 +54,8 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			if ("recruits".equals(users)) {
-				// List<SpanelVO> cList = searchService.selectRecruitsAll();
-				// System.out.println(cList);
 				entity = new ResponseEntity<>(searchService.selectRecruitsAll(snum), HttpStatus.OK);
 			} else { // resumes
-				// List<SpanelVO> pList = searchService.selectResumesAll();
-				// System.out.println(pList);
 				entity = new ResponseEntity<>(searchService.selectResumesAll(snum), HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -78,10 +74,8 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			if ("recruits".equals(users)) {
-				// System.out.println(searchService.selectRecruits(skey));
 				entity = new ResponseEntity<>(searchService.selectRecruits(skey), HttpStatus.OK);
 			} else { // resumes
-				// System.out.println(searchService.selectResumes(skey));
 				entity = new ResponseEntity<>(searchService.selectResumes(skey), HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -97,7 +91,7 @@ public class SRestController {
 
 	// C-2.필터코드 저장
 	@RequestMapping(value = "/getsel", method = RequestMethod.POST)
-	public ResponseEntity<String> selectSearch(@RequestBody List<String> scodes) {
+	public ResponseEntity<String> getSelCode(@RequestBody List<String> scodes) {
 		int num = scodes.size();
 		for (int i = 0; i < num; i++) {
 			String scode = scodes.get(i);
@@ -130,7 +124,6 @@ public class SRestController {
 			}
 		} catch (Exception e) {
 		}
-
 		// Region
 		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
 		// scode = scode + "99";
@@ -145,12 +138,8 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		try {
 			if ("recruits".equals(users)) {
-				// System.out.println("controller: " +
-				// searchService.selectRecruits_sel(sel_scodes));
 				entity = new ResponseEntity<>(searchService.selectRecruits_sel(sel_scodes), HttpStatus.OK);
 			} else { // resumes
-				// System.out.println("controller: " +
-				// searchService.selectResumes_sel(sel_scodes));
 				entity = new ResponseEntity<>(searchService.selectResumes_sel(sel_scodes), HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -177,13 +166,11 @@ public class SRestController {
 
 	// D-2.job2 code
 	@RequestMapping(value = "/jobg/{jobg2}", method = RequestMethod.GET)
-	public ResponseEntity<List<JobGroupVO>> jobgroup2(@PathVariable("jobg2") String jobg2) {
-
-		int job2 = Integer.parseInt(jobg2);
+	public ResponseEntity<List<JobGroupVO>> jobgroup2(@PathVariable("jobg2") int jobg2) {
 
 		ResponseEntity<List<JobGroupVO>> entity = null;
 		try {
-			entity = new ResponseEntity<>(companyAjaxService.SubJobGroup(job2), HttpStatus.OK);
+			entity = new ResponseEntity<>(companyAjaxService.SubJobGroup(jobg2), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -235,6 +222,7 @@ public class SRestController {
 		return entity;
 	}
 
+	// code to title for search filter
 	@RequestMapping(value = "/scode/{scode}", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> getScode(@PathVariable("scode") String scode) {
 
@@ -244,7 +232,6 @@ public class SRestController {
 			System.out.println("scodes: " + scode);
 			scodeList.add(searchService.codeToName(convertJob1to2(scode)));
 			System.out.println("scodeList: " + scodeList);
-			// entity = new ResponseEntity<>("scodes", HttpStatus.OK);
 			entity = new ResponseEntity<>(scodeList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
