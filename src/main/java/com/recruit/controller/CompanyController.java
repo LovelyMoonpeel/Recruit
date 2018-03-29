@@ -501,6 +501,25 @@ public class CompanyController {
 			return "redirect:/";
 		}
 	}
+	
+	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이 보는 기업정보
+	public String C_info_nonavi(HttpSession session, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("컨트롤러 아이디 값은 : " + id);
+			model.addAttribute(service.CompanyInfoRead(cid));
+			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
+			return "/company/C_info_nonavi";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
 
 	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지 정보
 	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model) throws Exception {

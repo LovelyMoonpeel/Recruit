@@ -22,7 +22,7 @@
 			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
 				<img src="/resources/rpjt/img/${CInfoVO.img}" class="img-rounded"
 					name="img" value="${CInfoVO.img}"
-					style="width: 240px; height: 100px" />
+					style="width: 240px; height: auto;" />
 			</div>
 
 			<div class="col-md-4">
@@ -93,7 +93,9 @@
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
-					<button class="btn btn-info" id="CInfo" value="${RecruitVO.bno}">기업정보</button>
+					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">
+					<button class="btn btn-info">기업정보</button></a>
+					
 				</div>
 				<br>
 			</div>
@@ -241,6 +243,8 @@
 
 	<br>
 	<!-- 공고 메인 -->
+	<div id="detail_content"></div>
+	<br><br>
 	<div
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 
@@ -287,7 +291,7 @@
 	</div>
 	<!-- /공고 메인 -->
 	<br> <br>
-	<div
+	<div id="accept_method"
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<div class="row">
 			<!-- 접수기간  -->
@@ -383,7 +387,7 @@
 		
 	</div>
 
-	<div
+	<div id="human_resources_manager" 
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<table class="table table-bordered ">
 			<tbody>
@@ -418,7 +422,8 @@
  --%>
 <script>
 	$('#CInfo').on("click", function() {
-		self.location = "/company/C_info?recruitNum=" + $('#CInfo').val()
+		<a href = '/company/C_info_nonavi?recruitNum=' + $('#CInfo').val(); onClick="window.open(this.href, '', 'width=1000, height=960'); return false;"></a>
+		//self.location = "/company/C_info_nonavi?recruitNum=" + $('#CInfo').val()
 	});
 </script>
 <!-- //메인 바디 끝 -->

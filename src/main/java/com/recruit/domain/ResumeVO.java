@@ -19,6 +19,8 @@ public class ResumeVO implements Bnoble {
 	private String regdate;
 	private String levelofeducation;
 	private String lastcareer;
+	private String preadornot;
+	//소연 추가 preadornot
 
 	public int getBno() {
 		return bno;
@@ -67,27 +69,27 @@ public class ResumeVO implements Bnoble {
 	public void setCoverletter(String coverletter) {
 		this.coverletter = coverletter;
 	}
-	
+
 	public String getJobstateid() {
 		return jobstateid;
 	}
-	
+
 	public void setJobstateid(String jobstateid) {
 		this.jobstateid = jobstateid;
 	}
-	
+
 	public String getJobgroupid() {
 		return jobgroupid;
 	}
-	
+
 	public void setJobgroupid(String jobgroupid) {
 		this.jobgroupid = jobgroupid;
 	}
-	
+
 	public String getJobgroupid2() {
 		return jobgroupid2;
 	}
-	
+
 	public void setJobgroupid2(String jobgroupid2) {
 		this.jobgroupid2 = jobgroupid2;
 	}
@@ -99,27 +101,27 @@ public class ResumeVO implements Bnoble {
 	public void setRgbid(String rgbid) {
 		this.rgbid = rgbid;
 	}
-	
+
 	public String getRgsid() {
 		return rgsid;
 	}
-	
+
 	public void setRgsid(String rgsid) {
 		this.rgsid = rgsid;
 	}
-	
+
 	public String getEmploystatusid() {
 		return employstatusid;
 	}
-	
+
 	public void setEmploystatusid(String employstatusid) {
 		this.employstatusid = employstatusid;
 	}
-	
+
 	public String getSalaryid() {
 		return salaryid;
 	}
-	
+
 	public void setSalaryid(String salaryid) {
 		this.salaryid = salaryid;
 	}
@@ -139,7 +141,7 @@ public class ResumeVO implements Bnoble {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
+
 	public String getLevelofeducation() {
 		return levelofeducation;
 	}
@@ -156,6 +158,14 @@ public class ResumeVO implements Bnoble {
 		this.lastcareer = lastcareer;
 	}
 
+	public String getPreadornot() {
+		return preadornot;
+	}
+
+	public void setPreadornot(String preadornot) {
+		this.preadornot = preadornot;
+	}
+	
 	@Override
 	public String toString() {
 		return "ResumeVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", address=" + address
@@ -163,7 +173,7 @@ public class ResumeVO implements Bnoble {
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
 				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
 				+ ", regdate=" + regdate + ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer
-				+ "]";
+				+ ", preadornot=" + preadornot + "]";
 	}
 
 	@Override
@@ -187,7 +197,7 @@ public class ResumeVO implements Bnoble {
 		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
