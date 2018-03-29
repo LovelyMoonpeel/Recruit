@@ -90,14 +90,14 @@ body {
 
 <%
 	try{
-		if(cname != null){
-			%>
+		 /*if(cname != null){
+			
 			<script>
 			alert("개인 회원이 아닙니다.");
 			self.location = "/company/C_index";
 			</script>
-			<%
-		}
+			
+		}*/ 
 	}catch(Exception e){
 		e.printStackTrace();
 	}

@@ -219,8 +219,6 @@
 	<h4>기업정보</h4>
 	
 	<table class="table table-bordered">
-			
-			
 				<tbody>
 					<tr>
 						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
@@ -266,11 +264,6 @@
 						<th class="active" scope="row">기업주소</th>
 						<td colspan="3">${CInfoVO.location}</td>
 					</tr>
-					<!-- ★복지는 2차 개발 -->
-					<!-- <tr>
-                        <th class="table-active" scope="row">복지</th>
-                        <td colspan="3">하하하하하하 </td>
-                      </tr> -->
 				</tbody>
 			</table>
 			</div>
@@ -279,39 +272,75 @@
 			<div  style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;" >
 			<h4>지원자리스트</h4>
 			<div class="row">
-			<c:forEach items="${ApplyList}" var="ResumeVO">
+
+		<c:forEach items="${ApplyList}" var="ResumeVO" varStatus="status"><!-- 소연 수정 -->
 			<div class="col-md-6">
-			<table class="table table-bordered">
-			<tr>
-				<th class="active">이름</th> 
-				<th class="active">이력서 요약</th> 
-			</tr>	
-			<tr>
-			<th>${ResumeVO.img}  ⃝  ⃝</th>
-			
-			<th>
-			<span class=careerLine>경력 3년 5개월</span>${ResumeVO.title}<br>
-			${ResumeVO.coverletter}${ResumeVO.rgbid}
-			
-			
-			</th>
-			</tr>
-			
-			</table>
+				<table class="table table-bordered">
+					<tr>
+						<th class="active">이름</th>
+						<th class="active">이력서 요약</th>
+					</tr>
+					<tr>
+						<th>${ResumeVO.img}</th>
+						<th>
+						<input type='text' id="Rbno${status.index }" value="${ResumeVO.bno}">
+						<!--  >input type='hidden' id="Rbno${status.index }" value="${ResumeVO.bno}"-->
+						<span class=careerLine>경력 3년 5개월</span>
+						<br>
+						<a class="C_readAPR" 
+						href = '/personal/detail_nonavi?bno=${ResumeVO.bno}' 
+						onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">
+						${ResumeVO.bno} : ${ResumeVO.title}</a>
+						<br>${ResumeVO.coverletter}${ResumeVO.rgbid}</th>
+					</tr>
+				</table>
 			</div>
-			</c:forEach>
+		</c:forEach>
+
+	</div>
 			</div>
-			</div>
-			
 			<form role="form" method="post">
-			<input type='hidden' name="bno" value="${RecruitVO.bno}">
+			<input type='hidden' id="" name="bno" value="${RecruitVO.bno}">
+			<input type='text' id="C_readAPR_id" value="${CInfoVO.id}">
 			</form>
-			
-</div>
+<script>	
 
-<script>
+$(".C_readAPR").on("click", function(){
+	
+	 var C_readAPR = $(".C_readAPR").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
+	 console.log(C_readAPR);
+	 
+	 var readAPRbno = $("#Rbno"+C_readAPR).val();
+	 var readAPRcid = $("#C_readAPR_id").val();
+	 
+	  $.ajax({
+			type:'post',
+			url:'/companyAjax/C_readAPR',
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'text',
+			data:JSON.stringify({
+				rsno : readAPRbno,//이거 바꾸고 ajax 생성
+				pid : readAPRcid
+			}),
+			success:function(result){
+				console.log("result가 뭐냐?"+result);
+				if(result=='SUCCESS'){
+					console.log("지원자의 이력서를 열람함.");
+				}else{
+					alert("result가 뭔가 이상함");
+				}
+			}//success end
+	 });//ajax end  
+});
 
-
+//소연 열람기능
+	
+	
+	
+	
 
 $('#CInfo').on("click",function(){
 	
@@ -330,8 +359,6 @@ var formObj = $("form[role='form']");
 		formObj.attr("method", "get");		
 			formObj.submit();
 		});
-
-
 		
 </script>
 

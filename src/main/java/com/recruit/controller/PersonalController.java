@@ -273,7 +273,7 @@ public class PersonalController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			if(id.equals(Rservice.readROne(bno).getUserid())){
+			if(true){//Apply id랑 일치하는지 확인하는 서비스 필요
 				model.addAttribute("PUserVO", service.selectPUser(id));
 				model.addAttribute("ResumeVO", Rservice.readROne(bno));
 

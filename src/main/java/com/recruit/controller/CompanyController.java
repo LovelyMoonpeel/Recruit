@@ -303,10 +303,10 @@ public class CompanyController {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
-	         if (login.getCname() == null){
+	        /* if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*///소연 수정
 
 			String id = login.getId();
 
