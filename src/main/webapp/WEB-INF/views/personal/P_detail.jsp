@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@include file="../include/pheader.jsp"%>
 
          
@@ -71,7 +72,7 @@
                </tr>
             </c:forEach>
             
-
+			<c:if test="${fn:length(eduVOlist) > 0}">
             <tr>
                   <th class="table-active" colspan="2" scope="row"
                      style="text-align: center;">학력사항</th>
@@ -100,7 +101,9 @@
                   <td style="text-align: center;">${eduVO.gradudate}</td>
                </tr>
             </c:forEach>
-
+            </c:if>
+			
+			<c:if test="${fn:length(careerVOList) > 0}">
             <tr>
                   <th class="table-active" colspan="2" scope="row"
                      style="text-align: center;">경력사항</th>
@@ -128,6 +131,7 @@
                   <td style="text-align: center;">${careerVO.finishjob}</td>
                </tr>
             </c:forEach>
+            </c:if>
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
@@ -176,11 +180,12 @@
                   <td colspan="3" style="text-align: center;">${PWebSiteVO.webadd}</td>
                </tr>
             </c:forEach>
-
+			
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">보유자격증 목록</th>
             </tr>
+			 <c:if test="${fn:length(RLicenselist) > 0}">
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
                <th class="table-active" scope="row" style="text-align: center;"><label
@@ -199,7 +204,8 @@
                   <td style="text-align: center;">${RLicenseVO.acquidate}</td>
                </tr>
             </c:forEach>
-
+          </c:if>
+			
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">어학능력 자격증 목록</th>
@@ -216,6 +222,7 @@
                <th class="table-active" scope="row" style="text-align: center;"><label
                   for="lanacquidate">취득일자</label></th>
             </tr>
+            
             <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
                <tr>
                   <td style="text-align: center;">${ResumeLanguageVO.resumelangid}</td>

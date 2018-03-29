@@ -170,10 +170,10 @@
       <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>학력사항</b>
-			<div class="form-group col-md-3">
+		<hr style="border: solid 4px #ccc;">
+		
+		
+			<div class="form-group col-md-3"><h4><b>학력사항</b></h4></div>
 			<select class="form-control" name=levelofeducation id="CodeList2">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
@@ -183,13 +183,12 @@
 	             </c:if>
 	          </c:forEach>
 	       </select>
-	       </div>
-		</h4>
+	       
+	
 		<div id="edu_div"></div>
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>경력사항</b>
-			<div class="form-group col-md-3">
+		<hr style="border: solid 4px #ccc;">
+			
+			<div class="form-group col-md-3"><h4><b>경력사항</b></h4></div>
 			<select class="form-control" name="lastcareer" id="CodeList1">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 1 }">
@@ -199,24 +198,20 @@
 	             </c:if>
 	          </c:forEach>
 	       </select>
-	       </div>
-		</h4>
+	       
 		<div id="exp_div"></div>
-		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
-		<hr style="border: solid 4px #ccc;">
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	   <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
