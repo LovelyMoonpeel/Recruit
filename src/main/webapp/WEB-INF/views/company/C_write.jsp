@@ -19,155 +19,151 @@
 	</div>
 
 	<!-- 공고 입력 부분 -->
-	<form role="form" method="POST">
-	
-	<h3>공고제목</h3>
-	<input type="text" name="title" class="form-control" value="${RecruitVO.title}" required> <br>
-	
+	<form role="form-group" method="POST">		
 		<table class="table table-bordered" id="my-tbody">
+			<tr>
+				<th>공고제목</th>
+				<td><input type="text" name="title" value="${RecruitVO.title}" required></td>
+			</tr>
+		
 			<tr>
 				<th>모집직종</th>
 				<td>
-				<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
-				<select id="jobGroup" name="jobgroupid">
-				<option value="0">모집직종</option>
-					<c:forEach items="${jobgroupList}" var="JobGroupVO">
-				
-					<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+					<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
+					<select id="jobGroup" name="jobgroupid">
+						<option value="0">모집직종</option>
+						<c:forEach items="${jobgroupList}" var="JobGroupVO">
+							<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+						</c:forEach>
+					</select> 
 					
-				
-				
-					</c:forEach>
-				</select> 
-				
-				<select id="subjobGroup" name="jobgroupid2">
-				</select>
-				
-				<a id="jobgroupZone">
-				
-				</a>
-				</td> 
-				
+					<select id="subjobGroup" name="jobgroupid2">
+					</select> 
+					<a id="jobgroupZone"> </a>
+				</td>
+
 			</tr>
+			
 			<tr>
 				<th>근무지역</th>
 				<td>
-				<select id="region" name='rgbid'>
-					<option value="Z">근무지역</option>
-					<c:forEach items="${regionList}" var="RegionVO">
-						<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
-					</c:forEach>
-				</select>
-				
-				<select id="subRegion" name='rgsid'>
-				</select>				
+					<select id="region" name='rgbid'>
+						<option value="Z">근무지역</option>
+							<c:forEach items="${regionList}" var="RegionVO">
+								<option value="${RegionVO.rgbid}">${RegionVO.rgbname}
+								</option>
+							</c:forEach>
+					</select> 				
+					<select id="subRegion" name='rgsid'></select>
 				</td>
 			</tr>
+			
 			<tr>
 				<th>담당업무</th>
-				<td><textarea class="form-control" style="resize:none" name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
+				<td><textarea class="form-control" style="resize: none"
+						name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
 			</tr>
+			
 			<tr>
 				<th>모집인원</th>
-				<td><input type="text" name="recruitnum" value="${RecruitVO.recruitnum }">명</td>
+				<td><input type="text" name="recruitnum"
+					value="${RecruitVO.recruitnum }" required>명</td>
 			</tr>
 			<tr>
 				<th>근무형태</th>
-				<td>
-				<select name="employstatusid">
-					<option value="102">근무형태</option>
-						
-					<c:forEach items="${codeList}" var="CodeVO">
-					<c:if test="${CodeVO.tid==4}">
-					
-					<option value="${CodeVO.id}">${CodeVO.career}</option>
-					
-					</c:if>
-					</c:forEach>
-				</select>
-				</td>
+				<td><select name="employstatusid">
+						<option value="102">근무형태</option>
+
+						<c:forEach items="${codeList}" var="CodeVO">
+							<c:if test="${CodeVO.tid==4}">
+
+								<option value="${CodeVO.id}">${CodeVO.career}</option>
+
+							</c:if>
+						</c:forEach>
+				</select></td>
 			</tr>
 			<tr>
 				<th>급여사항</th>
-				<td>
-				<select name="salaryid">
-					<option value="102">급여사항</option>
-					<c:forEach items="${codeList}" var="CodeVO">
-						<c:if test="${CodeVO.tid==7}">
-							<option value="${CodeVO.id}">${CodeVO.career}</option>
-						</c:if>
-					</c:forEach>
-				</select>
-				</td>
+				<td><select name="salaryid">
+						<option value="102">급여사항</option>
+						<c:forEach items="${codeList}" var="CodeVO">
+							<c:if test="${CodeVO.tid==7}">
+								<option value="${CodeVO.id}">${CodeVO.career}</option>
+							</c:if>
+						</c:forEach>
+				</select></td>
 			</tr>
 			<tr>
 				<th>학력</th>
 				<td><select name="edu">
 						<option value="102">학력</option>
-						
+
 						<c:forEach items="${codeList}" var="CodeVO">
-						<c:if test="${CodeVO.tid==2}">
-						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
-						
-						</c:if>
+							<c:if test="${CodeVO.tid==2}">
+
+								<option value="${CodeVO.id}">${CodeVO.career}</option>
+
+							</c:if>
 						</c:forEach>
-						
+
 				</select></td>
 			</tr>
 			<tr>
 				<th>경력</th>
 				<td><select name="exp">
 						<option value="102">경력</option>
-						
+
 						<c:forEach items="${codeList}" var="CodeVO">
-						<c:if test="${CodeVO.tid==1}">
-						
-						<option value="${CodeVO.id}">${CodeVO.career}</option>
-						
-						</c:if>
+							<c:if test="${CodeVO.tid==1}">
+
+								<option value="${CodeVO.id}">${CodeVO.career}</option>
+
+							</c:if>
 						</c:forEach>
-						
+
 				</select></td>
 			</tr>
 			<tr>
 				<th>상세내용 및 우대사항</th>
-				<td><textarea style="resize:none" class="form-control" name="adddesc" cols="30" rows="10" required>${RecruitVO.adddesc}</textarea></td>
+				<td><textarea style="resize: none" class="form-control"
+						name="adddesc" cols="30" rows="10" required>${RecruitVO.adddesc}</textarea></td>
 			</tr>
-		<!-- 	<tr>
+			<!-- 	<tr>
 				<th>접수기간</th>
 				<td><input type="date" name="period"> -> <input type="date">
 				</td>
 			</tr> -->
 			<tr>
-			<th>접수기간</th>
-			<td>
-				
-				
-		<div class="form-group">
-			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" name="period"/>  <span
-					class="input-group-addon"> <i
-					class="glyphicon glyphicon-calendar"></i>
-				</span>
-			</div>
-		</div>
-	
-			</td>
+				<th>접수기간</th>
+				<td>
+
+
+					<div class="form-group">
+						<div class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control" name="period" /> <span
+								class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+					</div>
+
+				</td>
 			</tr>
 			<tr>
 				<th>접수방법</th>
-				<td><input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수 &nbsp;
-				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원</td>
+				<td><input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수
+					&nbsp; <input type="radio" name="acceptmethod" value="즉시지원">즉시지원</td>
 			</tr>
-			
+
 		</table>
-		
-			<br> <br> <input class="btn btn-primary" type="submit"
-			value="등록">
-	<br>
+
+		<br> 
+		<br> 
+		<input class="btn btn-primary" type="submit"
+			value="등록"> <br>
 	</form>
-		
+
 	<!-- // 공고 입력 부분 끝 -->
 </div>
 <!-- // 공고 작성 바디 끝 -->
