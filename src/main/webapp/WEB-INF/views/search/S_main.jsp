@@ -91,9 +91,7 @@
 					</button>
 				</div>
 			</div>
-			<br />
-			<h3 align="center" id="sdesc"></h3>
-			<br />
+			<!-- <br /><h3 align="center" id="sdesc"></h3><br /> -->
 		</div>
 		<div class="col-md-2"></div>
 	</div>
@@ -107,6 +105,21 @@
 	value={{sflt_val}} onclick="$(this).remove();">
 	{{sflt_title}} <i class="glyphicon glyphicon-remove"></i>
 </button>
+</script>
+
+<script id="tmpnl_cinfo" type="text/x-handlebars-template">
+<div class="col-md-12 result">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{{bno}} {{cname}} (~{{period}})<br />
+			{{title}}<br />
+			({{jobgroupid}}, {{jobgroupid2}})<br />
+			{{edu}}, {{exp}}<br />
+			{{employstatusid}}<br />
+			({{rgbid}}, {{rgsid}})
+		</div>
+	</div>
+</div>
 </script>
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
@@ -165,17 +178,17 @@
 		// $("#sinput").val("");
 		console.log(sinp);
 		if (sinp === "all") {
-			waitForSearching("검색중...", 4);
+			waitForSearching("검색중...", 5);
 			if ($("#stype").attr("value") === "1") {
 				getAllList("recruits");
 			} else {
 				getAllList("resumes");
 			}
 		} else if (sinp === "") {
-			waitForSearching("키워드가 입력되지 않았습니다.", 4);
+			waitForSearching("키워드가 입력되지 않았습니다.", 5);
 			// $("#sdesc").html("키워드가 입력되지 않았습니다.");
 		} else { // 키워드 검색
-			waitForSearching("검색중...", 4);
+			waitForSearching("검색중...", 5);
 			var sout = "";
 			console.log(sinp);
 			var len = sinp.length;
@@ -211,6 +224,27 @@
 	var item;
 	var template_pnl;
 
+	// 기업정보 판넬 연결
+	function cinfoPnl(index, that) {
+		item = {
+			num : ++inum,
+			bno : that.bno,
+			userid : that.userid,
+			title : that.title,
+			jobgroupid : that.jobgroupid,
+			jobgroupid2 : that.jobgroupid2,
+			rgbid : that.rgbid,
+			rgsid : that.rgsid,
+			employstatusid : that.employstatusid,
+			edu : that.period,
+			exp : that.period,
+			img : that.img,
+			cname : that.cname,
+			period : that.period
+		};
+		$("#spanelc").after(template_pnl(item));
+	}
+
 	// 채용공고 판넬 연결
 	function recruitPnl(index, that) {
 		item = {
@@ -229,7 +263,7 @@
 			cname : that.cname,
 			period : that.period
 		};
-		$("#spanel").append(template_pnl(item));
+		$("#spanelr").after(template_pnl(item));
 	}
 
 	// 이력서 판넬 연결
@@ -253,48 +287,77 @@
 		$("#spanel").append(template_pnl(item));
 	}
 
-	function keyRecruitHandler(data) {
+	// Recruit 판넬 List 생성
+	function RecruitHandler(data) {
+		console.log(data.length);
+		inum = 0;
+		deletespanel();
+
+		// cinfo & recruit 분류
+		var dataC = new Array();
+		var dataR = new Array();
+		for (var i = data.length - 1; i > 0; i--) {
+			if (data[i].period === 'etern')
+				dataC.push(data[i]);
+			else
+				dataR.push(data[i]);
+		}
+
+		var rtitle = '<h4 id="spanelc"><br/><b>&nbsp; &nbsp; 기업정보('
+				+ dataC.length + ')</b><br/><br/></h4>';
+		rtitle += '<h4 id="spanelr"><span style="color:white;">_</span><br/>'
+				+ '<br/><b>&nbsp; &nbsp; 채용공고(' + dataR.length
+				+ ')</b><br/><br/></h4>';
+		$("#spanel").append(rtitle);
+
+		var source_pnl = $("#tmpnl_cinfo").html();
+		template_pnl = Handlebars.compile(source_pnl);
+		$(dataC).each(cinfoPnl); // for cinfo
+
 		var source_pnl = $("#tmpnl_recruit").html();
 		template_pnl = Handlebars.compile(source_pnl);
-		console.log(data.length);
-		i = 0;
-		deletespanel();
-		$(data).each(recruitPnl);
+		$(dataR).each(recruitPnl); // for recruit
 		if (data.length > 0) {
-			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			// $("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
 			if (data.length < 5)
-				waitForSearching(blank_, 2, false);
+				waitForSearching(blank_, 3, false);
 			else if (data.length < 9)
 				waitForSearching(blank_, 1, false);
 		} else {
-			waitForSearching("검색결과가 없습니다.", 4);
+			waitForSearching("검색결과가 없습니다.", 5);
 		}
 	}
 
-	function keyResumeHandler(data) {
+	// Resume 판넬 List 생성
+	function ResumeHandler(data) {
+		console.log(data.length);
+		inum = 0;
+		deletespanel();
+
+		var rtitle = '<h4 id="spanelr"><br/><b>&nbsp; &nbsp; 인재정보('
+				+ data.length + ')</b><br/><br/></h4>';
+		$("#spanel").append(rtitle);
+
 		var source_pnl = $("#tmpnl_resume").html();
 		template_pnl = Handlebars.compile(source_pnl);
-		console.log(data.length);
-		i = 0;
-		deletespanel();
 		$(data).each(resumePnl);
 		if (data.length > 0) {
-			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
+			// $("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
 			if (data.length < 5)
-				waitForSearching(blank_, 2, false);
+				waitForSearching(blank_, 3, false);
 			else if (data.length < 9)
 				waitForSearching(blank_, 1, false);
 		} else {
-			waitForSearching("검색결과가 없습니다.", 4);
+			waitForSearching("검색결과가 없습니다.", 5);
 		}
 	}
 
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/recruits/getall/0", keyRecruitHandler);
+			$.getJSON("/sresult/recruits/getall/0", RecruitHandler);
 		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/resumes/getall/0", keyResumeHandler);
+			$.getJSON("/sresult/resumes/getall/0", ResumeHandler);
 		}
 	}
 
@@ -302,49 +365,9 @@
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getKeyList(users, skey) {
 		if (users == "recruits") {
-			$.getJSON("/sresult/recruits/getkey/" + skey, keyRecruitHandler);
+			$.getJSON("/sresult/recruits/getkey/" + skey, RecruitHandler);
 		} else { // resumes
-			$.getJSON("/sresult/resumes/getkey/" + skey, keyResumeHandler);
-		}
-	}
-
-	// select 검색으로 관련 정보를 를 보여주다.(3)
-	// 결과 판넬 List 생성
-	// url: /sresult/recruits/getsel/0
-	function selRecruitHandler(data) {
-		var source_pnl = $("#tmpnl_recruit").html();
-		template_pnl = Handlebars.compile(source_pnl);
-		console.log(data.length);
-		i = 0;
-		deletespanel();
-		$(data).each(recruitPnl);
-		if (data.length > 0) {
-			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
-			if (data.length < 5)
-				waitForSearching(blank_, 2, false);
-			else if (data.length < 9)
-				waitForSearching(blank_, 1, false);
-		} else {
-			waitForSearching("검색결과가 없습니다.", 4);
-		}
-	}
-
-	// url: /sresult/resumes/getsel/0
-	function selResumeHandler(data) {
-		var source_pnl = $("#tmpnl_resume").html();
-		template_pnl = Handlebars.compile(source_pnl);
-		console.log(data.length);
-		i = 0;
-		deletespanel();
-		$(data).each(resumePnl);
-		if (data.length > 0) {
-			$("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
-			if (data.length < 5)
-				waitForSearching(blank_, 2, false);
-			else if (data.length < 9)
-				waitForSearching(blank_, 1, false);
-		} else {
-			waitForSearching("검색결과가 없습니다.", 4);
+			$.getJSON("/sresult/resumes/getkey/" + skey, ResumeHandler);
 		}
 	}
 
@@ -352,10 +375,10 @@
 	// 검색분류(users: recruits or resumes)
 	function getSelList(users) {
 		if (users == 'recruits') // 'recruits'
-			$.getJSON("/sresult/recruits/getsel/0", selRecruitHandler);
+			$.getJSON("/sresult/recruits/getsel/0", RecruitHandler);
 		else
 			// 'resumes'
-			$.getJSON("/sresult/resumes/getsel/0", selResumeHandler);
+			$.getJSON("/sresult/resumes/getsel/0", ResumeHandler);
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(1)
@@ -364,7 +387,7 @@
 	$("#sel_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
-		waitForSearching("검색중...", 4);
+		waitForSearching("검색중...", 5);
 		$("#well > .sfilter_btn").each(function() {
 			array[i] = $(this).val(); // select filter를 배열에 담기
 			i++;
@@ -539,6 +562,7 @@
 		}
 	}
 
+	// 화면 공백 생성
 	function waitForSearching(str, num, del) {
 		if (del !== false)
 			deletespanel();
@@ -549,7 +573,7 @@
 		$("#spanel").append(str);
 	}
 
-	waitForSearching(blank_, 4);
+	waitForSearching(blank_, 5);
 	$("#sinput").focus();
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');

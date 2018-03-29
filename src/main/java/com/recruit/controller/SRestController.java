@@ -200,7 +200,8 @@ public class SRestController {
 				System.out.println("getsel: " + sel_scodes);
 				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
 			}
-			searchService.getCInforList(spanelVOList);
+			// 기업정보 추가
+			spanelVOList.addAll(searchService.getCInforList(searchService.getCInforList(spanelVOList)));
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

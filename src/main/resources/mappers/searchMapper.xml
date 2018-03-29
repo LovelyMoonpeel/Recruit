@@ -389,7 +389,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectCInfo" resultType="com.recruit.domain.SpanelVO"
 		parameterType="java.util.List">
-		select id as userid, intro as title, img, cname from tblcinfo where
+		select id as userid, intro as title, img, cname, 'etern' as period
+		from tblcinfo where
 		img = 'img.img'
 		<foreach item="item" index="index" collection="list" open="or"
 			separator=" or ">

@@ -393,6 +393,7 @@
 			var source_pnl = $("#tmpnl_recruit").html();
 			template_pnl = Handlebars.compile(source_pnl);
 			console.log(data.length);
+			inum = 0;
 			deletespanel();
 			$(data).each(recruitPnl);
 		});
