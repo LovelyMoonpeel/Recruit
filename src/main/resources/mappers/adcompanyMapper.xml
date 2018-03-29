@@ -18,6 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pw = #{pw}, cname = #{cname} ,pname = #{pname}, email = #{email}, registnum = #{registnum}
 		where id = #{id}
 	</update>
+	
+	<update id="cnameupdate">
+		update project.tblcinfo set
+		cname = #{cname}
+		where id = #{id}
+	</update>
 
 	<delete id="delete">
 		delete from project.recruit where id = #{id}

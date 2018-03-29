@@ -24,15 +24,13 @@
 			<th>제목</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="title"
-				value="${CsfaqVO.title}" readonly></td>
+			<td>${CsfaqVO.title}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content" 
-			readonly>${CsfaqVO.content}</textarea></td>
+			<td>${content}</td>
 		</tr>
 	</table>
 	

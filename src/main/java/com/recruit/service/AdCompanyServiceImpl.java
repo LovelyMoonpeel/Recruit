@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
@@ -23,10 +24,11 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 		return dao.read(id);
 	}
 
+	@Transactional
 	@Override
 	public void modify(BoardVO vo) throws Exception {
-		System.out.println("service test");
 		dao.update(vo);
+		dao.cnameupdate(vo);
 	}
 
 	@Override

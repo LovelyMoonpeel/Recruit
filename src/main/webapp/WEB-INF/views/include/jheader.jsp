@@ -76,7 +76,7 @@
 						
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
 						<li><a href="/user/logout">로그아웃</a></li>
-						<li><a href="#">${sessionScope.login.id}등장</a></li>
+						<li><a href="#">${sessionScope.login.pname}님 환영합니다.</a></li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
 					

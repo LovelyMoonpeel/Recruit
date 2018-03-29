@@ -46,7 +46,14 @@ public class CsController {
 
 	@RequestMapping(value = "/faqread", method = RequestMethod.GET)
 	public String faqreadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
-		logger.info("faqread..........");
+
+
+		String content = fservice.read(bno).getContent();
+		String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+		String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+		String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+		
+		model.addAttribute("content", content4);
 		model.addAttribute("CsfaqVO", fservice.read(bno));
 		
 		return "/cs/S_faqread";
@@ -123,7 +130,7 @@ public class CsController {
 			if (login != null) {
 				String id = login.getId();
 				String idc = qservice.read2(bno).getUser();
-				if(id.equals(idc)){
+				if(id.equals(idc) || id.equals("admin")){
 					model.addAttribute("CsqnaVO", qservice.read(bno));
 					session.setAttribute("idc", idc);
 					return "/cs/S_qnaread";				
@@ -203,12 +210,18 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/S_qnaread/pwc/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
-	public ResponseEntity<String> bpwc(@PathVariable("bno") Integer bno){
+	public ResponseEntity<String> bpwc(HttpSession session, @PathVariable("bno") Integer bno){
 		ResponseEntity<String> entity = null;
-		
+		String result = "";
 		try{
-			String result = qservice.modread(bno).getBpw();
-			System.out.println("결과 출력 : "+result);
+			BoardVO login = (BoardVO) session.getAttribute("login");
+			if(login!=null){
+				if(!login.getId().equals("admin")){
+					result = qservice.modread(bno).getBpw();
+				}				
+			}else{
+				result = qservice.modread(bno).getBpw();
+			}
 			entity = new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

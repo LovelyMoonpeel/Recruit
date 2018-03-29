@@ -19,7 +19,10 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 			<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><input class="qnamodal ${CsqnaVO.bno}" type="hidden" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}"><a href='javascript:;' class="qnadetail" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
+			<td><input class="qnamodal ${CsqnaVO.bno}" type="hidden" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">
+				<a href='javascript:;' class="qnadetail" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong>
+				<c:if test="${!empty CsqnaVO.bpw}"><img src="/resources/rpjt/img/Lock-icon.png" width="15px"></c:if>
+				</a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
 			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>

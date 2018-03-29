@@ -63,7 +63,7 @@
 	</table>
 	
 	<ul class="timeline">
-	 <li class="time-label" id="repliesDiv"><button class="bg-green">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
+	 <li class="time-label" id="repliesDiv"><button type="button" class="btn btn-info">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
 	</ul>
 	<ul id="replies"></ul>
 	

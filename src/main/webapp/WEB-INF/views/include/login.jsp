@@ -496,22 +496,28 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var ppwchk = $('#ppwchk');
 	
-	var ppwReg = /[A-za-z0-9]$/;
+	var ppwReg = /[A-Za-z0-9]$/;
+	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 
 	$('#ppwc').keyup(function(){	
 		var ppwcval = $('#ppwc').val();
 		var ppwval = $('#ppw').val();
+		
 		if(ppwcval.search(/\s/) != -1){
 			alert("공백 금지");
+			$('#ppwc').val(ppwcval.slice(0, -1));
+		}
+		
+		if(!(ppwReg.test(ppwcval)) && pexpReg.test(ppwcval)){
+			alert("특수문자 금지");
 			$('#ppwc').val(ppwcval.slice(0, -1));
 		}
 
 		ppwcval = $('#ppwc').val();
 		ppwval = $('#ppw').val();
-		var chk = "";
-        chk = (ppwReg.test(ppwcval)) && !(ppwcval.length > 5 && ppwcval.length <= 20);
-		if(chk){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		
+		if(!(ppwcval.length > 5 && ppwcval.length <= 20)){
+        	document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}else{
@@ -525,23 +531,29 @@ $('#cjoin').on("click", function(event){
 				ppwc = "no";
 			}
 		}
+		
 	})
 	
 	
 	$('#ppw').keyup(function(){
 		var ppwval = $('#ppw').val();
 		var ppwcval = $('#ppwc').val();
+		
 		if(ppwval.search(/\s/) != -1){
 			alert("공백 금지");
 			$('#ppw').val(ppwval.slice(0, -1));
 		}
 		
+		if(!(ppwReg.test(ppwval)) && pexpReg.test(ppwval)){
+			alert("특수문자 금지");
+			$('#ppw').val(ppwcval.slice(0, -1));
+		}
+		
 		ppwval = $('#ppw').val();
 		ppwcval = $('#ppwc').val();
-		var chk2 = "";
-        chk2 = (ppwReg.test(ppwval)) && !(ppwval.length > 5 && ppwval.length <= 20);
-		if(chk2){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		
+		if(!(ppwval.length > 5 && ppwval.length <= 20)){
+        	document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}else{
@@ -554,7 +566,7 @@ $('#cjoin').on("click", function(event){
 				ppwchk.attr("style", "color:red");
 				ppwc = "no";
 			}
-		};
+		}
 	})
 </script>
 <!-- //개인 회원 가입 비밀번호 일치 여부  -->
@@ -564,7 +576,8 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var cpwchk = $('#cpwchk');
 	
-	var cpwReg = /[A-za-z0-9]$/;
+	var cpwReg = /[A-Za-z0-9]$/;
+	var cexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 
 	$('#cpwc').keyup(function(){
 		var cpwcval = $('#cpwc').val();
@@ -575,10 +588,17 @@ $('#cjoin').on("click", function(event){
 			$('#cpwc').val(cpwcval.slice(0, -1));
 		}
 		
+		if(!(cpwReg.test(cpwcval)) && cexpReg.test(cpwcval)){
+			alert("특수문자 금지");
+			$('#cpwc').val(cpwcval.slice(0, -1));
+		}
+		
 		cpwcval = $('#cpwc').val();
 		cpwval = $('#cpw').val();
 		
-		if(cpwReg.test(cpwcval) && !(cpwcval.length > 5 && cpwcval.length <= 20)){
+		var cchk = "";
+        cchk = !(ppwReg.test(cpwcval)) && !(cpwcval.length > 5 && cpwcval.length <= 20);
+		if(cchk){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
@@ -604,10 +624,17 @@ $('#cjoin').on("click", function(event){
 			$('#cpw').val(cpwval.slice(0, -1));
 		}
 		
+		if(!(cpwReg.test(cpwval)) && cexpReg.test(cpwval)){
+			alert("특수문자 금지");
+			$('#cpw').val(cpwval.slice(0, -1));
+		}
+		
 		cpwcval = $('#cpwc').val();
 		cpwval = $('#cpw').val();
 		
-		if(cpwReg.test(cpwval) && !(cpwval.length > 5 && cpwval.length <= 20)){
+		var cchk2 = "";
+        cchk2 = !(ppwReg.test(cpwcval)) && !(cpwcval.length > 5 && cpwcval.length <= 20);
+		if(cchk2){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
@@ -736,7 +763,7 @@ $("#cemail_overlap").on("click", function(){
 
     var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     
-    if(!regEmail.test(Pemail)){
+    if(!regEmail.test(Cemail)){
     	alert("이메일 주소가 유효하지 않습니다.");
     }else{
 	$.ajax({
