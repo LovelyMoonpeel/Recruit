@@ -40,12 +40,12 @@
 			<tr>
 				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
 				<td>${CRecruitVO.recruitform}</td>
-				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' target='_blank'>${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
 				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td style="text-align:center;"><a href = '/personal/detail?bno=${CRecruitVO.viewcnt}' target='_blank'>${CRecruitVO.acceptmethod}</a></td>
+				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${CRecruitVO.acceptmethod}</a></td>
 			</tr>
 			</c:forEach>
 		</table>

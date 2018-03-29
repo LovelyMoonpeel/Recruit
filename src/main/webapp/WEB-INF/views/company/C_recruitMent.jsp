@@ -6,7 +6,7 @@
 <%@include file="../include/header_nonavi.jsp"%>
 
 <!-- Main content -->
-<div class="col-md-9 ">
+<div class="col-md-12 ">
 	<!-- 메인 바디 입력 부분 -->
 	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>

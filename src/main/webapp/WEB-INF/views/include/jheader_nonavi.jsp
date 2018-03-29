@@ -32,7 +32,7 @@
 	
 %>
 
-<%-- <!-- Navigation -->
+ <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -49,43 +49,16 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/srch/main?stype=1">기업찾기</a></li>
-					<li><a href="/srch/main?stype=2">인재찾기</a></li>
-
-					<!--회원가입, 로그인 부분 -->
-					<!--★ a href="#" 삭제하면 안됨  -->
-					<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
-					<c:if test="${empty sessionScope.login}">
-						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-						<li id="myBtn_join"><a href="#"> <span
-								class="glyphicon glyphicon-user"></span> 회원가입
-						</a></li>
-
-						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-						<li id="myBtn_login"><a href="#"> <span
-								class="glyphicon glyphicon-log-in"></span> 로그인
-						</a></li>
-					</c:if>
-					<!--//회원가입, 로그인 부분  -->
-
-					<!--MyPage, 로그아웃 부분  -->
-					<c:if test="${not empty sessionScope.login}">
-
-						<li><a href="<%= location%>">MyPage</a></li>
-						
-						
-						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-						<li><a href="/user/logout">로그아웃</a></li>
-						<li><a href="#">${sessionScope.login.id}등장</a></li>
-					</c:if>
-					<!--//MyPage, 로그아웃 부분  -->
-					
+					<li><a href="#business_information"><span class="glyphicon glyphicon-briefcase"></span> 기업정보</a></li>
+					<li><a href="#detail_content"><span class="glyphicon glyphicon-list-alt"></span> 모집내용</a></li>
+					<li><a href="#accept_method"><span class="glyphicon glyphicon-envelope"></span> 접수방법</a></li>
+					<li><a href="#human_resources_manager"><span class="glyphicon glyphicon-user"></span> 담당자 정보</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
 		<!-- /.container -->
-	</nav> --%>
+	</nav>
 
 
 <%@ include file="../include/login.jsp"%>

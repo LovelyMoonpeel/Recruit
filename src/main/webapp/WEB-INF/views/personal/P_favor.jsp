@@ -44,7 +44,7 @@
 					<span class="acceptmethod badge badge-pill">${CRecruitVO.acceptmethod}</span></td><!-- acceptmethod가 모집중 모집완료 -->
 					<td style="text-align: center;">${CRecruitVO.recruitform}</td>
 					<td colspan="4" style="text-align: center;"><a
-						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' target="_blank">${CRecruitVO.bno} : ${CRecruitVO.title}</a>
+						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a>
 					</td>
 					<td style="text-align: center;">${CRecruitVO.regdate} ~ ${CRecruitVO.jobdesc}</td><!-- jobdesc가 period -->
 					<td style="text-align: center;"><span class="badge badge-pill badge-primary">${CRecruitVO.viewcnt}</span></td>
