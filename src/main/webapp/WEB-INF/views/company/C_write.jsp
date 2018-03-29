@@ -19,15 +19,16 @@
 	</div>
 
 	<!-- 공고 입력 부분 -->
-	<form role="form-group" method="POST">		
+	<form role="form" method="POST">		
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
-				<th>공고제목</th>
-				<td><input type="text" name="title" value="${RecruitVO.title}" required></td>
+				<th class="col-sm-3 text-center">공고제목</th>
+				<td><input type="text" name="title" class="form-control" 
+						value="${RecruitVO.title}" required></td>
 			</tr>
 		
 			<tr>
-				<th>모집직종</th>
+				<th class="text-center">모집직종</th>
 				<td>
 					<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
 					<select id="jobGroup" name="jobgroupid">
@@ -37,21 +38,19 @@
 						</c:forEach>
 					</select> 
 					
-					<select id="subjobGroup" name="jobgroupid2">
-					</select> 
+					<select id="subjobGroup" name="jobgroupid2"></select> 
 					<a id="jobgroupZone"> </a>
 				</td>
 
 			</tr>
 			
 			<tr>
-				<th>근무지역</th>
+				<th class="text-center">근무지역</th>
 				<td>
 					<select id="region" name='rgbid'>
 						<option value="Z">근무지역</option>
 							<c:forEach items="${regionList}" var="RegionVO">
-								<option value="${RegionVO.rgbid}">${RegionVO.rgbname}
-								</option>
+								<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
 							</c:forEach>
 					</select> 				
 					<select id="subRegion" name='rgsid'></select>
@@ -59,44 +58,50 @@
 			</tr>
 			
 			<tr>
-				<th>담당업무</th>
-				<td><textarea class="form-control" style="resize: none"
-						name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea></td>
+				<th class="text-center">담당업무</th>
+				<td>
+					<textarea class="form-control" style="resize: none"
+						name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea>
+				</td>
 			</tr>
 			
 			<tr>
-				<th>모집인원</th>
-				<td><input type="text" name="recruitnum"
-					value="${RecruitVO.recruitnum }" required>명</td>
+				<th class="text-center">모집인원</th>
+				<td>
+					<input type="text" name="recruitnum"
+					value="${RecruitVO.recruitnum }" required>명
+				</td>
 			</tr>
 			<tr>
-				<th>근무형태</th>
-				<td><select name="employstatusid">
+				<th class="text-center">근무형태</th>
+				<td>
+					<select name="employstatusid">
 						<option value="102">근무형태</option>
-
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:if test="${CodeVO.tid==4}">
-
 								<option value="${CodeVO.id}">${CodeVO.career}</option>
-
 							</c:if>
 						</c:forEach>
-				</select></td>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<th>급여사항</th>
-				<td><select name="salaryid">
+				<th class="text-center">급여사항</th>
+				<td>
+					<select name="salaryid">
 						<option value="102">급여사항</option>
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:if test="${CodeVO.tid==7}">
 								<option value="${CodeVO.id}">${CodeVO.career}</option>
 							</c:if>
 						</c:forEach>
-				</select></td>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<th>학력</th>
-				<td><select name="edu">
+				<th class="text-center">학력</th>
+				<td>
+					<select name="edu">
 						<option value="102">학력</option>
 
 						<c:forEach items="${codeList}" var="CodeVO">
@@ -110,7 +115,7 @@
 				</select></td>
 			</tr>
 			<tr>
-				<th>경력</th>
+				<th class="text-center">경력</th>
 				<td><select name="exp">
 						<option value="102">경력</option>
 
@@ -125,7 +130,7 @@
 				</select></td>
 			</tr>
 			<tr>
-				<th>상세내용 및 우대사항</th>
+				<th class="text-center">상세내용 및 우대사항</th>
 				<td><textarea style="resize: none" class="form-control"
 						name="adddesc" cols="30" rows="10" required>${RecruitVO.adddesc}</textarea></td>
 			</tr>
@@ -135,7 +140,7 @@
 				</td>
 			</tr> -->
 			<tr>
-				<th>접수기간</th>
+				<th class="text-center">접수기간</th>
 				<td>
 
 
@@ -151,7 +156,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>접수방법</th>
+				<th class="text-center">접수방법</th>
 				<td><input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수
 					&nbsp; <input type="radio" name="acceptmethod" value="즉시지원">즉시지원</td>
 			</tr>

@@ -77,6 +77,11 @@
 			var Pw2 = $("#pw2"); //pw1은 기존 비번 확인할 때 입력받은 값
 			var inputPw2 = Pw2.val();
 			
+
+ 
+			
+			
+			
 			//일단, 확인 버튼이 안 먹도록 만들었다. 되는 것들을 밖으로 빼서 실핼시킬 예정임
 			event.preventDefault();
 			
@@ -109,7 +114,9 @@
 							
 							//ajaxchk에 ok값을 주입한다.왜냐? 얘는 되는거니깐 풀어야지
 							ajaxchk = "ok";
+							console.log("1010");
 							alert("비밀번호가 성공적으로 바뀌었습니다.")
+							console.log("1011");
 								
 						} else {
 							
@@ -152,13 +159,19 @@
 
 
 	<script>
-		var ppwc = "";
+		/* var ppwc = ""; */
+		
+		//A~Z랑 a~z랑 0~9만 허용, 한글은 허용 안 하기 위해
+		var ppwRegC = /[A-Za-z0-9]$/;   
+		
+		//특수문자는 허용 안 하기 위해
+		var pexpRegC = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 		
 		//chk는 잘못된 값이 들어갔을 때 제대로 값을 입력하라고 문구를 뿌리는 span태그 공간이다.
 		var chk = $('#chk');
 
-		//pw3는 새로운 비밀번호 확인 값, pw2는 새로운 비밀번호 값
-		$('#pw3').keyup(function() {
+		
+/* 		$('#pw3').keyup(function() {
 			if ($('#pw2').val() == $('#pw3').val()) {
 				document.getElementById("chk").innerHTML = "비밀번호가 일치합니다.";
 				chk.attr("style", "color:blue");
@@ -177,7 +190,92 @@
 				document.getElementById("chk").innerHTML = "비밀번호가 일치하지 않습니다.";
 				chk.attr("style", "color:red");
 			}
-		})
+		}) */
+		
+		
+		//pw3는 새로운 비밀번호 확인 값, pw2는 새로운 비밀번호 값, keyup은 키보드를 눌렀다가 떼면 작동하는 기능
+		$('#pw3').keyup(function(){	
+			
+		var ppwcvalC = $('#pw3').val();
+		var ppwvalC = $('#pw2').val();
+		
+		// \s는 공백을 의미한다.
+		if(ppwcvalC.search(/\s/) != -1){
+			alert("공백 금지");
+			
+			//공백인데 썼으니깐 썼던거 삭제하는 기능
+			$('#pw3').val(ppwcvalC.slice(0, -1));
+		}
+		
+		//
+		if(!(ppwRegC.test(ppwcvalC)) && pexpRegC.test(ppwcvalC)){
+			alert("특수문자 금지");
+			
+			//특수문자 금지인데 썼으니깐 썼던거 삭제하는 기능
+			$('#pw3').val(ppwcvalC.slice(0, -1));
+		}
+		
+		ppwcvalC = $('#pw3').val();
+		ppwvalC = $('#pw2').val();
+		
+		//글자 수 제한 6이상 20이하
+		if(!(ppwcvalC.length > 5 && ppwcvalC.length <= 20)){
+			console.log("1");
+        	document.getElementById("chk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+        	chk.attr("style", "color:red");		
+			/* ppwc = "no"; */
+		}else{
+			if(ppwvalC == ppwcvalC){
+				console.log("2");
+				document.getElementById("chk").innerHTML = "비밀번호가 일치합니다.";
+				chk.attr("style", "color:blue");
+				/* ppwc = "ok"; */
+			}else{
+				console.log("3");
+				document.getElementById("chk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				chk.attr("style", "color:red");
+				/* ppwc = "no"; */
+			}
+		}
+		
+	})
+
+	$('#pw2').keyup(function(){
+		var ppwvalC = $('#pw2').val();
+		var ppwcvalC = $('#pw3').val();
+		
+		if(ppwvalC.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#pw2').val(ppwvalC.slice(0, -1));
+		}
+		
+		if(!(ppwRegC.test(ppwvalC)) && pexpRegC.test(ppwvalC)){
+			alert("특수문자 금지");
+			$('#pw2').val(ppwcvalC.slice(0, -1));
+		}
+		
+		ppwvalC = $('#pw2').val();
+		ppwcvalC = $('#pw3').val();
+		
+		if(!(ppwvalC.length > 5 && ppwvalC.length <= 20)){
+			console.log("4");
+        	document.getElementById("chk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+        	chk.attr("style", "color:red");
+			/* ppwc = "no"; */
+		}else{
+			if(ppwvalC == ppwcvalC){
+				console.log("5");
+				document.getElementById("chk").innerHTML = "비밀번호가 일치합니다.";
+				chk.attr("style", "color:blue");
+				/* ppwc = "ok"; */
+			}else{
+				console.log("6");
+				document.getElementById("chk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				chk.attr("style", "color:red");
+				/* ppwc = "no"; */
+			}
+		}
+	})
 	</script>
 
 </div>

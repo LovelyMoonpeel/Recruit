@@ -143,6 +143,25 @@ public class CompanyController {
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
 	          }
+	         
+	         
+	/*         
+	 		String content = fservice.read(bno).getIntro();
+			String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+			String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+			String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+			
+			model.addAttribute("content", content4);
+			model.addAttribute("CsfaqVO", fservice.read(bno)); 
+	         
+	         */
+	         
+	         
+	         
+	         
+	         
+	         
+	         
 			String id = login.getId();
 			CInfo.setId(id);
 			InfoFileUpload(CInfo, request, id);

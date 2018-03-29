@@ -3,6 +3,7 @@
 
 <%@include file="../include/cheader.jsp"%>
 
+
 <link rel="stylesheet" type="text/css"
 	href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript"
@@ -31,7 +32,8 @@
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>기업소개</label>
-				<textarea class="form-control" rows="2" name="intro">${CInfoVO.intro}</textarea>
+				<textarea class="form-control" cols="7" rows="10" name="intro" 
+						style="resize:none;">${CInfoVO.intro}</textarea>	
 			</div>
 		</div>
 		
@@ -177,8 +179,9 @@
 			self.location = "/company/C_index";
 		});
 		$(".btn-primary").on("click", function() {
-
-			formObj.submit();
+			formObj.submit();     
+			// 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
+			// 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
 		});
 	});
 </script>
