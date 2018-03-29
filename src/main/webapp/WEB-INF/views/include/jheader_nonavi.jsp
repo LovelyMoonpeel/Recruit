@@ -49,7 +49,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href='/company/C_info_nonavi?recruitNum=${RecruitVO.bno}'><span class="glyphicon glyphicon-briefcase"></span> 기업정보</a></li>
+					<li><a href='#'><span class="glyphicon glyphicon-briefcase"></span> 기업정보</a></li>
 					<li><a href="#detail_content"><span class="glyphicon glyphicon-list-alt"></span> 모집내용</a></li>
 					<li><a href="#accept_method"><span class="glyphicon glyphicon-envelope"></span> 접수방법</a></li>
 					<li><a href="#human_resources_manager"><span class="glyphicon glyphicon-user"></span> 담당자 정보</a></li>

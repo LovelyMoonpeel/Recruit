@@ -5,8 +5,62 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header_nonavi.jsp"%>
 
+<style>
+#back-top { 
+position: fixed; 
+bottom: 30px; 
+right:10%;
+/*margin-right: 150px;*/ 
+} 
+
+#back-top a { 
+width: 50px; 
+display: block; 
+text-align: center; 
+font: 11px/100% Arial, Helvetica, sans-serif; 
+text-transform: uppercase; 
+text-decoration: none; 
+color: #bbb; 
+
+/* transition */ 
+-webkit-transition: 1s; 
+-moz-transition: 1s; 
+transition: 1s; 
+} 
+#back-top a:hover { 
+color: #000; 
+} 
+
+/* arrow icon (span tag) */ 
+#back-top span { 
+width: 50px; 
+height: 50px; 
+display: block; 
+margin-bottom: 7px; 
+background: #ddd url(/resources/rpjt/img/up-arrow.png) no-repeat center center; 
+
+/* rounded corners */ 
+-webkit-border-radius: 15px; 
+-moz-border-radius: 15px; 
+border-radius: 15px; 
+
+/* transition */ 
+-webkit-transition: 1s; 
+-moz-transition: 1s; 
+transition: 1s; 
+} 
+#back-top a:hover span { 
+background-color: #777; 
+} 
+
+</style>
 <!-- Main content -->
 <div class="col-md-12 ">
+	<!-- 버튼 -->
+	<p id="back-top"> 
+   		<a href="#top"><span></span></a> 
+	</p>
+	<!-- 소연 버튼 -->
 	<!-- 메인 바디 입력 부분 -->
 	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
@@ -93,7 +147,7 @@
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
-					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">
+					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.bno}'>
 					<button class="btn btn-info">기업정보</button></a>
 					
 				</div>
@@ -421,10 +475,32 @@
 </form> 소연 수정 이거 name 겹쳐서 에러나서 걍 주석처리함
  --%>
 <script>
-	$('#CInfo').on("click", function() {
-		<a href = '/company/C_info_nonavi?recruitNum=' + $('#CInfo').val(); onClick="window.open(this.href, '', 'width=1000, height=960'); return false;"></a>
-		//self.location = "/company/C_info_nonavi?recruitNum=" + $('#CInfo').val()
+$(document).ready(function(){ 
+
+	// hide #back-top first
+	//$("#back-top").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
 	});
+
+});
+
 </script>
 <!-- //메인 바디 끝 -->
 
