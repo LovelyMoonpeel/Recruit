@@ -25,8 +25,8 @@
 	          	<td class="col-sm-4">
 	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
-                <th class="table-active" scope="row"><label for="img">사진</label></th>
-                <td class="col-sm-4">
+                <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
+                <td rowspan = "3" class="col-sm-4">
                     <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
 				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
 				   </div>
@@ -52,6 +52,8 @@
 						<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}" readonly>
 					</div>
 				  </td>
+			    </tr>
+			  	<tr>
                   <th class="table-active" scope="row"><label for="email">이메일</label></th>
             	  <td>
 				  	<div class="form-group">
@@ -168,31 +170,48 @@
       <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>학력사항</b>
-		</h4>
+		<hr style="border: solid 4px #ccc;">
+		
+		
+			<div class="form-group col-md-3"><h4><b>학력사항</b></h4></div>
+			<select class="form-control" name=levelofeducation id="CodeList2">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 2 }">
+		             <c:if test="${CodeVO.id<=13 }">
+		                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+		             </c:if>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       
+	
 		<div id="edu_div"></div>
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>경력사항</b>
-		</h4>
+		<hr style="border: solid 4px #ccc;">
+			
+			<div class="form-group col-md-3"><h4><b>경력사항</b></h4></div>
+			<select class="form-control" name="lastcareer" id="CodeList1">
+	          <c:forEach items="${CodeVOlist }" var="CodeVO">
+	             <c:if test="${CodeVO.tid == 1 }">
+		             <c:if test="${CodeVO.id<=7 }">
+		                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+		             </c:if>
+	             </c:if>
+	          </c:forEach>
+	       </select>
+	       
 		<div id="exp_div"></div>
-		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
-		<hr style="border: solid 4px #ccc;">
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	   <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
@@ -242,8 +261,7 @@
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm tel_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm tel_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -300,8 +318,7 @@
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm edu_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm edu_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -370,8 +387,7 @@
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default exp_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default exp_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -399,8 +415,7 @@
 		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm web_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm web_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -437,8 +452,7 @@
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm license_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm license_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -519,8 +533,7 @@
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm lang_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default btn-sm lang_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -801,12 +814,32 @@ $(document).ready(function() {
 		}; 
 		add_tel(item);
 	});
+	// tel 삭제버튼 이벤트
+	$("#tel_div").on("click", ".tel_minus_btn", function(){
+		 var tel_index = $(".tel_minus_btn").index(this);  // 존재하는 tel_minus_btn를 기준으로 index
+		 console.log(tel_index);
+		 if(tel_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
 			resumenum : ${ResumeVO.bno}
 		};
 		add_edu(item);
+	});
+	//edu minus 버튼 이벤트
+	$("#edu_div").on("click", ".edu_minus_btn", function(){
+		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
+		 console.log(edu_index);
+		 if(edu_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	// exp 추가버튼 이벤트
 	$("#exp_div").on("click", ".exp_plus_btn", function(){
@@ -815,12 +848,32 @@ $(document).ready(function() {
 		};
 		add_exp(item);
 	});
+	//exp minus 버튼 이벤트
+	$("#exp_div").on("click", ".exp_minus_btn", function(){
+		 var exp_index = $(".exp_minus_btn").index(this);  // 존재하는 exp_minus_btn를 기준으로 index
+		 console.log(exp_index);
+		 if(exp_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
 			rid : ${ResumeVO.bno}
 		};
 		add_web(item);
+	});
+	//웹 삭제 버튼 이벤트
+	$("#web_div").on("click", ".web_minus_btn", function(){
+		 var web_index = $(".web_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(web_index);
+		 if(web_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
@@ -829,12 +882,32 @@ $(document).ready(function() {
 		};
 		add_license(item);
 	});
+	//자격증 삭제 버튼 이벤트
+	$("#license_div").on("click", ".license_minus_btn", function(){
+		 var license_index = $(".license_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(license_index);
+		 if(license_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
+	});
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
 			rid : ${ResumeVO.bno}
 		};
 		add_language(item);
+	});
+	//언어 삭제 버튼 이벤트
+	$("#language_div").on("click", ".lang_minus_btn", function(){
+		var lang_index = $(".lang_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
+		 console.log(lang_index);
+		 if(lang_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	function add_tel(item) {
 		var source_tel = $("#template_tel").html();
