@@ -477,8 +477,8 @@ and c.bno = #{bno};
 		substring(u.pname,1,1) as img, p.userid address, p.title,
 		e.schoolname
 		coverletter, e.major rgbid
-		FROM tblApply a, tblrecruit r, tblresume p,
-		tbluser u, tblresumeEdu e,
+		FROM tblapply a, tblrecruit r, tblresume p,
+		tbluser u, tblresumeedu e,
 		tblcode m
 		where a.rcno = #{recruitNum} and
 		r.bno = #{recruitNum} and p.bno = a.rsno

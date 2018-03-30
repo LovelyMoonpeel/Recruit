@@ -580,6 +580,7 @@ $(document).ready(function() {
 		});
 	}
 	
+	//이거start
 	console.log('${PWebSitelist}');
 	var imgsrccheck = ('#imgsrccheck');
 	
@@ -660,6 +661,8 @@ $(document).ready(function() {
 	 console.log(file);
 	 reader.readAsDataURL(file);
 	};//upload change end   
+	//이거end
+	
 	
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
@@ -917,6 +920,7 @@ $(document).ready(function() {
 			 $(this).closest('.row').remove();
 		 }else{
 			 alert("기본 칸입니다.");
+			 
 		 }
 	});
 	function add_tel(item) {
@@ -1038,6 +1042,7 @@ $(document).ready(function() {
 				acquidate : "${ResumeLanguageVO.acquidate}"
 			};
 			add_language(item);
+			
 		</c:forEach>
 	}
 	tel_list();

@@ -2,20 +2,17 @@ package com.recruit.persistence;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
-import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
-import com.recruit.domain.ResumeVO;
 
 @Repository
 public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
@@ -58,74 +55,33 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		return session.selectList(namespace + ".ajaxRecruitList", pp);
 	}
 	@Override
-	public List<RecruitVO> IngRecruitList(CompanyCriteria cri,String id) throws Exception{
+	public List<RecruitVO> IngRecruitList(CompanySearchCriteria cri,String id) throws Exception{
 		
 		HashMap<String, Object> paraMap = new HashMap<>();
 		
 		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
 		paraMap.put("perPageNum", cri.getPerPageNum());
 		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
 		
 		
 		return session.selectList(namespace + ".ajaxIngRecruitList", paraMap);
 	}
 	@Override
-	public List<RecruitVO> EndRecruitList(CompanyCriteria cri, String id) throws Exception{
+	public List<RecruitVO> EndRecruitList(CompanySearchCriteria cri, String id) throws Exception{
 		
 		HashMap<String, Object> paraMap = new HashMap<>();
 		
 		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
 		paraMap.put("perPageNum", cri.getPerPageNum());
 		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
 		
 		return session.selectList(namespace + ".ajaxEndRecruitList", paraMap);
-	}
-	@Override
-	public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		
-		HashMap<String, Object> paraMap = new HashMap<>();
-		
-		paraMap.put("id", id);	
-		paraMap.put("perPageNum", cri.getPerPageNum());
-		paraMap.put("pageStart", cri.getPageStart());
-		paraMap.put("srchTxt", srchTxt);
-		System.out.println(id);
-		System.out.println(cri.getPerPageNum());
-		System.out.println(cri.getPageStart());
-		System.out.println(srchTxt);
-		return session.selectList(namespace + ".ajaxSearchList", paraMap);
-	}
-	
-	@Override
-	public List<RecruitVO> IngSearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		
-		HashMap<String, Object> paraMap = new HashMap<>();
-		
-		paraMap.put("id", id);	
-		paraMap.put("perPageNum", cri.getPerPageNum());
-		paraMap.put("pageStart", cri.getPageStart());
-		paraMap.put("srchTxt", srchTxt);
-		System.out.println(id);
-		System.out.println(cri.getPerPageNum());
-		System.out.println(cri.getPageStart());
-		System.out.println(srchTxt);
-		return session.selectList(namespace + ".ajaxIngSearchList", paraMap);
-	}
-	
-	@Override
-	public List<RecruitVO> EndSearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		
-		HashMap<String, Object> paraMap = new HashMap<>();
-		
-		paraMap.put("id", id);	
-		paraMap.put("perPageNum", cri.getPerPageNum());
-		paraMap.put("pageStart", cri.getPageStart());
-		paraMap.put("srchTxt", srchTxt);
-		System.out.println(id);
-		System.out.println(cri.getPerPageNum());
-		System.out.println(cri.getPageStart());
-		System.out.println(srchTxt);
-		return session.selectList(namespace + ".ajaxEndSearchList", paraMap);
 	}
 	
 	@Override
@@ -157,16 +113,61 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	}
 
 	@Override
-	public List<RecruitVO> RecruitCriteria(CompanyCriteria cri, String id) throws Exception {
+	public List<RecruitVO> RecruitCriteria(CompanySearchCriteria cri, String id) throws Exception {
 		
 		HashMap<String, Object> paraMap = new HashMap<>();
 		
 		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
 		paraMap.put("perPageNum", cri.getPerPageNum());
 		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
 		
 		
 		return session.selectList(namespace+".recruitCriteria",paraMap);
+	}
+
+	@Override
+	public int recruitCriteriaCount(CompanySearchCriteria cri, String id) throws Exception {
+		
+		HashMap<String, Object> paraMap = new HashMap<>();
+		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
+		
+		return session.selectOne(namespace + ".recruitCriteriaCount",paraMap);
+	}
+
+	@Override
+	public int ajaxIngRecruitListCount(CompanySearchCriteria cri, String id) throws Exception {
+	
+		HashMap<String, Object> paraMap = new HashMap<>();
+		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
+		
+		return session.selectOne(namespace + ".ajaxIngRecruitListCount",paraMap);
+	}
+
+	@Override
+	public int ajaxEndRecruitListCount(CompanySearchCriteria cri, String id) throws Exception {
+		
+		HashMap<String, Object> paraMap = new HashMap<>();
+		paraMap.put("id", id);	
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		paraMap.put("orderType", cri.getOrderType());
+		
+		return session.selectOne(namespace + ".ajaxEndRecruitListCount",paraMap);
 	}
 	
 

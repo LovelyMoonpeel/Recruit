@@ -175,22 +175,36 @@ public class CompanyAjax {
 	public Object RecruitList(@RequestBody List<String> array,CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
 		
 		System.out.println(array);
+		System.out.println(array.size());
+		
 		
 		String page = "";
 		String  searchType = "";
 		String keyword = "";
-		if(array.size() == 3){
+		String perPageNum = "";
+		String orderType = "";
+		
+		if(array.size() >= 4){
 		page = array.get(0);	
-		searchType = array.get(1);
-		keyword = array.get(2);
+		perPageNum = array.get(1);
+		searchType = array.get(2);
+		keyword = array.get(3);
+		if(array.size() > 4){
+		orderType = array.get(4); 
+		cri.setOrderType(orderType);
+		
+		}
 		
 		cri.setPage(Integer.parseInt(page));
 		cri.setSearchType(searchType);
 		cri.setKeyword(keyword);
+		cri.setPerPageNum(Integer.parseInt(perPageNum));			
 	
-		}else{
+		}else if(array.size() < 4){
 			page = array.get(0);
+			perPageNum = array.get(1);
 			cri.setPage(Integer.parseInt(page));
+			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
 		
 		System.out.println("page는"+page);
@@ -218,8 +232,7 @@ public class CompanyAjax {
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-//				pageMaker.setTotalCount(131);
-				pageMaker.setTotalCount(jobService.listSearchCount(cri,id));
+				pageMaker.setTotalCount(service.recruitCriteriaCount(cri,id));
 				System.out.println(pageMaker);
 				b.add(pageMaker);
 				
@@ -246,21 +259,56 @@ public class CompanyAjax {
 	}
 	
 	
-	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> IngRecruitList(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session,  int page, Model model){
+	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.POST)
+	public Object IngRecruitList(@RequestBody List<String> array,CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
 		
+		System.out.println(array);
+		
+	
+		String page = "";
+		String  searchType = "";
+		String keyword = "";
+		String perPageNum = "";
+		String orderType = "";
+		
+		if(array.size() >= 4){
+		page = array.get(0);	
+		perPageNum = array.get(1);
+		searchType = array.get(2);
+		keyword = array.get(3);
+		if(array.size() > 4){
+		orderType = array.get(4); // if 문 사용해서 채우기
+		cri.setOrderType(orderType);		
+		}
+		cri.setPage(Integer.parseInt(page));
+		cri.setSearchType(searchType);
+		cri.setKeyword(keyword);
+		cri.setPerPageNum(Integer.parseInt(perPageNum));			
+		
+	
+		}else if(array.size() < 4){
+			page = array.get(0);
+			perPageNum = array.get(1);
+			cri.setPage(Integer.parseInt(page));
+			cri.setPerPageNum(Integer.parseInt(perPageNum));
+		}
+		
+		System.out.println("page는"+page);
+		System.out.println("searchType는"+searchType);
+		System.out.println("keyword는"+keyword);
+			
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
-		
+		Map<String, Object> result = new HashMap<String,Object>();
 		if (login != null) {
-			
-			cri.setPage(page);
 			
 			String id = login.getId();
 			
 			try {
-				
-				List<RecruitVO> a = service.IngRecruitList(cri,id);
+				System.out.println("cri는 = "+cri);
+				System.out.println("cri.toString은 = "+cri.toString());
+//				List<RecruitVO> a = service.RecruitCriteria(cri);
+				List<RecruitVO> a = service.IngRecruitList(cri, id);
 				List<Object> b = new ArrayList<Object>();
 				
 				for(int i =0; i<a.size(); i++){
@@ -270,36 +318,88 @@ public class CompanyAjax {
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(131);
+//				pageMaker.setTotalCount(131);
+				pageMaker.setTotalCount(service.ajaxIngRecruitListCount(cri,id));
+				System.out.println(pageMaker);
 				b.add(pageMaker);
-
+				
+				
 				entity = new ResponseEntity<>(b, HttpStatus.OK);
+
+		
+//				model.addAttribute("pageMaker",pageMaker);
+//				
+				System.out.println("출력됨 : "+entity.toString());
 				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				System.out.println("출력안됨 : "+entity.toString());
 			}
 			
 		}
+		
+		
 		return entity;
 		
 	}
 	
 	
-	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> EndRecruitList(@ModelAttribute("cri") CompanySearchCriteria cri, int page, HttpSession session, Model model){
+	
+	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.POST)
+	public Object EndRecruitList(@RequestBody List<String> array, CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
+		
+		System.out.println(array);
+		
+	
+		
+		String page = "";
+		String  searchType = "";
+		String keyword = "";
+		String perPageNum = "";
+		String orderType = "";
+		
+		if(array.size() >= 4){
+		page = array.get(0);	
+		perPageNum = array.get(1);
+		searchType = array.get(2);
+		keyword = array.get(3);
+		if(array.size() > 4){
+		orderType = array.get(4); // if 문 사용해서 채우기
+		cri.setOrderType(orderType);		
+		}
+		
+		cri.setPage(Integer.parseInt(page));
+		cri.setSearchType(searchType);
+		cri.setKeyword(keyword);
+		cri.setPerPageNum(Integer.parseInt(perPageNum));			
+		
+	
+		}else if(array.size() < 4){
+			page = array.get(0);
+			perPageNum = array.get(1);
+			cri.setPage(Integer.parseInt(page));
+			cri.setPerPageNum(Integer.parseInt(perPageNum));
+		}
+		
+		System.out.println("page는"+page);
+		System.out.println("searchType는"+searchType);
+		System.out.println("keyword는"+keyword);
+		System.out.println("perPageNum는"+perPageNum);	
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
-		
+		Map<String, Object> result = new HashMap<String,Object>();
 		if (login != null) {
 			
 			String id = login.getId();
-			cri.setPage(page);
+			
 			try {
-				
-				List<RecruitVO> a = service.EndRecruitList(cri,id);
+				System.out.println("cri는 = "+cri);
+				System.out.println("cri.toString은 = "+cri.toString());
+//				List<RecruitVO> a = service.RecruitCriteria(cri);
+				List<RecruitVO> a = service.EndRecruitList(cri, id);
 				List<Object> b = new ArrayList<Object>();
 				
 				for(int i =0; i<a.size(); i++){
@@ -309,69 +409,65 @@ public class CompanyAjax {
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(131);
-				
+//				pageMaker.setTotalCount(131);
+				pageMaker.setTotalCount(service.ajaxEndRecruitListCount(cri,id));
+				System.out.println(pageMaker);
 				b.add(pageMaker);
 				
-
 				
 				entity = new ResponseEntity<>(b, HttpStatus.OK);
+
+		
+//				model.addAttribute("pageMaker",pageMaker);
+//				
+				System.out.println("출력됨 : "+entity.toString());
+				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				System.out.println("출력안됨 : "+entity.toString());
 			}
 			
 		}
+		
+		
 		return entity;
+		
 		
 	}
 
-	// 문> 밑에 패스워드 체크할 때 사용할 객체임. 그래서 주입해줘야 함
+	// 문> 3.26
 	@Inject
 	private PasswordEncoder passwordEncoder;
 
-
-	// 문> 매개변수에 @RequestBody를 써줘야 ajax처리된 값을 가져올 수 있다. JSON데이터를 처리하기 위해서 그런다는 말도 있다. @RequestBody는 여러 번 쓸 수 없다. 
+	// 문> 3.26 매개변수에 @RequestBody를 써줘야 ajax처리된 값을 가져올 수 있다. 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public ResponseEntity<String> pwPost(@RequestBody LoginDTO dto, HttpSession session, Model model,
 			HttpServletRequest request, RedirectAttributes rttr) {
 
-		// 문Q> HTTP 상태 및 콘텐츠 형식 이외의 응답 헤더를 지정하고 싶을 때 반환 값을 ResponseEntity로 한다고 하는데 무슨말인지..
-		// 문> 아무튼 반환타입의 객체를 하나 만들어 준다.
 		ResponseEntity<String> entity = null;
 
-		// 문> login을 데리고 온다.
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
-		// 문> 값을 확인하기 위해 찍어본 것들
-		System.out.println("확인 차 입력받은 pw__dto.getPw() : "+dto.getPw());
-		System.out.println("디비에 있는 pw__login.getPw() : "+login.getPw());
-		System.out.println("암호화 안 된 pw2__dto.getPw2() : "+dto.getPw2());
-		System.out.println("암호화 된 pw2 : "+passwordEncoder.encode(dto.getPw2()));
 
-		// 문> DB에 있는 비밀번호와 입력받은 비밀번호가 일치하면 다음을 진행
-		// dto.getPw()는 새로 입력받은 내용, login.getPw()는 원래 디비에 있던 내용
+		System.out.println("하하하");
+
+		System.out.println("★ login: " + login);
+
+		System.out.println("★ login.getPw(): " + login.getPw());
+
+		System.out.println("★ LoginDto: " + dto);
+		
+		System.out.println("★ dto.getPw(): " + dto.getPw());
+		
+		System.out.println("★ entity: " + entity);
+		
 		if (passwordEncoder.matches(dto.getPw(), login.getPw())) {
+			System.out.println("★ 비밀번호 일치");
+			System.out.println("★if안 entity: " + entity);
 			try {
-				
-				// 문Q> entity에 success를 넣는다는 얘기 같은데 자세한 건 잘 모르겠음.
 				entity = new ResponseEntity<>("success", HttpStatus.OK);
-				
-				// 문> id랑 새로운 패스워드를 서비스로 넘긴다. 값이 두 개니깐 HashMap을 쓴다.
-				HashMap<String, Object> newCpPw = new HashMap<>();
-								
-				newCpPw.put("id", login.getId());	
-				newCpPw.put("pw", passwordEncoder.encode(dto.getPw2()));
-				
-				// 문> 확인 차
-				System.out.println("CompanyAjax__newCpPw : "+newCpPw);
-				
-				// 문> 이제부터 디비에 있는 비밀번호를 교체, 컨트롤러 -> 서비스 -> DAO -> mapper -> DAO -> 서비스 -> 컨트롤러
-				// 문> jobService는 CompanyService의 객체, 그래서 CompanyService로 가자.
-				jobService.updateCpPw(newCpPw);
-				
-				// 문> jsp파일로 success를 실어보낸다.
+				System.out.println("★if안 try안 entity: " + entity);
 				return entity;
 				
 			} catch (Exception e) {
@@ -381,139 +477,16 @@ public class CompanyAjax {
 			}
 
 		} else {
-			
-			// 문> 확인 차
 			System.out.println("★ 비밀번호 불일치");
-			
-			// 문> jsp파일에 null값을 실어보낸다.
-			return entity;
 
-		}// if절 끝
+		}
+
+		return entity;
 
 	}
 	
 	
-	@RequestMapping(value="/searchList/",method = RequestMethod.GET)
-		public ResponseEntity<List<Object>> serachList(@ModelAttribute("cri") CompanySearchCriteria cri, int page, String srchTxt, HttpSession session, Model model){
-			
-			BoardVO login = (BoardVO) session.getAttribute("login");
-			ResponseEntity<List<Object>> entity = null;
-			
 	
-			
-			if (login != null) {
-				
-				String id = login.getId();
-				cri.setPage(page);
-				try {
-					List<RecruitVO> a = service.SearchList(cri,id,srchTxt);
-					List<Object> b = new ArrayList<Object>();
-					
-					for(int i =0; i<a.size(); i++){
-						b.add((Object)(a.get(i)));
-						
-					}
-					
-					CompanyPageMaker pageMaker = new CompanyPageMaker();
-					pageMaker.setCri(cri);
-					pageMaker.setTotalCount(131);
-					
-					b.add(pageMaker);
-					
-
-					
-					entity = new ResponseEntity<>(b, HttpStatus.OK);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-					entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				}
-				
-			}
-			return entity;		
-	}
-	
-	@RequestMapping(value="/ingSearchList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> ingSerachList(@ModelAttribute("cri") CompanyCriteria cri, int page, String srchTxt, HttpSession session, Model model){
-		
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		ResponseEntity<List<Object>> entity = null;
-		
-
-		
-		if (login != null) {
-			
-			String id = login.getId();
-			cri.setPage(page);
-			try {
-				
-				List<RecruitVO> a = service.IngSerachList(cri,id,srchTxt);
-				List<Object> b = new ArrayList<Object>();
-				
-				for(int i =0; i<a.size(); i++){
-					b.add((Object)(a.get(i)));
-					
-				}
-				
-				CompanyPageMaker pageMaker = new CompanyPageMaker();
-				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(131);
-				
-				b.add(pageMaker);
-				
-
-				
-				entity = new ResponseEntity<>(b, HttpStatus.OK);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-			
-		}
-		return entity;		
-}
-	
-	@RequestMapping(value="/endSearchList/",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> EndSerachList(@ModelAttribute("cri") CompanyCriteria cri, int page, String srchTxt, HttpSession session, Model model){
-		
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		ResponseEntity<List<Object>> entity = null;
-		
-
-		
-		if (login != null) {
-			
-			String id = login.getId();
-			cri.setPage(page);
-			try {
-				
-				List<RecruitVO> a = service.EndSerachList(cri,id,srchTxt);
-				List<Object> b = new ArrayList<Object>();
-				
-				for(int i =0; i<a.size(); i++){
-					b.add((Object)(a.get(i)));
-					
-				}
-				
-				CompanyPageMaker pageMaker = new CompanyPageMaker();
-				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(131);
-				
-				b.add(pageMaker);
-				
-
-				
-				entity = new ResponseEntity<>(b, HttpStatus.OK);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-			
-		}
-		return entity;		
-}
 	
 	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)//소연
 	public ResponseEntity<String> applycheckPOST(@RequestBody PApplyVO pavo){
@@ -598,4 +571,3 @@ public class CompanyAjax {
 		return entity;
 	}
 }
-	 

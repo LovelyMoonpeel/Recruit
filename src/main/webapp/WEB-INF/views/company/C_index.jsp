@@ -26,7 +26,7 @@
 
 	
 		<div class="corp_logo">
-			<img src="/resources/rpjt/img/${CInfoVO.img}"
+			<img src="${CInfoVO.img}"
 				 name="img" value="${CInfoVO.img}" style="width:200px;"/> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>

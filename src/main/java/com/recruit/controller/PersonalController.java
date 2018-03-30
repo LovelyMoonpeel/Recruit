@@ -392,6 +392,7 @@ public class PersonalController {
 		}
 	}
 
+	// 문 이거 start
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -412,6 +413,9 @@ public class PersonalController {
 				HttpStatus.CREATED);
 	}
 
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
@@ -474,6 +478,9 @@ public class PersonalController {
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
+	
+	// 문 end
 	
 	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
 	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {

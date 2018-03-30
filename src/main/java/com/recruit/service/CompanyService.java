@@ -2,14 +2,16 @@ package com.recruit.service;
 
 import java.util.HashMap;
 import java.util.List;
+
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
-import com.recruit.domain.RecruitVO;
 
 
 
@@ -29,7 +31,7 @@ public interface CompanyService {
 	  
 	  public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception;
 	  
-	  public int listSearchCount(CompanyCriteria cri, String id) throws Exception;
+	  public int listSearchCount(CompanySearchCriteria cri, String id) throws Exception;
 	   
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  
