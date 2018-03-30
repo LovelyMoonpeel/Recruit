@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.recruit.mapper.UserMapper">
 
 	<insert id="create">
-		insert into tblUser (id, pw, cname, pname, email, registnum, birth)
+		insert into tbluser (id, pw, cname, pname, email, registnum, birth)
 		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
 		#{birth})
 	</insert>
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!--문> 자동로그인 -->
 	<update id="keepLogin">
 
-		update tblUser
+		update tbluser
 		set sessionKey = #{sessionId},
 		sessionLimit = #{next}
 		where id = #{id}
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select *
 		from
-		tblUser
+		tbluser
 		where sessionKey = #{value} and sessionLimit > now()
 
 	</select>
@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="userRead" resultType="BoardVO">
 		select id, pname, cname
 		from
-		Project.tblUser
+		project.tbluser
 		where id = #{id}
 	</select>
 </mapper>

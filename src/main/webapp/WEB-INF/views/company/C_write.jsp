@@ -74,19 +74,41 @@
 			<tr>
 				<th class="text-center">모집인원</th>
 				<td>
-				<input type="checkbox"><label class="form-check-label" for="defaultCheck1">1명</label>
-				<input type="checkbox"><label class="form-check-label" for="defaultCheck1">2명</label>
-				<input type="checkbox"><label class="form-check-label" for="defaultCheck1">3명</label>
-				<input type="checkbox"><label class="form-check-label" for="defaultCheck1">4명</label>
-				<input type="text"/>
+				<div id="numChk">
+				<input type="checkbox" id="num1" value="1"><label class="form-check-label" for="num1">1명</label>
+				<input type="checkbox" id="num2" value="2"><label class="form-check-label" for="num2">2명</label>
+				<input type="checkbox" id="num3" value="3"><label class="form-check-label" for="num3">3명</label>
+				<input type="checkbox" id="num4" value="4"><label class="form-check-label" for="num4">4명</label>
+				<input type="checkbox" id="num5"><input type="text" id="numText" style="background-color: rgb(249, 249, 249);" />명
+				</div>
 				</td>
 			</tr>
 			
 			<script>
-			$(document).ready(function(){
+			$("#numChk > input[type='checkbox']").on("click",function(){
 				
 				
+				$("#numChk > input[type='checkbox'] ").prop("checked",false);
+				$("#numChk > input[type='checkbox'] ").prop("name","");	
 				
+				$(this).prop("checked",true)
+				$(this).prop("name","recruitnum");
+				$("#numText").prop("value","")
+			})
+			
+			$("#numText").focusin(function(){
+				$("#numText").css("background-color","rgb(255,255,255)")
+				$("#numChk > input[type='checkbox']").prop("checked",false);
+				$("#num5").prop("checked",true)
+				
+			})
+			$("#numText").focusout(function(){
+				if($("#numText").val().length==0){
+				$("#numText").css("background-color","rgb(249,249,249)")
+				$("#num5").prop("checked",false)
+				}else{
+				$("#num5").prop("value",$("#numText").val());
+				}
 			})
 			</script>
 			<tr>
@@ -95,31 +117,23 @@
 					<div id="states">
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:if test="${CodeVO.tid==4}">
-								<input type="checkbox" id="statesChk" value="${CodeVO.id}" name><label class="form-check-label" for="defaultCheck1"> ${CodeVO.career} </label>
+								<input type="checkbox" style="font-size: 3em" id="${CodeVO.id}" value="${CodeVO.id}" ><label class="form-check-label" for="${CodeVO.id}"> ${CodeVO.career} </label>
 							</c:if>
 						</c:forEach>
 					</div>
 				</td>
 			</tr>
 			
+			
 			<Script>
 			
-			$(document).on("click","#statesChk",function(){
-				
-				$("#states > * ").checked = true;
-
-
-
-
-				
-				/* $(this).attr('checked','checked'){
-					$("#statesChk").not(this).attr('checked',"");
-					} */
-				
+			$("#states > * ").on("click",function(){
+				$("#states > * ").prop("checked",false);
+				$("#states > * ").prop("name","");	
+				$(this).prop("checked",true)
+				$(this).prop("name","employstatusid");
 			})
-			
-			/* $("#states >  *"). */
-			
+						
 			</Script>
 			<tr>
 				<th class="text-center">급여사항</th>
@@ -138,7 +152,9 @@
 			
 				<th class="text-center">학력</th>
 				<td>
-				<input type="radio">학력무관 <input type="radio">제한
+				
+				<input type="radio">학력무관 
+				<input type="radio">제한
 					<select name="edu" class="selectpicker">
 						<option value="102">학력</option>
 
