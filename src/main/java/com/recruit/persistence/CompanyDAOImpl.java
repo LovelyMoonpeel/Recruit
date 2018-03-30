@@ -75,11 +75,13 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectList(namespace + ".reComList", paraMap);
 	}
 	@Override
-	public int listSearchCount(CompanyCriteria cri, String id) throws Exception{
+	public int listSearchCount(CompanySearchCriteria cri, String id) throws Exception{
 		
 		HashMap<String, Object> paraMap = new HashMap<>();
 		
-		paraMap.put("id", id);	
+		paraMap.put("id", id);
+		paraMap.put("searchType", cri.getSearchType());
+		paraMap.put("keyword", cri.getKeyword());
 		paraMap.put("perPageNum", cri.getPerPageNum());
 		paraMap.put("pageStart", cri.getPageStart());
 		

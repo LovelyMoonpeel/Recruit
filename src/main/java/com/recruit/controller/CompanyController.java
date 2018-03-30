@@ -618,7 +618,6 @@ public class CompanyController {
 				pw = dao.getPw(dto).getPw();
 				rawPw = dto.getPw();			
 			}
-
 			System.out.println("pw인데 가입할 때 입력한 값: "+pw);
 			System.out.println("rawPw인데 입력된 값: "+rawPw);
 			System.out.println("입력된 값들 나열: "+dto);

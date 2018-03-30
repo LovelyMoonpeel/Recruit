@@ -6,7 +6,7 @@ public class CompanyCriteria {
 	
 	public CompanyCriteria(){
 		this.page = 1;
-		this.perPageNum = 10;
+		this.perPageNum = 5;
 	}
 
 	public void setPage(int page){
@@ -50,4 +50,3 @@ public class CompanyCriteria {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
 }
-

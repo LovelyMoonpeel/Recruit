@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
@@ -46,33 +47,18 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.RecruitList(id, page);
 	 }
 	 @Override
-	 public List<RecruitVO> RecruitCriteria(CompanyCriteria cri, String id)throws Exception{
+	 public List<RecruitVO> RecruitCriteria(CompanySearchCriteria cri, String id)throws Exception{
 		 return dao.RecruitCriteria(cri,id);
 	 }
 	 @Override
-	 public List<RecruitVO> IngRecruitList(CompanyCriteria cri, String id) throws Exception{
+	 public List<RecruitVO> IngRecruitList(CompanySearchCriteria cri, String id) throws Exception{
 		
 		 return dao.IngRecruitList(cri, id);
 	 }
 	 @Override
-	 public List<RecruitVO> EndRecruitList(CompanyCriteria cri, String id) throws Exception{
+	 public List<RecruitVO> EndRecruitList(CompanySearchCriteria cri, String id) throws Exception{
 		
 		 return dao.EndRecruitList(cri, id);
-	 }
-	 @Override
-	 public List<RecruitVO> SearchList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		 
-		 return dao.SearchList(cri,id,srchTxt);
-	 }
-	 @Override
-	 public List<RecruitVO> IngSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		 
-		 return dao.IngSearchList(cri,id,srchTxt);
-	 }
-	 @Override
-	 public List<RecruitVO> EndSerachList(CompanyCriteria cri,String id, String srchTxt)throws Exception{
-		 
-		 return dao.EndSearchList(cri,id,srchTxt);
 	 }
 
 	 @Override
@@ -88,6 +74,24 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 public void FavorPersonDelete(int bno, String id) throws Exception{
 		 dao.FavorPersonDelete(bno, id);
 	 }
+
+	@Override
+	public int recruitCriteriaCount(CompanySearchCriteria cri, String id) throws Exception {
+		
+		return dao.recruitCriteriaCount(cri,id);
+	}
+
+	@Override
+	public int ajaxIngRecruitListCount(CompanySearchCriteria cri, String id) throws Exception {
+		
+		return dao.ajaxIngRecruitListCount(cri,id);
+	}
+
+	@Override
+	public int ajaxEndRecruitListCount(CompanySearchCriteria cri, String id) throws Exception {
+		
+		return dao.ajaxEndRecruitListCount(cri,id);
+	}
 	 
 	
 }

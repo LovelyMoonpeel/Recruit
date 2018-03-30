@@ -12,14 +12,6 @@
 
 <%@ page import="java.util.*, java.text.*"  %>
 
-<%
-
- java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
- String today = formatter.format(new java.util.Date());
-
- out.println(today);
-
-%>
 
 
 	
@@ -29,36 +21,57 @@
 	<div class="col-md-9">
 	<h1>채용 공고 목록</h1>
 	
-		<div class='box-body'>
+		<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+ 
 
-					<select name="searchType">
-						<option value="n"
-							<c:out value="${cri.searchType == null?'selected':''}"/>>
-							---</option>
-						<option value="t"
-							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
-							Title</option>
-						<option value="c"
-							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
-						<option value="w"
-							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
-							Writer</option>
-						<option value="tc"
-							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }'>
-					<button id='searchBtn'>Search</button>
-				
 
-				</div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+    
+      
+        <div class="input-group" style="padding-top:10px">
+     
+  
+
+      
+    
+           <div class="input-group-btn" style="">
+           
+             <select class="form-control" name="searchType" style="width:100px">
+     <option value="n"<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+	<option value="t"<c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
+      </select>
+      
+      </div><!-- /btn-group -->
+         
+   
+      
+       <input type="text" class="form-control"  name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }' >
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+      </span>
+          
+      
+
+      <ul class="nav navbar-nav navbar-right">
+        
+    <select class="form-control" id="perPageNum" style="width:100px">
+    <option value="5" selected>5개씩보기</option>
+    <option value="10">10개씩보기</option>
+	<option value="20">20개씩보기</option>
+    </select>
+    
+
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
 	<table class="table table-bordered">
 		<tr class="active">
 			<th>공고 상태</th>

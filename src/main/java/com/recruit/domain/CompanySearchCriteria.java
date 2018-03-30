@@ -4,7 +4,14 @@ public class CompanySearchCriteria extends CompanyCriteria {
 
 	private String searchType;
 	private String keyword;
+	private String orderType;
 	
+	public String getOrderType() {
+		return orderType;
+	}
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 	public String getSearchType() {
 		return searchType;
 	}
@@ -19,8 +26,9 @@ public class CompanySearchCriteria extends CompanyCriteria {
 	}
 	@Override
 	public String toString() {
-		return super.toString() + " SearchCriteria [searchType=" + searchType + ", keyword="
-				+ keyword + "]";
+		return "CompanySearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", orderType=" + orderType
+				+ "]";
 	}
+
 	
 }
