@@ -30,7 +30,7 @@
 				<th style="text-align:center;">상태</th>
 				<th style="text-align:center;">회사명</th>
 				<th style="text-align:center;">공고 제목</th>
-				<th style="width: 90px;">모집기간</th>
+				<th style="text-align:center; width: 90px;">모집기간</th>
 				<th style="width: 79px;">지원자 수</th>
 				<th style="text-align:center;">내이력서</th>
 				<th style="text-align:center;">열람여부</th>
@@ -39,7 +39,7 @@
 			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
 				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
-				<td>${CRecruitVO.recruitform}</td>
+				<td style="text-align:center;">${CRecruitVO.recruitform}</td>
 				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>

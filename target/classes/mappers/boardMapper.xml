@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
 	<insert id="create">
-		insert into tblUser (id, pw, cname, pname, email, registnum, birth)
+		insert into tbluser (id, pw, cname, pname, email, registnum, birth)
 		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
 		#{birth})
 	</insert>
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--631 start -->
 	<!-- 로그인할 때 사용자의 아이디와 패스워드를 이용해서 사용자의 정보를 조회 -->
 	<select id="login" resultType="BoardVO">
-		select id, pw, pname from Project.tblUser where id = #{id} and pw
+		select id, pw, pname from Project.tbluser where id = #{id} and pw
 		= #{pw}
 	</select>
 	<!--631 end -->
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 문> 3.23 패스워드 추가관련해서 추가함  -->
 	<update id="updateCP">
-		update tblUser set pw = #{pw}
+		update tbluser set pw = #{pw}
 		where id = #{id}
 	</update>
 

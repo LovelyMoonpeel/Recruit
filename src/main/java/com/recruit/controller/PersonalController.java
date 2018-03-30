@@ -268,11 +268,13 @@ public class PersonalController {
 	// 이력서 하나 읽기
 	@RequestMapping(value = "/detail_nonavi", method = RequestMethod.GET)
 	public String detail_nonaviGET(int bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
-
-		//j.code 세션수정03/21
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
+			
+			//Apply
+			
 			if(true){//Apply id랑 일치하는지 확인하는 서비스 필요
 				model.addAttribute("PUserVO", service.selectPUser(id));
 				model.addAttribute("ResumeVO", Rservice.readROne(bno));
@@ -285,11 +287,8 @@ public class PersonalController {
 				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
-				System.out.println("언니"+Rservice.resumeRead(bno));
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 				
-				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
-
 				return "personal/P_detail_nonavi";
 			} else {
 				rttr.addFlashAttribute("msg", "login");

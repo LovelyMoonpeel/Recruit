@@ -9,13 +9,13 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
-		<button type = "button" id = "deleteList-button" class="btn btn-danger col-md-offset-11"><span class="glyphicon glyphicon-trash"></span>선택 삭제</button>
+		<button type = "button" id = "deleteList-button" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
 		<table class="table table-bordered">
 			<tr>
-				<th style="width: 65px;">전체    <input type="checkbox" id="allcheck"></th>
-				<th style="width: 55px; text-align: center;">순번</th>
-				<th>이력서 제목</th>
+				<th style="width: 65px;">전체&nbsp;<input type="checkbox" id="allcheck"></th>
+				<th style="width: 55px; text-align: center;">설정</th>
+				<th style="text-align: center;">이력서 제목</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-pencil"></span> 수정</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-trash"></span> 삭제</th>
 			</tr>
@@ -23,8 +23,8 @@
 			<c:forEach items="${ResumeVOList}" var="ResumeVO">		
 			<tr>
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"></td>
-				<td style="text-align: center;">${ResumeVO.bno}</td>
-				<td><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
+				<td style="text-align: center;"><a><span class="glyphicon glyphicon-eye-close">${ResumeVO. }</span></a></td>
+				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
 			</tr>
