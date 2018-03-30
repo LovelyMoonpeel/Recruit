@@ -14,17 +14,18 @@
 		<table class="table table-bordered">
 			<tr>
 				<th style="width: 65px;">전체&nbsp;<input type="checkbox" id="allcheck"></th>
-				<th style="width: 55px; text-align: center;">설정</th>
 				<th style="text-align: center;">이력서 제목</th>
+				<th style="width: 55px; text-align: center;">설정</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-pencil"></span> 수정</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-trash"></span> 삭제</th>
 			</tr>
 			
-			<c:forEach items="${ResumeVOList}" var="ResumeVO">		
+			<c:forEach items="${ResumeVOList}" var="ResumeVO" varStatus="status">		
 			<tr>
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"></td>
-				<td style="text-align: center;"><a><span class="glyphicon glyphicon-eye-close">${ResumeVO. }</span></a></td>
+				
 				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
+				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}" name="publicornot" id="${status.count }"></span></a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
 			</tr>
@@ -52,9 +53,36 @@ $(document).ready(function(){
 	});
 	
 	$("#deleteList-button").click(function(){
-		
+		console.log("선택삭제 버튼 누름");
 	});
+	
+	//onchange//클래스가 공개면 
+	publicornot();
+	
+	function publicornot(){
+		$(".비공개").each(function(index){
+			$(this).addClass("glyphicon-lock");
+		}); 
+		
+		$(".공개").each(function(index){
+			$(this).addClass("glyphicon-eye");
+		}); 
+	}
+	
+	$(".publicornot").click(function(){
+		console.log("클릭함");
+		//resume publicornot column 바꾸는 ajax
+		publicornot();
+	});
+	/* $( ".publicornot" ).each(function(index) {
+	    $(this).on("click", function(){
+	    });
+	}); */
 });
+
+
+
+
 /* $.ajax({
 type : 'delete',
 url : '/personal/deleteResume' + ${ResumeVO.bno},

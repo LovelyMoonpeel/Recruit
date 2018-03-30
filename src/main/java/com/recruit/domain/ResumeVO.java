@@ -19,6 +19,8 @@ public class ResumeVO implements Bnoble {
 	private String regdate;
 	private String levelofeducation;
 	private String lastcareer;
+	private String publicornot;
+	//소연 publicornot 추가
 
 	public int getBno() {
 		return bno;
@@ -156,6 +158,15 @@ public class ResumeVO implements Bnoble {
 		this.lastcareer = lastcareer;
 	}
 
+	public String getPublicornot() {
+		return publicornot;
+	}
+
+	public void setPublicornot(String publicornot) {
+		this.publicornot = publicornot;
+	}
+	
+
 	@Override
 	public String toString() {
 		return "ResumeVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", address=" + address
@@ -163,8 +174,9 @@ public class ResumeVO implements Bnoble {
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
 				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
 				+ ", regdate=" + regdate + ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer
-				+ "]";
+				+ ", publicornot=" + publicornot + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
