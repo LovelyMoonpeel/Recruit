@@ -8,11 +8,11 @@
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
-<div class="col-md-9">
+<!-- <div class="col-md-9"> -->
 
 <%@ page import="java.util.*, java.text.*"  %>
 
-<%
+<%-- <%
 
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
  String today = formatter.format(new java.util.Date());
@@ -20,7 +20,7 @@
  out.println(today);
 
 %>
-
+ --%>
 
 
 	<input type="hidden" id="id" value="${CInfoVO.id}">
@@ -147,7 +147,7 @@
 
 </div>
 
-</div>
+<!-- </div> -->
 
 <c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
 <input type="text" name="CompareList" value="${FavorCompareListVO.presume}">
