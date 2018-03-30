@@ -24,4 +24,14 @@ public class PApplyDAOImpl implements PApplyDAO{
 	public PApplyVO selectAPOne(PApplyVO pavo)throws Exception{
 		return session.selectOne(namespace + ".selectAPOne", pavo);
 	}
+	
+	@Override
+	public String readornotAPOne(PApplyVO pavo)throws Exception{
+		return session.selectOne(namespace + ".readornotAPOne", pavo);
+	}
+	
+	@Override
+	public void CreadAPOne(PApplyVO pavo)throws Exception{
+		session.update(namespace + ".CreadAPOne", pavo);
+	}
 }

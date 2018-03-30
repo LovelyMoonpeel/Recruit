@@ -300,18 +300,17 @@
 	</div>
 			</div>
 			<form role="form" method="post">
-			<input type='hidden' id="" name="bno" value="${RecruitVO.bno}">
-			<input type='text' id="C_readAPR_id" value="${CInfoVO.id}">
+			<input type='text' id="C_readAPR_id" name="bno" value="${RecruitVO.bno}">
 			</form>
 <script>	
 
 $(".C_readAPR").on("click", function(){
 	
-	 var C_readAPR = $(".C_readAPR").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
+	 var C_readAPR = $(".C_readAPR").index(this); 
 	 console.log(C_readAPR);
 	 
-	 var readAPRbno = $("#Rbno"+C_readAPR).val();
-	 var readAPRcid = $("#C_readAPR_id").val();
+	 var readAPrsno = $("#Rbno"+C_readAPR).val();
+	 var readAPrcno = $("#C_readAPR_id").val();
 	 
 	  $.ajax({
 			type:'post',
@@ -322,25 +321,21 @@ $(".C_readAPR").on("click", function(){
 			},
 			dataType:'text',
 			data:JSON.stringify({
-				rsno : readAPRbno,//이거 바꾸고 ajax 생성
-				pid : readAPRcid
+				rsno : readAPrsno,//이거 바꾸고 ajax 생성
+				rcno : readAPrcno
 			}),
 			success:function(result){
 				console.log("result가 뭐냐?"+result);
 				if(result=='SUCCESS'){
-					console.log("지원자의 이력서를 열람함.");
+					console.log("지원자의 이력서를 이미 열람했거나 방금 열람했다.");
 				}else{
-					alert("result가 뭔가 이상함");
+					console.log("result가 뭔가 이상함");
 				}
 			}//success end
 	 });//ajax end  
 });
 
 //소연 열람기능
-	
-	
-	
-	
 
 $('#CInfo').on("click",function(){
 	

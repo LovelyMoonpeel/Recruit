@@ -590,12 +590,18 @@ public class CompanyAjax {
 		String rcno = pavo.getRcno();
 	
 		try{
-			if(true){//뭔 서비스를 만들어==null
-				System.out.println("true if문으로 들어옴");
+			String result = papService.readornotAPOne(pavo);
+			System.out.println("읽었냐 말았냐?"+result);
+			if(result.equals("읽지않음")){//읽은 적이 없을 때
+				System.out.println("읽지않음 if문으로 들어옴");
+				papService.CreadAPOne(pavo);//읽음으로 바뀌는 서비스
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			}else{//스크랩한 내역이 있을 때
-				System.out.println("false if문으로 들어옴");
+			}else if(result.equals("읽음")){//읽은 적이 있을 때
+				System.out.println("이미읽음 if문으로 들어옴");
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}else{
+				System.out.println("어느 if문에도 들어가지 못함");
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

@@ -19,8 +19,6 @@ public class ResumeVO implements Bnoble {
 	private String regdate;
 	private String levelofeducation;
 	private String lastcareer;
-	private String preadornot;
-	//소연 추가 preadornot
 
 	public int getBno() {
 		return bno;
@@ -158,14 +156,6 @@ public class ResumeVO implements Bnoble {
 		this.lastcareer = lastcareer;
 	}
 
-	public String getPreadornot() {
-		return preadornot;
-	}
-
-	public void setPreadornot(String preadornot) {
-		this.preadornot = preadornot;
-	}
-	
 	@Override
 	public String toString() {
 		return "ResumeVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", address=" + address
@@ -173,7 +163,7 @@ public class ResumeVO implements Bnoble {
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
 				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
 				+ ", regdate=" + regdate + ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer
-				+ ", preadornot=" + preadornot + "]";
+				+ "]";
 	}
 
 	@Override

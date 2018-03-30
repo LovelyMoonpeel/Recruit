@@ -43,9 +43,8 @@
 				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
-				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
 				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-info">내이력서</span></a></td>
-				<td><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
+				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 			</tr>
 			</c:forEach>
 		</table>
@@ -73,32 +72,17 @@ $(document).ready(function(){
  		
  		console.log("아"+$(this).text());
 	 	
- 		if($(this).text()=='0'){
+ 		if($(this).text()=='0'||$(this).text()=='읽지않음'){
  			$(this).text('읽지않음');
  			$(this).addClass('');
-		}else if($(this).text()=='1'){
+		}else if($(this).text()=='1'||$(this).text()=='읽음'){
 			$(this).text('읽음');
-			$(this).addClass('badge-info');
+			$(this).addClass('');
 		}else{
 			$(this).text('오류');
 			$(this).addClass('badge-warning');
 		} 
 	});
-	/* $(".myresume").each(function(index){
- 		
- 		console.log("아"+$(this).text());
-	 	
- 		if($(this).text()=='0'){
- 			$(this).text('읽지않음');
- 			$(this).addClass('');
-		}else if($(this).text()=='1'){
-			$(this).text('읽음');
-			$(this).addClass('badge-info');
-		}else{
-			$(this).text('오류');
-			$(this).addClass('badge-warning');
-		} 
-	});  */
 });
 </script>
 
