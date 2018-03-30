@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="create">
-	insert into tblqnareply (bno, content)
-	values (#{bno}, #{content})
+	insert into tblqnareply (bno, content, regdate)
+	values (#{bno}, #{content}, now())
 </insert>
 
 <update id="update">

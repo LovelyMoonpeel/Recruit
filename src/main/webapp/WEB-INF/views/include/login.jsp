@@ -220,7 +220,7 @@
 									<!--아이디 -->
 									<div class="form-group">
 										아이디<input type="text" id='pid' name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요." required>
+											placeholder="4~15자리를 입력하세요." required>
 										<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
 									</div>
 
@@ -295,7 +295,7 @@
 									<!--아이디 -->
 									<div class="form-group">
 										회사 아이디<input type="text" id="cid" name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요." required>
+											placeholder="4~15자리를 입력하세요." required>
 									<input class="btn btn-success" type="button" id="cid_overlap" value="중복체크">
 									</div>
 
@@ -345,11 +345,6 @@
 										사업자 등록번호<input type="text" name='registnum'
 											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." required>
 									</div>
-
-
-									<!--사업자 등록번호 인증  -->
-									<a href="#" class="text-center">사업자 등록번호 인증하기</a>
-
 
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->
 									<div class="row">
@@ -659,7 +654,7 @@ $("#pid_overlap").on("click", function(event){
 	var Pid = PidObj.val();
 
 	/* 유효성 검사 */
-	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var idReg = /^[A-Za-z0-9]{4,15}$/g;
 	var pjoinidchk = document.getElementById("pid").value;
 	if(!idReg.test(pjoinidchk)){
 		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
@@ -694,7 +689,7 @@ $("#cid_overlap").on("click", function(){
 	var Cid = CidObj.val();
 
 	/* 유효성 검사 */
-	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var idReg = /^[A-Za-z0-9]{4,15}$/g;
 	var cjoinidchk = document.getElementById("cid").value;
 	if(!idReg.test(cjoinidchk)){
 		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");

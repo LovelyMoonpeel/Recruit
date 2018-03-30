@@ -23,7 +23,7 @@
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 
 		<property name="url"
-			value="jdbc:log4jdbc:mysql://matching.cjpcxcqwrqqs.us-east-2.rds.amazonaws.com:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull">
+			value="jdbc:log4jdbc:mysql://project.c27ep5kj86l5.ap-northeast-2.rds.amazonaws.com:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull">
 		</property>
 		<property name="username" value="master"></property>
 		<property name="password" value="bit102prob"></property>
@@ -64,7 +64,7 @@
       <property name="host" value="smtp.gmail.com" />
       <property name="port" value="587" />
       <property name="username" value="ProJ.B.Team@gmail.com" />
-      <property name="password" value="1q2w3e4r@" />
+      <property name="password" value="bit102prob" />
     
 
       <!-- email 요청시는 SMTP -->

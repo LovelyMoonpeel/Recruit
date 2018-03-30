@@ -6,13 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.recruit.mapper.UserMapper">
 
 	<insert id="create">
-		insert into tblUser (id, pw, cname, pname, email, registnum, birth)
+		insert into tbluser (id, pw, cname, pname, email, registnum, birth)
 		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
 		#{birth})
 	</insert>
 	
 	<insert id="Ccreate">
-		insert into project.tblcinfo (id, cname)
+		insert into tblcinfo (id, cname)
 		select #{id}, #{cname} from dual 
 		where exists (select id from project.tbluser where id = #{id})
 		;
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select id, pw, pname, cname, authCode
 		from
-		Project.tblUser
+		tbluser
 		where id = #{id} and pw = #{pw}
 	</select>
 	<!--// -->
@@ -32,20 +32,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	id
 	from
-	tblUser
+	tbluser
 	where
 	id = #{id}
 	</select>
 	
 	<update id="createAuthKey">
-		update project.tbluser set authCode = #{authCode} where email = #{email}
+		update tbluser set authCode = #{authCode} where email = #{email}
 	</update>
 	<!--// -->
 	
 		<!--문> 자동로그인 -->
 	<update id="keepLogin">
 
-		update tblUser
+		update tbluser
 		set sessionKey = #{sessionId},
 		sessionLimit = #{next}
 		where id = #{id}
@@ -57,26 +57,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select *
 		from
-		tblUser
+		tbluser
 		where sessionKey = #{value} and sessionLimit > now()
 
 	</select>
 	<!--// -->
 
 	<update id="userAuth">
-		update project.tbluser set authCode = null where email = #{email}
+		update tbluser set authCode = null where email = #{email}
 	</update>
 	
 	<select id="pread" resultType="BoardVO">
 	select id
-	from project.tbluser
+	from tbluser
 	where pname = #{pname}
 	and email = #{email}
 	</select>
 	
 	<select id="cread" resultType="BoardVO">
 	select id
-	from project.tbluser
+	from tbluser
 	where cname = #{cname}
 	and email = #{email}
 	</select>
@@ -85,24 +85,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	email
 	from
-	project.tblUser
+	tbluser
 	where
 	email = #{email}
 	</select>
 	
 	<update id="ppwchk">
-		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
+		update tbluser set pw = #{pw} where id=#{id} and email = #{email} and pname=#{pname}
 	</update>
 	
 	<update id="cpwchk">
-		update project.tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
+		update tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
 	</update>
 	
 	<select id="getPw" resultType="BoardVO">
 	select
 	pw
 	from
-	project.tbluser
+	tbluser
 	where
 	id = #{id}
 	</select>
@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 	id
 	from
-	tblUser
+	tbluser
 	where
 	id = #{id}
 	</select>
@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="userRead" resultType="BoardVO">
 		select id, pname, cname
 		from
-		Project.tblUser
+		tbluser
 		where id = #{id}
 	</select>
 </mapper>

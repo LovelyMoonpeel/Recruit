@@ -14,7 +14,8 @@
 
 
 <!-- 개인정보수정 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-md-9"> -->
 
 
 
@@ -127,7 +128,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly style="resize: none;">{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly rows="5" style="resize: none;">{{content}}</textarea> </div>
    <a class="btn btn-primary btn-xs"
      data-toggle="modal" data-target="#modifyModal">Modify</a>
   </div>

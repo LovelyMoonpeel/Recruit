@@ -17,6 +17,7 @@
 <!-- Custom CSS -->
 <!-- <link href="css/shop-item.css" rel="stylesheet"> -->
 <link href="/resources/rpjt/css/lovelyB_022711.css" rel="stylesheet">
+<link href="/resources/rpjt/css/styles.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,18 +30,37 @@
 </head>
 
 <body>
-
 	<%@include file="../include/jheader.jsp"%>
+<%
+String button = "danger";
+String on_off = "Offline";
+
+	try{
+		if(login != null){
+			button = "success";
+			on_off = "Online";
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
 
 	<!-- Page Content -->
-	<div class="container">
-
+	<div class="container-fluid">
 		<div class="row">
-
-			<div class="col-md-3">
-				<p class="lead">고객센터</p>
+			<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+				<div class="profile-sidebar">
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">고객센터</div>
+						<div class="profile-usertitle-status">
+							<span class="indicator label-<%=button%>"></span><%=on_off %>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
 				<div class="list-group">
-					<a href="/cs/faq" class="list-group-item">FAQ</a> <a
-						href="/cs/qna" class="list-group-item">Q&A</a>
+					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
+						class="list-group-item">Q&A</a>
 				</div>
 			</div>

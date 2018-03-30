@@ -126,7 +126,7 @@ public class CsController {
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
-		if(qservice.read2(bno).getBpw() != null){
+		if(qservice.read2(bno).getBpw()!=null){
 			if (login != null) {
 				String id = login.getId();
 				String idc = qservice.read2(bno).getUser();

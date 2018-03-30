@@ -5,7 +5,7 @@
 <%@include file="../include/sheader.jsp"%>
 
 <!-- 개인관리 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<h1>Q&A</h1>
 
 	<table class="table table-bordered">
@@ -25,7 +25,7 @@
 				</a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
-			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
+			<td><span class="badge bg-info">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>
 			

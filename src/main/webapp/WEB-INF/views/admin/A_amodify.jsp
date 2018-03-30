@@ -12,7 +12,8 @@
 
 
 <!-- 개인정보수정 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-md-9"> -->
 
 
 
@@ -48,7 +49,7 @@
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control birth" name="birth" value="${BoardVO.birth}" required>
+				<input type="text" class="form-control birth" id="birth" name="birth" value="${BoardVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
@@ -113,17 +114,15 @@ $(function(){
 	
 	/* 수정 버튼 */
 	$(".btn-warning").on("click", function(){
-		if($('#birth').val()==''){
-			/* 생년월일이 null인 경우 */
-			console.log("#birth.val()==''");
-			$('#birth').val("0000-00-00");
-		}
-		
 		var pw = $('#pw').val();
 		var pwc = $('#pwc').val();
 		
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("수정하시겠습니까?")){
+				if($('#birth').val()==''){
+					console.log("#birth.val()==''");
+					$('#birth').val("0000-00-00");
+				}
 				formObj.submit();
 			}
 		}else{
