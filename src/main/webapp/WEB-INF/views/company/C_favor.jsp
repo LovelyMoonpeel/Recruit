@@ -6,8 +6,7 @@
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <div class="col-md-9">
-	<br> <br> <br>
-	<h1>관심인재</h1>
+	<p class="lead"><strong>관심인재</strong></p>
 
 
 	<div class="gobox1">

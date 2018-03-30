@@ -14,9 +14,10 @@
 
 <div class="col-md-9">
 
-	<div class="row">
+<p class="lead"><strong>기업 정보</strong></p>
+	<!-- <div class="row">
 		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;기업 정보</h2></label>
-	</div>	
+	</div>	 -->
 
 
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
@@ -26,7 +27,7 @@
 
 	
 		<div class="corp_logo">
-			<img src="${CInfoVO.img}"
+			<img src="${CInfoVO.img}" id="imgsrc"
 				 name="img" value="${CInfoVO.img}" style="width:200px;"/> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
@@ -99,11 +100,12 @@
 
 
 
-			
+			<p class="lead"><strong>담당자 정보</strong></p>
+			<!-- 
 			<div class="form-group col-lg-6">
 				<label><h2><br>담당자 정보</h2></label>
 			</div>
-
+ -->
 
 			<table class="table table-bordered ">	
 				<tbody>				
@@ -175,6 +177,20 @@ var result = '${msg}';
 if (result == 'SUCCESS') {
 	alert("수정이 완료됐습니다.");
 }
+
+$(document).ready(function() {
+    console.log('${PWebSitelist}');
+    var imgsrccheck = ('#imgsrccheck');
+    if ($('#imgsrccheck').val() != "") {
+       console.log(" val값 뭐임? "+$('#imgsrccheck').val());
+       console.log(" val이 널값아님");
+       $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
+    } else {
+       console.log(" val이 널값이다");
+       $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+       $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+    }
+ });
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

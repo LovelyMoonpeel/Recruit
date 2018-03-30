@@ -10,7 +10,8 @@
 <!-- Main content -->
 <!-- 기업 채용공고 목록 -->
 <div class="col-md-9">
-	<h1>채용 공고 목록</h1>
+<p class="lead"><strong>채용공고관리</strong></p>
+
 <!--소스  -->
 
 

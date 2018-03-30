@@ -5,9 +5,7 @@
 
 <!-- 문> 이 페이지는 천문필이 작성 -->
 <div class="col-md-9">
-	<div class="row">
-		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 변경</h2></label>
-	</div>
+	<p class="lead"><strong>비밀번호 변경</strong></p>
 
 
 	<table class="table">

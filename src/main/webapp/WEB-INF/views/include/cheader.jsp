@@ -62,6 +62,10 @@
 					<a href="/company/C_manage" class="list-group-item">채용공고관리</a>
 					<a href="/company/C_recom" class="list-group-item">추천인재</a>
 					<a href="/company/C_favor" class="list-group-item">관심인재</a>
-					<a href="/company/C_pass" class="list-group-item">비밀번호 변경</a>    <!--문> 3.23 추가  -->
+					<a href="/company/C_pass" class="list-group-item">비밀번호 변경</a>   <!-- 문> 3.23 추가 --> 
 				</div>
 			</div>
+			
+
+			
+			

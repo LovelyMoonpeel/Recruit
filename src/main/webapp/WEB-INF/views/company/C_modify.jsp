@@ -15,64 +15,33 @@
 <!-- 기업 페이지 -->
 				
 <form role="form" method="post" enctype="multipart/form-data">
-	<div class="col-md-9">
+	<div class="border border-primary col-md-9">
 			<!--enctype 기입 필수 -->
+	
+		
+			<p class="lead"><strong>회사 정보 수정</strong></p>
+
+
 		<div class="row">	
 			<div class="form-group col-lg-6">
-				<label><h2>&nbsp;&nbsp;회사 정보 수정</h2></label>
+				<label>회사 이미지</label>
+				<div id='uploadedList' style='width: 127px; height: 152px; border: 1px blue;'>
+					<img id='imgsrc' height="150px;" alt="${CInfoVO.img}" />
+					</div>
+				<div>
+					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}">
+					<br>
+				</div>
+				<div> 
+					<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+					<input type='hidden' id='xornot' value='0'> <input type='hidden'
+						id='preexistenceimg' value='0'>
+
+				</div>
 			</div>
-		</div>
-
-------------------------------------------------------------------------------
-		<div id='uploadedList'
-			style='width: 127px; height: 152px; border: 1px dotted blue;'>
-			<img id='imgsrc' height="150px;"
-				alt="/resources/rpjt/img/${CInfoVO.img}" />
-		</div>
-		<!--  사진 보이는 div  -->
-
-		<%-- <input id='imgsrccheck' type='hidden' value="${CInfoVO.img}" />
-		<!-- db에 있는 file img 이름 받아오는 hidden input -->
- --%>
-		<input type='hidden' id='uploadfilename' name='img'
-			value="${CInfoVO.img}">
-		<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-
-		<br> <input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-		<!--파일 업로드 하는 버튼-->
-
-		<input type='hidden' id='xornot' value='0'> <input type='hidden'
-			id='preexistenceimg' value='0'>
-
-------------------------------------------------------------------------------------
-
-		<%-- 	<div class="row">
-			<div class="form-group col-lg-6">
-				<label>현재 로고 이미지</label> 
-				<br> 
-				<input type="file" name="file" id="as" accept=".jpg,.jpeg,.png,.gif,.bmp">
-				
-				<img src="/resources/rpjt/img/${CInfoVO.img}"
-				 name="img" value="${CInfoVO.img}" style="width:200px;"/> --%>
-
+		</div>	
+			
 		
-		<!-- <input type="button" id="file">
-	
-		<script>
-		$(document).on("click","#file",function(){
-			
-			alert("");
-			alert($("#as").val() != null);
-		}) 
-		
-		</script>
-		
-			</div>
-			
-			</div> -->
-			
-			
-		</div>
 		
 		<div class="row">
 			<div class="form-group col-lg-12">
@@ -109,7 +78,7 @@
 		
 					<!-- ☆google search : datepicker -->
 		<div class="row">
-			<div class="form-group col-lg-12">
+			<div class="form-group col-lg-6">
 				<label>설립일</label>
 				<div class="input-group date" data-provide="datepicker">
 					<input type="text" class="form-control" name="establish"
@@ -167,32 +136,30 @@
 		<br>
 		
 		
-		<div class="row">	
-			<div class="form-group col-lg-6">
-				<label><h2>&nbsp;&nbsp;담당자 정보 수정</h2></label>
-			</div>
-		</div>
+		<p class="lead"><strong>담당자 정보 수정</strong></p>
 		
 		<div class="row">	
 			<div class="form-group col-lg-6">
 				<label>회사 아이디</label> <input type="text" name="id"
 					class="form-control"  value="${CInfoVO.id}" readonly>
 			</div>
+			
+			<div class="form-group col-lg-6">
+				<label>회사 이메일</label> <input type="text" name="email"
+					class="form-control"  value="${CInfoVO.email}" readonly>
+			</div>
+			
+		</div>
+
+		<div class="row">	
 			<div class="form-group col-lg-6">
 				<label>담당자</label> <input type="text" name="pname"
 					class="form-control"  value="${boardVO.pname}">
 			</div>
-		</div>
-
-		<div class="row">
+			
 			<div class="form-group col-lg-6">
 				<label>휴대폰 번호</label> <input type="text" name="phone"
 					class="form-control"  value="${CInfoVO.phone}">
-			</div>
-		
-			<div class="form-group col-lg-6">
-				<label>이메일</label> <input type="text" name="email"
-					class="form-control"  value="${CInfoVO.email}" readonly>
 			</div>
 	
 		</div>
@@ -248,10 +215,10 @@ var imgsrccheck = ('#imgsrccheck');
 
 if($('#imgsrccheck').val()!=""){
 console.log(" val이 널값아님");
-$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
 var str = "";
 str = 
-	  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
+	  "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
 	  +"</a>"
 	  +"<small data-src=${ResumeVO.img}>X</small>";
  $("#uploadedList").append(str); 
@@ -336,6 +303,31 @@ function getImageLink(fileName){
   	
   	return front + end;
   } 
+
+
+$("#uploadedList").on("click", "small", function(event){
+	event.preventDefault();
+	var that = $(this);
+	$("#uploadedList").empty();
+	console.log("img File appended deleted");
+	var fileName=$(this).attr("data-src");
+	console.log(fileName);
+	var uploadfilename = document.getElementById('uploadfilename');
+	
+	$.ajax({
+		url:"deleteFile",
+		type:"post",
+		data : {fileName:$(this).attr("data-src")},
+		dataType:"text",
+		success:function(result){
+			if(result=='deleted'){
+				console.log("img File on server deleted");
+				that.parent("div").remove();
+				$('#uploadfilename').val('');
+			}
+		}
+	});
+});
 
 
 </script>

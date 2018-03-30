@@ -22,12 +22,12 @@
 %>
 
 
-	
+
 	<input type="hidden" id="id" value="${CInfoVO.id}">
-	
+
 	
 	<div class="col-md-9">
-	<h1>채용 공고 목록</h1>
+		<p class="lead"><strong>채용공고목록에 따른 추천인재</strong></p>
 	
 		<div class='box-body'>
 

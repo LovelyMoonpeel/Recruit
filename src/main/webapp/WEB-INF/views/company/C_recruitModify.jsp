@@ -22,7 +22,7 @@
 		
 			<form role="form" method="POST">
 	<input type="hidden" name="cid" value="${CInfoVO.id}"/>
-	<h3>공고제목</h3>
+<p class="lead"><strong>채용공고 수정</strong></p>
 	
 	<div class="form-group">
 	
