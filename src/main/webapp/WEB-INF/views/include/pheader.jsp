@@ -107,11 +107,11 @@
 		<div class="col-md-3">
 			<p class="lead">마이페이지</p>
 			<div class="list-grozup">
-				<a href="/personal/index" class="list-group-item">개인정보관리</a><!-- p08 --> <a
-					href="/personal/write" class="list-group-item">이력서 작성</a> <!-- p02 --><a
-					href="/personal/manage" class="list-group-item">이력서 관리</a> <!-- p01 --><a
-					href="/personal/recom" class="list-group-item">추천채용공고</a> <!-- p04 --><a
-					href="/personal/favor" id = "P_favor" class="list-group-item">관심채용공고</a> <!-- p05 --><a
-					href="/personal/applied" class="list-group-item">지원현황리스트</a><!-- p07 -->
+				<a href="/personal/index" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a><!-- p08 --> <a
+					href="/personal/write" class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a> <!-- p02 --><a
+					href="/personal/manage" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a> <!-- p01 --><a
+					href="/personal/recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a> <!-- p04 --><a
+					href="/personal/favor" id = "P_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a> <!-- p05 --><a
+					href="/personal/applied" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a><!-- p07 -->
 			</div>
 		</div>
