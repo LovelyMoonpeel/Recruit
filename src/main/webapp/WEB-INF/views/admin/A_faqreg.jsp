@@ -25,8 +25,9 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea class="form-control" name="content" >${CsfaqVO.content}</textarea>
+				<td><textarea class="form-control" cols="7" rows="10"  name="content" style="resize:none;">${CsfaqVO.content}</textarea>
 				</td>
+				
 			</tr>
 		</table>
 	</form>

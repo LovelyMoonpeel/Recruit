@@ -236,7 +236,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 REdu 등록 -->
 	<insert id="createResumeEdu">
 	<![CDATA[
-	insert into project.tblResumeEdu(resumenum, schoolname, major, enterdate, gradudate, edustatus)
+	insert into project.tblresumeedu(resumenum, schoolname, major, enterdate, gradudate, edustatus)
 	values(#{resumenum}, #{schoolname}, #{major}, #{enterdate}, #{gradudate}, #{edustatus})
 	]]>
 	</insert>
@@ -245,7 +245,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readResumeEdu" resultType="com.recruit.domain.ResumeEduVO">
 	<![CDATA[
 	select e.*, r.*
-	from project.tblResumeEdu e, project.tblresume r
+	from project.tblresumeedu e, project.tblresume r
 	where e.resumenum=r.bno
 	]]>
 	</select>
@@ -263,7 +263,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 REdu 수정 -->
 	<update id="updateResumeEdu">
 	<![CDATA[
-	update project.tblResumeEdu
+	update project.tblresumeedu
 	set schoolname = #{schoolname}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
 	where resumenum = #{resumenum}
 	]]>
@@ -272,14 +272,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 REdu 삭제 -->
 	<delete id="deleteResumeEdu">
 	<![CDATA[
-	delete from project.tblResumeEdu where resumenum= #{bno}
+	delete from project.tblresumeedu where resumenum= #{bno}
 	]]>
 	</delete>
 	
 	<!-- r.code 03/14 추가 -->
 	<select id="deleteResumeEduList">
 		delete from
-		project.tblResumeEdu
+		project.tblresumeedu
 		where
 		resumenum=#{resumenum}
 	</select>
@@ -288,7 +288,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RCareer 등록 -->
 	<insert id="createResumeCareer">
 	<![CDATA[
-	insert into project.tblResumeCareer(resumenum, cname, jobdescription, startjob, finishjob, salary)
+	insert into project.tblresumecareer(resumenum, cname, jobdescription, startjob, finishjob, salary)
 	values(#{resumenum}, #{cname}, #{jobdescription}, #{startjob}, #{finishjob}, #{salary})
 	]]>
 	</insert>
@@ -297,7 +297,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readResumeCareer" resultType="com.recruit.domain.ResumeCareerVO">
 	<![CDATA[
 	select c.*, r.*
-	from project.tblResumeCareer c, project.tblresume r
+	from project.tblresumecareer c, project.tblresume r
 	where c.resumenum=r.bno
 	]]>
 	</select>
@@ -315,7 +315,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RCareer 수정 -->
 	<update id="updateResumeCareer">
 	<![CDATA[
-	update project.tblResumeCareer
+	update project.tblresumecareer
 	set cname = #{cname}, jobdescription = #{jobdescription}, startjob = #{startjob} , finishjob = #{finishjob} , salary = #{salary} 
 	where resumenum = #{resumenum}
 	]]>
@@ -324,14 +324,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RCareer 삭제 -->
 	<delete id="deleteResumeCareer">
 	<![CDATA[
-	delete from project.tblResumeCareer where resumenum= #{bno}
+	delete from project.tblresumecareer where resumenum= #{bno}
 	]]>
 	</delete>
 	
 	<!-- r.code 03/15 추가 : 경력 리스트 삭제 -->
 	<select id="deleteResumeCareerList">
 		delete from
-		project.tblResumeCareer
+		project.tblresumecareer
 		where
 		resumenum=#{resumenum}
 	</select>
@@ -384,7 +384,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RLang 수정 -->
 	<update id="updateResumeLanguage">
 	<![CDATA[
-	update project.tblResumeLanguage
+	update project.tblresumelanguage
 	set test = #{test}, score = #{score}, publeoffice = #{publeoffice}, acquidate = #{acquidate}
 	where rid = #{rid}
 	]]>
@@ -393,14 +393,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RLang 삭제 -->
 	<delete id="deleteResumeLanguage">
 	<![CDATA[
-	delete from project.tblResumeLanguage where rid= #{bno}
+	delete from project.tblresumelanguage where rid= #{bno}
 	]]>
 	</delete>
 	
 	<!-- 이력서 RLang 등록 -->
 	<insert id="createResumeLanguage">
 	<![CDATA[
-	insert into project.tblResumeLanguage(rid, lid, test, score, publeoffice, acquidate)
+	insert into project.tblresumelanguage(rid, lid, test, score, publeoffice, acquidate)
 	values(#{rid}, #{lid}, #{test}, #{score}, #{publeoffice}, #{acquidate})
 	]]><!-- 소연 사용 -->
 	</insert>
@@ -408,7 +408,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 RLang 삭제 -->
 	<delete id="deleteRLangList">
 	<![CDATA[
-	delete from project.tblResumeLanguage where rid= #{rid}
+	delete from project.tblresumelanguage where rid= #{rid}
 	]]>
 	</delete>
 </mapper>

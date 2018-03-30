@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -48,6 +50,8 @@ import com.recruit.service.PApplyService;
 import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 import com.recruit.service.UserService;
+import com.recruit.util.MediaUtils;
+import com.recruit.util.UploadFileUtils;
 
 
 @Controller
@@ -100,6 +104,20 @@ public class CompanyController {
 	          }
 			String id = login.getId();
 			System.out.println(id);
+			
+			// 문> 서비스객체의 CompanyInfoRead를 까면 그 기능은 id를 데리고 온다.
+			// 그 코드 뒤에 .getIntro()를 하면 해당 id의 Intro칼럼의 내용을 가지고 온다
+			// 그래서 content에 넣는다.
+			// 아래 코드들은 설명하자면 우리가 입력을 할 때는 textarea에 넣는데 입력한 것을 출력할때는 html적용이 되야 띄워쓰기, 엔터가 먹힌다. 그걸 가능하게 해주는 코드이다.
+			String content = service.CompanyInfoRead(id).getIntro();
+			String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+			String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+			String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+			
+			// 문> content4 객체를 content로 쓰겠다는거다.
+			// jsp파일 보면 $content로 되어있는 것을 볼 수 있을 것이다.
+			model.addAttribute("content", content4);
+			
 			model.addAttribute(service.CompanyInfoRead(id));
 			model.addAttribute(login); // 문> 이 줄 추가
 			return "/company/C_index";
@@ -143,25 +161,7 @@ public class CompanyController {
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
 	          }
-	         
-	         
-	/*         
-	 		String content = fservice.read(bno).getIntro();
-			String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
-			String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
-			String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
-			
-			model.addAttribute("content", content4);
-			model.addAttribute("CsfaqVO", fservice.read(bno)); 
-	         
-	         */
-	         
-	         
-	         
-	         
-	         
-	         
-	         
+	        
 			String id = login.getId();
 			CInfo.setId(id);
 			InfoFileUpload(CInfo, request, id);
@@ -218,13 +218,19 @@ public class CompanyController {
 				// 파일 명 변경
 				String ext = origName.substring(origName.lastIndexOf('.')); // 확장자
 				// 지정
+				
+				System.out.println("ext가 뭘까? = " + ext);
+				
 				String saveFileName = origName; // 기업 id + 확장자로 경로에 저장
 
+				System.out.println("saveFileName가 뭘까? = " + saveFileName);
+				
 				String imgName = id + ext;
 
 				System.out.println("이미지 파일명은 = " + imgName);
 
 				CInfo.setImg(imgName); // DB 이미지 저장
+				
 				System.out.println("CInfo 파일명은 = " + CInfo.getImg());
 
 				// 설정한 path에 파일저장
@@ -609,4 +615,64 @@ public class CompanyController {
 		
 		return "/company/C_pass";   //확인을 누른다음 보여주는 페이지
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+
+		logger.info("originalName : " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contetnType: " + file.getContentType());
+
+		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+
+		System.out.println(fileName);
+		System.out.println("deleteFile POST");
+
+		logger.info("delete file : " + fileName);
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		MediaType mType = MediaUtils.getMediaType(formatName);
+
+		if (mType != null) {
+			System.out.println("if 문 안으로 들어왔다.");
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+			System.out.println("if문 마지막");
+		}
+
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
+	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+		System.out.println("deleteResumeList POST Controller");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
+			//Rservice.deleteROne(bno);
+			rttr.addFlashAttribute("msg", "DELETE");
+			return "personal/P_manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	
 }

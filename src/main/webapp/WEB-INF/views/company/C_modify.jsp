@@ -24,8 +24,36 @@
 		
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>로고이미지</label> <br> <input type="file" name="file"
-					accept=".jpg,.jpeg,.png,.gif,.bmp">
+				<label>로고이미지</label> 
+				<br> 
+				<input type="file" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp">
+				
+				
+				
+				----------------------------------------
+				<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
+								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
+							</div> 
+							<!--  사진 보이는 div  --> 
+							
+							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
+							<!-- db에 있는 file img 이름 받아오는 hidden input -->
+							
+							<input type='hidden' id='uploadfilename' name='img'> 
+							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+
+							<br> 
+							
+							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
+							<!--파일 업로드 하는 버튼--> 
+							
+							<input type='hidden' id='xornot' value='0'> 
+							
+							<input type='hidden' id='preexistenceimg' value='0'>
+				----------------------------------------
+				
+				
+				
 			</div>
 		</div>
 		
@@ -196,6 +224,95 @@
 			language : "kr"
 		});
 	});
+</script>
+
+
+<script>
+var imgsrccheck = ('#imgsrccheck');
+
+if($('#imgsrccheck').val()!=""){
+console.log(" val이 널값아님");
+$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
+var str = "";
+str = 
+	  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
+	  +"</a>"
+	  +"<small data-src=${ResumeVO.img}>X</small>";
+ $("#uploadedList").append(str); 
+ console.log("uploadedlist에 x버튼 추가");
+ $("#preexistenceimg").val("1");
+}else{
+console.log(" val이 널값이다");
+$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+$("#preexistenceimg").val("0");
+}  
+var upload = document.getElementById('fileupload');
+var uploadedList = document.getElementById('uploadedList');
+
+if (typeof window.FileReader === 'undefined') {
+console.log("window.FileReader 'fail'");
+} else {
+console.log("window.FileReader 'success'");
+}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+
+upload.onchange = function (e) {
+
+var file = upload.files[0];
+var reader = new FileReader();
+//p542다시 보기
+$("#uploadedList").empty();
+//reader.onload start
+reader.onload = function (event) {
+	 var image = new Image();
+	 image.src = event.target.result;
+	  
+	 uploadedList.innerHTML = '';
+	 image.height = 150;
+	 uploadedList.appendChild(image);
+};//reader.onload end
+
+	 event.preventDefault();
+	 //var files = event.originalEvent.dataTransfer.files;
+	 
+	 console.log("file name");
+	 console.log(file);
+	 
+	 var formData = new FormData();
+	 
+	 formData.append("file", file);
+	 
+	 $.ajax({
+		 url:'uploadAjax',
+		 data: formData,
+		 dataType : 'text',
+		 processData : false,
+		 contentType : false,
+		 type : 'POST',
+		 success : function(data){
+			   var str = "";
+			  
+			 	console.log(data);
+			 	
+				  str = 
+					  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
+					  +"</a>"
+					  +"<small data-src="+data+">X</small>";
+
+			  $("#uploadedList").append(str); 
+			  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
+			  document.getElementById('uploadfilename').value = getImageLink(data);
+		  }//success : function(data) end
+	  });//ajax end
+console.log(file);
+reader.readAsDataURL(file);
+};//upload change end   
+
+
+
+
+
+
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

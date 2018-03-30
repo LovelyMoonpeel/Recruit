@@ -31,8 +31,10 @@
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content" 
-			readonly>${CsfaqVO.content}</textarea></td>
+			<!-- 문> textarea 부분을 수동으로 늘어나지 못하게 style을 먹였고, 
+			cols(세로)와 rows(가로)를 먹여서 가로 세로 폭을 조절했음
+			CsfaqVO.content도 content로 바꿨음(컨트롤러에서 model객체 작업을 했기때문에)   -->
+			<td>${content}</td>
 		</tr>
 	</table>
 	

@@ -49,6 +49,16 @@ public class CsController {
 		logger.info("faqread..........");
 		model.addAttribute("CsfaqVO", fservice.read(bno));
 		
+		// 문> 띄워쓰기 엔터 먹히게 코드 작성
+		// 기업쪽에 쓴 코드와 다른 점은 &lt;와 <의 위치를 바꿨다. 나머지 두 줄도 똑같이 적용했음
+		String content = fservice.read(bno).getContent();
+		String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+		String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+		String content4 = content3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
+		
+		model.addAttribute("content", content4);  // 문> 여기까지
+		
+		
 		return "/cs/S_faqread";
 	}
 

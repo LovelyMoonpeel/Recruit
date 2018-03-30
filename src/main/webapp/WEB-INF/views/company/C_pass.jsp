@@ -162,10 +162,10 @@
 		/* var ppwc = ""; */
 		
 		//A~Z랑 a~z랑 0~9만 허용, 한글은 허용 안 하기 위해
-		var ppwRegC = /[A-Za-z0-9]$/;   
+		var cpwReg = /[A-Za-z0-9]$/;   
 		
 		//특수문자는 허용 안 하기 위해
-		var pexpRegC = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+		var cexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 		
 		//chk는 잘못된 값이 들어갔을 때 제대로 값을 입력하라고 문구를 뿌리는 span태그 공간이다.
 		var chk = $('#chk');
@@ -196,36 +196,38 @@
 		//pw3는 새로운 비밀번호 확인 값, pw2는 새로운 비밀번호 값, keyup은 키보드를 눌렀다가 떼면 작동하는 기능
 		$('#pw3').keyup(function(){	
 			
-		var ppwcvalC = $('#pw3').val();
-		var ppwvalC = $('#pw2').val();
+		
+		var cpwcval = $('#pw3').val();
+		var cpwval = $('#pw2').val();
 		
 		// \s는 공백을 의미한다.
-		if(ppwcvalC.search(/\s/) != -1){
+		if(cpwcval.search(/\s/) != -1){
 			alert("공백 금지");
 			
 			//공백인데 썼으니깐 썼던거 삭제하는 기능
-			$('#pw3').val(ppwcvalC.slice(0, -1));
+			$('#pw3').val(cpwcval.slice(0, -1));
 		}
 		
 		//
-		if(!(ppwRegC.test(ppwcvalC)) && pexpRegC.test(ppwcvalC)){
+		if(!(cpwReg.test(cpwcval)) && cexpReg.test(cpwcval)){
 			alert("특수문자 금지");
 			
 			//특수문자 금지인데 썼으니깐 썼던거 삭제하는 기능
-			$('#pw3').val(ppwcvalC.slice(0, -1));
+			$('#pw3').val(cpwcval.slice(0, -1));
 		}
 		
-		ppwcvalC = $('#pw3').val();
-		ppwvalC = $('#pw2').val();
+		//다음 두 줄은 지우면 안 됨. 특수문자를 쓴 값을 데리고 오면 안 되니깐. 쓰기 전 값을 데리고 온 것임
+		cpwcval = $('#pw3').val();
+		cpwval = $('#pw2').val();
 		
 		//글자 수 제한 6이상 20이하
-		if(!(ppwcvalC.length > 5 && ppwcvalC.length <= 20)){
+		if(!(cpwcval.length > 5 && cpwcval.length <= 20)){
 			console.log("1");
         	document.getElementById("chk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
         	chk.attr("style", "color:red");		
 			/* ppwc = "no"; */
 		}else{
-			if(ppwvalC == ppwcvalC){
+			if(cpwval == cpwcval){
 				console.log("2");
 				document.getElementById("chk").innerHTML = "비밀번호가 일치합니다.";
 				chk.attr("style", "color:blue");
@@ -241,29 +243,29 @@
 	})
 
 	$('#pw2').keyup(function(){
-		var ppwvalC = $('#pw2').val();
-		var ppwcvalC = $('#pw3').val();
+		var cpwval = $('#pw2').val();
+		var cpwcval = $('#pw3').val();
 		
-		if(ppwvalC.search(/\s/) != -1){
+		if(cpwval.search(/\s/) != -1){
 			alert("공백 금지");
-			$('#pw2').val(ppwvalC.slice(0, -1));
+			$('#pw2').val(cpwval.slice(0, -1));
 		}
 		
-		if(!(ppwRegC.test(ppwvalC)) && pexpRegC.test(ppwvalC)){
+		if(!(cpwReg.test(cpwval)) && cexpReg.test(cpwval)){
 			alert("특수문자 금지");
-			$('#pw2').val(ppwcvalC.slice(0, -1));
+			$('#pw2').val(cpwval.slice(0, -1));
 		}
 		
-		ppwvalC = $('#pw2').val();
-		ppwcvalC = $('#pw3').val();
+		cpwval = $('#pw2').val();
+		cpwcval = $('#pw3').val();
 		
-		if(!(ppwvalC.length > 5 && ppwvalC.length <= 20)){
+		if(!(cpwval.length > 5 && cpwval.length <= 20)){
 			console.log("4");
         	document.getElementById("chk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
         	chk.attr("style", "color:red");
 			/* ppwc = "no"; */
 		}else{
-			if(ppwvalC == ppwcvalC){
+			if(cpwval == cpwcval){
 				console.log("5");
 				document.getElementById("chk").innerHTML = "비밀번호가 일치합니다.";
 				chk.attr("style", "color:blue");

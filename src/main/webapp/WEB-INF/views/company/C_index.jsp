@@ -32,7 +32,8 @@
 			<br>
 		</div>
 		<div class="ci_desc">
-			<p class="txt">${CInfoVO.intro}</p>
+			<!-- 문> 아래 ${content}는 model.addAttribute("content", content4);로 인해서 저렇게 쓸 수 있다 -->
+			<p class="txt">${content}</p>
 		</div>
 	</div>
 	<!-- //기업 페이지 첫번째 -->
