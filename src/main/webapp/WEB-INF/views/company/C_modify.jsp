@@ -23,7 +23,7 @@
 		
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>로고이미지</label> <br> <input type="file" name="file"
+				<label>로고이미지</label> <br> <input type="file" name="file" title="gkgkgk"
 					accept=".jpg,.jpeg,.png,.gif,.bmp">
 			</div>
 		</div>

@@ -19,17 +19,41 @@
 	</div>
 
 
-
-
-    				
+		
 	<!-- 공고 입력 부분 -->
-	<form role="form" method="POST">		
+	<form role="form" method="POST">	
+	
+	
+
+		
 		<table class="table" id="my-tbody">
+		
+		
 			<tr>
-				<th class="col-sm-3 text-center">공고제목</th>
-				<td><input type="text" name="title" class="form-control" 
-						value="${RecruitVO.title}" required></td>
+				<th class="col-sm-3 text-center" >제목</th>
+				<td><input type="text" tabindex="0" name="title" class="form-control"  
+				value="${RecruitVO.title}" data-toggle="popover"  title="구직자를 사로잡는 채용공고 제목 작성법(예시)" data-trigger="focus"  data-placement="auto top" 
+				data-content="-UX 디자인팀 일러스트레이터 경력자 모집"  required></td>
+	
 			</tr>
+			
+		<script>
+
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+        	container: 'body'
+        	
+        })
+       
+    })
+   
+</script>
+<style>
+.popover{
+    max-width: 100%;
+   
+}
+</style>
 		
 			<tr>
 				<th class="text-center">모집직종</th>
@@ -94,15 +118,18 @@
 				$(this).prop("checked",true)
 				$(this).prop("name","recruitnum");
 				$("#numText").prop("value","")
+				
 			})
 			
 			$("#numText").focusin(function(){
+				
 				$("#numText").css("background-color","rgb(255,255,255)")
 				$("#numChk > input[type='checkbox']").prop("checked",false);
 				$("#num5").prop("checked",true)
 				
 			})
 			$("#numText").focusout(function(){
+				
 				if($("#numText").val().length==0){
 				$("#numText").css("background-color","rgb(249,249,249)")
 				$("#num5").prop("checked",false)
@@ -125,7 +152,7 @@
 			</tr>
 			
 			
-			<Script>
+			<script>
 			
 			$("#states > * ").on("click",function(){
 				$("#states > * ").prop("checked",false);
@@ -134,7 +161,7 @@
 				$(this).prop("name","employstatusid");
 			})
 						
-			</Script>
+			</script>
 			<tr>
 				<th class="text-center">급여사항</th>
 				<td>
@@ -171,10 +198,47 @@
 			<tr>
 				<th class="text-center">경력</th>
 				<td>
-				
+				<div id="career">
 				<input type="checkbox" value="${CodeVO.id}"><label class="form-check-label" for="defaultCheck1">신입</label>
-				<input type="checkbox" value="${CodeVO.id}"><label class="form-check-label" for="defaultCheck1">경력</label>
+				<input type="checkbox" id="yesCareer" value="${CodeVO.id}"><label class="form-check-label" for="yesCareer">경력</label>
 				<input type="checkbox" value="${CodeVO.id}"><label class="form-check-label" for="defaultCheck1">경력무관</label>
+				</div>
+				<tbody id="careerBox" style="display:none">
+				<tr>
+				<th></th>
+				<td>
+				<div style="padding:20px 20px 20px 20px;">경력
+				
+				<select name="edu" class="selectpicker">
+						<option value="102">선택</option>
+
+						<c:forEach items="${codeList}" var="CodeVO">
+							<c:if test="${CodeVO.tid==1}">
+								<c:if test="${CodeVO.career!='신입' && CodeVO.career!='경력무관'}">
+								<option value="${CodeVO.id}">${CodeVO.career}</option>
+								</c:if>
+							</c:if>
+						</c:forEach>
+
+				</select>
+				
+				</div>
+				</td>
+				</tr>
+				</tbody>
+				
+				
+				
+				<script>
+				
+				
+				$("#yesCareer").on("click",function(){
+					$("#careerBox").css("display","");
+				})
+				
+				
+				
+				</script>
 				
 				</td>
 			</tr>
