@@ -227,7 +227,7 @@ public class SearchServiceImpl implements SearchService {
 
 			// resume
 			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
-			spanelVO.setJobstateid(listResume.get(i).getJobstateid());
+			spanelVO.setJobstateid(codeMap.get(listResume.get(i).getJobstateid()));
 
 			listPanel.add(spanelVO);
 		}

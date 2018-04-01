@@ -96,8 +96,25 @@
 		<div class="col-md-2"></div>
 	</div>
 	<!-- row -->
+	<div class="row" id="tpanel"></div>
 	<div class="row" id="spanel"></div>
 </div>
+<style>
+.resume-img, .recruit-img {
+	height: 120px;
+}
+
+.company-img {
+	width: 220px;
+}
+
+.resume-div {
+	height: 120px;
+	width: 120px;
+	overflow: hidden;
+}
+</style>
+
 <!-- /Page Content -->
 
 <script id="tmpl_sfilter" type="text/x-handlebars-template">
@@ -108,11 +125,17 @@
 </script>
 
 <script id="tmpnl_cinfo" type="text/x-handlebars-template">
-<div class="col-lg-12 result">
+<div class="col-lg-6 result">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			{{cname}} ({{userid}})<br />
-			{{title}}
+			<div class="col-md-6">
+				<img class="company-img"
+					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
+			</div>
+			<div class="col-md-6">
+				<h3>{{cname}}</h3>
+				<p>{{title}}</p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -121,13 +144,23 @@
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default">
-		<div class="panel-body">
-			{{bno}} {{cname}} (~{{period}})<br />
-			{{title}}<br />
-			({{jobgroupid}}, {{jobgroupid2}})<br />
-			{{edu}}, {{exp}}<br />
-			{{employstatusid}}<br />
-			({{rgbid}}, {{rgsid}})
+		<div align="center" class="panel-body">
+			<br />
+			<div align="center">
+				<img class="recruit-img thumbnail"
+					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
+			</div>
+			<h4>
+				<b>{{cname}}</b>
+			</h4>
+			<p>
+				<a href="javascript:;"
+					onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'><b>{{title}}</b></a>
+			</p>
+			<p>
+				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
+			</p>
+			~ {{period}}
 		</div>
 	</div>
 </div>
@@ -136,13 +169,22 @@
 <script id="tmpnl_resume" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default">
-		<div class="panel-body">
-			{{bno}} {{pname}} ({{jobstateid}})<br />
-			{{title}}<br />
-			({{jobgroupid}}, {{jobgroupid2}})<br />
-			{{edu}}, {{exp}}<br />
-			{{employstatusid}}<br />
-			({{rgbid}}, {{rgsid}})
+		<div align="center" class="panel-body">
+			<br />
+			<div class="resume-div img-circle">
+				<img class="resume-img"
+					src="https://www.petmd.com/sites/default/files/sleepy-cat-125522297.jpg">
+			</div>
+			<h4><b>{{pname}}</b></h4>
+			<p> {{jobgroupid}}, {{jobgroupid2}} <br />
+			{{exp}}
+			</p>
+			<p>
+				<a href="javascript:;"
+					onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'>{{title}}</a>
+			</p>
+			{{rgbid}}, {{rgsid}}<br />
+			[{{jobstateid}}]
 		</div>
 	</div>
 </div>
