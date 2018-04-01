@@ -7,8 +7,25 @@
 <div class="col-md-9">
 	<p class="lead"><strong>비밀번호 변경</strong></p>
 
+<table class="table table-bordered">
+		<tr class="active gobox2">
+		<td style="line-height: 200%">
 
-	<table class="table">
+			<ul style="list-style-type : circle">
+				<li>6~20자의 영문 대문자, 소문자, 숫자를 조합하여 비밀번호를 만드실 수 있습니다.</li>
+				<li>개인정보 보호를 위해 <b>6개월마다 주기적으로 비밀번호를 변경</b>해 사용하는 것이 안전합니다.</li>
+				<li>여러 사이트에 동일한 비밀번호를 사용하면 도용되기 쉬우므로 비밀번호를 주기적으로 변경해 주는 것이 안전합니다. </li>
+			</ul>
+		</td>
+		</tr>
+</table>
+
+
+
+
+
+<!-- 문> 아래 내용은 일단 구린 거 같아서 주석처리  -->
+<!-- 	<table class="table">
 		<tr>
 			<td>&nbsp;8~32자의 영문 대문자, 소문자, 숫자, 특수문자를 조합하여 비밀번호를 사용하실 수 있습니다.</td>
 		</tr>
@@ -21,8 +38,8 @@
 			<td>&nbsp;여러 사이트에 동일한 비밀번호를 사용하면 도용되기 쉬우므로 비밀번호를 주기적으로 변경해 주는 것이
 				안전합니다.</td>
 		</tr>
-	</table>
-
+	</table> -->
+<br>
 
 	<form role="form" class="form-horizontal" method="post">
 
@@ -52,6 +69,7 @@
 			<span id="chk"></span> 
 		</div>
 
+		<br>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" class="btn btn-default" id="changePw">확인</button>

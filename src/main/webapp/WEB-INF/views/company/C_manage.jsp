@@ -127,8 +127,23 @@
     </div>
 	 
 
+<table class="table table-bordered">
+		<tr class="active gobox2">
+		<td style="line-height: 200%">
 
-	
+			<ul style="list-style-type : circle">
+				<li>진행중 공고의 게재 기간은  <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br> 
+				<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li> <br>
+				<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li><br>
+				<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
+			</ul>
+		</td>
+		</tr>
+</table>
+
+
+
+<!-- 문> 반응형이 적용 안 되서 일단 주석처리
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
 			<ul>
@@ -138,7 +153,7 @@
 				<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	
 </div>
 <!-- //기업 채용공고 목록 끝 -->

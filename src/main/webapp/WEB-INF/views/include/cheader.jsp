@@ -26,6 +26,24 @@
     <![endif]-->
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<!-- 문> 관심인재에 있던거 끌어다가 여기 공통으로 넣어놨음 -->
+<style>
+
+.gobox1{
+	width: 740px; 
+	padding: 0 0 15px 0; /*시계방향으로 패팅 설정  */
+	margin: 0;
+}
+.gobox2{
+	border: 1px solid #c1d1f2; 
+	background-color: #f4f9ff; 
+	padding: 50px;
+	line-height: 200%;
+	font-size:16px;
+}
+</style> <!-- //요기까지  -->
+
 </head>
 
 <body>

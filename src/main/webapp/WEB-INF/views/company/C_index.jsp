@@ -14,7 +14,9 @@
 
 <div class="col-md-9">
 
-<p class="lead"><strong>기업 정보</strong></p>
+	<p class="lead"><strong>기업 정보</strong></p>
+	
+	<!-- 문> 바꾸기 전에 이렇게 썼음, 어떻게 될 지 몰라서 그냥 냅둠  -->
 	<!-- <div class="row">
 		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;기업 정보</h2></label>
 	</div>	 -->
@@ -49,84 +51,68 @@
 					<tr>
 						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
 						<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-						<th class="table-active" scope="row">기업명</th>
-						<td>${CInfoVO.cname}</td>
-						<th class="table-active" scope="row">대표자명</th>
-						<td>${CInfoVO.ceo}</td>
+						<th class="table-activec col-lg-2" scope="row" style="text-align: center;">기업명</th>
+						<td class="table-activec col-lg-4">${CInfoVO.cname}</td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;">대표자명</th>
+						<td class="table-activec col-lg-4">${CInfoVO.ceo}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">업종</th>
+						<th class="table-active" scope="row" style="text-align: center;">업종</th>
 						<td colspan="3">${CInfoVO.ctype}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">기업형태</th>
+						<th class="table-active" scope="row" style="text-align: center;">기업형태</th>
 						<td colspan="3">${CInfoVO.form}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">설립일</th>
+						<th class="table-active" scope="row" style="text-align: center;">설립일</th>
 						<td colspan="3">${CInfoVO.establish}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">사원수</th>
+						<th class="table-active" scope="row" style="text-align: center;">사원수</th>
 						<td>${CInfoVO.numemp} 명</td>
-						<th class="table-active" scope="row">매출액</th>
+						<th class="table-active" scope="row" style="text-align: center;">매출액</th>
 						<td>${CInfoVO.sales}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">대표전화</th>
+						<th class="table-active" scope="row" style="text-align: center;">대표전화</th>
 						<td>${CInfoVO.tel}</td>
-						<th class="table-active" scope="row">FAX</th>
+						<th class="table-active" scope="row" style="text-align: center;">FAX</th>
 						<td>${CInfoVO.fax}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">홈페이지</th>
+						<th class="table-active" scope="row" style="text-align: center;">홈페이지</th>
 						<td><a href="${CInfoVO.homepage}" class="link_site"
 							target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
-						<th class="table-active" scope="row">SNS</th>
+						<th class="table-active" scope="row" style="text-align: center;">SNS</th>
 						<td><a href="${CInfoVO.sns}"
 							class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row">기업주소</th>
+						<th class="table-active" scope="row" style="text-align: center;">기업주소</th>
 						<td colspan="3">${CInfoVO.location}</td>
 					</tr>
-					<!-- ★복지는 2차 개발 -->
-					<!-- <tr>
-                        <th class="table-active" scope="row">복지</th>
-                        <td colspan="3">하하하하하하 </td>
-                      </tr> -->
 				</tbody>
 			</table>
 
 
-
+			<br>
+			<br>
 			<p class="lead"><strong>담당자 정보</strong></p>
-			<!-- 
-			<div class="form-group col-lg-6">
-				<label><h2><br>담당자 정보</h2></label>
-			</div>
- -->
 
 			<table class="table table-bordered ">	
-				<tbody>				
+				<tbody>		
 					<tr>
-						<th class="table-active" scope="row" >회사 아이디</th>
-						<td colspan="3">${CInfoVO.id}</td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;">회사 아이디</th>
+						<td class="table-activec col-lg-4">${CInfoVO.id}</td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;">회사 이메일</th>
+						<td class="table-activec col-lg-4">${CInfoVO.email}</td>
 					</tr>
-					
 					<tr>
-						<th class="table-active" scope="row" >담당자</th>
-						<td colspan="3">${boardVO.pname}</td>
-					</tr>
-					
-					<tr>
-						<th class="table-active" scope="row" name="phone" >휴대폰 번호</th>
-						<td colspan="3">${CInfoVO.phone}</td>
-					</tr> 
-					
-					<tr>
-						<th class="table-active" scope="row" >이메일</th>
-						<td colspan="3">${CInfoVO.email}</td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;">담당자</th>
+						<td class="table-activec col-lg-4">${boardVO.pname}</td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;">담당자 전화번호</th>
+						<td class="table-activec col-lg-4">${CInfoVO.phone}</td>
 					</tr>
 				</tbody>
 			</table>
