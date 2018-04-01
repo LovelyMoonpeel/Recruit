@@ -408,7 +408,7 @@
 
 	<div class="form-group col-md-2">
 		<label for="lid">언어 선택</label>
-		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}>
 			{{#select lid}}
 			<option value="102">선택</option>
 			<option value="102" selected>선택</option>
@@ -504,6 +504,7 @@ $(document).ready(function(){
 	   
 	   if($('#title').val()==''){
 		   alert("제목을 입력해주세요!");
+		   return;
 	   }else{
 		   if($('#birth').val()==''){
 				console.log("#birth.val()==''");

@@ -920,7 +920,8 @@ $(document).ready(function() {
 	function edu_list() {
 		var len = (${eduVOlist.size()});
 		
-		<c:forEach items="${eduVOlist}" var="eduVO">
+		if( len > 0 ) {
+			<c:forEach items="${eduVOlist}" var="eduVO">
 			var item = {
 					resumenum : ${eduVO.resumenum},
 					schoolname : "${eduVO.schoolname}",
@@ -930,23 +931,49 @@ $(document).ready(function() {
 					edustatus : ${eduVO.edustatus}
 				};
 			add_edu(item);
-		</c:forEach>
+			</c:forEach> 
+		} else {
+			var item = {
+					resumenum : 0,
+					schoolname : "",
+					major : "",
+					enterdate : "",
+					gradudate : "",
+					edustatus : "",
+				};
+			add_edu(item);
+		}
+		
 	}
 	
 	function exp_list() {
 		var len = (${careerVOList.size()});
-		<c:forEach items="${careerVOList}" var="careerVO">
+		
+		if( len > 0 ) {
+			<c:forEach items="${careerVOList}" var="careerVO">
+				var item = {
+						resumenum : ${careerVO.resumenum},
+						cname : "${careerVO.cname}",
+						jobdescription : "${careerVO.jobdescription}",
+						startjob : "${careerVO.startjob}",
+						finishjob : "${careerVO.finishjob}",
+						salary : ${careerVO.salary}
+					};
+				
+				add_exp(item);
+			</c:forEach>
+		} else {
 			var item = {
-					resumenum : ${careerVO.resumenum},
-					cname : "${careerVO.cname}",
-					jobdescription : "${careerVO.jobdescription}",
-					startjob : "${careerVO.startjob}",
-					finishjob : "${careerVO.finishjob}",
-					salary : ${careerVO.salary}
+					resumenum : 0,
+					//cname : "${careerVO.cname}",
+					cname : "",
+					jobdescription : "",
+					startjob : "",
+					finishjob : "",
+					salary : ""
 				};
-			
 			add_exp(item);
-		</c:forEach>
+		}
 	}		
 	function web_list() {
 		var len = (${PWebSiteVOlist.size()});

@@ -72,6 +72,7 @@
                </tr>
             </c:forEach>
             
+            
 			<c:if test="${fn:length(eduVOlist) > 0}">
             <tr>
                   <th class="table-active" colspan="2" scope="row"
@@ -205,7 +206,7 @@
                </tr>
             </c:forEach>
           </c:if>
-			
+			 <c:if test="${fn:length(RLanguagelist) > 0}">
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">어학능력 자격증 목록</th>
@@ -232,7 +233,8 @@
                   <td style="text-align: center;">${ResumeLanguageVO.acquidate}</td>
                </tr>
             </c:forEach>
-
+			</c:if>
+			
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">자기소개서</th>
