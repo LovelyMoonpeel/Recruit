@@ -201,7 +201,7 @@ public class SRestController {
 				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
 			}
 			// 기업정보 추가
-			spanelVOList.addAll(searchService.getCInforList(searchService.getCInforList(spanelVOList)));
+			spanelVOList.addAll(searchService.getCInforList(spanelVOList));
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -305,6 +305,14 @@ public class SearchServiceImpl implements SearchService {
 			cSet.add(itr.next().getUserid());
 
 		List<String> cList = new ArrayList<String>(cSet);
-		return searchDAO.selectCInfo(cList);
+		spanelVOList = searchDAO.selectCInfo(cList);
+		int spanelVONum = spanelVOList.size();
+		for (int i = 0; i < spanelVONum; i++) {
+			String title = spanelVOList.get(i).getTitle();
+			if (title.length() > 70) {
+				spanelVOList.get(i).setTitle(title.substring(0, 70) + "...");
+			}
+		}
+		return spanelVOList;
 	}
 }

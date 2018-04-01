@@ -97,7 +97,7 @@
 	</div>
 	<!-- row -->
 	<div class="row" id="tpanel"></div>
-	<div class="row" id="spanel"></div>
+	<div id="spanel"></div>
 </div>
 <style>
 .resume-img, .recruit-img {
@@ -113,6 +113,14 @@
 	width: 120px;
 	overflow: hidden;
 }
+
+.fixed-panelr {
+	min-height: 350px;
+}
+
+.fixed-panelc {
+	min-height: 200px;
+}
 </style>
 
 <!-- /Page Content -->
@@ -125,15 +133,15 @@
 </script>
 
 <script id="tmpnl_cinfo" type="text/x-handlebars-template">
-<div class="col-lg-6 result">
-	<div class="panel panel-default">
+<div class="col-lg-6 result" onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'>
+	<div class="panel panel-default fixed-panelc">
 		<div class="panel-body">
 			<div class="col-md-6">
 				<img class="company-img"
 					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
 			</div>
 			<div class="col-md-6">
-				<h3>{{cname}}</h3>
+				<h3><b>{{cname}}</b></h3>
 				<p>{{title}}</p>
 			</div>
 		</div>
@@ -143,7 +151,7 @@
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
-	<div class="panel panel-default">
+	<div class="panel panel-default fixed-panelr">
 		<div align="center" class="panel-body">
 			<br />
 			<div align="center">
@@ -168,7 +176,7 @@
 
 <script id="tmpnl_resume" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
-	<div class="panel panel-default">
+	<div class="panel panel-default fixed-panelr">
 		<div align="center" class="panel-body">
 			<br />
 			<div class="resume-div img-circle">
@@ -280,7 +288,7 @@
 			cname : that.cname,
 			period : that.period
 		};
-		$("#spanelc").after(template_pnl(item));
+		$("#spanelc").append(template_pnl(item));
 	}
 
 	// 채용공고 판넬 연결
@@ -301,7 +309,7 @@
 			cname : that.cname,
 			period : that.period
 		};
-		$("#spanelr").after(template_pnl(item));
+		$("#spanelr").append(template_pnl(item));
 	}
 
 	// 이력서 판넬 연결
@@ -322,7 +330,7 @@
 			pname : that.pname,
 			jobstateid : that.jobstateid
 		};
-		$("#spanel").append(template_pnl(item));
+		$("#spanelr").append(template_pnl(item));
 	}
 
 	// Recruit 판넬 List 생성
@@ -341,11 +349,12 @@
 				dataR.push(data[i]);
 		}
 
-		var rtitle = '<h4 id="spanelc"><br/><b>&nbsp; &nbsp; 기업정보('
-				+ dataC.length + ')</b><br/><br/></h4>';
-		rtitle += '<h4 id="spanelr"><span style="color:white;">_</span><br/>'
-				+ '<br/><b>&nbsp; &nbsp; 채용공고(' + dataR.length
-				+ ')</b><br/><br/></h4>';
+		var rtitle = '<div class="row" id="spanelc"><h4><br/><b>&nbsp; &nbsp; 기업정보('
+				+ dataC.length + ')</b><br/><br/></h4></div>';
+		rtitle += '<div class="row" id="spanelr"><h4><span style="color:white;">_</span><br/>'
+				+ '<br/><b>&nbsp; &nbsp; 채용공고('
+				+ dataR.length
+				+ ')</b><br/><br/></h4></div>';
 		$("#spanel").append(rtitle);
 
 		var source_pnl = $("#tmpnl_cinfo").html();
@@ -372,8 +381,8 @@
 		inum = 0;
 		deletespanel();
 
-		var rtitle = '<h4 id="spanelr"><br/><b>&nbsp; &nbsp; 인재정보('
-				+ data.length + ')</b><br/><br/></h4>';
+		var rtitle = '<div class="row" id="spanelr"><h4><br/><b>&nbsp; &nbsp; 인재정보('
+				+ data.length + ')</b><br/><br/></h4></div>';
 		$("#spanel").append(rtitle);
 
 		var source_pnl = $("#tmpnl_resume").html();
