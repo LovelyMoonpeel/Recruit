@@ -143,7 +143,7 @@
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
 <script id="template_tel" type="text/x-handlebars-template">
-<div class="row">
+<div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
@@ -160,7 +160,7 @@
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label>
+		<label id="tel_label">추가/삭제</label>
 		<br>
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -173,26 +173,24 @@
 <!-- end of row -->
 </script>
 <script id="template_edu" type="text/x-handlebars-template">
-<div class="row">
+<div class="row edu_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-2">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu"
-				name="listEdu[].enterdate" value="{{enterdate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control enterdate edu edudates"
+				name="listEdu[].enterdate" value="{{enterdate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
 	<div class="form-group col-md-2">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"
-				name="listEdu[].gradudate" value="{{gradudate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control gradudate edu edudates"
+				name="listEdu[].gradudate" value="{{gradudate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
-		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
-		<!-- value="${ResumeEduVO.gradudate}"></input> -->
 	</div>
 	<div class="form-group col-md-3">
 		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
@@ -206,7 +204,7 @@
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="15">재학</option>
 			<option value="16">졸업</option>
 			<option value="17">중퇴</option>
@@ -214,11 +212,9 @@
 			<option value="19">휴학</option>
 			{{/select}}
 		</select>
-		<!-- <input class="form-control" id="edustatus" name="edustatus" -->
-		<!-- value="${ResumeEduVO.edustatus}"></input> -->
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="edu_label">추가/삭제</label><br />
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -230,23 +226,23 @@
 <!-- end of row -->
 </script>
 <script id="template_exp" type="text/x-handlebars-template">
-<div class="row">
+<div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].startjob"
+			<input type="text" class="form-control career careerdates" name="listCareer[].startjob"
 				value="{{startjob}}"> <span
-				class="input-group-addon"> </span>
+				class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career"
+			<input type="text" class="form-control career careerdates"
 				name="listCareer[].finishjob" value="{{finishjob}}"> <span
-				class="input-group-addon"> </span>
+				class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
@@ -262,7 +258,7 @@
 		<label for="salary">연봉</label>
 		<select class="form-control career" name="listCareer[].salary">
 			{{#select salary}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="34">~ 2,000</option>
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
@@ -283,11 +279,9 @@
 			<option value="51">10,500 ~</option>
 			{{/select}}
 		</select>
-		<!-- <input class="form-control" id="salary" name="salary" -->
-		<!-- value="${ResumeCareerVO.salary}"></input> -->
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="exp_label">추가/삭제</label><br />
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -299,7 +293,7 @@
 <!-- end of row -->
 </script>
 <script id="template_web" type="text/x-handlebars-template">
-<div class="row">
+<div class="row web_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
@@ -315,7 +309,7 @@
 	</div>
 
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="web_label">추가/삭제</label><br />
 		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -328,7 +322,7 @@
 <!-- end of row -->
 </script>
  <script id="template_license" type="text/x-handlebars-template">
-<div class="row">
+<div class="row license_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
 	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
@@ -352,7 +346,7 @@
 	</div>
 
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br/>
+		<label id="license_label">추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -366,7 +360,7 @@
 </script>           
             
  <script id="template_language" type="text/x-handlebars-template">
-<div class="row">
+<div class="row lang_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
@@ -433,7 +427,7 @@
 		</div>
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br/>
+		<label id="lang_label">추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -620,6 +614,22 @@ $(document).ready(function() {
 			if($(this).val()==''){
 				console.log($(this).val());
 				console.log(".languageacquidate.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		$('.careerdates').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".careerdates.val()==''");
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		$('.edudates').each(function(){ 
+			if($(this).val()==''){
+				console.log($(this).val());
+				console.log(".edudates.val()==''");
 				$(this).val("0000-00-00");
 				console.log($(this).val());
 			}
@@ -1002,6 +1012,48 @@ $(document).ready(function() {
 	web_list();
 	license_list();
 	language_list();
+	
+	minus_btn();
+	
+	function minus_btn(){
+		$('.tel_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#tel_label').text('추가');
+				$(this).find('.tel_minus_btn').hide();
+			}
+		});
+		$('.edu_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#edu_label').text('추가');
+				$(this).find('.edu_minus_btn').hide();
+			}
+		});
+		$('.exp_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#exp_label').text('추가');
+				$(this).find('.exp_minus_btn').hide();
+			}
+		});
+		$('.web_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#web_label').text('추가');
+				$(this).find('.web_minus_btn').hide();
+			}
+		});
+		$('.license_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#license_label').text('추가');
+				$(this).find('.license_minus_btn').hide();
+			}
+		});
+		$('.lang_row_number').each(function(index) {
+			if($(this).index()==0){
+				$(this).find('#lang_label').text('추가');
+				$(this).find('.lang_minus_btn').hide();
+			}
+		});
+	}
+});
 });
 </script>
 
