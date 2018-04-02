@@ -133,15 +133,20 @@
 </script>
 
 <script id="tmpnl_cinfo" type="text/x-handlebars-template">
-<div class="col-lg-6 result" onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'>
+<div class="col-lg-6 result">
 	<div class="panel panel-default fixed-panelc">
 		<div class="panel-body">
 			<div class="col-md-6">
-				<img class="company-img"
+				<a href="http://www.google.com"
+					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+					<img class="company-img"
 					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
+				</a>
 			</div>
 			<div class="col-md-6">
-				<h3><b>{{cname}}</b></h3>
+				<h3>
+					<b>{{cname}}</b>
+				</h3>
 				<p>{{title}}</p>
 			</div>
 		</div>
@@ -162,8 +167,8 @@
 				<b>{{cname}}</b>
 			</h4>
 			<p>
-				<a href="javascript:;"
-					onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'><b>{{title}}</b></a>
+				<a href="http://www.google.com"
+					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
@@ -181,15 +186,15 @@
 			<br />
 			<div class="resume-div img-circle">
 				<img class="resume-img"
-					src="https://www.petmd.com/sites/default/files/sleepy-cat-125522297.jpg">
+					src="/personal/displayFile?fileName={{img}}">
 			</div>
-			<h4><b>{{pname}}</b></h4>
+			<h4><b>{{bno}} {{pname}}</b></h4>
 			<p> {{jobgroupid}}, {{jobgroupid2}} <br />
 			{{exp}}
 			</p>
 			<p>
-				<a href="javascript:;"
-					onclick='window.open("http://www.google.com", "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );'>{{title}}</a>
+				<a href="/personal/detail_nonavi?bno={{bno}}"
+					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>{{title}}</a>
 			</p>
 			{{rgbid}}, {{rgsid}}<br />
 			[{{jobstateid}}]

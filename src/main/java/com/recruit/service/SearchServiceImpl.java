@@ -223,7 +223,15 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setEmploystatusid(codeMap.get(listResume.get(i).getEmploystatusid()));
 			spanelVO.setEdu(codeMap.get(listResume.get(i).getLevelofeducation()));
 			spanelVO.setExp(codeMap.get(listResume.get(i).getLastcareer()));
-			spanelVO.setImg(listResume.get(i).getImg());
+
+			// image push
+			String imageName = listResume.get(i).getImg();
+			if (imageName != null) {
+				spanelVO.setImg(imageName);
+				// spanelVO.setImg("/DogImage.png");
+			} else {
+				spanelVO.setImg("/NoImage.png");
+			}
 
 			// resume
 			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
