@@ -172,12 +172,31 @@
 		<h4>
 			<b>학력사항</b>
 		</h4>
-		<div id="edu_div"></div>
+		<div class="form-group col-md-3"><h4><b>학력사항</b></h4></div>
+		<select class="form-control" name=levelofeducation id="CodeList2">
+          <c:forEach items="${CodeVOlist }" var="CodeVO">
+             <c:if test="${CodeVO.tid == 2 }">
+	             <c:if test="${CodeVO.id<=13 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+             </c:if>
+          </c:forEach>
+       </select>
+       <div id="edu_div"></div>
+       
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>경력사항</b>
 		</h4>
-		<div id="exp_div"></div>
+		<div class="form-group col-md-3"><h4><b>경력사항</b></h4></div>
+		<select class="form-control " name="lastcareer" id="CodeList1">
+          <c:forEach items="${CodeVOlist }" var="CodeVO">
+             <c:if test="${CodeVO.tid == 1 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
+          </c:forEach>
+       </select>
+       <div id="exp_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
@@ -250,36 +269,38 @@
 </div>
 <!-- end of row -->
 </script>
+
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
-	<div class="form-group col-md-2">
+	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	
+	<div class="form-group col-md-3">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu"
-				name="listEdu[].enterdate" value="{{enterdate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control enterdate edu date" name="listEdu[].enterdate" value="{{enterdate}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
-	<div class="form-group col-md-2">
+	
+	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"
-				name="listEdu[].gradudate" value="{{gradudate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control gradudate edu date"name="listEdu[].gradudate" value="{{gradudate}}"> 
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
-		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
-		<!-- value="${ResumeEduVO.gradudate}"></input> -->
 	</div>
+
+	<div class="form-group col-md-3" >
+		<label for="schoolname">학교명</label> 
+		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
+	</div>
+	
 	<div class="form-group col-md-3">
-		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
-			name="listEdu[].schoolname" value="{{schoolname}}"></input>
+		<label for="major">학과</label> 
+		<input class="form-control major edu" name="listEdu[].major" value="{{major}}"></input>
 	</div>
-	<div class="form-group col-md-2">
-		<label for="major">학과</label> <input class="form-control major edu"
-			name="listEdu[].major" value="{{major}}"></input>
-	</div>
+	
 	<div class="form-group col-md-2">
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
@@ -292,16 +313,15 @@
 			<option value="19">휴학</option>
 			{{/select}}
 		</select>
-		<!-- <input class="form-control" id="edustatus" name="edustatus" -->
-		<!-- value="${ResumeEduVO.edustatus}"></input> -->
 	</div>
+	
 	<div class="form-group col-md-2">
 		<label>추가/삭제</label><br />
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default btn-sm edu_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+
+		<button class="btn btn-default btn-sm edu_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -315,7 +335,7 @@
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].startjob"
+			<input type="text" class="form-control career date" name="listCareer[].startjob"
 				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
@@ -323,7 +343,7 @@
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career"
+			<input type="text" class="form-control career date"
 				name="listCareer[].finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
@@ -370,8 +390,7 @@
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button class="btn btn-default exp_minus_btn" type="button"
-			onclick="$(this).closest('.row').remove();">
+		<button class="btn btn-default exp_minus_btn" type="button">
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
@@ -527,6 +546,8 @@
 </div>
 <!-- end of row -->
 </script>
+
+
 <script type='text/javascript'>
 $(document).ready(function() {
 		
@@ -577,6 +598,7 @@ $(document).ready(function() {
 		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
 		$("#preexistenceimg").val("0");
 	}  
+
 	var upload = document.getElementById('fileupload');
     var uploadedList = document.getElementById('uploadedList');
   
@@ -715,6 +737,14 @@ $(document).ready(function() {
 			}
 		});
 		
+		$('.date').each(function(){ 
+			if($(this).val()==''){
+				console.log("date!!!!"+$(this).val());
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
 		if($("#xornot").val()==0){
 			console.log("xornot.val()==0");
 			console.log("사진 삭제 안함");
@@ -797,43 +827,53 @@ $(document).ready(function() {
 	// tel 추가버튼 이벤트
 	$("#tel_div").on("click", ".tel_plus_btn", function(){
 		 var item = {
-			rid : ${ResumeVO.bno}
-		}; 
+				rid : ${ResumeVO.bno}
+			}; 
 		add_tel(item);
 	});
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
-			resumenum : ${ResumeVO.bno}
-		};
+				resumenum : 0,
+			};
 		add_edu(item);
+	});
+	//edu minus 버튼 이벤트
+	$("#edu_div").on("click", ".edu_minus_btn", function(){
+		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
+		 console.log(edu_index);
+		 if(edu_index!=0){
+			 $(this).closest('.row').remove();
+		 }else{
+			 alert("기본 칸입니다.");
+		 }
 	});
 	// exp 추가버튼 이벤트
 	$("#exp_div").on("click", ".exp_plus_btn", function(){
 		var item = {
-			resumenum : ${ResumeVO.bno}
-		};
+				resumenum : ${ResumeVO.bno}
+			};
 		add_exp(item);
 	});
 	//웹 추가 버튼 이벤트
 	$("#web_div").on("click", ".web_plus_btn", function(){
 		var item = {
-			rid : ${ResumeVO.bno}
-		};
+				rid : ${ResumeVO.bno}
+			};
 		add_web(item);
 	});
 	//자격증 추가 버튼 이벤트
 	$("#license_div").on("click", ".license_plus_btn", function(){
 		var item = {
-			rid : ${ResumeVO.bno}
+				rid : ${ResumeVO.bno}
 		};
 		add_license(item);
 	});
 	//언어 추가 버튼 이벤트
 	$("#language_div").on("click", ".lang_plus_btn", function(){
 		var item = {
-			rid : ${ResumeVO.bno}
-		};
+				rid : ${ResumeVO.bno}
+			};
 		add_language(item);
 	});
 	function add_tel(item) {
@@ -877,10 +917,10 @@ $(document).ready(function() {
 		
 		<c:forEach items="${PTelVOlist}" var="PTelVO">
 			var item = {
-				telid : ${PTelVO.telid},
-				rid : ${PTelVO.rid},
-				teltitle : "${PTelVO.teltitle}", 
-				tel : "${PTelVO.tel}" 
+					telid : ${PTelVO.telid},
+					rid : ${PTelVO.rid},
+					teltitle : "${PTelVO.teltitle}", 
+					tel : "${PTelVO.tel}" 
 			};
 			add_tel(item);
 		</c:forEach>
@@ -888,42 +928,69 @@ $(document).ready(function() {
 	function edu_list() {
 		var len = (${eduVOlist.size()});
 		
-		<c:forEach items="${eduVOlist}" var="eduVO">
+		if( len > 0 ) {
+			<c:forEach items="${eduVOlist}" var="eduVO">
 			var item = {
-				resumenum : ${eduVO.resumenum},
-				schoolname : "${eduVO.schoolname}",
-				major : "${eduVO.major}",
-				enterdate : "${eduVO.enterdate}",
-				gradudate : "${eduVO.gradudate}",
-				edustatus : ${eduVO.edustatus}
-			};
+					resumenum : ${eduVO.resumenum},
+					schoolname : "${eduVO.schoolname}",
+					major : "${eduVO.major}",
+					enterdate : "${eduVO.enterdate}",
+					gradudate : "${eduVO.gradudate}",
+					edustatus : ${eduVO.edustatus}
+				};
 			add_edu(item);
-		</c:forEach>
+			</c:forEach> 
+		} else {
+			var item = {
+					resumenum : ${ResumeVO.bno},
+					schoolname : "",
+					major : "",
+					enterdate : "",
+					gradudate : "",
+					edustatus : "",
+				};
+			add_edu(item);
+		}
+		
 	}
 	
 	function exp_list() {
 		var len = (${careerVOList.size()});
-		<c:forEach items="${careerVOList}" var="careerVO">
+		
+		if( len > 0 ) {
+			<c:forEach items="${careerVOList}" var="careerVO">
+				var item = {
+						resumenum : ${careerVO.resumenum},
+						cname : "${careerVO.cname}",
+						jobdescription : "${careerVO.jobdescription}",
+						startjob : "${careerVO.startjob}",
+						finishjob : "${careerVO.finishjob}",
+						salary : ${careerVO.salary}
+					};
+				
+				add_exp(item);
+			</c:forEach>
+		} else {
 			var item = {
-				resumenum : ${careerVO.resumenum},
-				cname : "${careerVO.cname}",
-				jobdescription : "${careerVO.jobdescription}",
-				startjob : "${careerVO.startjob}",
-				finishjob : "${careerVO.finishjob}",
-				salary : ${careerVO.salary}
-			};
-			
+					resumenum : ${ResumeVO.bno},
+					//cname : "${careerVO.cname}",
+					cname : "",
+					jobdescription : "",
+					startjob : "",
+					finishjob : "",
+					salary : ""
+				};
 			add_exp(item);
-		</c:forEach>
+		}
 	}		
 	function web_list() {
 		var len = (${PWebSiteVOlist.size()});
 		<c:forEach items="${PWebSiteVOlist}" var="PWebSiteVO">
 			var item = {
-				webid : ${PWebSiteVO.webid},
-				rid : ${PWebSiteVO.rid},
-				webtitle : "${PWebSiteVO.webtitle}", 
-				webadd : "${PWebSiteVO.webadd}"
+					webid : ${PWebSiteVO.webid},
+					rid : ${PWebSiteVO.rid},
+					webtitle : "${PWebSiteVO.webtitle}", 
+					webadd : "${PWebSiteVO.webadd}"
 			};
 			add_web(item);
 		</c:forEach>
@@ -934,10 +1001,11 @@ $(document).ready(function() {
 		
 		<c:forEach items="${RLicenselist}" var="RLicenseVO">
 			var item = {
-				rid : ${RLicenseVO.rid},
-				licensename : "${RLicenseVO.licensename}", 
-				publeoffice : "${RLicenseVO.publeoffice}",
-				acquidate : "${RLicenseVO.acquidate}"
+					licenseid : ${RLicenseVO.licenseid},
+					rid : ${RLicenseVO.rid},
+					licensename : "${RLicenseVO.licensename}", 
+					publeoffice : "${RLicenseVO.publeoffice}",
+					acquidate : "${RLicenseVO.acquidate}"
 			};
 			add_license(item);
 		</c:forEach>
@@ -947,12 +1015,12 @@ $(document).ready(function() {
 		
 		<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
 			var item = {
-				rid : ${ResumeLanguageVO.rid},
-				lid : ${ResumeLanguageVO.lid},
-				test : "${ResumeLanguageVO.test}", 
-				score : "${ResumeLanguageVO.score}",
-				publeoffice : "${ResumeLanguageVO.publeoffice}",
-				acquidate : "${ResumeLanguageVO.acquidate}"
+					rid : ${ResumeLanguageVO.rid},
+					lid : ${ResumeLanguageVO.lid},
+					test : "${ResumeLanguageVO.test}", 
+					score : "${ResumeLanguageVO.score}",
+					publeoffice : "${ResumeLanguageVO.publeoffice}",
+					acquidate : "${ResumeLanguageVO.acquidate}"
 			};
 			add_language(item);
 		</c:forEach>
@@ -985,15 +1053,19 @@ $(document).ready(function() {
                   str += "<option value="+this.id+
                   " "+selected+">"+ this.jobgroup + "</option>";
                });
+
          $("#subjobGroup").html(str);
       })
    }
+
    function SubRegion2(largeNum) {
+
       $.getJSON("/companyAjax/region/" + largeNum, function(data) {
          var str = "";
          <c:set value="${ResumeVO.rgsid}" var="sid"/>
          var selec = '<c:out value="${sid}"/>';
          var select = "";
+
          $(data).each(
                function() {
                   if(selec==this.rgsid){
@@ -1003,7 +1075,9 @@ $(document).ready(function() {
                   }
                   str += "<option value="+this.rgsid+
                   " " + select + ">" + this.rgsname + "</option>";
+
                });
+
          $("#subRegion").html(str);
       })
    }
@@ -1040,7 +1114,7 @@ $(document).ready(function() {
          $("#subRegion").html(str);
       })
    }
-   
   // <!--j.code 03/22 : jobGroup, region 소분류 받는 작업 끝-->
+
 </script>
 <%@include file="../include/cfooter.jsp"%>

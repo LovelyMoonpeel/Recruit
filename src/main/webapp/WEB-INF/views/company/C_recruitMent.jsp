@@ -21,7 +21,7 @@ font: 11px/100% Arial, Helvetica, sans-serif;
 text-transform: uppercase; 
 text-decoration: none; 
 color: #bbb; 
-
+z-index:10;
 /* transition */ 
 -webkit-transition: 1s; 
 -moz-transition: 1s; 

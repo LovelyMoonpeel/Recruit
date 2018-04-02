@@ -25,7 +25,7 @@
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"></td>
 				
 				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
-				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}" name="publicornot" id="${status.count }"></span></a></td>
+				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}" id="${status.count }"></span></a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
 			</tr>

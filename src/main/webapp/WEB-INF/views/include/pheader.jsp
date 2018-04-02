@@ -35,11 +35,11 @@
   -moz-border-radius: 9px;
   border-radius: 9px;
 }
-.badge:hover {
+/* .badge:hover {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-}
+} */
 .badge-error {
   background-color: #b94a48;
 }
@@ -55,21 +55,21 @@
 .badge-primary {
   background-color: #2f79b9;
 }
-.badge-primary:hover {
+/* .badge-primary:hover {
   background-color: #356635;
-}
+} */
 .badge-success {
   background-color: #58b957;
 }
-.badge-success:hover {
+/* .badge-success:hover {
   background-color: #356635;
-}
+} */
 .badge-info {
   background-color: #56c0e0;
 }
-.badge-info:hover {
+/* .badge-info:hover {
   background-color: #2d6987;
-}
+} */
 .badge-inverse {
   background-color: #333333;
 }

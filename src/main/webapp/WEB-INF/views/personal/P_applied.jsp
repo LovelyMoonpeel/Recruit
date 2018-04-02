@@ -4,7 +4,11 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="../include/pheader.jsp"%>
-
+<style>
+.badge-info:hover {
+  background-color: #2d6987;
+}
+</style>
 <!-- Main content -->
 <form role="form">
 		<input type='hidden' name='id' value="${PUserVO.id}">
