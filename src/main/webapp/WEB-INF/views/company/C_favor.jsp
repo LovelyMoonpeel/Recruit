@@ -8,8 +8,10 @@
 <div class="col-md-9">
 	<br> <br> <br>
 	<h1>관심인재</h1>
+	
+<link href="/resources/rpjt/js/validator.js" rel="stylesheet">
 
-
+  
 	<div class="gobox1">
 		<div class="gobox2">
 			<ul>

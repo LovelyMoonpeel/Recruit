@@ -36,9 +36,36 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		return session.selectList(namespace + ".jobgroupList");
 	}
 	
+	@Override
+	public List<JobGroupVO> subJobgroupList() throws Exception{
+		
+		return session.selectList(namespace + ".subJobgroupList");
+	}
+	
+	@Override
+	public int jobGroupCount() throws Exception{
+		
+		
+		return session.selectOne(namespace + ".jobGroupCount");
+	}
+	
+	@Override
+	public int regionCount() throws Exception{
+		
+		
+		return session.selectOne(namespace + ".regionCount");
+	}
+	
+	@Override 
+	public List<RegionVO> subRegionList() throws Exception{
+		
+		return session.selectList(namespace +".subRegionList");
+	}
+	
 	
 	@Override
 	public List<RegionVO> SubRegion(String id2) throws Exception{
+		
 		return session.selectList(namespace + ".ajaxsubRegion", id2);
 	}
 	@Override

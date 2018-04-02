@@ -249,7 +249,11 @@ public class CompanyController {
 			String id = login.getId();
 
 			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute("jobgroupList", ajaxService.jobgroupList());
+			model.addAttribute("jobgroupList", ajaxService.jobgroupList()); // jobgroup
+			model.addAttribute("subJobgroupList", ajaxService.subJobgroupList()); //subJobGroupList
+			model.addAttribute("subRegionList", ajaxService.subRegionList()); // subRegionList
+			model.addAttribute("jobGroupCount",ajaxService.jobGroupCount());	//jobgroup 몇개인지
+			model.addAttribute("regionCount",ajaxService.regionCount()); //region 몇개인지
 			model.addAttribute("codeList", service.CodeList());
 			model.addAttribute("regionList", service.RegionList());
 			return "/company/C_write";
@@ -262,6 +266,8 @@ public class CompanyController {
 	@RequestMapping(value = "/C_write", method = RequestMethod.POST) // 채용공고 작성
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
+		
+		System.out.println(writeRecruit);
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String id = login.getId();
 		logger.info("write Register..........");

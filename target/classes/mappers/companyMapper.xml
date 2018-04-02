@@ -54,6 +54,31 @@
 		where id2 = 0
 	</select> <!-- 직업 선택 대분류(채용공고 작성) -->
 
+
+
+	<select id="subJobgroupList" resultType="com.recruit.domain.JobGroupVO"> <!-- 직업 선택 소분류(채용공고 작성) 4/1일 추가 -->
+		select
+		id, id2, jobgroup
+		from
+		tbljobgroup
+	
+	</select> 
+	
+	<select id="jobGroupCount" resultType="int"> <!-- 대분류 몇개 있는지 알기위해 사용(채용공고 작성) 4/1일 추가 -->
+		select
+		count(id)
+		from
+		tbljobgroup
+		where id2 = 0 and jobgroup!= '선택';
+	
+	</select> 
+	
+	<select id="regionCount" resultType="int"> <!-- 대분류 몇개 있는지 알기위해 사용(채용공고 작성) 4/1일 추가 -->
+	select count(distinct rgbid) 
+	from project.tblregion 
+	where rgbid!='Z';
+	</select>
+	
 	<select id="ajaxSubJobgroup" resultType="JobGroupVO">
 		select
 		id, jobgroup, id2
@@ -77,6 +102,14 @@
 		from
 		tblregion
 	</select>  <!-- 지역 테이블 대분류(채용공고 작성) -->
+	
+	<select id="subRegionList" resultType="com.recruit.domain.RegionVO"> <!-- 지역 선택 소분류(채용공고 작성) 4/1일 추가 -->
+	
+	select rgbid,rgbname,rgsid,rgsname
+	 from tblregion
+	  where rgbid != 'Z';
+	  
+	</select>
 
 	<select id="ajaxsubRegion" resultType="com.recruit.domain.RegionVO">
 
@@ -89,7 +122,7 @@
 
 		where rgbid = #{id2}
 
-	</select> <!-- 지역 테이블 소분류(채용공고 작성) -->
+	</select> <!-- ajax용 지역 테이블 소분류(채용공고 작성) -->
 
 	<insert id="recruitWrite">
 		insert into tblrecruit (title, cid, jobgroupid
