@@ -27,7 +27,7 @@ public interface ResumeService {
 	
 	public void updateROne(ResumeVO resume) throws Exception;
 
-	public void deleteROne(Integer bno) throws Exception;
+	public void deleteROne(int[] bno) throws Exception;
 
 	public List<ResumeVO> selectRList(String id) throws Exception;
 	

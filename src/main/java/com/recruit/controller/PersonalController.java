@@ -477,8 +477,8 @@ public class PersonalController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
-	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.GET)
+	public String deleteResumeListPOST(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
@@ -486,7 +486,7 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
-			//Rservice.deleteROne(bno);
+			Rservice.deleteROne(bno);
 			rttr.addFlashAttribute("msg", "DELETE");
 			return "personal/P_manage";
 		} else {
@@ -496,7 +496,7 @@ public class PersonalController {
 	}
 	
 	@RequestMapping(value = "/deleteOneResume", method = RequestMethod.GET)
-	public String deleteOneResumeGET(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	public String deleteOneResumeGET(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteOneResume POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");

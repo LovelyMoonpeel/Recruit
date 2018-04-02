@@ -9,9 +9,9 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
-		<button type = "button" id = "deleteList-button" class="btn btn-danger col-md-offset-11">선택 삭제</button>
+		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-11">선택 삭제</button>
 		<br><br>
-		<table class="table table-bordered">
+		<table id="tbl_resume" class="table table-bordered">
 			<tr>
 				<th style="width: 65px;">전체    <input type="checkbox" id="allcheck"></th>
 				<th style="width: 55px; text-align: center;">순번</th>
@@ -34,25 +34,27 @@
 </div>
 <script>
 
-var checkRow="";
 
 function deleteOneResume(bno){
-	
-	console.log("#delete-button");
-	console.log(bno);
-	
+	var array=[];
+	array.push(parseInt(bno));
 	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
-		location.href='/personal/deleteOneResume?bno='+bno;
+		location.href='/personal/deleteOneResume?bno='+array;
 	}
 }
 
-function deleteResumeList(bno){
+function deleteResumeList(){
+	var array=[];
+	$("#tbl_resume tr").each(function(index, item){
+		var chk = $($(item).children()[0]).children();
+		var bno = $($(item).children()[1]);
+		if(chk.is(':checked')) {
+			array.push(parseInt(bno.html()));
+		}
+	});
 	
-	console.log("#delete-button");
-	console.log(bno);
-	
-	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
-		location.href='/personal/deleteResumeList?bno='+bno;
+	if(confirm(array+"번 이력서를 정말 삭제하시겠습니까?")){
+		location.href='/personal/deleteResumeList?bno='+array;
 	}
 }
 
