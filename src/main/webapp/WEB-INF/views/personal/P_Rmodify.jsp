@@ -278,7 +278,7 @@
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu" name="listEdu[].enterdate" value="{{enterdate}}"> 
+			<input type="text" class="form-control enterdate edu date" name="listEdu[].enterdate" value="{{enterdate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -286,7 +286,7 @@
 	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"name="listEdu[].gradudate" value="{{gradudate}}"> 
+			<input type="text" class="form-control gradudate edu date"name="listEdu[].gradudate" value="{{gradudate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -335,7 +335,7 @@
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].startjob"
+			<input type="text" class="form-control career date" name="listCareer[].startjob"
 				value="{{startjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
@@ -343,7 +343,7 @@
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career"
+			<input type="text" class="form-control career date"
 				name="listCareer[].finishjob" value="{{finishjob}}"> <span
 				class="input-group-addon"> </span>
 		</div>
@@ -737,6 +737,14 @@ $(document).ready(function() {
 			}
 		});
 		
+		$('.date').each(function(){ 
+			if($(this).val()==''){
+				console.log("date!!!!"+$(this).val());
+				$(this).val("0000-00-00");
+				console.log($(this).val());
+			}
+		});
+		
 		if($("#xornot").val()==0){
 			console.log("xornot.val()==0");
 			console.log("사진 삭제 안함");
@@ -934,7 +942,7 @@ $(document).ready(function() {
 			</c:forEach> 
 		} else {
 			var item = {
-					resumenum : 0,
+					resumenum : ${ResumeVO.bno},
 					schoolname : "",
 					major : "",
 					enterdate : "",
@@ -964,7 +972,7 @@ $(document).ready(function() {
 			</c:forEach>
 		} else {
 			var item = {
-					resumenum : 0,
+					resumenum : ${ResumeVO.bno},
 					//cname : "${careerVO.cname}",
 					cname : "",
 					jobdescription : "",

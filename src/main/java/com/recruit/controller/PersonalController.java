@@ -318,12 +318,14 @@ public class PersonalController {
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
 
+		Rservice.updateROne(resume);
+
 		// r.code 03/15 : update edu & career list in DB
 		int resumenum = resume.getBno();
+		System.out.println("resumenum : " + resumenum);
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		
-		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
