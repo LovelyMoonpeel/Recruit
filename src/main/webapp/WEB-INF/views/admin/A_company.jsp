@@ -9,7 +9,7 @@
 <!-- <div class="col-md-9"> -->
 	<h1>기업회원 리스트</h1>
 
-	<table class="table table-bordered">
+	<table class="table table-hover">
 		<tr>
 			<th>아이디</th>
 			<th>회사명</th>

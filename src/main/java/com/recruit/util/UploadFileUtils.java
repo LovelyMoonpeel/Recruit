@@ -18,7 +18,36 @@ public class UploadFileUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
 
-	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
+	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) throws Exception {
+		S3Util s3 = new S3Util();
+		String bucketName = "matchingbucket";
+		//랜덤의 uid 를 만들어준다.
+		UUID uid = UUID.randomUUID();
+
+		//savedName : 570d570a-7af1-4afe-8ed5-391d660084b7_g.JPG 같은 형식으로 만들어준다.
+		String savedName = "/"+uid.toString() + "_" + originalName;
+
+		System.out.println("uploadPath : "+uploadPath);
+		logger.info("업로드 경로 : "+uploadPath);
+		//\2017\12\27 같은 형태로 저장해준다.
+		String savedPath = calcPath(uploadPath);
+
+		String uploadedFileName = null;
+
+		uploadedFileName = (savedPath + savedName).replace(File.separatorChar, '/');
+		System.out.println("uploadedFileName : "+uploadedFileName);
+		//S3Util 의 fileUpload 메서드로 파일을 업로드한다.
+		s3.fileUpload(bucketName, uploadPath+uploadedFileName, byteData);
+
+
+		logger.info(uploadedFileName);
+//	s3.fileUpload(bucketName, new File(fileName))
+
+		return uploadedFileName;
+
+	}
+	
+/*	public static String uploadFile2(String uploadPath, String originalName, byte[] fileData) throws Exception {
 
 		UUID uid = UUID.randomUUID();
 
@@ -42,7 +71,7 @@ public class UploadFileUtils {
 
 		return uploadedFileName;
 
-	}
+	}*/
 
 	private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
 

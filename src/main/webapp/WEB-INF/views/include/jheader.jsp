@@ -31,7 +31,7 @@
 	}
 	
 %>
-<div class="wrap"></div>
+<div class="wrap">
 <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -57,12 +57,12 @@
 					<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
 					<c:if test="${empty sessionScope.login}">
 						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-						<li id="myBtn_join"><a href="#"> <span
+						<li id="myBtn_join"><a> <span
 								class="glyphicon glyphicon-user"></span> 회원가입
 						</a></li>
 
 						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-						<li id="myBtn_login"><a href="#"> <span
+						<li id="myBtn_login"><a> <span
 								class="glyphicon glyphicon-log-in"></span> 로그인
 						</a></li>
 					</c:if>
@@ -75,8 +75,9 @@
 						
 						
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-						<li><a href="/user/logout">로그아웃</a></li>
-						<li><a href="#">${sessionScope.login.pname}님 환영합니다.</a></li>
+						<li><a href="/user/logout">
+						<span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
+						<li><a style="color: white;">${sessionScope.login.pname}님 환영합니다.</a></li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
 					

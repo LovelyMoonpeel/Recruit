@@ -42,5 +42,11 @@ public class HomeController {
 
 		return "search/S_index";
 	}
+	
+	@RequestMapping(value = "/2", method = RequestMethod.GET)
+	public String indexTest(Locale locale, Model model) throws Exception {
+		logger.info("Welcome home! The client locale is {}.", locale);
 
+		return "home2";
+	}
 }

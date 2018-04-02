@@ -9,7 +9,7 @@
 <!-- <div class="col-md-9"> -->
 	<h1>Q&A</h1>
 
-	<table class="table table-bordered">
+	<table class="table table-hover">
 		<tr>
 			<th>순번</th>
 			<th>제목</th>
@@ -23,7 +23,7 @@
 			<td><a href='/admin/qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
-			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
+			<td><span class="badge bg-blue">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>
 			

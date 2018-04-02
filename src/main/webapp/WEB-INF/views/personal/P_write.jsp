@@ -152,7 +152,31 @@
 			type="button">취소</button>
 	</form>
 </div>
-
+<!-- 소연 모달 -->
+   <div class="modal" id="ORIGINAL_modal">
+      <div class="modal-dialog modal-dialog-centered">
+         
+         <div class="modal-content modal-dialog-centered">
+            <div class="modal-head" style="text-align:center; vertical-align : middle ; margin:10px;">
+            <br>
+               <button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
+               이미지 크게 보기
+            </div>
+         
+            <div class="modal-body modal-dialog-centered">
+               
+               <!--x표시 누르면 창 사라지게 하는 코드 -->
+               <div class="row" style="border: solid 3px #ccc; padding:10px; margin:10px;">
+                  <img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+               </div>
+            </div>
+            <!--//class="modal-body"  -->
+         </div>
+         <!--//class="modal-content"-->
+      </div>
+      <!--//modal-dialog -->
+   </div>
+   <!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
@@ -565,23 +589,30 @@ $(document).ready(function(){
 			 formData.append("file", file);
 			 
 			 $.ajax({
-				 url:'uploadAjax',
-				 data: formData,
+				 url : '/personal/uploadAjax',
+				 data : formData,
 				 dataType : 'text',
 				 processData : false,
 				 contentType : false,
-				 type : 'POST',
+ 				 type : 'POST',
 				 success : function(data){
 					   var str = "";
 					  
 					 	console.log(data);
 					 	
-						  str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
+					 	str = 
+	                          "<a id='ORIGINAL'>크게보기</a>"
+	                          +"<small data-src="+data+">X</small>"; 
 					  $("#uploadedList").append(str); 
 					  document.getElementById('uploadfilename').value = getImageLink(data);
+					  
+					  $("#ORIGINAL").on("click", function(){
+		                     console.log("ORIGINAL click");
+		                     console.log(getImageLink(data));
+		                     var src = "displayFile?fileName="+getImageLink(data);
+		                     $("#ORIGINAL_modal").modal();
+		                     $("#modal_get_Imgname1").attr("src", src);
+		                  });
 				  }//success : function(data){ end
 	 		  });//ajax end
 		//});//filedrop end
@@ -619,7 +650,7 @@ $(document).ready(function(){
     }
 	function getImageLink(fileName){
       	var front = fileName.substr(0,12);
-      	var end = fileName.substr(14);
+      	var end = fileName.substr(12);
       	
       	return front + end;
     }
