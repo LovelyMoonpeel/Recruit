@@ -101,7 +101,9 @@
 </div>
 <style>
 .resume-img {
-	height: 120px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .recruit-img {
