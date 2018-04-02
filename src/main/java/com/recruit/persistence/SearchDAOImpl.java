@@ -194,4 +194,9 @@ public class SearchDAOImpl implements SearchDAO {
 	public List<SpanelVO> selectCInfo(List<String> cList) throws Exception {
 		return session.selectList(namespace + ".selectCInfo", cList);
 	}
+	
+	@Override
+	public String selectCImg(String id) throws Exception {
+		return session.selectOne(namespace + ".selectCImg", id);
+	}
 }

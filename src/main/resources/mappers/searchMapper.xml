@@ -398,4 +398,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 		;
 	</select>
+
+	<select id="selectCImg" resultType="String">
+		select img from tblcinfo
+		where id = #{id};
+	</select>
+
 </mapper>

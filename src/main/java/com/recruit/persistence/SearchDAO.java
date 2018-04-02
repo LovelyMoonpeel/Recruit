@@ -31,4 +31,6 @@ public interface SearchDAO {
 	public List<Integer> selectJobCode() throws Exception;
 
 	public List<SpanelVO> selectCInfo(List<String> cList) throws Exception;
+
+	public String selectCImg(String id) throws Exception;
 }

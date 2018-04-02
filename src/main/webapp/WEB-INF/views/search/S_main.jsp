@@ -100,12 +100,18 @@
 	<div id="spanel"></div>
 </div>
 <style>
-.resume-img, .recruit-img {
+.resume-img {
 	height: 120px;
 }
 
+.recruit-img {
+	max-width: 220px;
+	max-height: 120px;
+}
+
 .company-img {
-	width: 220px;
+	max-width: 220px;
+	max-height: 165px;
 }
 
 .resume-div {
@@ -137,10 +143,9 @@
 	<div class="panel panel-default fixed-panelc">
 		<div class="panel-body">
 			<div class="col-md-6">
-				<a href="http://www.google.com"
+				<a href="{{url}}"
 					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-					<img class="company-img"
-					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
+					<img class="company-img" src="{{img}}">
 				</a>
 			</div>
 			<div class="col-md-6">
@@ -160,14 +165,13 @@
 		<div align="center" class="panel-body">
 			<br />
 			<div align="center">
-				<img class="recruit-img thumbnail"
-					src="http://www.newsworks.co.kr/news/photo/201606/65739_14772_2943.jpg">
+				<img class="recruit-img thumbnail" src="{{img}}">
 			</div>
 			<h4>
 				<b>{{cname}}</b>
 			</h4>
 			<p>
-				<a href="http://www.google.com"
+				<a href="{{url}}"
 					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
 			<p>
@@ -185,15 +189,14 @@
 		<div align="center" class="panel-body">
 			<br />
 			<div class="resume-div img-circle">
-				<img class="resume-img"
-					src="/personal/displayFile?fileName={{img}}">
+				<img class="resume-img" src="{{img}}">
 			</div>
 			<h4><b>{{bno}} {{pname}}</b></h4>
 			<p> {{jobgroupid}}, {{jobgroupid2}} <br />
 			{{exp}}
 			</p>
 			<p>
-				<a href="/personal/detail_nonavi?bno={{bno}}"
+				<a href="{{url}}"
 					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>{{title}}</a>
 			</p>
 			{{rgbid}}, {{rgsid}}<br />
@@ -215,6 +218,16 @@
 			return false;
 		}
 	}
+
+	// 사진 url 변수
+	// var cImgSrc = "/company/displayFile?fileName=";
+	var cImgSrc = "/personal/displayFile?fileName=";
+	var pImgSrc = "/personal/displayFile?fileName=";
+
+	// 링크 url 변수
+	var cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+	var recruitUrl = "/company/C_recruitMent?recruitNum=";
+	var resumeUrl = "/personal/detail_nonavi?bno=";
 
 	// 검색 결과 판넬 list 제거
 	function deletespanel() {
@@ -289,9 +302,10 @@
 			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
-			img : that.img,
+			img : cImgSrc + that.img,
 			cname : that.cname,
-			period : that.period
+			period : that.period,
+			url : cinfoUrl + that.bno
 		};
 		$("#spanelc").append(template_pnl(item));
 	}
@@ -310,9 +324,10 @@
 			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
-			img : that.img,
+			img : cImgSrc + that.img,
 			cname : that.cname,
-			period : that.period
+			period : that.period,
+			url : recruitUrl + that.bno
 		};
 		$("#spanelr").append(template_pnl(item));
 	}
@@ -331,9 +346,10 @@
 			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
-			img : that.img,
+			img : pImgSrc + that.img,
 			pname : that.pname,
-			jobstateid : that.jobstateid
+			jobstateid : that.jobstateid,
+			url : resumeUrl + that.bno
 		};
 		$("#spanelr").append(template_pnl(item));
 	}

@@ -189,7 +189,6 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setEmploystatusid(codeMap.get(listRecruit.get(i).getEmploystatusid()));
 			spanelVO.setEdu(codeMap.get(listRecruit.get(i).getEdu()));
 			spanelVO.setExp(codeMap.get(listRecruit.get(i).getExp()));
-			// spanelVO.setImg(listRecruit.get(i).getImg()); // c.tblcinfo.img
 
 			// recruit
 			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
@@ -226,11 +225,11 @@ public class SearchServiceImpl implements SearchService {
 
 			// image push
 			String imageName = listResume.get(i).getImg();
-			if (imageName != null) {
+			if (imageName == null || "".equals(imageName)) {
+				spanelVO.setImg("/NoImage.png");
+			} else {
 				spanelVO.setImg(imageName);
 				// spanelVO.setImg("/DogImage.png");
-			} else {
-				spanelVO.setImg("/NoImage.png");
 			}
 
 			// resume
@@ -307,20 +306,39 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<SpanelVO> getCInforList(List<SpanelVO> spanelVOList) throws Exception {
+	public List<SpanelVO> addCInforList(List<SpanelVO> spanelVOList) throws Exception {
+
 		Set<String> cSet = new HashSet<String>();
-		for (Iterator<SpanelVO> itr = spanelVOList.iterator(); itr.hasNext();)
-			cSet.add(itr.next().getUserid());
+		Map<String, String> cImgMap = new HashMap<String, String>();
+
+		int spanelVONum = spanelVOList.size();
+		for (int i = 0; i < spanelVONum; i++)
+			cSet.add(spanelVOList.get(i).getUserid());
 
 		List<String> cList = new ArrayList<String>(cSet);
-		spanelVOList = searchDAO.selectCInfo(cList);
-		int spanelVONum = spanelVOList.size();
-		for (int i = 0; i < spanelVONum; i++) {
-			String title = spanelVOList.get(i).getTitle();
-			if (title.length() > 70) {
-				spanelVOList.get(i).setTitle(title.substring(0, 70) + "...");
-			}
+		List<SpanelVO> cpanelVOList = searchDAO.selectCInfo(cList);
+		int cpanelVONum = cpanelVOList.size();
+
+		for (int i = 0; i < cpanelVONum; i++) {
+			String title = cpanelVOList.get(i).getTitle();
+			String imageName = cpanelVOList.get(i).getImg();
+
+			// image push
+			if (imageName == null || "".equals(imageName))
+				cpanelVOList.get(i).setImg("/NoImage.png");
+
+			cImgMap.put(cpanelVOList.get(i).getUserid(), cpanelVOList.get(i).getImg());
+
+			// company intro article
+			if (title != null && title.length() > 70)
+				cpanelVOList.get(i).setTitle(title.substring(0, 70) + "...");
 		}
+
+		for (int i = 0; i < spanelVONum; i++)
+			spanelVOList.get(i).setImg(cImgMap.get(spanelVOList.get(i).getUserid()));
+
+		spanelVOList.addAll(cpanelVOList);
+
 		return spanelVOList;
 	}
 }

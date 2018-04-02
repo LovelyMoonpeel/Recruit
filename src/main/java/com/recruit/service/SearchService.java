@@ -41,5 +41,5 @@ public interface SearchService {
 
 	public List<Integer> selectJobCode() throws Exception;
 
-	public List<SpanelVO> getCInforList(List<SpanelVO> spanelVOList) throws Exception;
+	public List<SpanelVO> addCInforList(List<SpanelVO> spanelVOList) throws Exception;
 }

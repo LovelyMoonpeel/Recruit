@@ -129,6 +129,17 @@
 	</div>
 </nav>
 
+<style>
+.recruit-img {
+	max-width: 220px;
+	max-height: 120px;
+}
+
+.fixed-panelr {
+	min-height: 350px;
+}
+</style>
+
 <div class="container">
 	<div class="row" id="spanel"></div>
 </div>
@@ -136,20 +147,36 @@
 
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
-	<div class="panel panel-default">
-		<div class="panel-body">
-			{{bno}} {{cname}} (~{{period}})<br />
-			{{title}}<br />
-			({{jobgroupid}}, {{jobgroupid2}})<br />
-			{{edu}}, {{exp}}<br />
-			{{employstatusid}}<br />
-			({{rgbid}}, {{rgsid}})
+	<div class="panel panel-default fixed-panelr">
+		<div align="center" class="panel-body">
+			<br />
+			<div align="center">
+				<img class="recruit-img thumbnail" src="{{img}}">
+			</div>
+			<h4>
+				<b>{{cname}}</b>
+			</h4>
+			<p>
+				<a href="{{url}}"
+					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
+			</p>
+			<p>
+				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
+			</p>
+			~ {{period}}
 		</div>
 	</div>
 </div>
 </script>
 
 <script>
+	// 사진 url 변수
+	// var cImgSrc = "/company/displayFile?fileName=";
+	var cImgSrc = "/personal/displayFile?fileName=";
+
+	// 링크 url 변수
+	var recruitUrl = "/company/C_recruitMent?recruitNum=";
+
 	// Menu 갯수
 	var mnum = 8;
 
@@ -380,9 +407,10 @@
 			employstatusid : that.employstatusid,
 			edu : that.edu,
 			exp : that.exp,
-			img : that.img,
+			img : cImgSrc + that.img,
 			cname : that.cname,
-			period : that.period
+			period : that.period,
+			url : recruitUrl + that.bno
 		};
 		$("#spanel").append(template_pnl(item));
 	}
