@@ -33,6 +33,9 @@
 	</div>
 </div>
 <script>
+
+var checkRow="";
+
 function deleteOneResume(bno){
 	
 	console.log("#delete-button");
@@ -42,6 +45,42 @@ function deleteOneResume(bno){
 		location.href='/personal/deleteOneResume?bno='+bno;
 	}
 }
+
+function deleteResumeList(bno){
+	
+	console.log("#delete-button");
+	console.log(bno);
+	
+	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
+		location.href='/personal/deleteResumeList?bno='+bno;
+	}
+}
+
+/* function deleteResumeList(){
+	var checkRow = "";
+	$( "input[name='checkRow']:checked" ).each (function (){
+	  checkRow = checkRow + $(this).val()+"," ;
+	});
+	checkRow = checkRow.substring(0,checkRow.lastIndexOf( ",")); //맨끝 콤마 지우기
+	
+	if(checkRow == ''){
+	  alert("삭제할 대상을 선택하세요.");
+	  return false;
+	}
+	console.log("### checkRow => {}"+checkRow);
+	
+	if(confirm("정보를 삭제 하시겠습니까?")){
+	    
+	    //삭제처리 후 다시 불러올 리스트 url      
+	    var url = document.location.href;
+	    var page = $("#page").val();
+	    var saleType = $("#saleType").val();
+	    var schtype = $("#schtype").val();
+	    var schval = $("#schval").val();
+	    location.href="${rc.contextPath}/test_proc.do?idx="+checkRow+"&goUrl="+url+"&page="+page+"&saleType="+saleType+"schtype="+schtype+"schval="+schval;      
+	}
+} */
+
 $(document).ready(function(){
 	$("#allcheck").click(function(){
 		if($("#allcheck").prop("checked")) {// 전체 선택 체크박스가 체크된상태일경우  해당화면에 전체 checkbox들을 체크
@@ -52,6 +91,17 @@ $(document).ready(function(){
 	});
 	
 	$("#deleteList-button").click(function(){
+		if("input[type=checkbox]".prop("checked", true)){
+			$( "input[name='checkRow']:checked" ).each (function (){
+				  checkRow = checkRow + $(this).val()+"," ;
+			});
+			checkRow = checkRow.substring(0,checkRow.lastIndexOf( ","));
+		}
+		
+		if(checkRow == ''){
+		  alert("삭제할 대상을 선택하세요.");
+		  return false;
+		}
 		
 	});
 });
