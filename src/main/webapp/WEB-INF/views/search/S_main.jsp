@@ -100,26 +100,34 @@
 	<div id="spanel"></div>
 </div>
 <style>
+.company-div {
+	width: 220px;
+	height: 165px;
+	overflow: hidden;
+}
+
+.recruit-div {
+	width: 220px;
+	height: 120px;
+	overflow: hidden;
+}
+
+.company-img, .recruit-img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.resume-div {
+	width: 120px;
+	height: 120px;
+	overflow: hidden;
+}
+
 .resume-img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
-
-.recruit-img {
-	max-width: 220px;
-	max-height: 120px;
-}
-
-.company-img {
-	max-width: 220px;
-	max-height: 165px;
-}
-
-.resume-div {
-	height: 120px;
-	width: 120px;
-	overflow: hidden;
 }
 
 .fixed-panelr {
@@ -145,10 +153,12 @@
 	<div class="panel panel-default fixed-panelc">
 		<div class="panel-body">
 			<div class="col-md-6">
-				<a href="{{url}}"
-					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-					<img class="company-img" src="{{img}}">
-				</a>
+				<div class="company-div">
+					<a href="{{url}}"
+						onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						<img class="company-img" src="{{img}}">
+					</a>
+				</div>
 			</div>
 			<div class="col-md-6">
 				<h3>
@@ -166,7 +176,7 @@
 	<div class="panel panel-default fixed-panelr">
 		<div align="center" class="panel-body">
 			<br />
-			<div align="center">
+			<div class="recruit-div">
 				<img class="recruit-img thumbnail" src="{{img}}">
 			</div>
 			<h4>
@@ -358,14 +368,14 @@
 
 	// Recruit 판넬 List 생성
 	function RecruitHandler(data) {
-		console.log(data.length);
+		console.log("RecruitHandler.data.length: " + data.length);
 		inum = 0;
 		deletespanel();
 
 		// cinfo & recruit 분류
 		var dataC = new Array();
 		var dataR = new Array();
-		for (var i = data.length - 1; i > 0; i--) {
+		for (var i = data.length - 1; i >= 0; i--) {
 			if (data[i].period === 'etern')
 				dataC.push(data[i]);
 			else

@@ -196,12 +196,16 @@ public class SRestController {
 			} else if ("getkey".equals(getdoc)) {
 				System.out.println("getkey: " + skey);
 				spanelVOList = searchService.selectRecruits(skey);
+				System.out.println("spanelVOList: " + spanelVOList);
+				System.out.println("spanelVOList.size: " + spanelVOList.size());
 			} else { // getsel
 				System.out.println("getsel: " + sel_scodes);
 				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
 			}
 			// 기업정보 추가
 			searchService.addCInforList(spanelVOList);
+			System.out.println("spanelVOList2: " + spanelVOList);
+			System.out.println("spanelVOList.size2: " + spanelVOList.size());
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

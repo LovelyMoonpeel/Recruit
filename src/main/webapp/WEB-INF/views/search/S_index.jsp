@@ -130,9 +130,16 @@
 </nav>
 
 <style>
+.recruit-div {
+	width: 220px;
+	height: 120px;
+	overflow: hidden;
+}
+
 .recruit-img {
-	max-width: 220px;
-	max-height: 120px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
 .fixed-panelr {
@@ -150,7 +157,7 @@
 	<div class="panel panel-default fixed-panelr">
 		<div align="center" class="panel-body">
 			<br />
-			<div align="center">
+			<div class="recruit-div">
 				<img class="recruit-img thumbnail" src="{{img}}">
 			</div>
 			<h4>
