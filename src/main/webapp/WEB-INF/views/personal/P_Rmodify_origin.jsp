@@ -1,149 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/pheader.jsp"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript"
+	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript"
+	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의 이력서 수정</h1>
+	<h1>${PUserVO.id}님의이력서수정</h1>
 	<form role="form" method="post">
-	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
-		<br>	
-		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title" name="title" value="${ResumeVO.title}">
-		</div>
-      	<div class="table-responsive">
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                <th class="table-active" scope="row"><label for="pname">이름</label> </th>
-	          	<td class="col-sm-4">
-	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
-	           	</td>
-                <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
-                <td rowspan = "3" class="col-sm-4">
-                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
-				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
-				   </div>
-				   	<!--  사진 보이는 div  -->
-				   	
-                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
-                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
-					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-					
-					<br>
-					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-					<!--파일 업로드 하는 버튼-->
-					
-				   	<input type = 'hidden' id = 'xornot' value = '0'>
-				   	<input type = 'hidden' id = 'preexistenceimg' value = '0'>
-               	 </td>
-               </tr>
-               <tr>
-                  <th class="table-active" scope="row"><label>생년월일</label></th>
-                  <td>
-                  	<div class="form-group">
-						<input type="text" class="form-control" id="" name="birth" value="${PUserVO.birth}" readonly>
-					</div>
-				  </td>
-			    </tr>
-			  	<tr>
-                  <th class="table-active" scope="row"><label for="email">이메일</label></th>
-            	  <td>
-				  	<div class="form-group">
-					 <input type="text" class="form-control" id="email" name="email" value="${PUserVO.email}" readonly>
-					</div>
-				</td>
-               </tr>
-             </tbody>
-         </table>
-      	 </div>
-      	 
-      	<hr style="border: solid 4px #ccc;">
+		<input type="text" class="form-control" id="bno" name="bno"
+			value="${ResumeVO.bno}" readonly> <br>
+
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>연락처 목록</b>
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		
+
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>학력사항</b>
-			<div class="form-group col-md-3">
-			<select class="form-control" name=levelofeducation id="CodeList2">
-	          <c:forEach items="${CodeVOlist }" var="CodeVO">
-	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-	             </c:if>
-	          </c:forEach>
-	       </select>
-	       </div>
 		</h4>
 		<div id="edu_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>경력사항</b>
-			<div class="form-group col-md-3">
-			<select class="form-control" name="lastcareer" id="CodeList1">
-	          <c:forEach items="${CodeVOlist }" var="CodeVO">
-	             <c:if test="${CodeVO.tid == 1 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
-	             </c:if>
-	          </c:forEach>
-	       </select>
-	       </div>
 		</h4>
 		<div id="exp_div"></div>
 		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
-	    <hr style="border: solid 4px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	    <hr style="border: solid 4px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	   <hr style="border: solid 4px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
 		<div id="language_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	     
-	     <div class="table-responsive">
-	       <table class="table table-bordered">
-	          <tbody>
-	            <tr>
-	               <th class="table-active" colspan="5" scope="row" style="text-align: center;">자기소개서</th>
-	            </tr> 
-	            <tr>
-	             <td colspan="5" rowspan="2">
-	               	<div class="form-group">
-					<textarea class="form-control" rows="13" id="coverletter" name="coverletter" style = "resize:none;" required>${ResumeVO.coverletter}</textarea>
-					</div>
-	             </td>   
-	            </tr>
-	           </tbody>
-	       </table>      
-	    </div> 
-  	</form>
-		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
-		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
+
+	</form>
+	<button id="write-success" class="btn btn-success col-md-offset-10"
+		type="submit">등록</button>
+	<button id="write-cancel" class="btn btn-danger"
+		onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';"
+		type="button">취소</button>
 </div>
+
 <script id="template_tel" type="text/x-handlebars-template">
-<div class="row">
+<div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
@@ -160,7 +84,7 @@
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label>
+		<label id="tel_label">추가/삭제</label>
 		<br>
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -173,38 +97,39 @@
 <!-- end of row -->
 </script>
 <script id="template_edu" type="text/x-handlebars-template">
-<div class="row">
+<div class="row edu_row_number">
 	<hr style="border: solid 0.5px #ccc;">
+	
+	<input class="edu" type="hidden" name="eduVOlist[].resumenum" value="{{resumenum}}">
+	
 	<div class="form-group col-md-2">
-		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
-		<label>입학일</label>
+		<label for="enterdate">입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu"
-				name="listEdu[].enterdate" value="{{enterdate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control enterdate edu" name="eduVOlist[].enterdate" value="{{enterdate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
+	
 	<div class="form-group col-md-2">
-		<label>졸업일</label>
+		<label for="gradudate">졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"
-				name="listEdu[].gradudate" value="{{gradudate}}"> <span
-				class="input-group-addon"> </span>
+			<input type="text" class="form-control gradudate edu" name="eduVOlist[].gradudate" value="{{gradudate}}">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
-		<!-- <input class="form-control" id="gradudate" name="gradudate" -->
-		<!-- value="${ResumeEduVO.gradudate}"></input> -->
 	</div>
+	
 	<div class="form-group col-md-3">
-		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
-			name="listEdu[].schoolname" value="{{schoolname}}"></input>
+		<label for="schoolname">학교명</label>
+		<input class="form-control schoolname edu" name="eduVOlist[].schoolname" value="{{schoolname}}"></input>
 	</div>
+	
 	<div class="form-group col-md-2">
-		<label for="major">학과</label> <input class="form-control major edu"
-			name="listEdu[].major" value="{{major}}"></input>
+		<label for="major">학과</label>
+		<input class="form-control major edu" name="eduVOlist[].major" value="{{major}}"></input>
 	</div>
 	<div class="form-group col-md-2">
 		<label for="edustatus">졸업상태</label>
-		<select class="form-control edustatus edu" name="listEdu[].edustatus">
+		<select class="form-control edustatus edu" name="eduVOlist[].edustatus">
 			{{#select edustatus}}
 			<option value="0">선택</option>
 			<option value="15">재학</option>
@@ -214,11 +139,10 @@
 			<option value="19">휴학</option>
 			{{/select}}
 		</select>
-		<!-- <input class="form-control" id="edustatus" name="edustatus" -->
-		<!-- value="${ResumeEduVO.edustatus}"></input> -->
 	</div>
+	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="edu_label">추가/삭제</label><br />
 		<button class="btn btn-default btn-sm edu_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -227,10 +151,9 @@
 		</button>
 	</div>
 </div>
-<!-- end of row -->
 </script>
 <script id="template_exp" type="text/x-handlebars-template">
-<div class="row">
+<div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
 	<hr style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
@@ -267,27 +190,13 @@
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
 			<option value="37">3,000 ~ 3,500</option>
-			<option value="38">3,500 ~ 4,000</option>
-			<option value="39">4,000 ~ 4,500</option>
-			<option value="40">4,500 ~ 5,000</option>
-			<option value="41">5,000 ~ 6,000</option>
-			<option value="42">6,000 ~ 6,500</option>
-			<option value="43">6,500 ~ 7,000</option>
-			<option value="44">7,000 ~ 7,500</option>
-			<option value="45">7,500 ~ 8,000</option>
-			<option value="46">8,000 ~ 8,500</option>
-			<option value="47">8,500 ~ 9,000</option>
-			<option value="48">9,000 ~ 9,500</option>
-			<option value="49">9,500 ~ 10,000</option>
 			<option value="50">10,000 ~ 10,500</option>
 			<option value="51">10,500 ~</option>
 			{{/select}}
 		</select>
-		<!-- <input class="form-control" id="salary" name="salary" -->
-		<!-- value="${ResumeCareerVO.salary}"></input> -->
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="exp_label">추가/삭제</label><br />
 		<button class="btn btn-default exp_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -296,10 +205,9 @@
 		</button>
 	</div>
 </div>
-<!-- end of row -->
 </script>
 <script id="template_web" type="text/x-handlebars-template">
-<div class="row">
+<div class="row web_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
@@ -315,7 +223,7 @@
 	</div>
 
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br />
+		<label id="web_label">추가/삭제</label><br />
 		<button class="btn btn-default btn-sm web_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -323,12 +231,11 @@
 			<i class="glyphicon glyphicon-minus"></i>
 		</button>
 	</div>
-
 </div>
 <!-- end of row -->
 </script>
- <script id="template_license" type="text/x-handlebars-template">
-<div class="row">
+<script id="template_license" type="text/x-handlebars-template">
+<div class="row license_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
 	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
@@ -352,7 +259,7 @@
 	</div>
 
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br/>
+		<label id="license_label">추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -363,10 +270,10 @@
 
 </div>
 <!-- end of row -->
-</script>           
-            
- <script id="template_language" type="text/x-handlebars-template">
-<div class="row">
+</script>
+
+<script id="template_language" type="text/x-handlebars-template">
+<div class="row lang_row_number">
 	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
@@ -380,34 +287,6 @@
 			<option value="52">영어</option>
 			<option value="53">일본어</option>
 			<option value="54">중국어</option>
-			<option value="55">그리스어</option>
-			<option value="56">네덜란드어</option>
-			<option value="57">노르웨이어</option>
-			<option value="58">독일어</option>
-			<option value="59">러시아어</option>
-			<option value="60">루마니아어</option>
-			<option value="61">마인어</option>
-			<option value="62">몽골어</option>
-			<option value="63">미얀마어</option>
-			<option value="64">베트남어</option>
-			<option value="65">세르비아어</option>
-			<option value="66">스웨덴어</option>
-			<option value="67">스페인어</option>
-			<option value="68">슬로바키아어</option>
-			<option value="69">아랍어</option>
-			<option value="70">유고어</option>
-			<option value="71">이란(페르시아어)</option>
-			<option value="72">이탈리아어</option>
-			<option value="73">체코어</option>
-			<option value="74">태국어</option>
-			<option value="75">터키어</option>
-			<option value="76">포르투갈어</option>
-			<option value="77">폴란드어</option>
-			<option value="78">프랑스어</option>
-			<option value="79">헝가리어</option>
-			<option value="80">히브리어</option>
-			<option value="81">히브리어</option>
-			<option value="82">그 외</option>
 			{{/select}}
 		</select>
 	</div>
@@ -433,7 +312,7 @@
 		</div>
 	</div>
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label><br/>
+		<label id="lang_label">추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm lang_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
@@ -454,8 +333,6 @@ $(document).ready(function() {
     });
 	
 	var formObj = $("form[role = 'form']");
-	var xornot = document.getElementById('xornot');
-	var preexistenceimg = document.getElementById('preexistenceimg');
 	
 	function datepick() {
 		$('.input-group.date').datepicker({
@@ -467,139 +344,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	console.log('${PWebSitelist}');
-	var imgsrccheck = ('#imgsrccheck');
-	
-		 if($('#imgsrccheck').val()!=""){
-		console.log(" val이 널값아님");
-		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
-		var str = "";
-		str = 
-			  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
-			  +"</a>"
-			  +"<small data-src=${ResumeVO.img}>X</small>";
-		  $("#uploadedList").append(str); 
-		  console.log("uploadedlist에 x버튼 추가");
-		  $("#preexistenceimg").val("1");
-	}else{
-		console.log(" val이 널값이다");
-		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
-		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
-		$("#preexistenceimg").val("0");
-	}  
-	var upload = document.getElementById('fileupload');
-    var uploadedList = document.getElementById('uploadedList');
-  
-	if (typeof window.FileReader === 'undefined') {
-	 console.log("window.FileReader 'fail'");
-	} else {
-	 console.log("window.FileReader 'success'");
-	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-	  
- 	  upload.onchange = function (e) {
-	
-		 var file = upload.files[0];
-		 var reader = new FileReader();
-		 //p542다시 보기
-		 $("#uploadedList").empty();
-		 //reader.onload start
-		 reader.onload = function (event) {
-			 var image = new Image();
-			 image.src = event.target.result;
-			  
-			 uploadedList.innerHTML = '';
-			 image.height = 150;
-			 uploadedList.appendChild(image);
-		 };//reader.onload end
-	 
-			 event.preventDefault();
-			 //var files = event.originalEvent.dataTransfer.files;
-			 
-			 console.log("file name");
-			 console.log(file);
-			 
-			 var formData = new FormData();
-			 
-			 formData.append("file", file);
-			 
-			 $.ajax({
-				 url:'uploadAjax',
-				 data: formData,
-				 dataType : 'text',
-				 processData : false,
-				 contentType : false,
-				 type : 'POST',
-				 success : function(data){
-					   var str = "";
-					  
-					 	console.log(data);
-					 	
-						  str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
-
-					  $("#uploadedList").append(str); 
-					  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
-					  document.getElementById('uploadfilename').value = getImageLink(data);
-				  }//success : function(data) end
-	 		  });//ajax end
-	 console.log(file);
-	 reader.readAsDataURL(file);
-	};//upload change end   
-	
-	$("#uploadedList").on("click", "small", function(event){
-		event.preventDefault();
-		var that = $(this);
-		
-		if($("#xornot").val()==0){
-			
-			fileName = $(this).attr("data-src"); //전역변수로 설정
-			var front = fileName.substring(0, 12);
-			var end = fileName.substring(12);
-			var thumcheck = fileName.substring(12,14);
-			
-			if(thumcheck!="s_"){
-				console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
-				fileName = front + "s_" + end;
-				console.log("썸네일 아니라서 바뀐 fileName" + fileName);
-			}else{
-				console.log(thumcheck + "썸네일인 fileName" + fileName);
-			}
-		
-			$("#fileupload").val("");
-			$("#uploadedList").empty();
-			console.log("img File appended deleted");
-			console.log("fileName"+fileName);
-			$('#uploadfilename').val('');
-			
-			$("#xornot").val("1");
-			console.log($("#xornot").val());
-		}else if($("#xornot").val()==1){
-			console.log("img File on server deleted");
-			$(this).parent("div").empty();
-			$("#fileupload").val("");
-			$('#uploadfilename').val('');
-			$("#uploadedList").empty();
-			console.log("2번 이상 삭제 누름 img File appended deleted");
-			console.log("2번 이상 삭제 누름 fileName"+fileName);
-			
-			$("#xornot").val("1");
-			console.log($("#xornot").val());
-		}
-	}); 
-	
-	function getOriginalName(fileName){
-      	var idx = fileName.indexOf("_")+1;
-      	return fileName.substr(idx);
-      }
-	function getImageLink(fileName){
-      	var front = fileName.substr(0,12);
-      	var end = fileName.substr(14);
-      	
-      	return front + end;
-      } 
-	 
 	$("#write-success").on("click", function() {
 		
 		console.log("write-success clicked");
@@ -811,6 +555,7 @@ $(document).ready(function() {
 		var template_tel = Handlebars.compile(source_tel);
 		$("#tel_div").append(template_tel(item));
 		datepick();
+		//minus_btn();
 	}
 	function add_edu(item) {
 		var source_edu = $("#template_edu").html();
@@ -847,30 +592,30 @@ $(document).ready(function() {
 		
 		if( len > 0 ) {
 			<c:forEach items="${PTelVOlist}" var="PTelVO">
-				var item = {
-					telid : ${PTelVO.telid},
-					rid : ${PTelVO.rid},
-					teltitle : "${PTelVO.teltitle}", 
-					tel : "${PTelVO.tel}" 
-				};
-				add_tel(item);
+			var item = {
+				telid : ${PTelVO.telid},
+				rid : ${PTelVO.rid},
+				teltitle : "${PTelVO.teltitle}", 
+				tel : "${PTelVO.tel}" 
+			};
+			add_tel(item);
 			</c:forEach>
 		}else{
 			var item = {
-					telid : "",
-					rid : ${ResumeVO.bno},
-					teltitle : "", 
-					tel : "" 
-				};
+				telid : """,
+				rid : ${ResumeVO.bno},
+				teltitle : "", 
+				tel : "" 
+			};
 			add_tel(item);
 		}
 	}
-	function edu_list() {
+/* 	function edu_list() {
 		var len = (${eduVOlist.size()});
 		
 		if( len > 0 ) {
 			<c:forEach items="${eduVOlist}" var="eduVO">
-				var item = {
+			var item = {
 					resumenum : ${eduVO.resumenum},
 					schoolname : "${eduVO.schoolname}",
 					major : "${eduVO.major}",
@@ -878,18 +623,18 @@ $(document).ready(function() {
 					gradudate : "${eduVO.gradudate}",
 					edustatus : ${eduVO.edustatus}
 				};
-				add_edu(item);
-			</c:forEach>
-		}else{
+			add_edu(item);
+			</c:forEach> 
+		} else {
 			var item = {
 					resumenum : ${ResumeVO.bno},
 					schoolname : "",
 					major : "",
 					enterdate : "",
 					gradudate : "",
-					edustatus : ""
+					edustatus : "",
 				};
-				add_edu(item);
+			add_edu(item);
 		}
 	}
 	
@@ -899,6 +644,18 @@ $(document).ready(function() {
 		if( len > 0 ) {
 			<c:forEach items="${careerVOList}" var="careerVO">
 				var item = {
+					resumenum : ${ResumeVO.bno},
+					cname : "",
+					jobdescription : "",
+					startjob : "",
+					finishjob : "",
+					salary : ""
+				};
+				
+				add_exp(item);
+			</c:forEach>
+		}else{
+			var item = {
 					resumenum : ${careerVO.resumenum},
 					cname : "${careerVO.cname}",
 					jobdescription : "${careerVO.jobdescription}",
@@ -907,18 +664,7 @@ $(document).ready(function() {
 					salary : ${careerVO.salary}
 				};
 				
-				add_exp(item);
-			</c:forEach>
-		}else{
-			var item = {
-					resumenum : ${ResumeVO.bno},
-					cname : "",
-					jobdescription : "",
-					startjob : "",
-					finishjob : "",
-					salary : ""
-				};
-				add_exp(item);
+			add_exp(item);
 		}
 		
 	}		
@@ -933,7 +679,7 @@ $(document).ready(function() {
 					webtitle : "${PWebSiteVO.webtitle}", 
 					webadd : "${PWebSiteVO.webadd}"
 				};
-				add_web(item);
+			add_web(item);
 			</c:forEach>
 		}else{
 			var item = {
@@ -942,7 +688,7 @@ $(document).ready(function() {
 					webtitle : "", 
 					webadd : ""
 				};
-				add_web(item);
+			add_web(item);
 		}
 	}
 
@@ -951,13 +697,13 @@ $(document).ready(function() {
 		
 		if( len > 0 ) {
 			<c:forEach items="${RLicenselist}" var="RLicenseVO">
-				var item = {
-					rid : ${RLicenseVO.rid},
-					licensename : "${RLicenseVO.licensename}", 
-					publeoffice : "${RLicenseVO.publeoffice}",
-					acquidate : "${RLicenseVO.acquidate}"
-				};
-				add_license(item);
+			var item = {
+				rid : ${RLicenseVO.rid},
+				licensename : "${RLicenseVO.licensename}", 
+				publeoffice : "${RLicenseVO.publeoffice}",
+				acquidate : "${RLicenseVO.acquidate}"
+			};
+			add_license(item);
 			</c:forEach>
 		}else{
 			var item = {
@@ -966,27 +712,28 @@ $(document).ready(function() {
 					publeoffice : "",
 					acquidate : ""
 				};
-				add_license(item);
+			add_license(item);
 		}
+		
 	}
 	function language_list() {
 		var len = (${RLanguagelist.size()});
 		
 		if( len > 0 ) {
 			<c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
-				var item = {
-					rid : ${ResumeLanguageVO.rid},
-					lid : ${ResumeLanguageVO.lid},
-					test : "${ResumeLanguageVO.test}", 
-					score : "${ResumeLanguageVO.score}",
-					publeoffice : "${ResumeLanguageVO.publeoffice}",
-					acquidate : "${ResumeLanguageVO.acquidate}"
-				};
-				add_language(item);
+			var item = {
+				rid : ${ResumeLanguageVO.rid},
+				lid : ${ResumeLanguageVO.lid},
+				test : "${ResumeLanguageVO.test}", 
+				score : "${ResumeLanguageVO.score}",
+				publeoffice : "${ResumeLanguageVO.publeoffice}",
+				acquidate : "${ResumeLanguageVO.acquidate}"
+			};
+			add_language(item);
 			</c:forEach>
 		}else{
 			var item = {
-					rid : ${ResumeVO.bno},
+					rid :${ResumeVO.bno},
 					lid : "",
 					test : "", 
 					score : "",
@@ -995,14 +742,16 @@ $(document).ready(function() {
 				};
 			add_language(item);
 		}
-	}
+		
+	} */
 	tel_list();
-	edu_list();
-	exp_list();
-	web_list();
-	license_list();
-	language_list();
+	//edu_list();
+	//exp_list();
+	//web_list();
+	//license_list();
+	//language_list();
 });
-</script>
+
+</script>//이거 수정중
 
 <%@include file="../include/cfooter.jsp"%>

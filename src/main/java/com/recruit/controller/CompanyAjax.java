@@ -580,35 +580,5 @@ public class CompanyAjax {
 		System.out.println("return entity : " + entity);
 		return entity;
 	}
-	
-	@RequestMapping(value = "/C_readAPR", method = RequestMethod.POST)// 소연
-	public ResponseEntity<String> C_readAPRPOST(@RequestBody PApplyVO pavo) throws Exception {
-		System.out.println("C_readAPRPOST POST CONTROLLER");
-		
-		ResponseEntity<String> entity = null;
-		String rsno = pavo.getRsno();
-		String rcno = pavo.getRcno();
-	
-		try{
-			String result = papService.readornotAPOne(pavo);
-			System.out.println("읽었냐 말았냐?"+result);
-			if(result.equals("읽지않음")){//읽은 적이 없을 때
-				System.out.println("읽지않음 if문으로 들어옴");
-				papService.CreadAPOne(pavo);//읽음으로 바뀌는 서비스
-				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			}else if(result.equals("읽음")){//읽은 적이 있을 때
-				System.out.println("이미읽음 if문으로 들어옴");
-				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-			}else{
-				System.out.println("어느 if문에도 들어가지 못함");
-				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		System.out.println("return entity : " + entity);
-		return entity;
-	}
 }
 	 

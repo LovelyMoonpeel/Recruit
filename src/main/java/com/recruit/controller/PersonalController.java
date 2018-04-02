@@ -322,12 +322,14 @@ public class PersonalController {
 
 			// r.code 03/13
 			model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+			System.out.println("라라"+Eduservice.readResumeEduList(bno));
+			System.out.println("니라"+Licenseservice.selectRLicenseList(bno));
 			model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 			// end of r.code 03/13
 
-			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
-			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
-			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+			//model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			//model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			//model.addAttribute("RegionVOlist", Rservice.selectRegionList());
 			//민경
 
 			return "personal/P_Rmodify";
