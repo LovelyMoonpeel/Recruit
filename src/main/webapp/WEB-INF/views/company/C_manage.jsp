@@ -1,149 +1,134 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@include file="../include/cheader.jsp"%>
-<%@ page import ="java.util.Calendar" %>
+<%@ page import="java.util.Calendar"%>
 
+<!-- 문> 반응형 카드를 위한 아래 두 줄  -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
 <!-- 기업 채용공고 목록 -->
 <div class="col-md-9">
-<p class="lead"><strong>채용공고관리</strong></p>
-
-<!--소스  -->
-
-
-<nav class="navbar navbar-default" style="margin-bottom:0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
- <div class="navbar-header">
-<ul class="nav navbar-nav">
-     <li id ="btnsState" name="SearchReset" class="active"><a id="btns">전체</a></li>
-</ul>
-    </div> 
-
-
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li id ="btnsState"><a id="btns">진행중</a></li>
-        <li id ="btnsState"><a id="btns">마감</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">미완성 <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-      
-        <div class="input-group" style="padding-top:10px">
-     
-  
-
-      
-    
-           <div class="input-group-btn" style="">
-           
-             <select class="form-control" name="searchType" style="width:100px">
-     <option value="n"<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
-	<option value="t"<c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
-      </select>
-      
-      </div><!-- /btn-group -->
-         
-   
-      
-       <input type="text" class="form-control"  name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }' >
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
-      </span>
-          
-      
-
-      <ul class="nav navbar-nav navbar-right">
-        
-    <select class="form-control" id="perPageNum" style="width:100px">
-    <option value="5" selected>5개씩보기</option>
-    <option value="10">10개씩보기</option>
-	<option value="20">20개씩보기</option>
-    </select>
-    
-
-
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-  
-</nav>
-
-<nav class="navbar-default" style="margin-bottom:15px;">
-  <div class="container-fluid" style="padding-bottom:1px; padding-top:1px;">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <small id="viewOrder">조회수순</small><span name="orders" id="viewIcon" class=""></span>
-    |
-	<small id="appOrder" >지원자수</small><span name="orders" id="appIcon" class=""></span>
-	|
-    <small id="endOrder" >마감일순</small><span name="orders" id="endIcon" class=""></span>
- 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-
-  </div><!-- /.container-fluid -->
-  
-</nav>
-
-
-<!-- 소스 -->
-
-	<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th style="text-align: center" class="active">공고</th>
-			<th style="text-align: center" class="active">모집 내용</th>
-			<th style="text-align: center"  class="active">공고 관리</th>
-			<th style="text-align: center" class="active">지원자 관리</th>
-			<th style="text-align: center"  class="active">조회수</th>
-			
-		</tr>
-		</thead>
+	<p class="lead">
+		<strong>채용공고관리</strong>
+	</p>
 	
-		
-			<tbody id="recruitList">
-  
-			</tbody>
-		
-		
-			
-		
-		
-	</table>
-	 <div class="text-center" >
- 	 <ul class="pagination" id="listPage">
- 
- 	 </ul>
+
+	<!--소스  -->
+	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<ul class="nav navbar-nav">
+					<li id="btnsState" name="SearchReset" class="active"><a id="btns">전체</a></li>
+				</ul>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li id="btnsState"><a id="btns">진행중</a></li>
+					<li id="btnsState"><a id="btns">마감</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">미완성 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">One more separated link</a></li>
+						</ul></li>
+				</ul>
+				<div class="input-group" style="padding-top: 10px">
+					<div class="input-group-btn" style="">
+						<select class="form-control" name="searchType" style="width: 120px">
+							<option value="n" <c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
+						</select>
+					</div>
+					<!-- /btn-group -->
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+					</span>
+					<ul class="nav navbar-nav navbar-right">
+						<select class="form-control" id="perPageNum" style="width: 120px">
+							<option value="5" selected>5개씩보기</option>
+							<option value="10">10개씩보기</option>
+							<option value="20">20개씩보기</option>
+						</select>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+	</nav>
+	<nav class="navbar-default" style="margin-bottom: 15px;">
+		<div class="container-fluid" style="padding-bottom: 1px; padding-top: 1px;">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<small id="viewOrder">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder">마감일순</small><span name="orders" id="endIcon" class=""></span>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<!-- 소스 -->
 	
+
+<!-- 		<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <div class="card">
+                <a class="img-card" href="http://www.fostrap.com/">
+                    <img src="--------- YOUR IMAGE URL ----------" />
+                </a>
+                <br />
+                <div class="card-content">
+                    <h4 class="card-title">
+                        <a href="http://www.fostrap.com/">
+                            Your title card
+                        </a>
+                    </h4>
+                    <div class="">
+                       bkjhkjjh   </div>
+                </div>
+                <div class="card-read-more">
+                    <a class="btn btn-link btn-block" href="http://www.fostrap.com/">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-	 
-
-<table class="table table-bordered">
+</div> -->
+	
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th style="text-align: center" class="active">공고</th>
+				<th style="text-align: center" class="active">모집 내용</th>
+				<th style="text-align: center" class="active">공고 관리</th>
+				<th style="text-align: center" class="active">지원자 관리</th>
+				<th style="text-align: center" class="active">조회수</th>
+			</tr>
+		</thead>
+		<tbody id="recruitList">
+		</tbody>
+	</table>
+	<div class="text-center">
+		<ul class="pagination" id="listPage">
+		</ul>
+	</div>
+	<table class="table table-bordered">
 		<tr class="active gobox2">
-		<td style="line-height: 200%">
-
-			<ul style="list-style-type : circle">
-				<li>진행중 공고의 게재 기간은  <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br> 
-				<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li> <br>
-				<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li><br>
-				<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
-			</ul>
-		</td>
+			<td style="line-height: 200%">
+				<ul style="list-style-type: circle">
+					<li>진행중 공고의 게재 기간은 <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br>
+					<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li>
+					<br>
+					<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li>
+					<br>
+					<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
+				</ul>
+			</td>
 		</tr>
-</table>
-
-
-
-<!-- 문> 반응형이 적용 안 되서 일단 주석처리
+	</table>
+	<!-- 문> 반응형이 적용 안 되서 일단 주석처리
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
 			<ul>
@@ -154,10 +139,8 @@
 			</ul>
 		</div>
 	</div> -->
-	
 </div>
 <!-- //기업 채용공고 목록 끝 -->
-
 <script>
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
@@ -188,10 +171,6 @@ $(document).on("click","#btnsState", function(){
 	
 })
 </script>
-
-
-
-
 <script>
 $("#viewOrder").on("click", function(){
 	$("#appIcon").removeClass();
@@ -285,7 +264,6 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 }
 })
 </script>
-
 <script>
  function check(orderType){
 	
@@ -587,7 +565,7 @@ var formObj = $("form[role='form']");
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 										+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-										+"<tr><th>최근수정 : "+this.regdate+" (담당자:)</th><th></th><th></th></tr>"
+										+"<tr><th>최근수정 : "+this.regdate+" (담당자:++)</th><th></th><th></th></tr>"
 								}else{
 									
 				 					if(this.prev){
@@ -758,7 +736,4 @@ var formObj = $("form[role='form']");
 					 }); 
 				}
 	</script>
-	
-
-
 <%@include file="../include/cfooter.jsp"%>

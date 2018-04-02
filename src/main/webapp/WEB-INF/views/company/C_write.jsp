@@ -19,6 +19,50 @@
 	<form role="form" method="POST">		
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
+			    <th colspan="2">담당자 정보</th>
+			</tr>
+			<tr>
+			 	<th class="text-center">이름</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+			<tr>
+			 	<th class="text-center">담당부서</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+			<tr>
+			 	<th class="text-center">전화</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+			<tr>
+			 	<th class="text-center">내선번호</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+			<tr>
+			 	<th class="text-center">휴대폰</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+			<tr>
+			 	<th class="text-center">이메일</th>
+				<td>
+					<input type="text" name="recruitnum" value="${RecruitVO.recruitnum }" required>
+				</td>
+			</tr>
+		
+		
+		
+		
+		
+			<tr>
 				<th class="col-sm-3 text-center">공고제목</th>
 				<td><input type="text" name="title" class="form-control" 
 						value="${RecruitVO.title}" required></td>

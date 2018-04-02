@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@include file="../include/cheader.jsp"%>
 
 
-<link rel="stylesheet" type="text/css"
-	href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script type="text/javascript" src="/resources/rpjt/js/upload.js"></script>
 
 <!-- Main content -->
@@ -29,30 +25,29 @@
 			<!-- 문> 이건 가로 길이  -->
 			<div class="form-group col-lg-6">
 				<label>회사 이미지</label>
-				
+
 				<!-- 문> 사진 틀의 가로와 세로 길이  -->
 				<div id='uploadedList' style='width: 127px; height: 152px;'>
 					<!-- 문> 여기서 height는 '회사정보수정'페이지에 뿌려주는 사진의 높이로 위에서 설정해준 틀에 맞게 써야 한다. 세로만 지정해도 가로도 자동으로 정해지는 듯  -->
 					<img id='imgsrc' height="152px;" alt="${CInfoVO.img}" />
 				</div>
-				
+
 				<div>
 					<!-- 문Q>디비에 있는 이미지 뿌려주는 거 같은데, hidden??  -->
-					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}"> 
-					<br>
+					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}"> <br>
 				</div>
-				
+
 				<div>
 					<!-- 문> 이건 파일 업로드 하는 버튼  -->
-					<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
-					
+					<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+
 					<!-- 문Q> 아래 두개 몰까? 지워도 상관없어서 일단 지움 -->
 					<!-- 
 					<input type='hidden' id='xornot' value='0'> 
 					<input type='hidden' id='preexistenceimg' value='0'> 
-					-->	
+					-->
 				</div>
-				
+
 			</div>
 		</div>
 
@@ -62,34 +57,25 @@
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>기업소개</label>
-				<textarea class="form-control" cols="7" rows="10" name="intro"
-					style="resize: none;">${CInfoVO.intro}</textarea>
+				<textarea class="form-control" cols="7" rows="10" name="intro" style="resize: none;">${CInfoVO.intro}</textarea>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>기업명</label> 
-				<input type="text" name="cname"
-					class="form-control" value="${CInfoVO.cname}" readonly>
+				<label>기업명</label> <input type="text" name="cname" class="form-control" value="${CInfoVO.cname}" readonly>
 			</div>
 			<div class="form-group col-lg-6">
-				<label>대표자명</label> 
-				<input type="text" name="ceo"
-					class="form-control" value="${CInfoVO.ceo}">
+				<label>대표자명</label> <input type="text" name="ceo" class="form-control" value="${CInfoVO.ceo}">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>업종</label> 
-				<input type="text" name="ctype"
-					class="form-control" value="${CInfoVO.ctype}">
+				<label>업종</label> <input type="text" name="ctype" class="form-control" value="${CInfoVO.ctype}">
 			</div>
 			<div class="form-group col-lg-6">
-				<label>기업형태</label> 
-				<input type="text" name="form"
-					class="form-control" value="${CInfoVO.form}">
+				<label>기업형태</label> <input type="text" name="form" class="form-control" value="${CInfoVO.form}">
 			</div>
 		</div>
 
@@ -99,103 +85,77 @@
 			<div class="form-group col-lg-6">
 				<label>설립일</label>
 				<div class="input-group date" data-provide="datepicker">
-					<input type="text" class="form-control" name="establish"
-						value="${CInfoVO.establish}" /> 
-						<span class="input-group-addon">
-						<i class="glyphicon glyphicon-calendar"></i>
-						</span>
+					<input type="text" class="form-control" name="establish" value="${CInfoVO.establish}" /> <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+					</span>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>사원수</label> 
-				<input type="text" name="numemp"
-					class="form-control" value="${CInfoVO.numemp}">
+				<label>사원수</label> <input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
 			</div>
 			<div class="form-group col-lg-6">
-				<label>매출액</label> 
-				<input type="text" name="sales"
-					class="form-control" value="${CInfoVO.sales}">
+				<label>매출액</label> <input type="text" name="sales" class="form-control" value="${CInfoVO.sales}">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>대표전화</label> 
-				<input type="text" name="tel"
-					class="form-control" value="${CInfoVO.tel}">
+				<label>대표전화</label> <input type="text" name="tel" class="form-control" value="${CInfoVO.tel}">
 			</div>
 			<div class="form-group col-lg-6">
-				<label>FAX</label> 
-				<input type="text" name="fax"
-					class="form-control" value="${CInfoVO.fax}">
+				<label>FAX</label> <input type="text" name="fax" class="form-control" value="${CInfoVO.fax}">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>홈페이지</label> 
-				<input type="text" name="homepage"
-					class="form-control" value="${CInfoVO.homepage}">
+				<label>홈페이지</label> <input type="text" name="homepage" class="form-control" value="${CInfoVO.homepage}">
 			</div>
 			<div class="form-group col-lg-6">
-				<label>SNS</label> 
-				<input type="text" name="sns"
-					class="form-control" value="${CInfoVO.sns}">
+				<label>SNS</label> <input type="text" name="sns" class="form-control" value="${CInfoVO.sns}">
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group col-lg-12">
-				<label>기업주소</label> 
-				<input type="text" name="location"
-					class="form-control" value="${CInfoVO.location}">
+				<label>기업주소</label> <input type="text" name="location" class="form-control" value="${CInfoVO.location}">
 			</div>
 		</div>
 
 
 		<!-- 컨트롤러 request에서 인식할 수 있게 임의의 name값을 지정해줘야한다 (controller랑 맞출 필요 X) -->
 
-		<br> 
-		<br>
+		<br> <br>
 
 
 		<p class="lead">
-			<strong>담당자 정보 수정</strong>
+			<strong>기업 아이디 및 이메일</strong>
 		</p>
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>회사 아이디</label> 
-				<input type="text" name="id"
-					class="form-control" value="${CInfoVO.id}" readonly>
+				<label>기업 아이디</label> <input type="text" name="id" class="form-control" value="${CInfoVO.id}" readonly>
 			</div>
 
 			<div class="form-group col-lg-6">
-				<label>회사 이메일</label> 
-				<input type="text" name="email"
-					class="form-control" value="${CInfoVO.email}" readonly>
+				<label>기업 이메일</label> <input type="text" name="email" class="form-control" value="${CInfoVO.email}" readonly>
 			</div>
 		</div>
 
-		<div class="row">
+<%-- 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>담당자</label> 
-				<input type="text" name="pname"
-					class="form-control" value="${boardVO.pname}">
+				<label>담당자</label> <input type="text" name="pname" class="form-control" value="${boardVO.pname}">
 			</div>
 
 			<div class="form-group col-lg-6">
-				<label>휴대폰 번호</label> 
-				<input type="text" name="phone"
-					class="form-control" value="${CInfoVO.phone}">
+				<label>휴대폰 번호</label> <input type="text" name="phone" class="form-control" value="${CInfoVO.phone}">
 			</div>
 
-		</div>
+		</div> --%>
 
-		<br> <br>
+		<br>
 
 		<!-- 수정 버튼 -->
 		<div class="box-footer">
@@ -203,8 +163,7 @@
 			<button type="button" class="btn btn-warning" id="modify">취소하기</button>
 		</div>
 		<!-- //수정 버튼 -->
-		<br> 
-		<br>
+		<br> <br>
 	</div>
 </form>
 
@@ -247,9 +206,10 @@
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
 		var str = "";
-		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
+		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>크게 보기"
 	  		+"</a>"
-	  		+"<small data-src=${ResumeVO.img}>X</small>";
+	  		+" | "
+	  		+"<middle data-src=${ResumeVO.img}>삭제</middle>";
  		$("#uploadedList").append(str); 
  		console.log("uploadedlist에 x버튼 추가");
 		$("#preexistenceimg").val("1");
@@ -310,9 +270,9 @@
 			console.log(data);
 			 	
 			str = "<a href='displayFile?fileName="+getImageLink(data)
-					+"' target='_blank'; return false;'>원본 확인"
+					+"' target='_blank'; return false;'>크게 보기"
 					+"</a>"
-					+"<small data-src="+data+">X</small>";
+					+"<middle data-src="+data+">삭제</middle>";
 
 			$("#uploadedList").append(str); 
 			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
@@ -338,7 +298,7 @@
   	} 
 
 
-	$("#uploadedList").on("click", "small", function(event){
+	$("#uploadedList").on("click", "middle", function(event){
 		event.preventDefault();
 		var that = $(this);
 		$("#uploadedList").empty();

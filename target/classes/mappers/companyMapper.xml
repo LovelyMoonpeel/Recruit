@@ -99,27 +99,15 @@
 		<if test="rgsid != null">,rgsid</if>
 		<if test="rgsid == null">,rgsid</if>
 		, jobdesc, recruitnum, employstatusid ,salaryid, edu
-		, exp, adddesc,
-		period, acceptmethod)
-		values (
-		#{title}, #{cid}
-		, #{jobgroupid}
+		, exp, adddesc,period, acceptmethod)
+		values (#{title}, #{cid}, #{jobgroupid}
 		<if test="jobgroupid2 != null">, #{jobgroupid2}</if>
 		<if test="jobgroupid2 == null">, 0</if>
 		, #{rgbid}
 		<if test="rgsid != null">, #{rgsid}</if>
 		<if test="rgsid == null">, '102'</if>
-		, #{jobdesc}
-		, #{recruitnum}
-		, #{employstatusid}
-		, #{salaryid}
-		, #{edu}
-		,
-		#{exp}
-		, #{adddesc}
-		, #{period}
-		, #{acceptmethod}
-		)
+		, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}
+		, #{exp}, #{adddesc}, #{period}, #{acceptmethod})
 	</insert> <!-- 채용공고 작성 -->
 
 	<select id="recruitList" resultType="com.recruit.domain.RecruitVO">
