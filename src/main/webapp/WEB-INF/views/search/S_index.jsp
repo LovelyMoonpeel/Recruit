@@ -43,10 +43,10 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="/resources/rpjt/img/la.jpg" alt="Los Angeles"
+					<img src="/resources/rpjt/img/frontimg1.jpg" alt="Los Angeles"
 						style="width: 100%;">
 					<div class="carousel-caption">
-						<h3>LOS ANGELES</h3>
+						<h2>LOS ANGELES</h2>
 						<p>Los Angeles, officially the City of Los Angeles and often
 							known by its initials L.A., is the cultural, financial, and
 							commercial center of Southern California.</p>
@@ -54,20 +54,20 @@
 				</div>
 
 				<div class="item">
-					<img src="/resources/rpjt/img/chicago.jpg" alt="Chicago"
+					<img src="/resources/rpjt/img/frontimg2.jpg" alt="Chicago"
 						style="width: 100%;">
 					<div class="carousel-caption">
-						<h3>CHICAGO</h3>
+						<h2>CHICAGO</h2>
 						<p>Chicago, officially the City of Chicago, is the third most
 							populous city in the United States.</p>
 					</div>
 				</div>
 
 				<div class="item">
-					<img src="/resources/rpjt/img/ny.jpg" alt="New york"
+					<img src="/resources/rpjt/img/frontimg3.png" alt="New york"
 						style="width: 100%;">
 					<div class="carousel-caption">
-						<h3>NEW YORK</h3>
+						<h2>NEW YORK</h2>
 						<p>The City of New York, often called New York City or simply
 							New York, is the most populous city in the United States.</p>
 					</div>
@@ -150,6 +150,18 @@
 </nav>
 
 <style>
+.carousel-div {
+	width: 220px;
+	height: 120px;
+	overflow: hidden;
+}
+
+.carousel-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 .recruit-div {
 	width: 220px;
 	height: 120px;
