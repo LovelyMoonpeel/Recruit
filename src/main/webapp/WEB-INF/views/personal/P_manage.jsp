@@ -90,25 +90,29 @@ $(document).ready(function(){
 				 }),
 				 success : function(result){
 					 if(result=="AS_PUBLIC"){
-						 console.log("비공개를 공개로 바꾸려고 함");
+						console.log("비공개를 공개로 바꾸려고 함");
+					    location.href = "";
 					 }else if(result=="AS_PRIVATE"){
 						 console.log("공개를 비공개로 바꾸려고 함");
+						 location.href = "";
 					 }else{
 						 console.log("if문 못들어감 뭔가 잘못됨");
 					 }
+					 
+					/* $(".비공개").each(function(index){
+			    		console.log("보이냐");
+			    		$(this).removeClass("glyphicon-eye-open ");
+			    		$(this).addClass("glyphicon-lock");
+			    	}); 
+			    	
+			    	$(".공개").each(function(index){
+			    		console.log("공개보이냐");
+			    		$(this).removeClass("glyphicon-lock");
+			    		$(this).addClass("glyphicon-eye-open");
+			    	});  */
 				  }//success : function(result) end
 	 		  });//ajax end 
 	    	
-		    	$(".비공개").each(function(index){
-		    		console.log("보이냐");
-		    		$(this).removeClass("glyphicon-eye-open ");
-		    		$(this).addClass("glyphicon-lock");
-		    	}); 
-		    	
-		    	$(".공개").each(function(index){
-		    		$(this).removeClass("glyphicon-lock");
-		    		$(this).addClass("glyphicon-eye-open");
-		    	}); 
 	    });//each click function
 	});
 });

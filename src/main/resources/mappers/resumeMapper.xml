@@ -415,7 +415,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 publicornot 수정 소연 -->
 	<update id="updatePONOne">
 	<![CDATA[
-	update tblresumelanguage
+	update tblresume
 	set publicornot = #{publicornot}
 	where bno = #{bno}
 	]]>
