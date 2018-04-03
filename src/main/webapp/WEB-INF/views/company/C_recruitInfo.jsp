@@ -281,7 +281,7 @@
 						<th class="active">이력서 요약</th>
 					</tr>
 					<tr>
-						<th>${ResumeVO.img}</th>
+						<th>${ResumeVO.img}**</th>
 						<th>
 						<input type='text' id="Rbno${status.index }" value="${ResumeVO.bno}">
 						<!--  >input type='hidden' id="Rbno${status.index }" value="${ResumeVO.bno}"-->
@@ -298,6 +298,7 @@
 		</c:forEach>
 
 	</div>
+	dddddd ${ResumeVO.bno} ${ResumeVO.bno}
 			</div>
 			<form role="form" method="post">
 			<input type='text' id="C_readAPR_id" name="bno" value="${RecruitVO.bno}">

@@ -96,7 +96,7 @@ $(document).ready(function(){
 		$(data).each(function(){
 			
 			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
-				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br><span>1991년, 28세</span></td>"
+				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+" &nbsp;* *</strong><br></td>"
 				+ "<td><span class=careerLine>경력 3년 5개월</span><a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
 				+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
 				+ ""+this.bno+":"+this.title+"</a>"

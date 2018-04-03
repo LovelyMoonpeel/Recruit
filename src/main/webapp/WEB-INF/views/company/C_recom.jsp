@@ -159,7 +159,7 @@ function PersonList(bno){
 		$(data).each(
 				function() {
 					
-					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span>"
+					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
 					+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
 					+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
 					+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		

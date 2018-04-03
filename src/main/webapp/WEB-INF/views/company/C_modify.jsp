@@ -42,10 +42,9 @@
 					<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
 
 					<!-- 문Q> 아래 두개 몰까? 지워도 상관없어서 일단 지움 -->
-					<!-- 
 					<input type='hidden' id='xornot' value='0'> 
 					<input type='hidden' id='preexistenceimg' value='0'> 
-					-->
+					
 				</div>
 
 			</div>
@@ -202,10 +201,9 @@
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
 		var str = "";
-		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>크게 보기"
+		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
 	  		+"</a>"
-	  		+" | "
-	  		+"<middle data-src=${ResumeVO.img}>삭제</middle>";
+	  		+"<small data-src=${ResumeVO.img}>X</small>";
  		$("#uploadedList").append(str); 
  		console.log("uploadedlist에 x버튼 추가");
 		$("#preexistenceimg").val("1");
@@ -261,9 +259,9 @@
 			console.log(data);
 			 	
 			str = "<a href='displayFile?fileName="+getImageLink(data)
-					+"' target='_blank'; return false;'>크게 보기"
+					+"' target='_blank'; return false;'>원본 확인"
 					+"</a>"
-					+"<middle data-src="+data+">삭제</middle>";
+					+"<small data-src="+data+">X</small>";
 			$("#uploadedList").append(str); 
 			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
 			document.getElementById('uploadfilename').value = getImageLink(data);
@@ -283,7 +281,7 @@
   	
   		return front + end;
   	} 
-	$("#uploadedList").on("click", "middle", function(event){
+	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
 		$("#uploadedList").empty();
