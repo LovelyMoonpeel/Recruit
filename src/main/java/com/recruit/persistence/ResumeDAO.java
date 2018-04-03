@@ -41,4 +41,8 @@ public interface ResumeDAO {
 	public void addRimgAttach(ResumeVO resume)throws Exception;
 	
 	public void updatePONOne(ResumeVO resume) throws Exception;
+	
+	public void updatePONAlltoprivate(ResumeVO resume) throws Exception ;
+		
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception;
 }

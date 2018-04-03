@@ -112,4 +112,14 @@ public class ResumeDAOImpl implements ResumeDAO {
 	public void updatePONOne(ResumeVO resume) throws Exception {
 		session.update(namespace + ".updatePONOne", resume);
 	}//소연
+	
+	@Override
+	public void updatePONAlltoprivate(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONAlltoprivate", resume);
+	}//소연
+	
+	@Override
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONOnetopublic", resume);
+	}//소연
 }

@@ -421,4 +421,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 	
+	<!-- 이력서 publicornot 수정 소연 -->
+	<update id="updatePONAlltoprivate">
+	<![CDATA[
+	update
+	tblresume
+	set publicornot='비공개'
+	where userid=#{userid};
+	]]>
+	</update>
+	
+	<!-- 이력서 publicornot 수정 소연 -->
+	<update id="updatePONOnetopublic">
+	<![CDATA[
+	update tblresume
+	set publicornot = #{publicornot}
+	where bno = #{bno}
+	]]>
+	</update>
+	
+	
 </mapper>

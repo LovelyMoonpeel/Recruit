@@ -555,14 +555,12 @@ public class PersonalController {
 	
 		System.out.println("들어온 resume"+resume.toString());
 		try{
-			if(resume.getPublicornot().equals("비공개")){//비공개일 때 공개로
-				System.out.println("true if문으로 들어옴");
-				resume.setPublicornot("공개");
-				Rservice.updatePONOne(resume);
+			if(resume.getPublicornot().equals("공개")){//비공개일 때 공개로
+				System.out.println("공개로 바꾸는 if문으로 들어옴");
+				Rservice.updatePONOnetopublic(resume);
 				entity = new ResponseEntity<String>("AS_PUBLIC", HttpStatus.OK);
-			}else if(resume.getPublicornot().equals("공개")){//공개일 때 비공개로
-				System.out.println("false if문으로 들어옴");
-				resume.setPublicornot("비공개");
+			}else if(resume.getPublicornot().equals("비공개")){//공개일 때 비공개로
+				System.out.println("비공개로 바꾸는 if문으로 들어옴");
 				Rservice.updatePONOne(resume);
 				entity = new ResponseEntity<String>("AS_PRIVATE", HttpStatus.OK);
 			}

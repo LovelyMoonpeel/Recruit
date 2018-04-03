@@ -116,4 +116,11 @@ public class ResumeServiceImpl implements ResumeService {
 		dao.updatePONOne(resume);
 	}//소연
 	
+	@Transactional
+	@Override
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception {
+		dao.updatePONAlltoprivate(resume);
+		dao.updatePONOnetopublic(resume);
+	}//소연
+	
 }

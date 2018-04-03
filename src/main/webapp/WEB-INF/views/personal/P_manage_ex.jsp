@@ -11,7 +11,6 @@
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
 		<button type = "button" id = "deleteList-button" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
-		<input type='hidden' id='userid' value='${PUserVO.id}'></input>
 		<table class="table table-bordered">
 			<tr>
 				<th style="width: 65px;">전체&nbsp;<input type="checkbox" id="allcheck"></th>
@@ -23,9 +22,18 @@
 			
 			<c:forEach items="${ResumeVOList}" var="ResumeVO" varStatus="status">		
 			<tr>
-				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"><input type="hidden" id="bno${status.index}" class="k${ResumeVO.publicornot}" value="${ResumeVO.bno}"></input></td>
-				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
-				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}"><input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input></span></a></td>
+				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox">
+				<input type="hidden" id="bno${status.index}" class="k${ResumeVO.publicornot}" value="${ResumeVO.bno}"></input>
+				</td>
+				<td style="text-align: center;">
+				<a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a>
+				</td>
+				<td style="text-align: center;">
+				<a>
+				<span class="glyphicon publicornot ${ResumeVO.publicornot}">
+				<input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input>
+				</span>
+				</a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
 			</tr>
@@ -68,18 +76,18 @@ $(document).ready(function(){
 	});
 	
 	publicornot();
-	
+
 	$(".publicornot").each(function(index) {
-		
 	    $(this).on("click", function(){
-			
 	    	console.log(index);
-	    	
 	    	var publicornot=$("#publicornot"+index).val();
-	    	var bno= $("#bno"+index).val();
-	    	var userid = $("#userid").val();
-	
-	    	 if(publicornot=="비공개"){
+	    	var bno = $("#bno"+index).val();
+	    	
+	    	var publicbno = $(".k공개").val();
+			alert("그"+publicornot);
+			alert(".k공개"+publicbno);
+			
+	    	if(publicornot=="비공개"){
 	    		$.ajax({//resume publicornot column 바꾸는 ajax
 					 url:'publicornot_change',
 					 type : 'POST',
@@ -89,7 +97,6 @@ $(document).ready(function(){
 					 },
 					 dataType : 'text',
 					 data: JSON.stringify({
-						userid : userid,
 					 	bno : bno,					 
 						publicornot : "공개"
 					 }),
@@ -112,7 +119,6 @@ $(document).ready(function(){
 					 },
 					 dataType : 'text',
 					 data: JSON.stringify({
-						userid : userid,
 					 	bno : bno,					 
 						publicornot : "비공개"
 					 }),
@@ -124,7 +130,7 @@ $(document).ready(function(){
 							 console.log("if문 못들어감 뭔가 잘못됨");
 						 }
 					  }//success : function(result) end
-		 		  });//ajax end  
+		 		  });//ajax end 
 	    	}
 	    });//each click function
 	});

@@ -42,4 +42,6 @@ public interface ResumeService {
 	//public void addRimgAttach(String fullName); dao만 만들어서 transaction처리
 	
 	public void updatePONOne(ResumeVO resume)throws Exception;
+	
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception;
 }
