@@ -168,35 +168,40 @@
          </table>
           </div>
       <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
-		
+	<hr style="border: solid 1px #ccc;">
+      <h4>
+         <b>학력사항</b>
+         <div class="form-group col-md-3">
+         <select class="form-control" name=levelofeducation id="CodeList2">
+             <c:forEach items="${CodeVOlist }" var="CodeVO">
+                <c:if test="${CodeVO.tid == 2 }">
+                   <c:if test="${CodeVO.id<=13 }">
+                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+                   </c:if>
+                </c:if>
+             </c:forEach>
+          </select>
+          </div>
+      </h4>
+      <div id="edu_div"></div>
+      <hr style="border: solid 1px #ccc;">
+      <h4>
+         <b>경력사항</b>
+         <div class="form-group col-md-3">
+         <select class="form-control" name="lastcareer" id="CodeList1">
+             <c:forEach items="${CodeVOlist }" var="CodeVO">
+                <c:if test="${CodeVO.tid == 1 }">
+                   <c:if test="${CodeVO.id<=7 }">
+                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+                   </c:if>
+                </c:if>
+             </c:forEach>
+          </select>
+          </div>
+      </h4>
+      <div id="exp_div"></div>
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
-		<hr style="border: solid 1px #ccc;">
-		<h4>
-			<b>학력사항</b>
-		</h4>		
-		<div class="form-group col-md-3"><h4><b>학력사항</b></h4></div>
-		<select class="form-control" name=levelofeducation id="CodeList2">
-          <c:forEach items="${CodeVOlist }" var="CodeVO">
-             <c:if test="${CodeVO.tid == 2 }">
-                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-             </c:if>
-          </c:forEach>
-		</select>
-		<div id="edu_div"></div>
-		<hr style="border: solid 4px #ccc;">
-		<h4>
-			<b>경력사항</b>
-		</h4>
-		<div class="form-group col-md-3"><h4><b>경력사항</b></h4></div>
-		<select class="form-control" name="lastcareer" id="CodeList1">
-          <c:forEach items="${CodeVOlist }" var="CodeVO">
-             <c:if test="${CodeVO.tid == 1 }">
-                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
-             </c:if>
-          </c:forEach>
-		</select>
-		<div id="exp_div"></div>
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>

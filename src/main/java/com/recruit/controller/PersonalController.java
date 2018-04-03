@@ -337,7 +337,11 @@ public class PersonalController {
 			model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
 			model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 			// end of r.code 03/13
-
+			
+			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
+			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
+			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
+			
 			return "personal/P_Rmodify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
