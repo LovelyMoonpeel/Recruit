@@ -255,7 +255,16 @@ public class PersonalController {
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 				
 				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
-
+				
+				/*2018.04.03_Jcode_자기소개서 유효성 추가*/
+				String coverletter = Rservice.readROne(bno).getCoverletter();
+				String coverletter2 = coverletter.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+				String coverletter3 = coverletter2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+				String coverletter4 = coverletter3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
+				
+				model.addAttribute("coverletter", coverletter4);
+				/*2018.04.03_Jcode_자기소개서 유효성 추가 끝*/
+					
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
@@ -299,6 +308,25 @@ public class PersonalController {
 			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
 			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
 			//민경
+			
+			//ResumeVO.coverletter
+			
+			/*model.addAttribute("ResumeVO", Rservice.readROne(bno));
+			
+			String coverletter = Rservice.readROne(bno).getCoverletter();
+			System.out.println("Rservice.readROne(bno).getCoverletter()#### : " + Rservice.readROne(bno).getCoverletter());
+			String coverletter2 = coverletter.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+			System.out.println("coverletter2#### : " + coverletter2);
+			String coverletter3 = coverletter2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+			System.out.println("coverletter3333333#### : " + coverletter3);
+			String coverletter4 = coverletter3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
+			System.out.println("coverletter4#### : " + coverletter4);
+			
+			model.addAttribute("coverlettter", coverletter4);*/
+			
+			/*String coverletter = Rservice.readROne(bno).getCoverletter();
+			coverletter = String.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			Rservice.readROne(bno).value = coverletter;*/
 
 			return "personal/P_Rmodify";
 		} else {
@@ -306,6 +334,24 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
+	
+	/*@RequestMapping(value = "/resumeread", method = RequestMethod.GET)
+	public String resumereadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+		logger.info("resumereadGET..........");
+		model.addAttribute("ResumeVO", Rservice.resumeRead(bno));
+		
+		// 문> 띄워쓰기 엔터 먹히게 코드 작성
+		// 기업쪽에 쓴 코드와 다른 점은 &lt;와 <의 위치를 바꿨다. 나머지 두 줄도 똑같이 적용했음
+		String coverletter = Rservice.readROne(bno).getCoverletter();
+		String coverletter2 = coverletter.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+		String coverletter3 = coverletter2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+		String coverletter4 = coverletter3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
+		
+		model.addAttribute("coverlettter", coverletter4);  // 문> 여기까지
+		
+		
+		return "/personal/P_Rmodify";
+	}*/
 
 	// 수정한 이력서 db로 전달하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)

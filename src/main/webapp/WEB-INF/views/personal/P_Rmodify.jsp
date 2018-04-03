@@ -235,6 +235,7 @@
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
+
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">

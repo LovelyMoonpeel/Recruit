@@ -49,9 +49,6 @@
                <td style="text-align: center;">${PUserVO.email}</td>
             </tr>
 			
-			
-			
-			
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">연락처 목록</th>
@@ -72,8 +69,6 @@
                </tr>
             </c:forEach>
             
-            
-			<c:if test="${fn:length(eduVOlist) > 0}">
             <tr>
                   <th class="table-active" colspan="2" scope="row"
                      style="text-align: center;">학력사항</th>
@@ -102,9 +97,7 @@
                   <td style="text-align: center;">${eduVO.gradudate}</td>
                </tr>
             </c:forEach>
-            </c:if>
 			
-			<c:if test="${fn:length(careerVOList) > 0}">
             <tr>
                   <th class="table-active" colspan="2" scope="row"
                      style="text-align: center;">경력사항</th>
@@ -132,7 +125,6 @@
                   <td style="text-align: center;">${careerVO.finishjob}</td>
                </tr>
             </c:forEach>
-            </c:if>
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
@@ -186,7 +178,6 @@
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">보유자격증 목록</th>
             </tr>
-			 <c:if test="${fn:length(RLicenselist) > 0}">
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
                <th class="table-active" scope="row" style="text-align: center;"><label
@@ -205,8 +196,6 @@
                   <td style="text-align: center;">${RLicenseVO.acquidate}</td>
                </tr>
             </c:forEach>
-          </c:if>
-			 <c:if test="${fn:length(RLanguagelist) > 0}">
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">어학능력 자격증 목록</th>
@@ -233,14 +222,13 @@
                   <td style="text-align: center;">${ResumeLanguageVO.acquidate}</td>
                </tr>
             </c:forEach>
-			</c:if>
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
                   style="text-align: center;">자기소개서</th>
             </tr>
             <tr>
-               <td colspan="5" rowspan="3">${ResumeVO.coverletter}</td>
+               <td colspan="5" rowspan="3">${coverletter}</td>
             </tr>
          </tbody>
       </table>
