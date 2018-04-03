@@ -21,6 +21,9 @@ public class ResumeVO implements Bnoble {
 	private String lastcareer;
 	private String publicornot;
 	//소연 publicornot 추가
+	private String preadornot;
+	private String extracolumn;
+	//소연 추가
 
 	public int getBno() {
 		return bno;
@@ -165,8 +168,23 @@ public class ResumeVO implements Bnoble {
 	public void setPublicornot(String publicornot) {
 		this.publicornot = publicornot;
 	}
-	
 
+	public String getPreadornot() {
+		return preadornot;
+	}
+
+	public void setPreadornot(String preadornot) {
+		this.preadornot = preadornot;
+	}
+
+	public String getExtracolumn() {
+		return extracolumn;
+	}
+
+	public void setExtracolumn(String extracolumn) {
+		this.extracolumn = extracolumn;
+	}
+	
 	@Override
 	public String toString() {
 		return "ResumeVO [bno=" + bno + ", userid=" + userid + ", title=" + title + ", address=" + address
@@ -174,10 +192,8 @@ public class ResumeVO implements Bnoble {
 				+ ", jobgroupid=" + jobgroupid + ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid="
 				+ rgsid + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", img=" + img
 				+ ", regdate=" + regdate + ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer
-				+ ", publicornot=" + publicornot + "]";
+				+ ", publicornot=" + publicornot + ", preadornot=" + preadornot + ", extracolumn=" + extracolumn + "]";
 	}
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -199,7 +215,7 @@ public class ResumeVO implements Bnoble {
 		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

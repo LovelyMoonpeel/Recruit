@@ -24,7 +24,7 @@
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="pname">이름</label></th>
 					<td class="col-sm-4" id="pname" name="pname"
-						style="text-align: center;">${PUserVO.pname}</td>
+						style="text-align: center;">${ResumeVO.preadornot}</td>
 					<th rowspan="3" class="table-active" scope="row" style="text-align: center;"><label
 						for="img">사진</label></th>
 					<td colspan="3" rowspan="3" class="col-sm-4">
@@ -39,12 +39,12 @@
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label>생년월일</label></th>
-					<td style="text-align: center;">${PUserVO.birth}</td>
+					<td style="text-align: center;">${ResumeVO.extracolumn}</td>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="email">이메일</label></th>
-					<td style="text-align: center;">${PUserVO.email}</td>
+					<td style="text-align: center;">${ResumeVO.publicornot}</td>
 				</tr>
 
 				<tr>

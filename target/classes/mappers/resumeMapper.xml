@@ -57,11 +57,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 확인 -->
 	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
 	<![CDATA[
-		select *
-		from
-			project.tblresume
-		where 
-			bno = #{bno}
+	select bno, userid, title, address, postcode, coverletter
+	, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
+	, jobgroupid2, levelofeducation, lastcareer
+	, (select pname from tbluser where id=re.userid) as preadornot
+	, (select email from tbluser where id=re.userid) as publicornot
+	, (select birth from tbluser where id=re.userid) as extracolumn
+	from
+		tblresume re
+	where 
+		bno = #{bno};
 	]]>
 	</select>
 		
