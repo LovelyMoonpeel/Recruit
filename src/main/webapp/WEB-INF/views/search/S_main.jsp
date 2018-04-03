@@ -14,24 +14,52 @@
 		//String stypeM = (String) request.getAttribute("stypeModel");
 		SrchVO srchVO = (SrchVO) request.getAttribute("srchVO");
 		String stitle;
+
+		String cinfoUrl;
+		String recruitUrl;
+		String resumeUrl;
+
 		if ("2".equals(srchVO.getStype())) {
 			stitle = "인재 검색";
 		} else {
 			srchVO.setStype("1");
 			stitle = "채용공고 검색";
 		}
+
+		// out.println("print_test<br/>");
+		if (login != null) { // login
+			if (cname == null) { // personal
+				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+				recruitUrl = "/company/C_recruitMent?recruitNum=";
+				resumeUrl = "/personal/detail_nonavi?bno=";
+			} else { // company
+				cinfoUrl = "/company?cinfoUrl=";
+				recruitUrl = "/company?recruitUrl=";
+				resumeUrl = "/company?resumeUrl=";
+			}
+		} else { // logout
+			cinfoUrl = "/logout?cinfoUrl=";
+			recruitUrl = "/logout?recruitUrl=";
+			resumeUrl = "/logout?resumeUrl=";
+		}
+		request.setAttribute("cinfoUrl", cinfoUrl);
+		request.setAttribute("recruitUrl", recruitUrl);
+		request.setAttribute("resumeUrl", resumeUrl);
 	%>
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<!-- r.code -->
-			<h4 style="display: none;">r.code</h4>
+			<!-- r.code 1 -->
+			<h4>r.code</h4>
 			<input readonly class="form-control" type="text"
-				value="stype: ${srchVO.stype}" style="display: none;">
-			<!-- -->
+				value="login: <%=login%>"> <input readonly
+				class="form-control" type="text" value="id: <%=id%>"> <input
+				readonly class="form-control" type="text" value="cname: <%=cname%>">
+			<!-- r.code 2 -->
 			<input readonly class="form-control" type="text"
+				value="stype: ${srchVO.stype}" style="display: none;"> <input
+				readonly class="form-control" type="text"
 				value="skeyword: ${srchVO.skeyword}" style="display: none;">
-			<!-- -->
 			<input readonly class="form-control" type="text"
 				value="sfilter: ${srchVO.sfilter}" style="display: none;">
 			<!-- end of r.code -->
@@ -237,9 +265,9 @@
 	var pImgSrc = "/personal/displayFile?fileName=";
 
 	// 링크 url 변수
-	var cinfoUrl = "/company/C_info_nonavi?recruitNum=";
-	var recruitUrl = "/company/C_recruitMent?recruitNum=";
-	var resumeUrl = "/personal/detail_nonavi?bno=";
+	var cinfoUrl = "${cinfoUrl}";
+	var recruitUrl = "${recruitUrl}";
+	var resumeUrl = "${resumeUrl}";
 
 	// 검색 결과 판넬 list 제거
 	function deletespanel() {

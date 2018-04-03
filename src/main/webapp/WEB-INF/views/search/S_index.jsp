@@ -9,6 +9,26 @@
 
 <!-- Page Content -->
 <div class="container">
+	<%
+		String cinfoUrl;
+		String recruitUrl;
+		String resumeUrl;
+
+		if (login != null) { // login
+			if (cname == null) { // personal
+				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+				recruitUrl = "/company/C_recruitMent?recruitNum=";
+			} else { // company
+				cinfoUrl = "/company?cinfoUrl=";
+				recruitUrl = "/company?recruitUrl=";
+			}
+		} else { // logout
+			cinfoUrl = "/logout?cinfoUrl=";
+			recruitUrl = "/logout?recruitUrl=";
+		}
+		request.setAttribute("cinfoUrl", cinfoUrl);
+		request.setAttribute("recruitUrl", recruitUrl);
+	%>
 	<!-- carousel -->
 	<div class="row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -182,7 +202,7 @@
 	var cImgSrc = "/personal/displayFile?fileName=";
 
 	// 링크 url 변수
-	var recruitUrl = "/company/C_recruitMent?recruitNum=";
+	var recruitUrl = "${recruitUrl}";
 
 	// Menu 갯수
 	var mnum = 8;

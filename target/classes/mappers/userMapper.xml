@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.recruit.mapper.UserMapper">
 
 	<insert id="create">
-		insert into tblUser (id, pw, cname, pname, email, registnum, birth)
+		insert into tbluser (id, pw, cname, pname, email, registnum, birth)
 		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
 		#{birth})
 	</insert>
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select id, pw, pname, cname, authCode
 		from
-		Project.tblUser
+		project.tbluser
 		where id = #{id} and pw = #{pw}
 	</select>
 	<!--// -->
@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="userRead" resultType="BoardVO">
 		select id, pname, cname
 		from
-		Project.tblUser
+		project.tbluser
 		where id = #{id}
 	</select>
 </mapper>
