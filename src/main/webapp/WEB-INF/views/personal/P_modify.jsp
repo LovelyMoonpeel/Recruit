@@ -94,6 +94,10 @@
 <br> <br>
 
 <script type='text/javascript'>
+
+var ppwReg = /[A-Za-z0-9]$/;
+var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+
 $(document).ready(function(){
 	
 	var formObj = $("form[role = 'form']");
@@ -151,30 +155,97 @@ $(document).ready(function(){
 		console.log("#modify-cancel");
 		self.location = "/personal/index";
 	});
-	
-//	<!-- //비밀번호 일치 여부  -->	
-	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가*/
-	$('#npwc').keyup(function(){
-		if($('#npwc').val()!=""&&$('#npw').val() == $('#npwc').val()){
-			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
-			$("#npwchk").attr('style', "color:blue");
-		}else{
-			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
-			$("#npwchk").attr('style', "color:red");
-		}
-	});
-	
- 	$('#npw').keyup(function(){
-		if($('#npw').val()!=""&&$('#npw').val() == $('#npwc').val()){
-			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
-			$("#npwchk").attr('style', "color:blue");
-		}else{
-			document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
-			$("#npwchk").attr('style', "color:red");
-		}
-	}); 
- 	/* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가 끝*/
-});
 
 </script>
+
+<!-- j.code 03/29: 비밀번호 유효성 처리 -->
+<script>
+//A~Z랑 a~z랑 0~9만 허용, 한글은 허용 안 하기 위해
+var ppwRegC = /[A-Za-z0-9]$/;   
+
+//특수문자는 허용 안 하기 위해
+var pexpRegC = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+
+//npwchk는 잘못된 값이 들어갔을 때 제대로 값을 입력하라고 문구를 뿌리는 span태그 공간이다.
+var npwchk = $('#npwchk');
+
+$('#npwc').keyup(function(){	
+	
+var npwc = $('#npwc').val();
+var npw = $('#npw').val();
+
+// \s는 공백을 의미한다.
+if(npwc.search(/\s/) != -1){
+	alert("공백 금지");
+	
+	//공백인데 썼으니깐 썼던거 삭제하는 기능
+	$('#npwc').val(npwc.slice(0, -1));
+}
+
+if(!(ppwRegC.test(npwc)) && pexpRegC.test(npwc)){
+	alert("특수문자 금지");
+	
+	//특수문자 금지인데 썼으니깐 썼던거 삭제하는 기능
+	$('#npwc').val(npwc.slice(0, -1));
+}
+
+//지워지기 전 값과 지워진 다음값을 다시 넣어줌
+npwc = $('#npwc').val();
+npw = $('#npw').val();
+
+//글자 수 제한 6이상 20이하
+if(!(npwc.length > 5 && npwc.length <= 20)){
+	console.log("1");
+	document.getElementById("npwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+	npwchk.attr("style", "color:red");		
+}else{
+	if(ppwvalC == ppwcvalC){
+		console.log("2");
+		document.getElementById("npwchk").innerHTML = "비밀번호가 일치합니다.";
+		npwchk.attr("style", "color:blue");
+	}else{
+		console.log("3");
+		document.getElementById("npwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+		npwchk.attr("style", "color:red");
+	}
+}
+
+});
+
+$('#npw').keyup(function(){
+var npw = $('#npw').val();
+var npwc = $('#npwc').val();
+
+if(npw.search(/\s/) != -1){
+	alert("공백 금지");
+	$('#npw').val(npw.slice(0, -1));
+}
+
+if(!(ppwRegC.test(npw)) && pexpRegC.test(npw)){
+	alert("특수문자 금지");
+	$('#npw').val(npw.slice(0, -1));
+}
+
+npw = $('#npw').val();
+npwc = $('#npwc').val();
+
+if(!(npw.length > 5 && npw.length <= 20)){
+	console.log("4");
+	document.getElementById("npwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+	npwchk.attr("style", "color:red");
+}else{
+	if(ppwvalC == ppwcvalC){
+		console.log("5");
+		document.getElementById("npwchk").innerHTML = "비밀번호가 일치합니다.";
+		npwchk.attr("style", "color:blue");
+	}else{
+		console.log("6");
+		document.getElementById("npwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+		npwchk.attr("style", "color:red");
+	}
+}
+});
+</script>
+<!-- j.code 03/29: 비밀번호 유효성 처리 끝-->
+
 <%@include file="../include/cfooter.jsp"%>

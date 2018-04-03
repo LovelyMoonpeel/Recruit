@@ -264,7 +264,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateResumeEdu">
 	<![CDATA[
 	update project.tblresumeedu
-	set schoolname = #{schoolname}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
+	set schoolname = #{schoolname}, resumenum = #{resumenum}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
 	where resumenum = #{resumenum}
 	]]>
 	</update>

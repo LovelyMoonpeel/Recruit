@@ -257,7 +257,16 @@ public class PersonalController {
 
 				System.out.println("언니"+Rservice.resumeRead(bno));
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+
+				/*2018.04.03_Jcode_자기소개서 유효성 추가*/
+				String coverletter = Rservice.readROne(bno).getCoverletter();
+				String coverletter2 = coverletter.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+				String coverletter3 = coverletter2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+				String coverletter4 = coverletter3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
 				
+				model.addAttribute("coverletter", coverletter4);
+				/*2018.04.03_Jcode_자기소개서 유효성 추가 끝*/
+					
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
@@ -326,15 +335,8 @@ public class PersonalController {
 
 			// r.code 03/13
 			model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
-			System.out.println("라라"+Eduservice.readResumeEduList(bno));
-			System.out.println("니라"+Licenseservice.selectRLicenseList(bno));
 			model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 			// end of r.code 03/13
-
-			//model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
-			//model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
-			//model.addAttribute("RegionVOlist", Rservice.selectRegionList());
-			//민경
 
 			return "personal/P_Rmodify";
 		} else {
@@ -354,25 +356,17 @@ public class PersonalController {
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
 
+		Rservice.updateROne(resume);
+
 		// r.code 03/15 : update edu & career list in DB
 		int resumenum = resume.getBno();
+		System.out.println("resumenum : " + resumenum);
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		
-		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
-/*
-	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
-	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {
-		System.out.println("Rremove POST Controller");
-
-		Rservice.deleteROne(bno);
-		// model.addAttribute(service.selectPUser(id));
-		// rttr.addFlashAttribute("result", "success");
-		return "redirect:/personal/manage";
-	}*/
 	// 추천채용공고
 	@RequestMapping(value = "/recom", method = RequestMethod.GET)
 	public String recomGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
@@ -511,8 +505,8 @@ public class PersonalController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
-	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.GET)
+	public String deleteResumeListPOST(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
@@ -520,9 +514,9 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
-			//Rservice.deleteROne(bno);
+			Rservice.deleteROne(bno);
 			rttr.addFlashAttribute("msg", "DELETE");
-			return "personal/P_manage";
+			return "redirect:/personal/manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
@@ -530,7 +524,7 @@ public class PersonalController {
 	}
 	
 	@RequestMapping(value = "/deleteOneResume", method = RequestMethod.GET)
-	public String deleteOneResumeGET(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	public String deleteOneResumeGET(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteOneResume POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");

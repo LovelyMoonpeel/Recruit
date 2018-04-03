@@ -31,8 +31,7 @@
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content" 
-			readonly>${CsfaqVO.content}</textarea></td>
+			<td>${CsfaqVO.content}</td>
 		</tr>
 	</table>
 	

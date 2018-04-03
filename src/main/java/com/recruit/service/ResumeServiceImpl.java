@@ -79,9 +79,11 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public void deleteROne(Integer bno) throws Exception {
+	public void deleteROne(int[] bno) throws Exception {
 		System.out.println("service" + bno);
-		dao.deleteROne(bno);
+		for(int i=0; i < bno.length ; i++) {
+			dao.deleteROne(bno[i]);
+		}
 	}
 
 	@Override

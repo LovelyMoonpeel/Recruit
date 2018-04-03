@@ -174,32 +174,29 @@
 		<hr style="border: solid 1px #ccc;">
 		<h4>
 			<b>학력사항</b>
-			<div class="form-group col-md-3">
-			<select class="form-control" name=levelofeducation id="CodeList2">
-	          <c:forEach items="${CodeVOlist }" var="CodeVO">
-	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-	             </c:if>
-	          </c:forEach>
-	       </select>
-	       </div>
-		</h4>
+		</h4>		
+		<div class="form-group col-md-3"><h4><b>학력사항</b></h4></div>
+		<select class="form-control" name=levelofeducation id="CodeList2">
+          <c:forEach items="${CodeVOlist }" var="CodeVO">
+             <c:if test="${CodeVO.tid == 2 }">
+                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+             </c:if>
+          </c:forEach>
+		</select>
 		<div id="edu_div"></div>
-		<hr style="border: solid 1px #ccc;">
+		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>경력사항</b>
-			<div class="form-group col-md-3">
-			<select class="form-control" name="lastcareer" id="CodeList1">
-	          <c:forEach items="${CodeVOlist }" var="CodeVO">
-	             <c:if test="${CodeVO.tid == 1 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
-	             </c:if>
-	          </c:forEach>
-	       </select>
-	       </div>
 		</h4>
+		<div class="form-group col-md-3"><h4><b>경력사항</b></h4></div>
+		<select class="form-control" name="lastcareer" id="CodeList1">
+          <c:forEach items="${CodeVOlist }" var="CodeVO">
+             <c:if test="${CodeVO.tid == 1 }">
+                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+             </c:if>
+          </c:forEach>
+		</select>
 		<div id="exp_div"></div>
-		<hr style="border: solid 1px #ccc;">
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
@@ -207,13 +204,11 @@
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	    <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
 		<hr style="border: solid 4px #ccc;">
-	   <hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
 		</h4>
@@ -240,6 +235,7 @@
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
+
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">
@@ -272,8 +268,8 @@
 </script>
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row edu_row_number">
-	<hr style="border: solid 0.5px #ccc;">
-	<div class="form-group col-md-2">
+	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<div class="form-group col-md-3">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -282,7 +278,7 @@
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
 			<input type="text" class="form-control gradudate edu edudates"
@@ -294,7 +290,7 @@
 		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
 			name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="major">학과</label> <input class="form-control major edu"
 			name="listEdu[].major" value="{{major}}"></input>
 	</div>
@@ -463,7 +459,7 @@
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="lid">언어 선택</label>
 		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
 			{{#select lid}}
@@ -504,7 +500,7 @@
 		</select>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
 	</div>
@@ -513,11 +509,11 @@
 		<label for="score">점수</label> 
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
 				<input type="text" class="input-group date form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">
@@ -740,7 +736,6 @@ $(document).ready(function() {
 			}
 		});
 		
-		
 		if($("#xornot").val()==0){
 			console.log("xornot.val()==0");
 			console.log("사진 삭제 안함");
@@ -837,6 +832,7 @@ $(document).ready(function() {
 			 alert("기본 칸입니다.");
 		 }
 	});
+	
 	// edu 추가버튼 이벤트
 	$("#edu_div").on("click", ".edu_plus_btn", function(){
 		var item = {
@@ -844,6 +840,7 @@ $(document).ready(function() {
 		};
 		add_edu(item);
 	});
+	
 	//edu minus 버튼 이벤트
 	$("#edu_div").on("click", ".edu_minus_btn", function(){
 		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
@@ -1235,6 +1232,7 @@ $(document).ready(function() {
          $("#subRegion").html(str);
       })
    }
+   
   // <!--j.code 03/22 : jobGroup, region 소분류 받는 작업 끝-->
 </script>
 <%@include file="../include/cfooter.jsp"%>

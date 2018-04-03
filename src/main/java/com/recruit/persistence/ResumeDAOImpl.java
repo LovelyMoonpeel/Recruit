@@ -68,7 +68,7 @@ public class ResumeDAOImpl implements ResumeDAO {
 	}
 
 	@Override
-	public void deleteROne(Integer bno) throws Exception {
+	public void deleteROne(int bno) throws Exception {
 		System.out.println("dao" + bno);
 		System.out.println("Service deleteROne");
 		session.delete(namespace + ".deleteROne", bno);
