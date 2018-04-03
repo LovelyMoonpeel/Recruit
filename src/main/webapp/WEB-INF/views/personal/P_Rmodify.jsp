@@ -289,7 +289,7 @@
 		<label for="schoolname">학교명</label> <input class="form-control schoolname edu"
 			name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="major">학과</label> <input class="form-control major edu"
 			name="listEdu[].major" value="{{major}}"></input>
 	</div>
@@ -458,7 +458,7 @@
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="lid">언어 선택</label>
 		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
 			{{#select lid}}
@@ -499,7 +499,7 @@
 		</select>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
 	</div>
@@ -508,11 +508,11 @@
 		<label for="score">점수</label> 
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
 		<div class="input-group date" data-provide="datepicker">
 				<input type="text" class="input-group date form-control acquidate languageacquidate langclass"  name="rlangvolist[].acquidate" value="{{acquidate}}">

@@ -488,7 +488,7 @@ public class PersonalController {
 			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
 			Rservice.deleteROne(bno);
 			rttr.addFlashAttribute("msg", "DELETE");
-			return "personal/P_manage";
+			return "redirect:/personal/manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
