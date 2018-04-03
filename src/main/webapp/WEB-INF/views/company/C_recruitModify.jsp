@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <div class="col-md-9">
@@ -19,10 +20,17 @@
 		</div>
 		<table class="table table-bordered" id="my-tbody">
 			<tr>
+			
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+			
+			
 				<th class="active">모집직종</th>
 				<td>
 					<%-- <input type="text" value="${RecruitVO.jobgroupid}" name="jobgroupid"> --%>
-					<select id="jobGroup" name="jobgroupid">
+					<select  class="selectpicker" data-live-search="true" id="jobGroup" name="jobgroupid" >
 						<option value="">모집직종</option>
 						<c:forEach items="${jobgroupList}" var="JobGroupVO">
 							<c:choose>
@@ -43,7 +51,7 @@
 			<tr>
 				<th class="active">근무지역</th>
 				<td>
-					<select id="region" name='rgbid'>
+					<select  class="selectpicker" data-live-search="true" id="region" name='rgbid'>
 						<option value="">근무지역</option>
 						<c:forEach items="${regionList}" var="RegionVO">
 							<c:choose>
@@ -75,7 +83,7 @@
 			<tr>
 				<th class="active">근무형태</th>
 				<td>
-					<select name="employstatusid">
+					<select class="selectpicker" name="employstatusid">
 						<option value="">근무형태</option>
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:choose>
@@ -95,7 +103,7 @@
 			<tr>
 				<th class="active">급여사항</th>
 				<td>
-					<select name="salaryid">
+					<select class="selectpicker" name="salaryid">
 						<option value="">급여사항</option>
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:choose>
@@ -115,7 +123,7 @@
 			<tr>
 				<th class="active">학력</th>
 				<td>
-					<select name="edu">
+					<select class="selectpicker" name="edu">
 						<option value="">학력</option>
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:choose>
@@ -135,7 +143,7 @@
 			<tr>
 				<th class="active">경력</th>
 				<td>
-					<select name="exp">
+					<select class="selectpicker" name="exp">
 						<option value="">경력</option>
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:choose>

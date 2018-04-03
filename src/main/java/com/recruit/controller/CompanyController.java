@@ -102,9 +102,27 @@ public class CompanyController {
 	          }
 			String id = login.getId();
 			System.out.println(id);
-			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute(login); // 문> 이 줄 추가
-			return "/company/C_index";
+			
+			// 문> 서비스객체의 CompanyInfoRead를 까면 그 기능은 id를 데리고 온다.
+						// 그 코드 뒤에 .getIntro()를 하면 해당 id의 Intro칼럼의 내용을 가지고 온다
+						// 그래서 content에 넣는다.
+						// 아래 코드들은 설명하자면 우리가 입력을 할 때는 textarea에 넣는데 입력한 것을 출력할때는 html적용이 되야 띄워쓰기, 엔터가 먹힌다. 그걸 가능하게 해주는 코드이다.
+						// String 자체에 null을 넣으려고 하면, 에러가 난다. 그래서 null인 경우는 여기를 거치지 않게 하고 
+						// null이 아닌 경우, 즉, 기업소개에 끄적끄적였을 때는 if문 안으로 들어간다
+						if(service.CompanyInfoRead(id).getIntro()!=null){
+							String content = service.CompanyInfoRead(id).getIntro();
+							String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+							String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+							String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+							model.addAttribute("content", content4);
+						}
+						// 문> content4 객체를 content로 쓰겠다는거다.
+						// jsp파일 보면 $content로 되어있는 것을 볼 수 있을 것이다.
+						
+						model.addAttribute(service.CompanyInfoRead(id));
+						model.addAttribute(login); // 문> 이 줄 추가
+						return "/company/C_index";
+			
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
@@ -319,13 +337,19 @@ public class CompanyController {
 
 			String id = login.getId();
 
+			
+			
 			String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
-			String adddesc2 = adddesc.replace("\r\n", "<br>");
+			String adddesc2 = adddesc.replace("<", "&lt;");
+			String adddesc3 = adddesc2.replace("\r\n", "<br>");
+			String adddesc4 = adddesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
 			String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
-			String jobdesc2 = jobdesc.replace("\r\n", "<br>");
-
-			model.addAttribute("adddesc", adddesc2);
-			model.addAttribute("jobdesc", jobdesc2);
+			String jobdesc2 = jobdesc.replace("<", "&lt;");
+			String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
+			String jobdesc4 = jobdesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+						
+			model.addAttribute("adddesc", adddesc4);
+			model.addAttribute("jobdesc", jobdesc4);
 
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));

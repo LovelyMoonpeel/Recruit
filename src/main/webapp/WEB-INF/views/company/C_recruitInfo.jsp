@@ -104,7 +104,7 @@
 <c:choose>
 <c:when test="${CInfoVO.id != null}">
 <div class="text-center">
-<button type="button" id="delete" class="btn btn-default btn-lg active">공고보기</button>
+<button type="button" id="view" class="btn btn-default btn-lg active" value="${RecruitVO.bno}">공고보기</button>
 <button type="submit" id ="modify" class="btn btn-primary btn-lg active" value="${RecruitVO.bno}">수정하기</button>
 </div>
 </c:when>
@@ -181,38 +181,8 @@
 	
 	<br><br>
 	
-	<div  style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;" >
 	
-	<div class="row"> <!-- 접수기간  -->
-	<div class="col-md-3">
-	<font size="6px">접수방법</font>
-	<br>
-	<span>마감일</span>
-	<span>${RecruitVO.period }</span>
-	</div>
 	
-	<div class="col-md-9">
-	<button class="btn btn-primary btn-lg disabled">지원하기</button>
-	
-	<br>
-	
-	<table>
-	<tr>
-	접수방법 ${RecruitVO.acceptmethod }
-	</tr>
-	<tr>
-	<td>지원양식</td><td>${RecruitVO.recruitform }</td>
-	</tr>
-	<tr>
-	<td>모집인원</td><td> ${RecruitVO.recruitnum }명 </td><br>
-	</tr>
-	
-	</table>
-	</div>
-	</div> <!-- /접수기간  -->
-	</div>
-	
-	<br><br>
 	
 	<div  style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;" >
 	
@@ -298,7 +268,7 @@
 		</c:forEach>
 
 	</div>
-	dddddd ${ResumeVO.bno} ${ResumeVO.bno}
+<br><br>
 			</div>
 			<form role="form" method="post">
 			<input type='text' id="C_readAPR_id" name="bno" value="${RecruitVO.bno}">
@@ -351,6 +321,13 @@ var formObj = $("form[role='form']");
 			formObj.submit();
 		});
 		
+		
+		
+	$("#view").on("click",function(){
+		
+		self.location = "/company/C_recruitMent?recruitNum="+$(this).val();
+		
+	})
 </script>
 
 <!-- //메인 바디 끝 -->
