@@ -5,7 +5,7 @@
 <%@include file="../include/sheader.jsp"%>
 
 <!-- 개인관리 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<h1>Q&A</h1>
 
 	<table class="table table-bordered">
@@ -19,10 +19,13 @@
 	<c:forEach items="${list}" var="CsqnaVO">
 			<tr>
 			<td>${CsqnaVO.bno}</td>
-			<td><input class="qnamodal ${CsqnaVO.bno}" type="hidden" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}"><a href='javascript:;' class="qnadetail" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
+			<td><input class="qnamodal ${CsqnaVO.bno}" type="hidden" data-toggle="modal" data-target="#bpwModal" data-bno="${CsqnaVO.bno}">
+				<a href='javascript:;' class="qnadetail" data-bno="${CsqnaVO.bno}">${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong>
+				<c:if test="${!empty CsqnaVO.bpw}"><img src="/resources/rpjt/img/Lock-icon.png" width="15px"></c:if>
+				</a></td>
 			<td>${CsqnaVO.user}</td>
 			<td>${CsqnaVO.regdate }</td>
-			<td><span class="badge bg-red">${CsqnaVO.viewcnt }</span></td>
+			<td><span class="badge bg-info">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>
 			

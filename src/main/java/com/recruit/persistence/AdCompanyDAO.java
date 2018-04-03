@@ -12,6 +12,8 @@ public interface AdCompanyDAO {
 	public BoardVO read(String id) throws Exception;
 
 	public void update(BoardVO vo) throws Exception;
+	
+	public void cnameupdate(BoardVO vo) throws Exception;
 
 	public void delete(String id) throws Exception;
 

@@ -12,7 +12,8 @@
 
 
 <!-- 개인정보수정 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-md-9"> -->
 
 
 
@@ -29,12 +30,12 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input class="form-control" type="text" name="pw" id="pw"
+				<td><input class="form-control" type="password" name="pw" id="pw"
 					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
-				<td><input class="form-control" type="text" name="pwc" id="pwc"
+				<td><input class="form-control" type="password" name="pwc" id="pwc"
 					placeholder="비밀번호를 다시 입력하세요." required>
 				<span id="pwchk"></span>				
 				</td>
@@ -105,26 +106,78 @@
 <!-- 비밀번호 일치 여부  -->
 <script>
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-
-	var pwchk = $('#pwchk');  /* 비밀번호 일치여부 받아 줄 텍스트 */
+	var pwchk = $('#pwchk');
 	
-	$('#pwc').keyup(function(){
-		if($('#pw').val() == $('#pwc').val() && $('#pwc').val() != ""){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
-		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+	var pwReg = /[A-Za-z0-9]$/;
+	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+
+	$('#pwc').keyup(function(){	
+		var pwcval = $('#pwc').val();
+		var pwval = $('#pw').val();
+		
+		if(pwcval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#pwc').val(pwcval.slice(0, -1));
 		}
+		
+		if(!(pwReg.test(pwcval)) && pexpReg.test(pwcval)){
+			alert("특수문자 금지");
+			$('#pwc').val(pwcval.slice(0, -1));
+		}
+
+		pwcval = $('#pwc').val();
+		pwval = $('#pw').val();
+		
+		if(!(pwcval.length > 5 && pwcval.length <= 20)){
+        	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			pwchk.attr("style", "color:red");
+			pwc = "no";
+		}else{
+			if(pwval == pwcval){
+				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
+				pwchk.attr("style", "color:blue");
+				pwc = "ok";
+			}else{
+				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				pwchk.attr("style", "color:red");
+				pwc = "no";
+			}
+		}
+		
 	})
 	
+	
 	$('#pw').keyup(function(){
-		if($('#pw').val() == $('#pwc').val() && $('#pw').val() != ""){
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
+		var pwval = $('#pw').val();
+		var pwcval = $('#pwc').val();
+		
+		if(pwval.search(/\s/) != -1){
+			alert("공백 금지");
+			$('#pw').val(pwval.slice(0, -1));
+		}
+		
+		if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
+			alert("특수문자 금지");
+			$('#pw').val(pwcval.slice(0, -1));
+		}
+		
+		pwval = $('#pw').val();
+		pwcval = $('#pwc').val();
+		
+		if(!(pwval.length > 5 && pwval.length <= 20)){
+        	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+			pwchk.attr("style", "color:red");
+			pwc = "no";
 		}else{
-			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+			if(pwval == pwcval){
+				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
+				pwchk.attr("style", "color:blue");
+				pwc = "ok";
+			}else{
+				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				pwchk.attr("style", "color:red");
+				pwc = "no";
+			}
 		}
 	})
 </script>

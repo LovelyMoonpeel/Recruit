@@ -9,19 +9,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, cname, pname, email, registnum
 	from
-		project.tbluser
+		tbluser
 	where id = #{id}
 	</select>
 
 	<update id="update">
-		update project.tbluser set
+		update tbluser set
 		pw = #{pw}, cname = #{cname} ,pname = #{pname}, email = #{email}, registnum = #{registnum}
+		where id = #{id}
+	</update>
+	
+	<update id="cnameupdate">
+		update tblcinfo set
+		cname = #{cname}
 		where id = #{id}
 	</update>
 
 	<delete id="delete">
-		delete from project.recruit where id = #{id}
-		delete from project.tbluser where id = #{id}
+		delete from recruit where id = #{id}
+		delete from tbluser where id = #{id}
 	</delete>
 
 	<select id="listAll" resultType="BoardVO">
@@ -29,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, cname , pname, email, registnum
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is not null and id != 'admin'
 	order by id
@@ -41,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, cname , pname, email, registnum
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is not null and id != 'admin'
 	order by id
@@ -54,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, cname , pname, email, registnum
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	order by id
@@ -67,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		count(cname)
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is not null and id != 'admin'
 	]]>
@@ -77,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	select *
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is not null and id != 'admin'
 	]]>
@@ -113,19 +119,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listSearchCount" resultType="int">
 	<![CDATA[
 	select count(cname)
-	from project.tbluser
+	from tbluser
 	where cname is not null and id != 'admin'
 	]]>
 	<include refid="search"></include>
 	</select>
 
 	<update id="rupdate">
-		update project.tblrecruit set
+		update tblrecruit set
 		title = #{title}, jobgroupid = #{jobgroupid} ,jobgroupid2 = #{jobgroupid2}, rgbid = #{rgbid}, rgsid = #{rgsid}, jobdesc=#{jobdesc}, recruitnum=#{recruitnum}, employstatusid=#{employstatusid}, salaryid=#{salaryid}, edu=#{edu}, exp=#{exp}, period=#{period}, acceptmethod=#{acceptmethod}
 		where bno = #{bno}
 	</update>
 	
 	<delete id="rdelete">
-		delete from project.tblrecruit where bno = #{recruitNum}
+		delete from tblrecruit where bno = #{recruitNum}
 	</delete>
 </mapper>

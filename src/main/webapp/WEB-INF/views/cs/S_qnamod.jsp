@@ -11,7 +11,7 @@
 
 
 <!-- 개인정보수정 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
 
 
@@ -50,7 +50,7 @@
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content">${CsqnaVO.content}</textarea></td>
+			<td><textarea class="form-control" name="content" style="resize: none;">${CsqnaVO.content}</textarea></td>
 		</tr>
 	</table>
 	</form>

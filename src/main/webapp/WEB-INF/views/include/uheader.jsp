@@ -30,37 +30,18 @@
 </head>
 
 <body>
-	<%@include file="../include/jheader.jsp"%>
-<%
-String button = "danger";
-String on_off = "Offline";
 
-	try{
-		if(login != null){
-			button = "success";
-			on_off = "Online";
-		}
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	
-%>
+	<%@include file="../include/jheader.jsp"%>
 
 	<!-- Page Content -->
-	<div class="container-fluid">
+	<div class="container">
+
 		<div class="row">
-			<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-				<div class="profile-sidebar">
-					<div class="profile-usertitle">
-						<div class="profile-usertitle-name">고객센터</div>
-						<div class="profile-usertitle-status">
-							<span class="indicator label-<%=button%>"></span><%=on_off %>
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>
+
+			<div class="col-md-3">
+				<p class="lead">회원정보 확인</p>
 				<div class="list-group">
-					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
-						class="list-group-item">Q&A</a>
+					<a href="/user/IDsearch" class="list-group-item">아이디 찾기</a> <a
+						href="/user/PWsearch" class="list-group-item">비밀번호 찾기</a>
 				</div>
 			</div>

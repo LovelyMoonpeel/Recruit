@@ -74,10 +74,6 @@ public class CompanyServiceImpl implements CompanyService {
 	 @Override
 	 public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
 
-		 System.out.println("service넘어옴 값은 = "+recruitNum);
-		 
-		 System.out.println("출력값은 : " + dao.RecruitInfoRead(recruitNum));
-		 
 		 dao.updateViewCnt(recruitNum);
 		 
 		 return dao.RecruitInfoRead(recruitNum);
@@ -111,7 +107,6 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	@Override
 	public RecruitVO RecruitModifyRead(int bno, String id)throws Exception{
-		System.out.println("출력결과는 : " +dao.RecruitModifyRead(bno,id));
 		return dao.RecruitModifyRead(bno,id);
 	}
 	@Override

@@ -190,8 +190,9 @@
   where f.cid = #{id} and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  
    ]]>
   <include refid="search"></include>
+  <include refid="order"></include>
   <![CDATA[
-  order by bno limit #{pageStart}, #{perPageNum}
+  limit #{pageStart}, #{perPageNum}
     ]]>
  </select> <!-- ajax용 채용공고 리스트  -->
  
@@ -202,8 +203,13 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 ,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
 , if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
   from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  order by bno limit #{pageStart}, #{perPageNum};
- ]]>  
+  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  
+      ]]>
+  <include refid="search"></include>
+  <include refid="order"></include>
+  <![CDATA[
+  limit #{pageStart}, #{perPageNum}
+    ]]> 
  </select> <!-- ajax용 진행 중 채용공고 리스트  -->
  
     <select id="ajaxEndRecruitList" resultType="com.recruit.domain.RecruitVO">
@@ -213,51 +219,16 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 ,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
 , if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
   from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period < curdate() and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  order by bno  limit #{pageStart}, #{perPageNum};
- ]]>  
+  where f.cid = #{id} and period < curdate() and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  
+     ]]>
+  <include refid="search"></include>
+  <include refid="order"></include>
+  <![CDATA[
+  limit #{pageStart}, #{perPageNum}
+    ]]> 
  </select> <!-- ajax용 마감된 채용공고 리스트  -->
  
- <select id="ajaxSearchList" resultType="com.recruit.domain.RecruitVO" parameterType="hashMap">
-<![CDATA[
- select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-, case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
-,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
-, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
-  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  and title like CONCAT('%',#{srchTxt},'%')
-  order by bno limit #{pageStart}, #{perPageNum};
-]]>
-
  
- </select>
- 
-  <select id="ajaxIngSearchList" resultType="com.recruit.domain.RecruitVO" parameterType="hashMap">
-<![CDATA[
- select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-, case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
-,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
-, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
-  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and title like CONCAT('%',#{srchTxt},'%')  order by bno limit #{pageStart}, #{perPageNum};
-]]>
-
- 
- </select>
- 
-  <select id="ajaxEndSearchList" resultType="com.recruit.domain.RecruitVO" parameterType="hashMap">
-<![CDATA[
-select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
-, case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
-,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
-, if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
-  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
-  where f.cid = #{id} and period < curdate() and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and title like CONCAT('%',#{srchTxt},'%')  order by bno  limit #{pageStart}, #{perPageNum};
- 
-]]>
-
- 
- </select>
-
 	<update id="updateViewCnt">
 		update project.tblrecruit set viewcnt = viewcnt +1
 		where
@@ -268,6 +239,31 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 
 		
 	</update>
+	
+	<select id="recruitCriteriaCount" resultType="int"> <!-- 전체 공고 몇개 있는지 체크용  -->
+<![CDATA[  
+select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and bno > 0
+]]>
+		<include refid="search"></include>
+	</select> 
+	
+	<select id="ajaxIngRecruitListCount" resultType="int"> <!-- 진행중 공고 몇개 있는지 체크용 -->
+  <![CDATA[  
+  select count(bno)
+  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and bno > 0
+	]]>
+		<include refid="search"></include>
+	</select> 
+	
+	<select id="ajaxEndRecruitListCount" resultType="int"> <!-- 마감 공고 몇개 있는지 체크용 -->
+<![CDATA[  
+select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period < curdate() and period != ' ' and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and bno > 0
+]]>
+		<include refid="search"></include>
+	</select> 
 
 
 	<select id="recruitinfoRead3" resultType="com.recruit.domain.RecruitVO">
@@ -306,6 +302,32 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 			</if>
 		</if>
 	</sql>
+	
+	<sql id="order">
+	<if test="orderType != null">
+	<if test="orderType == 'appBottom'"> <!-- 지원자수 내림차순 -->
+	order by applynum desc
+	</if>
+	<if test="orderType == 'appTop'"> <!-- 지원자수 오름차순 -->
+	order by applynum asc
+	</if>
+	<if test="orderType == 'endBottom'"> <!-- 마감일 내림차순 -->
+	order by f.period desc
+	</if>
+	<if test="orderType == 'endTop'"> <!-- 마감일 오름차순 -->
+	order by f.period asc
+	</if>
+	<if test="orderType == 'viewBottom'"> <!-- 조회수 내림차순 -->
+	order by f.viewcnt desc
+	</if>
+	<if test="orderType == 'viewTop'"> <!-- 조회수 오름차순 -->
+	order by f.viewcnt asc
+	</if>
+	</if>
+	<if test="orderType == null">
+	order by bno desc <!-- 아무것도 없으면 bno desc -->
+	</if>
+	</sql>
 
 		<select id="reComList" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[  
@@ -313,8 +335,8 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 , case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
 ,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
 , if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
-  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = 'park' group by z.rcno) h on  h.o = f.bno 
-  where f.cid = 'park' and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  
+  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid  
 ]]>
 		<include refid="search"></include>
   
@@ -322,6 +344,7 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
   order by bno limit #{pageStart}, #{perPageNum};
 ]]>
 	</select> <!-- 추천 인재에서 공고 검색용  -->
+	
 	
 		<select id="reComListSearchCount" resultType="int">
 <![CDATA[  
@@ -334,7 +357,7 @@ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE()
 
 	<select id="ajaxPersonRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
 	select distinct p.bno as bno, substring(u.pname,1,1) as name, p.title as title,  r.rgbname as rgbid, n.career as salary , e.schoolname, e.major
-	from tblresume p, tblRecruit c, tblJobGroup j, tblRegion r, tblcode m, tblcode n, tblUser u, tblresumeedu e
+	from tblresume p, tblrecruit c, tbljobgroup j, tblregion r, tblcode m, tblcode n, tbluser u, tblresumeedu e
 where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid and p.jobstateid = 1 and p.salaryid = c.salaryid
 and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id and c.salaryid = n.id and p.userid = u.id and e.resumenum = p.bno
 and c.bno = #{bno};
@@ -342,12 +365,12 @@ and c.bno = #{bno};
 
 	<insert id="ajaxFavorPersonAdd" parameterType="hashMap">
 		insert into
-		tblInterestPerson(cuserid, presume) values(#{id}, #{bno});
+		tblinterestperson(cuserid, presume) values(#{id}, #{bno});
 	</insert> <!-- 관심인재 등록 -->
 
 	<insert id="ajaxFavorPersonDelete" parameterType="hashMap">
 		delete from
-		tblInterestPerson where cuserid = #{id} and presume = #{bno};
+		tblinterestperson where cuserid = #{id} and presume = #{bno};
 	</insert> <!-- 관심인재 삭제 -->
 
 
@@ -356,8 +379,8 @@ and c.bno = #{bno};
 		substring(u.pname,1,1) as name, p.title, r.rgbname as
 		rgbid, n.career
 		as salary, e.schoolname, e.major
-		FROM tblInterestPerson f, tblresume p,
-		tblRegion r, tblUser u , tblcode n,
+		FROM tblinterestperson f, tblresume p,
+		tblregion r, tbluser u , tblcode n,
 		tblresumeedu e
 		where f.presume =
 		p.bno and p.rgbid = r.rgbid and u.id = p.userid and n.id
@@ -367,7 +390,7 @@ and c.bno = #{bno};
 
 	<select id="favorCompareList" resultType="com.recruit.domain.CInterestPersonVO">
 		select presume from
-		tblInterestPerson where cuserid = #{id};
+		tblinterestperson where cuserid = #{id};
 
 	</select> <!-- 추천인재 별표시 비교용 -->
 
@@ -454,12 +477,12 @@ and c.bno = #{bno};
 		substring(u.pname,1,1) as img, p.userid address, p.title,
 		e.schoolname
 		coverletter, e.major rgbid
-		FROM tblApply a, tblRecruit r, tblresume p,
-		tbluser u, tblResumeEdu e,
-		tblCode m
+		FROM tblapply a, tblrecruit r, tblresume p,
+		tbluser u, tblresumeedu e,
+		tblcode m
 		where a.rcno = #{recruitNum} and
 		r.bno = #{recruitNum} and p.bno = a.rsno
 		and u.id = p.userid and
 		e.resumenum = p.bno and p.salaryid = m.id;
 	</select> <!-- 지원인재 리스트 -->
-</mapper>  
+</mapper> 

@@ -6,7 +6,16 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<hr>
+</div>
+<style>
+footer {
+position: relative;
+bottom: -50px;
+left: 0;
+right: 0;
+z-index: 10000;
+}
+</style>
 <footer>
 	<div class="container">
 		<div class="row">
@@ -18,7 +27,6 @@
 	</div>
 	<!-- /.container -->
 </footer>
-
 <!-- jQuery -->
 <!-- <script src="js/jquery.js"></script> -->
 

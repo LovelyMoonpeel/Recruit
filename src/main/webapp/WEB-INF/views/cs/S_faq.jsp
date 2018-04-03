@@ -5,7 +5,7 @@
 <%@include file="../include/sheader.jsp"%>
 
 <!-- 개인관리 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<h1>FAQ</h1>
 
 	<table class="table table-bordered">
@@ -21,7 +21,7 @@
 	</table>
 	
 	<!-- <button class="btn btn-success" type="button" onclick="location.href='/cs/S_faqreg'">작성</button> -->
-
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br> -->
 </div>
 
 <!-- 수정, 삭제 처리시 -->

@@ -6,9 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.recruit.mapper.csqnaMapper">
 
 	<select id="create">
-		insert into project.tblqna (title, user, content,
-		bpw)
-		values (#{title}, #{user}, #{content}, #{bpw})
+		insert into project.tblqna (title, user, content, bpw, regdate)
+		values (#{title}, #{user}, #{content}, #{bpw}, now())
 	</select>
 
 	<select id="read" resultType="com.recruit.domain.CsqnaVO">

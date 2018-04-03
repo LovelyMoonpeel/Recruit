@@ -52,8 +52,8 @@
 					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
 						<!--★ href부분 값은 밑에 id랑 연결된다  -->
-						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" aria-expanded=<%= pexpand%>>개인회원</a></li>
-						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" aria-expanded=<%= cexpand%>>기업회원</a></li>
+						<li class=<%= pactive%>><a data-toggle="tab" href="#login_person" id="person" aria-expanded=<%= pexpand%>>개인회원</a></li>
+						<li class=<%= cactive %>><a data-toggle="tab" href="#login_company" id="company" aria-expanded=<%= cexpand%>>기업회원</a></li>
 					</ul>
 					
 					<br>
@@ -220,7 +220,7 @@
 									<!--아이디 -->
 									<div class="form-group">
 										아이디<input type="text" id='pid' name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요." required>
+											placeholder="4~15자리를 입력하세요." required>
 										<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
 									</div>
 
@@ -295,7 +295,7 @@
 									<!--아이디 -->
 									<div class="form-group">
 										회사 아이디<input type="text" id="cid" name='id' class="form-control"
-											placeholder="4~10자리를 입력하세요." required>
+											placeholder="4~15자리를 입력하세요." required>
 									<input class="btn btn-success" type="button" id="cid_overlap" value="중복체크">
 									</div>
 
@@ -345,11 +345,6 @@
 										사업자 등록번호<input type="text" name='registnum'
 											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." required>
 									</div>
-
-
-									<!--사업자 등록번호 인증  -->
-									<a href="#" class="text-center">사업자 등록번호 인증하기</a>
-
 
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->
 									<div class="row">
@@ -406,8 +401,7 @@
 			});
 		});
 	</script>
-
-
+	
 
 	<!--회원가입 모달  -->
 	<script>
@@ -496,22 +490,28 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var ppwchk = $('#ppwchk');
 	
-	var ppwReg = /[A-za-z0-9]$/;
+	var ppwReg = /[A-Za-z0-9]$/;
+	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 
 	$('#ppwc').keyup(function(){	
 		var ppwcval = $('#ppwc').val();
 		var ppwval = $('#ppw').val();
+		
 		if(ppwcval.search(/\s/) != -1){
 			alert("공백 금지");
+			$('#ppwc').val(ppwcval.slice(0, -1));
+		}
+		
+		if(!(ppwReg.test(ppwcval)) && pexpReg.test(ppwcval)){
+			alert("특수문자 금지");
 			$('#ppwc').val(ppwcval.slice(0, -1));
 		}
 
 		ppwcval = $('#ppwc').val();
 		ppwval = $('#ppw').val();
-		var chk = "";
-        chk = (ppwReg.test(ppwcval)) && !(ppwcval.length > 5 && ppwcval.length <= 20);
-		if(chk){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		
+		if(!(ppwcval.length > 5 && ppwcval.length <= 20)){
+        	document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}else{
@@ -525,23 +525,29 @@ $('#cjoin').on("click", function(event){
 				ppwc = "no";
 			}
 		}
+		
 	})
 	
 	
 	$('#ppw').keyup(function(){
 		var ppwval = $('#ppw').val();
 		var ppwcval = $('#ppwc').val();
+		
 		if(ppwval.search(/\s/) != -1){
 			alert("공백 금지");
 			$('#ppw').val(ppwval.slice(0, -1));
 		}
 		
+		if(!(ppwReg.test(ppwval)) && pexpReg.test(ppwval)){
+			alert("특수문자 금지");
+			$('#ppw').val(ppwval.slice(0, -1));
+		}
+		
 		ppwval = $('#ppw').val();
 		ppwcval = $('#ppwc').val();
-		var chk2 = "";
-        chk2 = (ppwReg.test(ppwval)) && !(ppwval.length > 5 && ppwval.length <= 20);
-		if(chk2){
-			document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		
+		if(!(ppwval.length > 5 && ppwval.length <= 20)){
+        	document.getElementById("ppwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			ppwchk.attr("style", "color:red");
 			ppwc = "no";
 		}else{
@@ -554,7 +560,7 @@ $('#cjoin').on("click", function(event){
 				ppwchk.attr("style", "color:red");
 				ppwc = "no";
 			}
-		};
+		}
 	})
 </script>
 <!-- //개인 회원 가입 비밀번호 일치 여부  -->
@@ -564,7 +570,8 @@ $('#cjoin').on("click", function(event){
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var cpwchk = $('#cpwchk');
 	
-	var cpwReg = /[A-za-z0-9]$/;
+	var cpwReg = /[A-Za-z0-9]$/;
+	var cexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 
 	$('#cpwc').keyup(function(){
 		var cpwcval = $('#cpwc').val();
@@ -575,10 +582,17 @@ $('#cjoin').on("click", function(event){
 			$('#cpwc').val(cpwcval.slice(0, -1));
 		}
 		
+		if(!(cpwReg.test(cpwcval)) && cexpReg.test(cpwcval)){
+			alert("특수문자 금지");
+			$('#cpwc').val(cpwcval.slice(0, -1));
+		}
+		
 		cpwcval = $('#cpwc').val();
 		cpwval = $('#cpw').val();
 		
-		if(cpwReg.test(cpwcval) && !(cpwcval.length > 5 && cpwcval.length <= 20)){
+		var cchk = "";
+        cchk = !(ppwReg.test(cpwcval)) && !(cpwcval.length > 5 && cpwcval.length <= 20);
+		if(cchk){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
@@ -604,10 +618,17 @@ $('#cjoin').on("click", function(event){
 			$('#cpw').val(cpwval.slice(0, -1));
 		}
 		
+		if(!(cpwReg.test(cpwval)) && cexpReg.test(cpwval)){
+			alert("특수문자 금지");
+			$('#cpw').val(cpwval.slice(0, -1));
+		}
+		
 		cpwcval = $('#cpwc').val();
 		cpwval = $('#cpw').val();
 		
-		if(cpwReg.test(cpwval) && !(cpwval.length > 5 && cpwval.length <= 20)){
+		var cchk2 = "";
+        cchk2 = !(ppwReg.test(cpwcval)) && !(cpwcval.length > 5 && cpwcval.length <= 20);
+		if(cchk2){
 			document.getElementById("cpwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			cpwchk.attr("style", "color:red");
 			cpwc = "no";
@@ -633,7 +654,7 @@ $("#pid_overlap").on("click", function(event){
 	var Pid = PidObj.val();
 
 	/* 유효성 검사 */
-	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var idReg = /^[A-Za-z0-9]{4,15}$/g;
 	var pjoinidchk = document.getElementById("pid").value;
 	if(!idReg.test(pjoinidchk)){
 		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
@@ -668,7 +689,7 @@ $("#cid_overlap").on("click", function(){
 	var Cid = CidObj.val();
 
 	/* 유효성 검사 */
-	var idReg = /^[A-za-z0-9]{4,10}$/g;
+	var idReg = /^[A-Za-z0-9]{4,15}$/g;
 	var cjoinidchk = document.getElementById("cid").value;
 	if(!idReg.test(cjoinidchk)){
 		alert("유효하지 않은 아이디 입니다.\n아이디는 4~10자를 입력해주세요.");
@@ -736,7 +757,7 @@ $("#cemail_overlap").on("click", function(){
 
     var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     
-    if(!regEmail.test(Pemail)){
+    if(!regEmail.test(Cemail)){
     	alert("이메일 주소가 유효하지 않습니다.");
     }else{
 	$.ajax({
@@ -764,6 +785,29 @@ $("#cemail_overlap").on("click", function(){
 <script>
 $(".btn-block").on("click", function(){
 	var locationObj = $(".location")
-	locationObj.val(window.location.href);
+	locationObj.val(window.location.pathname);
 });
+</script>
+
+<!-- 로그인 모달 개인회원 기업회원 클릭 -->
+<script>
+$("#person").on("click", function(){
+	setTimeout(function(){
+		if($("#loginpid").val()!=""){
+			$("#loginppw").focus();
+		}else{
+			$("#loginpid").focus();
+		}		
+	}, 500)
+})
+
+$("#company").on("click", function(){
+	setTimeout(function(){
+		if($("#logincid").val()!=""){
+			$("#logincpw").focus();
+		}else{
+			$("#logincid").focus();
+		}
+	}, 500)
+})
 </script>

@@ -9,18 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, pname, email, birth
 	from
-		project.tbluser
+		tbluser
 	where id = #{id}
 	</select>
 
 	<update id="update">
-		update project.tbluser set
+		update tbluser set
 		pw = #{pw}, pname = #{pname}, email = #{email}, birth = #{birth}
 		where id = #{id}
 	</update>
 
 	<delete id="delete">
-		delete from project.tbluser where id = #{id}
+		delete from tbluser where id = #{id}
 	</delete>
 
 	<select id="listAll" resultType="BoardVO">
@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, pname, email, birth
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	order by id
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, pname, email, birth
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	order by id
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, pname, email, birth
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	order by id
@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		count(pname)
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	]]>
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	select *
 	from
-		project.tbluser
+		tbluser
 	where
 		cname is null and id != 'admin'
 	]]>
@@ -106,7 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listSearchCount" resultType="int">
 	<![CDATA[
 	select count(pname)
-	from project.tbluser
+	from tbluser
 	where cname is null and id != 'admin'
 	]]>
 	<include refid="search"></include>
@@ -117,12 +117,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		id, pw, pname, email, birth
 	from
-		project.tbluser
+		tbluser
 	where id = 'admin'
 	</select>
 	
 	<update id="aupdate">
-		update project.tbluser set
+		update tbluser set
 		pw = #{pw}, pname = #{pname}, email = #{email}, birth = #{birth}
 		where id = 'admin'
 	</update>
@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select
 		pw
 	from
-		project.tbluser
+		tbluser
 	where id = #{id}
 	</select>
 </mapper>

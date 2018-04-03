@@ -2,12 +2,12 @@ package com.recruit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.PTelVO;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -37,9 +37,6 @@ import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
-import com.recruit.dto.LoginDTO;
-import com.recruit.persistence.ResumeDAO;
-
 import com.recruit.service.CRecruitService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
@@ -50,6 +47,7 @@ import com.recruit.service.ResumeEduService;
 import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
 import com.recruit.util.MediaUtils;
+import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
 
 /**
@@ -392,9 +390,13 @@ public class PersonalController {
 		}
 	}
 
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+/*	@Resource(name = "uploadPath")
+	private String uploadPath;*/
 
+    S3Util s3 = new S3Util();
+    String bucketName = "matchingbucket";
+	private String uploadPath = "matching/resume";
+	
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
 	public void uploadAjax() {
 
@@ -407,12 +409,75 @@ public class PersonalController {
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contetnType: " + file.getContentType());
+		/*String uploadpath = "matching";*/
+
+		/*String uploadPath = "matching/certificate";*/
+		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
+	}
+	
+/*	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+
+		logger.info("originalName : " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contetnType: " + file.getContentType());
 
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
-	}
+	}*/
 
-	@ResponseBody
+    @ResponseBody
+    @RequestMapping("/displayFile")
+    public ResponseEntity<byte[]> displayFile(String fileName)throws Exception{
+
+        InputStream in = null;
+        ResponseEntity<byte[]> entity = null;
+        HttpURLConnection uCon = null;
+        System.out.println("FILE NAME: " + fileName);
+
+        try{
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+
+            MediaType mType = MediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+
+            String inputDirectory = "matching/resume";
+            URL url;
+
+            try {
+                url = new URL(s3.getFileURL(bucketName, inputDirectory+fileName));
+                System.out.println(url);
+                uCon = (HttpURLConnection) url.openConnection();
+                in = uCon.getInputStream(); // 이미지를 불러옴
+            } catch (Exception e) {
+                url = new URL(s3.getFileURL(bucketName, "NoImage.png"));
+                uCon = (HttpURLConnection) url.openConnection();
+                in = uCon.getInputStream();
+            }
+
+            												// 여기
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+        }catch (FileNotFoundException effe){
+            System.out.println("File Not found Exception");
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = MediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(uploadPath+"/NoImage.png");
+
+                headers.setContentType(mType);
+
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+        }finally {
+            in.close();
+        }
+        return entity;
+    }
+	
+/*	@ResponseBody
 	@RequestMapping(value = "/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
 		InputStream in = null;
@@ -447,9 +512,25 @@ public class PersonalController {
 			in.close();
 		}
 		return entity;
-	}
+	}*/
 
+	//파일 삭제
 	@ResponseBody
+	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		logger.info("delete file: " + fileName);
+
+		try {
+			s3.fileDelete(bucketName, uploadPath+fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+/*	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
 
@@ -473,7 +554,7 @@ public class PersonalController {
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}
+	}*/
 	
 	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
 	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {

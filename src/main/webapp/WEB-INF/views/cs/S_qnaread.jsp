@@ -30,7 +30,7 @@
 <% session.removeAttribute("idc"); %>
 
 <!-- 개인정보수정 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
 
 
@@ -43,27 +43,24 @@
 			<th>제목</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="title"
-				value="${CsqnaVO.title}" readonly></td>
+			<td>${CsqnaVO.title}</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="text" name="user"
-				value="${CsqnaVO.user}" readonly></td>
+			<td>${CsqnaVO.user}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td><textarea class="form-control" name="content" 
-			readonly>${CsqnaVO.content}</textarea></td>
+			<td>${content}</td>
 		</tr>
 	</table>
 	
 	<ul class="timeline">
-	 <li class="time-label" id="repliesDiv"><button class="bg-green">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
+	 <li class="time-label" id="repliesDiv"><button type="button" class="btn btn-info">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
 	</ul>
 	<ul id="replies"></ul>
 	
@@ -83,7 +80,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly>{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly rows="5" style="resize: none;">{{content}}</textarea> </div>
   </div>
  </div>
 </li>

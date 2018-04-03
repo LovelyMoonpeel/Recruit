@@ -5,10 +5,11 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- 개인관리 페이지 -->
-<div class="col-md-9">
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-md-9"> -->
 	<h1>FAQ</h1>
 
-	<table class="table table-bordered">
+	<table class="table table-hover">
 		<tr>
 			<th>제목</th>
 		</tr>		
@@ -21,7 +22,6 @@
 	</table>
 	
 	<button class="btn btn-success" type="button" onclick="location.href='/admin/faqreg'">작성</button>
-	
 </div>
 <!-- //개인관리 페이지 -->
 <!-- /.container -->
