@@ -34,22 +34,10 @@
 							---</option>
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
-							Title</option>
+							공고제목</option>
 						<option value="c"
 							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
-						<option value="w"
-							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
-							Writer</option>
-						<option value="tc"
-							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option>
+							담당자</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
 					<button id='searchBtn'>Search</button>
@@ -69,7 +57,7 @@
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th>${RecruitVO.recruitstate}</th>
-					<th><a target="_blank">${RecruitVO.title}</a>
+					<th><a target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					<li>근무형태 : ${RecruitVO.employstatusid}</li>
 					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
 					<li>경력 : ${RecruitVO.exp} </li>
@@ -146,9 +134,7 @@
 
 <!-- </div> -->
 
-<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
-<input type="text" name="CompareList" value="${FavorCompareListVO.presume}">
-</c:forEach>
+
 
 
 
@@ -173,7 +159,10 @@ function PersonList(bno){
 		$(data).each(
 				function() {
 					
-					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span><a  id="+this.bno+">"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span>"
+					+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
+					+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
+					+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
 					
 					comparison.push(this.bno)
 					

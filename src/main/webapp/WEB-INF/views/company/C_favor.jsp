@@ -97,7 +97,9 @@ $(document).ready(function(){
 			
 			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br><span>1991년, 28세</span></td>"
-				+ "<td><span class=careerLine>경력 3년 5개월</span><a target=_blank href=>"+this.title+"</a>"
+				+ "<td><span class=careerLine>경력 3년 5개월</span><a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
+				+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
+				+ ""+this.bno+":"+this.title+"</a>"
 				+ "<div><div></div><div>"+this.schoolname+""+this.marjor+"</div></div>"
 				+ "<p>"+this.rgbid+""+this.salary+"</p>"
 				+ "<div><a>핵심역량 마케팅전략 기획</a></div></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"

@@ -38,9 +38,10 @@
 				</ul>
 				<div class="input-group" style="padding-top: 10px">
 					<div class="input-group-btn" style="">
-						<select class="form-control" name="searchType" style="width: 120px">
+						<select class="form-control selectpciker" name="searchType" style="width: 120px">
 							<option value="n" <c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
+							<option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option>
 						</select>
 					</div>
 					<!-- /btn-group -->

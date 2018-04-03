@@ -6,6 +6,7 @@
 
 
 <%
+
 	String id = "";
 	BoardVO login = null;
 	String cname = "";

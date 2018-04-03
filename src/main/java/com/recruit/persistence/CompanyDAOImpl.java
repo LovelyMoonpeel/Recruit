@@ -92,6 +92,12 @@ public class CompanyDAOImpl implements CompanyDAO{
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{
 		return session.selectOne(namespace +".recruitinfoRead", recruitNum);
 	}
+	
+	@Override
+	public RecruitVO PcStateCheck(String id) throws Exception{
+		
+		return session.selectOne(namespace +".pcStateCheck", id);
+	}
 	@Override
 	public List<CPersonInfoVO> FavorList(String id)throws Exception{
 		

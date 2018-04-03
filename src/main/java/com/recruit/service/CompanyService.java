@@ -38,6 +38,8 @@ public interface CompanyService {
 	  public RecruitVO RecruitInfoRead2(int recruitNum) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception;
+	  
+	  public RecruitVO PcStateCheck(String id) throws Exception;
 
 	  public List<CPersonInfoVO> FavorList(String id) throws Exception;
 	  

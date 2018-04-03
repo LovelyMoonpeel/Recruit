@@ -94,6 +94,13 @@ public class CompanyServiceImpl implements CompanyService {
 	 public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception{
 		 return dao.RecruitInfoRead3(recruitNum);
 	 } 
+	 
+	 @Override
+	 public RecruitVO PcStateCheck(String id) throws Exception{
+		 
+		 return dao.PcStateCheck(id);
+	 }
+	 
 	 @Override
 	 public List<CPersonInfoVO> FavorList(String id) throws Exception{
 		 

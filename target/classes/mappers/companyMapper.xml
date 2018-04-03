@@ -299,6 +299,13 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 ]]>
 	</select>
 	
+	<select id="pcStateCheck" resultType="RecruitVO">
+	
+	select cname, birth
+	from tbluser
+	where id = #{id}
+	</select>
+	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
@@ -307,24 +314,7 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 			<if test="searchType == 'c'.toString()">
 				and content like CONCAT('%', #{keyword}, '%')
 			</if>
-			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
-				OR
-				content like CONCAT('%', #{keyword}, '%')
-				OR
-				writer like CONCAT('%', #{keyword}, '%'))
-			</if>
+		
 		</if>
 	</sql>
 	
@@ -372,11 +362,11 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 	
 	
 		<select id="reComListSearchCount" resultType="int">
-<![CDATA[  
-  select count(bno) 
-  from tblrecruit
-  where cid=#{id} and bno > 0 
-]]>
+  <![CDATA[  
+  select count(bno)
+  from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
+  where f.cid = #{id} and period >= curdate() and f.employstatusid = m.id and n.id = f.exp and j.id = f.jobgroupid and i.id = f.jobgroupid2 and u.id= f.cid and bno > 0
+	]]>
 		<include refid="search"></include>
 	</select> 
 
