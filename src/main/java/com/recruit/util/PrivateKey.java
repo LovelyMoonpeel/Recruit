@@ -23,5 +23,4 @@ public class PrivateKey {
 		return "PrivateKey [accessKey=" + accessKey + ", secretKey=" + secretKey + "]";
 	}
 	
-	
 }

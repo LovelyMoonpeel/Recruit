@@ -4,7 +4,11 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="../include/pheader.jsp"%>
-
+<style>
+.badge-info:hover {
+  background-color: #2d6987;
+}
+</style>
 <!-- Main content -->
 <form role="form">
 		<input type='hidden' name='id' value="${PUserVO.id}">
@@ -27,25 +31,24 @@
 		<table class="table table-bordered">
 			<!-- 공고 메인 공고 테이블 순서 번호는 java문 counter로 처리-->
 			<tr class="active">
-				<th style="width: 79px; text-align:center;">공고 번호</th>
+				<th style="text-align:center;">상태</th>
 				<th style="text-align:center;">회사명</th>
-				<th style="width: 200px; text-align:center;">공고 제목</th>
-				<th style="width: 90px;">등록 날짜</th>
-				<th style="width: 90px;">마감 기한</th>
+				<th style="text-align:center;">공고 제목</th>
+				<th style="text-align:center; width: 90px;">모집기간</th>
 				<th style="width: 79px;">지원자 수</th>
-				<th style="text-align:center;">지원한 이력서</th>
+				<th style="text-align:center;">내이력서</th>
+				<th style="text-align:center;">열람여부</th>
 			</tr>
 			<!-- 소연 crecruitMapper.selectAPList -->
 			<c:forEach items = "${CRecruitVOList}" var = "CRecruitVO" varStatus="status">
 			<tr>
-				<td style="text-align:center;">${CRecruitVO.bno}</td>
-				<td>${CRecruitVO.recruitform}</td>
-				<td style="text-align:center;"><a href = 'http://localhost:8080/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'>${CRecruitVO.title}</a></td>
-				<td>${CRecruitVO.regdate}</td>
-				<td>${CRecruitVO.period}</td>
-				<td style="text-align:center;">${CRecruitVO.addesc}</td>
-				<!--  select rcno, count(*) from tblapply group by rcno; 매퍼에서 일치하는 bno 번호 받아오기  -->
-				<td style="text-align:center;"><a href = '/personal/detail?bno=${CRecruitVO.viewcnt}'>${CRecruitVO.acceptmethod}</a></td>
+				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
+				<td style="text-align:center;">${CRecruitVO.recruitform}</td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
+				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
+				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
+				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-info">내이력서</span></a></td>
+				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 			</tr>
 			</c:forEach>
 		</table>
@@ -53,6 +56,38 @@
 	<br> <br>
 </div>
 <script>
+$(document).ready(function(){
+	
+	console.log("각각 무슨 값이냐 "+$(".jobdesc").text());
+
+ 	$(".jobdesc").each(function(index){
+ 		
+ 		console.log("아"+$(this).text());
+	 	
+ 		if($(this).text()=='모집완료'){
+ 			$(this).addClass('');
+		}else if($(this).text()=='모집중'){
+			$(this).addClass('badge-success');
+		}else{
+			$(this).addClass('badge-warning');
+		} 
+	}); 
+	$(".creadornot").each(function(index){
+ 		
+ 		console.log("아"+$(this).text());
+	 	
+ 		if($(this).text()=='0'||$(this).text()=='읽지않음'){
+ 			$(this).text('읽지않음');
+ 			$(this).addClass('');
+		}else if($(this).text()=='1'||$(this).text()=='읽음'){
+			$(this).text('읽음');
+			$(this).addClass('');
+		}else{
+			$(this).text('오류');
+			$(this).addClass('badge-warning');
+		} 
+	});
+});
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

@@ -21,4 +21,6 @@ public interface ResumeCareerService {
 
 	// r.code 03/15 추가
 	public void changeResumeCareerList(Integer resumenum, List<ResumeCareerVO> resumeCareerVOList) throws Exception;
+	
+	public void createResumeCareerList(Integer resumenum, List<ResumeCareerVO> resumeCareerVOList) throws Exception;
 }

@@ -131,7 +131,7 @@ $(document).ready(function(){
 		
 		var opt = $('#searchOpt').val(); // 카테고리 구분 2차때 할 예정
 		var srchTxt = $('#searchText').val();
-		alert(srchTxt)
+		//alert(srchTxt)
 		var pN = 1;
 		
 		SearchList(pN, srchTxt);
@@ -167,7 +167,7 @@ $(document).ready(function(){
 			RecruitList(1);
 				
 		}else if($(this).text()=="진행중"){
-			alert("hi");
+			//alert("hi");
 			$("tbody > * ").remove()
 			RecruitIngList(1);
 		
@@ -440,8 +440,8 @@ var formObj = $("form[role='form']");
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			
-			alert(searchType)
-			alert(keyword) 
+			//alert(searchType)
+			//alert(keyword) 
 			RecruitList(pN, searchType, keyword)
 			
  		});
@@ -590,8 +590,8 @@ var formObj = $("form[role='form']");
 				var length = data.length;
 				var i = 0;
 				
-				alert(data);
-				alert(length);
+				//alert(data);
+				//alert(length);
 				
 				$(data).each(function(){
 					

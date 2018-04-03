@@ -3,10 +3,64 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/pheader.jsp"%>
+<%@include file="../include/header_nonavi.jsp"%>
 
+<style>
+#back-top { 
+position: fixed; 
+bottom: 30px; 
+right:10%;
+/*margin-right: 150px;*/ 
+} 
+
+#back-top a { 
+width: 50px; 
+display: block; 
+text-align: center; 
+font: 11px/100% Arial, Helvetica, sans-serif; 
+text-transform: uppercase; 
+text-decoration: none; 
+color: #bbb; 
+z-index:10;
+/* transition */ 
+-webkit-transition: 1s; 
+-moz-transition: 1s; 
+transition: 1s; 
+} 
+#back-top a:hover { 
+color: #000; 
+} 
+
+/* arrow icon (span tag) */ 
+#back-top span { 
+width: 50px; 
+height: 50px; 
+display: block; 
+margin-bottom: 7px; 
+background: #ddd url(/resources/rpjt/img/up-arrow.png) no-repeat center center; 
+
+/* rounded corners */ 
+-webkit-border-radius: 15px; 
+-moz-border-radius: 15px; 
+border-radius: 15px; 
+
+/* transition */ 
+-webkit-transition: 1s; 
+-moz-transition: 1s; 
+transition: 1s; 
+} 
+#back-top a:hover span { 
+background-color: #777; 
+} 
+
+</style>
 <!-- Main content -->
-<div class="col-md-9 ">
+<div class="col-md-12 ">
+	<!-- 버튼 -->
+	<p id="back-top"> 
+   		<a href="#top"><span></span></a> 
+	</p>
+	<!-- 소연 버튼 -->
 	<!-- 메인 바디 입력 부분 -->
 	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
@@ -22,7 +76,7 @@
 			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
 				<img src="/resources/rpjt/img/${CInfoVO.img}" class="img-rounded"
 					name="img" value="${CInfoVO.img}"
-					style="width: 240px; height: 100px" />
+					style="width: 240px; height: auto;" />
 			</div>
 
 			<div class="col-md-4">
@@ -93,7 +147,9 @@
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
-					<button class="btn btn-info" id="CInfo" value="${RecruitVO.bno}">기업정보</button>
+					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.bno}'>
+					<button class="btn btn-info">기업정보</button></a>
+					
 				</div>
 				<br>
 			</div>
@@ -102,8 +158,8 @@
 	<br>
 
 	<div class="text-center">
-		<button id="applynow" class="btn btn-primary btn-lg disabled">즉시지원</button>
-		<button id="clipping" class="btn btn-default btn-lg disabled">스크랩하기</button>
+		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
+		<button id="clipping" class="btn btn-default btn-lg">스크랩하기</button>
 	</div>
 
 	<!-- 소연 모달 -->
@@ -119,8 +175,8 @@
 					<form role="form">
 						<div class="row">
 							<h4>즉시지원하기 - [${PUserVO.pname }]님의 이력서 목록</h4>
-							<br>
-							<input type="hidden" id="modal_pid" name="pid" value="${PUserVO.id }">
+							<br> <input type="hidden" id="modal_pid" name="pid"
+								value="${PUserVO.id }">
 							<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
 							<table class="table table-bordered">
 								<tr>
@@ -156,88 +212,93 @@
 		<!--//modal-dialog -->
 	</div>
 	<!-- 소연 코드 -->
-<script>
-$(document).ready(function() {
-	
-	var formObj = $("form[role = 'form']");
-	var rcno = $("#modal_recruitNum").val();
-	var pid = $("#modal_pid").val();
+	<script>
+		$(document).ready(function() {
 
-	$("#applynow").click(function() {
-		$("#applynow_modal").modal();
-	});
-	
-	$("#applynow_btn").on("click", function() {
-		console.log("applynow_btn clicked");
-		
-		var rsno = $('input[name="bno"]:checked').val();
-		
-		alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
-		
-		$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-			type:'post',
-			url:'/companyAjax/applycheck',
-			headers:{
-				"Content-Type":"application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType:'text',
-			data:JSON.stringify({
-				rsno : rsno,
-				rcno : rcno,
-				pid : pid 
-			}),
-			success:function(result){
-				console.log("result가 뭐냐?"+result);
-				if(result=='TRUE'){
-					alert("지원하였습니다.");
-					//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
-					formObj.attr("action", "/company/applynow");
-					formObj.attr("method", "post");
-					formObj.submit(); //button type이 submit라서 필요 없음
-					alert("submit됐니");
-				}else if(result=='FALSE'){
-					alert("이미 지원한 공고 입니다.");
-					//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-				}else{
-					alert("어느 if문에도 들어가지 못함.");
-					console.log("어느 if문에도 들어가지 못함.");
-				}
-			}//success end
-		})//ajax end
-	});
-	
-	$("#clipping").click(function() {
-		$.ajax({
-			type:'post',
-			url:'/companyAjax/clipping',
-			headers:{
-				"Content-Type":"application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType:'text',
-			data:JSON.stringify({ //name에 설정해줘야 함
-				rcbno : rcno,
-				userid : pid 
-			}),
-			success:function(result){
-				console.log("result가 뭐냐?"+result);
-				if(result=='TRUE'){
-					alert("관심채용공고에 스크랩하였습니다.");
-				}else if(result=='FALSE'){
-					alert("이미 스크랩했습니다.");
-				}else{
-					alert("어느 if문에도 들어가지 못함.");
-					console.log("어느 if문에도 들어가지 못함.");
-				}
-			}//success end
-		})//ajax end
-	});
-});
-</script>
+			var formObj = $("form[role = 'form']");
+			var rcno = $("#modal_recruitNum").val();
+			var pid = $("#modal_pid").val();
+
+			$("#applynow").click(function() {
+				$("#applynow_modal").modal();
+			});
+			$("#applynow2").click(function() {
+				$("#applynow_modal").modal();
+			});
+
+			$("#applynow_btn").on("click", function() {
+				console.log("applynow_btn clicked");
+
+				var rsno = $('input[name="bno"]:checked').val();
+
+				alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
+
+				$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+					type : 'post',
+					url : '/companyAjax/applycheck',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						rsno : rsno,
+						rcno : rcno,
+						pid : pid
+					}),
+					success : function(result) {
+						console.log("result가 뭐냐?" + result);
+						if (result == 'TRUE') {
+							alert("지원하였습니다.");
+							//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
+							formObj.attr("action", "/company/applynow");
+							formObj.attr("method", "post");
+							formObj.submit(); //button type이 submit라서 필요 없음
+							alert("submit됐니");
+						} else if (result == 'FALSE') {
+							alert("이미 지원한 공고 입니다.");
+							//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+						} else {
+							alert("어느 if문에도 들어가지 못함.");
+							console.log("어느 if문에도 들어가지 못함.");
+						}
+					}//success end
+				})//ajax end
+			});
+
+			$("#clipping").click(function() {
+				$.ajax({
+					type : 'post',
+					url : '/companyAjax/clipping',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({ //name에 설정해줘야 함
+						rcbno : rcno,
+						userid : pid
+					}),
+					success : function(result) {
+						console.log("result가 뭐냐?" + result);
+						if (result == 'TRUE') {
+							alert("관심채용공고에 스크랩하였습니다.");
+						} else if (result == 'FALSE') {
+							alert("이미 스크랩했습니다.");
+						} else {
+							alert("어느 if문에도 들어가지 못함.");
+							console.log("어느 if문에도 들어가지 못함.");
+						}
+					}//success end
+				})//ajax end
+			});
+		});
+	</script>
 
 	<br>
 	<!-- 공고 메인 -->
+	<div id="detail_content"></div>
+	<br><br>
 	<div
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 
@@ -284,7 +345,7 @@ $(document).ready(function() {
 	</div>
 	<!-- /공고 메인 -->
 	<br> <br>
-	<div
+	<div id="accept_method"
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<div class="row">
 			<!-- 접수기간  -->
@@ -293,7 +354,7 @@ $(document).ready(function() {
 			</div>
 
 			<div class="col-md-9">
-				<button class="btn btn-primary btn-lg disabled">지원하기</button>
+				<button id="applynow2" class="btn btn-primary btn-lg">지원하기</button>
 				<br>
 				<table>
 					<tr>
@@ -367,6 +428,45 @@ $(document).ready(function() {
 		</table>
 	</div>
 	<br> <br>
+
+	<div
+		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+		<div class="col-md-3">
+			<font size="6px">담당자 정보</font> <br>
+		</div>
+		<br><br>
+		<br>
+		<br>
+		<br>
+		
+	</div>
+
+	<div id="human_resources_manager" 
+		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+		<table class="table table-bordered ">
+			<tbody>
+				<tr>
+					<th class="table-active" scope="row">회사 아이디</th>
+					<td colspan="3">${CInfoVO.id}</td>
+				</tr>
+
+				<tr>
+					<th class="table-active" scope="row">담당자</th>
+					<td colspan="3">${boardVO.pname}</td>
+				</tr>
+
+				<tr>
+					<th class="table-active" scope="row" name="phone">휴대폰 번호</th>
+					<td colspan="3">${CInfoVO.phone}</td>
+				</tr>
+
+				<tr>
+					<th class="table-active" scope="row">이메일</th>
+					<td colspan="3">${CInfoVO.email}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <%-- <form role="form" method="post">
@@ -375,9 +475,33 @@ $(document).ready(function() {
 </form> 소연 수정 이거 name 겹쳐서 에러나서 걍 주석처리함
  --%>
 <script>
-	$('#CInfo').on("click", function() {
-		self.location = "/company/C_info?recruitNum=" + $('#CInfo').val()
+$(document).ready(function(){ 
+
+	// hide #back-top first
+	//$("#back-top").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
 	});
-</script><!-- //메인 바디 끝 -->
+
+});
+
+</script>
+<!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>

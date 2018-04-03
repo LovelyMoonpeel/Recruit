@@ -57,11 +57,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 이력서 확인 -->
 	<select id="readROne" resultType="com.recruit.domain.ResumeVO">
 	<![CDATA[
-		select *
-		from
-			project.tblresume
-		where 
-			bno = #{bno}
+	select bno, userid, title, address, postcode, coverletter
+	, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, regdate
+	, jobgroupid2, levelofeducation, lastcareer
+	, (select pname from tbluser where id=re.userid) as preadornot
+	, (select email from tbluser where id=re.userid) as publicornot
+	, (select birth from tbluser where id=re.userid) as extracolumn
+	from
+		tblresume re
+	where 
+		bno = #{bno};
 	]]>
 	</select>
 		
@@ -264,7 +269,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateResumeEdu">
 	<![CDATA[
 	update project.tblresumeedu
-	set schoolname = #{schoolname}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
+	set schoolname = #{schoolname}, resumenum = #{resumenum}, major = #{major}, enterdate = #{enterdate} , gradudate = #{gradudate} , edustatus = #{edustatus} 
 	where resumenum = #{resumenum}
 	]]>
 	</update>
@@ -411,4 +416,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from project.tblresumelanguage where rid= #{rid}
 	]]>
 	</delete>
+
+	<!-- 이력서 publicornot 수정 소연 -->
+	<update id="updatePONOne">
+	<![CDATA[
+	update tblresume
+	set publicornot = #{publicornot}
+	where bno = #{bno}
+	]]>
+	</update>
+	
+	<!-- 이력서 publicornot 수정 소연 -->
+	<update id="updatePONAlltoprivate">
+	<![CDATA[
+	update
+	tblresume
+	set publicornot='비공개'
+	where userid=#{userid};
+	]]>
+	</update>
+	
+	<!-- 이력서 publicornot 수정 소연 -->
+	<update id="updatePONOnetopublic">
+	<![CDATA[
+	update tblresume
+	set publicornot = #{publicornot}
+	where bno = #{bno}
+	]]>
+	</update>
+	
+	
 </mapper>

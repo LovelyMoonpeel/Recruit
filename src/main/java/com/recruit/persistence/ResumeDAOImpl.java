@@ -68,7 +68,7 @@ public class ResumeDAOImpl implements ResumeDAO {
 	}
 
 	@Override
-	public void deleteROne(Integer bno) throws Exception {
+	public void deleteROne(int bno) throws Exception {
 		System.out.println("dao" + bno);
 		System.out.println("Service deleteROne");
 		session.delete(namespace + ".deleteROne", bno);
@@ -107,4 +107,19 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("ResumeDAOImpl selectRList" + bno);
 		return session.selectOne(namespace+".resumeRead", bno);
 	}
+	
+	@Override
+	public void updatePONOne(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONOne", resume);
+	}//소연
+	
+	@Override
+	public void updatePONAlltoprivate(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONAlltoprivate", resume);
+	}//소연
+	
+	@Override
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONOnetopublic", resume);
+	}//소연
 }

@@ -59,4 +59,16 @@ public class ResumeCareerServiceImpl implements ResumeCareerService {
 				dao.createResumeCareer(resumeCareerVOList.get(i));
 		}
 	}
+	
+	@Override
+	public void createResumeCareerList(Integer resumenum, List<ResumeCareerVO> resumeCareerVOList) throws Exception {
+		
+		if (resumeCareerVOList != null) {
+			for (int i = 0; i < resumeCareerVOList.size(); i++){
+				ResumeCareerVO rcvl = resumeCareerVOList.get(i);
+				rcvl.setResumenum(resumenum+"");
+				dao.createResumeCareer(rcvl);
+			}
+		}
+	}
 }

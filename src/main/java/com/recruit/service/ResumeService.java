@@ -27,7 +27,7 @@ public interface ResumeService {
 	
 	public void updateROne(ResumeVO resume) throws Exception;
 
-	public void deleteROne(Integer bno) throws Exception;
+	public void deleteROne(int[] bno) throws Exception;
 
 	public List<ResumeVO> selectRList(String id) throws Exception;
 	
@@ -40,4 +40,8 @@ public interface ResumeService {
 	public List<RegionVO> selectRegionList() throws Exception;
 
 	//public void addRimgAttach(String fullName); dao만 만들어서 transaction처리
+	
+	public void updatePONOne(ResumeVO resume)throws Exception;
+	
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception;
 }

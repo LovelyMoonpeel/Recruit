@@ -15,13 +15,18 @@ public class PApplyServiceImpl implements PApplyService {
 	private PApplyDAO dao;
 	
 	public void createAPOne(PApplyVO pavo)throws Exception{
-		
 		dao.createAPOne(pavo);
 	}
 	
 	public PApplyVO selectAPOne(PApplyVO pavo)throws Exception{
-		
 		return dao.selectAPOne(pavo);
 	}
 	
+	public String readornotAPOne(PApplyVO pavo)throws Exception{
+		return dao.readornotAPOne(pavo);
+	}
+	
+	public void CreadAPOne(PApplyVO pavo)throws Exception{
+		dao.readornotAPOne(pavo);
+	}
 }

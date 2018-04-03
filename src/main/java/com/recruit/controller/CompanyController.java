@@ -67,7 +67,6 @@ public class CompanyController {
 	@Inject
 	private PApplyService PAPService;
 
-	
 	// 문> 3.23 밑에 3개 추가
 	@Inject
 	private UserDAO dao;
@@ -304,10 +303,10 @@ public class CompanyController {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
-	         if (login.getCname() == null){
+	        /* if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*///소연 수정
 
 			String id = login.getId();
 
@@ -487,15 +486,34 @@ public class CompanyController {
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
 		if (login != null) {
-	         if (login.getCname() == null){
+	         /*if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*/
 			String id = login.getId();
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 			model.addAttribute(service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
 			return "/company/C_info";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이 보는 기업정보
+	public String C_info_nonavi(HttpSession session, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("컨트롤러 아이디 값은 : " + id);
+			model.addAttribute(service.CompanyInfoRead(cid));
+			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
+			return "/company/C_info_nonavi";
 
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -509,10 +527,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		if (login != null) {
-	         if (login.getCname() == null){
+	         /*if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             return "redirect:/";
-	          }
+	          }*/
 			String id = login.getId();
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));

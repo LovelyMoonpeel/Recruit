@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.PTelVO;
+import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -208,7 +209,7 @@ public class PersonalController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		System.out.println("레주메"+resume);
@@ -226,7 +227,10 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
-
+		
+		Eduservice.createResumeEduList(bno, resumeEduVO.getListEdu());
+		Careerservice.createResumeCareerList(bno, resumeCareerVO.getListCareer());
+		
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
 	//이력서 하나 읽기
@@ -251,9 +255,16 @@ public class PersonalController {
 
 				System.out.println("언니"+Rservice.resumeRead(bno));
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
-				
-				System.out.println(" Rservice.resumeRead(bno)~!!!!!!!!!!!!!"+ Rservice.resumeRead(bno));
 
+				/*2018.04.03_Jcode_자기소개서 유효성 추가*/
+				String coverletter = Rservice.readROne(bno).getCoverletter();
+				String coverletter2 = coverletter.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+				String coverletter3 = coverletter2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체\r\n
+				String coverletter4 = coverletter3.replace(" ", "&nbsp;"); //공백을 &nbsp; 로 변환
+				
+				model.addAttribute("coverletter", coverletter4);
+				/*2018.04.03_Jcode_자기소개서 유효성 추가 끝*/
+					
 				return "personal/P_detail";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
@@ -263,11 +274,43 @@ public class PersonalController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
-		//민경
 	}
 
 	// 이력서 하나 읽기
+	@RequestMapping(value = "/detail_nonavi", method = RequestMethod.GET)
+	public String detail_nonaviGET(int bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			//Apply
+			
+			if(true){//Apply id랑 일치하는지 확인하는 서비스 필요
+				model.addAttribute("PUserVO", service.selectPUser(id));
+				model.addAttribute("ResumeVO", Rservice.readROne(bno));
 
+				model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+				
+				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
+
+				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+				
+				return "personal/P_detail_nonavi";
+			} else {
+				rttr.addFlashAttribute("msg", "login");
+				return "redirect:/";
+			}
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyGET(PUserVO puser, Integer bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
@@ -292,12 +335,11 @@ public class PersonalController {
 			model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
 			model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 			// end of r.code 03/13
-
+			
 			model.addAttribute("CodeVOlist", Rservice.selectRCodeList());
 			model.addAttribute("JobGroupVOlist", Rservice.selectRGPList());
 			model.addAttribute("RegionVOlist", Rservice.selectRegionList());
-			//민경
-
+			
 			return "personal/P_Rmodify";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -316,25 +358,17 @@ public class PersonalController {
 		Langservice.updateLList(bno, plavo.getRlangvolist());
 		Licenseservice.updateLicenseList(bno, plivo.getRlicensevolist());
 
+		Rservice.updateROne(resume);
+
 		// r.code 03/15 : update edu & career list in DB
 		int resumenum = resume.getBno();
+		System.out.println("resumenum : " + resumenum);
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		
-		Rservice.updateROne(resume);
 
 		return "redirect:/personal/detail?bno=" + bno + "";
 	}
-/*
-	@RequestMapping(value = "/Rremove", method = RequestMethod.POST)
-	public String RremovePOST(Integer bno, String id, Model model, RedirectAttributes rttr) throws Exception {
-		System.out.println("Rremove POST Controller");
-
-		Rservice.deleteROne(bno);
-		// model.addAttribute(service.selectPUser(id));
-		// rttr.addFlashAttribute("result", "success");
-		return "redirect:/personal/manage";
-	}*/
 	// 추천채용공고
 	@RequestMapping(value = "/recom", method = RequestMethod.GET)
 	public String recomGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
@@ -556,8 +590,8 @@ public class PersonalController {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}*/
 	
-	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
-	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.GET)
+	public String deleteResumeListPOST(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
@@ -565,9 +599,9 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
-			//Rservice.deleteROne(bno);
+			Rservice.deleteROne(bno);
 			rttr.addFlashAttribute("msg", "DELETE");
-			return "personal/P_manage";
+			return "redirect:/personal/manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
@@ -575,7 +609,7 @@ public class PersonalController {
 	}
 	
 	@RequestMapping(value = "/deleteOneResume", method = RequestMethod.GET)
-	public String deleteOneResumeGET(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	public String deleteOneResumeGET(@RequestParam("bno") int[] bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("deleteOneResume POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
@@ -592,4 +626,28 @@ public class PersonalController {
 		}
 	}
 	
+	@RequestMapping(value = "/publicornot_change", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> publicornot_change(@RequestBody ResumeVO resume) throws Exception {
+		System.out.println("clipping POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+	
+		System.out.println("들어온 resume"+resume.toString());
+		try{
+			if(resume.getPublicornot().equals("공개")){//비공개일 때 공개로
+				System.out.println("공개로 바꾸는 if문으로 들어옴");
+				Rservice.updatePONOnetopublic(resume);
+				entity = new ResponseEntity<String>("AS_PUBLIC", HttpStatus.OK);
+			}else if(resume.getPublicornot().equals("비공개")){//공개일 때 비공개로
+				System.out.println("비공개로 바꾸는 if문으로 들어옴");
+				Rservice.updatePONOne(resume);
+				entity = new ResponseEntity<String>("AS_PRIVATE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
 }

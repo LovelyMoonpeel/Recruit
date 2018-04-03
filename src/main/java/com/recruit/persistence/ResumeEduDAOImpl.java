@@ -17,8 +17,9 @@ public class ResumeEduDAOImpl implements ResumeEduDAO {
 	private static String namespace = "com.recruit.mapper.ResumeMapper";
 
 	@Override
-	public void createResumeEdu(ResumeEduVO vo) throws Exception {
-		session.insert(namespace + ".createResumeEdu", vo);
+	public void createResumeEdu(ResumeEduVO revl) throws Exception {
+		System.out.println("라라라라라2DAO"+revl.toString());
+		session.insert(namespace + ".createResumeEdu", revl);
 	}
 
 	@Override

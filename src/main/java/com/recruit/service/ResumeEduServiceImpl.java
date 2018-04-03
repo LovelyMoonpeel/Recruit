@@ -56,4 +56,18 @@ public class ResumeEduServiceImpl implements ResumeEduService {
 				dao.createResumeEdu(resumeEduVOList.get(i));
 		}
 	}
+	//소연
+	@Override
+	public void createResumeEduList(Integer resumenum, List<ResumeEduVO> resumeEduVOList) throws Exception {
+		if (resumeEduVOList != null) {
+			for (int i = 0; i < resumeEduVOList.size(); i++){
+				System.out.println("그래서 되냐"+resumeEduVOList.get(i));
+				System.out.println("그래서 되냐2"+resumenum);
+				ResumeEduVO revl = resumeEduVOList.get(i);
+				revl.setResumenum(resumenum);
+				System.out.println("라라라라라"+revl.toString());
+				dao.createResumeEdu(revl);
+			}
+		}
+	}
 }

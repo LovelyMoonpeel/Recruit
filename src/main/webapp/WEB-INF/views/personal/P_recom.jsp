@@ -40,7 +40,7 @@
 			<tr>
 				<td style="text-align:center;">${CRecruitVO.bno}</td>
 				<td style="text-align:center;">${CRecruitVO.cid}</td>
-				<td style="text-align:center;"><a href = ''>${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.title}</a></td>
 				<td>${CRecruitVO.regdate}</td>
 				<td>${CRecruitVO.period}</td>
 				<td style="text-align:center;">${CRecruitVO.viewcnt}</td>

@@ -74,8 +74,107 @@
 		</h4>
 		<div id="tel_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<!-- r.code 03/13 : 학력/경력 폼 수정-->
+		
+		
+		<!--j.code 03/26 : 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가-->
+		<div class="table-responsive">
+         <table class="table table-bordered">
+            <tbody>
+                <tr>
+                  <th>구직상태</th>
+                  <td>
+                     <div class="form-group col-md-5">
+                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 6 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+               </tr>
+               
+                 <tr>
+                   <th>모집직종</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <label for="jobgroupid">대분류</label> 
+                     <select id="jobGroup" class="form-control" name="jobgroupid" >
+                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                           <c:if test="${JobGroupVO.id2 == 0}">
+                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                           </c:if>
+                        </c:forEach>
+                     </select>          
+                  <br>
+                  <label for="jobgroupid">소분류</label> 
+                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+               <th>희망근무형태</th>
+               <td>
+                  <div class="form-group col-md-5">
+                  <!-- <label for="CodeList4">희망근무형태</label> -->
+                     <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 4 }">
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
+                              >${CodeVO.career }</option>
+                           </c:if>
+                        </c:forEach>
+                     </select> 
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망근무지</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <label for="jobgroupid">시/도</label> 
+                        <select id="region" class="form-control" name='rgbid'>
+                           <c:forEach items="${RegionVOlist}" var="RegionVO">
+                              <option value="${RegionVO.rgbid}" 
+                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                              >${RegionVO.rgbname}</option>
+                           </c:forEach>
+                        </select>
+                     <label for="jobgroupid">시/군/구</label> 
+                     <select id="subRegion" class="form-control" name='rgsid'>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+            <tr>
+                   <th>희망연봉</th>
+               <td>
+                  <div class="form-group col-md-5">
+                     <!-- <label for="CodeList7">희망연봉</label> -->
+                     <select class="form-control" name="salaryid" id="CodeList7">
+                        <c:forEach items="${CodeVOlist }" var="CodeVO">
+                           <c:if test="${CodeVO.tid == 7 }">
+                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                           </c:if>
+                        </c:forEach>
+                     </select>
+                  </div>
+               </td>
+            </tr>
+            
+             </tbody>
+         </table>
+          </div>
+        <!--j.code 04.03 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가 끝--> 
+		
 		<hr style="border: solid 4px #ccc;">
+		
 		
 		<div style="font-size:18px;" class="form-group col-md-2"><b>학력 사항</b></div>
 		<div class="form-group col-md-2"><label for="edustatus">최종학력</label>
@@ -84,13 +183,14 @@
 			<select class="form-control" name=levelofeducation id="CodeList2">
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             	<c:if test="${CodeVO.id<=13 }">
+	                	<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	             	</c:if>
 	             </c:if>
 	          </c:forEach>
 	       </select>
 	     </div>
 		<div id="edu_div"></div>
-		<hr style="border: solid 4px #ccc;">
 		<hr style="border: solid 4px #ccc;">
 		<div style="font-size:18px;" class="form-group col-md-2"><b>경력 사항</b></div>
 		<div class="form-group col-md-2"><label for="career">경력</label>
@@ -99,13 +199,14 @@
 		<select class="form-control" name=lastcareer id="CodeList1">
           <c:forEach items="${CodeVOlist }" var="CodeVO">
              <c:if test="${CodeVO.tid == 1 }">
-                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             <c:if test="${CodeVO.id<=7 }">
+	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	             </c:if>
              </c:if>
           </c:forEach>
      	</select>
         </div>
 		<div id="exp_div"></div>
-		<hr style="border: solid 4px #ccc;">
 		<!-- end of r.code -->
 		<hr style="border: solid 4px #ccc;">
 		<h4>
@@ -113,12 +214,10 @@
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
-		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>보유 자격증 목록</b>
 		</h4>
 		<div id="license_div"></div>
-		<hr style="border: solid 4px #ccc;">
 		<hr style="border: solid 4px #ccc;">
 		<h4>
 			<b>어학 능력(자격증) 목록</b>
@@ -153,30 +252,31 @@
 	</form>
 </div>
 <!-- 소연 모달 -->
-   <div class="modal" id="ORIGINAL_modal">
-      <div class="modal-dialog modal-dialog-centered">
-         
-         <div class="modal-content modal-dialog-centered">
-            <div class="modal-head" style="text-align:center; vertical-align : middle ; margin:10px;">
-            <br>
-               <button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
-               이미지 크게 보기
-            </div>
-         
-            <div class="modal-body modal-dialog-centered">
-               
-               <!--x표시 누르면 창 사라지게 하는 코드 -->
-               <div class="row" style="border: solid 3px #ccc; padding:10px; margin:10px;">
-                  <img id="modal_get_Imgname1" style="width: 100%; height: auto;">
-               </div>
-            </div>
-            <!--//class="modal-body"  -->
-         </div>
-         <!--//class="modal-content"-->
-      </div>
-      <!--//modal-dialog -->
-   </div>
-   <!-- 소연 코드 -->
+	<div class="modal" id="ORIGINAL_modal">
+		<div class="modal-dialog modal-dialog-centered">
+			
+			<div class="modal-content modal-dialog-centered">
+				<div class="modal-head" style="text-align:center; vertical-align : middle ; margin:10px;">
+				<br>
+					<button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
+					이미지 크게 보기
+				</div>
+			
+				<div class="modal-body modal-dialog-centered">
+					
+					<!--x표시 누르면 창 사라지게 하는 코드 -->
+					<div class="row" style="border: solid 3px #ccc; padding:10px; margin:10px;">
+						<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+					</div>
+				</div>
+				<!--//class="modal-body"  -->
+			</div>
+			<!--//class="modal-content"-->
+		</div>
+		<!--//modal-dialog -->
+	</div>
+	<!-- 소연 코드 -->
+
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
 	<hr style="border: solid 0.5px #ccc;">
@@ -195,7 +295,7 @@
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>추가/삭제</label>
+		<label>라벨 추가/삭제</label>
 		<br>
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -208,36 +308,16 @@
 <!-- end of row -->
 </script>
 
-<!-- 
-	<div style="font-size:18px;" class="col-md-3"><b>학력 사항</b></div>
-	
-	<div class="form-group col-md-2">
-		<label for="edustatus">최종학력</label>
-	</div>
-	<div class="form-group col-md-2">
-		<select class="form-control edustatus edu" name="levelofeducation">
-			{{#select edustatus}}
-			<option value="0">선택</option>
-			<option value="15">재학</option>
-			<option value="16">졸업</option>
-			<option value="17">중퇴</option>
-			<option value="18">졸업예정</option>
-			<option value="19">휴학</option>
-			{{/select}}
-		</select>
-	</div>
-	<br>
-	<br> -->
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
 
 	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 	
 	<div class="form-group col-md-3">
-		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu" name="listEdu[].enterdate" value="{{enterdate}}"> 
+			<input type="text" class="form-control enterdate edu edudates" onchange="myfunction1();" name="listEdu[].enterdate" value="{{enterdate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -245,7 +325,7 @@
 	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"name="listEdu[].gradudate" value="{{gradudate}}"> 
+			<input type="text" class="form-control gradudate edu edudates" onchange="myfunction1();" name="listEdu[].gradudate" value="{{gradudate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -255,7 +335,7 @@
 		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="major">학과</label> 
 		<input class="form-control major edu" name="listEdu[].major" value="{{major}}"></input>
 	</div>
@@ -264,7 +344,7 @@
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="15">재학</option>
 			<option value="16">졸업</option>
 			<option value="17">중퇴</option>
@@ -295,14 +375,14 @@
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].startjob" value="{{startjob}}"> 
+			<input type="text" class="form-control career careerdates" name="listCareer[].startjob" value="{{startjob}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].finishjob" value="{{finishjob}}"> 
+			<input type="text" class="form-control career careerdates" name="listCareer[].finishjob" value="{{finishjob}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -319,7 +399,7 @@
 		<label for="salary">연봉</label>
 		<select class="form-control career" name="listCareer[].salary">
 			{{#select salary}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="34">~ 2,000</option>
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
@@ -406,7 +486,7 @@
 			</div>
 	</div>
 
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-2 license_button">
 		<label>추가/삭제</label><br/>
 		<button class="btn btn-default btn-sm license_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -428,7 +508,7 @@
 
 	<div class="form-group col-md-2">
 		<label for="lid">언어 선택</label>
-		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}} >
+		<select class="form-control lid langclass" name="rlangvolist[].lid" value="{{lid}}>
 			{{#select lid}}
 			<option value="102">선택</option>
 			<option value="102" selected>선택</option>
@@ -467,7 +547,7 @@
 		</select>
 	</div>
 	
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="test">공인인증시험명</label> 
 		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
 	</div>
@@ -476,7 +556,7 @@
 		<label for="score">점수</label> 
 		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="publeoffice">발행기관</label> 
 		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
@@ -500,7 +580,85 @@
 <!-- end of row -->
 </script>
 <script type='text/javascript'>
+
+k=1;
+
+function myfunction1(){
+	console.log("fkq"+k);
+	k++;
+	console.log(k);
+	//마지막꺼만 되는 문제
+	$(".enterdate").each(function(index){
+		var ss=$(this).val();
+		enter_sp=ss.split("-");
+		enterdate_index = index;
+	});
+	$(".gradudate").each(function(index){
+		var ss=$(this).val();
+		gradu_sp=ss.split("-");
+		gradudate_index = index;
+	});
+	if(gradu_sp[2]!=""&&k%3==0){
+		k=1;
+		var enterdate_cp = new Date(enter_sp[0], enter_sp[1], enter_sp[2]);
+		var gradudate_cp = new Date(gradu_sp[0], gradu_sp[1], gradu_sp[2]);
+		if (enterdate_cp >= gradudate_cp) {
+			alert("유효하지 않은 값입니다. 다시 입력해주세요");
+			//$(".enterdate:eq("+enterdate_index+")").val("");
+			$(".gradudate:eq("+gradudate_index+")").val("");
+		} else {
+		    
+		}
+	}
+	
+}
+
+
+/* function mydateFunction(val){
+	console.log("this index" + val);
+	var ss=val.split("-");
+	console.log(ss[0]);
+	console.log(ss[1]);
+	console.log(ss[2]);
+	//console.log("얍1"+val.substr(0,4));
+	//console.log("얍2"+val.substr(5,5));
+	//console.log("얍3"+val.substr(8));
+	
+	
+}
+function mydateFunction2(val){
+	console.log("this index" + val);
+	var ss=val.split("-");
+	console.log(ss[0]);
+	console.log(ss[1]);
+	console.log(ss[2]);
+	//console.log(val.substr(7));
+} */
+/* $(".tel_minus_btn").each(function(){
+	console.log("$('.tel_minus_btn').index()"+$(".tel_minus_btn").index());
+	if($(".tel_minus_btn").index()==3){
+		$(this).siblings('label').text("추가");
+		$(this).hide();
+	}
+});
+
+var edudates = document.getElementsByClassName('edudates');
+   
+edudates.onchange = function (e) {
+	 var enterdate = document.getElementsByClassName("edudates")[index%2==0];
+	 var gradudate = document.getElementsByClassName("edudates")[index%2==1];
+	 list.getElementsByClassName("child")[0].innerHTML = "Milk";
+}
+ */
+ 
 $(document).ready(function(){
+	
+	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
+	var largeNum = $('#jobGroup option:selected').val();
+	SubJobGroup2(largeNum);
+	var largeNum2 = $('#region option:selected').val();
+	SubRegion2(largeNum2);
+	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업 끝-->
 	
 	Handlebars.registerHelper('select', function( value, options ){
         var $el = $('<select />').html( options.fn(this) );
@@ -524,6 +682,7 @@ $(document).ready(function(){
 	   
 	   if($('#title').val()==''){
 		   alert("제목을 입력해주세요!");
+		   return;
 	   }else{
 		   if($('#birth').val()==''){
 				console.log("#birth.val()==''");
@@ -541,6 +700,22 @@ $(document).ready(function(){
 				if($(this).val()==''){
 					console.log($(this).val());
 					console.log(".languageacquidate.val()==''");
+					$(this).val("0000-00-00");
+					console.log($(this).val());
+				}
+			});
+			$('.careerdates').each(function(){ 
+				if($(this).val()==''){
+					console.log($(this).val());
+					console.log(".careerdates.val()==''");
+					$(this).val("0000-00-00");
+					console.log($(this).val());
+				}
+			});
+			$('.edudates').each(function(){ 
+				if($(this).val()==''){
+					console.log($(this).val());
+					console.log(".edudates.val()==''");
 					$(this).val("0000-00-00");
 					console.log($(this).val());
 				}
@@ -599,11 +774,18 @@ $(document).ready(function(){
 					   var str = "";
 					  
 					 	console.log(data);
-					 	
-					 	str = 
-	                          "<a id='ORIGINAL'>크게보기</a>"
-	                          +"<small data-src="+data+">X</small>"; 
+							  str = 
+								  "<a id='ORIGINAL'>크게보기</a>"
+								  +"<small data-src="+data+">X</small>";  
+
 					  $("#uploadedList").append(str); 
+					  $("#ORIGINAL").on("click", function(){
+							console.log("ORIGINAL click");
+							console.log(getImageLink(data));
+							var src = "displayFile?fileName="+getImageLink(data);
+							$("#ORIGINAL_modal").modal();
+							$("#modal_get_Imgname1").attr("src", src);
+						});
 					  document.getElementById('uploadfilename').value = getImageLink(data);
 					  
 					  $("#ORIGINAL").on("click", function(){
@@ -905,6 +1087,128 @@ $(document).ready(function(){
 	license_list();
 	language_list();
 	
+	minus_btn();
+	
+	function minus_btn(){
+		$(".tel_minus_btn").each(function(){
+			console.log("$('.tel_minus_btn').index()"+$(".tel_minus_btn").index());
+			if($(".tel_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".edu_minus_btn").each(function(){
+			console.log("$('.edu_minus_btn').index()"+$(".edu_minus_btn").index());
+			if($(".edu_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".exp_minus_btn").each(function(){
+			console.log("$('.exp_minus_btn').index()"+$(".exp_minus_btn").index());
+			if($(".exp_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".web_minus_btn").each(function(){
+			console.log("$('.web_minus_btn').index()"+$(".web_minus_btn").index());
+			if($(".web_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".license_minus_btn").each(function(){
+			console.log("$('.license_minus_btn').index()"+$(".license_minus_btn").index());
+			if($(".license_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+		$(".lang_minus_btn").each(function(){
+			console.log("$('.lang_minus_btn').index()"+$(".lang_minus_btn").index());
+			if($(".lang_minus_btn").index()==3){
+				$(this).siblings('label').text("추가");
+				$(this).hide();
+			}
+		}); 
+	}
 });
+</script>
+<script>
+//<!--j.code 03/22 : jobGroup, region 소분류 받는 작업-->
+   function SubJobGroup2(largeNum) {
+      $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+         var str = "";
+         <c:set value="${ResumeVO.jobgroupid2}" var="select"/>
+         var sel = '<c:out value="${select}"/>';
+         var selected = "";
+         
+         $(data).each(
+               function() {
+                  if(sel==this.id){
+                     selected = "selected";
+                  }else{
+                     selected = "";
+                  }
+                  str += "<option value="+this.id+
+                  " "+selected+">"+ this.jobgroup + "</option>";
+               });
+         $("#subjobGroup").html(str);
+      })
+   }
+   function SubRegion2(largeNum) {
+      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+         var str = "";
+         <c:set value="${ResumeVO.rgsid}" var="sid"/>
+         var selec = '<c:out value="${sid}"/>';
+         var select = "";
+         $(data).each(
+               function() {
+                  if(selec==this.rgsid){
+                     select = "selected";
+                  }else{
+                     select = "";
+                  }
+                  str += "<option value="+this.rgsid+
+                  " " + select + ">" + this.rgsname + "</option>";
+               });
+         $("#subRegion").html(str);
+      })
+   }
+   $("#region").change(function() {
+      var largeNum = $(this).val();
+      SubRegion(largeNum)
+   })
+   $("#jobGroup").change(function() {
+	   console.log("1026번째줄");
+      var largeNum = $(this).val();
+      SubJobGroup(largeNum);
+   })
+   function SubJobGroup(largeNum) {
+	   console.log(largeNum);
+      $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+    	  console.log("getJason");
+         var str = "";
+         $(data).each(
+               function() {
+                  str += "<option name='jobgruopid' value="+this.id+">"
+                        + this.jobgroup + "</option>";
+               });
+         $("#subjobGroup").html(str);
+      })
+   }
+   function SubRegion(largeNum) {
+      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+         var str = "";
+         $(data).each(
+               function() {
+                  str += "<option name='rgsid' value="+this.rgsid+">" + this.rgsname
+                        + "</option>";
+               });
+         $("#subRegion").html(str);
+      })
+   }
+  // <!--j.code 03/22 : jobGroup, region 소분류 받는 작업 끝-->
 </script>
 <%@include file="../include/cfooter.jsp"%>

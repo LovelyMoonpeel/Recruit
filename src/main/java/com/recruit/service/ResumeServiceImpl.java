@@ -79,9 +79,11 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public void deleteROne(Integer bno) throws Exception {
+	public void deleteROne(int[] bno) throws Exception {
 		System.out.println("service" + bno);
-		dao.deleteROne(bno);
+		for(int i=0; i < bno.length ; i++) {
+			dao.deleteROne(bno[i]);
+		}
 	}
 
 	@Override
@@ -110,5 +112,17 @@ public class ResumeServiceImpl implements ResumeService {
 	public ResumeVO resumeRead(Integer bno) throws Exception {
 		return dao.resumeRead(bno);
 	}//민경
+	
+	@Override
+	public void updatePONOne(ResumeVO resume) throws Exception {
+		dao.updatePONOne(resume);
+	}//소연
+	
+	@Transactional
+	@Override
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception {
+		dao.updatePONAlltoprivate(resume);
+		dao.updatePONOnetopublic(resume);
+	}//소연
 	
 }

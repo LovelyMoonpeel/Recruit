@@ -16,7 +16,6 @@
 <!-- Custom CSS -->
 <!-- <link href="css/shop-item.css" rel="stylesheet"> -->
 <link href="/resources/rpjt/css/lovelyB_022711.css" rel="stylesheet">
-<link href="/resources/rpjt/css/styles.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,11 +35,11 @@
   -moz-border-radius: 9px;
   border-radius: 9px;
 }
-/* .badge:hover {
+.badge:hover {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-} */
+}
 .badge-error {
   background-color: #b94a48;
 }
@@ -56,21 +55,21 @@
 .badge-primary {
   background-color: #2f79b9;
 }
-/* .badge-primary:hover {
+.badge-primary:hover {
   background-color: #356635;
-} */
+}
 .badge-success {
   background-color: #58b957;
 }
-/* .badge-success:hover {
+.badge-success:hover {
   background-color: #356635;
-} */
+}
 .badge-info {
   background-color: #56c0e0;
 }
-/* .badge-info:hover {
+.badge-info:hover {
   background-color: #2d6987;
-} */
+}
 .badge-inverse {
   background-color: #333333;
 }
@@ -78,25 +77,27 @@
   background-color: #1a1a1a;
 }
 
-
+body {
+    padding-top: 20px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 
 <body>
 	
-	<%@include file="../include/jheader.jsp"%>
+	<%@include file="../include/jheader_nonavi_resume.jsp"%>
 
 <%
 	try{
-		if(cname != null){
-			%>
+		 /*if(cname != null){
+			
 			<script>
 			alert("개인 회원이 아닙니다.");
 			self.location = "/company/C_index";
 			</script>
-			<%
-		}
+			
+		}*/ 
 	}catch(Exception e){
 		e.printStackTrace();
 	}
@@ -105,14 +106,4 @@
 
 	<!-- Page Content -->
 	<div class="container">
-		<div class="col-md-3">
-			<p class="lead">마이페이지</p>
-			<div class="list-grozup">
-				<a href="/personal/index" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a><!-- p08 --> <a
-					href="/personal/write" class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a> <!-- p02 --><a
-					href="/personal/manage" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a> <!-- p01 --><a
-					href="/personal/recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a> <!-- p04 --><a
-					href="/personal/favor" id = "P_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a> <!-- p05 --><a
-					href="/personal/applied" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a><!-- p07 -->
-			</div>
-		</div>
+	

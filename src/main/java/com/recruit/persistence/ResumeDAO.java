@@ -26,7 +26,7 @@ public interface ResumeDAO {
 	
 	public void updateROne(ResumeVO vo)throws Exception;
 	
-	public void deleteROne(Integer bno)throws Exception;
+	public void deleteROne(int bno)throws Exception;
 	
 	public List<ResumeVO> selectRList(String id)throws Exception;
 	
@@ -40,4 +40,9 @@ public interface ResumeDAO {
 	
 	public void addRimgAttach(ResumeVO resume)throws Exception;
 	
+	public void updatePONOne(ResumeVO resume) throws Exception;
+	
+	public void updatePONAlltoprivate(ResumeVO resume) throws Exception ;
+		
+	public void updatePONOnetopublic(ResumeVO resume) throws Exception;
 }

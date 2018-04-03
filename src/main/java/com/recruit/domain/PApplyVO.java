@@ -4,7 +4,8 @@ public class PApplyVO {
 	private String rsno;
 	private String rcno;
 	private String pid;
-	
+	private String readornot;
+	//소연 readornot 추가
 	private int bno;
 	private String userid;
 	private String title;
@@ -38,6 +39,12 @@ public class PApplyVO {
 	}
 	public void setPid(String pid) {
 		this.pid = pid;
+	}
+	public String getReadornot() {
+		return readornot;
+	}
+	public void setReadornot(String readornot) {
+		this.readornot = readornot;
 	}
 	public int getBno() {
 		return bno;
@@ -131,11 +138,10 @@ public class PApplyVO {
 	}
 	@Override
 	public String toString() {
-		return "PApplyVO [rsno=" + rsno + ", rcno=" + rcno + ", pid=" + pid + ", bno=" + bno + ", userid=" + userid
-				+ ", title=" + title + ", address=" + address + ", postcode=" + postcode + ", coverletter="
-				+ coverletter + ", jobstateid=" + jobstateid + ", jobgroupid=" + jobgroupid + ", jobgroupid2="
-				+ jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid=" + employstatusid
-				+ ", salaryid=" + salaryid + ", img=" + img + ", regdate=" + regdate + "]";
+		return "PApplyVO [rsno=" + rsno + ", rcno=" + rcno + ", pid=" + pid + ", readornot=" + readornot + ", bno="
+				+ bno + ", userid=" + userid + ", title=" + title + ", address=" + address + ", postcode=" + postcode
+				+ ", coverletter=" + coverletter + ", jobstateid=" + jobstateid + ", jobgroupid=" + jobgroupid
+				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
+				+ employstatusid + ", salaryid=" + salaryid + ", img=" + img + ", regdate=" + regdate + "]";
 	}
-	
 }
