@@ -736,7 +736,7 @@ $("#cemail_overlap").on("click", function(){
 
     var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     
-    if(!regEmail.test(Pemail)){
+    if(!regEmail.test(Cemail)){
     	alert("이메일 주소가 유효하지 않습니다.");
     }else{
 	$.ajax({

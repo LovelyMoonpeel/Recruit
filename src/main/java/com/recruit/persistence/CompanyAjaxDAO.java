@@ -20,6 +20,14 @@ public interface CompanyAjaxDAO {
 	public List<JobGroupVO> list(int id2)throws Exception;
 
 	public List<JobGroupVO> jobgroupList() throws Exception;
+	
+	public List<JobGroupVO> subJobgroupList() throws Exception;
+	
+	public int jobGroupCount() throws Exception;
+	
+	public int regionCount() throws Exception;
+	
+	public List<RegionVO> subRegionList() throws Exception;
 
 	public List<RegionVO> SubRegion(String id2) throws Exception;
 	

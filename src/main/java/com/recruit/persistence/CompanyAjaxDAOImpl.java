@@ -2,17 +2,21 @@ package com.recruit.persistence;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
+import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
+import com.recruit.domain.ResumeVO;
 
 @Repository
 public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
@@ -32,9 +36,36 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		return session.selectList(namespace + ".jobgroupList");
 	}
 	
+	@Override
+	public List<JobGroupVO> subJobgroupList() throws Exception{
+		
+		return session.selectList(namespace + ".subJobgroupList");
+	}
+	
+	@Override
+	public int jobGroupCount() throws Exception{
+		
+		
+		return session.selectOne(namespace + ".jobGroupCount");
+	}
+	
+	@Override
+	public int regionCount() throws Exception{
+		
+		
+		return session.selectOne(namespace + ".regionCount");
+	}
+	
+	@Override 
+	public List<RegionVO> subRegionList() throws Exception{
+		
+		return session.selectList(namespace +".subRegionList");
+	}
+	
 	
 	@Override
 	public List<RegionVO> SubRegion(String id2) throws Exception{
+		
 		return session.selectList(namespace + ".ajaxsubRegion", id2);
 	}
 	@Override
@@ -170,5 +201,4 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		return session.selectOne(namespace + ".ajaxEndRecruitListCount",paraMap);
 	}
 	
-
 }

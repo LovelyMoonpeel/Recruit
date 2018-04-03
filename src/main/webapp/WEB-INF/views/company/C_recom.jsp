@@ -13,12 +13,9 @@
 <%@ page import="java.util.*, java.text.*"  %>
 
 <%-- <%
-
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
  String today = formatter.format(new java.util.Date());
-
  out.println(today);
-
 %>
  --%>
 
@@ -157,11 +154,6 @@
 
 
 <script>
-
-
-
-
-
 $("button[name=onLoad]").on("click", function() {
 	
 	var bno = $(this).val();
@@ -170,7 +162,6 @@ $("button[name=onLoad]").on("click", function() {
 	
 	
 })
-
 	
 function PersonList(bno){
 	
@@ -198,7 +189,6 @@ function PersonList(bno){
 	
 	
 }
-
 function favorComparison(comparison){
 	
 	var compare = document.getElementsByName('CompareList');
@@ -207,8 +197,6 @@ function favorComparison(comparison){
 		
 	compareList.push(compare[i].value);
 	}
-
-
 	/*
  	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
  	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
@@ -227,8 +215,6 @@ function favorComparison(comparison){
 </script>
 
 <script>
-
-
 $(document).ready(function(){
 	
 	$(document).on("click", '#r1', function(){
@@ -263,7 +249,6 @@ function favAdd(bno, id){   // 관심인재 등록
 	
 	
 }
-
 function favDel(bno, id){ 	// 관심인재 삭제
 	
 	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
@@ -278,24 +263,18 @@ function favDel(bno, id){ 	// 관심인재 삭제
 	alert("관심인재에서 삭제 됐습니다.")
 	
 }
-
 $(document).ready(
 		function() {
-
 			$('#searchBtn').on(
 					"click",
 					function(event) {
-
 						self.location = "C_recom"
 								+ '${pageMaker.makeQuery(1)}'
 								+ "&searchType="
 								+ $("select option:selected").val()
 								+ "&keyword=" + $('#keywordInput').val();
-
 					});
-
 		
-
 		});
 </script>
 

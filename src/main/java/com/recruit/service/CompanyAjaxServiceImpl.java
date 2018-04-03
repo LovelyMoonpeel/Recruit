@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.CPersonInfoVO;
+
+import com.recruit.domain.CompanyCriteria;
+
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.RecruitVO;
@@ -25,11 +28,33 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		
 		return dao.list(id2);
 	}
+	
+	@Override
+	 public List<JobGroupVO> subJobgroupList() throws Exception{
+		return dao.subJobgroupList();
+	}
 
 	 @Override
 	 public List<JobGroupVO> jobgroupList() throws Exception{
 		 
 		 return dao.jobgroupList();
+	 }
+	 @Override
+	 public int jobGroupCount() throws Exception{
+		 
+		 return dao.jobGroupCount();
+	 }
+	 
+	 @Override
+	 public int regionCount() throws Exception{
+		 
+		 return dao.regionCount();
+	 }
+	 
+	 @Override
+	 public List<RegionVO> subRegionList() throws Exception{
+		 
+		 return dao.subRegionList();
 	 }
 	 
 

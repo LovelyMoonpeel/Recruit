@@ -148,11 +148,9 @@
 			<div class="form-group col-lg-6">
 				<label>담당자</label> <input type="text" name="pname" class="form-control" value="${boardVO.pname}">
 			</div>
-
 			<div class="form-group col-lg-6">
 				<label>휴대폰 번호</label> <input type="text" name="phone" class="form-control" value="${CInfoVO.phone}">
 			</div>
-
 		</div> --%>
 
 		<br>
@@ -173,7 +171,6 @@
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
 		var fileObject = document.getElementById("file1");
-
 		console.log(formObj);
 		$(".btn-warning").on("click", function() {
 			self.location = "/company/C_index";
@@ -201,7 +198,6 @@
 
 <script>
 	var imgsrccheck = ('#imgsrccheck');
-
 	if($('#imgsrccheck').val()!=""){
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
@@ -222,21 +218,17 @@
 	
 	var upload = document.getElementById('fileupload');
 	var uploadedList = document.getElementById('uploadedList');
-
 	if (typeof window.FileReader === 'undefined') {
 		console.log("window.FileReader 'fail'");
 	} else {
 		console.log("window.FileReader 'success'");
 	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-
 	upload.onchange = function (e) {
-
 	var file = upload.files[0];
 	var reader = new FileReader();
 	
 	//p542다시 보기
 	$("#uploadedList").empty();
-
 	//reader.onload start
 	reader.onload = function (event) {
 		var image = new Image();
@@ -246,7 +238,6 @@
 	 	image.height = 150;
 	 	uploadedList.appendChild(image);
 	};//reader.onload end
-
 	event.preventDefault();
 	//var files = event.originalEvent.dataTransfer.files;
 	 
@@ -273,7 +264,6 @@
 					+"' target='_blank'; return false;'>크게 보기"
 					+"</a>"
 					+"<middle data-src="+data+">삭제</middle>";
-
 			$("#uploadedList").append(str); 
 			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
 			document.getElementById('uploadfilename').value = getImageLink(data);
@@ -282,9 +272,6 @@
 	console.log(file);
 	reader.readAsDataURL(file);
 };//upload change end   
-
-
-
 	function getOriginalName(fileName){
   		var idx = fileName.indexOf("_")+1;
   		return fileName.substr(idx);
@@ -296,8 +283,6 @@
   	
   		return front + end;
   	} 
-
-
 	$("#uploadedList").on("click", "middle", function(event){
 		event.preventDefault();
 		var that = $(this);
@@ -321,8 +306,6 @@
 		}
 	});
 });
-
-
 </script>
 
 <%@include file="../include/cfooter.jsp"%>
