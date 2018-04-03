@@ -33,9 +33,9 @@
 				recruitUrl = "/company/C_recruitMent?recruitNum=";
 				resumeUrl = "/personal/detail_nonavi?bno=";
 			} else { // company
-				cinfoUrl = "/company?cinfoUrl=";
-				recruitUrl = "/company?recruitUrl=";
-				resumeUrl = "/company?resumeUrl=";
+				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+				recruitUrl = "/company/C_recruitInfo?recruitNum=";
+				resumeUrl = "/personal/detail_nonavi?bno=";
 			}
 		} else { // logout
 			cinfoUrl = "/logout?cinfoUrl=";
@@ -50,11 +50,12 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 			<!-- r.code 1 -->
-			<h4>r.code</h4>
+			<h4 style="display: none;">r.code</h4>
 			<input readonly class="form-control" type="text"
-				value="login: <%=login%>"> <input readonly
-				class="form-control" type="text" value="id: <%=id%>"> <input
-				readonly class="form-control" type="text" value="cname: <%=cname%>">
+				value="login: <%=login%>" style="display: none;"> <input
+				readonly class="form-control" type="text" value="id: <%=id%>"
+				style="display: none;"> <input readonly class="form-control"
+				type="text" value="cname: <%=cname%>" style="display: none;">
 			<!-- r.code 2 -->
 			<input readonly class="form-control" type="text"
 				value="stype: ${srchVO.stype}" style="display: none;"> <input

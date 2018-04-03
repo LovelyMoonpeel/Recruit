@@ -10,23 +10,17 @@
 <!-- Page Content -->
 <div class="container">
 	<%
-		String cinfoUrl;
 		String recruitUrl;
-		String resumeUrl;
 
 		if (login != null) { // login
 			if (cname == null) { // personal
-				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
 				recruitUrl = "/company/C_recruitMent?recruitNum=";
 			} else { // company
-				cinfoUrl = "/company?cinfoUrl=";
 				recruitUrl = "/company?recruitUrl=";
 			}
 		} else { // logout
-			cinfoUrl = "/logout?cinfoUrl=";
 			recruitUrl = "/logout?recruitUrl=";
 		}
-		request.setAttribute("cinfoUrl", cinfoUrl);
 		request.setAttribute("recruitUrl", recruitUrl);
 	%>
 	<!-- carousel -->
@@ -46,30 +40,41 @@
 					<img src="/resources/rpjt/img/frontimg1.jpg" alt="Los Angeles"
 						style="width: 100%;">
 					<div class="carousel-caption">
-						<h2>LOS ANGELES</h2>
-						<p>Los Angeles, officially the City of Los Angeles and often
-							known by its initials L.A., is the cultural, financial, and
-							commercial center of Southern California.</p>
+						<h1>자바기반 웹&amp;앱 개발자 양성과정</h1>
+						<br /> <br /> <br />
+						<p>
+							프로그래밍 기본 문법 및 개발환경 , 자바의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해 습득함으로써
+							자바 프레임워크 기반의 애플리케이션 구현 능력을 갖춘 자바 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
+							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
+						</p>
 					</div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/frontimg2.jpg" alt="Chicago"
 						style="width: 100%;">
-					<div class="carousel-caption">
-						<h2>CHICAGO</h2>
-						<p>Chicago, officially the City of Chicago, is the third most
-							populous city in the United States.</p>
+					<div class="carousel-caption" style="color: black;">
+						<h1>오픈소스기반 웹 개발자 양성과정</h1>
+						<br /> <br /> <br />
+						<p>
+							프로그래밍 기본 문법 및 개발환경 , 오픈소스의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해
+							습득함으로써 오픈소스 기반의 애플리케이션 구현 능력을 갖춘 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
+							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
+						</p>
 					</div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/frontimg3.png" alt="New york"
 						style="width: 100%;">
-					<div class="carousel-caption">
-						<h2>NEW YORK</h2>
-						<p>The City of New York, often called New York City or simply
-							New York, is the most populous city in the United States.</p>
+					<div class="carousel-caption" style="color: black;">
+						<h1>iOS 앱 개발자 양성과정</h1>
+						<br /> <br /> <br />
+						<p>
+							프로그래밍 기본 문법 및 개발환경 , iOS의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해
+							습득함으로써 iOS 기반의 애플리케이션 구현 능력을 갖춘 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
+							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
+						</p>
 					</div>
 				</div>
 			</div>
