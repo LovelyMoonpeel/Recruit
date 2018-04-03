@@ -1,7 +1,9 @@
 package com.recruit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
@@ -10,22 +12,23 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
-	
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -33,10 +36,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
-import com.recruit.domain.PApplyVO;
 import com.recruit.domain.CompanyPageMaker;
 import com.recruit.domain.CompanySearchCriteria;
-
+import com.recruit.domain.PApplyVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.dto.LoginDTO;
@@ -44,11 +46,11 @@ import com.recruit.persistence.UserDAO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.PApplyService;
-
 import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 import com.recruit.service.UserService;
-
+import com.recruit.util.MediaUtils;
+import com.recruit.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/company/*")
@@ -99,9 +101,27 @@ public class CompanyController {
 	          }
 			String id = login.getId();
 			System.out.println(id);
-			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute(login); // 문> 이 줄 추가
-			return "/company/C_index";
+			
+			// 문> 서비스객체의 CompanyInfoRead를 까면 그 기능은 id를 데리고 온다.
+						// 그 코드 뒤에 .getIntro()를 하면 해당 id의 Intro칼럼의 내용을 가지고 온다
+						// 그래서 content에 넣는다.
+						// 아래 코드들은 설명하자면 우리가 입력을 할 때는 textarea에 넣는데 입력한 것을 출력할때는 html적용이 되야 띄워쓰기, 엔터가 먹힌다. 그걸 가능하게 해주는 코드이다.
+						// String 자체에 null을 넣으려고 하면, 에러가 난다. 그래서 null인 경우는 여기를 거치지 않게 하고 
+						// null이 아닌 경우, 즉, 기업소개에 끄적끄적였을 때는 if문 안으로 들어간다
+						if(service.CompanyInfoRead(id).getIntro()!=null){
+							String content = service.CompanyInfoRead(id).getIntro();
+							String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+							String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+							String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+							model.addAttribute("content", content4);
+						}
+						// 문> content4 객체를 content로 쓰겠다는거다.
+						// jsp파일 보면 $content로 되어있는 것을 볼 수 있을 것이다.
+						
+						model.addAttribute(service.CompanyInfoRead(id));
+						model.addAttribute(login); // 문> 이 줄 추가
+						return "/company/C_index";
+			
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
@@ -248,7 +268,11 @@ public class CompanyController {
 			String id = login.getId();
 
 			model.addAttribute(service.CompanyInfoRead(id));
-			model.addAttribute("jobgroupList", ajaxService.jobgroupList());
+			model.addAttribute("jobgroupList", ajaxService.jobgroupList()); // jobgroup
+			model.addAttribute("subJobgroupList", ajaxService.subJobgroupList()); //subJobGroupList
+			model.addAttribute("subRegionList", ajaxService.subRegionList()); // subRegionList
+			model.addAttribute("jobGroupCount",ajaxService.jobGroupCount());	//jobgroup 몇개인지
+			model.addAttribute("regionCount",ajaxService.regionCount()); //region 몇개인지
 			model.addAttribute("codeList", service.CodeList());
 			model.addAttribute("regionList", service.RegionList());
 			return "/company/C_write";
@@ -261,6 +285,8 @@ public class CompanyController {
 	@RequestMapping(value = "/C_write", method = RequestMethod.POST) // 채용공고 작성
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
+		
+		System.out.println(writeRecruit);
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String id = login.getId();
 		logger.info("write Register..........");
@@ -310,13 +336,19 @@ public class CompanyController {
 
 			String id = login.getId();
 
+			
+			
 			String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
-			String adddesc2 = adddesc.replace("\r\n", "<br>");
+			String adddesc2 = adddesc.replace("<", "&lt;");
+			String adddesc3 = adddesc2.replace("\r\n", "<br>");
+			String adddesc4 = adddesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
 			String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
-			String jobdesc2 = jobdesc.replace("\r\n", "<br>");
-
-			model.addAttribute("adddesc", adddesc2);
-			model.addAttribute("jobdesc", jobdesc2);
+			String jobdesc2 = jobdesc.replace("<", "&lt;");
+			String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
+			String jobdesc4 = jobdesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+						
+			model.addAttribute("adddesc", adddesc4);
+			model.addAttribute("jobdesc", jobdesc4);
 
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
 			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
@@ -436,6 +468,8 @@ public class CompanyController {
 
 			logger.info(cri.toString());
 			
+			System.out.println(cri);
+			
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("컨트롤러 : " + id);
 
@@ -503,10 +537,10 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이 보는 기업정보
-	public String C_info_nonavi(HttpSession session, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+	public String C_info_nonavi(HttpSession session, String recruitNum, Model model, RedirectAttributes rttr) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
-		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+		String cid = recruitNum;
 
 		if (login != null) {
 			String id = login.getId();
@@ -526,22 +560,19 @@ public class CompanyController {
 		// 안소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
+		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		if (login != null) {
-	         /*if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }*/
 			String id = login.getId();
-			model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
-			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+			model.addAttribute("PcStateCheck",service.PcStateCheck(id));  //기업 개인 로그인 했는지 체크용
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", Pservice.selectPUser(id));
+			}
+			
 			return "/company/C_recruitMent";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}
+		} 
+	
+
 
 	@RequestMapping(value = "/applynow", method = RequestMethod.POST)// 소연
 	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
@@ -573,100 +604,143 @@ public class CompanyController {
 		}
 	}
 	
-	//get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
+	// 문> get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
 	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
 	public String pass1(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 		
+		// 문> login을 데리고 와서
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
-		System.out.println("야호get");
-		
+		// 문> login이 null이 아니면, 즉, 로그인 되어 있으면 진행
 		if (login != null) {
-	         if (login.getCname() == null){
+			
+			// 문> login을 조사해서 Cname이 null이면, 즉, 기업 회원이 아니면 다음을 진행
+			if (login.getCname() == null){
 	             rttr.addFlashAttribute("msg", "fail");
 	             System.out.println("메인으로~~");
 	             return "redirect:/";
 	          }
+			
+			/*
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
+			*/
+			
+			// 문> 이것때문에 화면을 볼 수 있다.
 			return "/company/C_pass";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
+			
+			// 문> 로그인 안 되어 있으면 메인으로
 			return "redirect:/";
 		}
 		
 	}
 	
-	
 	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
 	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
-		
-		//pw2는 좀 더 살펴봐야 함 
-		service.updatePassword(pw2);
+
 		
 		return "/company/C_pass";   //확인을 누른다음 보여주는 페이지
 	}
 	
 	
+
+
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+
+		logger.info("originalName : " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contetnType: " + file.getContentType());
+
+		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+	}
 	
-	/*
-	// 문> 3.23 패스워드 변경 관련해서 추가
-	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
-	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
-			throws Exception {
-		
-		BoardVO login = (BoardVO)session.getAttribute("login");
-			
-		dto.setId(login.getId());  //BoardVO에서 id를 가져와서 dto에 넣는다.
-		dto.setPname(login.getPname()); 
-				
-		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             System.out.println("메인으로~~");
-	             return "redirect:/";
-	          }
-	         
-	 		String pw = ""; //디비값
-			String rawPw = "";  //입력받은 값
-			
-			if(dao.getId(dto) != null){
-				pw = dao.getPw(dto).getPw();
-				rawPw = dto.getPw();			
+	
+	@ResponseBody
+	@RequestMapping(value = "/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		logger.info("FILE NAME : " + fileName);
+
+		try {
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+			MediaType mType = MediaUtils.getMediaType(formatName);
+
+			HttpHeaders headers = new HttpHeaders();
+
+			in = new FileInputStream(uploadPath + fileName);
+
+			if (mType != null) {
+				headers.setContentType(mType);
+			} else {
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition",
+						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 			}
 
-			System.out.println("pw인데 가입할 때 입력한 값: "+pw);
-			System.out.println("rawPw인데 입력된 값: "+rawPw);
-			System.out.println("입력된 값들 나열: "+dto);
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
 	
-			if(passwordEncoder.matches(rawPw, pw)){
-				System.out.println("비밀번호 일치");
-				System.out.println("if 안, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("if 안, rawPw인데 입력된 값:"+rawPw);
-				
-				BoardVO board = new BoardVO();
-				System.out.println("여긴가? board:"+board);
-				board.setPw(pw2);
-				System.out.println("여긴가? pw2:"+pw2);
-				board.setId(login.getId());
-				System.out.println("여긴가? 끝:");
-				
-				servicePw.pregist(board);
-				System.out.println("if 안 비밀번호 주입 후, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("if 안 비밀번호 주입 후, rawPw인데 입력된 값:"+rawPw);
-			}else{
-				System.out.println("비밀번호 불일치");
-				System.out.println("else 안, pw인데 가입할 때 입력한 :"+pw);
-				System.out.println("else 안, rawPw인데 입력된 값:"+rawPw);
-			}
-			return dao.login(dto);
-			return "/company/C_pass";
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+
+		System.out.println(fileName);
+		System.out.println("deleteFile POST");
+
+		logger.info("delete file : " + fileName);
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		MediaType mType = MediaUtils.getMediaType(formatName);
+
+		if (mType != null) {
+			System.out.println("if 문 안으로 들어왔다.");
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+			System.out.println("if문 마지막");
+		}
+
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
+	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+		System.out.println("deleteResumeList POST Controller");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
+			//Rservice.deleteROne(bno);
+			rttr.addFlashAttribute("msg", "DELETE");
+			return "personal/P_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
-	
-	}	*/
+	}
 }

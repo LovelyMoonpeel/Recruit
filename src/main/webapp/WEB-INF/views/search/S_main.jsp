@@ -34,7 +34,7 @@
 				resumeUrl = "/personal/detail_nonavi?bno=";
 			} else { // company
 				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
-				recruitUrl = "/company/C_recruitInfo?recruitNum=";
+				recruitUrl = "/company/C_recruitMent?recruitNum=";
 				resumeUrl = "/personal/detail_nonavi?bno=";
 			}
 		} else { // logout

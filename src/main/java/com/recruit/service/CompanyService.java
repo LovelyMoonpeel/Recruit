@@ -1,14 +1,17 @@
 package com.recruit.service;
 
+import java.util.HashMap;
 import java.util.List;
+
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
+import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
-import com.recruit.domain.RecruitVO;
 
 
 
@@ -28,13 +31,15 @@ public interface CompanyService {
 	  
 	  public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception;
 	  
-	  public int listSearchCount(CompanyCriteria cri, String id) throws Exception;
+	  public int listSearchCount(CompanySearchCriteria cri, String id) throws Exception;
 	   
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead2(int recruitNum) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead3(int recruitNum) throws Exception;
+	  
+	  public RecruitVO PcStateCheck(String id) throws Exception;
 
 	  public List<CPersonInfoVO> FavorList(String id) throws Exception;
 	  
@@ -56,6 +61,8 @@ public interface CompanyService {
 	  
 	  public void C_RecruitExtension(String id, int bno)throws Exception;
 	  
-	  public void updatePassword(String pw) throws Exception;  //일단 이렇게 쓰고
+	  // 문> 기업회원 비밀번호 새로 수정하기 위해서
+	  public void updateCpPw(HashMap<String, Object> newCpPw) throws Exception;
 	  
+  
 }

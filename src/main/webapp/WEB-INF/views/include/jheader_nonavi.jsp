@@ -6,31 +6,41 @@
 
 
 <%
-	String id = "";
+
+	String pid = "";
+	String cid = "";
+
 	BoardVO login = null;
 	String cname = "";
 	String location = "";
+
 	
 	try{
 		login = (BoardVO)session.getAttribute("login");
 		if(login != null){
-		id = login.getId();
+		
 		cname = login.getCname();
 		}
 		if(cname == null){
-			if(id.equals("admin")){
-				location = "/admin/main";
-			}else{
-				location = "/personal/index";
+			
+			if(login != null){
+			
+				pid = login.getId();
+			
 			}
+			
+			
 		}else{
-			location = "/company/C_index";
+			
+			cid = login.getId();
+			
 		}
+		
 	}catch(Exception e){
 		e.printStackTrace();
 	}
 	
-%>
+%> 
 
  <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -59,6 +69,5 @@
 		</div>
 		<!-- /.container -->
 	</nav>
-
 
 <%@ include file="../include/login.jsp"%>

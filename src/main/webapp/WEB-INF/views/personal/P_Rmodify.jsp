@@ -26,25 +26,34 @@
 	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
                 <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
-                <td rowspan = "3" class="col-sm-4">
-                    <div id= 'uploadedList' style = 'width : 127px; height : 152px; border : 1px dotted blue;'>
-				    <img id = 'imgsrc' height = "150px;" alt="${ResumeVO.img}" /> 
-				   </div>
-				   	<!--  사진 보이는 div  -->
-				   	
-                   	<input id='imgsrccheck' type='hidden' value = "${ResumeVO.img}"/>
-                   	 <!-- db에 있는 file img 이름 받아오는 hidden input -->
-                   	 <input type = 'hidden' id='uploadfilename' name = 'img' >
-					<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-					
-					<br>
-					<input type = 'file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
-					<!--파일 업로드 하는 버튼-->
-					
-				   	<input type = 'hidden' id = 'xornot' value = '0'>
-				   	<input type = 'hidden' id = 'preexistenceimg' value = '0'>
-               	 </td>
-               </tr>
+
+						
+						
+						<td rowspan="3" class="col-sm-4">
+							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
+								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
+							</div> 
+							<!--  사진 보이는 div  --> 
+							
+							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
+							<!-- db에 있는 file img 이름 받아오는 hidden input -->
+							
+							<input type='hidden' id='uploadfilename' name='img'> 
+							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
+
+							<br> 
+							
+							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
+							<!--파일 업로드 하는 버튼--> 
+							
+							<input type='hidden' id='xornot' value='0'> 
+							
+							<input type='hidden' id='preexistenceimg' value='0'>
+						</td>
+						
+						
+
+					</tr>
                <tr>
                   <th class="table-active" scope="row"><label>생년월일</label></th>
                   <td>
@@ -567,6 +576,7 @@ $(document).ready(function() {
 		});
 	}
 	
+	//이거start
 	console.log('${PWebSitelist}');
 	var imgsrccheck = ('#imgsrccheck');
 	
@@ -647,6 +657,8 @@ $(document).ready(function() {
 	 console.log(file);
 	 reader.readAsDataURL(file);
 	};//upload change end   
+	//이거end
+	
 	
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
@@ -922,6 +934,7 @@ $(document).ready(function() {
 			 $(this).closest('.row').remove();
 		 }else{
 			 alert("기본 칸입니다.");
+			 
 		 }
 	});
 	function add_tel(item) {

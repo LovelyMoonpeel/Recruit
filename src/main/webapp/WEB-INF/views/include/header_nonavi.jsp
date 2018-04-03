@@ -76,8 +76,6 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
-
-
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
@@ -86,7 +84,7 @@
 	
 	<%@include file="../include/jheader_nonavi.jsp"%>
 
-<%
+<%-- <%
 	try{
 		if(cname != null){
 			%>
@@ -98,10 +96,9 @@
 		}
 	}catch(Exception e){
 		e.printStackTrace();
-	}
+	} 
 	
-%>
+%> --%>
 
 	<!-- Page Content -->
 	<div class="container">
-	

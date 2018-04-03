@@ -5,4 +5,5 @@ public interface Bnoble {
 	public int getBno();
 
 	public void setBno(int bno);
+	
 }

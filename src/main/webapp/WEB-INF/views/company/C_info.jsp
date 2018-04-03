@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@include file="../include/cheader.jsp"%>
+<%@include file="../include/pheader.jsp"%>
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
@@ -9,8 +8,7 @@
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
 	<div class="top_cont">
 		<div class="corp_logo">
-			<img src="/resources/rpjt/img/${CInfoVO.img}"
-				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
+			<img src="/resources/rpjt/img/${CInfoVO.img}" width="209" height="117" / name="img" value="${CInfoVO.img}" /> <br> <br>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
@@ -26,8 +24,8 @@
 		<div class="table-responsive">
 			<!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
 			<table class="table table-bordered">
-			
-			
+
+
 				<tbody>
 					<tr>
 						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
@@ -51,7 +49,7 @@
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">사원수</th>
-						<td>${CInfoVO.numemp} 명</td>
+						<td>${CInfoVO.numemp}명</td>
 						<th class="table-active" scope="row">매출액</th>
 						<td>${CInfoVO.sales}</td>
 					</tr>
@@ -63,11 +61,13 @@
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">홈페이지</th>
-						<td><a href="${CInfoVO.homepage}" class="link_site"
-							target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
+						<td>
+							<a href="${CInfoVO.homepage}" class="link_site" target="_blank" rel="nofollow">${CInfoVO.homepage}</a>
+						</td>
 						<th class="table-active" scope="row">SNS</th>
-						<td><a href="${CInfoVO.sns}"
-							class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
+						<td>
+							<a href="${CInfoVO.sns}" class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a>
+						</td>
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">기업주소</th>
@@ -86,27 +86,28 @@
 	</div>
 	<!-- //기업 페이지 두번째(company_info_content) -->
 	<br> <br>
-	
 
-	<h1><a>'${CInfoVO.cname}'</a>진행중인 채용 공고</h1>
-	
+
+	<h1>
+		<a>'${CInfoVO.cname}'</a>진행중인 채용 공고
+	</h1>
+
 	<div class="row">
-  <c:forEach items="${RecruitList}" var="list">
-  <div class="col-sm-6 col-md-4">
-     
-    <div class="thumbnail">
+		<c:forEach items="${RecruitList}" var="list">
+			<div class="col-sm-6 col-md-4">
 
-	 <div class="caption">
-        <span>~${list.period}</span> <img src=/resources/rpjt/img/non.png>
-        <br><a id="r1" value="${list.bno}">${list.title}</a><br>
-        <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
-      </div>
-    </div>
-  </div>
-    </c:forEach>
-</div>
-			
-	
+				<div class="thumbnail">
+
+					<div class="caption">
+						<span>~${list.period}</span> <img src=/resources/rpjt/img/non.png> <br>
+						<a id="r1" value="${list.bno}">${list.title}</a><br> <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+
+
 
 
 
@@ -116,17 +117,13 @@
 <!-- //기업 페이지 -->
 
 <script>
+	$(document).on("click", '#r1', function() {
 
-$(document).on("click",'#r1',function(){
+		var a = $(this).attr("value");
 
-	var a = $(this).attr("value");
-	
-	self.location = "/company/C_recruitMent?recruitNum="+a;
-	
-})
+		self.location = "/company/C_recruitMent?recruitNum=" + a;
 
-
-
+	})
 </script>
 
 

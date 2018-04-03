@@ -5,8 +5,10 @@
 <%@include file="../include/header_nonavi_resume.jsp"%>
          
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의이력서상세</h1>
+	<h1>${ResumeVO.preadornot}님의이력서상세</h1>
 	<br> <br>
+	
+	 <img src=/resources/rpjt/img/non.png id=r1 value="${ResumeVO.bno}">
 	<!-- 이력서 페이지 두번째(기본 정보) -->
 	<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 	<div class="table-responsive">
@@ -229,6 +231,8 @@
 				</tr>
 			</tbody>
 		</table>
+		<input type="hidden" id="id" value="${PUserVO.id}">
+	
 		<!-- //table class -->
 	</div>
 	<!-- //table-responsive -->
@@ -260,6 +264,97 @@
 		}
 	});
 </script>
+
+
 </body>
-         
+
+<script>
+function favorComparison(comparison){
+	
+	var compare = document.getElementsByName('CompareList');
+	var compareList = [];
+	for(var i=0; i<compare.length; i++){
+		
+	compareList.push(compare[i].value);
+	}
+	/*
+ 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
+ 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
+   */
+ 	for(var i= 0; i<compareList.length; i++){
+ 		
+ 		for(var j = 0; j<comparison.length; j++){
+ 			if(compareList[i] == comparison[j]){
+ 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
+ 			}
+ 		}
+ 	}
+	
+	
+}
+</script>
+
+<script>
+$(document).ready(function(){
+	
+	$(document).on("click", '#r1', function(){
+		
+		var id = $('#id').attr('value');
+		var bno = $(this).attr('value');
+		
+		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
+			favDel(bno, id);
+		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
+			favAdd(bno, id);
+		}
+		
+			
+		})
+	
+	
+})
+function favAdd(bno, id){   // 관심인재 등록
+			
+	
+	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
+		var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
+	alert("관심인재에 등록 됐습니다.")
+	
+	
+}
+function favDel(bno, id){ 	// 관심인재 삭제
+	
+	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+	var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
+	alert("관심인재에서 삭제 됐습니다.")
+	
+}
+$(document).ready(
+		function() {
+			$('#searchBtn').on(
+					"click",
+					function(event) {
+						self.location = "C_recom"
+								+ '${pageMaker.makeQuery(1)}'
+								+ "&searchType="
+								+ $("select option:selected").val()
+								+ "&keyword=" + $('#keywordInput').val();
+					});
+		
+		});
+</script>
 <%@include file="../include/cfooter.jsp"%>

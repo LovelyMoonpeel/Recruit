@@ -97,7 +97,7 @@
     <div class="thumbnail">
 
 	 <div class="caption">
-        <span>~${list.period}</span> <img src=/resources/rpjt/img/non.png>
+        <span>~${list.period}</span>
         <br><a id="r1" value="${list.bno}">${list.title}</a><br>
         <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
       </div>
@@ -116,18 +116,12 @@
 <!-- //기업 페이지 -->
 
 <script>
-
 $(document).on("click",'#r1',function(){
-
 	var a = $(this).attr("value");
 	
 	self.location = "/company/C_recruitMent?recruitNum="+a;
 	
 })
-
-
-
 </script>
-
 
 <%@include file="../include/cfooter.jsp"%>

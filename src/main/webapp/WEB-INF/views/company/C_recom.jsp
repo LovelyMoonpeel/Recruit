@@ -8,26 +8,23 @@
 
 <!-- Main content -->
 <!-- 기업 페이지 -->
-<div class="col-md-9">
+<!-- <div class="col-md-9"> -->
 
 <%@ page import="java.util.*, java.text.*"  %>
 
-<%
-
+<%-- <%
  java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
  String today = formatter.format(new java.util.Date());
-
  out.println(today);
-
 %>
+ --%>
 
 
-	
 	<input type="hidden" id="id" value="${CInfoVO.id}">
-	
+
 	
 	<div class="col-md-9">
-	<h1>채용 공고 목록</h1>
+		<p class="lead"><strong>채용공고목록에 따른 추천인재</strong></p>
 	
 		<div class='box-body'>
 
@@ -37,22 +34,10 @@
 							---</option>
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
-							Title</option>
+							공고제목</option>
 						<option value="c"
 							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
-						<option value="w"
-							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
-							Writer</option>
-						<option value="tc"
-							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option>
+							담당자</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
 					<button id='searchBtn'>Search</button>
@@ -72,7 +57,7 @@
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th>${RecruitVO.recruitstate}</th>
-					<th><a target="_blank">${RecruitVO.title}</a>
+					<th><a target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					<li>근무형태 : ${RecruitVO.employstatusid}</li>
 					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
 					<li>경력 : ${RecruitVO.exp} </li>
@@ -147,21 +132,14 @@
 
 </div>
 
-</div>
+<!-- </div> -->
 
-<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
-<input type="text" name="CompareList" value="${FavorCompareListVO.presume}">
-</c:forEach>
+
 
 
 
 
 <script>
-
-
-
-
-
 $("button[name=onLoad]").on("click", function() {
 	
 	var bno = $(this).val();
@@ -170,7 +148,6 @@ $("button[name=onLoad]").on("click", function() {
 	
 	
 })
-
 	
 function PersonList(bno){
 	
@@ -182,7 +159,10 @@ function PersonList(bno){
 		$(data).each(
 				function() {
 					
-					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+"  ⃝  ⃝ </td><td><span class=careerLine>경력 3년 5개월</span><a  id="+this.bno+">"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
+					+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
+					+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
+					+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
 					
 					comparison.push(this.bno)
 					
@@ -198,7 +178,6 @@ function PersonList(bno){
 	
 	
 }
-
 function favorComparison(comparison){
 	
 	var compare = document.getElementsByName('CompareList');
@@ -207,8 +186,6 @@ function favorComparison(comparison){
 		
 	compareList.push(compare[i].value);
 	}
-
-
 	/*
  	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
  	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
@@ -227,8 +204,6 @@ function favorComparison(comparison){
 </script>
 
 <script>
-
-
 $(document).ready(function(){
 	
 	$(document).on("click", '#r1', function(){
@@ -263,7 +238,6 @@ function favAdd(bno, id){   // 관심인재 등록
 	
 	
 }
-
 function favDel(bno, id){ 	// 관심인재 삭제
 	
 	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
@@ -278,24 +252,18 @@ function favDel(bno, id){ 	// 관심인재 삭제
 	alert("관심인재에서 삭제 됐습니다.")
 	
 }
-
 $(document).ready(
 		function() {
-
 			$('#searchBtn').on(
 					"click",
 					function(event) {
-
 						self.location = "C_recom"
 								+ '${pageMaker.makeQuery(1)}'
 								+ "&searchType="
 								+ $("select option:selected").val()
 								+ "&keyword=" + $('#keywordInput').val();
-
 					});
-
 		
-
 		});
 </script>
 

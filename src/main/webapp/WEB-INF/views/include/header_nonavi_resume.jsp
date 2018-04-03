@@ -76,7 +76,6 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
-
 body {
     padding-top: 20px;
 }
@@ -106,4 +105,3 @@ body {
 
 	<!-- Page Content -->
 	<div class="container">
-	

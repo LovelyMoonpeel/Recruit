@@ -16,6 +16,7 @@ right: 0;
 z-index: 10000;
 }
 </style>
+
 <footer>
 	<div class="container">
 		<div class="row">

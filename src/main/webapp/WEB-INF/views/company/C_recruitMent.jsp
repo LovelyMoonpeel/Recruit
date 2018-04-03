@@ -12,7 +12,6 @@ bottom: 30px;
 right:10%;
 /*margin-right: 150px;*/ 
 } 
-
 #back-top a { 
 width: 50px; 
 display: block; 
@@ -30,7 +29,6 @@ transition: 1s;
 #back-top a:hover { 
 color: #000; 
 } 
-
 /* arrow icon (span tag) */ 
 #back-top span { 
 width: 50px; 
@@ -38,12 +36,10 @@ height: 50px;
 display: block; 
 margin-bottom: 7px; 
 background: #ddd url(/resources/rpjt/img/up-arrow.png) no-repeat center center; 
-
 /* rounded corners */ 
 -webkit-border-radius: 15px; 
 -moz-border-radius: 15px; 
 border-radius: 15px; 
-
 /* transition */ 
 -webkit-transition: 1s; 
 -moz-transition: 1s; 
@@ -52,7 +48,6 @@ transition: 1s;
 #back-top a:hover span { 
 background-color: #777; 
 } 
-
 </style>
 <!-- Main content -->
 <div class="col-md-12 ">
@@ -65,6 +60,8 @@ background-color: #777;
 	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
 	<br>
+
+
 
 	<div
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
@@ -147,15 +144,15 @@ background-color: #777;
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
-					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.bno}'>
+					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.cid}'>
 					<button class="btn btn-info">기업정보</button></a>
-					
 				</div>
 				<br>
 			</div>
 		</div>
 	</div>
 	<br>
+
 
 	<div class="text-center">
 		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
@@ -211,28 +208,43 @@ background-color: #777;
 		</div>
 		<!--//modal-dialog -->
 	</div>
+	
+	<input type="hidden" id="pC" value="<%=pid%>">
 	<!-- 소연 코드 -->
 	<script>
 		$(document).ready(function() {
-
 			var formObj = $("form[role = 'form']");
 			var rcno = $("#modal_recruitNum").val();
 			var pid = $("#modal_pid").val();
-
-			$("#applynow").click(function() {
-				$("#applynow_modal").modal();
+			$("#applynow").click(function(e) {
+				
+				if("<%=pid%>"==""&&"<%=cid%>"==""){
+					alert("로그인해주시길바랍니다.")
+				}else if("<%=pid%>"==""){
+					alert("개인회원으로 로그인 해주시길바랍니다.")
+				}else{
+					$("#applynow_modal").modal();
+				}
+				
 			});
 			$("#applynow2").click(function() {
-				$("#applynow_modal").modal();
+				
+				if("<%=pid%>"==""&&"<%=cid%>"==""){
+					alert("로그인해주시길바랍니다.")
+				}else if("<%=pid%>"==""){
+					alert("개인회원으로 로그인 해주시길바랍니다.")
+				}else{
+					$("#applynow_modal").modal();
+				}
+				
 			});
-
-			$("#applynow_btn").on("click", function() {
+			$("#applynow_btn").on("click", function(e) {
+				
+			
+				
 				console.log("applynow_btn clicked");
-
 				var rsno = $('input[name="bno"]:checked').val();
-
 				alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
-
 				$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
 					type : 'post',
 					url : '/companyAjax/applycheck',
@@ -265,32 +277,41 @@ background-color: #777;
 					}//success end
 				})//ajax end
 			});
-
 			$("#clipping").click(function() {
-				$.ajax({
-					type : 'post',
-					url : '/companyAjax/clipping',
-					headers : {
-						"Content-Type" : "application/json",
-						"X-HTTP-Method-Override" : "POST"
-					},
-					dataType : 'text',
-					data : JSON.stringify({ //name에 설정해줘야 함
-						rcbno : rcno,
-						userid : pid
-					}),
-					success : function(result) {
-						console.log("result가 뭐냐?" + result);
-						if (result == 'TRUE') {
-							alert("관심채용공고에 스크랩하였습니다.");
-						} else if (result == 'FALSE') {
-							alert("이미 스크랩했습니다.");
-						} else {
-							alert("어느 if문에도 들어가지 못함.");
-							console.log("어느 if문에도 들어가지 못함.");
-						}
-					}//success end
-				})//ajax end
+				
+				
+				if("<%=pid%>"==""&&"<%=cid%>"==""){
+					alert("로그인해주시길바랍니다.")
+				}else if("<%=pid%>"==""){
+					alert("개인회원으로 로그인 해주시길바랍니다.")
+				}else{
+					
+					$.ajax({
+						type : 'post',
+						url : '/companyAjax/clipping',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({ //name에 설정해줘야 함
+							rcbno : rcno,
+							userid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								alert("관심채용공고에 스크랩하였습니다.");
+							} else if (result == 'FALSE') {
+								alert("이미 스크랩했습니다.");
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
+					
+				}
 			});
 		});
 	</script>
@@ -469,6 +490,8 @@ background-color: #777;
 	</div>
 </div>
 
+
+
 <%-- <form role="form" method="post">
 	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
 	<input type='hidden' name="id" value="${RecruitVO.cid}">
@@ -476,7 +499,6 @@ background-color: #777;
  --%>
 <script>
 $(document).ready(function(){ 
-
 	// hide #back-top first
 	//$("#back-top").hide();
 	
@@ -489,7 +511,6 @@ $(document).ready(function(){
 				$('#back-top').fadeOut();
 			}
 		});
-
 		// scroll body to 0px on click
 		$('#back-top').click(function () {
 			$('body,html').animate({
@@ -498,9 +519,7 @@ $(document).ready(function(){
 			return false;
 		});
 	});
-
 });
-
 </script>
 <!-- //메인 바디 끝 -->
 
