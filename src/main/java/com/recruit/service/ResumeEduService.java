@@ -20,4 +20,6 @@ public interface ResumeEduService {
 	public void remove(Integer bno) throws Exception;
 
 	public void changeResumeEduList(Integer resumenum, List<ResumeEduVO> resumeEduVOList) throws Exception;
+
+	public void createResumeEduList(Integer resumenum, List<ResumeEduVO> resumeEduVOList) throws Exception;
 }

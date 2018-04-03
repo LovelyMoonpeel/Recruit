@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -210,7 +211,7 @@ public class PersonalController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
+	public String writePOST(String id, String file, PUserVO puser, PTelVO ptvo, PWebSiteVO pwvo, RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeLanguageVO plavo, ResumeVO resume, Model model) throws Exception {
 		System.out.println("write POST controller");
 		
 		System.out.println("레주메"+resume);
@@ -228,7 +229,10 @@ public class PersonalController {
 		Webservice.createWList(bno, pwvo.getPwebsitesvolist());
 		Licenseservice.createLicenseList(bno, plivo.getRlicensevolist());
 		Langservice.createRLanguageList(bno, plavo.getRlangvolist());
-
+		
+		Eduservice.createResumeEduList(bno, resumeEduVO.getListEdu());
+		Careerservice.createResumeCareerList(bno, resumeCareerVO.getListCareer());
+		
 		return "redirect:/personal/detail?bno=" + bno + ""; 
 	}
 	//이력서 하나 읽기
@@ -543,4 +547,30 @@ public class PersonalController {
 		}
 	}
 	
+	@RequestMapping(value = "/publicornot_change", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> publicornot_change(@RequestBody ResumeVO resume) throws Exception {
+		System.out.println("clipping POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+	
+		System.out.println("들어온 resume"+resume.toString());
+		try{
+			if(resume.getPublicornot().equals("비공개")){//비공개일 때 공개로
+				System.out.println("true if문으로 들어옴");
+				//Rservice.updatePONOne(resume);
+				//비공개 업데이트 시키는 거
+				entity = new ResponseEntity<String>("AS_PUBLIC", HttpStatus.OK);
+			}else if(resume.getPublicornot().equals("공개")){//공개일 때 비공개로
+				System.out.println("false if문으로 들어옴");
+				//Rservice.updatePONOne(resume);
+				//공개로 업데이트 시키는 거
+				entity = new ResponseEntity<String>("AS_PRIVATE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
 }

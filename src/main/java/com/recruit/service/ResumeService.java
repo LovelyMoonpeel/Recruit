@@ -40,4 +40,6 @@ public interface ResumeService {
 	public List<RegionVO> selectRegionList() throws Exception;
 
 	//public void addRimgAttach(String fullName); dao만 만들어서 transaction처리
+	
+	public void updatePONOne(ResumeVO resume)throws Exception;
 }

@@ -111,4 +111,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return dao.resumeRead(bno);
 	}//민경
 	
+	@Override
+	public void updatePONOne(ResumeVO resume) throws Exception {
+		dao.updatePONOne(resume);
+	}//소연
+	
 }

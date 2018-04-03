@@ -740,6 +740,7 @@ $(document).ready(function() {
 			}
 		});
 		
+		
 		if($("#xornot").val()==0){
 			console.log("xornot.val()==0");
 			console.log("사진 삭제 안함");

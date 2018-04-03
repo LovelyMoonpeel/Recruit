@@ -213,12 +213,12 @@
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
 
 	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 	
 	<div class="form-group col-md-3">
-		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control enterdate edu" name="listEdu[].enterdate" value="{{enterdate}}"> 
+			<input type="text" class="form-control enterdate edu edudates" onchange="myfunction1();" name="listEdu[].enterdate" value="{{enterdate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -226,7 +226,7 @@
 	<div class="form-group col-md-3">
 		<label>졸업일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control gradudate edu"name="listEdu[].gradudate" value="{{gradudate}}"> 
+			<input type="text" class="form-control gradudate edu edudates" onchange="myfunction1();" name="listEdu[].gradudate" value="{{gradudate}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -245,7 +245,7 @@
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="15">재학</option>
 			<option value="16">졸업</option>
 			<option value="17">중퇴</option>
@@ -276,14 +276,14 @@
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].startjob" value="{{startjob}}"> 
+			<input type="text" class="form-control career careerdates" name="listCareer[].startjob" value="{{startjob}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
 		<label>퇴사일</label>
 		<div class="input-group date" data-provide="datepicker">
-			<input type="text" class="form-control career" name="listCareer[].finishjob" value="{{finishjob}}"> 
+			<input type="text" class="form-control career careerdates" name="listCareer[].finishjob" value="{{finishjob}}"> 
 			<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 		</div>
 	</div>
@@ -300,7 +300,7 @@
 		<label for="salary">연봉</label>
 		<select class="form-control career" name="listCareer[].salary">
 			{{#select salary}}
-			<option value="0">선택</option>
+			<option value="102">선택</option>
 			<option value="34">~ 2,000</option>
 			<option value="35">2,000 ~ 2,500</option>
 			<option value="36">2,500 ~ 3,000</option>
@@ -482,7 +482,76 @@
 </script>
 <script type='text/javascript'>
 
+k=1;
 
+function myfunction1(){
+	console.log("fkq"+k);
+	k++;
+	console.log(k);
+	//마지막꺼만 되는 문제
+	$(".enterdate").each(function(index){
+		var ss=$(this).val();
+		enter_sp=ss.split("-");
+		enterdate_index = index;
+	});
+	$(".gradudate").each(function(index){
+		var ss=$(this).val();
+		gradu_sp=ss.split("-");
+		gradudate_index = index;
+	});
+	if(gradu_sp[2]!=""&&k%3==0){
+		k=1;
+		var enterdate_cp = new Date(enter_sp[0], enter_sp[1], enter_sp[2]);
+		var gradudate_cp = new Date(gradu_sp[0], gradu_sp[1], gradu_sp[2]);
+		if (enterdate_cp >= gradudate_cp) {
+			alert("유효하지 않은 값입니다. 다시 입력해주세요");
+			//$(".enterdate:eq("+enterdate_index+")").val("");
+			$(".gradudate:eq("+gradudate_index+")").val("");
+		} else {
+		    
+		}
+	}
+	
+}
+
+
+/* function mydateFunction(val){
+	console.log("this index" + val);
+	var ss=val.split("-");
+	console.log(ss[0]);
+	console.log(ss[1]);
+	console.log(ss[2]);
+	//console.log("얍1"+val.substr(0,4));
+	//console.log("얍2"+val.substr(5,5));
+	//console.log("얍3"+val.substr(8));
+	
+	
+}
+function mydateFunction2(val){
+	console.log("this index" + val);
+	var ss=val.split("-");
+	console.log(ss[0]);
+	console.log(ss[1]);
+	console.log(ss[2]);
+	//console.log(val.substr(7));
+} */
+/* $(".tel_minus_btn").each(function(){
+	console.log("$('.tel_minus_btn').index()"+$(".tel_minus_btn").index());
+	if($(".tel_minus_btn").index()==3){
+		$(this).siblings('label').text("추가");
+		$(this).hide();
+	}
+});
+
+var edudates = document.getElementsByClassName('edudates');
+   
+edudates.onchange = function (e) {
+	 var enterdate = document.getElementsByClassName("edudates")[index%2==0];
+	 var gradudate = document.getElementsByClassName("edudates")[index%2==1];
+	 list.getElementsByClassName("child")[0].innerHTML = "Milk";
+}
+ */
+ 
 $(document).ready(function(){
 	
 	Handlebars.registerHelper('select', function( value, options ){
@@ -524,6 +593,22 @@ $(document).ready(function(){
 				if($(this).val()==''){
 					console.log($(this).val());
 					console.log(".languageacquidate.val()==''");
+					$(this).val("0000-00-00");
+					console.log($(this).val());
+				}
+			});
+			$('.careerdates').each(function(){ 
+				if($(this).val()==''){
+					console.log($(this).val());
+					console.log(".careerdates.val()==''");
+					$(this).val("0000-00-00");
+					console.log($(this).val());
+				}
+			});
+			$('.edudates').each(function(){ 
+				if($(this).val()==''){
+					console.log($(this).val());
+					console.log(".edudates.val()==''");
 					$(this).val("0000-00-00");
 					console.log($(this).val());
 				}
@@ -582,16 +667,6 @@ $(document).ready(function(){
 					   var str = "";
 					  
 					 	console.log(data);
-					 	
-						  /* str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>"; */
-							  
-						  /* str = 
-							  "<a class='ORIGINAL'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>"; */
 							  str = 
 								  "<a id='ORIGINAL'>크게보기</a>"
 								  +"<small data-src="+data+">X</small>";  

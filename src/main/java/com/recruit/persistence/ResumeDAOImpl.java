@@ -107,4 +107,9 @@ public class ResumeDAOImpl implements ResumeDAO {
 		System.out.println("ResumeDAOImpl selectRList" + bno);
 		return session.selectOne(namespace+".resumeRead", bno);
 	}
+	
+	@Override
+	public void updatePONOne(ResumeVO resume) throws Exception {
+		session.update(namespace + ".updatePONOne", resume);
+	}//소연
 }
