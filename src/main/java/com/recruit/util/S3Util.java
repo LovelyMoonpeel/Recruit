@@ -56,10 +56,6 @@ public class S3Util {
 		metaData.setContentLength(fileData.length);   //메타데이터 설정 -->원래는 128kB까지 업로드 가능했으나 파일크기만큼 버퍼를 설정시켰다.
 	    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData); //파일 넣음
 
-	    System.out.println("bucketName : "+bucketName);
-	    System.out.println("fileName : "+fileName);
-	    System.out.println("fileData : "+fileData);
-	    System.out.println("metaData : "+metaData);
 		conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
 
 	}

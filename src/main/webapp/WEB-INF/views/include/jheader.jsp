@@ -10,12 +10,14 @@
 	BoardVO login = null;
 	String cname = "";
 	String location = "";
+	String c_chk = null;
 	
 	try{
 		login = (BoardVO)session.getAttribute("login");
 		if(login != null){
 		id = login.getId();
 		cname = login.getCname();
+		c_chk = login.getCname();
 		}
 		if(cname == null){
 			if(id.equals("admin")){
@@ -50,19 +52,19 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/srch/main?stype=1">기업찾기</a></li>
-					<li><a href="/srch/main?stype=2">인재찾기</a></li>
+					<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
 
 					<!--회원가입, 로그인 부분 -->
 					<!--★ a href="#" 삭제하면 안됨  -->
 					<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
 					<c:if test="${empty sessionScope.login}">
 						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-						<li id="myBtn_join"><a> <span
+						<li id="myBtn_join"><a style="cursor: pointer;"> <span
 								class="glyphicon glyphicon-user"></span> 회원가입
 						</a></li>
 
 						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-						<li id="myBtn_login"><a> <span
+						<li id="myBtn_login"><a style="cursor: pointer;"> <span
 								class="glyphicon glyphicon-log-in"></span> 로그인
 						</a></li>
 					</c:if>
@@ -88,57 +90,17 @@
 		<!-- /.container -->
 	</nav>
 
-
-<%@ include file="../include/login.jsp"%>
-
-
-	<!--iCheck -->
-	<!--로그인 기억하기 부분인데 iCheck가 있어서 넣었음  -->
-	<!--근데 이거 넣으면 체크박스가 없어져서 일단 주석처리  -->
-	<!-- iCheck -->
-	<!-- jQuery 2.1.4 -->
-	<!-- <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
-
-	<!-- Bootstrap 3.3.2 JS -->
-	<!-- <script src="/resources/bootstrap/js/bootstrap.min.js"
-		type="text/javascript"></script> -->
-
-	<!-- <script src="/resources/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-    
-    <script>
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
-    </script> -->
-    
-<!-- 로그인 부분 수정해볼 예정 -->
-<!-- <script>
-/* 로그인 버튼 */
-$("#replyAddBtn").on("click", function(){
-	var contentObj = $("#newReplyText");
-	var bnoObj = $("#bno");
-	var content = contentObj.val();
-	var bno = bnoObj.val();
+<script>
+$("#p_search").on("click",function(){
+	var c_chk = "<%=c_chk%>";
 	
-	$.ajax({
-		type:'post',
-		url:'/user/loginpost',
-		headers:{
-			"Content-Type": "application/json; charset=UTF-8",
-			"X-HTTP-Method-Override": "POST"},
-		dataType:'text',
-		data: JSON.stringify({bno:bno, content:content}),
-		success:function(result){
-			console.log("result: " + result);
-			if(result == 'success'){
-				alert("등록완료");
-				contentObj.val("");
-				getPage("/replies/all/" + bno);
-			}
-		}});
+	if(c_chk == "null" && "<%=location%>" != "/admin/main"){
+		alert("접근 권한이 없습니다.");
+	}else if(c_chk == "null" && "<%=location%>" == "/admin/main"){
+		self.location="/srch/main?stype=2";
+	}else{
+		self.location="/srch/main?stype=2";
+	}
 });
-</script> -->
+</script>
+<%@ include file="../include/login.jsp"%>
