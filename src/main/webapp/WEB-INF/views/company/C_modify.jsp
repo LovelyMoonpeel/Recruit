@@ -197,7 +197,7 @@
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
 		var str = "";
-		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
+		str = "<a id=bb href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
 	  		+"</a>"
 	  		+"<small data-src=${ResumeVO.img}>X</small>";
  		$("#uploadedList").append(str); 
@@ -248,6 +248,8 @@ upload.onchange = function (e) {
 	reader.readAsDataURL(file);
 	
 };//upload change end  
+
+
 
 $(".btn-primary").on("click", function() {
 	
@@ -322,6 +324,15 @@ $("#uploadedList").on("click", "small", function(event){
 		}
 	});
 });
+
+
+$("#bb").on("click",function(){
+	
+	window.open(this.href, '', 'width=400', 'height=430'); 
+	
+	return false;
+})
+
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

@@ -97,7 +97,7 @@ $(document).ready(function(){
 			
 			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+" &nbsp;* *</strong><br></td>"
-				+ "<td><span class=careerLine>경력 3년 5개월</span><a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+" onClick='window.open(this.href, '', 'width=400', 'height=430'); return false;'>"
+				+ "<td><span class=careerLine>경력 3년 5개월</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
 				+ ""+this.bno+":"+this.title+"</a>"
 				+ "<div><div></div><div>"+this.schoolname+""+this.marjor+"</div></div>"
 				+ "<p>"+this.rgbid+""+this.salary+"</p>"
@@ -113,6 +113,14 @@ $(document).ready(function(){
 		
 		
 	}
+	
+	
+	$(document).on("click","#btt",function(){
+		window.open(this.href, '', 'width=400', 'height=430'); 
+		
+		return false;
+	})
+	
 </script>
 
 <!-- 문> 여기 있던 style은 include의 cheader에 따로 넣어 놨음  -->

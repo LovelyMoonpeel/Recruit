@@ -39,6 +39,7 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.CompanyService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
 import com.recruit.service.PWebSiteService;
@@ -89,6 +90,9 @@ public class PersonalController {
 
 	@Inject
 	private PasswordEncoder passwordEncoder;
+	
+	@Inject
+	private CompanyService parkService;
 
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -316,7 +320,10 @@ public class PersonalController {
 				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
-
+				
+				if(login.getCname()!=null){
+				model.addAttribute("FavorCompareList", parkService.FavorCompareList(id));
+				}
 				return "personal/P_detail_nonavi";
 			} else {
 				rttr.addFlashAttribute("msg", "login");

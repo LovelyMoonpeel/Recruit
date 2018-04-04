@@ -27,7 +27,7 @@
 	<font size="6px">${RecruitVO.title}</font>
 	</div>
 	<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
-	<img src="/resources/rpjt/img/${CInfoVO.img}" class="img-rounded" name="img" value="${CInfoVO.img}" style="width:200px; height:100px"/>
+	<img src="${CInfoVO.img}" class="img-rounded" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px; height:100px"/>
 	</div>
 	</div>
 
@@ -329,6 +329,20 @@ var formObj = $("form[role='form']");
 		self.location = "/company/C_recruitMent?recruitNum="+$(this).val();
 		
 	})
+	
+	$(document).ready(function() {
+		
+		var imgsrccheck = ('#imgsrccheck');
+		if ($('#imgsrccheck').val() != "") {
+			console.log(" val값 뭐임? " + $('#imgsrccheck').val());
+			console.log(" val이 널값아님");
+			$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
+		} else {
+			console.log(" val이 널값이다");
+			$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+			$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+		}
+	});
 </script>
 
 <!-- //메인 바디 끝 -->

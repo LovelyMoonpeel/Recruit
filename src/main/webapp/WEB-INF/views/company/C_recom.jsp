@@ -132,6 +132,11 @@
 
 </div>
 
+<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
+<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
+</c:forEach>
+
+
 <!-- </div> -->
 
 

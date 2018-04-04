@@ -96,7 +96,7 @@ public class CompanyController {
 			throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		String pw = login.getPw();
+//		String pw = login.getPw();
 
 		if (login != null) {
 	         if (login.getCname() == null){  // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든 requestMapping에 다 넣었음
@@ -513,6 +513,9 @@ public class CompanyController {
 	          }
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
+			
+			model.addAttribute("favorList",service.FavorList(id));
+			
 			return "/company/C_favor";
 
 		} else {
@@ -698,24 +701,33 @@ public class CompanyController {
 				url = new URL(s3.getFileURL(bucketName, inputDirectory + fileName));
 				System.out.println(url);
 				uCon = (HttpURLConnection) url.openConnection();
+				
 				in = uCon.getInputStream(); // 이미지를 불러옴
+				
+				
 			} catch (Exception e) {
 				url = new URL(s3.getFileURL(bucketName, "NoImage.png"));
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream();
+				
+				headers.add("Content-Disposition",
+				"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+				
 			}
-
+			
+			
 			// 여기
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+			System.out.println("엔티티는"+entity);
 		} catch (FileNotFoundException effe) {
 			System.out.println("File Not found Exception");
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = MediaUtils.getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
+			HttpHeaders headers = new HttpHeaders();	
 			in = new FileInputStream(uploadPath + "/NoImage.png");
 
 			headers.setContentType(mType);
-
+			
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();

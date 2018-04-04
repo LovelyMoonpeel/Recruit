@@ -8,7 +8,10 @@
 	<h1>${ResumeVO.preadornot}님의이력서상세</h1>
 	<br> <br>
 	
-	 <img src=/resources/rpjt/img/non.png id=r1 value="${ResumeVO.bno}">
+	<button id= r1 value="${ResumeVO.bno}">
+	 <img src=/resources/rpjt/img/non.png id=r1 name="r1" value="${ResumeVO.bno}">
+	 <b name="r2">관심인재 등록하기</b>
+	</button>
 	<!-- 이력서 페이지 두번째(기본 정보) -->
 	<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 	<div class="table-responsive">
@@ -233,6 +236,11 @@
 		</table>
 		<input type="hidden" id="id" value="${PUserVO.id}">
 	
+	
+	<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
+	<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
+	</c:forEach>  <!-- 관심인재에 등록된 사람인지 비교하기 위한 forEach문 (park) -->
+	<input type="hidden" id="bonobono" value="${ResumeVO.bno}"> <!-- 현재 이력서 번호(park) -->
 		<!-- //table class -->
 	</div>
 	<!-- //table-responsive -->
@@ -269,33 +277,32 @@
 </body>
 
 <script>
-function favorComparison(comparison){
-	
+
+$(document).ready(function(){
 	var compare = document.getElementsByName('CompareList');
-	var compareList = [];
+	
+	var bno = $("#bonobono").val()
+
+	
 	for(var i=0; i<compare.length; i++){
+	 
+	
+		if(compare[i].value == bno){
 		
-	compareList.push(compare[i].value);
+			 $("img[name='r1']").attr("src","/resources/rpjt/img/on.png") 
+			 $("b[name='r2']").text("관심인재 취소하기")
+			 
+		}
 	}
-	/*
- 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
- 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
-   */
- 	for(var i= 0; i<compareList.length; i++){
- 		
- 		for(var j = 0; j<comparison.length; j++){
- 			if(compareList[i] == comparison[j]){
- 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
- 			}
- 		}
- 	}
+})
+
 	
-	
-}
+
 </script>
 
 <script>
 $(document).ready(function(){
+	
 	
 	$(document).on("click", '#r1', function(){
 		
