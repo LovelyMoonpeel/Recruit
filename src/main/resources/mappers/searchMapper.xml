@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bno,
 		userid, title, address, postcode, coverletter, jobstateid, jobgroupid,
 		rgbid, rgsid, employstatusid, salaryid, img, regdate, jobgroupid2,
-		levelofeducation, lastcareer
+		levelofeducation, lastcareer, publicornot
 		from
 		tblresume
 		where title like
@@ -104,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.bno, a.userid, a.title, a.address, a.postcode, a.coverletter,
 		a.jobstateid, a.jobgroupid, a.rgbid, a.rgsid, a.employstatusid,
 		a.salaryid, a.img, a.regdate, a.jobgroupid2, a.levelofeducation,
-		a.lastcareer
+		a.lastcareer, a.publicornot
 		from
 		tblresume a, (select * from tbllicense where
 		licensename like
@@ -114,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select distinct a.bno, a.userid, a.title, a.address, a.postcode,
 		a.coverletter, a.jobstateid, a.jobgroupid, a.rgbid, a.rgsid,
 		a.employstatusid, a.salaryid, a.img, a.regdate, a.jobgroupid2,
-		a.levelofeducation, a.lastcareer
+		a.levelofeducation, a.lastcareer, a.publicornot
 		from tblresume a, (
 		select
 		a.resumelangid, a.rid from tblresumelanguage a,
@@ -128,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.bno, a.userid, a.title,
 		a.address, a.postcode, a.coverletter, a.jobstateid, a.jobgroupid,
 		a.rgbid, a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
-		a.jobgroupid2, a.levelofeducation, a.lastcareer
+		a.jobgroupid2, a.levelofeducation, a.lastcareer, a.publicornot
 		from tblresume a,
 		(select * from tblregion where rgbname
 		like
@@ -142,7 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		a.postcode, a.coverletter, a.jobstateid,
 		a.jobgroupid, a.rgbid,
 		a.rgsid, a.employstatusid, a.salaryid, a.img, a.regdate,
-		a.jobgroupid2, a.levelofeducation, a.lastcareer
+		a.jobgroupid2, a.levelofeducation, a.lastcareer, a.publicornot
 		from tblresume a,
 		(select * from
 		tblcode where
@@ -158,7 +158,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		a.rgbid, a.rgsid, a.employstatusid,
 		a.salaryid, a.img, a.regdate,
 		a.jobgroupid2, a.levelofeducation,
-		a.lastcareer
+		a.lastcareer, a.publicornot
 		from tblresume a,
 		(select * from tbljobgroup where
 		jobgroup
@@ -176,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		a.employstatusid, a.salaryid, a.img,
 		a.regdate,
 		a.jobgroupid2,
-		a.levelofeducation, a.lastcareer
+		a.levelofeducation, a.lastcareer, a.publicornot
 		from
 		tblresume a, (select * from
 		tblcode where tid = 2 and career like
@@ -184,8 +184,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		a.levelofeducation = b.id
 		) d
-		order by
-		bno
+		where publicornot = '공개'
+		order by bno
 		;
 	]]>
 	</select>
@@ -311,13 +311,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectResumes_selJob" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
-		select * from tblresume where jobgroupid2 = 1000 or
+		select * from tblresume where publicornot = '공개' and (jobgroupid2 = 1000 or
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			jobgroupid2 = #{item}
 		</foreach>
+		)
 		union
-		select * from tblresume where jobgroupid in
+		select * from tblresume where publicornot = '공개' and jobgroupid in
 		(select id2 from
 		tbljobgroup where jobgroup='전체' and
 		(
@@ -334,47 +335,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectResumes_selRgn" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
 		select * from tblresume
-		where
+		where publicornot = '공개' and (
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			if(#{item.rgsid} = 99, rgbid = #{item.rgbid},
 			rgbid =
 			#{item.rgbid} and rgsid = #{item.rgsid})
 		</foreach>
-		;
+		);
 	</select>
 
 	<select id="selectResumes_selEmp" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
 		select * from tblresume
-		where
+		where publicornot = '공개' and (
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			employstatusid = #{item}
 		</foreach>
-		;
+		);
 	</select>
 
 	<select id="selectResumes_selExp" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
 		select * from tblresume
-		where
+		where publicornot = '공개' and (
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			lastcareer = #{item}
 		</foreach>
-		;
+		);
 	</select>
 
 	<select id="selectResumes_selEdu" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
 		select * from tblresume
-		where
+		where publicornot = '공개' and (
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			levelofeducation = #{item}
 		</foreach>
-		;
+		);
 	</select>
 
 	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
@@ -383,8 +384,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">
-		select * from
-		tblresume;
+		select * from tblresume
+		where publicornot = '공개';
 	</select>
 
 	<select id="selectCInfo" resultType="com.recruit.domain.SpanelVO"
