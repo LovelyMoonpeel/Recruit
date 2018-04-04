@@ -54,7 +54,8 @@
                <th class="table-active" scope="row"><label>새 비밀번호</label></th>
                <td>
                   <div class="form-group">
-                      <input type="password" name="npw" class="form-control" id="npw">
+                      <input type="password" name="npw" class="form-control" id="npw" placeholder="6자리를 입력하세요.">
+                      <span>(대문자와 소문자, 숫자 조합)</span>
                   </div>
                </td>
                <!--j.code 03/23 :'새 비밀번호' 추가  끝-->
@@ -71,7 +72,7 @@
                 <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
                <td>
                   <div class="form-group">
-                      <input type="password" name="npwc" class="form-control" id="npwc" >
+                      <input type="password" name="npwc" class="form-control" id="npwc" placeholder="6자리를 입력하세요.">
                   <span id="npwchk"></span>
                   </div>
                </td>
@@ -134,12 +135,14 @@ $(document).ready(function(){
                      console.log("result: " + result);
                      if (result == 'success') {
                         alert("success");
-                        location.href="/personal/index";
+                        alert("다시 로그인 해주세요.");
+                        location.href="/user/logout";
                      } else {
                         alert("failed");
-                        document.getElementById("pwchk").innerHTML = "기존 비밀번호가 일치하지 않습니다.";
+                        alert("기존 비밀번호가 일치하지 않습니다.");
                      }
                   }
+                  
                });
             }
          }
@@ -152,29 +155,87 @@ $(document).ready(function(){
       self.location = "/personal/index";
    });
    
-//   <!-- //비밀번호 일치 여부  -->   
-   /* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가*/
-   $('#npwc').keyup(function(){
-      if($('#npwc').val()!=""&&$('#npw').val() == $('#npwc').val()){
-         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
-         $("#npwchk").attr('style', "color:blue");
-      }else{
-         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
-         $("#npwchk").attr('style', "color:red");
-      }
-   });
-   
-    $('#npw').keyup(function(){
-      if($('#npw').val()!=""&&$('#npw').val() == $('#npwc').val()){
-         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
-         $("#npwchk").attr('style', "color:blue");
-      }else{
-         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
-         $("#npwchk").attr('style', "color:red");
-      }
-   }); 
-    /* j.code 03/23 : npw, npwc 새 비밀번호 일치 여부 추가 끝*/
 });
 
 </script>
+
+
+<!--jcode 04/04 : 비밀번호 비교 수정  -->
+<script>
+
+$('#npwc').keyup(function(){
+   
+   var npwc = $('#npwc').val();
+   var npw = $('#npw').val();
+   var schar = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+   var nchar = /[0-9]/;   
+   var pchar = /[a-zA-Z]/;
+   var npwchk = $('#npwchk');
+
+   if(npwc.search(/\s/) != -1){
+      alert("공백 금지");
+      $('#npwc').val(npwc.slice(0, -1));
+   }
+   
+   if((schar.test(npwc))==true){
+      alert("특수문자 금지");
+      $('#npwc').val(npwc.slice(0, -1));
+   }
+
+   npwc = $('#npwc').val();
+   npw = $('#npw').val();
+   
+   if(!(npwc.length > 5 && npwc.length <= 20)){
+       document.getElementById("npwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+       npwchk.attr("style", "color:red");
+       npwc = "no";
+   }else{
+      if(npw == npwc){
+         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
+         $("#npwchk").attr('style', "color:blue");
+      }else{
+         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+         $("#npwchk").attr('style', "color:red");
+      }
+   }
+});
+   
+$('#npw').keyup(function(){
+   
+   var npw = $('#npw').val();
+   var npwc = $('#npwc').val();
+   var schar = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+   var nchar = /[0-9]/;   
+   var pchar = /[a-zA-Z]/;
+   var npwchk = $('#npwchk');
+
+   if(npw.search(/\s/) != -1){
+      alert("공백 금지");
+      $('#npw').val(npw.slice(0, -1));
+   }
+   
+   if((schar.test(npw))==true){
+      alert("특수문자 금지");
+      $('#npw').val(npw.slice(0, -1));
+   }
+
+   npw = $('#npw').val();
+   npwc = $('#npwc').val();
+   
+   if(!(npw.length > 5 && npw.length <= 20)){
+       document.getElementById("npwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+       npwchk.attr("style", "color:red");
+       npwc = "no";
+   }else{
+      if(npwc == npw){
+         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치합니다.";
+         $("#npwchk").attr('style', "color:blue");
+      }else{
+         document.getElementById("npwchk").innerHTML = "새 비밀번호가 일치하지 않습니다.";
+         $("#npwchk").attr('style', "color:red");
+      }
+   }
+});
+</script>
+<!--jcode_20180404_비밀번호 비교 수정 끝 -->
 <%@include file="../include/cfooter.jsp"%>
