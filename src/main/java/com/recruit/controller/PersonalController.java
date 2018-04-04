@@ -365,7 +365,11 @@ public class PersonalController {
 			RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model)
 			throws Exception {
 		System.out.println("Rmodify POST Controller");
-
+		System.out.println("이미지"+resume.getImg());
+		System.out.println("번호"+resume.getBno());
+		//System.out.println("받아오는거"+file.getName());
+		
+		//resume.setImg(file.getName());
 		Telservice.updateTList(bno, ptvo.getPtelvolist());
 		// Rmodify에 rid값 줘야함
 		Webservice.updateWList(bno, pwvo.getPwebsitesvolist());

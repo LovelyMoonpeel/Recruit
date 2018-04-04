@@ -33,13 +33,13 @@
 							<!--  사진 보이는 div  --> 
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img'> 
+							<input type='hidden' id='uploadfilename' name='img' value=''> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
 							<!--파일 업로드 하는 버튼--> 
 							
-							<input type='hidden' id='xornot' value='0'> 
+							<input type='hidden' id='xornot' value='0'>
 							
 							<input type='hidden' id='preexistenceimg' value='0'>
 						</td>
@@ -622,7 +622,7 @@ $(document).ready(function() {
 	  
  	  upload.onchange = function (e) {
 	
-		 var file = upload.files[0];
+		 file = upload.files[0];
 		 var reader = new FileReader();
 		 //p542다시 보기
 		 $("#uploadedList").empty();
@@ -640,27 +640,27 @@ $(document).ready(function() {
 			 //var files = event.originalEvent.dataTransfer.files;
 			 
 			 console.log("file name");
-			 console.log(file);
+			 alert(file.name);
 			 
-			 var formData = new FormData();
+			 formData = new FormData();
 			 
 			 formData.append("file", file);
 			 
-			 $.ajax({
-				 url:'uploadAjax',
-				 data: formData,
+			 
+			/*   $.ajax({
+				 url : '/personal/uploadAjax',
+				 data : formData,
 				 dataType : 'text',
 				 processData : false,
 				 contentType : false,
-				 type : 'POST',
+ 				 type : 'POST',
 				 success : function(data){
 					   var str = "";
 					  
 					 	console.log(data);
-					 	
-					 	  str = 
-							  "<a id='ORIGINAL'>크게보기</a>"
-							  +"<small data-src="+data+">X</small>";   
+							  str = 
+								  "<a id='ORIGINAL'>크게보기</a>"
+								  +"<small data-src="+data+">X</small>";  
 
 					  $("#uploadedList").append(str); 
 					  $("#ORIGINAL").on("click", function(){
@@ -669,11 +669,11 @@ $(document).ready(function() {
 							var src = "displayFile?fileName="+getImageLink(data);
 							$("#ORIGINAL_modal").modal();
 							$("#modal_get_Imgname1").attr("src", src);
-						});	
-					  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
+						});
 					  document.getElementById('uploadfilename').value = getImageLink(data);
-				  }//success : function(data) end
-	 		  });//ajax end
+				  }//success : function(data){ end
+	 		  });//ajax end  */
+			 
 	 console.log(file);
 	 reader.readAsDataURL(file);
 	};//upload change end   
@@ -773,15 +773,12 @@ $(document).ready(function() {
 			}
 		});
 		
-		if($("#xornot").val()==0){
-			console.log("xornot.val()==0");
-			console.log("사진 삭제 안함");
-
-		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==1){
+		if($("#preexistenceimg").val()==1){
 			//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
+			alert("기존 이미지 있을 경우 if문 하긴 했는데");
 			console.log("사진 삭제 후 filename" + fileName);
 			console.log("사진 삭제함");		
-			$.ajax({
+			/* $.ajax({
 				url:"deleteFile",
 				type:"post",
 				//data : {fileName:$(this).attr("data-src")},
@@ -793,19 +790,77 @@ $(document).ready(function() {
 						$(this).parent("div").remove();
 					}
 				}
-			}); 
-		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
-			console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
-			//$(this).parent("div").remove();
-		}else{
-			console.log("Exception : 어느 if문에도 들어가지 못함");
-			console.log(("#preexistenceimg").val());
+			}); //delete ajax end */
+			alert("img deleted and then");
+			alert(file.name);
+			 $.ajax({
+				 url : '/personal/uploadAjax',
+				 data : formData,
+				 dataType : 'text',
+				 processData : false,
+				 contentType : false,
+				 type : 'POST',
+				 success : function(data){
+					   var str = "";
+					  
+					 	console.log(data);
+							  str = 
+								  "<a id='ORIGINAL'>크게보기</a>"
+								  +"<small data-src="+data+">X</small>";  
+
+					  $("#uploadedList").append(str); 
+					  $("#ORIGINAL").on("click", function(){
+							console.log("ORIGINAL click");
+							console.log(getImageLink(data));
+							var src = "displayFile?fileName="+getImageLink(data);
+							$("#ORIGINAL_modal").modal();
+							$("#modal_get_Imgname1").attr("src", src);
+						});
+					  document.getElementById('uploadfilename').value = getImageLink(data);
+					 formObj = $("form[role = 'form']");
+					 alert("submit직전");
+					alert("지금 uploadfilename value는?"+$('#uploadfilename').val());
+					formObj.attr("action", "/personal/Rmodify");
+					formObj.attr("method", "post");
+					numberingList();
+					formObj.submit();
+				  }//success : function(data){ end
+	 		  });//ajax end 
+		}else if($("#preexistenceimg").val()==0){
+			
+			alert("아무것도 안함");
+			alert(file.name);
+			
+			 $.ajax({
+				 url : '/personal/uploadAjax',
+				 data : formData,
+				 dataType : 'text',
+				 processData : false,
+				 contentType : false,
+				 type : 'POST',
+				 success : function(data){
+					 alert("그래서");
+					 alert(data);
+					 document.getElementById('uploadfilename').value = data;
+					 alert("name img 인 곳에 uploadfilename "+$('#uploadfilename').val());
+					 formObj = $("form[role = 'form']");
+					 alert("submit직전");
+					alert("지금 uploadfilename value는?"+$('#uploadfilename').val());
+					formObj.attr("action", "/personal/Rmodify");
+					formObj.attr("method", "post");
+					numberingList();
+					formObj.submit();
+				  }//success : function(data){ end
+	 		  });//ajax end 
 		}
-		console.log("submit직전");
+			 
+		
+	/* 	alert("submit직전");
+		alert("지금 uploadfilename value는?"+$('#uploadfilename').val());
 		formObj.attr("action", "/personal/Rmodify");
 		formObj.attr("method", "post");
 		numberingList();
-		formObj.submit();
+		formObj.submit(); */
 	});
 	
 	function numberingList() {
