@@ -26,33 +26,23 @@
 	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
                 <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
-
-						
-						
 						<td rowspan="3" class="col-sm-4">
 							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> 
 							<!--  사진 보이는 div  --> 
-							
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							
-							<input type='hidden' id='uploadfilename' name='img'> 
+							<input type='hidden' id='uploadfilename' name='img' value=''> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-
 							<br> 
-							
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
 							<!--파일 업로드 하는 버튼--> 
 							
-							<input type='hidden' id='xornot' value='0'> 
+							<input type='hidden' id='xornot' value='0'>
 							
 							<input type='hidden' id='preexistenceimg' value='0'>
 						</td>
-						
-						
-
 					</tr>
                <tr>
                   <th class="table-active" scope="row"><label>생년월일</label></th>
@@ -137,7 +127,6 @@
                   </div>
                </td>
             </tr>
-            
             <tr>
                    <th>희망근무지</th>
                <td>
@@ -156,7 +145,6 @@
                   </div>
                </td>
             </tr>
-            
             <tr>
                    <th>희망연봉</th>
                <td>
@@ -172,7 +160,6 @@
                   </div>
                </td>
             </tr>
-            
              </tbody>
          </table>
           </div>
@@ -249,7 +236,34 @@
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
+<!-- 소연 모달 -->
+<div class="modal" id="ORIGINAL_modal">
+	<div class="modal-dialog modal-dialog-centered">
 
+		<div class="modal-content modal-dialog-centered">
+			<div class="modal-head"
+				style="text-align: center; vertical-align: middle; margin: 10px;">
+				<br>
+				<button type="button" class="close" data-dismiss="modal"
+					style="margin: 10px;">&times;</button>
+				이미지 크게 보기
+			</div>
+
+			<div class="modal-body modal-dialog-centered">
+
+				<!--x표시 누르면 창 사라지게 하는 코드 -->
+				<div class="row"
+					style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+					<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+				</div>
+			</div>
+			<!--//class="modal-body"  -->
+		</div>
+		<!--//class="modal-content"-->
+	</div>
+	<!--//modal-dialog -->
+</div>
+<!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">
@@ -577,7 +591,6 @@ $(document).ready(function() {
 	}
 	
 	//이거start
-	console.log('${PWebSitelist}');
 	var imgsrccheck = ('#imgsrccheck');
 	
 		 if($('#imgsrccheck').val()!=""){
@@ -585,11 +598,17 @@ $(document).ready(function() {
 		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 		var str = "";
 		str = 
-			  "<a href='displayFile?fileName=${ResumeVO.img}' target='_blank'; return false;'>원본 확인"
-			  +"</a>"
+			  "<a id='ORIGINAL'>크게보기</a>"
 			  +"<small data-src=${ResumeVO.img}>X</small>";
 		  $("#uploadedList").append(str); 
-		  console.log("uploadedlist에 x버튼 추가");
+		  
+		  $("#ORIGINAL").on("click", function(){
+				console.log("ORIGINAL click");
+				var src = "displayFile?fileName=${ResumeVO.img}";
+				$("#ORIGINAL_modal").modal();
+				$("#modal_get_Imgname1").attr("src", src);
+			});
+		  
 		  $("#preexistenceimg").val("1");
 	}else{
 		console.log(" val이 널값이다");
@@ -606,24 +625,25 @@ $(document).ready(function() {
 	 console.log("window.FileReader 'success'");
 	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
 	  
- 	  upload.onchange = function (e) {
-	
+	upload.onchange = function (e) {
+		
 		 var file = upload.files[0];
 		 var reader = new FileReader();
 		 //p542다시 보기
-		 $("#uploadedList").empty();
+	
 		 //reader.onload start
 		 reader.onload = function (event) {
 			 var image = new Image();
 			 image.src = event.target.result;
-			  
+			 
 			 uploadedList.innerHTML = '';
 			 image.height = 150;
 			 uploadedList.appendChild(image);
 		 };//reader.onload end
-	 
+		 
+	 //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+	 //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
 			 event.preventDefault();
-			 //var files = event.originalEvent.dataTransfer.files;
 			 
 			 console.log("file name");
 			 console.log(file);
@@ -633,31 +653,38 @@ $(document).ready(function() {
 			 formData.append("file", file);
 			 
 			 $.ajax({
-				 url:'uploadAjax',
-				 data: formData,
+				 url : '/personal/uploadAjax',
+				 data : formData,
 				 dataType : 'text',
 				 processData : false,
 				 contentType : false,
 				 type : 'POST',
 				 success : function(data){
+					 alert("사진 올라감!")
 					   var str = "";
 					  
 					 	console.log(data);
-					 	
-						  str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
+							  str = 
+								  "<a id='ORIGINAL'>크게보기</a>"
+								  +"<small data-src="+data+">X</small>";  
 
 					  $("#uploadedList").append(str); 
-					  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
-					  document.getElementById('uploadfilename').value = getImageLink(data);
-				  }//success : function(data) end
+					  $("#ORIGINAL").on("click", function(){
+							console.log("ORIGINAL click");
+							console.log("dlrj"+data);
+							console.log(getImageLink(data));
+							var src = "displayFile?fileName="+data;
+							$("#ORIGINAL_modal").modal();
+							$("#modal_get_Imgname1").attr("src", src);
+						});
+					  document.getElementById('uploadfilename').value = data;
+					  uploadedfilename_val = data;
+				  }//success : function(data){ end
 	 		  });//ajax end
+		//});//filedrop end
 	 console.log(file);
 	 reader.readAsDataURL(file);
-	};//upload change end   
-	//이거end
+	};//upload change end
 	
 	
 	$("#uploadedList").on("click", "small", function(event){
@@ -712,80 +739,41 @@ $(document).ready(function() {
       	return front + end;
       } 
 	 
-	$("#write-success").on("click", function() {
-		
-		console.log("write-success clicked");
-		
-		if($('#birth').val()==''){
-			console.log("#birth.val()==''");
-			$('#birth').val("0000-00-00");
-		}
-		$('.licenseacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".licenseacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
+	$("#write-success").on("click", function(){
+	   if($('#title').val()==''){
+		   alert("제목을 입력해주세요!");
+		   return;
+	   }else{
+		   if($('#birth').val()==''){
+				$('#birth').val("0000-00-00");
 			}
-		});
-		$('.languageacquidate').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".languageacquidate.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
-		$('.careerdates').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".careerdates.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
-		$('.edudates').each(function(){ 
-			if($(this).val()==''){
-				console.log($(this).val());
-				console.log(".edudates.val()==''");
-				$(this).val("0000-00-00");
-				console.log($(this).val());
-			}
-		});
-		
-		if($("#xornot").val()==0){
-			console.log("xornot.val()==0");
-			console.log("사진 삭제 안함");
-
-		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==1){
-			//삭제 시키기 ajax 실행 후에 Rmodify로 넘어가기
-			console.log("사진 삭제 후 filename" + fileName);
-			console.log("사진 삭제함");		
-			$.ajax({
-				url:"deleteFile",
-				type:"post",
-				//data : {fileName:$(this).attr("data-src")},
-				data: {fileName:fileName},
-				dataType:"text",
-				success:function(result){
-					if(result=='deleted'){
-						console.log("img File on server deleted");
-						$(this).parent("div").remove();
-					}
+			$('.licenseacquidate').each(function(){ 
+				if($(this).val()==''){
+					$(this).val("0000-00-00");
 				}
-			}); 
-		}else if($("#xornot").val()==1&&$("#preexistenceimg").val()==0){
-			console.log("preexistenceimg가 없었고 삭제 버튼을 누른 상태 : img File on server deleted");
-			//$(this).parent("div").remove();
-		}else{
-			console.log("Exception : 어느 if문에도 들어가지 못함");
-			console.log(("#preexistenceimg").val());
-		}
-		console.log("submit직전");
+			});
+			$('.languageacquidate').each(function(){ 
+				if($(this).val()==''){
+					$(this).val("0000-00-00");
+				}
+			});
+			$('.careerdates').each(function(){ 
+				if($(this).val()==''){
+					$(this).val("0000-00-00");
+				}
+			});
+			$('.edudates').each(function(){ 
+				if($(this).val()==''){
+					$(this).val("0000-00-00");
+				}
+			});
+		alert(uploadedfilename_val);
+		formObj = $("form[role = 'form']");
 		formObj.attr("action", "/personal/Rmodify");
 		formObj.attr("method", "post");
 		numberingList();
 		formObj.submit();
+	   }
 	});
 	
 	function numberingList() {
@@ -794,42 +782,37 @@ $(document).ready(function() {
 			var name = $(this).attr("name");
 			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
 		});
 		$(".edu").each(function(index){
 			var num = 6;
 			var name = $(this).attr("name");
 			name = name.substring(0, 8) + parseInt(index/num) + name.substring(8);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
 		});
 		$(".career").each(function(index){
 			var num = 6;
 			var name = $(this).attr("name");
 			name = name.substring(0, 11) + parseInt(index/num) + name.substring(11);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
 		});
 		$(".webclass").each(function(index){
 			var num = 3;
 			var name = $(this).attr("name");
 			name = name.substring(0, 16) + parseInt(index/num) + name.substring(16);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
 		}); 
 	 	$(".langclass").each(function(index){
 			var num = 6;
 			var name = $(this).attr("name");
 			name = name.substring(0, 12) + parseInt(index/num) + name.substring(12);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
 		}); 
 		$(".licenseclass").each(function(index){
 			var num = 4;
 			var name = $(this).attr("name");
 			name = name.substring(0, 15) + parseInt(index/num) + name.substring(15);
 			$(this).attr("name", name);
-			console.log($(this).attr("name"));
+			//console.log($(this).attr("name"));
 		}); 
 	}
 	// tel 추가버튼 이벤트
@@ -842,7 +825,6 @@ $(document).ready(function() {
 	// tel 삭제버튼 이벤트
 	$("#tel_div").on("click", ".tel_minus_btn", function(){
 		 var tel_index = $(".tel_minus_btn").index(this);  // 존재하는 tel_minus_btn를 기준으로 index
-		 console.log(tel_index);
 		 if(tel_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -861,7 +843,6 @@ $(document).ready(function() {
 	//edu minus 버튼 이벤트
 	$("#edu_div").on("click", ".edu_minus_btn", function(){
 		 var edu_index = $(".edu_minus_btn").index(this);  // 존재하는 edu_minus_btn를 기준으로 index
-		 console.log(edu_index);
 		 if(edu_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -878,7 +859,6 @@ $(document).ready(function() {
 	//exp minus 버튼 이벤트
 	$("#exp_div").on("click", ".exp_minus_btn", function(){
 		 var exp_index = $(".exp_minus_btn").index(this);  // 존재하는 exp_minus_btn를 기준으로 index
-		 console.log(exp_index);
 		 if(exp_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -895,7 +875,6 @@ $(document).ready(function() {
 	//웹 삭제 버튼 이벤트
 	$("#web_div").on("click", ".web_minus_btn", function(){
 		 var web_index = $(".web_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(web_index);
 		 if(web_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -912,7 +891,6 @@ $(document).ready(function() {
 	//자격증 삭제 버튼 이벤트
 	$("#license_div").on("click", ".license_minus_btn", function(){
 		 var license_index = $(".license_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(license_index);
 		 if(license_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -929,7 +907,6 @@ $(document).ready(function() {
 	//언어 삭제 버튼 이벤트
 	$("#language_div").on("click", ".lang_minus_btn", function(){
 		var lang_index = $(".lang_minus_btn").index(this);  // 존재하는 web_minus_btn를 기준으로 index
-		 console.log(lang_index);
 		 if(lang_index!=0){
 			 $(this).closest('.row').remove();
 		 }else{
@@ -1222,14 +1199,11 @@ $(document).ready(function() {
       SubRegion(largeNum)
    })
    $("#jobGroup").change(function() {
-	   console.log("1026번째줄");
       var largeNum = $(this).val();
       SubJobGroup(largeNum);
    })
    function SubJobGroup(largeNum) {
-	   console.log(largeNum);
       $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
-    	  console.log("getJason");
          var str = "";
          $(data).each(
                function() {

@@ -787,14 +787,6 @@ $(document).ready(function(){
 							$("#modal_get_Imgname1").attr("src", src);
 						});
 					  document.getElementById('uploadfilename').value = getImageLink(data);
-					  
-					  $("#ORIGINAL").on("click", function(){
-		                     console.log("ORIGINAL click");
-		                     console.log(getImageLink(data));
-		                     var src = "displayFile?fileName="+getImageLink(data);
-		                     $("#ORIGINAL_modal").modal();
-		                     $("#modal_get_Imgname1").attr("src", src);
-		                  });
 				  }//success : function(data){ end
 	 		  });//ajax end
 		//});//filedrop end
