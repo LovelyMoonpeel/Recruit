@@ -26,23 +26,16 @@
 	           		<input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly>
 	           	</td>
                 <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
-
-						
-						
 						<td rowspan="3" class="col-sm-4">
 							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> 
 							<!--  사진 보이는 div  --> 
-							
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							
 							<input type='hidden' id='uploadfilename' name='img'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
-
 							<br> 
-							
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
 							<!--파일 업로드 하는 버튼--> 
 							
@@ -50,9 +43,6 @@
 							
 							<input type='hidden' id='preexistenceimg' value='0'>
 						</td>
-						
-						
-
 					</tr>
                <tr>
                   <th class="table-active" scope="row"><label>생년월일</label></th>
@@ -137,7 +127,6 @@
                   </div>
                </td>
             </tr>
-            
             <tr>
                    <th>희망근무지</th>
                <td>
@@ -156,7 +145,6 @@
                   </div>
                </td>
             </tr>
-            
             <tr>
                    <th>희망연봉</th>
                <td>
@@ -172,7 +160,6 @@
                   </div>
                </td>
             </tr>
-            
              </tbody>
          </table>
           </div>
@@ -249,7 +236,34 @@
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">등록</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/detail?bno=${ResumeVO.bno}';" type="button">취소</button>
 </div>
+<!-- 소연 모달 -->
+<div class="modal" id="ORIGINAL_modal">
+	<div class="modal-dialog modal-dialog-centered">
 
+		<div class="modal-content modal-dialog-centered">
+			<div class="modal-head"
+				style="text-align: center; vertical-align: middle; margin: 10px;">
+				<br>
+				<button type="button" class="close" data-dismiss="modal"
+					style="margin: 10px;">&times;</button>
+				이미지 크게 보기
+			</div>
+
+			<div class="modal-body modal-dialog-centered">
+
+				<!--x표시 누르면 창 사라지게 하는 코드 -->
+				<div class="row"
+					style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+					<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+				</div>
+			</div>
+			<!--//class="modal-body"  -->
+		</div>
+		<!--//class="modal-content"-->
+	</div>
+	<!--//modal-dialog -->
+</div>
+<!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row tel_row_number">
 	<hr style="border: solid 0.5px #ccc;">
@@ -644,12 +658,18 @@ $(document).ready(function() {
 					  
 					 	console.log(data);
 					 	
-						  str = 
-							  "<a href='displayFile?fileName="+getImageLink(data)+"' target='_blank'; return false;'>원본 확인"
-							  +"</a>"
-							  +"<small data-src="+data+">X</small>";
+					 	  str = 
+							  "<a id='ORIGINAL'>크게보기</a>"
+							  +"<small data-src="+data+">X</small>";   
 
 					  $("#uploadedList").append(str); 
+					  $("#ORIGINAL").on("click", function(){
+							console.log("ORIGINAL click");
+							console.log(getImageLink(data));
+							var src = "displayFile?fileName="+getImageLink(data);
+							$("#ORIGINAL_modal").modal();
+							$("#modal_get_Imgname1").attr("src", src);
+						});	
 					  console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
 					  document.getElementById('uploadfilename').value = getImageLink(data);
 				  }//success : function(data) end
