@@ -31,7 +31,7 @@
                   for="img">사진</label></th>
                <td colspan="3" rowspan="3" class="col-sm-4">
                   <div id='uploadedList'
-                     style='width: 127px; height: 152px; border: 1px dotted blue;'>
+                     style='width: 127px; height: 152px;'>
                      <img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
                   </div> <!--  사진 보이는 div  --> <input id='imgsrccheck' type='hidden'
                   value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
