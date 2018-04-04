@@ -146,8 +146,8 @@ public class PersonalController {
       ResponseEntity<String> entity = null;
       BoardVO login = (BoardVO) session.getAttribute("login");
       
-      System.out.println("PUser.getPw()#### : " + PUser.getPw());
-      System.out.println("login.getPw()#### : " + login.getPw());
+      //System.out.println("PUser.getPw()#### : " + PUser.getPw());
+     // System.out.println("login.getPw()#### : " + login.getPw());
       
       if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
          try {
