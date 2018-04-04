@@ -2,9 +2,12 @@ package com.recruit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Iterator;
 
 import javax.annotation.Resource;
@@ -50,6 +53,7 @@ import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
+import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
 
 @Controller
@@ -84,8 +88,8 @@ public class CompanyController {
 
 
 
-	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
-	private String uploadPath;
+//	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
+//	private String uploadPath;
 
 	@RequestMapping(value = "/C_index", method = RequestMethod.GET) // 기업 메인 화면
 	public String read(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
@@ -649,6 +653,15 @@ public class CompanyController {
 	
 
 
+	S3Util s3 = new S3Util();
+	String bucketName = "matchingbucket";
+	private String uploadPath = "matching/company";
+
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
+	public void uploadAjax() {
+
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
@@ -656,40 +669,54 @@ public class CompanyController {
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contetnType: " + file.getContentType());
+		/* String uploadpath = "matching"; */
 
+		/* String uploadPath = "matching/certificate"; */
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
 	}
-	
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/displayFile")
+	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-
-		logger.info("FILE NAME : " + fileName);
+		HttpURLConnection uCon = null;
+		System.out.println("FILE NAME: " + fileName);
 
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 
 			MediaType mType = MediaUtils.getMediaType(formatName);
-
 			HttpHeaders headers = new HttpHeaders();
 
-			in = new FileInputStream(uploadPath + fileName);
+			String inputDirectory = "matching/company";
+			URL url;
 
-			if (mType != null) {
-				headers.setContentType(mType);
-			} else {
-				fileName = fileName.substring(fileName.indexOf("_") + 1);
-				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition",
-						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			try {
+				url = new URL(s3.getFileURL(bucketName, inputDirectory + fileName));
+				System.out.println(url);
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream(); // 이미지를 불러옴
+			} catch (Exception e) {
+				url = new URL(s3.getFileURL(bucketName, "NoImage.png"));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream();
 			}
 
+			// 여기
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (FileNotFoundException effe) {
+			System.out.println("File Not found Exception");
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			in = new FileInputStream(uploadPath + "/NoImage.png");
 
+			headers.setContentType(mType);
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
@@ -703,28 +730,18 @@ public class CompanyController {
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
+		logger.info("delete file: " + fileName);
 
-		System.out.println(fileName);
-		System.out.println("deleteFile POST");
-
-		logger.info("delete file : " + fileName);
-
-		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-		MediaType mType = MediaUtils.getMediaType(formatName);
-
-		if (mType != null) {
-			System.out.println("if 문 안으로 들어왔다.");
-			String front = fileName.substring(0, 12);
-			String end = fileName.substring(14);
-			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-			System.out.println("if문 마지막");
+		try {
+			s3.fileDelete(bucketName, uploadPath + fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+
 	
 	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
 	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {

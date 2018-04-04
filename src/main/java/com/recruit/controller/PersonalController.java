@@ -633,6 +633,7 @@ public class PersonalController {
 			throws Exception {
 		System.out.println("deleteOneResume POST Controller");
 
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
