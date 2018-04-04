@@ -261,8 +261,7 @@
 	}
 
 	// 사진 url 변수
-	// var cImgSrc = "/company/displayFile?fileName=";
-	var cImgSrc = "/personal/displayFile?fileName=";
+	var cImgSrc = "/company/displayFile?fileName=";
 	var pImgSrc = "/personal/displayFile?fileName=";
 
 	// 링크 url 변수
