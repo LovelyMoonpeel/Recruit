@@ -710,8 +710,7 @@ public class CompanyController {
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream();
 				
-				headers.add("Content-Disposition",
-				"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			
 				
 			}
 			

@@ -271,7 +271,7 @@
 <br><br>
 			</div>
 			<form role="form" method="post">
-			<input type='text' id="C_readAPR_id" name="bno" value="${RecruitVO.bno}">
+			<input type='hidden' id="C_readAPR_id" name="bno" value="${RecruitVO.bno}">
 			</form>
 <script>	
 
