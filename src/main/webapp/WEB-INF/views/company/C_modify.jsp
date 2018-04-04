@@ -156,7 +156,7 @@
 
 		<!-- 수정 버튼 -->
 		<div class="box-footer">
-			<button type="submit" class="btn btn-primary">저장하기</button>
+			<button type="button" class="btn btn-primary">저장하기</button>
 			<button type="button" class="btn btn-warning" id="modify">취소하기</button>
 		</div>
 		<!-- //수정 버튼 -->
@@ -239,7 +239,7 @@ upload.onchange = function (e) {
 	console.log("file name");
 	console.log(file);
 	 
-	var formData = new FormData();
+	formData = new FormData();
 	 
 	formData.append("file", file);
 	 
@@ -271,8 +271,8 @@ $(".btn-primary").on("click", function() {
 			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
 			document.getElementById('uploadfilename').value = data;
 			
-			alert("fkfkfkf");
-			alert(data);
+			
+			var formObj = $("form[role='form']");
 			formObj.submit();   
 
 		}//success : function(data) end
