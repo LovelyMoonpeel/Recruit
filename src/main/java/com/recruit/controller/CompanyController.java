@@ -159,6 +159,9 @@ public class CompanyController {
 	public String modifyPOST(CInfoVO CInfo, HttpSession session, HttpServletRequest request, Model model,
 			RedirectAttributes rttr) throws Exception {
 
+		
+		System.out.println(CInfo.getImg());
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
@@ -171,6 +174,7 @@ public class CompanyController {
 			InfoFileUpload(CInfo, request, id);
 			System.out.println("시작 CINFO : " + CInfo);
 			service.CompanyInfoModify(CInfo);
+			
 			System.out.println("끝난 CINFO : " + CInfo);
 			rttr.addFlashAttribute("msg", "SUCCESS");
 			return "redirect:/company/C_index";
@@ -542,21 +546,16 @@ public class CompanyController {
 	
 	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이 보는 기업정보
 	public String C_info_nonavi(HttpSession session, String recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
-		String cid = recruitNum;
-
-		if (login != null) {
-			String id = login.getId();
-			System.out.println("컨트롤러 아이디 값은 : " + id);
+	
+		
+			String cid = recruitNum;
 			model.addAttribute(service.CompanyInfoRead(cid));
 			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
 			return "/company/C_info_nonavi";
 
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
 	}
 
 	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지 정보
@@ -666,6 +665,7 @@ public class CompanyController {
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
+		
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contetnType: " + file.getContentType());

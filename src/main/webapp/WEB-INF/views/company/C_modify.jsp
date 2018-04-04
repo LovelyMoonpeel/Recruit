@@ -169,16 +169,12 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		var fileObject = document.getElementById("file1");
+		
 		console.log(formObj);
 		$(".btn-warning").on("click", function() {
 			self.location = "/company/C_index";
 		});
-		$(".btn-primary").on("click", function() {
-			formObj.submit();     
-			// 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
-			// 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
-		});
+	 	
 	});
 </script>
 
@@ -221,7 +217,8 @@
 	} else {
 		console.log("window.FileReader 'success'");
 	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-	upload.onchange = function (e) {
+	
+upload.onchange = function (e) {
 	var file = upload.files[0];
 	var reader = new FileReader();
 	
@@ -246,8 +243,16 @@
 	 
 	formData.append("file", file);
 	 
+	
+	console.log(file);
+	reader.readAsDataURL(file);
+	
+};//upload change end  
+
+$(".btn-primary").on("click", function() {
+	
 	$.ajax({
-		url:'uploadAjax',
+		url:'/company/uploadAjax',
 		data: formData,
 		dataType : 'text',
 		processData : false,
@@ -258,18 +263,30 @@
 			  
 			console.log(data);
 			 	
-			str = "<a href='displayFile?fileName="+getImageLink(data)
+			str = "<a href='displayFile?fileName="+data
 					+"' target='_blank'; return false;'>원본 확인"
 					+"</a>"
 					+"<small data-src="+data+">X</small>";
 			$("#uploadedList").append(str); 
 			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
-			document.getElementById('uploadfilename').value = getImageLink(data);
+			document.getElementById('uploadfilename').value = data;
+			
+			alert("fkfkfkf");
+			alert(data);
+			formObj.submit();   
+
 		}//success : function(data) end
+		
+		
 	});//ajax end
-	console.log(file);
-	reader.readAsDataURL(file);
-};//upload change end   
+	
+
+	  
+	// 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
+	// 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
+});
+
+
 	function getOriginalName(fileName){
   		var idx = fileName.indexOf("_")+1;
   		return fileName.substr(idx);
@@ -281,7 +298,8 @@
   	
   		return front + end;
   	} 
-	$("#uploadedList").on("click", "small", function(event){
+	
+$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
 		$("#uploadedList").empty();
