@@ -1,9 +1,24 @@
 package com.recruit.util;
 
-public class PrivateKey {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-	private String accessKey = "_";
-	private String secretKey = "_";
+public class PrivateKey{
+	
+	
+	PrivateKey(){
+		try{
+			String aa = readFile("c:\\zzz\\PrivateKey.txt");
+			accessKey = aa.substring(0, 20);
+			secretKey = aa.substring(22);
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
+	}
+	
+	private String accessKey;
+	private String secretKey;
 	
 	public String getAccessKey() {
 		return accessKey;
@@ -23,4 +38,21 @@ public class PrivateKey {
 		return "PrivateKey [accessKey=" + accessKey + ", secretKey=" + secretKey + "]";
 	}
 	
+	private String readFile(String file) throws IOException {
+	    BufferedReader reader = new BufferedReader(new FileReader (file));
+	    String         line = null;
+	    StringBuilder  stringBuilder = new StringBuilder();
+	    String         ls = System.getProperty("line.separator");
+
+	    try {
+	        while((line = reader.readLine()) != null) {
+	            stringBuilder.append(line);
+	            stringBuilder.append(ls);
+	        }
+
+	        return stringBuilder.toString();
+	    } finally {
+	        reader.close();
+	    }
+	}
 }
