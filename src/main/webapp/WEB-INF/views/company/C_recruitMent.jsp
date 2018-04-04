@@ -156,7 +156,7 @@ background-color: #777;
 
 	<div class="text-center">
 		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
-		<button id="clipping" class="btn btn-default btn-lg">스크랩하기</button>
+		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
 	</div>
 
 	<!-- 소연 모달 -->
