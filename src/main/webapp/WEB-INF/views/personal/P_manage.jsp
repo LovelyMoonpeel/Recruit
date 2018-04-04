@@ -9,7 +9,7 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
-		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-11"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
+		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
 		<input type='hidden' id='userid' value='${PUserVO.id}'></input>
 		<table id="tbl_resume" class="table table-bordered">
