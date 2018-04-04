@@ -16,10 +16,10 @@
 			if (cname == null) { // personal
 				recruitUrl = "/company/C_recruitMent?recruitNum=";
 			} else { // company
-				recruitUrl = "/company?recruitUrl=";
+				recruitUrl = "/company/C_recruitMent?recruitNum=";
 			}
 		} else { // logout
-			recruitUrl = "/logout?recruitUrl=";
+			recruitUrl = "/company/C_recruitMent?recruitNum=";
 		}
 		request.setAttribute("recruitUrl", recruitUrl);
 	%>

@@ -30,7 +30,7 @@ public class SearchController {
 			cname = login.getCname();
 
 		if (login == null || cname == null)
-			System.out.println(stype == "1"); // stype = "1";
+			stype = "1";
 
 		System.out.println("stype: " + stype);
 		System.out.println("skeyword: " + skeyword);

@@ -38,9 +38,9 @@
 				resumeUrl = "/personal/detail_nonavi?bno=";
 			}
 		} else { // logout
-			cinfoUrl = "/logout?cinfoUrl=";
-			recruitUrl = "/logout?recruitUrl=";
-			resumeUrl = "/logout?resumeUrl=";
+			cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+			recruitUrl = "/company/C_recruitMent?recruitNum=";
+			resumeUrl = "/personal/detail_nonavi?bno=";
 		}
 		request.setAttribute("cinfoUrl", cinfoUrl);
 		request.setAttribute("recruitUrl", recruitUrl);
@@ -346,7 +346,7 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
-			url : cinfoUrl + that.bno
+			url : cinfoUrl + that.userid
 		};
 		$("#spanelc").append(template_pnl(item));
 	}
