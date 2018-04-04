@@ -156,7 +156,7 @@
 
 		<!-- 수정 버튼 -->
 		<div class="box-footer">
-			<button type="submit" class="btn btn-primary">저장하기</button>
+			<button type="button" class="btn btn-primary">저장하기</button>
 			<button type="button" class="btn btn-warning" id="modify">취소하기</button>
 		</div>
 		<!-- //수정 버튼 -->
@@ -164,21 +164,44 @@
 	</div>
 </form>
 
-<!-- //기업 페이지 -->
+<!-- 소연 모달 -->
+<div class="modal" id="ORIGINAL_modal">
+	<div class="modal-dialog modal-dialog-centered">
+
+		<div class="modal-content modal-dialog-centered">
+			<div class="modal-head"
+				style="text-align: center; vertical-align: middle; margin: 10px;">
+				<br>
+				<button type="button" class="close" data-dismiss="modal"
+					style="margin: 10px;">&times;</button>
+				이미지 크게 보기
+			</div>
+
+			<div class="modal-body modal-dialog-centered">
+
+				<!--x표시 누르면 창 사라지게 하는 코드 -->
+				<div class="row"
+					style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+					<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+				</div>
+			</div>
+			<!--//class="modal-body"  -->
+		</div>
+		<!--//class="modal-content"-->
+	</div>
+	<!--//modal-dialog -->
+</div>
+<!-- 소연 코드 -->
 
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		var fileObject = document.getElementById("file1");
+		
 		console.log(formObj);
 		$(".btn-warning").on("click", function() {
 			self.location = "/company/C_index";
 		});
-		$(".btn-primary").on("click", function() {
-			formObj.submit();     
-			// 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
-			// 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
-		});
+	 	
 	});
 </script>
 
@@ -196,114 +219,147 @@
 
 
 <script>
-	var imgsrccheck = ('#imgsrccheck');
-	if($('#imgsrccheck').val()!=""){
-		console.log(" val이 널값아님");
-		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
-		var str = "";
-		str = "<a href='displayFile?fileName=${CInfoVO.img}' target='_blank'; return false;'>원본 확인"
-	  		+"</a>"
-	  		+"<small data-src=${ResumeVO.img}>X</small>";
- 		$("#uploadedList").append(str); 
- 		console.log("uploadedlist에 x버튼 추가");
-		$("#preexistenceimg").val("1");
-	}else{
-		console.log(" val이 널값이다");
-		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
-		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
-		$("#preexistenceimg").val("0");
-	}
-	
-	var upload = document.getElementById('fileupload');
-	var uploadedList = document.getElementById('uploadedList');
-	if (typeof window.FileReader === 'undefined') {
-		console.log("window.FileReader 'fail'");
-	} else {
-		console.log("window.FileReader 'success'");
-	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-	upload.onchange = function (e) {
-	var file = upload.files[0];
-	var reader = new FileReader();
-	
-	//p542다시 보기
-	$("#uploadedList").empty();
-	//reader.onload start
-	reader.onload = function (event) {
-		var image = new Image();
-	 	image.src = event.target.result;
-	  
-	 	uploadedList.innerHTML = '';
-	 	image.height = 150;
-	 	uploadedList.appendChild(image);
-	};//reader.onload end
-	event.preventDefault();
-	//var files = event.originalEvent.dataTransfer.files;
-	 
-	console.log("file name");
-	console.log(file);
-	 
-	var formData = new FormData();
-	 
-	formData.append("file", file);
-	 
-	$.ajax({
-		url:'uploadAjax',
-		data: formData,
-		dataType : 'text',
-		processData : false,
-		contentType : false,
-		type : 'POST',
-		success : function(data){
-			var str = "";
-			  
-			console.log(data);
-			 	
-			str = "<a href='displayFile?fileName="+getImageLink(data)
-					+"' target='_blank'; return false;'>원본 확인"
-					+"</a>"
-					+"<small data-src="+data+">X</small>";
-			$("#uploadedList").append(str); 
-			console.log("uploadAjax 들어갔냐? getImageLink(data)가 뭐냐" + getImageLink(data));
-			document.getElementById('uploadfilename').value = getImageLink(data);
-		}//success : function(data) end
-	});//ajax end
-	console.log(file);
-	reader.readAsDataURL(file);
-};//upload change end   
-	function getOriginalName(fileName){
-  		var idx = fileName.indexOf("_")+1;
-  		return fileName.substr(idx);
-  	}
-  	
-	function getImageLink(fileName){
-  		var front = fileName.substr(0,12);
-  		var end = fileName.substr(14);
-  	
-  		return front + end;
-  	} 
-	$("#uploadedList").on("click", "small", function(event){
-		event.preventDefault();
-		var that = $(this);
-		$("#uploadedList").empty();
-		console.log("img File appended deleted");
-		var fileName=$(this).attr("data-src");
-		console.log(fileName);
-		var uploadfilename = document.getElementById('uploadfilename');
-	
-	$.ajax({
-		url:"deleteFile",
-		type:"post",
-		data : {fileName:$(this).attr("data-src")},
-		dataType:"text",
-		success:function(result){
-			if(result=='deleted'){
-				console.log("img File on server deleted");
-				that.parent("div").remove();
-				$('#uploadfilename').val('');
-			}
-		}
-	});
-});
+
+    var imgsrccheck = ('#imgsrccheck');
+
+    if ($('#imgsrccheck').val() != "") {
+        console.log(" val이 널값아님");
+        $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
+        var str = "";
+        str = "<a id='ORIGINAL'>크게보기</a>"
+                + "<small data-src=${CInfoVO.img}>X</small>";
+        $("#uploadedList").append(str);
+
+        $("#ORIGINAL").on("click", function() {
+            console.log("ORIGINAL click");
+            var src = "displayFile?fileName=${CInfoVO.img}";
+            $("#ORIGINAL_modal").modal();
+            $("#modal_get_Imgname1").attr("src", src);
+        });
+        $("#preexistenceimg").val("1");
+    } else {
+        console.log(" val이 널값이다");
+        $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
+        $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+        $("#preexistenceimg").val("0");
+    }
+
+    var upload = document.getElementById('fileupload');
+    var uploadedList = document.getElementById('uploadedList');
+    if (typeof window.FileReader === 'undefined') {
+        console.log("window.FileReader 'fail'");
+    } else {
+        console.log("★★★★★★★★  window.FileReader 'success'  ★★★★★★★");
+    } //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+
+    upload.onchange = function(e) {
+
+        var file = upload.files[0];
+        var reader = new FileReader();
+        //p542다시 보기
+
+        //reader.onload start
+        reader.onload = function(event) {
+            var image = new Image();
+            image.src = event.target.result;
+
+            uploadedList.innerHTML = '';
+            image.height = 150;
+            uploadedList.appendChild(image);
+        };//reader.onload end
+
+        //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+        //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
+        event.preventDefault();
+
+        console.log("file name");
+        console.log(file);
+
+        var formData = new FormData();
+
+        formData.append("file", file);
+
+        $.ajax({
+            url : '/company/uploadAjax',
+            data : formData,
+            dataType : 'text',
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            success : function(data) {
+                var str = "";
+
+                console.log(data);
+                str = "<a id='ORIGINAL'>크게보기</a>"
+                        + "<small data-src="+data+">X</small>";
+
+                $("#uploadedList").append(str);
+                $("#ORIGINAL").on("click", function() {
+                    console.log("ORIGINAL click");
+                    console.log("dlrj" + data);
+                    console.log(getImageLink(data));
+                    var src = "displayFile?fileName=" + data;
+                    $("#ORIGINAL_modal").modal();
+                    $("#modal_get_Imgname1").attr("src", src);
+                });
+                document.getElementById('uploadfilename').value = data;
+                uploadedfilename_val = data;
+            }//success : function(data){ end
+        });//ajax end
+        //});//filedrop end
+        console.log(file);
+        reader.readAsDataURL(file);
+    };//upload change end
+
+    $("#uploadedList").on("click", "small", function(event) {
+        event.preventDefault();
+        var that = $(this);
+        $("#uploadedList").empty();
+        console.log("img File appended deleted");
+        var fileName = $(this).attr("data-src");
+        console.log(fileName);
+        var uploadfilename = document.getElementById('uploadfilename');
+
+        $.ajax({
+            url : "deleteFile",
+            type : "post",
+            data : {
+                fileName : $(this).attr("data-src")
+            },
+            dataType : "text",
+            success : function(result) {
+                if (result == 'deleted') {
+                    console.log("img File on server deleted");
+                    that.parent("div").remove();
+                    $('#uploadfilename').val('');
+                }
+            }
+        });
+    });
+
+    function getOriginalName(fileName) {
+        var idx = fileName.indexOf("_") + 1;
+        return fileName.substr(idx);
+    }
+
+    function getImageLink(fileName) {
+        var front = fileName.substr(0, 12);
+        var end = fileName.substr(14);
+
+        return front + end;
+    }
+
+    //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
+    $(".btn-primary").on("click", function() {
+
+        /* alert(uploadedfilename_val); */
+        formObj = $("form[role = 'form']");
+        formObj.attr("method", "post");
+        formObj.submit();
+
+        // 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
+        // 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
+    });
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

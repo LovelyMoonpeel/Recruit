@@ -6,7 +6,7 @@
 <mapper namespace="com.recruit.mapper.CompanyMapper">
 
 	<!--> 비밀번호 변경 때문에 -->
-	<update id="updatePassword">
+	<update id="updateCpPw">
 		update 
 		project.tbluser as tu
 		set

@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<label for="inputPassword3" class="col-sm-2 control-label">새 비밀번호</label>
 			<div class="col-sm-6">
-				<input type="password" class="form-control" id="pw2" name="pw2input"
+				<input type="password" class="form-control" id="pw2" name="pw2"
 					placeholder="Password입력해주세여.">
 			</div>
 		</div>

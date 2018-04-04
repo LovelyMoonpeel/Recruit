@@ -17,6 +17,7 @@ import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.dto.LoginDTO;
 
 @Repository
 public class CompanyDAOImpl implements CompanyDAO{
@@ -194,13 +195,13 @@ public class CompanyDAOImpl implements CompanyDAO{
 	
 	// 문> 기업회원 비밀번호 새로 수정하기 위해서 
 	@Override
-	public void updateCpPw(HashMap<String, Object> newCpPw) throws Exception {
+	public void updateCpPw(LoginDTO dto) throws Exception {
 		
 		// 문> 확인 차
-		System.out.println("CompanyDAOImpl__newCpPw : "+newCpPw);
+//		System.out.println("CompanyDAOImpl__newCpPw : "+newCpPw);
 
 		// 문> companyMapper로 출발
-		session.update(namespace + ".updateCpPw", newCpPw);
+		session.update(namespace + ".updateCpPw", dto);
 	}
 	
 }

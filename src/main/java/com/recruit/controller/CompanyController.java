@@ -2,9 +2,12 @@ package com.recruit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Iterator;
 
 import javax.annotation.Resource;
@@ -50,6 +53,7 @@ import com.recruit.service.PUserService;
 import com.recruit.service.ResumeService;
 import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
+import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
 
 @Controller
@@ -75,59 +79,62 @@ public class CompanyController {
 
 	@Inject
 	private JavaMailSender mailSender;
-	
-    @Inject
-    private PasswordEncoder passwordEncoder;	
-	
+
+	@Inject
+	private PasswordEncoder passwordEncoder;
+
 	@Inject
 	private UserService servicePw;
 
-
-
-	@Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
-	private String uploadPath;
+	// @Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
+	// private String uploadPath;
 
 	@RequestMapping(value = "/C_index", method = RequestMethod.GET) // 기업 메인 화면
 	public String read(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		String pw = login.getPw();
+		// String pw = login.getPw();
 
 		if (login != null) {
-	         if (login.getCname() == null){  // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든 requestMapping에 다 넣었음
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) { // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은
+											// 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든
+											// requestMapping에 다 넣었음
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			System.out.println(id);
-			
+
 			// 문> 서비스객체의 CompanyInfoRead를 까면 그 기능은 id를 데리고 온다.
-						// 그 코드 뒤에 .getIntro()를 하면 해당 id의 Intro칼럼의 내용을 가지고 온다
-						// 그래서 content에 넣는다.
-						// 아래 코드들은 설명하자면 우리가 입력을 할 때는 textarea에 넣는데 입력한 것을 출력할때는 html적용이 되야 띄워쓰기, 엔터가 먹힌다. 그걸 가능하게 해주는 코드이다.
-						// String 자체에 null을 넣으려고 하면, 에러가 난다. 그래서 null인 경우는 여기를 거치지 않게 하고 
-						// null이 아닌 경우, 즉, 기업소개에 끄적끄적였을 때는 if문 안으로 들어간다
-						if(service.CompanyInfoRead(id).getIntro()!=null){
-							String content = service.CompanyInfoRead(id).getIntro();
-							String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
-							String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
-							String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
-							model.addAttribute("content", content4);
-						}
-						// 문> content4 객체를 content로 쓰겠다는거다.
-						// jsp파일 보면 $content로 되어있는 것을 볼 수 있을 것이다.
-						
-						model.addAttribute(service.CompanyInfoRead(id));
-						model.addAttribute(login); // 문> 이 줄 추가
-						return "/company/C_index";
-			
+			// 그 코드 뒤에 .getIntro()를 하면 해당 id의 Intro칼럼의 내용을 가지고 온다
+			// 그래서 content에 넣는다.
+			// 아래 코드들은 설명하자면 우리가 입력을 할 때는 textarea에 넣는데 입력한 것을 출력할때는 html적용이 되야
+			// 띄워쓰기, 엔터가 먹힌다. 그걸 가능하게 해주는 코드이다.
+			// String 자체에 null을 넣으려고 하면, 에러가 난다. 그래서 null인 경우는 여기를 거치지 않게 하고
+			// null이 아닌 경우, 즉, 기업소개에 끄적끄적였을 때는 if문 안으로 들어간다
+			if (service.CompanyInfoRead(id).getIntro() != null) {
+				String content = service.CompanyInfoRead(id).getIntro();
+				String content2 = content.replace("<", "&lt;"); // HTML 태그를 문자로
+																// 인지하게 바꿈
+				String content3 = content2.replace("\r\n", "<br>"); // 엔터를 <br>
+																	// 태그로 교체
+				String content4 = content3.replace(" ", "&nbsp;"); // 공백을 &nbsp;
+																	// 로 변환
+				model.addAttribute("content", content4);
+			}
+			// 문> content4 객체를 content로 쓰겠다는거다.
+			// jsp파일 보면 $content로 되어있는 것을 볼 수 있을 것이다.
+
+			model.addAttribute(service.CompanyInfoRead(id));
+			model.addAttribute(login); // 문> 이 줄 추가
+			return "/company/C_index";
+
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
 	}
-	
 
 	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
 																		// GET
@@ -137,10 +144,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			model.addAttribute(login);
@@ -155,18 +162,21 @@ public class CompanyController {
 	public String modifyPOST(CInfoVO CInfo, HttpSession session, HttpServletRequest request, Model model,
 			RedirectAttributes rttr) throws Exception {
 
+		System.out.println(CInfo.getImg());
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			CInfo.setId(id);
 			InfoFileUpload(CInfo, request, id);
 			System.out.println("시작 CINFO : " + CInfo);
 			service.CompanyInfoModify(CInfo);
+
 			System.out.println("끝난 CINFO : " + CInfo);
 			rttr.addFlashAttribute("msg", "SUCCESS");
 			return "redirect:/company/C_index";
@@ -261,18 +271,20 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 
 			model.addAttribute(service.CompanyInfoRead(id));
 			model.addAttribute("jobgroupList", ajaxService.jobgroupList()); // jobgroup
-			model.addAttribute("subJobgroupList", ajaxService.subJobgroupList()); //subJobGroupList
+			model.addAttribute("subJobgroupList", ajaxService.subJobgroupList()); // subJobGroupList
 			model.addAttribute("subRegionList", ajaxService.subRegionList()); // subRegionList
-			model.addAttribute("jobGroupCount",ajaxService.jobGroupCount());	//jobgroup 몇개인지
-			model.addAttribute("regionCount",ajaxService.regionCount()); //region 몇개인지
+			model.addAttribute("jobGroupCount", ajaxService.jobGroupCount()); // jobgroup
+																				// 몇개인지
+			model.addAttribute("regionCount", ajaxService.regionCount()); // region
+																			// 몇개인지
 			model.addAttribute("codeList", service.CodeList());
 			model.addAttribute("regionList", service.RegionList());
 			return "/company/C_write";
@@ -285,7 +297,6 @@ public class CompanyController {
 	@RequestMapping(value = "/C_write", method = RequestMethod.POST) // 채용공고 작성
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		
 		System.out.println(writeRecruit);
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String id = login.getId();
@@ -301,17 +312,16 @@ public class CompanyController {
 		return "redirect:/company/C_manage";
 	}
 
-
 	@RequestMapping(value = "/C_recruitExtension", method = RequestMethod.GET)
 	public void recruitExtension(HttpSession session, int bno, Model model, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         /*if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }*///문> 3.23 지훈이가 넣으라고 한 건데 오류가 나서 일단 주석처리
+			/*
+			 * if (login.getCname() == null){ rttr.addFlashAttribute("msg",
+			 * "fail"); return "redirect:/"; }
+			 */// 문> 3.23 지훈이가 넣으라고 한 건데 오류가 나서 일단 주석처리
 			String id = login.getId();
 
 			System.out.println("bno랑 id 는 = " + bno + "" + id);
@@ -329,24 +339,25 @@ public class CompanyController {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
-	        /* if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }*///소연 수정
+			/*
+			 * if (login.getCname() == null){ rttr.addFlashAttribute("msg",
+			 * "fail"); return "redirect:/"; }
+			 */
+			// 소연 수정
 
 			String id = login.getId();
 
-			
-			
 			String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
 			String adddesc2 = adddesc.replace("<", "&lt;");
 			String adddesc3 = adddesc2.replace("\r\n", "<br>");
-			String adddesc4 = adddesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+			String adddesc4 = adddesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
+																// 변환
 			String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
 			String jobdesc2 = jobdesc.replace("<", "&lt;");
 			String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
-			String jobdesc4 = jobdesc3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
-						
+			String jobdesc4 = jobdesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
+																// 변환
+
 			model.addAttribute("adddesc", adddesc4);
 			model.addAttribute("jobdesc", jobdesc4);
 
@@ -368,10 +379,10 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("아이디입니당." + id);
@@ -399,8 +410,10 @@ public class CompanyController {
 		return "redirect:/company/C_recruitInfo?recruitNum=" + recruitModify.getBno();
 
 	}
-	@RequestMapping(value ="/C_recruitReregister", method = RequestMethod.GET)
-	public String Reregister(@RequestParam("bno") int bno, @RequestParam("day") int day,  HttpSession session, RedirectAttributes rttr)throws Exception{
+
+	@RequestMapping(value = "/C_recruitReregister", method = RequestMethod.GET)
+	public String Reregister(@RequestParam("bno") int bno, @RequestParam("day") int day, HttpSession session,
+			RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
@@ -415,17 +428,16 @@ public class CompanyController {
 		}
 	}
 
-
 	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
 	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			service.RecruitRemove(bno, id);
 			rttr.addFlashAttribute("msg", "DELESUCCESS");
@@ -435,9 +447,10 @@ public class CompanyController {
 			return "redirect:/";
 		}
 	}
-	
+
 	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
-	public String manage(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+	public String manage(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model,
+			RedirectAttributes rttr) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
@@ -445,7 +458,7 @@ public class CompanyController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(131);
 
-			 model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("pageMaker", pageMaker);
 			return "/company/C_manage";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -454,35 +467,36 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "C_recom", method = RequestMethod.GET)
-	public String readRecom(@ModelAttribute("cri") CompanySearchCriteria cri,HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+	public String readRecom(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model,
+			RedirectAttributes rttr) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 
 			String id = login.getId();
 
 			logger.info(cri.toString());
-			
+
 			System.out.println(cri);
-			
+
 			model.addAttribute(service.CompanyInfoRead(id));
 			System.out.println("컨트롤러 : " + id);
 
-			model.addAttribute("recruitList", service.RecomList(cri,id));
+			model.addAttribute("recruitList", service.RecomList(cri, id));
 			CompanyPageMaker pageMaker = new CompanyPageMaker();
 			pageMaker.setCri(cri);
-			System.out.println("페이지 메이커는 = "+pageMaker.getCri());
-//			pageMaker.setTotalCount(131);
-			
-			 pageMaker.setTotalCount(service.listSearchCount(cri,id));
+			System.out.println("페이지 메이커는 = " + pageMaker.getCri());
+			// pageMaker.setTotalCount(131);
 
-			 model.addAttribute("pageMaker", pageMaker);
-			    
+			pageMaker.setTotalCount(service.listSearchCount(cri, id));
+
+			model.addAttribute("pageMaker", pageMaker);
+
 			model.addAttribute("FavorCompareList", service.FavorCompareList(id));
 
 			return "/company/C_recom";
@@ -499,12 +513,15 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-	         if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/";
+			}
 			String id = login.getId();
 			model.addAttribute(service.CompanyInfoRead(id));
+
+			model.addAttribute("favorList", service.FavorList(id));
+
 			return "/company/C_favor";
 
 		} else {
@@ -520,10 +537,10 @@ public class CompanyController {
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
 		if (login != null) {
-	         /*if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             return "redirect:/";
-	          }*/
+			/*
+			 * if (login.getCname() == null){ rttr.addFlashAttribute("msg",
+			 * "fail"); return "redirect:/"; }
+			 */
 			String id = login.getId();
 			System.out.println("컨트롤러 아이디 값은 : " + id);
 			model.addAttribute(service.CompanyInfoRead(cid));
@@ -535,28 +552,28 @@ public class CompanyController {
 			return "redirect:/";
 		}
 	}
-	
-	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이 보는 기업정보
-	public String C_info_nonavi(HttpSession session, String recruitNum, Model model, RedirectAttributes rttr) throws Exception {
+
+	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이
+																			// 보는
+																			// 기업정보
+	public String C_info_nonavi(HttpSession session, String recruitNum, Model model, RedirectAttributes rttr)
+			throws Exception {
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		String cid = recruitNum;
+		model.addAttribute(service.CompanyInfoRead(cid));
+		model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
+		return "/company/C_info_nonavi";
 
-		if (login != null) {
-			String id = login.getId();
-			System.out.println("컨트롤러 아이디 값은 : " + id);
-			model.addAttribute(service.CompanyInfoRead(cid));
-			model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
-			return "/company/C_info_nonavi";
-
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
 	}
 
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이 보는 페이지 정보
-	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model) throws Exception {
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이
+																			// 보는
+																			// 페이지
+																			// 정보
+	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model)
+			throws Exception {
 		// 안소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
@@ -564,90 +581,107 @@ public class CompanyController {
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		if (login != null) {
 			String id = login.getId();
-			model.addAttribute("PcStateCheck",service.PcStateCheck(id));  //기업 개인 로그인 했는지 체크용
+			model.addAttribute("PcStateCheck", service.PcStateCheck(id)); // 기업
+																			// 개인
+																			// 로그인
+																			// 했는지
+																			// 체크용
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", Pservice.selectPUser(id));
-			}
-			
-			return "/company/C_recruitMent";
-		} 
-	
+		}
 
+		return "/company/C_recruitMent";
+	}
 
-	@RequestMapping(value = "/applynow", method = RequestMethod.POST)// 소연
-	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
-		
+	@RequestMapping(value = "/applynow", method = RequestMethod.POST) // 소연
+	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model,
+			RedirectAttributes rttr) throws Exception {
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		Integer bno = resume.getBno();
-		
+
 		if (login != null) {
 			String id = login.getId();
 
 			System.out.println("넘어온 Resume정보" + Rservice.readROne(bno).toString());
 			System.out.println("applynow로 넘어옴");
-			
+
 			PApplyVO pavo = new PApplyVO();
 			pavo.setBno(bno);
-			pavo.setRsno(bno+"");
-			System.out.println("레주메에서 받아오는 유저아이디"+id);
+			pavo.setRsno(bno + "");
+			System.out.println("레주메에서 받아오는 유저아이디" + id);
 			pavo.setPid(id);
-			pavo.setRcno(recruitNum+"");
+			pavo.setRcno(recruitNum + "");
 			pavo.setCoverletter(" ");
 			PAPService.createAPOne(pavo);
 			// applytbl update 시키면 된다.
-			
-			return "redirect:C_recruitMent?recruitNum="+recruitNum;
+
+			return "redirect:C_recruitMent?recruitNum=" + recruitNum;
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
 	}
-	
+
 	// 문> get은 페이지를 보여주기 위한 녀석이다. 아래 페이지를 없애면 화면이 표시 안 된다.
-	@RequestMapping(value = "/C_pass", method = RequestMethod.GET) 
+	@RequestMapping(value = "/C_pass", method = RequestMethod.GET)
 	public String pass1(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
-		
+
 		// 문> login을 데리고 와서
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
+
 		// 문> login이 null이 아니면, 즉, 로그인 되어 있으면 진행
 		if (login != null) {
-			
+
 			// 문> login을 조사해서 Cname이 null이면, 즉, 기업 회원이 아니면 다음을 진행
-			if (login.getCname() == null){
-	             rttr.addFlashAttribute("msg", "fail");
-	             System.out.println("메인으로~~");
-	             return "redirect:/";
-	          }
-			
+			if (login.getCname() == null) {
+				rttr.addFlashAttribute("msg", "fail");
+				System.out.println("메인으로~~");
+				return "redirect:/";
+			}
+
 			/*
-			String id = login.getId();
-			model.addAttribute(service.CompanyInfoRead(id));
-			*/
-			
+			 * String id = login.getId();
+			 * model.addAttribute(service.CompanyInfoRead(id));
+			 */
+
 			// 문> 이것때문에 화면을 볼 수 있다.
 			return "/company/C_pass";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
-			
+
 			// 문> 로그인 안 되어 있으면 메인으로
 			return "redirect:/";
 		}
-		
-	}
-	
-	@RequestMapping(value = "/C_pass", method = RequestMethod.POST) 
-	public String pass2(String pw2, LoginDTO dto,HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
-			throws Exception {
 
-		
-		return "/company/C_pass";   //확인을 누른다음 보여주는 페이지
 	}
-	
-	
 
+	@RequestMapping(value = "/C_pass", method = RequestMethod.POST)
+	public String pass2(String pw2, LoginDTO dto, HttpSession session, Model model, HttpServletRequest request,
+			RedirectAttributes rttr) throws Exception {
+
+		// 문> BoardVO(회원가입시 받은 정보)의 login 정보를 데리고 온다.
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		// 문> 가지고 온 login값에서 id값을 LoginDTO에 넣어주겠다.
+		dto.setId(login.getId());
+
+		// 문> dto를 가지고 service를 돌린다.
+		service.updateCpPw(dto);
+
+		return "/company/C_pass"; // 확인을 누른다음 보여주는 페이지
+	}
+
+	S3Util s3 = new S3Util();
+	String bucketName = "matchingbucket";
+	private String uploadPath = "matching/company";
+
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
+	public void uploadAjax() {
+
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
@@ -656,40 +690,58 @@ public class CompanyController {
 		logger.info("originalName : " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contetnType: " + file.getContentType());
+		/* String uploadpath = "matching"; */
 
+		/* String uploadPath = "matching/certificate"; */
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
 	}
-	
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/displayFile")
+	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-
-		logger.info("FILE NAME : " + fileName);
+		HttpURLConnection uCon = null;
+		System.out.println("FILE NAME: " + fileName);
 
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 
 			MediaType mType = MediaUtils.getMediaType(formatName);
-
 			HttpHeaders headers = new HttpHeaders();
 
-			in = new FileInputStream(uploadPath + fileName);
+			String inputDirectory = "matching/company";
+			URL url;
 
-			if (mType != null) {
-				headers.setContentType(mType);
-			} else {
-				fileName = fileName.substring(fileName.indexOf("_") + 1);
-				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition",
-						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			try {
+				url = new URL(s3.getFileURL(bucketName, inputDirectory + fileName));
+				System.out.println(url);
+				uCon = (HttpURLConnection) url.openConnection();
+
+				in = uCon.getInputStream(); // 이미지를 불러옴
+
+			} catch (Exception e) {
+				url = new URL(s3.getFileURL(bucketName, "NoImage.png"));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream();
+
 			}
 
+			// 여기
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+			System.out.println("엔티티는" + entity);
+		} catch (FileNotFoundException effe) {
+			System.out.println("File Not found Exception");
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			in = new FileInputStream(uploadPath + "/NoImage.png");
 
+			headers.setContentType(mType);
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
@@ -698,44 +750,33 @@ public class CompanyController {
 		}
 		return entity;
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
+		logger.info("delete file: " + fileName);
 
-		System.out.println(fileName);
-		System.out.println("deleteFile POST");
-
-		logger.info("delete file : " + fileName);
-
-		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-		MediaType mType = MediaUtils.getMediaType(formatName);
-
-		if (mType != null) {
-			System.out.println("if 문 안으로 들어왔다.");
-			String front = fileName.substring(0, 12);
-			String end = fileName.substring(14);
-			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-			System.out.println("if문 마지막");
+		try {
+			s3.fileDelete(bucketName, uploadPath + fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/deleteResumeList", method = RequestMethod.POST)
-	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+	public String deleteResumeListPOST(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr)
+			throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();
-			System.out.println("삭제하려는 이력서 bno뭐냐 : "+bno);
-			//Rservice.deleteROne(bno);
+			System.out.println("삭제하려는 이력서 bno뭐냐 : " + bno);
+			// Rservice.deleteROne(bno);
 			rttr.addFlashAttribute("msg", "DELETE");
 			return "personal/P_manage";
 		} else {

@@ -1,10 +1,10 @@
 package com.recruit.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +17,7 @@ import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
+import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.CompanyDAO;
 
 
@@ -26,6 +27,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Inject
 	private CompanyDAO dao;
+	
+	@Inject
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	  public CInfoVO CompanyInfoRead(String id) throws Exception {
@@ -155,13 +159,20 @@ public class CompanyServiceImpl implements CompanyService {
 	 
 	 // 문> 기업회원 비밀번호 새로 수정하기 위해서 
 	 @Override
-	 public void updateCpPw(HashMap<String, Object> newCpPw) throws Exception{
+	 public void updateCpPw(LoginDTO dto) throws Exception{
 		 
-		 // 문> 확인 차
-		 System.out.println("CompanyServiceImpl__newCpPw : "+newCpPw);
+			// 문> pw2(새로운 비밀번호)값을 가져와서 시큐리티 값으로 바꾼다.
 
-		 // 문> CompanyDAO로 출발
-		 dao.updateCpPw(newCpPw);
+			String encPassword = passwordEncoder.encode(dto.getPw2());
+
+			// 문> 시큐리티로 바꾼 비밀번호를 dto에 넣는다.
+			dto.setPw(encPassword);
+
+			// 문> 확인 차
+			System.out.println("CompanyServiceImpl__dto : " + dto);
+
+			 // 문> CompanyDAO로 출발
+			 dao.updateCpPw(dto);
 		 	 
 	 }
 

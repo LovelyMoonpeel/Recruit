@@ -678,7 +678,7 @@ $(document).ready(function() {
 							$("#modal_get_Imgname1").attr("src", src);
 						});
 					  document.getElementById('uploadfilename').value = data;
-					  uploadedfilename_val = data;
+					 // uploadedfilename_val = data;
 				  }//success : function(data){ end
 	 		  });//ajax end
 		//});//filedrop end
@@ -767,7 +767,7 @@ $(document).ready(function() {
 					$(this).val("0000-00-00");
 				}
 			});
-		alert(uploadedfilename_val);
+		//alert(uploadedfilename_val);
 		formObj = $("form[role = 'form']");
 		formObj.attr("action", "/personal/Rmodify");
 		formObj.attr("method", "post");

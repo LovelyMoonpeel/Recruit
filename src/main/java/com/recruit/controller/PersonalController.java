@@ -30,7 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.PTelVO;
-import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -39,6 +38,7 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.CompanyService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
 import com.recruit.service.PWebSiteService;
@@ -90,6 +90,9 @@ public class PersonalController {
 	@Inject
 	private PasswordEncoder passwordEncoder;
 
+	@Inject
+	private CompanyService parkService;
+
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -137,31 +140,38 @@ public class PersonalController {
 
 		return "redirect:/personal/index"; // redirect는 controller
 	}
-	//민경	
+
+	// 민경
 	@RequestMapping(value = "/pwmodify", method = RequestMethod.POST)
-	   public ResponseEntity<String> pwPOST(@RequestBody PUserVO PUser, HttpSession session, Model model) throws Exception {
-	      logger.info("index POST, 개인정보 수정");
-	      ResponseEntity<String> entity = null;
-	      BoardVO login = (BoardVO) session.getAttribute("login");      
-	      
-	         try {
-	            if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
-	               PUser.setId(login.getId());   //로그인한 아이디를 PUser에 setId해주기
-	               PUser.setPw(passwordEncoder.encode(PUser.getNpw())); //인코드처리..여기는 안되는건가요? 묻기전에 회원가입부분 먼저 살펴보기
-	               //PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
-	               service.pwmodify(PUser);
-	               entity = new ResponseEntity<>("success", HttpStatus.OK);
-	            } else {
-	               System.out.println("★ 비밀번호 불일치");
-	               entity = new ResponseEntity<>("fail", HttpStatus.OK);
-	            }
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	         }
-	      return entity; // redirect는 controller
-	   }
-	
+	public ResponseEntity<String> pwPOST(@RequestBody PUserVO PUser, HttpSession session, Model model)
+			throws Exception {
+		logger.info("index POST, 개인정보 수정");
+		ResponseEntity<String> entity = null;
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		try {
+			if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
+				PUser.setId(login.getId()); // 로그인한 아이디를 PUser에 setId해주기
+				PUser.setPw(passwordEncoder.encode(PUser.getNpw())); // 인코드처리..여기는
+																		// 안되는건가요?
+																		// 묻기전에
+																		// 회원가입부분
+																		// 먼저
+																		// 살펴보기
+				// PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
+				service.pwmodify(PUser);
+				entity = new ResponseEntity<>("success", HttpStatus.OK);
+			} else {
+				System.out.println("★ 비밀번호 불일치");
+				entity = new ResponseEntity<>("fail", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity; // redirect는 controller
+	}
+
 	// 이력서 관리 (리스트)
 	@RequestMapping(value = "/manage", method = RequestMethod.GET)
 	public String manageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -305,6 +315,9 @@ public class PersonalController {
 
 				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
 
+				if (login.getCname() != null) {
+					model.addAttribute("FavorCompareList", parkService.FavorCompareList(id));
+				}
 				return "personal/P_detail_nonavi";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
@@ -359,11 +372,11 @@ public class PersonalController {
 			RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model)
 			throws Exception {
 		System.out.println("Rmodify POST Controller");
-		System.out.println("이미지"+resume.getImg());
-		System.out.println("번호"+resume.getBno());
-		//System.out.println("받아오는거"+file.getName());
-		
-		//resume.setImg(file.getName());
+		System.out.println("이미지" + resume.getImg());
+		System.out.println("번호" + resume.getBno());
+		// System.out.println("받아오는거"+file.getName());
+
+		// resume.setImg(file.getName());
 		Telservice.updateTList(bno, ptvo.getPtelvolist());
 		// Rmodify에 rid값 줘야함
 		Webservice.updateWList(bno, pwvo.getPwebsitesvolist());

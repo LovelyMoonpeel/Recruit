@@ -22,7 +22,10 @@
 
 
 		<div class="corp_logo">
-			<img src="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width: 200px;" /> <br> <br>
+		<div id='uploadedList'>
+			<img alt="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width: 200px;" /> <br> <br>
+			</div>
+			<input type="hidden" id=''>
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>
