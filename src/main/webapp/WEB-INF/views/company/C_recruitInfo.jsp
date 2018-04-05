@@ -253,7 +253,7 @@
 					<tr>
 						<th>${ResumeVO.img}**</th>
 						<th>
-						<input type='text' id="Rbno${status.index }" value="${ResumeVO.bno}">
+						<%-- <input type='text' id="Rbno${status.index }" value="${ResumeVO.bno}"> --%>
 						<!--  >input type='hidden' id="Rbno${status.index }" value="${ResumeVO.bno}"-->
 						<span class=careerLine>경력 3년 5개월</span>
 						<br>
