@@ -7,7 +7,7 @@
 
          
 <div class="col-md-9">
-   <h1>${PUserVO.id}님의이력서상세</h1>
+   <h1>${PUserVO.pname}님의이력서상세</h1>
    <br> <br>
    <!-- 이력서 페이지 두번째(기본 정보) -->
    <!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
@@ -74,7 +74,7 @@
                      style="text-align: center;">학력사항</th>
                   <th class="table-active" scope="row" style="text-align: center;"><label
                      for="test">최종학력</label></th>   
-                  <td style="text-align: center;" colspan="2">${resumeRead.levelofeducation}</td>
+                  <td class="code" style="text-align: center;" colspan="2">${resumeRead.levelofeducation}</td>
                  </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label
@@ -92,7 +92,7 @@
                <tr>
                   <td style="text-align: center;">${eduVO.schoolname}</td>
                   <td style="text-align: center;">${eduVO.major}</td>
-                  <td style="text-align: center;">${eduVO.bno}</td>
+                  <td class="code" style="text-align: center;">${eduVO.bno}</td>
                   <td style="text-align: center;">${eduVO.enterdate}</td>
                   <td style="text-align: center;">${eduVO.gradudate}</td>
                </tr>
@@ -103,7 +103,7 @@
                      style="text-align: center;">경력사항</th>
                   <th class="table-active" scope="row" style="text-align: center;"><label
                      for="test">경력</label></th>   
-                  <td style="text-align: center;" colspan="2">${resumeRead.lastcareer}</td>
+                  <td class="code" style="text-align: center;" colspan="2">${resumeRead.lastcareer}</td>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label
@@ -120,7 +120,7 @@
                <tr>
                   <td style="text-align: center;">${careerVO.cname}</td>
                   <td style="text-align: center;">${careerVO.jobdescription}</td>
-                  <td style="text-align: center;">${careerVO.bno}</td>
+                  <td class="code" style="text-align: center;">${careerVO.bno}</td>
                   <td style="text-align: center;">${careerVO.startjob}</td>
                   <td style="text-align: center;">${careerVO.finishjob}</td>
                </tr>
@@ -132,9 +132,9 @@
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;">구직상태</th>
-               <td style="text-align: center;">${resumeRead.jobstateid}</td>
+               <td class="code" style="text-align: center;">${resumeRead.jobstateid}</td>
                <th class="table-active" scope="row" style="text-align: center;">희망근무형태</th>
-               <td colspan="2" style="text-align: center;">${resumeRead.employstatusid}</td>
+               <td class="code" colspan="2" style="text-align: center;">${resumeRead.employstatusid}</td>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;">희망직종(대분류)</th>
@@ -144,13 +144,13 @@
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;">희망근무지(시/도)</th>
-               <td style="text-align: center;">${resumeRead.rgbid}</td>
+               <td class="code" style="text-align: center;">${resumeRead.rgbid}</td>
                <th class="table-active" scope="row" style="text-align: center;">희망근무지</th>
-               <td colspan="2" style="text-align: center;">${resumeRead.rgsid}</td>
+               <td class="code" colspan="2" style="text-align: center;">${resumeRead.rgsid}</td>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;">희망연봉</th>
-               <td style="text-align: center;">${resumeRead.salaryid}</td>
+               <td class="code" style="text-align: center;">${resumeRead.salaryid}</td>
                <td style="text-align: center;" colspan="3"></td>
             </tr>
             <tr>
@@ -214,7 +214,7 @@
             
             <c:forEach items="${RLanguagelist}" var="ResumeLanguageVO">
                <tr>
-                  <td style="text-align: center;">${ResumeLanguageVO.resumelangid}</td>
+                  <td class="code" style="text-align: center;">${ResumeLanguageVO.resumelangid}</td>
                   <td style="text-align: center;">${ResumeLanguageVO.test}</td>
                   <td style="text-align: center;">${ResumeLanguageVO.score}</td>
                   <td style="text-align: center;">${ResumeLanguageVO.publeoffice}</td>
@@ -260,6 +260,17 @@
          $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
          $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
       }
+     /*  if(${resumeRead.levelofeducation}=='선택'){
+    	  ${resumeRead.levelofeducation}='';
+      } */
+      $('.code').each(function(){
+    	  if($(this).html()=='선택'){
+    		  $(this).html('');
+    	  }
+    	  if($(this).html()=='전체 (선택안함)'){
+    		  $(this).html('');
+    	  }
+      });
    });
 </script>
 </body>

@@ -14,7 +14,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의이력서 작성</h1>
+	<h1>${PUserVO.pname}님의이력서 작성</h1>
 
 	<form role="form" method="post">
 		<input type='hidden' name='id' value="${PUserVO.id}"> <input
@@ -102,9 +102,12 @@
                   <div class="form-group col-md-5">
                   <label for="jobgroupid">대분류</label> 
                      <select id="jobGroup" class="form-control" name="jobgroupid" >
+                        <option value="0">선택</option>
                         <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                            <c:if test="${JobGroupVO.id2 == 0}">
-                              <option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+	                           <c:if test="${JobGroupVO.id>0 }">
+	                          	 <option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+			                   </c:if>
                            </c:if>
                         </c:forEach>
                      </select>          
@@ -807,6 +810,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		var that = $(this);
 		$("#uploadedList").empty();
+		$("#fileupload").val("");
 		console.log("img File appended deleted");
 		var fileName=$(this).attr("data-src");
 		console.log(fileName);
@@ -1148,12 +1152,19 @@ $(document).ready(function(){
          $(data).each(
                function() {
                   if(sel==this.id){
-                     selected = "selected";
+                	  if(this.id==0){
+                		 str += "<option value="+this.id+
+                          " "+selected+">"+ "선택" + "</option>";
+                	  }else{
+	                     selected = "selected";
+	                     str += "<option value="+this.id+
+	                     " "+selected+">"+ this.jobgroup + "</option>";
+                	  } 
                   }else{
                      selected = "";
+                     str += "<option value="+this.id+
+                     " "+selected+">"+ this.jobgroup + "</option>";
                   }
-                  str += "<option value="+this.id+
-                  " "+selected+">"+ this.jobgroup + "</option>";
                });
          $("#subjobGroup").html(str);
       })

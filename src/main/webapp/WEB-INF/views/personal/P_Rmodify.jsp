@@ -33,7 +33,7 @@
 							<!--  사진 보이는 div  --> 
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img' value=''> 
+							<input type='hidden' id='uploadfilename' name='img' value='${ResumeVO.img}'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
@@ -631,12 +631,11 @@ $(document).ready(function() {
 	 console.log("window.FileReader 'success'");
 	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
 	  
-	upload.onchange = function (e) {
+	upload.onchange = function upload_change(e) {
 		
-		 var file = upload.files[0];
+		 file = upload.files[0];
 		 var reader = new FileReader();
 		 //p542다시 보기
-	
 		 //reader.onload start
 		 reader.onload = function (event) {
 			 var image = new Image();
@@ -666,7 +665,6 @@ $(document).ready(function() {
 				 contentType : false,
 				 type : 'POST',
 				 success : function(data){
-					 alert("사진 올라감!")
 					   var str = "";
 					  
 					 	console.log(data);
@@ -687,15 +685,15 @@ $(document).ready(function() {
 					 // uploadedfilename_val = data;
 				  }//success : function(data){ end
 	 		  });//ajax end
-		//});//filedrop end
-	 console.log(file);
-	 reader.readAsDataURL(file);
+		 console.log(file);
+		 reader.readAsDataURL(file);
 	};//upload change end
-	
 	
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
+		
+		//file==undefined;
 		
 		if($("#xornot").val()==0){
 			

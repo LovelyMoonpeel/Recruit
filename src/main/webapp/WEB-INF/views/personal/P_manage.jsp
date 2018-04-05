@@ -9,15 +9,29 @@
 <div class="col-md-9">
 	<div class="table-responsive">			
 		<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 이력서 관리 (이력서 목록)</h4>
+		
+		<br>
+		<div
+			style='width: 100%; height: 190px; border: 1px dotted blue; padding: 30px;'>
+			<ul>
+				<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
+				<li>이력서를 <b>공개</b>하신 회원님께 해당이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.
+				<li>공개된 이력서에서 <b>[희망 구직정보 - 희망 근무지, 희망직종], 최종학력, 최종경력</b>을 입력하시면<br>더 정확한 추천 공고 서비스를 이용하실 수 있습니다.<br></li>
+			</ul>
+			<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제
+			처리될 수 있습니다.<br><br>
+		</div>
+		<br>
+		
 		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
 		<input type='hidden' id='userid' value='${PUserVO.id}'></input>
 		<table id="tbl_resume" class="table table-bordered">
 			<tr>
 				<th style="width: 65px;">전체&nbsp;<input type="checkbox" id="allcheck"></th>
-				<th style="text-align: center;">순번</th>
+				<th style="width: 60px; text-align: center;">순번</th>
 				<th style="text-align: center;">이력서 제목</th>
-				<th style="width: 55px; text-align: center;">설정</th>
+				<th style="width: 95px; text-align: center;">공개/비공개</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-pencil"></span> 수정</th>
 				<th style="width: 60px; text-align: center;"><span class="glyphicon glyphicon-trash"></span> 삭제</th>
 			</tr>
@@ -119,6 +133,7 @@ $(document).ready(function(){
 					 }),
 					 success : function(result){
 						if(result=="AS_PUBLIC"){
+							alert("해당 이력서를 공개하였습니다.");
 							 console.log("비공개를 공개로 바꾸려고 함");
 							 location.href = "";
 						 }else{
@@ -142,6 +157,7 @@ $(document).ready(function(){
 					 }),
 					 success : function(result){
 						if(result=="AS_PRIVATE"){
+							alert("해당 이력서를 비공개하였습니다.");
 							 console.log("공개를 비공개로 바꾸려고 함");
 							 location.href = "";
 						 }else{
