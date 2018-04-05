@@ -70,75 +70,52 @@ background-color: #777;
 				style="border-bottom: 1px solid #dde2eb; padding-left: 15px; padding-top: 10px; padding-bottom: 10px">
 				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
 			</div>
-			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
+			<div class="col-md-4 text-center" style="border-left: 1px solid #dde2eb;">
 				<img src="${CInfoVO.img}" class="img-rounded"
 					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 240px; height: auto;" />
+					style="width: 150px; height: 150px;" />
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-4 col-sm-4 col-xs-4">
 				<!-- 첫번쨰 칸 -->
-				<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
+		
 					<h4>지원자격</h4>
-				</c:if>
 
-				<c:if test="${RecruitVO.exp eq null || RecruitVO.edu eq null}">
-				</c:if>
-
-				<c:if test="${RecruitVO.exp ne null}">
 					<small>경력&emsp;</small>
 					<a>${RecruitVO.exp}</a>
 					<br>
 					<br>
-				</c:if>
-
-				<c:if test="${RecruitVO.edu ne null}">
 					<small>학력&emsp;</small>
 					<a>${RecruitVO.edu}</a>
 					<br>
 					<br>
-				</c:if>
-				<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
-				</c:if>
+					
 			</div>
 			<!-- /첫번째 칸 -->
 
-			<div class="col-md-4">
+			<div class="col-md-4 col-sm-4 col-xs-4">
 				<!-- 두번째 칸 -->
-				<c:if
-					test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
 					<h4>근무조건</h4>
-				</c:if>
 
-				<c:if test="${RecruitVO.employstatusid ne null}">
 					<small>고용형태&emsp;</small>
 					<a>${RecruitVO.employstatusid}</a>
 					<br>
 					<br>
-				</c:if>
 
-				<c:if test="${RecruitVO.salaryid ne null}">
 					<small>급여&emsp;</small>
 					<a>${RecruitVO.salaryid}</a>
 					<br>
 					<br>
-				</c:if>
 
-				<c:if
-					test="${RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
 					<small>지역&emsp;</small>
 					<a>${RecruitVO.rgbid}</a>
 					<a>${RecruitVO.rgsid}</a>
 					<br>
-				</c:if>
 
-				<c:if
-					test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
-				</c:if>
 			</div>
 			<!-- /두번째 칸 -->
 
-			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
+			<div class="col-md-4 col-sm-4 col-xs-4" style="border-left: 1px solid #dde2eb;">
 				<h4>기업정보</h4>
 				산업(업종) ${CInfoVO.ctype}<br> 사원수 ${CInfoVO.numemp}<br> 설립년도
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지

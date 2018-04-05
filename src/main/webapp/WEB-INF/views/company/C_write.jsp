@@ -744,7 +744,7 @@
 					$("#expXIcon").css("display","none");
 					$("#expOKIcon").css("display","");
 					$("#exp").focus();
-					alert($("input[type=radio][name='recruitnum']:checked").val());
+					
 				}
 			
 			if($("input[type=radio][name='recruitnum']:checked").val()==undefined){
@@ -799,13 +799,7 @@
 	})
 	</script>
 	
-	<input type=button id=aa>
-	<script>
-	$("#aa").on("click",function(){
-		alert($("#employstatusid").val());
-			
-	})
-	</script>
+	
 
 	<!-- // 공고 입력 부분 끝 -->
 </div>

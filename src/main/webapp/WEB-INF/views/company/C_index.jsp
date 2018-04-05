@@ -152,10 +152,11 @@
 		});
 
 	});
-	var result = '${msg}';
+	
+	/* 	var result = '${msg}';
 	if (result == 'SUCCESS') {
 		alert("수정이 완료됐습니다.");
-	}
+	} */
 
 	$(document).ready(function() {
 		console.log('${PWebSitelist}');

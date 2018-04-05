@@ -457,7 +457,7 @@ public class CompanyController {
 			CompanyPageMaker pageMaker = new CompanyPageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(131);
-
+			
 			model.addAttribute("pageMaker", pageMaker);
 			return "/company/C_manage";
 		} else {

@@ -57,7 +57,7 @@
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th>${RecruitVO.recruitstate}</th>
-					<th><a target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
+					<th><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					<li>근무형태 : ${RecruitVO.employstatusid}</li>
 					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
 					<li>경력 : ${RecruitVO.exp} </li>
@@ -73,7 +73,7 @@
 	
 	
 	<div id="myModal" class="modal fade" role="dialog">
- 	 <div class="modal-dialog">
+ 	 <div class="modal-dialog modal-lg">
 	   <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" name="offLoad" id="off" data-dismiss="modal">&times;</button>
@@ -272,6 +272,16 @@ $(document).ready(
 		});
 </script>
 
+
+<script>
+		$(document).on("click","#gR",function(){
+
+			window.open(this.href, '', 'width=1240, height=960'); 
+			
+			return false;
+				
+		})
+</script>
 
 
 <!-- //기업 페이지 -->

@@ -99,7 +99,7 @@ $(document).ready(function(){
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+" &nbsp;* *</strong><br></td>"
 				+ "<td><span class=careerLine>경력 3년 5개월</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
 				+ ""+this.bno+":"+this.title+"</a>"
-				+ "<div><div></div><div>"+this.schoolname+""+this.marjor+"</div></div>"
+				+ "<div><div></div><div>"+this.schoolname+""+this.major+"</div></div>"
 				+ "<p>"+this.rgbid+""+this.salary+"</p>"
 				+ "<div><a>핵심역량 마케팅전략 기획</a></div></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
 			

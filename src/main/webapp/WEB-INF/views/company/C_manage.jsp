@@ -31,15 +31,11 @@
 				<ul class="nav navbar-nav">
 					<li id="btnsState"><a id="btns">진행중</a></li>
 					<li id="btnsState"><a id="btns">마감</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">미완성 <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
 				</ul>
 				<div class="input-group" style="padding-top: 10px">
 					<div class="input-group-btn" style="">
 						<select class="form-control selectpciker" name="searchType" style="width: 120px">
-							<option value="n" <c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+							
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
 							<option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option>
 						</select>
@@ -58,6 +54,7 @@
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
+		
 			<!-- /.container-fluid -->
 	</nav>
 	<nav class="navbar-default" style="margin-bottom: 15px;">
@@ -140,8 +137,39 @@
 			</ul>
 		</div>
 	</div> -->
+	
+		<div id="myModal" class="modal fade" role="dialog">
+ 	 <div class="modal-dialog modal-lg" >
+	   <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" name="offLoad" id="off" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">지원자 리스트</h4>
+        </div>
+        <div class="modal-body">
+         
+         	 <table class="table table-striped" >
+          <tr class=active>
+          <th>이름</th>
+          <th>이력서 요약</th>
+          <th>업데이트일</th>
+          </tr>
+          <tbody id="recomList">
+          
+          </tbody>
+          </table>
+          
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div>
+      	</div> 
+       </div>
+    </div>
+	
 </div>
 <!-- //기업 채용공고 목록 끝 -->
+
+
 <script>
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
@@ -265,6 +293,14 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 }
 })
 </script>
+<script>
+			 $("#keywordInput").keypress(function (e) {
+			        if (e.which == 13){
+			        	
+			        	$('#searchBtn').trigger('click');
+			        }
+			    });
+			</script>
 <script>
  function check(orderType){
 	
@@ -518,11 +554,11 @@ var formObj = $("form[role='form']");
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
 			var orderType = $("#appIcon").attr("value");
-			alert(searchType)
-			alert(keyword) 
 			RecruitList(pN, perPageNum, searchType, keyword, orderType)
 			
  		});
+ 		
+ 
 	
 		
 		function RecruitList(pN, perPageNum, searchType,keyword, orderType){
@@ -559,13 +595,13 @@ var formObj = $("form[role='form']");
 							
 							if(i < length){
 								str += "<tr><th rowspan=2 ><span class=badge>"+this.recruitstate+"</span></th>"
-								+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+								+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 										+"<li>근무형태 : "+this.employstatusid+"</li>"
 										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 										+"<li>경력 : "+this.exp+"</li>"
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-										+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
+										+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
 										+"<tr><th>최근수정 : "+this.regdate+" (담당자:++)</th><th></th><th></th></tr>"
 								}else{
 									
@@ -596,8 +632,15 @@ var formObj = $("form[role='form']");
 			 
 			 }); 
 			  
-		}			 
+		}
+		
+		$(document).on("click","#nw",function(){
+
+			window.open(this.href, '', 'width=1240, height=960'); 
 			
+			return false;
+				
+		})
 		
 		 function RecruitIngList(pN, perPageNum, searchType,keyword, orderType){
 				
@@ -630,7 +673,7 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
@@ -699,7 +742,7 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
@@ -737,4 +780,47 @@ var formObj = $("form[role='form']");
 					 }); 
 				}
 	</script>
+	
+	
+	<script> /* 모달용 스크립트 */
+$(document).on("click", "button[name=onLoad]", function() {
+	
+	
+	
+	 var bno = $(this).val();
+	
+	PersonList(bno);
+	
+	function PersonList(bno){
+		
+		
+		$.getJSON("/companyAjax/personList/" + bno, function(data) {
+			var str = "";
+			var comparison = [];
+			
+			$(data).each(
+					function() {
+						
+						str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
+						+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
+						+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
+						+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+						
+						comparison.push(this.bno)
+						
+					});
+			
+			$("#recomList").html(str);
+			
+		
+			favorComparison(comparison)
+			
+		})
+		
+		
+		
+	}
+	
+})
+</script>
 <%@include file="../include/cfooter.jsp"%>
