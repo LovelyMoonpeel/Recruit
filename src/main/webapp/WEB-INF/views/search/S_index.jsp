@@ -202,7 +202,7 @@
 			</h4>
 			<p>
 				<a href="{{url}}"
-					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
+					onclick='window.open(this.href, "_blank", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}

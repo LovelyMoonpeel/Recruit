@@ -184,7 +184,7 @@
 			<div class="col-md-6">
 				<div class="company-div">
 					<a href="{{url}}"
-						onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						onclick='window.open(this.href, "_blank", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
 						<img class="company-img" src="{{img}}">
 					</a>
 				</div>
@@ -213,7 +213,7 @@
 			</h4>
 			<p>
 				<a href="{{url}}"
-					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
+					onclick='window.open(this.href, "_blank", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
@@ -238,7 +238,7 @@
 			</p>
 			<p>
 				<a href="{{url}}"
-					onclick='window.open(this.href, "_blank", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>{{title}}</a>
+					onclick='window.open(this.href, "_blank", "width=950, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>{{title}}</a>
 			</p>
 			{{rgbid}}, {{rgsid}}<br />
 			[{{jobstateid}}]

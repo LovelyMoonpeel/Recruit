@@ -311,14 +311,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectResumes_selJob" resultType="com.recruit.domain.ResumeVO"
 		parameterType="java.util.List">
-		select * from tblresume where publicornot = '공개' and (jobgroupid2 = 1000 or
+		select * from tblresume where publicornot = '공개' and (jobgroupid2 =
+		1000 or
 		<foreach item="item" index="index" collection="list"
 			separator=" or ">
 			jobgroupid2 = #{item}
 		</foreach>
 		)
 		union
-		select * from tblresume where publicornot = '공개' and jobgroupid in
+		select * from tblresume where publicornot = '공개' and jobgroupid
+		in
 		(select id2 from
 		tbljobgroup where jobgroup='전체' and
 		(
@@ -380,7 +382,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
 		select * from
-		tblrecruit;
+		tblrecruit order by bno desc;
 	</select>
 
 	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">
