@@ -568,13 +568,6 @@
 </script>
 <script type='text/javascript'>
 $(document).ready(function() {
-	//소연 수정
-	$("#region").val("Z").attr("selected", "selected"); //희망근무지
-	$("#employstatusid").val("102").attr("selected", "selected"); //희망근무형태
-	$("#jobstateid").val("102").attr("selected", "selected");//구직상태
-	$("#CodeList7").val("102").attr("selected", "selected");//희망연봉
-	$("#CodeList1").val("102").attr("selected", "selected");//최종경력
-	$("#CodeList2").val("102").attr("selected", "selected");//최종학력
     
 	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
    var largeNum = $('#jobGroup option:selected').val();
