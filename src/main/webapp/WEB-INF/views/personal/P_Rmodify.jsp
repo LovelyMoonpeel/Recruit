@@ -33,7 +33,7 @@
 							<!--  사진 보이는 div  --> 
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img' value=''> 
+							<input type='hidden' id='uploadfilename' name='img' value='${ResumeVO.img}'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 

@@ -160,7 +160,7 @@
 }
 
 .fixed-panelr {
-	min-height: 350px;
+	min-height: 360px;
 }
 
 .fixed-panelc {
