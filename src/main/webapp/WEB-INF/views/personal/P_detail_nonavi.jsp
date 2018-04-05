@@ -233,7 +233,7 @@
 						style="text-align: center;">자기소개서</th>
 				</tr>
 				<tr>
-					<td colspan="5" rowspan="3">${ResumeVO.coverletter}</td>
+					<td colspan="5" rowspan="3">${coverletter}</td>
 				</tr>
 			</tbody>
 		</table>

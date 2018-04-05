@@ -33,7 +33,7 @@
 							<!--  사진 보이는 div  --> 
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img' value=''> 
+							<input type='hidden' id='uploadfilename' name='img' value='${ResumeVO.img}'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
@@ -79,7 +79,8 @@
                   <th>구직상태</th>
                   <td>
                      <div class="form-group col-md-5">
-                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                     <select id="jobstateid" class="form-control" name="jobstateid" >
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 6 }">
                               <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
@@ -116,6 +117,7 @@
                   <div class="form-group col-md-5">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 4 }">
                               <option value="${CodeVO.id }" 
@@ -151,9 +153,11 @@
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
                      <select class="form-control" name="salaryid" id="CodeList7">
+                     	<option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 7 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -169,6 +173,7 @@
          <b>학력사항</b>
          <div class="form-group col-md-3">
          <select class="form-control" name=levelofeducation id="CodeList2">
+         	 <option value="102">선택</option>
              <c:forEach items="${CodeVOlist }" var="CodeVO">
                 <c:if test="${CodeVO.tid == 2 }">
                    <c:if test="${CodeVO.id<=13 }">
@@ -185,6 +190,7 @@
          <b>경력사항</b>
          <div class="form-group col-md-3">
          <select class="form-control" name="lastcareer" id="CodeList1">
+        	 <option value="102">선택</option>
              <c:forEach items="${CodeVOlist }" var="CodeVO">
                 <c:if test="${CodeVO.tid == 1 }">
                    <c:if test="${CodeVO.id<=7 }">
@@ -562,7 +568,7 @@
 </script>
 <script type='text/javascript'>
 $(document).ready(function() {
-	
+    
 	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
    var largeNum = $('#jobGroup option:selected').val();
    SubJobGroup2(largeNum);

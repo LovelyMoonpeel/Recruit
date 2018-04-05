@@ -85,9 +85,10 @@
                   <td>
                      <div class="form-group col-md-5">
                      <select id="jobstateid" class="form-control" name="jobstateid" > 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 6 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }"> ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -103,7 +104,7 @@
                      <select id="jobGroup" class="form-control" name="jobgroupid" >
                         <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                            <c:if test="${JobGroupVO.id2 == 0}">
-                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                              <option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
                            </c:if>
                         </c:forEach>
                      </select>          
@@ -121,11 +122,10 @@
                   <div class="form-group col-md-5">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 4 }">
-                              <option value="${CodeVO.id }" 
-                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
-                              >${CodeVO.career }</option>
+                              <option value="${CodeVO.id }">${CodeVO.career }</option>
                            </c:if>
                         </c:forEach>
                      </select> 
@@ -140,9 +140,7 @@
                      <label for="jobgroupid">시/도</label> 
                         <select id="region" class="form-control" name='rgbid'>
                            <c:forEach items="${RegionVOlist}" var="RegionVO">
-                              <option value="${RegionVO.rgbid}" 
-                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
-                              >${RegionVO.rgbname}</option>
+                              <option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
                            </c:forEach>
                         </select>
                      <label for="jobgroupid">시/군/구</label> 
@@ -158,9 +156,10 @@
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
                      <select class="form-control" name="salaryid" id="CodeList7">
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 7 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }"> ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -181,10 +180,11 @@
 		</div>
 		<div class="form-group col-md-3">
 			<select class="form-control" name=levelofeducation id="CodeList2">
+	          <option value="102">선택</option>
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
 	             	<c:if test="${CodeVO.id<=13 }">
-	                	<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	                	<option value="${CodeVO.id }"> ${CodeVO.career} </option>
 	             	</c:if>
 	             </c:if>
 	          </c:forEach>
@@ -197,10 +197,11 @@
 		</div>
 		<div class="form-group col-md-3">
 		<select class="form-control" name=lastcareer id="CodeList1">
+		<option value="102">선택</option>
           <c:forEach items="${CodeVOlist }" var="CodeVO">
              <c:if test="${CodeVO.tid == 1 }">
 	             <c:if test="${CodeVO.id<=7 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	                <option value="${CodeVO.id }"> ${CodeVO.career} </option>
 	             </c:if>
              </c:if>
           </c:forEach>
@@ -653,6 +654,14 @@ edudates.onchange = function (e) {
  
 $(document).ready(function(){
 	
+	//소연 수정
+    $("#region").val("Z").attr("selected", "selected"); //희망근무지
+    $("#employstatusid").val("102").attr("selected", "selected"); //희망근무형태
+    $("#jobstateid").val("102").attr("selected", "selected");//구직상태
+    $("#CodeList7").val("102").attr("selected", "selected");//희망연봉
+    $("#CodeList1").val("102").attr("selected", "selected");//최종경력
+    $("#CodeList2").val("102").attr("selected", "selected");//최종학력
+    
 	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
 	var largeNum = $('#jobGroup option:selected').val();
 	SubJobGroup2(largeNum);
