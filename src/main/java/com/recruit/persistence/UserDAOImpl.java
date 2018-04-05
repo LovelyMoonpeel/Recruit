@@ -136,4 +136,14 @@ public class UserDAOImpl implements UserDAO {
 	public BoardVO userread(String id) throws Exception{
 		return session.selectOne(namespace+".userRead", id);
 	}
+	
+	@Override
+	public BoardVO getppw(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace+".getppw", dto);
+	}
+	
+	@Override
+	public BoardVO getcpw(LoginDTO dto) throws Exception{
+		return session.selectOne(namespace+".getcpw", dto);
+	}
 }

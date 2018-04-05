@@ -81,7 +81,7 @@
 		<tr>
 			<td>${ResumeVO.bno}</td>
 			<td>${ResumeVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" onclick="location.href='/admin/resmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -233,5 +233,13 @@ $(function(){
 });
 </script>
 <!-- //버튼에 대한 스크립트  -->
+
+<script>
+var result = '${msg}';
+
+if(result == 'resume_mod'){
+	alert("이력서 수정 처리가 완료 되었습니다.");
+}
+</script>
 
 <%@include file="../include/cfooter.jsp"%>

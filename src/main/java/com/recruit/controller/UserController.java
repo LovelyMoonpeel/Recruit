@@ -212,11 +212,20 @@ public class UserController {
 		ResponseEntity<String> entity = null;
 		try{
 			if(dto.getCname()==null){
-				service.ppwchk(dto);
+				if(service.getppw(dto)!=null){
+					service.ppwchk(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
 			}else{
-				service.cpwchk(dto);
+				if(service.getcpw(dto)!=null){
+					service.cpwchk(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
 			}
-			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
