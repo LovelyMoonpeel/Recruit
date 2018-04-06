@@ -21,8 +21,6 @@
 		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;채용공고작성</h2></label>
 	</div>
 
-<style>
-</style>
 
 	<!-- 공고 입력 부분 -->
 	<form role="form" method="POST">	
@@ -56,11 +54,53 @@
    
 </script>
 <style>
+
+#jobGroupDiv
+{
+   text-decoration: none;
+  
+}
+ #subJobgroupDiv
+ {
+   text-decoration: none;
+  
+}
+ #rgbidDiv 
+ {
+   text-decoration: none;
+  
+}
+ #subRegion
+ {
+   text-decoration: none;
+  
+}
+#employstatusidDiv 
+{
+   text-decoration: none;
+  
+}
+#salaryidDiv
+{
+   text-decoration: none;
+  
+}
+#eduDiv 
+{
+   text-decoration: none;
+  
+}
+#expDiv
+{
+   text-decoration: none;
+  
+}
 .popover{
     max-width: 100%;
    
 }
 </style>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
@@ -503,9 +543,22 @@
 
 		<br> 
 		<br> 
+	
 		<input class="btn btn-primary" type="submit" id="sbm"
-			value="등록"> <br>
+			value="등록"> 
+		<input class="btn btn-primary" type="button" id="cancle"
+			value="취소"> <br>
+		
 	</form>
+	
+	<script>
+	
+	$("#cancle").on("click",function(){
+		
+		self.location = "/company/C_manage";
+		
+	})
+	</script>
 	
 	<script>
 	$("#sbm").on("click",function(e){

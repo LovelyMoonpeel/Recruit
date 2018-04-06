@@ -19,6 +19,7 @@ public class CInfoVO { // 회사 정보 VO
 	private String location;
 	private String phone;
 	private String email;   //문> email 추가
+	private String pname;
 	
 	public String getEmail() {
 		return email;
@@ -122,14 +123,17 @@ public class CInfoVO { // 회사 정보 VO
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	@Override
 	public String toString() {
 		return "CInfoVO [id=" + id + ", cname=" + cname + ", img=" + img + ", homepage=" + homepage + ", intro=" + intro
 				+ ", ceo=" + ceo + ", ctype=" + ctype + ", form=" + form + ", establish=" + establish + ", numemp="
 				+ numemp + ", sales=" + sales + ", tel=" + tel + ", fax=" + fax + ", sns=" + sns + ", location="
-				+ location + ", phone=" + phone + ", email=" + email + "]";
+				+ location + ", phone=" + phone + ", email=" + email + ", pname=" + pname + "]";
 	}
-	
-
-
 }

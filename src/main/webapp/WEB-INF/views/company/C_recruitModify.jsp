@@ -186,7 +186,7 @@
 				<th class="active">접수방법</th>
 				<td>
 					<c:choose>
-						<c:when test="${RecruitVO.acceptmethod eq '홈페이지지원'}">
+						<c:when test="${RecruitVO.acceptmethod eq '홈페이지접수'}">
 							<input type="radio" name="acceptmethod" value="홈페이지접수" checked>홈페이지접수
 				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원
 				</c:when>

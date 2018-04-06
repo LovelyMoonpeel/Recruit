@@ -223,11 +223,15 @@
     var imgsrccheck = ('#imgsrccheck');
 
     if ($('#imgsrccheck').val() != "") {
+    	 
         console.log(" val이 널값아님");
         $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
-        var str = "";
-        str = "<a id='ORIGINAL'>크게보기</a>"
+       
+        if($("#preexistenceimg").val()==0){
+      	str = "<a id='ORIGINAL'>크게보기</a>"
                 + "<small data-src=${CInfoVO.img}>X</small>";
+        }
+        
         $("#uploadedList").append(str);
 
         $("#ORIGINAL").on("click", function() {
@@ -242,6 +246,7 @@
         $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
         $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
         $("#preexistenceimg").val("0");
+      
     }
 
     var upload = document.getElementById('fileupload');

@@ -49,9 +49,11 @@ transition: 1s;
 background-color: #777; 
 } 
 </style>
+
 <!-- Main content -->
 <div class="col-md-12 ">
 	<!-- 버튼 -->
+
 	<p id="back-top"> 
    		<a href="#top"><span></span></a> 
 	</p>
@@ -73,7 +75,7 @@ background-color: #777;
 			<div class="col-md-4 text-center" style="border-left: 1px solid #dde2eb;">
 				<img src="${CInfoVO.img}" class="img-rounded"
 					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 150px; height: 150px;" />
+					style="width: 200px; height: 150px;" />
 			</div>
 
 			<div class="col-md-4 col-sm-4 col-xs-4">
@@ -117,7 +119,7 @@ background-color: #777;
 
 			<div class="col-md-4 col-sm-4 col-xs-4" style="border-left: 1px solid #dde2eb;">
 				<h4>기업정보</h4>
-				산업(업종) ${CInfoVO.ctype}<br> 사원수 ${CInfoVO.numemp}<br> 설립년도
+				산업(업종) ${CInfoVO.ctype}<br> 사원수 ${CInfoVO.numemp}명<br> 설립년도
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
@@ -130,9 +132,15 @@ background-color: #777;
 	</div>
 	<br>
 
-
 	<div class="text-center">
+		<c:choose>
+		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
 		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
+		</c:when>
+		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
+		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}">홈페이지지원</button>
+		</c:when>
+		</c:choose>
 		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
 	</div>
 
@@ -188,6 +196,21 @@ background-color: #777;
 	
 	<input type="hidden" id="pC" value="<%=pid%>">
 	<!-- 소연 코드 -->
+	
+	<script>
+	
+	$(document).on("click","#homeApplyNow",function(){
+		
+		var result = confirm("해당공고는 홈페이지 지원 방식입니다. 기업 홈페이지로 이동하시겠습니까?"); 
+
+		if(result){
+			
+			window.location.href = $("#homeApplyNow").val();
+		}
+	
+	})
+	
+	</script>
 	<script>
 		$(document).ready(function() {
 			var formObj = $("form[role = 'form']");
@@ -297,8 +320,7 @@ background-color: #777;
 	<!-- 공고 메인 -->
 	<div id="detail_content"></div>
 	<br><br>
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+	<div style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 
 		<h4>모집내용 및 자격조건</h4>
 
@@ -309,10 +331,6 @@ background-color: #777;
 
 				<th scope="row" class="active">근무지역</th>
 				<td>${RecruitVO.rgbid}->${RecruitVO.rgsid}</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">담당업무</th>
-				<td colspan="3">${RecruitVO.jobdesc}</td>
 			</tr>
 			<tr>
 				<th scope="row" class="active">모집인원</th>
@@ -333,14 +351,26 @@ background-color: #777;
 		</table>
 		<br>
 
+		<h4>담당업무</h4>
+		<table class="table">
+			<tr>
+				<td style="word-break:break-all;">${jobdesc}</td>
+			</tr>
+		</table>		
+	
 		<h4>상세모집내용</h4>
 
 		<table class="table">
 			<tr>
-				<td colspan="3">${RecruitVO.adddesc }</td>
+				<td style="word-break:break-all;">${adddesc }</td>
 			</tr>
 		</table>
+			
+		
 	</div>
+	
+	
+		
 	<!-- /공고 메인 -->
 	<br> <br>
 	<div id="accept_method"
@@ -352,7 +382,15 @@ background-color: #777;
 			</div>
 
 			<div class="col-md-9">
-				<button id="applynow2" class="btn btn-primary btn-lg">지원하기</button>
+			
+			<c:choose>
+		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
+		<button id="applynow2" class="btn btn-primary btn-lg">지원하기</button>
+		</c:when>
+		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
+		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}">지원하기</button>
+		</c:when>
+		</c:choose>
 				<br>
 				<table>
 					<tr>
@@ -427,30 +465,20 @@ background-color: #777;
 	</div>
 	<br> <br>
 
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<div class="col-md-3">
-			<font size="6px">담당자 정보</font> <br>
-		</div>
-		<br><br>
-		<br>
-		<br>
-		<br>
+	
+			
+			
+	<h4>담당자 정보</h4>
 		
-	</div>
 
 	<div id="human_resources_manager" 
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<table class="table table-bordered ">
-			<tbody>
-				<tr>
-					<th class="table-active" scope="row">회사 아이디</th>
-					<td colspan="3">${CInfoVO.id}</td>
-				</tr>
-
+			
+			
 				<tr>
 					<th class="table-active" scope="row">담당자</th>
-					<td colspan="3">${boardVO.pname}</td>
+					<td colspan="3">${CInfoVO.pname}</td>
 				</tr>
 
 				<tr>
@@ -462,7 +490,7 @@ background-color: #777;
 					<th class="table-active" scope="row">이메일</th>
 					<td colspan="3">${CInfoVO.email}</td>
 				</tr>
-			</tbody>
+		
 		</table>
 	</div>
 </div>
