@@ -112,9 +112,9 @@
                   for="test">담당업무</label></th>
                <th class="table-active" scope="row" style="text-align: center;"><label
                   for="score">연봉</label></th>
-               <th class="table-active" scope="row"><label
+               <th class="table-active" scope="row" style="text-align: center;"><label
                   for="lanpubleoffice">입사일</label></th>
-               <th class="table-active" scope="row"><label for="lanacquidate">퇴사일</label></th>
+               <th class="table-active" scope="row" style="text-align: center;"><label for="lanacquidate" >퇴사일</label></th>
             </tr>
             <c:forEach items="${careerVOList}" var="careerVO">
                <tr>

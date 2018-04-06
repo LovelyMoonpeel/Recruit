@@ -191,7 +191,7 @@ background-color: #777;
 									</tr>
 								</c:forEach>
 							</table>
-							<input type="text" id="modal_recruitNum" name="recruitNum"
+							<input type="hidden" id="modal_recruitNum" name="recruitNum"
 								value="${RecruitVO.bno}">
 							<div class="col-xs-4">
 								<!--즉시지원 버튼 -->
@@ -260,13 +260,18 @@ background-color: #777;
 					}),
 					success : function(result) {
 						console.log("result가 뭐냐?" + result);
-						if (result == 'TRUE') {
-							alert("지원하였습니다.");
-							//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
-							formObj.attr("action", "/company/applynow");
-							formObj.attr("method", "post");
-							formObj.submit(); //button type이 submit라서 필요 없음
-							alert("submit됐니");
+						/*jcode_180406_즉시지원 오류 해결 */
+						if(result == 'TRUE'){
+							if ($('input:radio[bno]').is(':checked')==true) {
+								alert("지원하였습니다.");
+								//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
+								formObj.attr("action", "/company/applynow");
+								formObj.attr("method", "post");
+								formObj.submit(); //button type이 submit라서 필요 없음
+							}
+							else{
+								alert("선택된 이력서가 없습니다. 이력서를 선택해주세요.");
+							}
 						} else if (result == 'FALSE') {
 							alert("이미 지원한 공고 입니다.");
 							//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
@@ -277,6 +282,7 @@ background-color: #777;
 					}//success end
 				})//ajax end
 			});
+			/*jcode_180406_즉시지원 오류 해결 끝 */
 			$("#clipping").click(function() {
 				
 				

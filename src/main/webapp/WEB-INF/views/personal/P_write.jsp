@@ -806,6 +806,7 @@ $(document).ready(function(){
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
+		$("#fileupload").val("");
 		$("#uploadedList").empty();
 		console.log("img File appended deleted");
 		var fileName=$(this).attr("data-src");

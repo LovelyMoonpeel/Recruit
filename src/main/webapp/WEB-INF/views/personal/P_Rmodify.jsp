@@ -981,7 +981,7 @@ $(document).ready(function() {
 	}
 	function edu_list() {
 		var len = (${eduVOlist.size()});
-		
+	
 		if( len > 0 ) {
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var item = {
