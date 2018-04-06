@@ -37,45 +37,22 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="/resources/rpjt/img/frontimg1.jpg" alt="Los Angeles"
+					<a href="https://www.naver.com"
+						onclick='window.open(this.href, "recruit", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						<img src="/resources/rpjt/img/frontimg1.jpg" alt="Los Angeles"
 						style="width: 100%;">
-					<div class="carousel-caption">
-						<h1>자바기반 웹&amp;앱 개발자 양성과정</h1>
-						<br /> <br /> <br />
-						<p>
-							프로그래밍 기본 문법 및 개발환경 , 자바의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해 습득함으로써
-							자바 프레임워크 기반의 애플리케이션 구현 능력을 갖춘 자바 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
-							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
-						</p>
-					</div>
+					</a>
+					<div class="carousel-caption"></div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/frontimg2.jpg" alt="Chicago"
 						style="width: 100%;">
-					<div class="carousel-caption" style="color: black;">
-						<h1>오픈소스기반 웹 개발자 양성과정</h1>
-						<br /> <br /> <br />
-						<p>
-							프로그래밍 기본 문법 및 개발환경 , 오픈소스의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해
-							습득함으로써 오픈소스 기반의 애플리케이션 구현 능력을 갖춘 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
-							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
-						</p>
-					</div>
 				</div>
 
 				<div class="item">
 					<img src="/resources/rpjt/img/frontimg3.png" alt="New york"
 						style="width: 100%;">
-					<div class="carousel-caption" style="color: black;">
-						<h1>iOS 앱 개발자 양성과정</h1>
-						<br /> <br /> <br />
-						<p>
-							프로그래밍 기본 문법 및 개발환경 , iOS의 기본 철학 및 실무 적용 가능지식에 대해 사례와 실습을 통해
-							습득함으로써 iOS 기반의 애플리케이션 구현 능력을 갖춘 전문 개발자로 성장할 수 있도록 구성<br /> <br />훈련기관:
-							비트캠프<br />훈련기간: 2017-11-27 ~ 2018-05-21
-						</p>
-					</div>
 				</div>
 			</div>
 
@@ -202,7 +179,7 @@
 			</h4>
 			<p>
 				<a href="{{url}}"
-					onclick='window.open(this.href, "_blank", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
+					onclick='window.open(this.href, "recruit{{bno}}", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
