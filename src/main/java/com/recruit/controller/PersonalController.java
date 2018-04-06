@@ -153,11 +153,11 @@ public class PersonalController {
 			if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
 				PUser.setId(login.getId()); // 로그인한 아이디를 PUser에 setId해주기
 				PUser.setPw(passwordEncoder.encode(PUser.getNpw())); // 인코드처리..여기는
-																		// 안되는건가요?
-																		// 묻기전에
-																		// 회원가입부분
-																		// 먼저
-																		// 살펴보기
+				// 안되는건가요?
+				// 묻기전에
+				// 회원가입부분
+				// 먼저
+				// 살펴보기
 				// PUser.setPw(PUser.getNpw()); //바꾼비밀번호를 Pw에 set해주기
 				service.pwmodify(PUser);
 				entity = new ResponseEntity<>("success", HttpStatus.OK);
@@ -189,7 +189,6 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
-
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -265,18 +264,18 @@ public class PersonalController {
 				/* 2018.04.03_Jcode_자기소개서 유효성 추가 */
 				String coverletter = Rservice.readROne(bno).getCoverletter();
 				String coverletter2 = coverletter.replace("<", "&lt;"); // HTML
-																		// 태그를
-																		// 문자로
-																		// 인지하게
-																		// 바꿈
+				// 태그를
+				// 문자로
+				// 인지하게
+				// 바꿈
 				String coverletter3 = coverletter2.replace("\r\n", "<br>"); // 엔터를
-																			// <br>
-																			// 태그로
-																			// 교체\r\n
+				// <br>
+				// 태그로
+				// 교체\r\n
 				String coverletter4 = coverletter3.replace(" ", "&nbsp;"); // 공백을
-																			// &nbsp;
-																			// 로
-																			// 변환
+				// &nbsp;
+				// 로
+				// 변환
 
 				model.addAttribute("coverletter", coverletter4);
 				/* 2018.04.03_Jcode_자기소개서 유효성 추가 끝 */
@@ -370,7 +369,7 @@ public class PersonalController {
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.POST)
 	public String RmodifyPOST(String id, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
 			RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model)
-			throws Exception {
+					throws Exception {
 		System.out.println("Rmodify POST Controller");
 		System.out.println("이미지" + resume.getImg());
 		System.out.println("번호" + resume.getBno());
@@ -429,8 +428,40 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
-	// 지원현황리스트
+	// 관심채용공고
+	@RequestMapping(value = "/favor_ongoing", method = RequestMethod.GET)
+	public String favor_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
 
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList_ongoing(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			return "personal/P_favor";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	// 관심채용공고
+	@RequestMapping(value = "/favor_closed", method = RequestMethod.GET)
+	public String favor_closedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList_closed(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			return "personal/P_favor";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+
+	// 지원현황리스트
 	@RequestMapping(value = "/applied", method = RequestMethod.GET)
 	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 
@@ -439,6 +470,44 @@ public class PersonalController {
 			String id = login.getId();
 
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			return "personal/P_applied";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+
+	// 지원현황리스트
+	@RequestMapping(value = "/applied_ongoing", method = RequestMethod.GET)
+	public String applied_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+
+			return "personal/P_applied";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+
+	// 지원현황리스트
+	@RequestMapping(value = "/applied_closed", method = RequestMethod.GET)
+	public String appliedGET_closed(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 
 			return "personal/P_applied";

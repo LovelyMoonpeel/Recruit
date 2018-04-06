@@ -31,7 +31,6 @@
 	<br>	
 	<br>
 	<div class="favor_table_container">
-		container
 		<table id="favor_table" class="table table-bordered">
 			<tr class="active">
 				<th style="text-align: center;">상태</th>
@@ -65,23 +64,14 @@
 	<br> <br>
 </div>
 <script type="text/javascript">
-/* <button id="all_btn" class="btn">전체</button>
-<button id="ongoing_btn" class="btn">진행중</button>
-<button id="closed_btn" class="btn">마감</button>
- */
 function ongoing_recruits(){//모집중
-	$("#favor_table").remove();
-	
- 	badge_color();
+	 self.location="/personal/favor_ongoing";
 }
-
 function closed_recruits(){//모집완료
-	badge_color();
-	
+	self.location="/personal/favor_closed";
 }
 function all_recruits(){//전체
-	//self.location="/personal/favor";	
-	location.reload();
+	self.location="/personal/favor";	
 }
 function badge_color(){
 	$(".acceptmethod").each(function(index){

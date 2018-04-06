@@ -25,6 +25,10 @@
 		</ul>
 		<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
+	<br>
+	<button id="all_btn" class="btn" onclick="all_recruits()">전체</button>
+	<button id="ongoing_btn" class="btn" onclick="ongoing_recruits()">진행중</button>
+	<button id="closed_btn" class="btn" onclick="closed_recruits()">마감</button>
 	<br><br>
 	<div>
 		<!-- 본 바디 틀 -->
@@ -56,6 +60,17 @@
 	<br> <br>
 </div>
 <script>
+function ongoing_recruits(){//모집중
+	 self.location="/personal/applied_ongoing";
+}
+function closed_recruits(){//모집완료
+	self.location="/personal/applied_closed";
+}
+function all_recruits(){//전체
+	self.location="/personal/applied";	
+}
+
+
 $(document).ready(function(){
 	
 	console.log("각각 무슨 값이냐 "+$(".jobdesc").text());

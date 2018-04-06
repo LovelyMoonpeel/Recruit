@@ -597,15 +597,14 @@ $(document).ready(function() {
 	}
 	
 	//이거start
-	var imgsrccheck = ('#imgsrccheck');
-	
-		 if($('#imgsrccheck').val()!=""){
+	 if($('#imgsrccheck').val()!=""){
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 		var str = "";
 		str = 
 			  "<a id='ORIGINAL'>크게보기</a>"
 			  +"<small data-src=${ResumeVO.img}>X</small>";
+			  
 		  $("#uploadedList").append(str); 
 		  
 		  $("#ORIGINAL").on("click", function(){

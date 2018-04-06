@@ -20,9 +20,29 @@ public class CRecruitServiceImpl implements CRecruitService {
 		return dao.selectCRList(id);
 	};
 	
+	@Override
+	public List<CRecruitVO> selectCRList_ongoing(String id)throws Exception{
+		return dao.selectCRList_ongoing(id);
+	};
+	
+	@Override
+	public List<CRecruitVO> selectCRList_closed(String id)throws Exception{
+		return dao.selectCRList_closed(id);
+	};
+	
 	@Override//안소연 사용
 	public List<CRecruitVO> selectAPList(String id)throws Exception{
 		return dao.selectAPList(id);
+	};
+	
+	@Override//안소연 사용
+	public List<CRecruitVO> selectAPList_ongoing(String id)throws Exception{
+		return dao.selectAPList_ongoing(id);
+	};
+	
+	@Override//안소연 사용
+	public List<CRecruitVO> selectAPList_closed(String id)throws Exception{
+		return dao.selectAPList_closed(id);
 	};
 	
 	@Override

@@ -10,6 +10,7 @@
 position: fixed; 
 bottom: 30px; 
 right:10%;
+z-index:10000;
 /*margin-right: 150px;*/ 
 } 
 #back-top a { 
@@ -20,7 +21,7 @@ font: 11px/100% Arial, Helvetica, sans-serif;
 text-transform: uppercase; 
 text-decoration: none; 
 color: #bbb; 
-z-index:10;
+z-index:10000;
 /* transition */ 
 -webkit-transition: 1s; 
 -moz-transition: 1s; 
@@ -239,9 +240,6 @@ background-color: #777;
 				
 			});
 			$("#applynow_btn").on("click", function(e) {
-				
-			
-				
 				console.log("applynow_btn clicked");
 				var rsno = $('input[name="bno"]:checked').val();
 				alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
