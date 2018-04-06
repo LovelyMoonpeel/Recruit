@@ -37,22 +37,28 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<a href="https://www.naver.com"
-						onclick='window.open(this.href, "recruit", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-						<img src="/resources/rpjt/img/frontimg1.jpg" alt="Los Angeles"
+					<a href="/company/C_info_nonavi?recruitNum=rcode0"
+						onclick='window.open(this.href, "cinforcode0", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						<img src="/resources/rpjt/img/frontimg5.jpg" alt="Los Angeles"
 						style="width: 100%;">
 					</a>
 					<div class="carousel-caption"></div>
 				</div>
 
 				<div class="item">
-					<img src="/resources/rpjt/img/frontimg2.jpg" alt="Chicago"
+					<a href="/company/C_info_nonavi?recruitNum=assagini"
+						onclick='window.open(this.href, "cinfoassagini", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						<img src="/resources/rpjt/img/frontimg6.jpg" alt="Chicago"
 						style="width: 100%;">
+					</a>
 				</div>
 
 				<div class="item">
-					<img src="/resources/rpjt/img/frontimg3.png" alt="New york"
+					<a href="/company/C_info_nonavi?recruitNum=octest"
+						onclick='window.open(this.href, "cinfooctest", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						<img src="/resources/rpjt/img/frontimg7.jpg" alt="New york"
 						style="width: 100%;">
+					</a>
 				</div>
 			</div>
 
