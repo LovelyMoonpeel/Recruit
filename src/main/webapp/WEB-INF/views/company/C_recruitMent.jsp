@@ -192,7 +192,7 @@ background-color: #777;
 									</tr>
 								</c:forEach>
 							</table>
-							<input type="text" id="modal_recruitNum" name="recruitNum"
+							<input type="hidden" id="modal_recruitNum" name="recruitNum"
 								value="${RecruitVO.bno}">
 							<div class="col-xs-4">
 								<!--즉시지원 버튼 -->
@@ -224,25 +224,73 @@ background-color: #777;
 				}else if("<%=pid%>"==""){
 					alert("개인회원으로 로그인 해주시길바랍니다.")
 				}else{
-					$("#applynow_modal").modal();
+					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+						type : 'post',
+						url : '/companyAjax/applycheck',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							rcno : rcno,
+							pid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								$("#applynow_modal").modal();
+							} else if (result == 'FALSE') {
+								alert("이미 지원한 공고 입니다.");
+								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
 				}
+				
+				
 				
 			});
 			$("#applynow2").click(function() {
-				
 				if("<%=pid%>"==""&&"<%=cid%>"==""){
 					alert("로그인해주시길바랍니다.")
 				}else if("<%=pid%>"==""){
 					alert("개인회원으로 로그인 해주시길바랍니다.")
 				}else{
-					$("#applynow_modal").modal();
+					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+						type : 'post',
+						url : '/companyAjax/applycheck',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							rcno : rcno,
+							pid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								$("#applynow_modal").modal();
+							} else if (result == 'FALSE') {
+								alert("이미 지원한 공고 입니다.");
+								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
 				}
-				
 			});
 			$("#applynow_btn").on("click", function(e) {
 				console.log("applynow_btn clicked");
 				var rsno = $('input[name="bno"]:checked').val();
-				alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
+				console.log("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
 				$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
 					type : 'post',
 					url : '/companyAjax/applycheck',
@@ -264,7 +312,6 @@ background-color: #777;
 							formObj.attr("action", "/company/applynow");
 							formObj.attr("method", "post");
 							formObj.submit(); //button type이 submit라서 필요 없음
-							alert("submit됐니");
 						} else if (result == 'FALSE') {
 							alert("이미 지원한 공고 입니다.");
 							//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨

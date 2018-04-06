@@ -48,10 +48,10 @@
 			<tr>
 				<td style="text-align:center;"><span class="jobdesc badge badge-pill">${CRecruitVO.jobdesc}</span></td>
 				<td style="text-align:center;">${CRecruitVO.recruitform}</td>
-				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
+				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
-				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, '', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-info">내이력서</span></a></td>
+				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-info">내이력서</span></a></td>
 				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 			</tr>
 			</c:forEach>
@@ -69,7 +69,6 @@ function closed_recruits(){//모집완료
 function all_recruits(){//전체
 	self.location="/personal/applied";	
 }
-
 
 $(document).ready(function(){
 	
