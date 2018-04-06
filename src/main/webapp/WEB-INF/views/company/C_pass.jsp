@@ -118,9 +118,11 @@
 							//ajaxchk에 ok값을 주입한다.왜냐? 얘는 되는거니깐 풀어야지
 							ajaxchk = "ok";
 							console.log("1010");
-							alert("비밀번호가 성공적으로 바뀌었습니다.")
+							alert("비밀번호가 성공적으로 바뀌었습니다. 다시 로그인 해주세요~")
 							console.log("1011");
-								
+							location.href="/user/logout";
+
+							
 						} else {
 							
 							//위에서 진행한 두 비밀번호가 다를 때

@@ -15,12 +15,7 @@
 	</p>
 
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
-	
 	<div class="top_cont">
-
-
-
-
 		<div class="corp_logo">
 		<div id='uploadedList'>
 			<img alt="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width: 200px;" /> <br> <br>
@@ -65,7 +60,8 @@
 					</tr>
 					<tr>
 						<th class="table-active" scope="row" style="text-align: center;">사원수</th>
-						<td>${CInfoVO.numemp}명</td>
+						<!-- 문> '명'이란 단어 지웠음  -->
+						<td>${CInfoVO.numemp}</td>
 						<th class="table-active" scope="row" style="text-align: center;">매출액</th>
 						<td>${CInfoVO.sales}</td>
 					</tr>

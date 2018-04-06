@@ -622,7 +622,8 @@ var formObj = $("form[role='form']");
 						});			
 						
 						$("#recruitList").html(str);	
-						$("#spid").addClass("glyphicon glyphicon-trash");
+						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
+					/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
 						 $("#listPage").html(chr); 
 							
 						 $("li[name="+pN+"]").addClass("active");

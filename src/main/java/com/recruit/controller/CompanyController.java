@@ -97,9 +97,7 @@ public class CompanyController {
 		// String pw = login.getPw();
 
 		if (login != null) {
-			if (login.getCname() == null) { // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은
-											// 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든
-											// requestMapping에 다 넣었음
+			if (login.getCname() == null) { // 문> 3.23 지훈이 참고해서 추가, 여기 if구문은 개인회원이 기업쪽으로 못 들어오게 하는 장치, 아래 모든 requestMapping에 다 넣었음
 				rttr.addFlashAttribute("msg", "fail");
 				return "redirect:/";
 			}
@@ -115,12 +113,9 @@ public class CompanyController {
 			// null이 아닌 경우, 즉, 기업소개에 끄적끄적였을 때는 if문 안으로 들어간다
 			if (service.CompanyInfoRead(id).getIntro() != null) {
 				String content = service.CompanyInfoRead(id).getIntro();
-				String content2 = content.replace("<", "&lt;"); // HTML 태그를 문자로
-																// 인지하게 바꿈
-				String content3 = content2.replace("\r\n", "<br>"); // 엔터를 <br>
-																	// 태그로 교체
-				String content4 = content3.replace(" ", "&nbsp;"); // 공백을 &nbsp;
-																	// 로 변환
+				String content2 = content.replace("<", "&lt;"); // HTML 태그를 문자로 인지하게 바꿈
+				String content3 = content2.replace("\r\n", "<br>"); // 엔터를 <br>태그로 교체
+				String content4 = content3.replace(" ", "&nbsp;"); // 공백을 &nbsp;로 변환
 				model.addAttribute("content", content4);
 			}
 			// 문> content4 객체를 content로 쓰겠다는거다.
@@ -136,8 +131,7 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정
-																		// GET
+	@RequestMapping(value = "/C_modify", method = RequestMethod.GET) // 기업정보 수정 GET
 	public String modifyGET(HttpSession session, HttpServletRequest request, RedirectAttributes rttr, Model model)
 			throws Exception {
 
@@ -407,7 +401,12 @@ public class CompanyController {
 
 		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
-		return "redirect:/company/C_recruitInfo?recruitNum=" + recruitModify.getBno();
+		/* 문> 원래는 return "redirect:/company/C_recruitInfo?recruitNum=" + recruitModify.getBno();
+		 * 그런데 아래 코드로 바꿔서 수정 후 수정하기 전 화면으로 보냈음
+		 */
+		return "/company/C_manage";
+		
+		
 
 	}
 

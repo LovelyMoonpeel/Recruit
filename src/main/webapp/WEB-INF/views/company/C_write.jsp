@@ -17,9 +17,10 @@
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <div class="col-md-9 ">
-	<div class="row">
-		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;채용공고작성</h2></label>
-	</div>
+
+	<p class="lead">
+		<strong>채용공고작성</strong>
+	</p>
 
 <style>
 </style>

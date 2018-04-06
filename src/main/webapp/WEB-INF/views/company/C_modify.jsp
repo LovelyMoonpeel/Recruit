@@ -17,21 +17,22 @@
 
 		<!-- 문> 왼쪽 사이드 바와 높이를 맞추기 위한 전략  -->
 		<p class="lead">
-			<strong>회사 정보 수정</strong>
+			<strong>기업 정보 수정</strong>
 		</p>
 
 		<!-- 문> row를 안 붙이면 밑에 항목들과 다르게 위치가 세팅된다. 한마디로 열이 안 맞춰진다. -->
 		<div class="row">
 			<!-- 문> 이건 가로 길이  -->
 			<div class="form-group col-lg-6">
-				<label>회사 이미지</label>
+				<label>기업 이미지</label>
 
 				<!-- 문> 사진 틀의 가로와 세로 길이  -->
 				<div id='uploadedList' style='width: 127px; height: 152px;'>
 					<!-- 문> 여기서 height는 '회사정보수정'페이지에 뿌려주는 사진의 높이로 위에서 설정해준 틀에 맞게 써야 한다. 세로만 지정해도 가로도 자동으로 정해지는 듯  -->
 					<img id='imgsrc' height="152px;" alt="${CInfoVO.img}" />
 				</div>
-
+					<input id='imgsrccheck' type='hidden' value="${CInfoVO.img}" /> 
+							<!-- db에 있는 file img 이름 받아오는 hidden input -->
 				<div>
 					<!-- 문Q>디비에 있는 이미지 뿌려주는 거 같은데, hidden??  -->
 					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}"> <br>
@@ -143,15 +144,6 @@
 			</div>
 		</div>
 
-<%-- 		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>담당자</label> <input type="text" name="pname" class="form-control" value="${boardVO.pname}">
-			</div>
-			<div class="form-group col-lg-6">
-				<label>휴대폰 번호</label> <input type="text" name="phone" class="form-control" value="${CInfoVO.phone}">
-			</div>
-		</div> --%>
-
 		<br>
 
 		<!-- 수정 버튼 -->
@@ -167,21 +159,16 @@
 <!-- 소연 모달 -->
 <div class="modal" id="ORIGINAL_modal">
 	<div class="modal-dialog modal-dialog-centered">
-
 		<div class="modal-content modal-dialog-centered">
-			<div class="modal-head"
-				style="text-align: center; vertical-align: middle; margin: 10px;">
+			<div class="modal-head" style="text-align:center; vertical-align:middle; margin:10px;">
 				<br>
-				<button type="button" class="close" data-dismiss="modal"
-					style="margin: 10px;">&times;</button>
+				<button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
 				이미지 크게 보기
 			</div>
 
 			<div class="modal-body modal-dialog-centered">
-
 				<!--x표시 누르면 창 사라지게 하는 코드 -->
-				<div class="row"
-					style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+				<div class="row" style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
 					<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
 				</div>
 			</div>
@@ -191,17 +178,16 @@
 	</div>
 	<!--//modal-dialog -->
 </div>
-<!-- 소연 코드 -->
+<!--//소연 모달 -->
 
 <script>
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		
 		console.log(formObj);
+		// 문> btn-warning은 취소하기 버튼 클래스 이름
 		$(".btn-warning").on("click", function() {
 			self.location = "/company/C_index";
 		});
-	 	
 	});
 </script>
 
@@ -218,40 +204,71 @@
 </script>
 
 
+
+
+
 <script>
 
-    var imgsrccheck = ('#imgsrccheck');
-
+	// 문> 여기서 #은 id값을 의미함 .은 class
+	// 그런데 ()앞에 $가 있어야 한다.
     if ($('#imgsrccheck').val() != "") {
         console.log(" val이 널값아님");
+        
+        // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
         $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
+        
+        // 문> str쓰기 위해서 선언, 변수를 쓸때는 항상 선언부터 한다.
         var str = "";
-        str = "<a id='ORIGINAL'>크게보기</a>"
-                + "<small data-src=${CInfoVO.img}>X</small>";
+        
+        // 문> 사진 밑에 쓰여지는 문구가 NoImage일 때는 문구가 안 보이게 하는 코드 
+        if(src == ""){
+        	str = "";    
+        }else{
+        	str = "<a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
+        
+        // 문> 컨텐츠를 선택된 요소 내부의 끝 부분에서 삽입, 즉,사진 밑에 문구를 삽입 
+        // uploadedList는 사진 id
         $("#uploadedList").append(str);
 
+
+        // 문Q> ORIGINAL은 사진 밑에 쓰여지는 문구의 id값인데??? 살짝 이해가 안감.
         $("#ORIGINAL").on("click", function() {
-            console.log("ORIGINAL click");
+            console.log("☆☆ORIGINAL click");
             var src = "displayFile?fileName=${CInfoVO.img}";
+            
+            // 문> ORIGINAL_modal은 모달창 id값
             $("#ORIGINAL_modal").modal();
+            
+            // 문> modal_get_Imgname1는 모달창에 들어가는 사진의 id값
             $("#modal_get_Imgname1").attr("src", src);
         });
-        $("#preexistenceimg").val("1");
+        
+        // 문Q> preexistenceimg은 왜 쓴걸까????
+        $("#preexistenceimg").val("1");}
     } else {
+        // 문> 아래 내용은 위 내용 참고
         console.log(" val이 널값이다");
         $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
         $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
         $("#preexistenceimg").val("0");
     }
 
+    // 문Q> fileupload를 가져와서 upload에 넣는 거 같은데.. 잘 모르겠음
+    // fileupload는 업로드 하는 버튼인데..
     var upload = document.getElementById('fileupload');
+    
+ 	// 문Q> uploadedList를 가져와서 uploadedList에 넣는 거 같은데.. 잘 모르겠음
+ 	// uploadedList는 사진 틀 id
     var uploadedList = document.getElementById('uploadedList');
+    
+  	// 소연> fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
     if (typeof window.FileReader === 'undefined') {
         console.log("window.FileReader 'fail'");
     } else {
         console.log("★★★★★★★★  window.FileReader 'success'  ★★★★★★★");
-    } //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-
+    } 
+	
+  	
     upload.onchange = function(e) {
 
         var file = upload.files[0];
@@ -289,21 +306,23 @@
             success : function(data) {
                 var str = "";
 
-                console.log(data);
+                console.log("★data: "+data);
                 str = "<a id='ORIGINAL'>크게보기</a>"
                         + "<small data-src="+data+">X</small>";
 
                 $("#uploadedList").append(str);
+                
+                // 문> ORIGINAL은 크케보기 id값
                 $("#ORIGINAL").on("click", function() {
                     console.log("ORIGINAL click");
-                    console.log("dlrj" + data);
+                    console.log("★★data: " + data);
                     console.log(getImageLink(data));
                     var src = "displayFile?fileName=" + data;
                     $("#ORIGINAL_modal").modal();
                     $("#modal_get_Imgname1").attr("src", src);
                 });
                 document.getElementById('uploadfilename').value = data;
-                uploadedfilename_val = data;
+                /* uploadedfilename_val = data; *///여기여기여기
             }//success : function(data){ end
         });//ajax end
         //});//filedrop end
@@ -313,7 +332,10 @@
 
     $("#uploadedList").on("click", "small", function(event) {
         event.preventDefault();
+        
         var that = $(this);
+       	// fileupload를 빈값으로 처리
+        $("#fileupload").val("");
         $("#uploadedList").empty();
         console.log("img File appended deleted");
         var fileName = $(this).attr("data-src");
