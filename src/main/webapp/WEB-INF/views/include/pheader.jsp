@@ -64,7 +64,7 @@
 }
 /* .badge-success:hover {
   background-color: #356635;
-} */
+}  */
 .badge-info {
   background-color: #56c0e0;
 }

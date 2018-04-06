@@ -5,9 +5,10 @@
 
 <%@include file="../include/pheader.jsp"%>
 <style>
-.badge-info:hover {
-  background-color: #2d6987;
+.badge-success:hover {
+  background-color: #356635;
 }
+
 </style>
 <!-- Main content -->
 <form role="form">
@@ -19,7 +20,7 @@
 	<br>
 	<div style='width : 100%; height : 190px; border : 1px solid #c0c6d3; padding:30px;'>
 		<ul>
-			<li>[${PUserVO.pname}]님이 지원한 이력서 목록입니다.</li>
+			<li>[${PUserVO.pname}]님이 지원한 채용공고/이력서 목록입니다.</li>
 			<li>공고 등록 순서에 따라 정렬됩니다.<br></li>
 			<li>이력서를 등록하신 회원님께 <b>이력서 기반 추천 공고 서비스를 무료</b>로 제공합니다. </li>
 		</ul>
@@ -59,9 +60,9 @@
 				<td style="text-align:center;">${CRecruitVO.recruitform}</td>
 				<td style="text-align:center;"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
-				<td style="text-align:center;"><span class="badge badge-pill badge-primary">${CRecruitVO.addesc}</span></td>
-				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-info">내이력서</span></a></td>
-				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
+				<td style="text-align:center;"><span class="badge badge-pill">${CRecruitVO.addesc}</span></td>
+				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-success">내이력서</span></a></td>
+				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span><br><span style="cursor:pointer" class="badge badge-pill badge-warning">지원 취소</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 			</tr>
 			</c:forEach>
 		</table>
@@ -96,15 +97,13 @@ $(document).ready(function(){
  		if($(this).text()=='모집완료'){
  			$(this).addClass('');
 		}else if($(this).text()=='모집중'){
-			$(this).addClass('badge-success');
+			$(this).addClass('badge-info');
 		}else{
 			$(this).addClass('badge-warning');
 		} 
 	}); 
 	$(".creadornot").each(function(index){
  		
- 		console.log("아"+$(this).text());
-	 	
  		if($(this).text()=='0'||$(this).text()=='읽지않음'){
  			$(this).text('읽지않음');
  			$(this).addClass('');

@@ -575,7 +575,9 @@ public class CompanyController {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
-		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+		RecruitVO rcvo = service.RecruitInfoRead(recruitNum); 
+		model.addAttribute("RecruitVO", rcvo );
+		
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("PcStateCheck", service.PcStateCheck(id));

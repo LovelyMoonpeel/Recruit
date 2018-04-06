@@ -155,7 +155,7 @@ background-color: #777;
 	<br>
 
 
-	<div class="text-center">
+	<div id="apply_div" class="text-center">
 		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
 		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
 	</div>
@@ -209,14 +209,35 @@ background-color: #777;
 		</div>
 		<!--//modal-dialog -->
 	</div>
-	
+	<input type='hidden' id='RecruitVO_regdate' value='${RecruitVO.regdate}'>
+	<input type='hidden' id='RecruitVO_period' value='${RecruitVO.period}'>
 	<input type="hidden" id="pC" value="<%=pid%>">
 	<!-- 소연 코드 -->
 	<script>
 		$(document).ready(function() {
+			var RecruitVO_regdate = $('#RecruitVO_regdate').val();//현재날짜
+			var RecruitVO_period = $('#RecruitVO_period').val();//마감날짜
+			
+			if(RecruitVO_regdate>RecruitVO_period){
+				$("#applynow").removeClass('btn-primary');
+				$("#applynow").text('지원 마감');
+				$('#applynow').attr('id','applyend');
+				$("#applynow2").removeClass('btn-primary');
+				$("#applynow2").text('지원 마감');
+				$('#applynow2').attr('id','applyend2');
+			}
+			
+			$('#applyend').click(function(){
+				alert('모집이 마감된 채용공고입니다.')
+			});
+			$('#applyend2').click(function(){
+				alert('모집이 마감된 채용공고입니다.')
+			});
+		
 			var formObj = $("form[role = 'form']");
 			var rcno = $("#modal_recruitNum").val();
 			var pid = $("#modal_pid").val();
+			
 			$("#applynow").click(function(e) {
 				
 				if("<%=pid%>"==""&&"<%=cid%>"==""){
@@ -250,8 +271,6 @@ background-color: #777;
 						}//success end
 					})//ajax end
 				}
-				
-				
 				
 			});
 			$("#applynow2").click(function() {
