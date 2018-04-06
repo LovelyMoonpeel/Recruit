@@ -421,7 +421,7 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","all");
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -437,7 +437,8 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectCRList_ongoing(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","ongoing");
+			
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -453,7 +454,8 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectCRList_closed(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","closed");
+			
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -471,7 +473,8 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","all");
+			
 			return "personal/P_applied";
 
 		} else {
@@ -490,7 +493,8 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","ongoing");
+			
 			return "personal/P_applied";
 
 		} else {
@@ -509,7 +513,8 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
-
+			model.addAttribute("controller_value","closed");
+			
 			return "personal/P_applied";
 
 		} else {

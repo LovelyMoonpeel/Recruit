@@ -13,7 +13,7 @@
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
 	
-	<div style = 'width : 100%; height : 190px; border : 1px dotted blue; padding:30px;'>
+	<div style = 'width : 100%; height : 190px; border : 1px solid #c0c6d3; padding:30px;'>
 		<ul>
 			<li>관심 공고로 등록한 채용공고는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
 			<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.<br></li>

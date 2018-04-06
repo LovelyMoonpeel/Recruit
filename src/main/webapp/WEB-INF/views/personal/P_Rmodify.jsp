@@ -27,7 +27,7 @@
 	           	</td>
                 <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
 						<td rowspan="3" class="col-sm-4">
-							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
+							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted #c0c6d3;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> 
 							<!--  사진 보이는 div  --> 

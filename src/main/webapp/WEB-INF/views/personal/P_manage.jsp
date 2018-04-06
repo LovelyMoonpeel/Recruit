@@ -12,7 +12,7 @@
 		
 		<br>
 		<div
-			style='width: 100%; height: 190px; border: 1px dotted blue; padding: 30px;'>
+			style='width: 100%; height: 190px; border: 1px solid #c0c6d3; padding: 30px;'>
 			<ul>
 				<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
 				<li>이력서를 <b>공개</b>하신 회원님께 해당이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.
@@ -22,7 +22,6 @@
 			처리될 수 있습니다.<br><br>
 		</div>
 		<br>
-		
 		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
 		<input type='hidden' id='userid' value='${PUserVO.id}'></input>
@@ -41,7 +40,7 @@
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"><input type="hidden" id="bno${status.index}" class="k${ResumeVO.publicornot}" value="${ResumeVO.bno}"></input></td>
 				<td style="text-align: center;">${ResumeVO.bno }</td>
 				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
-				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}"><input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input></span></a></td>
+				<td style="text-align: center;"><a><span style="cursor:pointer" class="glyphicon publicornot ${ResumeVO.publicornot}"><input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input></span></a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
 			</tr>

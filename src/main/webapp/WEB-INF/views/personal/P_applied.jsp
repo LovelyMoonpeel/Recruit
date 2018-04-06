@@ -17,7 +17,7 @@
 <div class="col-md-9">
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님의 지원 현황</h4>
 	<br>
-	<div style = 'width : 100%; height : 190px; border : 1px dotted blue; padding:30px;'>
+	<div style='width : 100%; height : 190px; border : 1px solid #c0c6d3; padding:30px;'>
 		<ul>
 			<li>[${PUserVO.pname}]님이 지원한 이력서 목록입니다.</li>
 			<li>공고 등록 순서에 따라 정렬됩니다.<br></li>
@@ -26,10 +26,19 @@
 		<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
 	<br>
-	<button id="all_btn" class="btn" onclick="all_recruits()">전체</button>
-	<button id="ongoing_btn" class="btn" onclick="ongoing_recruits()">진행중</button>
-	<button id="closed_btn" class="btn" onclick="closed_recruits()">마감</button>
-	<br><br>
+	<input type="hidden" id="controller_value" value="${controller_value}">
+	<input type="hidden" id="order_value" value="${order_value}">
+	<div class="container col-md-4">
+		<small style="cursor:pointer" id="viewOrder">조회수<span class="order glyphicon glyphicon-chevron-down"> </span></small>
+		| <small style="cursor:pointer" id="appOrder">지원자수<span class="order glyphicon glyphicon-chevron-down"> </span></small>
+		| <small style="cursor:pointer" id="endOrder">마감일<span class="order glyphicon glyphicon-chevron-down"> </span></small>
+	</div>
+	<div class="container col-md-offset-9">
+		<button id="all_btn" class="btn " onclick="all_recruits()">전체</button>
+		<button id="ongoing_btn" class="btn" onclick="ongoing_recruits()">진행중</button>
+		<button id="closed_btn" class="btn" onclick="closed_recruits()">마감</button>
+	</div>
+	<br>
 	<div>
 		<!-- 본 바디 틀 -->
 		<table class="table table-bordered">
@@ -72,7 +81,13 @@ function all_recruits(){//전체
 
 $(document).ready(function(){
 	
-	console.log("각각 무슨 값이냐 "+$(".jobdesc").text());
+	if($("#controller_value").val()=="all"){
+		$("#all_btn").addClass("btn-info");
+	}else if($("#controller_value").val()=="ongoing"){
+		$("#ongoing_btn").addClass("btn-info");
+	}else if($("#controller_value").val()=="closed"){
+		$("#closed_btn").addClass("btn-info");
+	}
 
  	$(".jobdesc").each(function(index){
  		
