@@ -7,6 +7,7 @@
 <!-- 문> 반응형 카드를 위한 아래 두 줄  -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
@@ -16,6 +17,11 @@
 		<strong>채용공고관리</strong>
 	</p>
 	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	
 
 	<!--소스  -->
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
@@ -23,29 +29,29 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<ul class="nav navbar-nav">
-					<li id="btnsState" name="SearchReset" class="active"><a id="btns">전체</a></li>
+					<li id="btnsState" name="SearchReset" class="active"><a id="btns" style="cursor:pointer">전체</a></li>
 				</ul>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li id="btnsState"><a id="btns">진행중</a></li>
-					<li id="btnsState"><a id="btns">마감</a></li>
+<li id="btnsState"><a id="btns" style="cursor:pointer">진행중</a></li>
+<li id="btnsState"><a id="btns" style="cursor:pointer">마감</a></li>
 				</ul>
-				<div class="input-group" style="padding-top: 10px">
-					<div class="input-group-btn" style="">
-						<select class="form-control selectpciker" name="searchType" style="width: 120px">
-							
+				<div class="input-group" >
+					<div class="input-group-btn" style="vertical-align:middle">
+						<select class="selectpicker" name="searchType" style="width:50px;">
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
 							<option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option>
 						</select>
 					</div>
 					<!-- /btn-group -->
-					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> 
+					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
 					</span>
-					<ul class="nav navbar-nav navbar-right">
-						<select class="form-control" id="perPageNum" style="width: 120px">
+					<ul class="nav navbar-nav navbar-right" style="vertical-align:middle">
+						<select class="selectpicker" id="perPageNum" style="width: 120px">
 							<option value="5" selected>5개씩보기</option>
 							<option value="10">10개씩보기</option>
 							<option value="20">20개씩보기</option>
@@ -60,7 +66,7 @@
 	<nav class="navbar-default" style="margin-bottom: 15px;">
 		<div class="container-fluid" style="padding-bottom: 1px; padding-top: 1px;">
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<small id="viewOrder">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder">마감일순</small><span name="orders" id="endIcon" class=""></span>
+			<small id="viewOrder" style="cursor:pointer">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder" style="cursor:pointer">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder" style="cursor:pointer">마감일순</small><span name="orders" id="endIcon" class=""></span>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 		</div>
 		<!-- /.container-fluid -->
@@ -106,6 +112,7 @@
 			</tr>
 		</thead>
 		<tbody id="recruitList">
+		
 		</tbody>
 	</table>
 	<div class="text-center">
@@ -148,14 +155,18 @@
         <div class="modal-body">
          
          	 <table class="table table-striped" >
+         	 <thead class=active>
           <tr class=active>
           <th>이름</th>
           <th>이력서 요약</th>
           <th>업데이트일</th>
           </tr>
-          <tbody id="recomList">
+          </thead>
+          
+          <tbody id="appList">
           
           </tbody>
+          
           </table>
           
         </div>
@@ -595,14 +606,14 @@ var formObj = $("form[role='form']");
 							
 							if(i < length){
 								str += "<tr><th rowspan=2 ><span class=badge>"+this.recruitstate+"</span></th>"
-								+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 										+"<li>근무형태 : "+this.employstatusid+"</li>"
 										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 										+"<li>경력 : "+this.exp+"</li>"
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 										+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
-										+"<tr><th>최근수정 : "+this.regdate+" (담당자:++)</th><th></th><th></th></tr>"
+										+"<tr><th>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th><th></th><th></th></tr>"
 								}else{
 									
 				 					if(this.prev){
@@ -674,7 +685,7 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
@@ -743,7 +754,7 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a id=nw href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
@@ -782,7 +793,15 @@ var formObj = $("form[role='form']");
 				}
 	</script>
 	
-	
+	<script>
+	$(document).on("click", "#aP", function(){
+		
+		window.open(this.href, '', 'width=1000, height=960');
+		
+		return false;
+		
+	})
+	</script>
 	<script> /* 모달용 스크립트 */
 $(document).on("click", "button[name=onLoad]", function() {
 	
@@ -795,31 +814,37 @@ $(document).on("click", "button[name=onLoad]", function() {
 	function PersonList(bno){
 		
 		
-		$.getJSON("/companyAjax/personList/" + bno, function(data) {
+		$.getJSON("/companyAjax/applyList/" + bno, function(data) {
 			var str = "";
-			var comparison = [];
+			var chr = "";
 			
-			$(data).each(
-					function() {
+			
+			$(data).each(function() {
 						
-						str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
-						+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
-						+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
-						+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+
+						str += "<tr>"
+						+"<th>"+this.img+"**</th>"
+						+"<th><span class=careerLine>경력 3년 5개월</span><br>"
+						+"<a id=aP class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+						+""+this.title+"</a><br>"
+						+""+this.coverletter+""+this.rgbid+"</th><th>1분전</th></tr>"
 						
-						comparison.push(this.bno)
-						
+					 
+				
+		
+		
+			
+				
 					});
 			
-			$("#recomList").html(str);
 			
-		
-			favorComparison(comparison)
+			
+		 	$("#appList").html(str);
+		 	$("#appList").html(chr);
 			
 		})
 		
-		
-		
+	
 	}
 	
 })

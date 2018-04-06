@@ -6,6 +6,15 @@
 
 <%@include file="../include/cheader.jsp"%>
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	
+
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <!-- <div class="col-md-9"> -->
@@ -26,24 +35,40 @@
 	<div class="col-md-9">
 		<p class="lead"><strong>채용공고목록에 따른 추천인재</strong></p>
 	
-		<div class='box-body'>
+		<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse">
+				
+				<div class="input-group" >
+					<div class="input-group-btn" style="vertical-align:middle">
 
-					<select name="searchType">
-						<option value="n"
-							<c:out value="${cri.searchType == null?'selected':''}"/>>
-							---</option>
+					<select class="selectpicker" name="searchType">
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
 							공고제목</option>
 						<option value="c"
 							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
 							담당자</option>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }'>
-					<button id='searchBtn'>Search</button>
-				
-
+				</select>
 				</div>
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+					</span>
+					
+				</div>
+				
+				
+				<!-- /.navbar-collapse -->
+			</div>
+		
+			<!-- /.container-fluid -->
+	</nav>
+
 	<table class="table table-bordered">
 		<tr class="active">
 			<th>공고 상태</th>
@@ -282,6 +307,15 @@ $(document).ready(
 				
 		})
 </script>
+
+<script>
+			 $("#keywordInput").keypress(function (e) {
+			        if (e.which == 13){
+			        	
+			        	$('#searchBtn').trigger('click');
+			        }
+			    });
+			</script>
 
 
 <!-- //기업 페이지 -->

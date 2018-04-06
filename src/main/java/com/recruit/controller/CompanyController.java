@@ -350,13 +350,17 @@ public class CompanyController {
 			String jobdesc2 = jobdesc.replace("<", "&lt;");
 			String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
 			String jobdesc4 = jobdesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
-																// 변환
+															   // 변환
 
 			model.addAttribute("adddesc", adddesc4);
 			model.addAttribute("jobdesc", jobdesc4);
 
 			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
-			model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+			if(login==null){
+				model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+			}else{
+				model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum,login));
+			}
 			model.addAttribute("ApplyList", service.ApplyList(recruitNum));
 
 			return "/company/C_recruitInfo";
@@ -401,13 +405,11 @@ public class CompanyController {
 
 		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
+
 		/* 문> 원래는 return "redirect:/company/C_recruitInfo?recruitNum=" + recruitModify.getBno();
 		 * 그런데 아래 코드로 바꿔서 수정 후 수정하기 전 화면으로 보냈음
 		 */
 		return "/company/C_manage";
-		
-		
-
 	}
 
 	@RequestMapping(value = "/C_recruitReregister", method = RequestMethod.GET)
@@ -576,8 +578,25 @@ public class CompanyController {
 		// 안소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
+		String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
+		String adddesc2 = adddesc.replace("<", "&lt;");
+		String adddesc3 = adddesc2.replace("\r\n", "<br>");
+		String adddesc4 = adddesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
+															// 변환
+		String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
+		String jobdesc2 = jobdesc.replace("<", "&lt;");
+		String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
+		String jobdesc4 = jobdesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
+														   // 변환
+
+		model.addAttribute("adddesc", adddesc4);
+		model.addAttribute("jobdesc", jobdesc4);
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
+		if(login==null){
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+		}else{
+		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum,login));
+		}
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("PcStateCheck", service.PcStateCheck(id)); // 기업
@@ -664,13 +683,17 @@ public class CompanyController {
 		// 문> BoardVO(회원가입시 받은 정보)의 login 정보를 데리고 온다.
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
+		System.out.println("★★★★★★");
 		// 문> 가지고 온 login값에서 id값을 LoginDTO에 넣어주겠다.
 		dto.setId(login.getId());
 
+		System.out.println("★★★★★★★★★★★★");
 		// 문> dto를 가지고 service를 돌린다.
 		service.updateCpPw(dto);
 
-		return "/company/C_pass"; // 확인을 누른다음 보여주는 페이지
+		System.out.println("★★★★★★★★★★★★★★★★★★");
+		// 문> redirect:가 없으면 바로 페이지를 찾는데 redirect:를 쓰면 컨트롤러에 해당 주소만 있으면 된다.
+		return "redirect:/user/logout"; // 확인을 누른다음 보여주는 페이지
 	}
 
 	S3Util s3 = new S3Util();

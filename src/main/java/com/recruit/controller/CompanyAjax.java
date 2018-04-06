@@ -587,4 +587,20 @@ public class CompanyAjax {
 		System.out.println("return entity : " + entity);
 		return entity;
 	}
+	
+	@RequestMapping(value = "/applyList/{bno}", method = RequestMethod.GET)
+	public ResponseEntity<List<ResumeVO>> appList(@PathVariable("bno") int bno){
+	
+		ResponseEntity<List<ResumeVO>> entity = null;
+		System.out.println("bno"+bno);
+		try {
+			entity = new ResponseEntity<>(jobService.ApplyList(bno), HttpStatus.OK);
+			
+			System.out.println("entity"+entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;	
+	}
 }

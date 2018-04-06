@@ -212,22 +212,25 @@
 	// 문> 여기서 #은 id값을 의미함 .은 class
 	// 그런데 ()앞에 $가 있어야 한다.
     if ($('#imgsrccheck').val() != "") {
+    	 
         console.log(" val이 널값아님");
         
         // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
         $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
-        
+       
         // 문> str쓰기 위해서 선언, 변수를 쓸때는 항상 선언부터 한다.
         var str = "";
+        console.log("요기여기"+'${CInfoVO.img}');
         
-        // 문> 사진 밑에 쓰여지는 문구가 NoImage일 때는 문구가 안 보이게 하는 코드 
-        if(src == ""){
-        	str = "";    
-        }else{
+        var hoho = "";
+        hoho = '${CInfoVO.img}'; 
+        console.log("hoho: "+ hoho);
+     
         	str = "<a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
         
         // 문> 컨텐츠를 선택된 요소 내부의 끝 부분에서 삽입, 즉,사진 밑에 문구를 삽입 
         // uploadedList는 사진 id
+
         $("#uploadedList").append(str);
 
 
@@ -244,13 +247,14 @@
         });
         
         // 문Q> preexistenceimg은 왜 쓴걸까????
-        $("#preexistenceimg").val("1");}
+        $("#preexistenceimg").val("1");/* } */
     } else {
         // 문> 아래 내용은 위 내용 참고
         console.log(" val이 널값이다");
         $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
         $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
         $("#preexistenceimg").val("0");
+      
     }
 
     // 문Q> fileupload를 가져와서 upload에 넣는 거 같은데.. 잘 모르겠음

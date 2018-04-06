@@ -93,7 +93,7 @@
 	
 	<div class="row">
   <c:forEach items="${RecruitList}" var="list">
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-6 col-md-4 divBox" >
      
     <div class="thumbnail">
 
@@ -107,7 +107,13 @@
     </c:forEach>
 </div>
 			
+<style>
+.divBox{
 	
+	min-height: 150px;
+	
+}
+</style>	
 
 
 
