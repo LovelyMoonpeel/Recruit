@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/uheader.jsp"%>
-<div class="col-md-9">
+<!-- <div class="col-md-9"> -->
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
 <h2>비밀번호 찾기</h2>
 <form action="PWsearch" method="POST">

@@ -33,15 +33,49 @@
 
 	<%@include file="../include/jheader.jsp"%>
 
-	<!-- Page Content -->
-	<div class="container">
+	<div class="container-fluid">
+		<div class="row">
+			<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+				<div class="profile-sidebar">
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">회원정보 확인</div>
+						<div class="profile-usertitle-status">
+							<span class="indicator label-danger"></span>OFFLINE
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<ul class="nav menu list-group">
+					<li><a href="/user/IDsearch" id="IDsearch" class="hover">아이디 찾기</a></li>
+					<li><a href="/user/PWsearch" id="PWsearch" class="hover">비밀번호 찾기</a></li>
+				</ul>
+				<!-- 				<div class="list-group">
+					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
+						class="list-group-item">Q&A</a>
+				</div> -->
+			</div>
+			
+<script>
+var path = window.location.pathname.substr(6,8);
+var id = $("#IDsearch");
+var pw = $("#PWsearch");
+
+if(id.attr("id")==path){
+	id.addClass("chk_active");
+}
+if(pw.attr("id")==path){
+	pw.addClass("chk_active");
+}
+</script>
+ 	<!-- Page Content -->
+<!--	<div class="container">
 
 		<div class="row">
 
 			<div class="col-md-3">
 				<p class="lead">회원정보 확인</p>
 				<div class="list-group">
-					<a href="/user/IDsearch" class="list-group-item">아이디 찾기</a> <a
-						href="/user/PWsearch" class="list-group-item">비밀번호 찾기</a>
+					<a href="/user/IDsearch" class="list-group-item">아이디 찾기</a>
+					<a href="/user/PWsearch" class="list-group-item">비밀번호 찾기</a>
 				</div>
-			</div>
+			</div> -->

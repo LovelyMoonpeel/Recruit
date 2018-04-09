@@ -289,21 +289,23 @@ $("#replyDelBtn").on("click",function(){
 	var content = $("#content").val();
 	var bno = $("#bno").val();
 	
-	$.ajax({
-		type:'delete',
-		url:'/replies/'+bno+"/"+rno,
-		headers:{
-			"Content-Type": "application/json; charset=UTF-8",
-			"X-HTTP-Method-Override":"PUT"},
-		dataType:'text',
-		success:function(result){
-			console.log("result: "+ result);
-			if(result == 'success'){
-				alert("삭제 되었습니다.");
-				getPage("/replies/all/"+bno);
+	if(confirm("삭제하시겠습니까?")){
+		$.ajax({
+			type:'delete',
+			url:'/replies/'+bno+"/"+rno,
+			headers:{
+				"Content-Type": "application/json; charset=UTF-8",
+				"X-HTTP-Method-Override":"PUT"},
+			dataType:'text',
+			success:function(result){
+				console.log("result: "+ result);
+				if(result == 'success'){
+					alert("삭제 되었습니다.");
+					getPage("/replies/all/"+bno);
+				}
 			}
-		}
-	})
+		})
+	}
 })
 
 

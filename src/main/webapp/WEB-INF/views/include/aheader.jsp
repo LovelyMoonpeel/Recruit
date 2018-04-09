@@ -113,22 +113,22 @@
 		</div>
 		<ul class="nav menu list-group">
 		<li>
-			<a href="/admin/main" name='sideBtns' id="main pmodify resmodify">개인관리</a>
+			<a href="/admin/main" class="hover" name='sideBtns' id="main pmodify resmodify"><span class="glyphicon glyphicon-user"></span> 개인관리</a>
 		</li>
 		<li>
-			<a href="/admin/company" name='sideBtns' id="company cmodify rmodify">기업관리</a>
+			<a href="/admin/company" class="hover" name='sideBtns' id="company cmodify rmodify"><span class="glyphicon glyphicon-briefcase"></span> 기업관리</a>
 		</li>
 		<li>
-			<a href="#" name='sideBtns' id="cc">통계</a>
+			<a href="#" class="hover" name='sideBtns' id="cc"><span class="glyphicon glyphicon-stats"></span> 통계</a>
 		</li>
 		<li>
-			<a href="/admin/amodify" name='sideBtns' id="amodify">관리자정보수정</a>
+			<a href="/admin/amodify" class="hover" name='sideBtns' id="amodify"><span class="glyphicon glyphicon-wrench"></span> 관리자정보수정</a>
 		</li>
 		<li>
-			<a href="/admin/faq" name='sideBtns' id="faq faqmod faqreg">FAQ</a>
+			<a href="/admin/faq" class="hover" name='sideBtns' id="faq faqmod faqreg"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
 		</li>
 		<li>
-			<a href="/admin/qna" name='sideBtns' id="qna qnamod">Q&A</a>
+			<a href="/admin/qna" class="hover" name='sideBtns' id="qna qnamod"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
 		</li>
 		</ul>
 	</div>

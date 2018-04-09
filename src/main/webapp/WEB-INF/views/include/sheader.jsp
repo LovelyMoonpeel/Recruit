@@ -59,8 +59,8 @@
 					<div class="clear"></div>
 				</div>
 				<ul class="nav menu list-group">
-					<li><a href="/cs/faq" id="faq" value="/cs/faq">FAQ</a></li>
-					<li><a href="/cs/qna" id="qna" value="/cs/qna">Q&A</a></li>
+					<li><a href="/cs/faq" class="hover" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a></li>
+					<li><a href="/cs/qna" class="hover" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a></li>
 				</ul>
 				<!-- 				<div class="list-group">
 					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"

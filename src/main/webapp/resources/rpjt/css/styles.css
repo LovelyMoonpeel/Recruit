@@ -725,10 +725,10 @@ position: relative;
 /* padding-bottom: 19px; footer height */
 }
 
-.nav>li>a:focus, .nav>li>a:hover{
+.hover:hover{
   color: #fff !important; 
   text-decoration: none;
-  background-color: #30a5ff;
+  background-color: #30a5ff !important;
 }
 
 .pagination>.active>a{
