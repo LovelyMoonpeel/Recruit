@@ -94,19 +94,20 @@
                  <tr>
                    <th>모집직종</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 30%; ">
                   <label for="jobgroupid">대분류</label> 
-                     <select id="jobGroup" class="form-control" name="jobgroupid" >
-                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
-                           <c:if test="${JobGroupVO.id2 == 0}">
-                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
-                           </c:if>
-                        </c:forEach>
-                     </select>          
-                  <br>
-                  <label for="jobgroupid">소분류</label> 
-                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
-                     </select>
+                  <select id="jobGroup" class="form-control" name="jobgroupid" >
+                     <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                        <c:if test="${JobGroupVO.id2 == 0}">
+                           <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                        </c:if>
+                     </c:forEach>
+                  </select>    
+                  </div>
+                  <div style="float: left; width: 30%; ">      
+	              	  <label for="jobgroupid">소분류</label> 
+	                  <select id="subjobGroup" class="form-control" name="jobgroupid2">
+	                  </select>
                   </div>
                </td>
             </tr>
@@ -114,7 +115,7 @@
             <tr>
                <th>희망근무형태</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-4">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
                         <option value="102">선택</option>
@@ -132,15 +133,17 @@
             <tr>
                    <th>희망근무지</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%; ">
                      <label for="jobgroupid">시/도</label> 
-                        <select id="region" class="form-control" name='rgbid'>
-                           <c:forEach items="${RegionVOlist}" var="RegionVO">
-                              <option value="${RegionVO.rgbid}" 
-                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
-                              >${RegionVO.rgbname}</option>
-                           </c:forEach>
-                        </select>
+                     <select id="region" class="form-control" name='rgbid'>
+                        <c:forEach items="${RegionVOlist}" var="RegionVO">
+                           <option value="${RegionVO.rgbid}" 
+                           <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                           >${RegionVO.rgbname}</option>
+                        </c:forEach>
+                     </select>
+                  </div>
+                  <div style="float: left; width: 30%; ">
                      <label for="jobgroupid">시/군/구</label> 
                      <select id="subRegion" class="form-control" name='rgsid'>
                      </select>
@@ -168,40 +171,39 @@
          </table>
           </div>
       <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
-	<hr style="border: solid 1px #ccc;">
-      <h4>
-         <b>학력사항</b>
-         <div class="form-group col-md-3">
-         <select class="form-control" name=levelofeducation id="CodeList2">
-         	 <option value="102">선택</option>
-             <c:forEach items="${CodeVOlist }" var="CodeVO">
-                <c:if test="${CodeVO.tid == 2 }">
-                   <c:if test="${CodeVO.id<=13 }">
-                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-                   </c:if>
-                </c:if>
-             </c:forEach>
-          </select>
-          </div>
-      </h4>
-      <div id="edu_div"></div>
-      <hr style="border: solid 1px #ccc;">
-      <h4>
-         <b>경력사항</b>
-         <div class="form-group col-md-3">
-         <select class="form-control" name="lastcareer" id="CodeList1">
-        	 <option value="102">선택</option>
-             <c:forEach items="${CodeVOlist }" var="CodeVO">
-                <c:if test="${CodeVO.tid == 1 }">
-                   <c:if test="${CodeVO.id<=7 }">
-                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
-                   </c:if>
-                </c:if>
-             </c:forEach>
-          </select>
-          </div>
-      </h4>
-      <div id="exp_div"></div>
+     	<hr style="border: solid 4px #ccc;">
+		<div style="font-size:18px;" class="form-group col-md-2"><b>학력 사항</b></div>
+		<div class="form-group col-md-2"><label for="edustatus">최종학력</label></div>
+		<div class="form-group col-md-3">
+		<select class="form-control" name=levelofeducation id="CodeList2">
+			<option value="102">선택</option>
+			<c:forEach items="${CodeVOlist }" var="CodeVO">
+				<c:if test="${CodeVO.tid == 2 }">
+					<c:if test="${CodeVO.id<=13 }">
+						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</select>
+		</div>
+		<div id="edu_div"></div>
+		
+		<hr style="border: solid 4px #ccc;">
+		<div style="font-size:18px;" class="form-group col-md-2"><b>경력 사항</b></div>
+		<div class="form-group col-md-2"><label for="career">경력</label>	</div>
+		<div class="form-group col-md-3">
+		<select class="form-control" name="lastcareer" id="CodeList1">
+			<option value="102">선택</option>
+			<c:forEach items="${CodeVOlist }" var="CodeVO">
+				<c:if test="${CodeVO.tid == 1 }">
+					<c:if test="${CodeVO.id<=7 }">
+						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</select>
+		</div>
+     	<div id="exp_div"></div>
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<!-- end of r.code -->
@@ -356,7 +358,7 @@
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
