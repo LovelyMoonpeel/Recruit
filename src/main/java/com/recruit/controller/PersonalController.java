@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.PApplyVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
@@ -39,6 +40,7 @@ import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.CompanyService;
+import com.recruit.service.PApplyService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
 import com.recruit.service.PWebSiteService;
@@ -92,7 +94,10 @@ public class PersonalController {
 
 	@Inject
 	private CompanyService parkService;
-
+	
+	@Inject
+	private PApplyService PAPService;
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -301,23 +306,31 @@ public class PersonalController {
 			String id = login.getId();
 			// Apply
 			if (true) {// Apply id랑 일치하는지 확인하는 서비스 필요
-				model.addAttribute("PUserVO", service.selectPUser(id));
-				model.addAttribute("ResumeVO", Rservice.readROne(bno));
+				try{//없는 이력서 번호라서 null point뜰 경우
+					model.addAttribute("PUserVO", service.selectPUser(id));
+					model.addAttribute("ResumeVO", Rservice.readROne(bno));
+					
+					model.addAttribute("PTellist", Telservice.selectPTelList(bno));
+					model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
+					model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
+					model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
 
-				model.addAttribute("PTellist", Telservice.selectPTelList(bno));
-				model.addAttribute("RLicenselist", Licenseservice.selectRLicenseList(bno));
-				model.addAttribute("RLanguagelist", Langservice.selectResumeLanguageList(bno));
-				model.addAttribute("PWebSitelist", Webservice.selectPWebSiteList(bno));
+					model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
+					model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
-				model.addAttribute("eduVOlist", Eduservice.readResumeEduList(bno));
-				model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
-
-				model.addAttribute("resumeRead", Rservice.resumeRead(bno));
-
-				if (login.getCname() != null) {
-					model.addAttribute("FavorCompareList", parkService.FavorCompareList(id));
+					model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+					
+					if (login.getCname() != null) {
+						model.addAttribute("FavorCompareList", parkService.FavorCompareList(id));
+					}
+					
+					return "personal/P_detail_nonavi";
+					
+				}catch(Exception e){
+					model.addAttribute("PUserVO", service.selectPUser(id));
+					
+					return "redirect:/personal/detail_nonavi_exception?bno="+bno;
 				}
-				return "personal/P_detail_nonavi";
 			} else {
 				rttr.addFlashAttribute("msg", "login");
 				return "redirect:/";
@@ -327,7 +340,23 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
+	
+	// 이력서 하나 읽기
+	@RequestMapping(value = "/detail_nonavi_exception", method = RequestMethod.GET)
+	public String detail_nonavi_exceptionGET(int bno, Model model, HttpSession session, RedirectAttributes rttr)
+			throws Exception {
 
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			model.addAttribute("bno", bno);
+			return "/personal/P_detail_nonavi_exception";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
 	// 선택한 이력서 수정하는 페이지
 	@RequestMapping(value = "/Rmodify", method = RequestMethod.GET)
 	public String RmodifyGET(PUserVO puser, Integer bno, Model model, HttpSession session, RedirectAttributes rttr)
@@ -466,11 +495,11 @@ public class PersonalController {
 	// 지원현황리스트
 	@RequestMapping(value = "/applied", method = RequestMethod.GET)
 	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
-
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-
+			
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","all");
@@ -481,6 +510,27 @@ public class PersonalController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value = "/apply_cancel", method = RequestMethod.POST)
+	public ResponseEntity<String> apply_cancel(HttpSession session, @RequestBody PApplyVO pavo) {
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			System.out.println("라라"+pavo.getPid());
+			System.out.println(pavo.getRcno());
+			PAPService.deleteAPOne(pavo);
+			//deleteAPOne
+			entity= new ResponseEntity<String>("deleted", HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			entity= new ResponseEntity<String>("error", HttpStatus.OK);
+		}
+
+		return entity;
 	}
 
 	// 지원현황리스트

@@ -11,4 +11,7 @@ public interface PApplyDAO {
 	public String readornotAPOne(PApplyVO pavo)throws Exception;
 	
 	public void CreadAPOne(PApplyVO pavo)throws Exception;
+	
+	public void deleteAPOne(PApplyVO pavo)throws Exception;
+	
 }

@@ -12,7 +12,7 @@
 </style>
 <!-- Main content -->
 <form role="form">
-		<input type='hidden' name='id' value="${PUserVO.id}">
+		<input type='hidden' name='id' id='apply_pid' value="${PUserVO.id}">
 </form>
 <!-- 지원현황 페이지 -->
 <div class="col-md-9">
@@ -62,7 +62,9 @@
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 				<td style="text-align:center;"><span class="badge badge-pill">${CRecruitVO.addesc}</span></td>
 				<td style="text-align:center;"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-success">내이력서</span></a></td>
-				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span><br><span style="cursor:pointer" class="badge badge-pill badge-warning">지원 취소</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
+				<td style="text-align:center;"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span>
+				<input type="hidden" id="apply_bno${status.index }" value="${CRecruitVO.bno}">
+				<br><span style="cursor:pointer" class="badge badge-pill badge-warning apply_cancel">지원 취소</span></td><!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 			</tr>
 			</c:forEach>
 		</table>
@@ -115,6 +117,37 @@ $(document).ready(function(){
 			$(this).addClass('badge-warning');
 		} 
 	});
+	
+	$( ".apply_cancel" ).each(function(index) {
+		
+		var apply_bno = $("#apply_bno"+index).val();
+		var apply_pid = $("#apply_pid").val();
+		
+	    $(this).on("click", function(){
+	    	
+			$.ajax({
+			    type:'post',
+			    url:'/personal/apply_cancel',
+			    headers:{
+			       "Content-Type":"application/json",
+			       "X-HTTP-Method-Override" : "POST"
+			    },
+			    dataType:'text',
+			    data:JSON.stringify({
+			       rcno : apply_bno,
+			       pid : apply_pid 
+			    }),
+			    success:function(result){
+			       if(result=='deleted'){
+			          alert("지원취소 되었습니다.");
+			      		self.location="/personal/applied";
+			       }else{
+			          alert("뭔가 잘못됨 else문으로 들어옴");
+			       }
+			    }//success end
+			 });//ajax end
+	    });//on click end
+	});//apply_cancel.each end
 });
 </script>
 

@@ -787,7 +787,7 @@ $(document).ready(function(){
 					  
 					 	console.log(data);
 							  str = 
-								  "<a id='ORIGINAL'>크게보기</a>"
+								  "<a id='ORIGINAL'><br>크게보기</a>"
 								  +"<small data-src="+data+">X</small>";  
 
 					  $("#uploadedList").append(str); 

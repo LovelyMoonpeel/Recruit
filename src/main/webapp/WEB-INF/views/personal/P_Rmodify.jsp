@@ -602,7 +602,7 @@ $(document).ready(function() {
 		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 		var str = "";
 		str = 
-			  "<a id='ORIGINAL'>크게보기</a>"
+			  "<a id='ORIGINAL'><br>크게보기</a>"
 			  +"<small data-src=${ResumeVO.img}>X</small>";
 			  
 		  $("#uploadedList").append(str); 
