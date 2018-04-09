@@ -431,7 +431,7 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 
 			return "personal/P_recom";
@@ -442,15 +442,22 @@ public class PersonalController {
 	}
 
 	// 관심채용공고
-	@RequestMapping(value = "/favor", method = RequestMethod.GET)
-	public String favorGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+	@RequestMapping(value = "/favor_all", method = RequestMethod.GET)
+	public String favorGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id));
+			
+			if(order_value==null){
+				order_value="viewcnt_order";
+			}
+			
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","all");
+			
+			model.addAttribute("order_value",order_value);
+			
 			return "personal/P_favor";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -459,14 +466,20 @@ public class PersonalController {
 	}
 	// 관심채용공고
 	@RequestMapping(value = "/favor_ongoing", method = RequestMethod.GET)
-	public String favor_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+	public String favor_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList_ongoing(id));
+			
+			if(order_value==null){
+				order_value="viewcnt_order";
+			}
+			
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList_ongoing(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","ongoing");
+			
+			model.addAttribute("order_value",order_value);
 			
 			return "personal/P_favor";
 		} else {
@@ -476,14 +489,19 @@ public class PersonalController {
 	}
 	// 관심채용공고
 	@RequestMapping(value = "/favor_closed", method = RequestMethod.GET)
-	public String favor_closedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+	public String favor_closedGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList_closed(id));
+			
+			if(order_value==null){
+				order_value="viewcnt_order";
+			}
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList_closed(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","closed");
+			
+			model.addAttribute("order_value",order_value);
 			
 			return "personal/P_favor";
 		} else {
@@ -527,8 +545,10 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="applicant_order";
 			}
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","ongoing");
+			model.addAttribute("order_value",order_value);
 			
 			return "personal/P_applied";
 
@@ -549,9 +569,10 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="applicant_order";
 			}
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id));
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","closed");
+			model.addAttribute("order_value",order_value);
 			
 			return "personal/P_applied";
 

@@ -62,7 +62,7 @@
 				<td style="text-align:center; vertical-align:middle">${CRecruitVO.recruitform}</td>
 				<td style="text-align:center; vertical-align:middle"><a href = '/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a></td>
 				<td style="text-align:center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
-				<td style="text-align:center; vertical-align:middle"><span class="badge badge-pill">${CRecruitVO.addesc}</span></td>
+				<td style="text-align:center; vertical-align:middle"><span class="badge badge-pill">${CRecruitVO.adddesc}</span></td>
 				<td style="text-align:center; vertical-align:middle"><a href = '/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}' onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span class="badge badge-pill badge-success">내이력서</span></a></td>
 				<td style="text-align:center; vertical-align:middle"><span class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span>
 				<input type="hidden" id="apply_bno${status.index }" value="${CRecruitVO.bno}">
@@ -104,7 +104,6 @@ $(document).ready(function(){
 	}
 	
 	if($("#order_value").val()=="applicant_order"){
-		//td 색칠
 		$("#applicant_order_icon").removeClass();
 		$("#applicant_order_icon").addClass("glyphicon glyphicon-chevron-up");
 		$("#applicant_order").css("font-weight","bold");
@@ -112,8 +111,6 @@ $(document).ready(function(){
 		$("#applicant_th").css("background-color","#bbdefb");
 		
 	}else if($("#order_value").val()=="closingdate_order"){
-		//지원자수 볼드
-		//td 색칠
 		$("#closingdate_order_icon").removeClass();
 		$("#closingdate_order_icon").addClass("glyphicon glyphicon-chevron-up");
 		$("#closingdate_order").css("font-weight","bold");
@@ -121,7 +118,6 @@ $(document).ready(function(){
 		$("#closingdate_th").css("background-color","#bbdefb");
 	}
 		
-	
  	$(".jobdesc").each(function(index){
  		
  		if($(this).text()=='모집완료'){
