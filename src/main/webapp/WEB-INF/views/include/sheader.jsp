@@ -31,20 +31,19 @@
 
 <body>
 	<%@include file="../include/jheader.jsp"%>
-<%
-String button = "danger";
-String on_off = "Offline";
+	<%
+		String button = "danger";
+		String on_off = "Offline";
 
-	try{
-		if(login != null){
-			button = "success";
-			on_off = "Online";
+		try {
+			if (login != null) {
+				button = "success";
+				on_off = "Online";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	
-%>
+	%>
 
 	<!-- Page Content -->
 	<div class="container-fluid">
@@ -54,13 +53,30 @@ String on_off = "Offline";
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">고객센터</div>
 						<div class="profile-usertitle-status">
-							<span class="indicator label-<%=button%>"></span><%=on_off %>
+							<span class="indicator label-<%=button%>"></span><%=on_off%>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>
-				<div class="list-group">
+				<ul class="nav menu list-group">
+					<li><a href="/cs/faq" id="faq" value="/cs/faq">FAQ</a></li>
+					<li><a href="/cs/qna" id="qna" value="/cs/qna">Q&A</a></li>
+				</ul>
+				<!-- 				<div class="list-group">
 					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
 						class="list-group-item">Q&A</a>
-				</div>
+				</div> -->
 			</div>
+			
+<script>
+var path = window.location.pathname.substr(4,3);
+var faq = $("#faq");
+var qna = $("#qna");
+
+if(faq.attr("id")==path){
+	faq.addClass("chk_active");
+}
+if(qna.attr("id")==path){
+	qna.addClass("chk_active");
+}
+</script>

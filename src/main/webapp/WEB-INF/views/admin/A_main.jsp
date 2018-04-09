@@ -24,7 +24,7 @@
 			<td>${BoardVO.pname}</td>
 			<td>${BoardVO.email}</td>
 			<td>${BoardVO.birth}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/pmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
 		</tr>
 	</c:forEach>
 			

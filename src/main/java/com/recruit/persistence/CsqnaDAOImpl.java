@@ -30,6 +30,7 @@ public class CsqnaDAOImpl implements CsqnaDAO {
 
 	@Override
 	public void update(CsqnaVO vo) throws Exception {
+		System.out.println("DAO test : "+vo);
 		session.update(namespace + ".update", vo);
 	}
 

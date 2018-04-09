@@ -33,7 +33,7 @@
 							<!--  사진 보이는 div  --> 
 							<input id='imgsrccheck' type='hidden' value="${ResumeVO.img}" /> 
 							<!-- db에 있는 file img 이름 받아오는 hidden input -->
-							<input type='hidden' id='uploadfilename' name='img' value=''> 
+							<input type='hidden' id='uploadfilename' name='img' value='${ResumeVO.img}'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
 							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
@@ -234,7 +234,7 @@
 	    </div> 
   	</form>
 		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">수정</button>
-		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/admin/modify?id=${ResumeVO.userid}';" type="button">취소</button>
+		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/admin/pmodify?id=${ResumeVO.userid}';" type="button">취소</button>
 </div>
 <!-- 소연 모달 -->
 <div class="modal" id="ORIGINAL_modal">

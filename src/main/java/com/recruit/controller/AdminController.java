@@ -128,13 +128,13 @@ public class AdminController {
 		return "/admin/A_main";
 	}
 
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	@RequestMapping(value = "/pmodify", method = RequestMethod.GET)
 	public String modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
 		model.addAttribute("BoardVO", aservice.read(id));
 		model.addAttribute("reslist", rservice.selectRList(id));
 		
-		return "/admin/A_modify";
+		return "/admin/A_pmodify";
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
@@ -250,6 +250,7 @@ public class AdminController {
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna get..........");
+		System.out.println(qservice.listCriteria(cri));
 		model.addAttribute("list", qservice.listCriteria(cri));
 		CsqnaPageMaker pageMaker = new CsqnaPageMaker();
 		pageMaker.setCri(cri);
@@ -285,7 +286,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/qremove", method = RequestMethod.POST)
 	public String qnaremove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception {
-		fservice.remove(bno);
+		qservice.remove(bno);
 
 		rttr.addFlashAttribute("msg", "remove");
 

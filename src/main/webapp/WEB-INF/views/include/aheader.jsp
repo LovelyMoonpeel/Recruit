@@ -111,54 +111,42 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="list-group">
-			<a href="/admin/main" class="list-group-item">개인관리</a> <a
-				href="/admin/company" class="list-group-item">기업관리</a>
-				<a href="#"	class="list-group-item">통계</a>
-				<a href="/admin/amodify" class="list-group-item">관리자정보수정</a>
-				<a href="/admin/faq" class="list-group-item">FAQ</a>
-				<a href="/admin/qna" class="list-group-item">Q&A</a>
-		</div>
-	</div>
-
-	<!-- <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<div class="profile-sidebar">
-			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
-			</div>
-			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">Username</div>
-				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="divider"></div>
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
-		<ul class="nav menu">
-			<li><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="widgets.html"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
-			<li class="active"><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-			<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
-			<li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-				<em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-					</a></li>
-				</ul>
-			</li>
-			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		<ul class="nav menu list-group">
+		<li>
+			<a href="/admin/main" name='sideBtns' id="main pmodify resmodify">개인관리</a>
+		</li>
+		<li>
+			<a href="/admin/company" name='sideBtns' id="company cmodify rmodify">기업관리</a>
+		</li>
+		<li>
+			<a href="#" name='sideBtns' id="cc">통계</a>
+		</li>
+		<li>
+			<a href="/admin/amodify" name='sideBtns' id="amodify">관리자정보수정</a>
+		</li>
+		<li>
+			<a href="/admin/faq" name='sideBtns' id="faq faqmod faqreg">FAQ</a>
+		</li>
+		<li>
+			<a href="/admin/qna" name='sideBtns' id="qna qnamod">Q&A</a>
+		</li>
 		</ul>
-	</div>/.sidebar -->
+	</div>
+	
+			<script>
+			
+			var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+			var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
+			
+	  		for(var i =0; i<=$("a[name='sideBtns']").length-1; i++){
+	 			var active_id = $("a[name='sideBtns']").eq(i).attr("id");
+	 			if(active_id.indexOf(thisfilefullname1)!= -1){
+	 				$("a[name='sideBtns']").eq(i).addClass("chk_active");
+	 				
+	 			}else if(active_id.indexOf(thisfilefullname2)!= -1){
+	 				
+	 				$("a[name='sideBtns']").eq(i).addClass("chk_active");
+	 			}
+	 		}
+	  		
+			</script>

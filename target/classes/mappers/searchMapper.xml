@@ -380,7 +380,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
 		select * from
-		tblrecruit;
+		tblrecruit
+		order by bno desc;
 	</select>
 
 	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">

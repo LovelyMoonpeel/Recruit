@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@include file="../include/sheader.jsp"%>
 
@@ -8,7 +9,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<h1>Q&A</h1>
 
-	<table class="table table-bordered">
+	<table class="table table-hover">
 		<tr>
 			<th>순번</th>
 			<th>제목</th>
@@ -24,7 +25,7 @@
 				<c:if test="${!empty CsqnaVO.bpw}"><img src="/resources/rpjt/img/Lock-icon.png" width="15px"></c:if>
 				</a></td>
 			<td>${CsqnaVO.user}</td>
-			<td>${CsqnaVO.regdate }</td>
+			<td><fmt:formatDate value="${CsqnaVO.regdate}" pattern="yyyy-MM-dd"/></td>
 			<td><span class="badge bg-info">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>

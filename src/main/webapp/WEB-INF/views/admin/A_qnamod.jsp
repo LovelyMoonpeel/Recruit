@@ -209,7 +209,7 @@ $("#smodify").on("click", function(){
 /* QnA삭제 */
 $("#sremove").on("click", function(){
 	if(confirm("삭제하시겠습니까?")){
-		formObj.attr("action", "/admin/sremove");
+		formObj.attr("action", "/admin/qremove");
 		formObj.submit();
 	}
 });

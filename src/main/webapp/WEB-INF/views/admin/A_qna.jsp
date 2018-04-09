@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@include file="../include/aheader.jsp"%>
 
@@ -22,7 +23,7 @@
 			<td>${CsqnaVO.bno}</td>
 			<td><a href='/admin/qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
-			<td>${CsqnaVO.regdate }</td>
+			<td><fmt:formatDate value="${CsqnaVO.regdate}" pattern="yyyy-MM-dd"/></td>
 			<td><span class="badge bg-blue">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>
