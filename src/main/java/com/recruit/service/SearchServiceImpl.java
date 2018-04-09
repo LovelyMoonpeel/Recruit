@@ -191,7 +191,8 @@ public class SearchServiceImpl implements SearchService {
 			spanelVO.setExp(codeMap.get(listRecruit.get(i).getExp()));
 
 			// recruit
-			spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
+			if (listRecruit.get(i).getCid() != null)
+				spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
 			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
 
 			listPanel.add(spanelVO);
@@ -262,12 +263,24 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<SpanelVO> selectRecruitsAll(int snum) throws Exception {
+	public List<SpanelVO> selectRecruitsAll(int snum, int spag) throws Exception {
 		List<RecruitVO> list_tmp = searchDAO.selectRecruitsAll();
-		if (snum != 0 && list_tmp.size() > snum) {
+		if (snum != 0 && spag >= 0 && list_tmp.size() > snum) {
 			List<RecruitVO> list_tmp1 = new ArrayList<RecruitVO>();
-			for (int i = 0; i < snum; i++) {
-				list_tmp1.add(list_tmp.get(i));
+			// last page?
+			if (list_tmp.size() > snum * (spag + 1)) {
+				for (int i = 0; i < snum; i++) {
+					list_tmp1.add(list_tmp.get(snum * spag + i));
+				}
+			} else { // last page
+				int i = 0;
+				RecruitVO lastRecruit = new RecruitVO();
+				lastRecruit.setPeriod("lastRecruit");
+				list_tmp1.add(lastRecruit);
+				while (list_tmp.size() > snum * spag + i) {
+					System.out.println("::" + list_tmp.size() + "::" + (snum * spag + i));
+					list_tmp1.add(list_tmp.get(snum * spag + i++));
+				}
 			}
 			list_tmp = list_tmp1;
 		}

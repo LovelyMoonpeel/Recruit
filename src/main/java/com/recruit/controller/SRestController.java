@@ -190,9 +190,12 @@ public class SRestController {
 		List<SpanelVO> spanelVOList = null;
 		try {
 			if ("getall".equals(getdoc)) {
-				int snum = Integer.parseInt(skey);
+				System.out.println("getall: " + skey);
+				int snum = Integer.parseInt(skey.split("p")[0]);
+				int spag = Integer.parseInt(skey.split("p")[1]);
 				System.out.println("getall: " + snum);
-				spanelVOList = searchService.selectRecruitsAll(snum);
+				System.out.println("getall: " + spag);
+				spanelVOList = searchService.selectRecruitsAll(snum, spag);
 			} else if ("getkey".equals(getdoc)) {
 				System.out.println("getkey: " + skey);
 				spanelVOList = searchService.selectRecruits(skey);
@@ -223,8 +226,11 @@ public class SRestController {
 		List<SpanelVO> spanelVOList = null;
 		try {
 			if ("getall".equals(getdoc)) {
-				int snum = Integer.parseInt(skey);
+				System.out.println("getall: " + skey);
+				int snum = Integer.parseInt(skey.split("p")[0]);
+				int spag = Integer.parseInt(skey.split("p")[1]);
 				System.out.println("getall: " + snum);
+				System.out.println("getall: " + spag);
 				spanelVOList = searchService.selectResumesAll(snum);
 			} else if ("getkey".equals(getdoc)) {
 				System.out.println("getkey: " + skey);

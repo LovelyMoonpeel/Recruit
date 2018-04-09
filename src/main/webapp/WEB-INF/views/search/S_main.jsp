@@ -463,9 +463,9 @@
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/recruits/getall/0", RecruitHandler);
+			$.getJSON("/sresult/recruits/getall/0p0", RecruitHandler);
 		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/resumes/getall/0", ResumeHandler);
+			$.getJSON("/sresult/resumes/getall/0p0", ResumeHandler);
 		}
 	}
 

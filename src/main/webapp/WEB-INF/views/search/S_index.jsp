@@ -441,23 +441,32 @@
 		$("#spanel").append(template_pnl(item));
 	}
 
-	// 모든 채용공고(recruits)를 보여주다.
-	function getRecruitAllList() {
-		$.getJSON("/sresult/recruits/getall/24", function(data) {
-			inum = 0;
+	var argum = null;
+
+	function RecruitInfHandler(data) {
+		if (argum !== false)
 			deletespanel();
+		$("#infSrch").remove();
+		inum = 0;
+		// cinfo & recruit 분류
+		var dataR = new Array();
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].period !== 'etern' && data[i].period !== 'lastRecruit')
+				dataR.push(data[i]);
+			if (data[i].period === 'lastRecruit')
+				lastpage = true;
+		}
+		var source_pnl = $("#tmpnl_recruit").html();
+		template_pnl = Handlebars.compile(source_pnl);
+		$(dataR).each(recruitPnl);
+		infScrDone = true;
+	}
 
-			// cinfo & recruit 분류
-			var dataR = new Array();
-			for (var i = 0; i < data.length; i++) {
-				if (data[i].period !== 'etern')
-					dataR.push(data[i]);
-			}
-
-			var source_pnl = $("#tmpnl_recruit").html();
-			template_pnl = Handlebars.compile(source_pnl);
-			$(dataR).each(recruitPnl);
-		});
+	// 모든 채용공고(recruits)를 보여주다.
+	function getRecruitAllList(pnum, panpg) {
+		argum = arguments[2];
+		$.getJSON("/sresult/recruits/getall/" + pnum + "p" + panpg,
+				RecruitInfHandler);
 	}
 
 	function waitForSearching(str, num) {
@@ -469,10 +478,29 @@
 		$("#spanel").append(str);
 	}
 
+	var snum = 24; // 로딩 판넬 갯수
+	var page = 0; // 무한스크롤 페이지
+	var lastpage = false;
+	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
+
 	waitForSearching("데이터 로딩중...", 8);
-	getRecruitAllList();
+	getRecruitAllList(snum, page++);
 
 	$("#sinput").focus();
+
+	function infiniteScroll() {
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			if (infScrDone && !lastpage) {
+				console.log(page);
+				getRecruitAllList(snum, page++, false);
+				var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
+				$("#spanel").append(tmp);
+				infScrDone = false;
+			}
+		}
+	}
+
+	$(window).scroll(infiniteScroll);
 </script>
 
 <script type="text/javascript">
