@@ -30,9 +30,9 @@
 	
 	<!-- <hr style="border: solid 1px #c0c6d3;"> -->
 	<div class="container col-md-4">
-		<small style="cursor:pointer" id="viewOrder">조회수<span class="order glyphicon glyphicon-chevron-down"> </span></small>
+		<small style="cursor:pointer" id="viewOrder">조회수순<span class="order glyphicon glyphicon-chevron-down"> </span></small>
 		| <small style="cursor:pointer" id="appOrder">지원자수<span class="order glyphicon glyphicon-chevron-down"> </span></small>
-		| <small style="cursor:pointer" id="endOrder">마감일<span class="order glyphicon glyphicon-chevron-down"> </span></small>
+		| <small style="cursor:pointer" id="endOrder">마감일순<span class="order glyphicon glyphicon-chevron-down"> </span></small>
 	</div>
 	<div class="container col-md-offset-9">
 		<button id="all_btn" class="btn " onclick="all_recruits()">전체</button>
@@ -47,21 +47,23 @@
 				<th style="text-align: center;">회사명</th>
 				<th style="text-align: center;">공고 제목</th>
 				<th style="text-align: center; width: 90px;">모집기간</th>
+				<th style="text-align: center;">지원자 수</th>
 				<th style="width: 65px;">조회수</th>
 				<th style="text-align: center;">관리</th>
 			</tr>
 			<c:forEach items="${CRecruitVOList}" var="CRecruitVO" varStatus="status">
 				<tr>
-					<td style="text-align: center;">
+					<td style="text-align: center; vertical-align:middle">
 					<input type="hidden" value="${CRecruitVO.acceptmethod}">
 					<span class="acceptmethod badge badge-pill">${CRecruitVO.acceptmethod}</span></td><!-- acceptmethod가 모집중 모집완료 -->
-					<td style="text-align: center;">${CRecruitVO.recruitform}</td>
-					<td style="text-align: center;">
+					<td style="text-align: center; vertical-align:middle">${CRecruitVO.recruitform}</td>
+					<td style="text-align: center; vertical-align:middle">
 						<a href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}' onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.bno} : ${CRecruitVO.title}</a>
 					</td>
 					<td style="text-align: center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.jobdesc}</td><!-- jobdesc가 period -->
-					<td style="text-align: center;"><span class="badge badge-pill">${CRecruitVO.viewcnt}</span></td>
-					<td style="text-align: center;">
+					<td style="text-align: center; vertical-align:middle"><span class="badge badge-pill">${CRecruitVO.viewcnt}</span></td>
+					<td style="text-align: center; vertical-align:middle"><span class="badge badge-pill">${CRecruitVO.viewcnt}</span></td>
+					<td style="text-align: center; vertical-align:middle">
 					<input type="hidden" id="rcno${status.index}" value="${CRecruitVO.bno}" />
 						<img src=/resources/rpjt/img/on.png id="non" name="clipping_cancel" onclick="clipping_cancel_function(rcno${status.index}.value)">
 						</td>

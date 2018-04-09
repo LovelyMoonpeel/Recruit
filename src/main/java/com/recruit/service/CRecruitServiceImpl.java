@@ -31,8 +31,8 @@ public class CRecruitServiceImpl implements CRecruitService {
 	};
 	
 	@Override//안소연 사용
-	public List<CRecruitVO> selectAPList(String id)throws Exception{
-		return dao.selectAPList(id);
+	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception{
+		return dao.selectAPList(id, order_value);
 	};
 	
 	@Override//안소연 사용

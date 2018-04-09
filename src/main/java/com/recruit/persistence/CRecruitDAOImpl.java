@@ -37,8 +37,18 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 
 	//지원한 채용공고 목록
 	@Override
-	public List<CRecruitVO> selectAPList(String id)throws Exception{
-		return session.selectList(namespace + ".selectAPList", id);
+	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception{
+		// List<CRecruitVO> result = new ArrayList<CRecruitVO>();
+		System.out.println("라라 순서 뭐냐"+order_value);
+		
+		if(order_value!=null&&order_value.equals("applicant_order")){
+			 return session.selectList(namespace + ".selectAPList_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			 return session.selectList(namespace + ".selectAPList_closingdate_order", id);
+		}else{
+			return session.selectList(namespace + ".selectAPList_closingdate_order", id);
+		}
+		//return result;
 	};
 
 	//지원한 채용공고 목록

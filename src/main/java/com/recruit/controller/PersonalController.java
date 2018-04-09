@@ -493,16 +493,65 @@ public class PersonalController {
 	}
 
 	// 지원현황리스트
-	@RequestMapping(value = "/applied", method = RequestMethod.GET)
-	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+	@RequestMapping(value = "/applied_all", method = RequestMethod.GET)
+	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id));
+			if(order_value==null){
+				order_value="applicant_order";
+			}
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","all");
+			model.addAttribute("order_value",order_value);
+			
+			return "personal/P_applied";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	// 지원현황리스트
+	@RequestMapping(value = "/applied_ongoing", method = RequestMethod.GET)
+	public String applied_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			if(order_value==null){
+				order_value="applicant_order";
+			}
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("controller_value","ongoing");
+			
+			return "personal/P_applied";
+
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+
+	// 지원현황리스트
+	@RequestMapping(value = "/applied_closed", method = RequestMethod.GET)
+	public String appliedGET_closed(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			if(order_value==null){
+				order_value="applicant_order";
+			}
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("controller_value","closed");
 			
 			return "personal/P_applied";
 
@@ -533,45 +582,6 @@ public class PersonalController {
 		return entity;
 	}
 
-	// 지원현황리스트
-	@RequestMapping(value = "/applied_ongoing", method = RequestMethod.GET)
-	public String applied_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(id));
-			model.addAttribute("PUserVO", service.selectPUser(id));
-			model.addAttribute("controller_value","ongoing");
-			
-			return "personal/P_applied";
-
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}
-
-	// 지원현황리스트
-	@RequestMapping(value = "/applied_closed", method = RequestMethod.GET)
-	public String appliedGET_closed(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id));
-			model.addAttribute("PUserVO", service.selectPUser(id));
-			model.addAttribute("controller_value","closed");
-			
-			return "personal/P_applied";
-
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}
 
 	/*
 	 * @Resource(name = "uploadPath") private String uploadPath;

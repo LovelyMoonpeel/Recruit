@@ -11,7 +11,7 @@ public interface CRecruitService {
 	
 	public List<CRecruitVO> selectCRList_closed(String id)throws Exception;
 	
-	public List<CRecruitVO> selectAPList(String id)throws Exception;
+	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception;
 	
 	public List<CRecruitVO> selectAPList_ongoing(String id)throws Exception;
 	
