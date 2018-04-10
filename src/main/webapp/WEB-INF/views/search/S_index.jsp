@@ -483,7 +483,8 @@
 	var lastpage = false;
 	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
 
-	waitForSearching("데이터 로딩중...", 8);
+	var smsg = '<img src="/resources/rpjt/img/loading.gif" height="100">';
+	waitForSearching(smsg, 8);
 	getRecruitAllList(snum, page++);
 
 	$("#sinput").focus();
@@ -493,7 +494,12 @@
 			if (infScrDone && !lastpage) {
 				console.log(page);
 				getRecruitAllList(snum, page++, false);
-				var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
+
+				var tmp = '<div id="infSrch"><br /><h3 align="center"><span style="color: white;">'
+						+ '_</span><br /><br /><img src="/resources/rpjt/img/loading.gif" height="50">'
+						+ '</h3><br /></div>';
+
+				// var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
 				$("#spanel").append(tmp);
 				infScrDone = false;
 			}

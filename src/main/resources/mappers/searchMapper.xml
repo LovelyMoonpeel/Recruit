@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		CONCAT('%',#{skey},'%')) b
 		where a.edu = b.id
 		) d
-		order by bno
+		order by bno desc
 		;
 	]]>
 	</select>
@@ -185,7 +185,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		a.levelofeducation = b.id
 		) d
 		where publicornot = '공개'
-		order by bno
+		order by bno desc
 		;
 	]]>
 	</select>
@@ -226,7 +226,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			id = #{item}
 		</foreach>
 		))
-		order by bno
+		order by bno desc
 		;
 	</select>
 
@@ -273,7 +273,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			rgbid =
 			#{item.rgbid} and rgsid = #{item.rgsid})
 		</foreach>
-		;
+		order by bno desc;
 	</select>
 
 	<select id="selectRecruits_selEmp" resultType="com.recruit.domain.RecruitVO"
@@ -284,7 +284,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			separator=" or ">
 			employstatusid = #{item}
 		</foreach>
-		;
+		order by bno desc;
 	</select>
 
 	<select id="selectRecruits_selExp" resultType="com.recruit.domain.RecruitVO"
@@ -295,7 +295,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			separator=" or ">
 			exp = #{item}
 		</foreach>
-		;
+		order by bno desc;
 	</select>
 
 	<select id="selectRecruits_selEdu" resultType="com.recruit.domain.RecruitVO"
@@ -306,7 +306,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			separator=" or ">
 			edu = #{item}
 		</foreach>
-		;
+		order by bno desc;
 	</select>
 
 	<select id="selectResumes_selJob" resultType="com.recruit.domain.ResumeVO"
@@ -330,7 +330,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			id = #{item}
 		</foreach>
 		))
-		order by bno
+		order by bno desc
 		;
 	</select>
 
@@ -344,7 +344,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			rgbid =
 			#{item.rgbid} and rgsid = #{item.rgsid})
 		</foreach>
-		);
+		) order by bno desc;
 	</select>
 
 	<select id="selectResumes_selEmp" resultType="com.recruit.domain.ResumeVO"
@@ -355,7 +355,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			separator=" or ">
 			employstatusid = #{item}
 		</foreach>
-		);
+		) order by bno desc;
 	</select>
 
 	<select id="selectResumes_selExp" resultType="com.recruit.domain.ResumeVO"
@@ -377,7 +377,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			separator=" or ">
 			levelofeducation = #{item}
 		</foreach>
-		);
+		) order by bno desc;
 	</select>
 
 	<select id="selectRecruitsAll" resultType="com.recruit.domain.RecruitVO">
@@ -387,7 +387,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectResumesAll" resultType="com.recruit.domain.ResumeVO">
 		select * from tblresume
-		where publicornot = '공개';
+		where publicornot = '공개' order by bno desc;
 	</select>
 
 	<select id="selectCInfo" resultType="com.recruit.domain.SpanelVO"

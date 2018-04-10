@@ -210,7 +210,12 @@ public class SearchServiceImpl implements SearchService {
 			SpanelVO spanelVO = new SpanelVO();
 			spanelVO.setBno(listResume.get(i).getBno());
 			spanelVO.setUserid(listResume.get(i).getUserid());
-			spanelVO.setTitle(listResume.get(i).getTitle());
+
+			// resume title
+			String title = listResume.get(i).getTitle();
+			if (title != null && title.length() > 30)
+				title = title.substring(0, 30) + "...";
+			spanelVO.setTitle(title);
 
 			if (listResume.get(i).getJobstateid() != null)
 				spanelVO.setJobgroupid(jobGroupMap.get(listResume.get(i).getJobgroupid()));

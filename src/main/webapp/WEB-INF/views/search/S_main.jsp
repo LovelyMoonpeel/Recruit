@@ -282,7 +282,7 @@
 		// $("#sinput").val("");
 		console.log(sinp);
 		if (sinp === "all") {
-			waitForSearching("검색중...", 5);
+			waitForSearching(smsg, 5);
 			if ($("#stype").attr("value") === "1") {
 				getAllList("recruits");
 			} else {
@@ -292,7 +292,7 @@
 			waitForSearching("키워드가 입력되지 않았습니다.", 5);
 			// $("#sdesc").html("키워드가 입력되지 않았습니다.");
 		} else { // 키워드 검색
-			waitForSearching("검색중...", 5);
+			waitForSearching(smsg, 5);
 			var sout = "";
 			console.log(sinp);
 			var len = sinp.length;
@@ -403,7 +403,9 @@
 		// cinfo & recruit 분류
 		var dataC = new Array();
 		var dataR = new Array();
-		for (var i = data.length - 1; i >= 0; i--) {
+		// for (var i = data.length - 1; i >= 0; i--) {
+		for (var i = 0; i < data.length; i++) {
+
 			if (data[i].period === 'etern')
 				dataC.push(data[i]);
 			else
@@ -495,7 +497,7 @@
 	$("#sel_search_btn").on("click", function() {
 		var array = [];
 		var i = 0;
-		waitForSearching("검색중...", 5);
+		waitForSearching(smsg, 5);
 		$("#well > .sfilter_btn").each(function() {
 			array[i] = $(this).val(); // select filter를 배열에 담기
 			i++;
@@ -670,13 +672,14 @@
 		}
 	}
 
+	var smsg = '<img src="/resources/rpjt/img/loading.gif" height="100">';
 	// 화면 공백 생성
 	function waitForSearching(str, num, del) {
 		if (del !== false)
 			deletespanel();
 		str = '<h3 align="center">' + str + '</h3>';
 		for (var i = 0; i < num; i++) {
-			str = '<br/>' + str + '<br/><br/><br/>';
+			str = '<br/>' + str + '<br/><br/>';
 		}
 		$("#spanel").append(str);
 	}
