@@ -40,10 +40,10 @@
 						</td>
 						<th style="text-align : center; vertical-align : middle;" rowspan="3" class="table-active" scope="row"><label
 							for="img">사진</label></th>
-						<td rowspan="3" class="col-sm-4">
+						<td style="overflow-y:hidden;" rowspan="3" class="col-sm-4">
 							<div id='uploadedList'
 								style='width: 127px; height: 152px; border: 1px solid #c0c6d3;'>
-								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br> 권장 사이즈 : (3.5cm x 4.5cm)</p>
+								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br><br> 권장 사이즈 : <br>(235 x 315 pixel)</p>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> <!--  사진 보이는 div  --> <input type='hidden' id='imgsrccheck'
 							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
@@ -84,8 +84,8 @@
 		
 		
 		<!--j.code 03/26 : 6개(구직상태, 모집직종(대/소), 희망근무형태, 희망근무지(시/도, 시/군/구), 희망연봉) 입력 추가-->
-		<div class="table-responsive">
-         <table class="table table-bordered">
+		<div style="overflow-y:hidden;" class="table-responsive">
+         <table  class="table table-bordered">
             <tbody>
                 <tr>
                   <th style="text-align : center; vertical-align : middle;">구직상태</th>
@@ -103,12 +103,12 @@
                </td>
                </tr>
                
-                 <tr>
-                   <th style="text-align : center; vertical-align : middle;">모집직종</th>
+              <tr>
+                <th style="text-align : center; vertical-align : middle;">모집직종</th>
                <td>
                   <div class="form-group col-md-5">
                   <label for="jobgroupid">대분류</label> 
-                     <select id="jobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid" >
+                     <select style="height:5;" data-size="5" id="jobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid" >
                         <option value="0">선택</option>
                         <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                            <c:if test="${JobGroupVO.id2 == 0}">
@@ -629,6 +629,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 <!-- end of row -->
 </script>
 <script type='text/javascript'>
+
 
 k=1;
 
