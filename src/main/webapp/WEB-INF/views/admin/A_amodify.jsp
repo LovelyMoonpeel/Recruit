@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 
-<!-- 개인정보수정 페이지 -->
+<!-- 관리자정보수정 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 
@@ -27,7 +27,7 @@
 			<tr>
 				<th>비밀번호</th>
 				<td><input class="form-control" type="password" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}"></td>
+					placeholder="변경할 비밀번호를 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
@@ -79,29 +79,84 @@
 <!-- //달력 나오게 하는 스크립트  -->
 
 <!-- 비밀번호 일치 여부  -->
+<!-- 비밀번호 일치 여부  -->
 <script>
-	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-	var pwchk = $('#pwchk');
+/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
+var pwchk = $('#pwchk'); //Password check 알림
+
+/* 정규식 */
+var pwReg = /[A-Za-z0-9]$/;
+var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+
+$('#pwc').keyup(function(){	
+	var pwcval = $('#pwc').val(); //Password check value
+	var pwval = $('#pw').val();   //Password value
 	
-	$('#pwc').keyup(function(){
-		if($('#pw').val() == $('#pwc').val()){
+	if(pwcval.search(/\s/) != -1){
+		alert("공백 금지");
+		$('#pwc').val(pwcval.slice(0, -1));
+	}
+	
+	if(!(pwReg.test(pwcval)) && pexpReg.test(pwcval)){
+		alert("특수문자 금지");
+		$('#pwc').val(pwcval.slice(0, -1));
+	}
+
+	pwcval = $('#pwc').val();
+	pwval = $('#pw').val();
+	
+	if(!(pwcval.length > 5 && pwcval.length <= 20)){
+    	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		pwchk.attr("style", "color:red");
+		pwcheck = "no"; //Password check 
+	}else{
+		if(pwval == pwcval){
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
+			pwchk.attr("style", "color:blue");
+			pwcheck = "ok";
 		}else{
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+			pwchk.attr("style", "color:red");
+			pwcheck = "no";
 		}
-	})
+	}
 	
-	$('#pw').keyup(function(){
-		if($('#pw').val() == $('#pwc').val()){
+})
+
+
+$('#pw').keyup(function(){
+	var pwval = $('#pw').val();
+	var pwcval = $('#pwc').val();
+	
+	if(pwval.search(/\s/) != -1){
+		alert("공백 금지");
+		$('#pw').val(pwval.slice(0, -1));
+	}
+	
+	if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
+		alert("특수문자 금지");
+		$('#pw').val(pwcval.slice(0, -1));
+	}
+	
+	pwval = $('#pw').val();
+	pwcval = $('#pwc').val();
+	
+	if(!(pwval.length > 5 && pwval.length <= 20)){
+    	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
+		pwchk.attr("style", "color:red");
+		pwcheck = "no";
+	}else{
+		if(pwval == pwcval){
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-			pwchk.attr("style", "color:blue")
+			pwchk.attr("style", "color:blue");
+			pwcheck = "ok";
 		}else{
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			pwchk.attr("style", "color:red")
+			pwchk.attr("style", "color:red");
+			pwcheck = "no";
 		}
-	})
+	}
+})
 </script>
 <!-- //비밀번호 일치 여부  -->
 
@@ -110,7 +165,7 @@
 $(function(){
 	var formObj = $("form[role='form']");
 	
-	console.log(formObj);
+	//console.log(formObj);
 	
 	/* 수정 버튼 */
 	$(".btn-warning").on("click", function(){
@@ -119,11 +174,15 @@ $(function(){
 		
 		if(pw==pwc&&(pw!="" || pwc!="")){
 			if(confirm("수정하시겠습니까?")){
+				if(pwcheck=="ok"){
+					formObj.submit();
+				}else{
+					alert("비밀번호를 확인해주세요.");
+				}
 				if($('#birth').val()==''){
 					console.log("#birth.val()==''");
 					$('#birth').val("0000-00-00");
 				}
-				formObj.submit();
 			}
 		}else{
 			alert("비밀번호를 확인해주세요.");

@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/uheader.jsp"%>
-<div class="col-md-9">
+<!-- <div class="col-md-9"> -->
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
 <h2>비밀번호 찾기</h2>
 <form action="PWsearch" method="POST">
 <table class="table table-bordered">
 	<tr>
-		<td style="width:100px;" colspan="2"><input type="radio" name="index" id="pname" checked="checked">개인회원 &nbsp; &nbsp;
-		<input type="radio" name="index" id="cname">기업회원</td>
+		<td style="width:100px;" colspan="2"><input type="radio" name="index" id="pname" checked="checked"><label for="pname">개인회원</label> &nbsp; &nbsp;
+		<input type="radio" name="index" id="cname"><label for="cname">기업회원</label></td>
 	</tr>
 	<tr>
 		<td>아이디</td><td><input type="text" id="id" class="form-control" name="id" value="${LoginDTO.id}" placeholder="아이디를 입력해주세요." autofocus></td>
@@ -22,7 +23,6 @@
 </table>
 </form>
 <input type="button" class="btn btn-success" id="submit" value="비밀번호 찾기">
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 
@@ -62,7 +62,9 @@ $("#submit").on("click", function(){
 		success:function(result){
 			if(result == 'success'){
 				alert("이메일에서 임시 비밀번호를 확인해주세요.");
-				self.location = "/search/S_index";
+				self.location = "/";
+			}else{
+				alert("정보를 다시 확인 해주세요.");
 			}
 		}
 	})
@@ -84,7 +86,9 @@ $("#submit").on("click", function(){
 		success:function(result){
 			if(result == 'success'){
 				alert("이메일에서 임시 비밀번호를 확인해주세요.");
-				self.location = "/search/S_index";
+				self.location = "/";
+			}else{
+				alert("정보를 다시 확인 해주세요.");
 			}
 		}
 	}) 

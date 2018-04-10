@@ -440,7 +440,7 @@ a.label:hover, a.label:focus {
   background: #fff; }
 
 .sidebar ul {
-  margin: 20px 0px; }
+  margin: 0px 0px; }
 
 .sidebar form {
   padding: 10px 0 0 0;
@@ -505,8 +505,7 @@ a.label:hover, a.label:focus {
   margin: 0px 0; }
 
 .profile-sidebar {
-  padding: 10px 0;
-  border-bottom: 1px solid #e9ecf2; }
+  padding: 10px 0;}
 
 .indicator {
   width: 10px;
@@ -724,4 +723,28 @@ height: 100%;
 min-height: 100%;
 position: relative;
 /* padding-bottom: 19px; footer height */
+}
+
+.hover:hover{
+  color: #fff !important; 
+  text-decoration: none;
+  background-color: #30a5ff !important;
+}
+
+.pagination>.active>a{
+	background-color: #30a5ff !important;
+	border-color: #30a5ff !important;
+}
+.pagination>li>a{
+	color: #30a5ff;
+}
+
+.pagination>li>a:hover{
+	color : #337ab7;
+}
+
+.chk_active{
+  color: #fff !important; 
+  text-decoration: none;
+  background-color: #30a5ff;
 }

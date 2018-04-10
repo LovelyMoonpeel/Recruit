@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td><input class="form-control" type="text" name="title" id="title"
-					value="${CsfaqVO.title}" autofocus required></td>
+					value="${CsqnaVO.title}" autofocus required></td>
 			</tr>
 			<tr>
 				<th>아이디</th>
@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<td><input class="form-control" type="password" name="bpw" id="bpw"
-					value="${CsfaqVO.bpw}"></td>
+					value="${CsqnaVO.bpw}"></td>
 			</tr>
 			<tr>
 				<th>게시글 비밀번호 확인</th>
@@ -102,22 +102,26 @@ $(".btn-primary").on("click", function(){
 	var bpwchk = $('#bpwchk');  /* 비밀번호 일치여부 받아 줄 텍스트 */
 	
 	$('#bpwc').keyup(function(){
-		if($('#bpw').val() == $('#bpwc').val() && $('#bpwc').val() != ""){
-			document.getElementById("bpwchk").innerHTML = "비밀번호가 일치합니다.";
-			bpwchk.attr("style", "color:blue")
-		}else{
-			document.getElementById("bpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			bpwchk.attr("style", "color:red")
+		if($('#bpwc').val() != ""){
+			if($('#bpw').val() == $('#bpwc').val()){
+				document.getElementById("bpwchk").innerHTML = "비밀번호가 일치합니다.";
+				bpwchk.attr("style", "color:blue")
+			}else{
+				document.getElementById("bpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				bpwchk.attr("style", "color:red")
+			}
 		}
 	})
 	
 	$('#bpw').keyup(function(){
-		if($('#bpw').val() == $('#bpwc').val() && $('#bpw').val() != ""){
-			document.getElementById("bpwchk").innerHTML = "비밀번호가 일치합니다.";
-			bpwchk.attr("style", "color:blue")
-		}else{
-			document.getElementById("bpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-			bpwchk.attr("style", "color:red")
+		if($('#bpw').val() != ""){
+			if($('#bpw').val() == $('#bpwc').val()){
+				document.getElementById("bpwchk").innerHTML = "비밀번호가 일치합니다.";
+				bpwchk.attr("style", "color:blue")
+			}else{
+				document.getElementById("bpwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+				bpwchk.attr("style", "color:red")
+			}			
 		}
 	})
 </script>

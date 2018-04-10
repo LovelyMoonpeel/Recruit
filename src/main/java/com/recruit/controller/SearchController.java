@@ -26,11 +26,21 @@ public class SearchController {
 		// 로그인 상태확인
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cname = null;
-		if (login != null)
+		String id = null;
+		if (login != null) {
 			cname = login.getCname();
+			id = login.getId();
+		}
 
-		if (login == null || cname == null)
-			stype = "1";
+		if ("2".equals(stype)) {
+			if (login == null || cname == null) {
+				stype = "1";
+				if ("admin".equals(id))
+					stype = "2";
+			}
+		}
+		// if (login == null || cname == null || !id.equals("admin"))
+		// stype = "1";
 
 		System.out.println("stype: " + stype);
 		System.out.println("skeyword: " + skeyword);

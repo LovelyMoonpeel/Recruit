@@ -13,7 +13,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 
-<!-- 개인정보수정 페이지 -->
+<!-- Q&A 수정 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 
@@ -183,8 +183,8 @@ $("#repliesDiv").on("click", function() {
 var formObj = $("form[role='form']");
 var formObjlist = $("form[role='formlist']");
 
-console.log(formObj);
-console.log(formObjlist);
+//console.log(formObj);
+//console.log(formObjlist);
 
 /* QnA 수정 */
 $("#smodify").on("click", function(){
@@ -209,7 +209,7 @@ $("#smodify").on("click", function(){
 /* QnA삭제 */
 $("#sremove").on("click", function(){
 	if(confirm("삭제하시겠습니까?")){
-		formObj.attr("action", "/admin/sremove");
+		formObj.attr("action", "/admin/qremove");
 		formObj.submit();
 	}
 });
@@ -289,21 +289,23 @@ $("#replyDelBtn").on("click",function(){
 	var content = $("#content").val();
 	var bno = $("#bno").val();
 	
-	$.ajax({
-		type:'delete',
-		url:'/replies/'+bno+"/"+rno,
-		headers:{
-			"Content-Type": "application/json; charset=UTF-8",
-			"X-HTTP-Method-Override":"PUT"},
-		dataType:'text',
-		success:function(result){
-			console.log("result: "+ result);
-			if(result == 'success'){
-				alert("삭제 되었습니다.");
-				getPage("/replies/all/"+bno);
+	if(confirm("삭제하시겠습니까?")){
+		$.ajax({
+			type:'delete',
+			url:'/replies/'+bno+"/"+rno,
+			headers:{
+				"Content-Type": "application/json; charset=UTF-8",
+				"X-HTTP-Method-Override":"PUT"},
+			dataType:'text',
+			success:function(result){
+				console.log("result: "+ result);
+				if(result == 'success'){
+					alert("삭제 되었습니다.");
+					getPage("/replies/all/"+bno);
+				}
 			}
-		}
-	})
+		})
+	}
 })
 
 

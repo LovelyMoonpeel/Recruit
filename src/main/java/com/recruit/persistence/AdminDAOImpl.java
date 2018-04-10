@@ -12,7 +12,7 @@ import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
 
 @Repository
-public class AmainDAOImpl implements AmainDAO {
+public class AdminDAOImpl implements AdminDAO {
 
 	@Inject
 	private SqlSession session;

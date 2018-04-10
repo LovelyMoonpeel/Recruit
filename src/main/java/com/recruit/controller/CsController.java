@@ -125,8 +125,10 @@ public class CsController {
 		logger.info("qna read..........");
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
+		String pw = "";
+		pw = qservice.read2(bno).getBpw();
 		
-		if(qservice.read2(bno).getBpw()!=null){
+		if(!pw.equals("")){
 			if (login != null) {
 				String id = login.getId();
 				String idc = qservice.read2(bno).getUser();
@@ -150,6 +152,8 @@ public class CsController {
 			}	
 		}else{
 			String content = qservice.modread(bno).getContent();
+			String idc = qservice.read2(bno).getUser();
+			session.setAttribute("idc", idc);
 			String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
 			String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
 			String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환

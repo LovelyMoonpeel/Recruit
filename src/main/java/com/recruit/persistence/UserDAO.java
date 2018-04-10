@@ -40,4 +40,8 @@ public interface UserDAO {
 	public String getId(LoginDTO dto) throws Exception;
 	
 	public BoardVO userread(String id) throws Exception;
+	
+	public BoardVO getppw(LoginDTO dto) throws Exception;
+	
+	public BoardVO getcpw(LoginDTO dto) throws Exception;
 }

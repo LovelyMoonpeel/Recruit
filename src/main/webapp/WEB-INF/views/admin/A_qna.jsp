@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@include file="../include/aheader.jsp"%>
 
-<!-- 개인관리 페이지 -->
+<!-- Q&A 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 	<h1>Q&A</h1>
@@ -22,7 +23,7 @@
 			<td>${CsqnaVO.bno}</td>
 			<td><a href='/admin/qnamod${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${CsqnaVO.bno}'>${CsqnaVO.title}<strong> [ ${CsqnaVO.reply} ]</strong></a></td>
 			<td>${CsqnaVO.user}</td>
-			<td>${CsqnaVO.regdate }</td>
+			<td><fmt:formatDate value="${CsqnaVO.regdate}" pattern="yyyy-MM-dd"/></td>
 			<td><span class="badge bg-blue">${CsqnaVO.viewcnt }</span></td>
 		</tr>
 	</c:forEach>
@@ -51,8 +52,8 @@
 		</ul>
 	</div>
 	<!-- //pagination-->
-
 </div>
+<!-- //Q&A 페이지 -->
 
 <!-- 수정, 삭제 처리시 -->
 <script type="text/javascript">

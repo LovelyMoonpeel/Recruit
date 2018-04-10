@@ -13,7 +13,7 @@ position: relative;
 bottom: -50px;
 left: 0;
 right: 0;
-z-index: 10000;
+z-index: 1;
 }
 </style>
 

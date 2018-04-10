@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
-import com.recruit.dto.JoinDTO;
 import com.recruit.dto.LoginDTO;
 import com.recruit.service.UserService;
 
@@ -166,8 +165,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/IDsearch", method = RequestMethod.GET)
-	public void IDsearchGET(Model model) throws Exception {
-
+	public String IDsearchGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if(login!=null){
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/";
+		}
+		return "/user/IDsearch";
 	}
 	
 	
@@ -203,8 +207,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/PWsearch", method = RequestMethod.GET)
-	public void PWsearchGET(Model model) throws Exception {
-
+	public String PWsearchGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if(login!=null){
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/";
+			}
+		return "/user/PWsearch";
 	}
 	
 	@RequestMapping(value = "/PWsearch", method = RequestMethod.POST)
@@ -212,11 +221,20 @@ public class UserController {
 		ResponseEntity<String> entity = null;
 		try{
 			if(dto.getCname()==null){
-				service.ppwchk(dto);
+				if(service.getppw(dto)!=null){
+					service.ppwchk(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
 			}else{
-				service.cpwchk(dto);
+				if(service.getcpw(dto)!=null){
+					service.cpwchk(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+				}
 			}
-			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

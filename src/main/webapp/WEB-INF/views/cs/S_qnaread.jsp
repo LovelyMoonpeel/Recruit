@@ -64,12 +64,16 @@
 	</ul>
 	<ul id="replies"></ul>
 	
-	<input type="<%=mod %>" class="btn btn-warning" value="수정">
+	<input id="" type="<%=mod %>" class="btn btn-warning" value="수정">
 	<!-- <input type="submit" class="btn btn-danger" value="삭제"> -->
 	<input type="submit" class="btn btn-primary" value="목록">
 	
 </div>
 <!-- //관리자정보수정 페이지 -->
+
+<script>
+
+</script>
 
 <!-- QnA 댓글 -->
 <script id="template" type="text/x-handlebars-template">

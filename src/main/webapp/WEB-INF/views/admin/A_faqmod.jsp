@@ -41,7 +41,7 @@
 	<input type="button" class="btn btn-primary" value="목록">
 		
 </div>
-<!-- //관리자정보수정 페이지 -->
+<!-- //FAQ 수정 페이지 -->
 
 <!-- 버튼에 대한 스크립트  -->
 <script type="text/javascript">

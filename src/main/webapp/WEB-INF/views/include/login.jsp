@@ -3,14 +3,14 @@
     
 <%@ page import = "java.net.URLDecoder" %>
 <%
-	String pidc = "";
-	String pchkc = "";
-	String cidc = "";
-	String cchkc = "";
-	String pactive = "active in";
-	String cactive = "";
-	String pexpand = "true";
-	String cexpand = "false";
+	String pidc = "";  //Personal ID remember
+	String pchkc = ""; //Personal Remember check
+	String cidc = "";  //Company ID remember
+	String cchkc = ""; //Company Remember check
+	String pactive = "active in"; //Personal active(개인회원 선택)
+	String cactive = "";		  //Company active(기업회원 선택)
+	String pexpand = "true";	  //Personal active(개인회원 선택)
+	String cexpand = "false";	  //Company active(기업회원 선택)
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null && cookies.length > 0){
 		for(int i=0;i<cookies.length;i++){
@@ -262,7 +262,7 @@
 									<!--이메일 -->
 									<div class="form-group has-feedback">
 										이메일<input type="text" id="pemail" name="email" class="form-control"
-											placeholder="이메일을 입력하세요. 예) iampeel@naver.com" required/> <span
+											placeholder="이메일을 입력하세요." required/> <span
 											class="glyphicon  form-control-feedback"></span>
 									<input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크">
 									</div>
@@ -331,7 +331,7 @@
 									<!--담당자 이메일 -->
 									<div class="form-group has-feedback">
 										담당자 이메일<input type="text" id="cemail" name="email" class="form-control"
-											placeholder="담당자 이메일을 입력하세요. 예) iampeel@naver.com" required/> <span
+											placeholder="담당자의 회사 이메일을 입력하세요." required/> <span
 											class="glyphicon  form-control-feedback"></span>
 									<input class="btn btn-success" type="button" id="cemail_overlap" value="중복체크">
 									</div>
@@ -420,7 +420,7 @@
 				calendarWeeks : false,
 				todayHighlight : true,
 				autoclose : true,
-				format : "yyyy/mm/dd",
+				format : "yyyy-mm-dd",
 				language : "kr"
 			});
 		});

@@ -81,7 +81,7 @@
 		<tr>
 			<td>${ResumeVO.bno}</td>
 			<td>${ResumeVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/rmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" onclick="location.href='/admin/resmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -131,16 +131,16 @@
 		if(!(pwcval.length > 5 && pwcval.length <= 20)){
         	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			pwchk.attr("style", "color:red");
-			pwc = "no";
+			pwcheck = "no";
 		}else{
 			if(pwval == pwcval){
 				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
 				pwchk.attr("style", "color:blue");
-				pwc = "ok";
+				pwcheck = "ok";
 			}else{
 				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
 				pwchk.attr("style", "color:red");
-				pwc = "no";
+				pwcheck = "no";
 			}
 		}
 		
@@ -167,16 +167,16 @@
 		if(!(pwval.length > 5 && pwval.length <= 20)){
         	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 			pwchk.attr("style", "color:red");
-			pwc = "no";
+			pwcheck = "no";
 		}else{
 			if(pwval == pwcval){
 				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
 				pwchk.attr("style", "color:blue");
-				pwc = "ok";
+				pwcheck = "ok";
 			}else{
 				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
 				pwchk.attr("style", "color:red");
-				pwc = "no";
+				pwcheck = "no";
 			}
 		}
 	})
@@ -189,12 +189,12 @@
 $(function(){
 	var formObj = $("form[role='form']");
 	
-	console.log(formObj);
+	//console.log(formObj);
 	
 	/* 수정버튼 */
 	$(".btn-warning").on("click", function(){
 		if($('#birth').val()==''){
-			console.log("#birth.val()==''");
+			//console.log("#birth.val()==''");
 			$('#birth').val("0000-00-00");
 		}
 	
@@ -203,7 +203,11 @@ $(function(){
 
 		if(pw==pwc){
 			if(confirm("수정하시겠습니까?")){
-				formObj.submit();
+				if(pwcheck=="ok"){
+						formObj.submit();
+					}else{
+						alert("비밀번호를 확인해주세요.");
+					}
 				}
 			}else{
 			alert("비밀번호를 확인해주세요.");
@@ -233,5 +237,13 @@ $(function(){
 });
 </script>
 <!-- //버튼에 대한 스크립트  -->
+
+<script>
+var result = '${msg}';
+
+if(result == 'resume_mod'){
+	alert("이력서 수정 처리가 완료 되었습니다.");
+}
+</script>
 
 <%@include file="../include/cfooter.jsp"%>

@@ -4,7 +4,7 @@
 
 <%@include file="../include/aheader.jsp"%>
 
-<!-- 개인관리 페이지 -->
+<!-- 기업회원리스트 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 	<h1>기업회원 리스트</h1>
@@ -54,28 +54,6 @@
 	</div>
 	<!-- //pagination-->
 
-<!-- 검색 스크립트  -->
-<script type="text/javascript">
-	$(function(){
-		$('#searchBtn').on("click", function(event){
-			self.location = "company"
-				+ '${pageMaker.makeQuery(1)}'
-				+ "&searchType="
-				+ $("select option:selected").val()
-				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
-		});
-		
-		$('#keywordInput').keypress(function(event){
-			if(event.which == 13){
-				$('#searchBtn').click();
-			}
-		});
-	});
-	
-	
-</script>
-<!-- //검색 스크립트  -->
-
 	<!-- 검색 -->
 	<div class="box-body">
 		<select name="searchType">
@@ -90,8 +68,29 @@
 	<button id='searchBtn'>검색</button>
 	</div>
 	<!-- //검색 -->
+	
+<!-- 검색 스크립트  -->
+<script type="text/javascript">
+	$(function(){
+		$('#searchBtn').on("click", function(event){
+			self.location = "company"
+				+ '${pageMaker.makeQuery(1)}'
+				+ "&searchType="
+				+ $("select option:selected").val()
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		});
+		
+		/* Enter입력시 검색 */
+		$('#keywordInput').keypress(function(event){
+			if(event.which == 13){
+				$('#searchBtn').click();
+			}
+		});
+	});
+</script>
+<!-- //검색 스크립트  -->
 </div>
-<!-- //개인관리 페이지 -->
+<!-- //기업회원리스트 페이지 -->
 <!-- /.container -->
 
 

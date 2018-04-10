@@ -24,7 +24,7 @@
 			<td>${BoardVO.pname}</td>
 			<td>${BoardVO.email}</td>
 			<td>${BoardVO.birth}</td>
-			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/modify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
+			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/pmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
 		</tr>
 	</c:forEach>
 			
@@ -53,28 +53,6 @@
 	</div>
 	<!-- //pagination-->
 
-<!-- 검색 스크립트  -->
-<script type="text/javascript">
-	$(function(){
-		$('#searchBtn').on("click", function(event){
-			self.location = "main"
-				+ '${pageMaker.makeQuery(1)}'
-				+ "&searchType="
-				+ $("select option:selected").val()
-				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
-		});
-		
-		$('#keywordInput').keypress(function(event){
-			if(event.which == 13){
-				$('#searchBtn').click();
-			}
-		});
-	});
-	
-	
-</script>
-<!-- //검색 스크립트  -->
-
 	<!-- 검색 -->
 	<div class="box-body">
 		<select name="searchType">
@@ -87,6 +65,28 @@
 	<button id='searchBtn'>검색</button>
 	</div>
 	<!-- //검색 -->
+	
+<!-- 검색 스크립트  -->
+<script type="text/javascript">
+	$(function(){
+		$('#searchBtn').on("click", function(event){
+			self.location = "main"
+				+ '${pageMaker.makeQuery(1)}'
+				+ "&searchType="
+				+ $("select option:selected").val()
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+		});
+		
+		/* 엔터 입력시 검색 */
+		$('#keywordInput').keypress(function(event){
+			if(event.which == 13){
+				$('#searchBtn').click();
+			}
+		});
+	});
+</script>
+<!-- //검색 스크립트  -->
+
 </div>
 <!-- //개인관리 페이지 -->
 <!-- /.container -->

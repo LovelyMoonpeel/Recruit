@@ -151,7 +151,9 @@ public class UserServiceImpl implements UserService{
 		
 		String key = new TempKey().getPw(10, false); // 인증키 생성
 
-		dao.ppwchk(dto, key); // 인증키 DB저장
+		String encPassword = passwordEncoder.encode(key);
+		
+		dao.ppwchk(dto, encPassword); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
@@ -171,8 +173,10 @@ public class UserServiceImpl implements UserService{
 //		dao.cpwchk(dto);
 		
 		String key = new TempKey().getKey(10, false); // 인증키 생성
+		
+		String encPassword = passwordEncoder.encode(key);
 
-		dao.cpwchk(dto, key); // 인증키 DB저장
+		dao.cpwchk(dto, encPassword); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
@@ -188,5 +192,14 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public BoardVO userread(String id) throws Exception{
 		return dao.userread(id);
+	}
+	
+	@Override
+	public BoardVO getppw(LoginDTO dto) throws Exception{
+		return dao.getppw(dto);
+	}
+	
+	public BoardVO getcpw(LoginDTO dto) throws Exception{
+		return dao.getcpw(dto);
 	}
 }

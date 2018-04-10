@@ -28,11 +28,11 @@
 
 		// out.println("print_test<br/>");
 		if (login != null) { // login
-			if (cname == null) { // personal
+			if (cname != null || id.equals("admin")) { // company
 				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
 				recruitUrl = "/company/C_recruitMent?recruitNum=";
 				resumeUrl = "/personal/detail_nonavi?bno=";
-			} else { // company
+			} else { // personal
 				cinfoUrl = "/company/C_info_nonavi?recruitNum=";
 				recruitUrl = "/company/C_recruitMent?recruitNum=";
 				resumeUrl = "/personal/detail_nonavi?bno=";
