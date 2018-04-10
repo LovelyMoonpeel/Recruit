@@ -100,7 +100,7 @@
 </style> <!-- //요기까지  -->
 
 </head>
-ㅗㅗ
+
 <body class="fuelux">
 	
 	
@@ -125,20 +125,40 @@
 	<!-- Page Content -->
 	<div class="container">
 
-		<div class="row">
+	<div class="row">
 
 			<div class="col-md-3">
 				<p class="lead">기업정보관리</p>
 				<div class="list-group">
-					<a href="/company/C_index" class="list-group-item">기업정보관리</a>
-					<a href="/company/C_write" class="list-group-item">채용공고작성</a>
-					<a href="/company/C_manage" class="list-group-item">채용공고관리</a>
-					<a href="/company/C_recom" class="list-group-item">추천인재</a>
-					<a href="/company/C_favor" class="list-group-item">관심인재</a>
-					<a href="/company/C_pass" class="list-group-item">비밀번호 변경</a>   <!-- 문> 3.23 추가 --> 
+					<a href="/company/C_index" name="sideBtns" id="C_index C_modify" class="list-group-item">기업정보관리</a>
+					<a href="/company/C_write" name="sideBtns" id="C_write"  class="list-group-item">채용공고작성</a>
+					<a href="/company/C_manage" name="sideBtns" id="C_manage C_recruitInfo C_recruitModify" class="list-group-item">채용공고관리</a>
+					<a href="/company/C_recom" name="sideBtns" id="C_recom" class="list-group-item">추천인재</a>
+					<a href="/company/C_favor" name="sideBtns" id="C_favor" class="list-group-item">관심인재</a>
+					<a href="/company/C_pass" name="sideBtns" id="C_pass" class="list-group-item">비밀번호 변경</a>   <!-- 문> 3.23 추가 --> 
 				</div>
 			</div>
 			
-
+			<script>
 			
+			var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+			var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
+			
+			
+		
+	
+	  		for(var i =0; i<=$("a[name='sideBtns']").length -1; i++){
+	 		
+	 			if($("a[name='sideBtns']").eq(i).attr("id").indexOf(thisfilefullname1)!= -1){
+				
+	 				$("a[name='sideBtns']").eq(i).addClass("active");
+	 			
+	 			}else if($("a[name='sideBtns']").eq(i).attr("id").indexOf(thisfilefullname2)!= -1){
+	 			
+	 				$("a[name='sideBtns']").eq(i).addClass("active");
+	 				
+	 			}
+	 		}
+	  		
+			</script>
 			

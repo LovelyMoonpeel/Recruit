@@ -17,12 +17,11 @@
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <div class="col-md-9 ">
-	<div class="row">
-		<label><h2>&nbsp;&nbsp;&nbsp;&nbsp;채용공고작성</h2></label>
-	</div>
 
-<style>
-</style>
+	<p class="lead">
+		<strong>채용공고작성</strong>
+	</p>
+
 
 	<!-- 공고 입력 부분 -->
 	<form role="form" method="POST">	
@@ -53,14 +52,55 @@ $(function () {
 });
 </script>
 <style>
+
+#jobGroupDiv
+{
+   text-decoration: none;
+  
+}
+ #subJobgroupDiv
+ {
+   text-decoration: none;
+  
+}
+ #rgbidDiv 
+ {
+   text-decoration: none;
+  
+}
+ #subRegion
+ {
+   text-decoration: none;
+  
+}
+#employstatusidDiv 
+{
+   text-decoration: none;
+  
+}
+#salaryidDiv
+{
+   text-decoration: none;
+  
+}
+#eduDiv 
+{
+   text-decoration: none;
+  
+}
+#expDiv
+{
+   text-decoration: none;
+  
+}
 .popover{
     max-width: 100%;
    
 }
 </style>
-ㅗㅗ
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-ㅗㅗ
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
@@ -500,9 +540,22 @@ $(function () {
 
 		<br> 
 		<br> 
+	
 		<input class="btn btn-primary" type="submit" id="sbm"
-			value="등록"> <br>
+			value="등록"> 
+		<input class="btn btn-primary" type="button" id="cancle"
+			value="취소"> <br>
+		
 	</form>
+	
+	<script>
+	
+	$("#cancle").on("click",function(){
+		
+		self.location = "/company/C_manage";
+		
+	})
+	</script>
 	
 	<script>
 	$("#sbm").on("click",function(e){
@@ -741,7 +794,7 @@ $(function () {
 					$("#expXIcon").css("display","none");
 					$("#expOKIcon").css("display","");
 					$("#exp").focus();
-					alert($("input[type=radio][name='recruitnum']:checked").val());
+					
 				}
 			
 			if($("input[type=radio][name='recruitnum']:checked").val()==undefined){
@@ -796,13 +849,7 @@ $(function () {
 	})
 	</script>
 	
-	<input type=button id=aa>
-	<script>
-	$("#aa").on("click",function(){
-		alert($("#employstatusid").val());
-			
-	})
-	</script>
+	
 
 	<!-- // 공고 입력 부분 끝 -->
 </div>

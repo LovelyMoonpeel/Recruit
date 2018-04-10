@@ -17,21 +17,22 @@
 
 		<!-- 문> 왼쪽 사이드 바와 높이를 맞추기 위한 전략  -->
 		<p class="lead">
-			<strong>회사 정보 수정</strong>
+			<strong>기업 정보 수정</strong>
 		</p>
 
 		<!-- 문> row를 안 붙이면 밑에 항목들과 다르게 위치가 세팅된다. 한마디로 열이 안 맞춰진다. -->
 		<div class="row">
 			<!-- 문> 이건 가로 길이  -->
 			<div class="form-group col-lg-6">
-				<label>회사 이미지</label>
+				<label>기업 이미지</label>
 
 				<!-- 문> 사진 틀의 가로와 세로 길이  -->
 				<div id='uploadedList' style='width: 127px; height: 152px;'>
 					<!-- 문> 여기서 height는 '회사정보수정'페이지에 뿌려주는 사진의 높이로 위에서 설정해준 틀에 맞게 써야 한다. 세로만 지정해도 가로도 자동으로 정해지는 듯  -->
 					<img id='imgsrc' height="152px;" alt="${CInfoVO.img}" />
 				</div>
-
+					<input id='imgsrccheck' type='hidden' value="${CInfoVO.img}" /> 
+							<!-- db에 있는 file img 이름 받아오는 hidden input -->
 				<div>
 					<!-- 문Q>디비에 있는 이미지 뿌려주는 거 같은데, hidden??  -->
 					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}"> <br>
@@ -143,15 +144,6 @@
 			</div>
 		</div>
 
-<%-- 		<div class="row">
-			<div class="form-group col-lg-6">
-				<label>담당자</label> <input type="text" name="pname" class="form-control" value="${boardVO.pname}">
-			</div>
-			<div class="form-group col-lg-6">
-				<label>휴대폰 번호</label> <input type="text" name="phone" class="form-control" value="${CInfoVO.phone}">
-			</div>
-		</div> --%>
-
 		<br>
 
 		<!-- 수정 버튼 -->
@@ -167,21 +159,16 @@
 <!-- 소연 모달 -->
 <div class="modal" id="ORIGINAL_modal">
 	<div class="modal-dialog modal-dialog-centered">
-
 		<div class="modal-content modal-dialog-centered">
-			<div class="modal-head"
-				style="text-align: center; vertical-align: middle; margin: 10px;">
+			<div class="modal-head" style="text-align:center; vertical-align:middle; margin:10px;">
 				<br>
-				<button type="button" class="close" data-dismiss="modal"
-					style="margin: 10px;">&times;</button>
+				<button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
 				이미지 크게 보기
 			</div>
 
 			<div class="modal-body modal-dialog-centered">
-
 				<!--x표시 누르면 창 사라지게 하는 코드 -->
-				<div class="row"
-					style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+				<div class="row" style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
 					<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
 				</div>
 			</div>
@@ -191,17 +178,17 @@
 	</div>
 	<!--//modal-dialog -->
 </div>
-<!-- 소연 코드 -->
+<!--//소연 모달 -->
 
 <script>
+    //★★★ 취소하기 버튼 ★★★
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
-		
 		console.log(formObj);
+		// 문> btn-warning은 취소하기 버튼 클래스 이름
 		$(".btn-warning").on("click", function() {
 			self.location = "/company/C_index";
 		});
-	 	
 	});
 </script>
 
@@ -218,55 +205,69 @@
 </script>
 
 
+
+
+
 <script>
 
-    var imgsrccheck = ('#imgsrccheck');
+var xornot = document.getElementById('xornot');
+var preexistenceimg = document.getElementById('preexistenceimg');
 
-    if ($('#imgsrccheck').val() != "") {
+    if ($('#imgsrccheck').val() != "") {    // 문> 여기서 #은 id값을 의미함 .은 class  ()앞에 $가 있어야 한다.
         console.log(" val이 널값아님");
-        $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
-        var str = "";
-        str = "<a id='ORIGINAL'>크게보기</a>"
-                + "<small data-src=${CInfoVO.img}>X</small>";
-        $("#uploadedList").append(str);
+        
+        $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');   // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
+        console.log("이미지 주소: "+'${CInfoVO.img}');
+           
+/*         var hoho = "";
+        hoho = '${CInfoVO.img}'; 
+        console.log("hoho: "+ hoho); */
+     
+        var str = "";     // 문> str쓰기 위해서 선언, 변수를 쓸때는 항상 선언부터 한다.
+       	str = "<br><a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
+        
+        $("#uploadedList").append(str);     // 문> 컨텐츠를 선택된 요소 내부의 끝 부분에서 삽입, 즉,사진 밑에 문구를 삽입 | uploadedList는 사진 id
 
-        $("#ORIGINAL").on("click", function() {
-            console.log("ORIGINAL click");
-            var src = "displayFile?fileName=${CInfoVO.img}";
-            $("#ORIGINAL_modal").modal();
-            $("#modal_get_Imgname1").attr("src", src);
+        $("#ORIGINAL").on("click", function() {    // 문> ORIGINAL은 사진 밑에 '크게 보기'
+            
+        	console.log("☆☆크게보기☆☆");
+        	
+        	var src = "displayFile?fileName=${CInfoVO.img}";
+            $("#ORIGINAL_modal").modal();     // 문> ORIGINAL_modal은 모달창 id값
+            $("#modal_get_Imgname1").attr("src", src);       // 문> modal_get_Imgname1는 모달창에 들어가는 사진의 id값
         });
+        
         $("#preexistenceimg").val("1");
     } else {
         console.log(" val이 널값이다");
         $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
         $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
         $("#preexistenceimg").val("0");
+      
     }
 
-    var upload = document.getElementById('fileupload');
+    var upload = document.getElementById('fileupload'); 
     var uploadedList = document.getElementById('uploadedList');
-    if (typeof window.FileReader === 'undefined') {
+    
+    if (typeof window.FileReader === 'undefined') {     // 소연> fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
         console.log("window.FileReader 'fail'");
     } else {
         console.log("★★★★★★★★  window.FileReader 'success'  ★★★★★★★");
-    } //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-
+    } 
+	
     upload.onchange = function(e) {
 
         var file = upload.files[0];
-        var reader = new FileReader();
-        //p542다시 보기
-
-        //reader.onload start
-        reader.onload = function(event) {
+        var reader = new FileReader();     //p542다시 보기
+        
+        reader.onload = function(event) {     //reader.onload start
             var image = new Image();
             image.src = event.target.result;
 
             uploadedList.innerHTML = '';
             image.height = 150;
             uploadedList.appendChild(image);
-        };//reader.onload end
+        };     //reader.onload end
 
         //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
         //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
@@ -275,35 +276,36 @@
         console.log("file name");
         console.log(file);
 
-        var formData = new FormData();
-
-        formData.append("file", file);
+        var formData = new FormData();       //문> FormData 객체를 이용하면 <form>태그로 만든 데이터의 전송방식과 동일하게 파일 데이터를 전송할 수 있다.
+        formData.append("file", file);		 // 이용하는 방법은 객체를 생성하고, 필요한 데이터 '이름'과'값'을 추가하면 된다.
 
         $.ajax({
             url : '/company/uploadAjax',
             data : formData,
             dataType : 'text',
-            processData : false,
+            processData : false,     //문> FormData 객체에 파일 데이터를 전송하기 위해서 false로 처리. 아래줄도 마찬가지
             contentType : false,
             type : 'POST',
             success : function(data) {
                 var str = "";
 
-                console.log(data);
-                str = "<a id='ORIGINAL'>크게보기</a>"
+                console.log("★data: "+data);
+                str = "<br><a id='ORIGINAL'>크게보기</a>"
                         + "<small data-src="+data+">X</small>";
 
                 $("#uploadedList").append(str);
+                
+                // 문> ORIGINAL은 크케보기 id값
                 $("#ORIGINAL").on("click", function() {
                     console.log("ORIGINAL click");
-                    console.log("dlrj" + data);
-                    console.log(getImageLink(data));
+                    console.log("★★data: " + data);
+                   /*  console.log(getImageLink(data)); */
                     var src = "displayFile?fileName=" + data;
                     $("#ORIGINAL_modal").modal();
                     $("#modal_get_Imgname1").attr("src", src);
                 });
                 document.getElementById('uploadfilename').value = data;
-                uploadedfilename_val = data;
+                /* uploadedfilename_val = data; *///여기여기여기
             }//success : function(data){ end
         });//ajax end
         //});//filedrop end
@@ -311,15 +313,27 @@
         reader.readAsDataURL(file);
     };//upload change end
 
+    
+    //★★★ X버튼 ★★★
     $("#uploadedList").on("click", "small", function(event) {
         event.preventDefault();
+        
         var that = $(this);
+       
+        
+        if($("#xornot").val()==0){
+        
+        
+        
+        
+/*         $("#fileupload").val("");     	// fileupload를 빈값으로 처리
         $("#uploadedList").empty();
         console.log("img File appended deleted");
+        
         var fileName = $(this).attr("data-src");
-        console.log(fileName);
+        console.log("fileName"+fileName);
+        
         var uploadfilename = document.getElementById('uploadfilename');
-
         $.ajax({
             url : "deleteFile",
             type : "post",
@@ -334,23 +348,64 @@
                     $('#uploadfilename').val('');
                 }
             }
-        });
+        }); */
+        
+        
+
+			
+			fileName = $(this).attr("data-src"); //전역변수로 설정
+			var front = fileName.substring(0, 12);
+			var end = fileName.substring(12);
+			var thumcheck = fileName.substring(12,14);
+			
+			if(thumcheck!="s_"){
+				console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
+				fileName = front + "s_" + end;
+				console.log("썸네일 아니라서 바뀐 fileName" + fileName);
+			}else{
+				console.log(thumcheck + "썸네일인 fileName" + fileName);
+			}
+		
+			$("#fileupload").val("");
+			$("#uploadedList").empty();
+			console.log("img File appended deleted");
+			console.log("fileName"+fileName);
+			$('#uploadfilename').val('');
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}else if($("#xornot").val()==1){
+			console.log("img File on server deleted");
+			$(this).parent("div").empty();
+			$("#fileupload").val("");
+			$('#uploadfilename').val('');
+			$("#uploadedList").empty();
+			console.log("2번 이상 삭제 누름 img File appended deleted");
+			console.log("2번 이상 삭제 누름 fileName"+fileName);
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}
+        
+        
+        
+        
     });
 
-    function getOriginalName(fileName) {
+ /*    function getOriginalName(fileName) {
         var idx = fileName.indexOf("_") + 1;
         return fileName.substr(idx);
-    }
+    } */
 
-    function getImageLink(fileName) {
-        var front = fileName.substr(0, 12);
-        var end = fileName.substr(14);
+ /*    function getImageLink(fileName) {
+        var front = fileName.substr(0, 12);      //문> '/년/월/일' 경로를 추출하는 용도
+        var end = fileName.substr(14);       //문> 파일 이름 앞의 's_'를 제거하는 용도
 
         return front + end;
-    }
+    } */
 
-    //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
-    $(".btn-primary").on("click", function() {
+    //★★★ 수정완료 버튼 ★★★
+    $(".btn-primary").on("click", function() {     //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
 
         /* alert(uploadedfilename_val); */
         formObj = $("form[role = 'form']");

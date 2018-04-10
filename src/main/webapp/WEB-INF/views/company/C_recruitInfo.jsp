@@ -27,58 +27,42 @@
 	<font size="6px">${RecruitVO.title}</font>
 	</div>
 	<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
-	<img src="${CInfoVO.img}" class="img-rounded" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px; height:100px"/>
+	<img src="${CInfoVO.img}" class="img-rounded" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px;"/>
 	</div>
 	</div>
 
 	<div class="row">
 	<!-- 첫번쨰 칸 -->
-	<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
 	<div class="col-md-4">
 	<h4>지원자격</h4>
-	</c:if>
-	
-	<c:if test="${RecruitVO.exp eq null || RecruitVO.edu eq null}">
-	</c:if>
-	
-	<c:if test="${RecruitVO.exp ne null}">
+		
 	<small>경력&emsp;</small><a>${RecruitVO.exp}</a>
 	<br><br>
-	</c:if>
 	
-	<c:if test="${RecruitVO.edu ne null}">
+	
 	<small>학력&emsp;</small><a>${RecruitVO.edu}</a>
 	<br><br>
-	</c:if>
 	
-	<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
 	</div>
-	</c:if>
+	
 	<!-- /첫번째 칸 -->
 	
 	<!-- 두번째 칸 -->
-	<c:if test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
+	
 	<div class="col-md-4">
 	<h4>근무조건</h4>
-	</c:if>
 	
 	
-	<c:if test="${RecruitVO.employstatusid ne null}">
+	
+	
 	<small>고용형태&emsp;</small><a>${RecruitVO.employstatusid}</a><br><br>
-	</c:if>
 	
-	<c:if test="${RecruitVO.salaryid ne null}">
 	<small>급여&emsp;</small><a>${RecruitVO.salaryid}</a><br><br>
-	</c:if>
 	
-	<c:if test="${RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
 	<small>지역&emsp;</small><a>${RecruitVO.rgbid}</a>
 	<a>${RecruitVO.rgsid}</a><br>
-	</c:if>
 	
-	<c:if test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
 	</div>
-	</c:if>
 	<!-- /두번째 칸 -->
 	
 	<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
@@ -101,23 +85,11 @@
 		</div>
 		<br>
 
-<c:choose>
-<c:when test="${CInfoVO.id != null}">
+
 <div class="text-center">
 <button type="button" id="view" class="btn btn-default btn-lg active" value="${RecruitVO.bno}">공고보기</button>
 <button type="submit" id ="modify" class="btn btn-primary btn-lg active" value="${RecruitVO.bno}">수정하기</button>
 </div>
-</c:when>
-<c:when test="${CInfoVO.id == null}">
-<div class="text-center">
-<button class="btn btn-primary btn-lg disabled">즉시지원</button>
-<button class="btn btn-default btn-lg disabled">스크랩하기</button>
-</div>
-</c:when>
-
-</c:choose>
-
-
 
 	<br>
 	

@@ -51,7 +51,7 @@ public interface CompanyDAO {
 	
 	public void RecruitRemove(int bno, String id)throws Exception;
 	
-	public List<ResumeVO> ApplyList(int recruitNum)throws Exception;
+	public List<CPersonInfoVO> ApplyList(int recruitNum)throws Exception;
 	
 	public List<CInterestPersonVO> FavorCompareList(String id)throws Exception;
 	

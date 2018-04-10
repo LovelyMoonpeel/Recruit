@@ -27,6 +27,8 @@ public interface CompanyAjaxService {
 	 
 	 public int regionCount() throws Exception;
 	 
+	 public int appListCount(int bno) throws Exception;
+	 
 	 public List<RegionVO> subRegionList() throws Exception;
 	 
 	 public List<RecruitVO> RecruitList(String id, int page) throws Exception;

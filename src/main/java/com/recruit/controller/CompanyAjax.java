@@ -51,6 +51,9 @@ public class CompanyAjax {
 	private PApplyService papService;
 	@Inject
 	private PInterestJobService PIJService;
+	// 문> 밑에 changePassword쪽에서 쓰려고 passwordEncoder주입해줬음
+	@Inject
+	private PasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list() {
@@ -126,6 +129,7 @@ public class CompanyAjax {
 		
 		String id = login.getId();
 		try {
+			
 			entity = new ResponseEntity<>(jobService.FavorList(id), HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -437,52 +441,66 @@ public class CompanyAjax {
 		
 	}
 
-	// 문> 3.26
-	@Inject
-	private PasswordEncoder passwordEncoder;
 
-	// 문> 3.26 매개변수에 @RequestBody를 써줘야 ajax처리된 값을 가져올 수 있다. 
+	/*문> 매개변수에 @RequestBody LoginDTO dto를 써줬다.
+	보내는 곳에 다음과 같이 써있다.
+	data : JSON.stringify({
+		pw : inputPw,
+		pw2 : inputPw2
+		
+	}),
+	dto의 pw에 inputPw값을 넣겠다는 얘기
+	dto의 pw2에 inputPw2값을 넣겠다는 얘기임
+	*/
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public ResponseEntity<String> pwPost(@RequestBody LoginDTO dto, HttpSession session, Model model,
 			HttpServletRequest request, RedirectAttributes rttr) {
 
+		/* 문> ResponseEntity<String>을 왜 쓰는지는 정확히 모른다.
+		다만 추측해보면 ajax로 요청이 왔고 리턴을 보낼 때 저 타입으로 보내야 ajax쪽에서 알아 듣는 거 같다.*/
 		ResponseEntity<String> entity = null;
 
+		// 문> login에 있는 pw값을 데리고 오기 위함. 거기에 있는 pw값과 사용자에게 확인 차 입력받은 비번을 비교하려고.
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
-		System.out.println("하하하");
+		System.out.println("★ login에는 어떤 정보가 들어있냐? " + login);
 
-		System.out.println("★ login: " + login);
+		System.out.println("★ login의 pw는 무슨 값이냐? " + login.getPw());
 
-		System.out.println("★ login.getPw(): " + login.getPw());
-
-		System.out.println("★ LoginDto: " + dto);
+		System.out.println("★ dto에는 어떤 정보가 들어있냐? " + dto);
 		
-		System.out.println("★ dto.getPw(): " + dto.getPw());
+		System.out.println("★ dto의 pw는 무슨 값이냐? " + dto.getPw());
 		
-		System.out.println("★ entity: " + entity);
+		System.out.println("★ 현재 entity는 무슨 값이냐? " + entity);
 		
+		/* 문> login.getPw()는 시큐리티가 적용된 기존 비밀번호이다.
+		dto.getPw()는 시큐리티가 적용 안 된 사용자에게 확인 차 입력받은 기존 비밀번호이다.
+		아래와 passwordEncoder를 쓰면 비교가 되나보다.
+		*/		
 		if (passwordEncoder.matches(dto.getPw(), login.getPw())) {
 			System.out.println("★ 비밀번호 일치");
 			System.out.println("★if안 entity: " + entity);
 			try {
+				// 문> 비밀번호가 일치할 때 아래와 같이 entity에 값을 넣어준다.
 				entity = new ResponseEntity<>("success", HttpStatus.OK);
-				System.out.println("★if안 try안 entity: " + entity);
+				System.out.println("★if속 try의 entity값은? " + entity);
+				// 문> entity를 가지고 C_pass.jsp의 ajax부분으로 간다.
 				return entity;
-				
+			
+			// 문> 아래 catch문은 왜 있는건지 모르겠음. 거기로 들어가는 상황이 없는데.. 비번 틀리면 else로 간다.	
 			} catch (Exception e) {
 				e.printStackTrace();
 				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				System.out.println("★ 비밀번호 불일치");
 				return entity;
 			}
-
+			
+		// 문> 비밀번호 불일치시 else로 빠짐	
 		} else {
-			System.out.println("★ 비밀번호 불일치");
-
+			System.out.println("★★ 비밀번호 불일치");
+			// 문> entity를 가지고 C_pass.jsp의 ajax부분으로 간다.
+			return entity;
 		}
-
-		return entity;
-
 	}
 	
 	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)//소연
@@ -569,5 +587,50 @@ public class CompanyAjax {
 		}
 		System.out.println("return entity : " + entity);
 		return entity;
+	}
+	
+	@RequestMapping(value = "/applyList/{bno}", method = RequestMethod.GET)
+	public Object appList(@PathVariable("bno") int bno, CompanySearchCriteria cri){
+	
+		ResponseEntity<List<Object>> entity = null;
+	
+		System.out.println("bno"+bno);
+		
+		int Count;
+		String page = "";
+		String  searchType = "";
+		String keyword = "";
+		String perPageNum = "";
+		
+		
+		try {
+			
+			
+			
+			CompanyPageMaker pageMaker = new CompanyPageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.appListCount(bno));
+			
+			List<CPersonInfoVO> a = jobService.ApplyList(bno);
+			List<Object> b = new ArrayList<Object>();
+			
+			
+			
+			
+			for(int i =0; i<a.size(); i++){
+				b.add((Object)(a.get(i)));
+				
+			}
+			
+			b.add(pageMaker);
+			
+			entity = new ResponseEntity<>(b, HttpStatus.OK);
+			
+			System.out.println("entity"+entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;	
 	}
 }

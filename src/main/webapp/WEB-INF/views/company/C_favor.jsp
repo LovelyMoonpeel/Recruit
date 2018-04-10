@@ -51,6 +51,8 @@
 		
 		</tbody>
 	</table>
+	
+	
 
 	<!-- //기업 페이지 -->
 </div>
@@ -96,12 +98,13 @@ $(document).ready(function(){
 		$(data).each(function(){
 			
 			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
-				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+" &nbsp;* *</strong><br></td>"
-				+ "<td><span class=careerLine>경력 3년 5개월</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
-				+ ""+this.bno+":"+this.title+"</a>"
-				+ "<div><div></div><div>"+this.schoolname+""+this.marjor+"</div></div>"
-				+ "<p>"+this.rgbid+""+this.salary+"</p>"
-				+ "<div><a>핵심역량 마케팅전략 기획</a></div></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
+				+ "<td><span class=careerLine>경력 "+this.career+"</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+				+ ""+this.title+"</a>"
+				+ "<br><p>"+"학력: "+this.edu+" </p>"
+				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
+				+ "<p>"+"희망연봉: "+this.salary+"</p>"
+				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
 			
 			
 		});

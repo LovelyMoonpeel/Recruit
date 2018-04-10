@@ -166,7 +166,7 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 
 	@Override
-	public List<ResumeVO> ApplyList(int recruitNum) throws Exception {
+	public List<CPersonInfoVO> ApplyList(int recruitNum) throws Exception {
 		
 		return session.selectList(namespace + ".applyList", recruitNum);
 	}

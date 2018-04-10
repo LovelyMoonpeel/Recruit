@@ -194,6 +194,7 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
+
 	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {

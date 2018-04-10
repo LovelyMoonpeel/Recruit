@@ -29,6 +29,9 @@ public class RecruitVO implements Bnoble {
 	private String applynum;
 	private int rownum;
 	private String btnstate;
+	private String pname;
+
+	
 
 	@Override
 	public String toString() {
@@ -38,7 +41,7 @@ public class RecruitVO implements Bnoble {
 				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
 				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt
 				+ ", recruitstate=" + recruitstate + ", week=" + week + ", applynum=" + applynum + ", rownum=" + rownum
-				+ ", btnstate=" + btnstate + "]";
+				+ ", btnstate=" + btnstate + ", pname=" + pname + "]";
 	}
 
 	public String getBtnstate() {
@@ -256,5 +259,13 @@ public class RecruitVO implements Bnoble {
 		if (bno != other.bno)
 			return false;
 		return true;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
 }

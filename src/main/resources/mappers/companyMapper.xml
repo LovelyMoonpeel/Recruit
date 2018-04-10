@@ -18,7 +18,7 @@
 	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
 		select
 		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form,
-		establish,numemp, sales, tel, fax, sns, location, phone, email
+		establish,numemp, sales, tel, fax, sns, location, phone, email, tu.pname
 		from
 		tblcinfo as tci, tbluser as tu
 		where
@@ -77,6 +77,10 @@
 	select count(distinct rgbid) 
 	from project.tblregion 
 	where rgbid!='Z';
+	</select>
+	
+	<select id="appListCount" resultType="int"> <!-- 지원한 사람 페이징 위한 count -->
+	SELECT count(t.rcno) FROM tblapply t where t.rcno = #{bno}; 
 	</select>
 	
 	<select id="ajaxSubJobgroup" resultType="JobGroupVO">
@@ -367,11 +371,13 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 	</select> 
 
 	<select id="ajaxPersonRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
-	select distinct p.bno as bno, substring(u.pname,1,1) as name, p.title as title,  r.rgbname as rgbid, n.career as salary , e.schoolname, e.major
-	from tblresume p, tblrecruit c, tbljobgroup j, tblregion r, tblcode m, tblcode n, tbluser u, tblresumeedu e
-where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid and p.jobstateid = 1 and p.salaryid = c.salaryid
-and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id and c.salaryid = n.id and p.userid = u.id and e.resumenum = p.bno
-and c.bno = #{bno};
+	select distinct p.bno as bno, u.pname , p.title as title,  r.rgbname as rgbid, n.career as salary
+	
+	from tblresume p, tblrecruit c, tbljobgroup j, tblregion r, tblcode m, tblcode n, tbluser u
+	
+	where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid
+	and p.jobstateid = 1 and p.salaryid = c.salaryid and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id 
+	and c.salaryid = n.id and p.userid = u.id and c.bno = #{bno};
 	</select> <!-- 추천인재 리스트(조건이 완전 일치하는 인재만 뜨게끔 돼있음) -->
 
 	<insert id="ajaxFavorPersonAdd" parameterType="hashMap">
@@ -387,16 +393,14 @@ and c.bno = #{bno};
 
 	<select id="favorList" resultType="com.recruit.domain.CPersonInfoVO">
 		SELECT distinct p.bno,
-		substring(u.pname,1,1) as name, p.title, r.rgbname as
-		rgbid, n.career
-		as salary, e.schoolname, e.major
+		u.pname as name, p.title, r.rgbname as
+		rgbid, i.rgsname as rgsid , n.career as salary, c.career as edu, o.career as career , g.jobgroup as jobgroup1, j.jobgroup as jobgroup2		
 		FROM tblinterestperson f, tblresume p,
-		tblregion r, tbluser u , tblcode n,
-		tblresumeedu e
-		where f.presume =
-		p.bno and p.rgbid = r.rgbid and u.id = p.userid and n.id
-		= p.salaryid
-		and e.resumenum = p.bno and f.cuserid = #{id};
+		tblregion r, tbluser u , tblcode n, tblcode c, tblcode o, tbljobgroup j, tbljobgroup g, tblregion i
+		where f.presume = p.bno and p.rgbid = r.rgbid and u.id = p.userid and n.id = p.salaryid and i.rgsid = p.rgsid and i.rgbid = r.rgbid
+        and p.levelofeducation = c.id and p.lastcareer = o.id and j.id = p.jobgroupid2 and g.id = p.jobgroupid 
+        and p.publicornot = '공개' and f.cuserid = #{id};
+  
 	</select> <!-- 관심인재 리스트 -->
 
 	<select id="favorCompareList" resultType="com.recruit.domain.CInterestPersonVO">
@@ -483,17 +487,20 @@ and c.bno = #{bno};
 		where bno = #{bno} and cid = #{id};
 	</delete> <!-- 채용공고 삭제 -->
 
-	<select id="applyList" resultType="com.recruit.domain.ResumeVO">
-		SELECT p.bno,
-		substring(u.pname,1,1) as img, p.userid address, p.title,
-		e.schoolname
-		coverletter, e.major rgbid
-		FROM tblapply a, tblrecruit r, tblresume p,
-		tbluser u, tblresumeedu e,
-		tblcode m
-		where a.rcno = #{recruitNum} and
-		r.bno = #{recruitNum} and p.bno = a.rsno
-		and u.id = p.userid and
-		e.resumenum = p.bno and p.salaryid = m.id;
+	<select id="applyList" resultType="com.recruit.domain.CPersonInfoVO">
+		
+		SELECT distinct p.bno,
+		u.pname as name, p.title, r.rgbname as
+		rgbid, i.rgsname as rgsid , n.career as salary, c.career as edu, o.career as career , g.jobgroup as jobgroup1, j.jobgroup as jobgroup2		
+		FROM tblapply a, tblrecruit f,  tblresume p,
+		tblregion r, tbluser u , tblcode n, tblcode c, tblcode o, tbljobgroup j, tbljobgroup g, tblregion i
+		where p.rgbid = r.rgbid and u.id = p.userid and n.id = p.salaryid and i.rgsid = p.rgsid and i.rgbid = r.rgbid
+        and p.levelofeducation = c.id and p.lastcareer = o.id and j.id = p.jobgroupid2 and g.id = p.jobgroupid 
+         and
+        a.rcno =  #{recruitNum}  and
+		f.bno =  #{recruitNum}  and p.bno = a.rsno;
+		
 	</select> <!-- 지원인재 리스트 -->
+	
+	
 </mapper> 

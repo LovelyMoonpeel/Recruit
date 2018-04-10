@@ -55,7 +55,11 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		
 		return session.selectOne(namespace + ".regionCount");
 	}
-	
+	@Override
+	public int appListCount(int bno) throws Exception{
+		
+		return session.selectOne(namespace + ".appListCount", bno);
+	}
 	@Override 
 	public List<RegionVO> subRegionList() throws Exception{
 		

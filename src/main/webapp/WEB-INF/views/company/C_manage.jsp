@@ -7,6 +7,7 @@
 <!-- 문> 반응형 카드를 위한 아래 두 줄  -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
@@ -17,39 +18,42 @@
 	</p>
 	
 
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	
+
 	<!--소스  -->
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<ul class="nav navbar-nav">
-					<li id="btnsState" name="SearchReset" class="active"><a id="btns">전체</a></li>
+					<li id="btnsState" name="SearchReset" class="active"><a id="btns" style="cursor:pointer">전체</a></li>
 				</ul>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li id="btnsState"><a id="btns">진행중</a></li>
-					<li id="btnsState"><a id="btns">마감</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">미완성 <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
+<li id="btnsState"><a id="btns" style="cursor:pointer">진행중</a></li>
+<li id="btnsState"><a id="btns" style="cursor:pointer">마감</a></li>
 				</ul>
-				<div class="input-group" style="padding-top: 10px">
-					<div class="input-group-btn" style="">
-						<select class="form-control selectpciker" name="searchType" style="width: 120px">
-							<option value="n" <c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+				<div class="input-group" >
+					<div class="input-group-btn" style="vertical-align:middle">
+						<select class="selectpicker" name="searchType" style="width:50px;">
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
-							<option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option>
+							<%-- <option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option> --%>
 						</select>
 					</div>
 					<!-- /btn-group -->
-					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> 
+					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
 					</span>
-					<ul class="nav navbar-nav navbar-right">
-						<select class="form-control" id="perPageNum" style="width: 120px">
+					<ul class="nav navbar-nav navbar-right" style="vertical-align:middle">
+						<select class="selectpicker" id="perPageNum" style="width: 120px">
 							<option value="5" selected>5개씩보기</option>
 							<option value="10">10개씩보기</option>
 							<option value="20">20개씩보기</option>
@@ -58,12 +62,13 @@
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
+		
 			<!-- /.container-fluid -->
 	</nav>
 	<nav class="navbar-default" style="margin-bottom: 15px;">
 		<div class="container-fluid" style="padding-bottom: 1px; padding-top: 1px;">
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<small id="viewOrder">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder">마감일순</small><span name="orders" id="endIcon" class=""></span>
+			<small id="viewOrder" style="cursor:pointer">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder" style="cursor:pointer">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder" style="cursor:pointer">마감일순</small><span name="orders" id="endIcon" class=""></span>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 		</div>
 		<!-- /.container-fluid -->
@@ -109,6 +114,7 @@
 			</tr>
 		</thead>
 		<tbody id="recruitList">
+		
 		</tbody>
 	</table>
 	<div class="text-center">
@@ -129,6 +135,13 @@
 			</td>
 		</tr>
 	</table>
+	
+	<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
+	
+		<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
+		
+	</c:forEach>
+
 	<!-- 문> 반응형이 적용 안 되서 일단 주석처리
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
@@ -140,8 +153,52 @@
 			</ul>
 		</div>
 	</div> -->
+	
+		<div id="myModal" class="modal fade" role="dialog">
+ 	 <div class="modal-dialog modal-lg" >
+	   <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" name="offLoad" id="off" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">지원자 리스트</h4>
+        </div>
+        <div class="modal-body">
+         
+         	 <table class="table table-striped" >
+         	 <thead class=active>
+          <tr class=active>
+          <th class="text-center" style="width:5%"></th>
+          <th class="text-center" style="width:15%">이름</th>
+          <th class="text-center" style="width:65%">이력서 요약</th>
+          <th class="text-center" style="width:15%">업데이트일</th>
+          </tr>
+          </thead>
+          
+          <tbody id="appList">
+          
+          </tbody>
+          
+        
+          </table>
+          
+        </div>
+        
+          <div class="text-center">
+			<ul class="pagination" id="applyListPage">
+			</ul>
+		</div>
+        <div class="modal-footer">
+        
+          
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div>
+      	</div> 
+       </div>
+    </div>
+	
 </div>
 <!-- //기업 채용공고 목록 끝 -->
+
+
 <script>
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
@@ -265,6 +322,14 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 }
 })
 </script>
+<script>
+			 $("#keywordInput").keypress(function (e) {
+			        if (e.which == 13){
+			        	
+			        	$('#searchBtn').trigger('click');
+			        }
+			    });
+			</script>
 <script>
  function check(orderType){
 	
@@ -518,11 +583,11 @@ var formObj = $("form[role='form']");
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
 			var orderType = $("#appIcon").attr("value");
-			alert(searchType)
-			alert(keyword) 
 			RecruitList(pN, perPageNum, searchType, keyword, orderType)
 			
  		});
+ 		
+ 
 	
 		
 		function RecruitList(pN, perPageNum, searchType,keyword, orderType){
@@ -559,14 +624,14 @@ var formObj = $("form[role='form']");
 							
 							if(i < length){
 								str += "<tr><th rowspan=2 ><span class=badge>"+this.recruitstate+"</span></th>"
-								+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 										+"<li>근무형태 : "+this.employstatusid+"</li>"
 										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 										+"<li>경력 : "+this.exp+"</li>"
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-										+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-										+"<tr><th>최근수정 : "+this.regdate+" (담당자:++)</th><th></th><th></th></tr>"
+										+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
+										+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"
 								}else{
 									
 				 					if(this.prev){
@@ -586,7 +651,8 @@ var formObj = $("form[role='form']");
 						});			
 						
 						$("#recruitList").html(str);	
-						$("#spid").addClass("glyphicon glyphicon-trash");
+						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
+					/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
 						 $("#listPage").html(chr); 
 							
 						 $("li[name="+pN+"]").addClass("active");
@@ -596,8 +662,15 @@ var formObj = $("form[role='form']");
 			 
 			 }); 
 			  
-		}			 
+		}
+		
+		$(document).on("click","#nw",function(){
+
+			window.open(this.href, '', 'width=1240, height=960'); 
 			
+			return false;
+				
+		})
 		
 		 function RecruitIngList(pN, perPageNum, searchType,keyword, orderType){
 				
@@ -630,14 +703,14 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
 												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th></tr>"
+												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
 										}else{
 											
 											if(this.prev){
@@ -699,14 +772,14 @@ var formObj = $("form[role='form']");
 									
 									if(i < length){
 										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a href=C_recruitInfo?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
+										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 												+"<li>근무형태 : "+this.employstatusid+"</li>"
 												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 												+"<li>경력 : "+this.exp+"</li>"
 												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th></tr>"
+												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
 										}else{
 											
 											if(this.prev){
@@ -737,4 +810,172 @@ var formObj = $("form[role='form']");
 					 }); 
 				}
 	</script>
+	
+	<script>
+	$(document).on("click", "#aP", function(){
+		
+		window.open(this.href, '', 'width=1000, height=960');
+		
+		return false;
+		
+	})
+	</script>
+	<script> /* 모달용 스크립트 */
+$(document).on("click", "button[name=onLoad]", function() {
+	
+	
+	
+	 var bno = $(this).val();
+	
+	PersonList(bno);
+	
+	function PersonList(bno){
+		
+		
+		$.getJSON("/companyAjax/applyList/" + bno, function(data) {
+			
+			var str = "";
+			
+			var chr = "";
+			
+			var i = 0;
+			
+			var comparison = [];
+			
+			var length = data.length;
+			
+			$(data).each(function() {
+						
+				i++;
+				
+		 	if(i < length){
+				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="+this.bno+"></td>"
+				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
+				+ "<td><span class=careerLine>"+this.career+"</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+				+ ""+this.title+"</a>"
+				+ "<p>"+"학력: "+this.edu+"</p>"
+				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
+				+ "<p>"+"희망연봉: "+this.salary+"</p>"
+				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+				
+				comparison.push(this.bno)
+				
+			 	}else{
+					
+ 					if(this.prev){
+						chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
+					}
+					
+					
+					for(var z = this.startPage; z<=this.endPage; z++){
+						chr += "<li name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
+						
+					} 
+				 	if(this.next&&this.endPage>0){
+						chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+					} 
+ 				}
+					 
+				});
+			
+			
+			
+		 	$("#appList").html(str);
+		 	
+		 	$("#applyListPage").html(chr); 
+		 	 
+		 	favorComparison(comparison)
+			
+		})
+		
+	
+	}
+	
+})
+
+$(document).on("click","#btt",function(){
+		window.open(this.href, '', 'width=800, height=1000'); 
+		
+		return false;
+	})
+	
+	
+	
+function favorComparison(comparison){
+	
+	var compare = document.getElementsByName('CompareList');
+	var compareList = [];
+	for(var i=0; i<compare.length; i++){
+		
+	compareList.push(compare[i].value);
+	}
+	/*
+ 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
+ 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
+   */
+ 	for(var i= 0; i<compareList.length; i++){
+ 		
+ 		for(var j = 0; j<comparison.length; j++){
+ 			if(compareList[i] == comparison[j]){
+ 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
+ 			}
+ 		}
+ 	}
+	
+	
+}
+	
+</script>
+
+<script>
+$(document).ready(function(){
+	
+	$(document).on("click", '#non', function(){
+		
+		 var id = "<%=id%>"
+		var bno = $(this).attr('value');
+		
+		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
+			favDel(bno, id);
+		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
+			favAdd(bno, id);
+		}
+		
+			
+		})
+	
+	
+})
+function favAdd(bno, id){   // 관심인재 등록
+			
+	
+	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
+		var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
+	alert("관심인재에 등록 됐습니다.")
+	
+	
+}
+function favDel(bno, id){ 	// 관심인재 삭제
+	
+	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+	var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
+	alert("관심인재에서 삭제 됐습니다.")
+	
+}
+
+</script>
 <%@include file="../include/cfooter.jsp"%>

@@ -27,6 +27,8 @@ public interface CompanyAjaxDAO {
 	
 	public int regionCount() throws Exception;
 	
+	public int appListCount(int bno) throws Exception;
+	
 	public List<RegionVO> subRegionList() throws Exception;
 
 	public List<RegionVO> SubRegion(String id2) throws Exception;

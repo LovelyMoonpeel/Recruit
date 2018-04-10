@@ -2,6 +2,7 @@ package com.recruit.service;
 
 import java.util.List;
 
+import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
@@ -33,6 +34,8 @@ public interface CompanyService {
 	  
 	  public int listSearchCount(CompanySearchCriteria cri, String id) throws Exception;
 	   
+	  public RecruitVO RecruitInfoRead(int recruitNum,BoardVO login) throws Exception;
+	  
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead2(int recruitNum) throws Exception;
@@ -53,7 +56,7 @@ public interface CompanyService {
 	  
 	  public void RecruitRemove(int bno, String id)throws Exception;
 	  
-	  public List<ResumeVO> ApplyList(int recruitNum)throws Exception;
+	  public List<CPersonInfoVO> ApplyList(int recruitNum)throws Exception;
 	  
 	  public List<CInterestPersonVO> FavorCompareList(String id)throws Exception;
 	  
