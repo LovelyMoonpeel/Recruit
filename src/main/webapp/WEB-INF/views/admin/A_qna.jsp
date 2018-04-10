@@ -5,7 +5,7 @@
 
 <%@include file="../include/aheader.jsp"%>
 
-<!-- 개인관리 페이지 -->
+<!-- Q&A 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 	<h1>Q&A</h1>
@@ -52,8 +52,8 @@
 		</ul>
 	</div>
 	<!-- //pagination-->
-
 </div>
+<!-- //Q&A 페이지 -->
 
 <!-- 수정, 삭제 처리시 -->
 <script type="text/javascript">

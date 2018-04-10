@@ -64,7 +64,7 @@
 			</tr>
 		</table>
 	
-	
+	<!-- 기업기본정보 -->
 	<h2>기업기본정보</h2>
 	<table class="table table-bordered">
 		<tr>
@@ -106,6 +106,7 @@
 			<td colspan="3"><input class="form-control" type="text" name="location" value="${CInfoVO.location}"></td>
 		</tr>
 	</table>
+	<!-- //기업기본정보 -->
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">
 		<input type="submit" class="btn btn-danger" value="삭제">
@@ -137,14 +138,15 @@
 <!-- 비밀번호 일치 여부  -->
 <script>
 /* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
-var pwchk = $('#pwchk');
+var pwchk = $('#pwchk'); //Password check 알림
 
+/* 정규식 */
 var pwReg = /[A-Za-z0-9]$/;
 var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
 
 $('#pwc').keyup(function(){	
-	var pwcval = $('#pwc').val();
-	var pwval = $('#pw').val();
+	var pwcval = $('#pwc').val(); //Password check value
+	var pwval = $('#pw').val();   //Password value
 	
 	if(pwcval.search(/\s/) != -1){
 		alert("공백 금지");
@@ -162,16 +164,16 @@ $('#pwc').keyup(function(){
 	if(!(pwcval.length > 5 && pwcval.length <= 20)){
     	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 		pwchk.attr("style", "color:red");
-		pwc = "no";
+		pwcheck = "no"; //Password check 
 	}else{
 		if(pwval == pwcval){
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
 			pwchk.attr("style", "color:blue");
-			pwc = "ok";
+			pwcheck = "ok";
 		}else{
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
 			pwchk.attr("style", "color:red");
-			pwc = "no";
+			pwcheck = "no";
 		}
 	}
 	
@@ -198,16 +200,16 @@ $('#pw').keyup(function(){
 	if(!(pwval.length > 5 && pwval.length <= 20)){
     	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
 		pwchk.attr("style", "color:red");
-		pwc = "no";
+		pwcheck = "no";
 	}else{
 		if(pwval == pwcval){
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
 			pwchk.attr("style", "color:blue");
-			pwc = "ok";
+			pwcheck = "ok";
 		}else{
 			document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
 			pwchk.attr("style", "color:red");
-			pwc = "no";
+			pwcheck = "no";
 		}
 	}
 })
@@ -220,7 +222,7 @@ $('#pw').keyup(function(){
 $(function(){
 	var formObj = $("form[role='form']");
 	
-	console.log(formObj);
+	//console.log(formObj);
 	/* 수정버튼 */
 	$(".btn-warning").on("click", function(){
 		if($('#birth').val()==''){
@@ -233,7 +235,11 @@ $(function(){
 		
 		if(pw==pwc){
 			if(confirm("수정하시겠습니까?")){
-				formObj.submit();
+				if(pwcheck=="ok"){
+					formObj.submit();
+				}else{
+					alert("비밀번호를 확인해주세요.");
+				}
 			}
 		}else{
 			alert("비밀번호를 확인해주세요.");
@@ -262,7 +268,9 @@ $(function(){
 	});
 });
 </script>
+<!-- //버튼에 대한 스크립트  -->
 
+<!-- 알림처리 -->
 <script>
 var result = '${msg}';
 
@@ -270,6 +278,6 @@ if(result == 'remove'){
 	alert("채용공고 삭제가 완료 되었습니다.");
 }
 </script>
-<!-- //버튼에 대한 스크립트  -->
+<!-- //알림처리 -->
 
 <%@include file="../include/cfooter.jsp"%>

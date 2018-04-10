@@ -44,7 +44,7 @@ import com.recruit.domain.ResumeEduVO;
 import com.recruit.domain.ResumeLanguageVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.service.AdCompanyService;
-import com.recruit.service.AmainService;
+import com.recruit.service.AdminService;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.CsfaqService;
@@ -68,7 +68,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Inject
-	private AmainService aservice;
+	private AdminService aservice;
 
 	@Inject
 	private ResumeService rservice;
@@ -184,6 +184,13 @@ public class AdminController {
 		logger.info("modify post...........");
 		logger.info(vo.toString());
 
+		if(vo.getPw()==""){
+			vo.setPw(aservice.readpw(vo));
+		}else{
+			String encPassword = passwordEncoder.encode(vo.getPw());
+			vo.setPw(encPassword);
+		}
+		
 		aservice.amodify(vo);
 
 		rttr.addFlashAttribute("msg", "amodify");
@@ -250,7 +257,7 @@ public class AdminController {
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String qnaGET(@ModelAttribute("cri") CsqnaCriteria cri, Model model) throws Exception {
 		logger.info("qna get..........");
-		System.out.println(qservice.listCriteria(cri));
+//		System.out.println(qservice.listCriteria(cri));
 		model.addAttribute("list", qservice.listCriteria(cri));
 		CsqnaPageMaker pageMaker = new CsqnaPageMaker();
 		pageMaker.setCri(cri);

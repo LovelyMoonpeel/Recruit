@@ -10,8 +10,8 @@
 	String id = "";
 	BoardVO login = null;
 	String cname = "";
-	String location = "";
-	String c_chk = null;
+	String location = ""; //mypage 경로 설정 변수
+	String c_chk = null; //company_check
 	
 	try{
 		login = (BoardVO)session.getAttribute("login");
@@ -91,14 +91,17 @@
 		<!-- /.container -->
 	</nav>
 
+<!-- 인재찾기 접근 가능 스크립트 -->
 <script>
 $("#p_search").on("click",function(){
 	var c_chk = "<%=c_chk%>";
 	
-	if(c_chk == "null" && "<%=location%>" != "/admin/main"){
-		alert("접근 권한이 없습니다.");
-	}else if(c_chk == "null" && "<%=location%>" == "/admin/main"){
-		self.location="/srch/main?stype=2";
+	if(c_chk=="null"){
+		if("<%=location%>" != "/admin/main"){
+			alert("접근 권한이 없습니다.");
+		}else{
+			self.location="/srch/main?stype=2";
+		}
 	}else{
 		self.location="/srch/main?stype=2";
 	}

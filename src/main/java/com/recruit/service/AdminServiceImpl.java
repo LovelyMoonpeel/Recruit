@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
-import com.recruit.persistence.AmainDAO;
+import com.recruit.persistence.AdminDAO;
 
 @Service
-public class AmainServiceImpl implements AmainService {
+public class AdminServiceImpl implements AdminService {
 
 	@Inject
-	private AmainDAO dao;
+	private AdminDAO dao;
 
 	@Override
 	public BoardVO read(String id) throws Exception {
