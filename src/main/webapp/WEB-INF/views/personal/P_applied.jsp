@@ -163,7 +163,7 @@ $(document).ready(function(){
 			    success:function(result){
 			       if(result=='deleted'){
 			          alert("지원취소 되었습니다.");
-			      		self.location="/personal/applied";
+			      		self.location="/personal/applied_all";
 			       }else{
 			          alert("뭔가 잘못됨 else문으로 들어옴");
 			       }

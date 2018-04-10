@@ -91,7 +91,7 @@
                   <th style="text-align : center; vertical-align : middle;">구직상태</th>
                   <td>
                      <div class="form-group col-md-5">
-                     <select id="jobstateid" class="selectpicker form-control" data-live-search="true" name="jobstateid" > 
+                     <select id="jobstateid" class="form-control" data-live-search="true" name="jobstateid" > 
                         <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 6 }">
@@ -108,7 +108,7 @@
                <td>
                   <div class="form-group col-md-5">
                   <label for="jobgroupid">대분류</label> 
-                     <select style="height:5;" data-size="5" id="jobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid" >
+                     <select style="height:5;" data-size="5" id="jobGroup" class="form-control" data-live-search="true" name="jobgroupid" >
                         <option value="0">선택</option>
                         <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                            <c:if test="${JobGroupVO.id2 == 0}">
@@ -131,7 +131,7 @@
                <td>
                   <div class="form-group col-md-5">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
-                     <select class="selectpicker form-control" data-live-search="true" name="employstatusid" id="employstatusid"> 
+                     <select class="form-control" data-live-search="true" name="employstatusid" id="employstatusid"> 
                         <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 4 }">
@@ -148,7 +148,7 @@
                <td>
                   <div class="form-group col-md-5">
                      <label for="jobgroupid">시/도</label> 
-                        <select id="region" class="selectpicker form-control" name='rgbid' data-live-search="true">
+                        <select id="region" class="form-control" name='rgbid' data-live-search="true">
                            <c:forEach items="${RegionVOlist}" var="RegionVO">
                               <option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
                            </c:forEach>
@@ -165,7 +165,7 @@
                <td>
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
-                     <select class="selectpicker form-control" name="salaryid" id="CodeList7" data-live-search="true">
+                     <select class="form-control" name="salaryid" id="CodeList7" data-live-search="true">
                         <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 7 }">
@@ -860,6 +860,7 @@ $(document).ready(function(){
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
+		$("#fileupload").val("");
 		$("#uploadedList").empty();
 		$("#fileupload").val("");
 		console.log("img File appended deleted");

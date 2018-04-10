@@ -319,6 +319,16 @@ public class PersonalController {
 					model.addAttribute("careerVOList", Careerservice.readResumeCareerList(bno));
 
 					model.addAttribute("resumeRead", Rservice.resumeRead(bno));
+
+					/* 2018.04.03_Jcode_자기소개서 유효성 추가 */
+					String coverletter = Rservice.readROne(bno).getCoverletter();
+					String coverletter2 = coverletter.replace("<", "&lt;"); // HTML태그를 문자로 인지하게 바꿈
+					String coverletter3 = coverletter2.replace("\r\n", "<br>"); // 엔터를 <br>태그로 교체\r\n
+					String coverletter4 = coverletter3.replace(" ", "&nbsp;"); // 공백을 &nbsp;로 변환
+					
+					model.addAttribute("coverletter", coverletter4);
+					/* 2018.04.03_Jcode_자기소개서 유효성 추가 끝 */
+
 					
 					if (login.getCname() != null) {
 						model.addAttribute("FavorCompareList", parkService.FavorCompareList(id));
@@ -331,7 +341,7 @@ public class PersonalController {
 					
 					return "redirect:/personal/detail_nonavi_exception?bno="+bno;
 				}
-			} else {
+			} else {//지금은 무조건 true인거
 				rttr.addFlashAttribute("msg", "login");
 				return "redirect:/";
 			}

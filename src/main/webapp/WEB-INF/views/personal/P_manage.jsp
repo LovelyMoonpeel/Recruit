@@ -56,6 +56,7 @@ function deleteOneResume(bno){
 	var array=[];
 	array.push(parseInt(bno));
 	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
+		alert("삭제되었습니다.");
 		location.href='/personal/deleteOneResume?bno='+array;
 	}
 }
@@ -72,6 +73,7 @@ function deleteResumeList(){
 	});
 	
 	if(confirm(array+"번 이력서를 정말 삭제하시겠습니까?")){
+		alert("삭제되었습니다.");
 		location.href='/personal/deleteResumeList?bno='+array;
 	}
 }
