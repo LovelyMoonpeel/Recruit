@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/pheader.jsp"%>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript"
@@ -12,9 +12,9 @@
 	src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <div class="col-md-9">
-	<h1>${PUserVO.id}님의이력서 작성</h1>
+	<h1>${PUserVO.pname}님의이력서 작성</h1>
 
 	<form role="form" method="post">
 		<input type='hidden' name='id' value="${PUserVO.id}"> <input
@@ -36,7 +36,7 @@
 							for="img">사진</label></th>
 						<td rowspan="3" class="col-sm-4">
 							<div id='uploadedList'
-								style='width: 127px; height: 152px; border: 1px dotted blue;'>
+								style='width: 127px; height: 152px; border: 1px solid #c0c6d3;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> <!--  사진 보이는 div  --> <input type='hidden' id='imgsrccheck'
 							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
@@ -84,10 +84,11 @@
                   <th>구직상태</th>
                   <td>
                      <div class="form-group col-md-5">
-                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                     <select id="jobstateid" class="selectpicker form-control" data-live-search="true" name="jobstateid" > 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 6 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }"> ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -100,16 +101,19 @@
                <td>
                   <div class="form-group col-md-5">
                   <label for="jobgroupid">대분류</label> 
-                     <select id="jobGroup" class="form-control" name="jobgroupid" >
+                     <select id="jobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid" >
+                        <option value="0">선택</option>
                         <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                            <c:if test="${JobGroupVO.id2 == 0}">
-                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+	                           <c:if test="${JobGroupVO.id>0 }">
+	                          	 <option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+			                   </c:if>
                            </c:if>
                         </c:forEach>
                      </select>          
                   <br>
                   <label for="jobgroupid">소분류</label> 
-                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
+                     <select id="subjobGroup" class="form-control" data-live-search="true" name="jobgroupid2">
                      </select>
                   </div>
                </td>
@@ -120,12 +124,11 @@
                <td>
                   <div class="form-group col-md-5">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
-                     <select class="form-control" name="employstatusid" id="employstatusid"> 
+                     <select class="selectpicker form-control" data-live-search="true" name="employstatusid" id="employstatusid"> 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 4 }">
-                              <option value="${CodeVO.id }" 
-                              <c:if test="${CodeVO.id == ResumeVO.employstatusid }">selected</c:if>
-                              >${CodeVO.career }</option>
+                              <option value="${CodeVO.id }">${CodeVO.career }</option>
                            </c:if>
                         </c:forEach>
                      </select> 
@@ -138,15 +141,13 @@
                <td>
                   <div class="form-group col-md-5">
                      <label for="jobgroupid">시/도</label> 
-                        <select id="region" class="form-control" name='rgbid'>
+                        <select id="region" class="selectpicker form-control" name='rgbid' data-live-search="true">
                            <c:forEach items="${RegionVOlist}" var="RegionVO">
-                              <option value="${RegionVO.rgbid}" 
-                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
-                              >${RegionVO.rgbname}</option>
+                              <option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
                            </c:forEach>
                         </select>
                      <label for="jobgroupid">시/군/구</label> 
-                     <select id="subRegion" class="form-control" name='rgsid'>
+                     <select id="subRegion" class="form-control" name='rgsid' data-live-search="true">
                      </select>
                   </div>
                </td>
@@ -157,10 +158,11 @@
                <td>
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
-                     <select class="form-control" name="salaryid" id="CodeList7">
+                     <select class="selectpicker form-control" name="salaryid" id="CodeList7" data-live-search="true">
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 7 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }"> ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -180,11 +182,12 @@
 		<div class="form-group col-md-2"><label for="edustatus">최종학력</label>
 		</div>
 		<div class="form-group col-md-3">
-			<select class="form-control" name=levelofeducation id="CodeList2">
+			<select class="selectpicker form-control" name=levelofeducation id="CodeList2" data-live-search="true">
+	          <option value="102">선택</option>
 	          <c:forEach items="${CodeVOlist }" var="CodeVO">
 	             <c:if test="${CodeVO.tid == 2 }">
 	             	<c:if test="${CodeVO.id<=13 }">
-	                	<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+	                	<option value="${CodeVO.id }"> ${CodeVO.career} </option>
 	             	</c:if>
 	             </c:if>
 	          </c:forEach>
@@ -196,11 +199,12 @@
 		<div class="form-group col-md-2"><label for="career">경력</label>
 		</div>
 		<div class="form-group col-md-3">
-		<select class="form-control" name=lastcareer id="CodeList1">
+		<select class="selectpicker form-control" name=lastcareer id="CodeList1" data-live-search="true">
+		<option value="102">선택</option>
           <c:forEach items="${CodeVOlist }" var="CodeVO">
              <c:if test="${CodeVO.tid == 1 }">
 	             <c:if test="${CodeVO.id<=7 }">
-	                <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+	                <option value="${CodeVO.id }"> ${CodeVO.career} </option>
 	             </c:if>
              </c:if>
           </c:forEach>
@@ -653,6 +657,14 @@ edudates.onchange = function (e) {
  
 $(document).ready(function(){
 	
+	//소연 수정
+    $("#region").val("Z").attr("selected", "selected"); //희망근무지
+    $("#employstatusid").val("102").attr("selected", "selected"); //희망근무형태
+    $("#jobstateid").val("102").attr("selected", "selected");//구직상태
+    $("#CodeList7").val("102").attr("selected", "selected");//희망연봉
+    $("#CodeList1").val("102").attr("selected", "selected");//최종경력
+    $("#CodeList2").val("102").attr("selected", "selected");//최종학력
+    
 	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
 	var largeNum = $('#jobGroup option:selected').val();
 	SubJobGroup2(largeNum);
@@ -775,7 +787,7 @@ $(document).ready(function(){
 					  
 					 	console.log(data);
 							  str = 
-								  "<a id='ORIGINAL'>크게보기</a>"
+								  "<a id='ORIGINAL'><br>크게보기</a>"
 								  +"<small data-src="+data+">X</small>";  
 
 					  $("#uploadedList").append(str); 
@@ -798,6 +810,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		var that = $(this);
 		$("#uploadedList").empty();
+		$("#fileupload").val("");
 		console.log("img File appended deleted");
 		var fileName=$(this).attr("data-src");
 		console.log(fileName);
@@ -1139,12 +1152,19 @@ $(document).ready(function(){
          $(data).each(
                function() {
                   if(sel==this.id){
-                     selected = "selected";
+                	  if(this.id==0){
+                		 str += "<option value="+this.id+
+                          " "+selected+">"+ "선택" + "</option>";
+                	  }else{
+	                     selected = "selected";
+	                     str += "<option value="+this.id+
+	                     " "+selected+">"+ this.jobgroup + "</option>";
+                	  } 
                   }else{
                      selected = "";
+                     str += "<option value="+this.id+
+                     " "+selected+">"+ this.jobgroup + "</option>";
                   }
-                  str += "<option value="+this.id+
-                  " "+selected+">"+ this.jobgroup + "</option>";
                });
          $("#subjobGroup").html(str);
       })

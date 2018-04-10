@@ -10,8 +10,9 @@
 	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
 	<div class="top_cont">
 		<div class="corp_logo">
-			<img src="${CInfoVO.img}" id="imgsrc"
-				width="209" height="117"/ name="img" value="${CInfoVO.img}" /> <br> <br>
+	
+			<img src="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px;" /> <br> <br>
+			
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
 			<br>
 		</div>

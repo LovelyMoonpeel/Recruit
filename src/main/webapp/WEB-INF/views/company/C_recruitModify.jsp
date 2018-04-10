@@ -71,7 +71,7 @@
 			<tr>
 				<th class="active">담당업무</th>
 				<td>
-					<textarea name="jobdesc" cols="30" rows="5">${RecruitVO.jobdesc}</textarea>
+					<textarea class="form-control" name="jobdesc" style="resize: none" cols="30" rows="5">${RecruitVO.jobdesc}</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -161,9 +161,9 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="active">상세내용 및 우대사항</th>
+				<th class="active" style="vertical-align:middle;">상세내용 및 우대사항</th>
 				<td>
-					<textarea name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea>
+					<textarea class="form-control" style="resize: none" name="adddesc" cols="30" rows="10">${RecruitVO.adddesc}</textarea>
 				</td>
 			</tr>
 			<!-- 	<tr>

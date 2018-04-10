@@ -150,7 +150,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<ResumeVO> ApplyList(int recruitNum) throws Exception {
+	public List<CPersonInfoVO> ApplyList(int recruitNum) throws Exception {
 		
 		return dao.ApplyList(recruitNum);
 	}

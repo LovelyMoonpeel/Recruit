@@ -27,7 +27,7 @@
 	<font size="6px">${RecruitVO.title}</font>
 	</div>
 	<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
-	<img src="${CInfoVO.img}" class="img-rounded" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px; height:100px"/>
+	<img src="${CInfoVO.img}" class="img-rounded" id="imgsrc" name="img" value="${CInfoVO.img}" style="width:200px;"/>
 	</div>
 	</div>
 

@@ -129,6 +129,7 @@ public class CompanyAjax {
 		
 		String id = login.getId();
 		try {
+			
 			entity = new ResponseEntity<>(jobService.FavorList(id), HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -589,12 +590,41 @@ public class CompanyAjax {
 	}
 	
 	@RequestMapping(value = "/applyList/{bno}", method = RequestMethod.GET)
-	public ResponseEntity<List<ResumeVO>> appList(@PathVariable("bno") int bno){
+	public Object appList(@PathVariable("bno") int bno, CompanySearchCriteria cri){
 	
-		ResponseEntity<List<ResumeVO>> entity = null;
+		ResponseEntity<List<Object>> entity = null;
+	
 		System.out.println("bno"+bno);
+		
+		int Count;
+		String page = "";
+		String  searchType = "";
+		String keyword = "";
+		String perPageNum = "";
+		
+		
 		try {
-			entity = new ResponseEntity<>(jobService.ApplyList(bno), HttpStatus.OK);
+			
+			
+			
+			CompanyPageMaker pageMaker = new CompanyPageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.appListCount(bno));
+			
+			List<CPersonInfoVO> a = jobService.ApplyList(bno);
+			List<Object> b = new ArrayList<Object>();
+			
+			
+			
+			
+			for(int i =0; i<a.size(); i++){
+				b.add((Object)(a.get(i)));
+				
+			}
+			
+			b.add(pageMaker);
+			
+			entity = new ResponseEntity<>(b, HttpStatus.OK);
 			
 			System.out.println("entity"+entity);
 		} catch (Exception e) {

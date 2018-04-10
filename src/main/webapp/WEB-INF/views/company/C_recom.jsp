@@ -51,9 +51,9 @@
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
 							공고제목</option>
-						<option value="c"
+						<%-- <option value="c"
 							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
-							담당자</option>
+							담당자</option> --%>
 				</select>
 				</div>
 					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
@@ -190,9 +190,8 @@ function PersonList(bno){
 				function() {
 					
 					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
-					+"<a class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+""
-					+ " onClick=window.open(this.href, '', 'width=1000, height=960'); return false;>"
-					+ ""+this.bno+":"+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+					+"<a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+					+ ""+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
 					
 					comparison.push(this.bno)
 					
@@ -315,6 +314,17 @@ $(document).ready(
 			        	$('#searchBtn').trigger('click');
 			        }
 			    });
+			</script>
+			
+			
+			<script>
+			
+			$(document).on("click","#btt",function(){
+				window.open(this.href, '', 'width=400', 'height=430'); 
+				
+				return false;
+			})
+			
 			</script>
 
 

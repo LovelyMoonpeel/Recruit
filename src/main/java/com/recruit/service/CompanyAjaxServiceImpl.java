@@ -52,6 +52,12 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 }
 	 
 	 @Override
+	 public int appListCount(int bno) throws Exception{
+		 
+		 return dao.appListCount(bno);
+	 }
+	 
+	 @Override
 	 public List<RegionVO> subRegionList() throws Exception{
 		 
 		 return dao.subRegionList();

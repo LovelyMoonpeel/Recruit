@@ -145,16 +145,16 @@
 			var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
 			
 			
-			
+		
 	
-	  		for(var i =0; i<=$("a[name='sideBtns']").length; i++){
+	  		for(var i =0; i<=$("a[name='sideBtns']").length -1; i++){
 	 		
 	 			if($("a[name='sideBtns']").eq(i).attr("id").indexOf(thisfilefullname1)!= -1){
 				
 	 				$("a[name='sideBtns']").eq(i).addClass("active");
-	 				
+	 			
 	 			}else if($("a[name='sideBtns']").eq(i).attr("id").indexOf(thisfilefullname2)!= -1){
-	 				
+	 			
 	 				$("a[name='sideBtns']").eq(i).addClass("active");
 	 				
 	 			}

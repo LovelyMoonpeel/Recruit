@@ -190,7 +190,6 @@ public class PersonalController {
 		}
 	}
 
-	// 이력서 작성
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		System.out.println("write GET controller");

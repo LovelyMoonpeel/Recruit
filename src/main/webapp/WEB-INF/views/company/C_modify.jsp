@@ -181,6 +181,7 @@
 <!--//소연 모달 -->
 
 <script>
+    //★★★ 취소하기 버튼 ★★★
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
 		console.log(formObj);
@@ -209,47 +210,35 @@
 
 <script>
 
-	// 문> 여기서 #은 id값을 의미함 .은 class
-	// 그런데 ()앞에 $가 있어야 한다.
-    if ($('#imgsrccheck').val() != "") {
-    	 
+var xornot = document.getElementById('xornot');
+var preexistenceimg = document.getElementById('preexistenceimg');
+
+    if ($('#imgsrccheck').val() != "") {    // 문> 여기서 #은 id값을 의미함 .은 class  ()앞에 $가 있어야 한다.
         console.log(" val이 널값아님");
         
-        // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
-        $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
-       
-        // 문> str쓰기 위해서 선언, 변수를 쓸때는 항상 선언부터 한다.
-        var str = "";
-        console.log("요기여기"+'${CInfoVO.img}');
-        
-        var hoho = "";
+        $('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');   // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
+        console.log("이미지 주소: "+'${CInfoVO.img}');
+           
+/*         var hoho = "";
         hoho = '${CInfoVO.img}'; 
-        console.log("hoho: "+ hoho);
+        console.log("hoho: "+ hoho); */
      
-        	str = "<a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
+        var str = "";     // 문> str쓰기 위해서 선언, 변수를 쓸때는 항상 선언부터 한다.
+       	str = "<a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
         
-        // 문> 컨텐츠를 선택된 요소 내부의 끝 부분에서 삽입, 즉,사진 밑에 문구를 삽입 
-        // uploadedList는 사진 id
+        $("#uploadedList").append(str);     // 문> 컨텐츠를 선택된 요소 내부의 끝 부분에서 삽입, 즉,사진 밑에 문구를 삽입 | uploadedList는 사진 id
 
-        $("#uploadedList").append(str);
-
-
-        // 문Q> ORIGINAL은 사진 밑에 쓰여지는 문구의 id값인데??? 살짝 이해가 안감.
-        $("#ORIGINAL").on("click", function() {
-            console.log("☆☆ORIGINAL click");
-            var src = "displayFile?fileName=${CInfoVO.img}";
+        $("#ORIGINAL").on("click", function() {    // 문> ORIGINAL은 사진 밑에 '크게 보기'
             
-            // 문> ORIGINAL_modal은 모달창 id값
-            $("#ORIGINAL_modal").modal();
-            
-            // 문> modal_get_Imgname1는 모달창에 들어가는 사진의 id값
-            $("#modal_get_Imgname1").attr("src", src);
+        	console.log("☆☆크게보기☆☆");
+        	
+        	var src = "displayFile?fileName=${CInfoVO.img}";
+            $("#ORIGINAL_modal").modal();     // 문> ORIGINAL_modal은 모달창 id값
+            $("#modal_get_Imgname1").attr("src", src);       // 문> modal_get_Imgname1는 모달창에 들어가는 사진의 id값
         });
         
-        // 문Q> preexistenceimg은 왜 쓴걸까????
-        $("#preexistenceimg").val("1");/* } */
+        $("#preexistenceimg").val("1");
     } else {
-        // 문> 아래 내용은 위 내용 참고
         console.log(" val이 널값이다");
         $('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
         $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
@@ -257,37 +246,28 @@
       
     }
 
-    // 문Q> fileupload를 가져와서 upload에 넣는 거 같은데.. 잘 모르겠음
-    // fileupload는 업로드 하는 버튼인데..
-    var upload = document.getElementById('fileupload');
-    
- 	// 문Q> uploadedList를 가져와서 uploadedList에 넣는 거 같은데.. 잘 모르겠음
- 	// uploadedList는 사진 틀 id
+    var upload = document.getElementById('fileupload'); 
     var uploadedList = document.getElementById('uploadedList');
     
-  	// 소연> fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
-    if (typeof window.FileReader === 'undefined') {
+    if (typeof window.FileReader === 'undefined') {     // 소연> fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
         console.log("window.FileReader 'fail'");
     } else {
         console.log("★★★★★★★★  window.FileReader 'success'  ★★★★★★★");
     } 
 	
-  	
     upload.onchange = function(e) {
 
         var file = upload.files[0];
-        var reader = new FileReader();
-        //p542다시 보기
-
-        //reader.onload start
-        reader.onload = function(event) {
+        var reader = new FileReader();     //p542다시 보기
+        
+        reader.onload = function(event) {     //reader.onload start
             var image = new Image();
             image.src = event.target.result;
 
             uploadedList.innerHTML = '';
             image.height = 150;
             uploadedList.appendChild(image);
-        };//reader.onload end
+        };     //reader.onload end
 
         //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
         //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
@@ -296,15 +276,14 @@
         console.log("file name");
         console.log(file);
 
-        var formData = new FormData();
-
-        formData.append("file", file);
+        var formData = new FormData();       //문> FormData 객체를 이용하면 <form>태그로 만든 데이터의 전송방식과 동일하게 파일 데이터를 전송할 수 있다.
+        formData.append("file", file);		 // 이용하는 방법은 객체를 생성하고, 필요한 데이터 '이름'과'값'을 추가하면 된다.
 
         $.ajax({
             url : '/company/uploadAjax',
             data : formData,
             dataType : 'text',
-            processData : false,
+            processData : false,     //문> FormData 객체에 파일 데이터를 전송하기 위해서 false로 처리. 아래줄도 마찬가지
             contentType : false,
             type : 'POST',
             success : function(data) {
@@ -320,7 +299,7 @@
                 $("#ORIGINAL").on("click", function() {
                     console.log("ORIGINAL click");
                     console.log("★★data: " + data);
-                    console.log(getImageLink(data));
+                   /*  console.log(getImageLink(data)); */
                     var src = "displayFile?fileName=" + data;
                     $("#ORIGINAL_modal").modal();
                     $("#modal_get_Imgname1").attr("src", src);
@@ -334,18 +313,27 @@
         reader.readAsDataURL(file);
     };//upload change end
 
+    
+    //★★★ X버튼 ★★★
     $("#uploadedList").on("click", "small", function(event) {
         event.preventDefault();
         
         var that = $(this);
-       	// fileupload를 빈값으로 처리
-        $("#fileupload").val("");
+       
+        
+        if($("#xornot").val()==0){
+        
+        
+        
+        
+/*         $("#fileupload").val("");     	// fileupload를 빈값으로 처리
         $("#uploadedList").empty();
         console.log("img File appended deleted");
+        
         var fileName = $(this).attr("data-src");
-        console.log(fileName);
+        console.log("fileName"+fileName);
+        
         var uploadfilename = document.getElementById('uploadfilename');
-
         $.ajax({
             url : "deleteFile",
             type : "post",
@@ -360,23 +348,64 @@
                     $('#uploadfilename').val('');
                 }
             }
-        });
+        }); */
+        
+        
+
+			
+			fileName = $(this).attr("data-src"); //전역변수로 설정
+			var front = fileName.substring(0, 12);
+			var end = fileName.substring(12);
+			var thumcheck = fileName.substring(12,14);
+			
+			if(thumcheck!="s_"){
+				console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
+				fileName = front + "s_" + end;
+				console.log("썸네일 아니라서 바뀐 fileName" + fileName);
+			}else{
+				console.log(thumcheck + "썸네일인 fileName" + fileName);
+			}
+		
+			$("#fileupload").val("");
+			$("#uploadedList").empty();
+			console.log("img File appended deleted");
+			console.log("fileName"+fileName);
+			$('#uploadfilename').val('');
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}else if($("#xornot").val()==1){
+			console.log("img File on server deleted");
+			$(this).parent("div").empty();
+			$("#fileupload").val("");
+			$('#uploadfilename').val('');
+			$("#uploadedList").empty();
+			console.log("2번 이상 삭제 누름 img File appended deleted");
+			console.log("2번 이상 삭제 누름 fileName"+fileName);
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}
+        
+        
+        
+        
     });
 
-    function getOriginalName(fileName) {
+ /*    function getOriginalName(fileName) {
         var idx = fileName.indexOf("_") + 1;
         return fileName.substr(idx);
-    }
+    } */
 
-    function getImageLink(fileName) {
-        var front = fileName.substr(0, 12);
-        var end = fileName.substr(14);
+ /*    function getImageLink(fileName) {
+        var front = fileName.substr(0, 12);      //문> '/년/월/일' 경로를 추출하는 용도
+        var end = fileName.substr(14);       //문> 파일 이름 앞의 's_'를 제거하는 용도
 
         return front + end;
-    }
+    } */
 
-    //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
-    $(".btn-primary").on("click", function() {
+    //★★★ 수정완료 버튼 ★★★
+    $(".btn-primary").on("click", function() {     //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
 
         /* alert(uploadedfilename_val); */
         formObj = $("form[role = 'form']");

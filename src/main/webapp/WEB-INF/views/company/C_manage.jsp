@@ -17,6 +17,8 @@
 		<strong>채용공고관리</strong>
 	</p>
 	
+
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
@@ -42,7 +44,7 @@
 					<div class="input-group-btn" style="vertical-align:middle">
 						<select class="selectpicker" name="searchType" style="width:50px;">
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
-							<option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option>
+							<%-- <option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option> --%>
 						</select>
 					</div>
 					<!-- /btn-group -->
@@ -133,6 +135,13 @@
 			</td>
 		</tr>
 	</table>
+	
+	<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
+	
+		<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
+		
+	</c:forEach>
+
 	<!-- 문> 반응형이 적용 안 되서 일단 주석처리
 	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
 		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
@@ -157,9 +166,10 @@
          	 <table class="table table-striped" >
          	 <thead class=active>
           <tr class=active>
-          <th>이름</th>
-          <th>이력서 요약</th>
-          <th>업데이트일</th>
+          <th class="text-center" style="width:5%"></th>
+          <th class="text-center" style="width:15%">이름</th>
+          <th class="text-center" style="width:65%">이력서 요약</th>
+          <th class="text-center" style="width:15%">업데이트일</th>
           </tr>
           </thead>
           
@@ -167,10 +177,18 @@
           
           </tbody>
           
+        
           </table>
           
         </div>
+        
+          <div class="text-center">
+			<ul class="pagination" id="applyListPage">
+			</ul>
+		</div>
         <div class="modal-footer">
+        
+          
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div>
       	</div> 
@@ -613,7 +631,7 @@ var formObj = $("form[role='form']");
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 										+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
-										+"<tr><th>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th><th></th><th></th></tr>"
+										+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"
 								}else{
 									
 				 					if(this.prev){
@@ -692,7 +710,7 @@ var formObj = $("form[role='form']");
 												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th></tr>"
+												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
 										}else{
 											
 											if(this.prev){
@@ -761,7 +779,7 @@ var formObj = $("form[role='form']");
 												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th></th><th><li>최근수정 : "+this.regdate+" (담당자:)</li></th><th></th><th></th></tr>"
+												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
 										}else{
 											
 											if(this.prev){
@@ -815,32 +833,58 @@ $(document).on("click", "button[name=onLoad]", function() {
 		
 		
 		$.getJSON("/companyAjax/applyList/" + bno, function(data) {
+			
 			var str = "";
+			
 			var chr = "";
 			
+			var i = 0;
+			
+			var comparison = [];
+			
+			var length = data.length;
 			
 			$(data).each(function() {
 						
-
-						str += "<tr>"
-						+"<th>"+this.img+"**</th>"
-						+"<th><span class=careerLine>경력 3년 5개월</span><br>"
-						+"<a id=aP class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
-						+""+this.title+"</a><br>"
-						+""+this.coverletter+""+this.rgbid+"</th><th>1분전</th></tr>"
+				i++;
+				
+		 	if(i < length){
+				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="+this.bno+"></td>"
+				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
+				+ "<td><span class=careerLine>"+this.career+"</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+				+ ""+this.title+"</a>"
+				+ "<p>"+"학력: "+this.edu+"</p>"
+				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
+				+ "<p>"+"희망연봉: "+this.salary+"</p>"
+				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+				
+				comparison.push(this.bno)
+				
+			 	}else{
+					
+ 					if(this.prev){
+						chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
+					}
+					
+					
+					for(var z = this.startPage; z<=this.endPage; z++){
+						chr += "<li name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
 						
+					} 
+				 	if(this.next&&this.endPage>0){
+						chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+					} 
+ 				}
 					 
-				
-		
-		
-			
-				
-					});
+				});
 			
 			
 			
 		 	$("#appList").html(str);
-		 	$("#appList").html(chr);
+		 	
+		 	$("#applyListPage").html(chr); 
+		 	 
+		 	favorComparison(comparison)
 			
 		})
 		
@@ -848,5 +892,90 @@ $(document).on("click", "button[name=onLoad]", function() {
 	}
 	
 })
+
+$(document).on("click","#btt",function(){
+		window.open(this.href, '', 'width=400', 'height=430'); 
+		
+		return false;
+	})
+	
+	
+	
+function favorComparison(comparison){
+	
+	var compare = document.getElementsByName('CompareList');
+	var compareList = [];
+	for(var i=0; i<compare.length; i++){
+		
+	compareList.push(compare[i].value);
+	}
+	/*
+ 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
+ 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
+   */
+ 	for(var i= 0; i<compareList.length; i++){
+ 		
+ 		for(var j = 0; j<comparison.length; j++){
+ 			if(compareList[i] == comparison[j]){
+ 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
+ 			}
+ 		}
+ 	}
+	
+	
+}
+	
+</script>
+
+<script>
+$(document).ready(function(){
+	
+	$(document).on("click", '#non', function(){
+		
+		 var id = "<%=id%>"
+		var bno = $(this).attr('value');
+		
+		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
+			favDel(bno, id);
+		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
+			favAdd(bno, id);
+		}
+		
+			
+		})
+	
+	
+})
+function favAdd(bno, id){   // 관심인재 등록
+			
+	
+	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
+		var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
+	alert("관심인재에 등록 됐습니다.")
+	
+	
+}
+function favDel(bno, id){ 	// 관심인재 삭제
+	
+	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
+	var str = "";
+		
+		$(data).each(
+				function() {
+				});
+		
+	})
+	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
+	alert("관심인재에서 삭제 됐습니다.")
+	
+}
+
 </script>
 <%@include file="../include/cfooter.jsp"%>

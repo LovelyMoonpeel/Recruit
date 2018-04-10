@@ -459,6 +459,9 @@ public class CompanyController {
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(131);
 			
+			model.addAttribute("FavorCompareList", service.FavorCompareList(id));
+
+			
 			model.addAttribute("pageMaker", pageMaker);
 			return "/company/C_manage";
 		} else {

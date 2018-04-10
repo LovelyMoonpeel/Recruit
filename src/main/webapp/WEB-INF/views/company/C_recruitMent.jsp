@@ -66,18 +66,22 @@ background-color: #777;
 
 
 	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px;">
 		<div class="row">
-			<div class="col-md-8"
-				style="border-bottom: 1px solid #dde2eb; padding-left: 15px; padding-top: 10px; padding-bottom: 10px">
+
+			<div class="col-md-8 col-sm-12 col-xs-12"
+				style="border-bottom: 1px solid #dde2eb; padding-left: 15px; padding-top: 10px; padding-bottom: 10px; padding-right:0px; border-right: 1px solid #dde2eb;">
 				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
 			</div>
-			<div class="col-md-4 text-center" style="border-left: 1px solid #dde2eb;">
+			<div class="col-md-4 text-center"  style="padding-left: 0px; padding-right: 0px; border-left: 1px solid #dde2eb;">
 				<img src="${CInfoVO.img}" class="img-rounded"
 					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 200px; height: 150px;" />
+					style="width: 200px;"/>
 			</div>
-
+		</div>
+		
+		<div class="row">
+		
 			<div class="col-md-4 col-sm-4 col-xs-4">
 				<!-- 첫번쨰 칸 -->
 		
@@ -93,6 +97,7 @@ background-color: #777;
 					<br>
 					
 			</div>
+			
 			<!-- /첫번째 칸 -->
 
 			<div class="col-md-4 col-sm-4 col-xs-4">
