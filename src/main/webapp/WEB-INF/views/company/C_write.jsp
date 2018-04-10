@@ -45,15 +45,12 @@
 	
 			</tr>
 			
-		<script>
-    $(function () {
-        $('[data-toggle="popover"]').popover({
-        	container: 'body'
-        	
-        })
-       
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover({
+    	container: 'body'
     })
-   
+});
 </script>
 <style>
 .popover{

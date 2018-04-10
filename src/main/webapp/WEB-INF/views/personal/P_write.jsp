@@ -13,6 +13,12 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<style>
+.popover{
+    max-width: 80%;
+}
+</style>
+
 <div class="col-md-9">
 	<h1>${PUserVO.pname}님의이력서 작성</h1>
 
@@ -20,23 +26,24 @@
 		<input type='hidden' name='id' value="${PUserVO.id}"> <input
 			type='hidden' name='userid' value="${PUserVO.id}">
 		<div class="form-group">
-			<label for="title">제목</label> <input class="form-control" id="title"
-				name="title" value="${ResumeVO.title}" required>
+			<label for="title">제목</label> <input class="form-control" id="title" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[제목 예시]</b>"
+				data-content="안녕하십니까! 준비된 IT인재 박장옥입니다." name="title" value="${ResumeVO.title}" required>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<th class="table-active" scope="row"><label for="pname">이름</label>
+						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label for="pname">이름</label>
 						</th>
 						<td class="col-sm-4"><input type="text" class="form-control"
 							id="pname" name="pname" value="${PUserVO.pname}" readonly>
 						</td>
-						<th rowspan="3" class="table-active" scope="row"><label
+						<th style="text-align : center; vertical-align : middle;" rowspan="3" class="table-active" scope="row"><label
 							for="img">사진</label></th>
 						<td rowspan="3" class="col-sm-4">
 							<div id='uploadedList'
 								style='width: 127px; height: 152px; border: 1px solid #c0c6d3;'>
+								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br> 권장 사이즈 : (3.5cm x 4.5cm)</p>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> <!--  사진 보이는 div  --> <input type='hidden' id='imgsrccheck'
 							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
@@ -47,7 +54,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row"><label>생년월일</label></th>
+						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label>생년월일</label></th>
 						<td>
 							<div class="form-group">
 								<input type="text" class="form-control" id="birth" name="birth"
@@ -56,7 +63,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row"><label for="email">이메일</label></th>
+						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label for="email">이메일</label></th>
 						<td>
 							<div class="form-group">
 								<input type="text" class="form-control" id="email" name="email"
@@ -81,7 +88,7 @@
          <table class="table table-bordered">
             <tbody>
                 <tr>
-                  <th>구직상태</th>
+                  <th style="text-align : center; vertical-align : middle;">구직상태</th>
                   <td>
                      <div class="form-group col-md-5">
                      <select id="jobstateid" class="selectpicker form-control" data-live-search="true" name="jobstateid" > 
@@ -97,7 +104,7 @@
                </tr>
                
                  <tr>
-                   <th>모집직종</th>
+                   <th style="text-align : center; vertical-align : middle;">모집직종</th>
                <td>
                   <div class="form-group col-md-5">
                   <label for="jobgroupid">대분류</label> 
@@ -120,7 +127,7 @@
             </tr>
             
             <tr>
-               <th>희망근무형태</th>
+               <th style="text-align : center; vertical-align : middle;">희망근무형태</th>
                <td>
                   <div class="form-group col-md-5">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
@@ -137,7 +144,7 @@
             </tr>
             
             <tr>
-                   <th>희망근무지</th>
+                   <th style="text-align : center; vertical-align : middle;">희망근무지</th>
                <td>
                   <div class="form-group col-md-5">
                      <label for="jobgroupid">시/도</label> 
@@ -154,7 +161,7 @@
             </tr>
             
             <tr>
-                   <th>희망연봉</th>
+                   <th style="text-align : center; vertical-align : middle;">희망연봉</th>
                <td>
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
@@ -241,7 +248,32 @@
 							<div class="form-group">
 								<textarea class="form-control" rows="13" id="coverletter"
 									name="coverletter" style="resize: none;"
-									placeholder="자기소개서를 입력해주세요." required></textarea>
+									data-toggle="popover"
+									data-html="true"
+									title="<b>[자기소개서 예시]</b>"
+									data-trigger="hover" data-placement="auto top" 
+									data-content="
+<pre style='font-family: 나눔;'>
+[나는 불꽃이다] 
+전기의 대중화를 가져온 마이클 패러데이는 
+‘양초의 불꽃은 어둠 속에서도 빛을 발하지만,다이아몬드는 불꽃이 없으면 결코 빛날 수 없다.`고 했습니다.
+저의 목표는 이러한 불꽃이 되어 모든 사람을 도와줄 수 있는 서비스를 만드는 것으로,
+안정적이고 만족도가 높은 서비스를 제작하기 위해 2가지의 경쟁력을 꾸준히 키워 왔습니다. 
+
+[첫째, 많은 IT 관련 활동] 
+대학 4학년, 에너지 해커톤에 참가하여 사용전력량을 확인할 수 있는 APP을 제작하여 대상을 획득했습니다. 
+또한, Linking 동아리 팀장을 맡아 리더십을 발휘해 삼성 S/W활동 우수팀으로 상장을 받기도 했고,
+넓은 IT 지식을 쌓아 교내 학술 대회에서 우수상을 획득하였습니다.
+이러한 IT 관련 경험은 입사 후에 빠른 조직 시스템 인지 및 융화를 통해 시너지를 낼 수 있다고 생각합니다. 
+
+[둘째, 탄탄한 DB 지식] 
+모든 프로그램은 데이터를 사용하고 개인 정보를 다루는 부분이 많으므로 데이터를 처리하는 기술이 중요하다고 생각합니다.
+그래서 OCP DBA-10g 자격을 획득하여 DB 지식을 함양해 이를 바탕으로 Oracle을 이용한 안전성이 높은 POS system을 제작하였습니다.
+이러한 DB지식은 제작 프로그램의 안전성을 높이는 데 도움을 줄 것입니다. 
+이러한 잠재력을 가지고 귀사에 비전을 제시할 수 있는 불꽃이 되겠습니다.
+<br>
+출처 : http://www.jobkorea.co.kr/company/1976007/PassAssay/View?
+Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 							</div>
 						</td>
 					</tr>
@@ -260,7 +292,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			
 			<div class="modal-content modal-dialog-centered">
-				<div class="modal-head" style="text-align:center; vertical-align : middle ; margin:10px;">
+				<div class="modal-head" style="text-align:center; vertical-align : middle; margin:10px;">
 				<br>
 					<button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
 					이미지 크게 보기
@@ -290,12 +322,14 @@
 	
 	<div class="form-group col-md-3">
 		<label for="teltitle">전화번호 (종류)</label> 
-		<input class="form-control teltitle telclass" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
+		<input class="form-control teltitle telclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[전화번호(종류) 예시]</b>"
+		data-content=" - 개인 핸드폰<br> - 집전화" name="ptelvolist[].teltitle" value="{{teltitle}}"></input>
 	</div>
 	
 	<div class="form-group col-md-4">
 		<label for="tel">전화번호</label> 
-		<input class="form-control tel telclass" name="ptelvolist[].tel" value="{{tel}}"></input>
+		<input class="form-control tel telclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[전화번호 예시]</b>"
+		data-content=" 010-1234-5678" name="ptelvolist[].tel" value="{{tel}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
@@ -335,13 +369,15 @@
 	</div>
 
 	<div class="form-group col-md-3" >
-		<label for="schoolname">학교명</label> 
-		<input class="form-control schoolname edu" name="listEdu[].schoolname" value="{{schoolname}}"></input>
+		<label for="schoolname">학교명(학위)</label> 
+		<input style="font-family:나눔;" class="form-control schoolname edu" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[학교명/학위 예시]</b>"
+		data-content="부산대학교(석사)<br> 인하대학교(박사)" name="listEdu[].schoolname" value="{{schoolname}}"></input>
 	</div>
 	
 	<div class="form-group col-md-3">
 		<label for="major">학과</label> 
-		<input class="form-control major edu" name="listEdu[].major" value="{{major}}"></input>
+		<input style="font-family:나눔;" class="form-control major edu" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[학과 예시]</b>"
+		data-content="전자공학과<br> 기계공학과" name="listEdu[].major" value="{{major}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
@@ -392,11 +428,13 @@
 	</div>
 	<div class="form-group col-md-3">
 		<label for="cname">회사명</label>
-		<input class="form-control career" name="listCareer[].cname" value="{{cname}}"></input>
+		<input class="form-control career" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[회사명 예시]</b>"
+		data-content="골드비 <br> 구글 본사(캘리포니아)" name="listCareer[].cname" value="{{cname}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="jobdescription">담당업무</label>
-		<input class="form-control career" name="listCareer[].jobdescription" value="{{jobdescription}}">
+		<input class="form-control career" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[담당업무 예시]</b>"
+		data-content="Spring 웹 개발 <br> 구글 글래스 개발 " name="listCareer[].jobdescription" value="{{jobdescription}}">
 		</input>
 	</div>
 	<div class="form-group col-md-3">
@@ -446,12 +484,14 @@
 
 	<div class="form-group col-md-3">
 		<label for="webtitle">사이트 (종류)</label> 
-		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
+		<input style="text-align:center;" class="form-control webtitle webclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[사이트(종류) 예시]</b>"
+		data-content="Git <br> 블로그" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
 	</div>
 
 	<div class="form-group col-md-4">
-		<label for="webadd">주소</label> 
-		<input class="form-control webadd webclass" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
+		<label for="webadd">사이트 주소</label> 
+		<input style="text-align:center;" class="form-control webadd webclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[사이트 주소 예시]</b>"
+		data-content="github.com/LovelyMoonpeel <br> blog.naver.com/lovelymoonpeel" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
 	</div>
 
 	<div class="form-group col-md-2">
@@ -474,12 +514,14 @@
 	
 	<div class="form-group col-md-3">
 		<label for="licensename">자격증명</label> 
-		<input class="form-control licensename licenseclass" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
+		<input class="form-control licensename licenseclass"  data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[자격증명 예시]</b>"
+		data-content="정보처리기사<br> DASP" name="rlicensevolist[].licensename" value="{{licensename}}"></input>
 	</div>
 
 	<div class="form-group col-md-3">
-		<label for="publeoffice">발행기관</label> 
-		<input class="form-control publeoffice licenseclass" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
+		<label for="publeoffice">발급기관</label> 
+		<input class="form-control publeoffice licenseclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[발급기관 예시]</b>"
+		data-content="한국산업인력공단<br> kdb 한국 데이터베이스 진흥원" name="rlicensevolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 	
 	<div class="form-group col-md-3">
@@ -553,16 +595,19 @@
 	
 	<div class="form-group col-md-3">
 		<label for="test">공인인증시험명</label> 
-		<input class="form-control test langclass" name="rlangvolist[].test" value="{{test}}"></input>
+		<input class="form-control test langclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[공인인증시험명 예시]</b>"
+		data-content="TOEIC<br> TOEIC speaking" name="rlangvolist[].test" value="{{test}}"></input>
 	</div>
 	
 	<div class="form-group col-md-2">
 		<label for="score">점수</label> 
-		<input class="form-control score langclass" name="rlangvolist[].score" value="{{score}}"></input>
+		<input class="form-control score langclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[점수 예시]</b>"
+		data-content="990<br> level 7" name="rlangvolist[].score" value="{{score}}"></input>
 	</div>
 	<div class="form-group col-md-3">
-		<label for="publeoffice">발행기관</label> 
-		<input class="form-control publeoffice langclass" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
+		<label for="publeoffice">발급기관</label> 
+		<input class="form-control publeoffice langclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[발급기관 예시]</b>"
+		data-content="한국토익위원회" name="rlangvolist[].publeoffice" value="{{publeoffice}}"></input>
 	</div>
 	<div class="form-group col-md-3">
 		<label for="acquidate">취득일자</label> 
@@ -653,10 +698,15 @@ edudates.onchange = function (e) {
 	 var gradudate = document.getElementsByClassName("edudates")[index%2==1];
 	 list.getElementsByClassName("child")[0].innerHTML = "Milk";
 }
- */
- 
+ */ 
 $(document).ready(function(){
 	
+	$(function () {
+	    $('[data-toggle="popover"]').popover({
+	    	container: 'body'
+	    });
+	});
+
 	//소연 수정
     $("#region").val("Z").attr("selected", "selected"); //희망근무지
     $("#employstatusid").val("102").attr("selected", "selected"); //희망근무형태
@@ -787,8 +837,8 @@ $(document).ready(function(){
 					  
 					 	console.log(data);
 							  str = 
-								  "<a id='ORIGINAL'><br>크게보기</a>"
-								  +"<small data-src="+data+">X</small>";  
+								  "<a id='ORIGINAL' style='cursor:pointer'><br>크게보기</a>"
+								  +"<small style='cursor:pointer' data-src="+data+">X</small>";  
 
 					  $("#uploadedList").append(str); 
 					  $("#ORIGINAL").on("click", function(){

@@ -38,7 +38,10 @@
 			<c:forEach items="${ResumeVOList}" var="ResumeVO" varStatus="status">		
 			<tr>
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"><input type="hidden" id="bno${status.index}" class="k${ResumeVO.publicornot}" value="${ResumeVO.bno}"></input></td>
-				<td style="text-align: center;">${ResumeVO.bno }</td>
+				<td style="text-align: center;">
+				<input type="hidden" value="${ResumeVO.bno }" class="item">
+				${status.count }
+				</td>
 				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
 				<td style="text-align: center;"><a><span style="cursor:pointer" class="glyphicon publicornot ${ResumeVO.publicornot}"><input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input></span></a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
@@ -60,9 +63,11 @@ function deleteResumeList(){
 	var array=[];
 	$("#tbl_resume tr").each(function(index, item){
 		var chk = $($(item).children()[0]).children();
-		var bno = $($(item).children()[1]);
+		var bno = $($(item).children()[1]).children();
+		
 		if(chk.is(':checked')) {
-			array.push(parseInt(bno.html()));
+			alert(bno.val());
+			array.push(parseInt(bno.val()));
 		}
 	});
 	

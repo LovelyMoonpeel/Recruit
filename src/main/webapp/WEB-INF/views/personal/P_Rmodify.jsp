@@ -207,7 +207,7 @@
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
-			<b>사이트 목록</b>
+			<b>웹사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
@@ -427,7 +427,7 @@
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
 
 	<div class="form-group col-md-3">
-		<label for="webtitle">사이트 (종류)</label> 
+		<label for="webtitle">웹사이트 (종류)</label> 
 		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
 	</div>
 
