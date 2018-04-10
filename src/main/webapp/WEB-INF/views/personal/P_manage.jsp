@@ -26,7 +26,7 @@
 			<tr>
 				<td style="text-align: center;"><input id="${ResumeVO.bno}" type="checkbox"><input type="hidden" id="bno${status.index}" class="k${ResumeVO.publicornot}" value="${ResumeVO.bno}"></input></td>
 				<td style="text-align: center;">${ResumeVO.bno }</td>
-				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.bno} : ${ResumeVO.title}</a></td>
+				<td style="text-align: center;"><a href="/personal/detail?bno=${ResumeVO.bno}">${ResumeVO.title}</a></td>
 				<td style="text-align: center;"><a><span class="glyphicon publicornot ${ResumeVO.publicornot}"><input type="hidden" id="publicornot${status.index}" value="${ResumeVO.publicornot}"></input></span></a></td>
 				<td><button type = "button" id = "modify-button" class="btn btn-success"  onclick="location.href='/personal/Rmodify?bno=${ResumeVO.bno}'"> <span class="glyphicon glyphicon-pencil"></span> 수정</button></td>
 				<td><button type = "button" id = "deleteOne-button" class="btn btn-danger" onclick="deleteOneResume(${ResumeVO.bno})"><span class="glyphicon glyphicon-trash"></span> 삭제</button></td>			
@@ -40,6 +40,7 @@ function deleteOneResume(bno){
 	var array=[];
 	array.push(parseInt(bno));
 	if(confirm(bno+"번째 이력서를 정말 삭제하시겠습니까?")){
+		alert("삭제되었습니다.");
 		location.href='/personal/deleteOneResume?bno='+array;
 	}
 }
@@ -54,6 +55,7 @@ function deleteResumeList(){
 	});
 	
 	if(confirm(array+"번 이력서를 정말 삭제하시겠습니까?")){
+		alert("삭제되었습니다.");
 		location.href='/personal/deleteResumeList?bno='+array;
 	}
 }

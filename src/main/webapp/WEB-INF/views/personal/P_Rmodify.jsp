@@ -5,6 +5,8 @@
 <%@include file="../include/pheader.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
@@ -96,7 +98,7 @@
                <td>
                   <div class="form-group col-md-7" style="border: 1px; float: left; width: 30%; ">
                   <label for="jobgroupid">대분류</label> 
-                  <select id="jobGroup" class="form-control" name="jobgroupid" >
+                  <select id="jobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid" >
                      <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
                         <c:if test="${JobGroupVO.id2 == 0}">
                            <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
@@ -106,7 +108,7 @@
                   </div>
                   <div style="float: left; width: 30%; ">      
 	              	  <label for="jobgroupid">소분류</label> 
-	                  <select id="subjobGroup" class="form-control" name="jobgroupid2">
+	                  <select id="subjobGroup" class="selectpicker form-control" data-live-search="true" name="jobgroupid2">
 	                  </select>
                   </div>
                </td>

@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createROne">
 	<![CDATA[
 		insert 
-	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, rgbid, rgsid, employstatusid, salaryid, img, levelofeducation, lastcareer)
-	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img}, #{levelofeducation}, #{lastcareer})
+	    into project.tblresume (userid, title, address, postcode, coverletter, jobstateid, jobgroupid, jobgroupid2, rgbid, rgsid, employstatusid, salaryid, img, levelofeducation, lastcareer)
+	    values(#{userid}, #{title}, #{address}, #{postcode}, #{coverletter}, #{jobstateid}, #{jobgroupid}, #{jobgroupid2}, #{rgbid}, #{rgsid} ,#{employstatusid}, #{salaryid}, #{img}, #{levelofeducation}, #{lastcareer})
     ]]>
 	</insert> 
 	
