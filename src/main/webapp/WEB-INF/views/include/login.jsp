@@ -3,14 +3,14 @@
     
 <%@ page import = "java.net.URLDecoder" %>
 <%
-	String pidc = "";
-	String pchkc = "";
-	String cidc = "";
-	String cchkc = "";
-	String pactive = "active in";
-	String cactive = "";
-	String pexpand = "true";
-	String cexpand = "false";
+	String pidc = "";  //Personal ID remember
+	String pchkc = ""; //Personal Remember check
+	String cidc = "";  //Company ID remember
+	String cchkc = ""; //Company Remember check
+	String pactive = "active in"; //Personal active(개인회원 선택)
+	String cactive = "";		  //Company active(기업회원 선택)
+	String pexpand = "true";	  //Personal active(개인회원 선택)
+	String cexpand = "false";	  //Company active(기업회원 선택)
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null && cookies.length > 0){
 		for(int i=0;i<cookies.length;i++){
@@ -420,7 +420,7 @@
 				calendarWeeks : false,
 				todayHighlight : true,
 				autoclose : true,
-				format : "yyyy/mm/dd",
+				format : "yyyy-mm-dd",
 				language : "kr"
 			});
 		});

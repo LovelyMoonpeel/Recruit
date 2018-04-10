@@ -68,6 +68,28 @@
 	<h2>기업기본정보</h2>
 	<table class="table table-bordered">
 		<tr>
+			<th>
+				기업로고
+			</th>
+			<td>
+				<div id='uploadedList' style='width: 127px; height: 152px;'>
+					<img id='imgsrc' height="152px;" alt="${CInfoVO.img}" />
+				</div>
+	
+				<div>
+					<input id='imgsrccheck' type='hidden' value="${CInfoVO.img}" />
+					<input type='hidden' id='uploadfilename' name='img' value="${CInfoVO.img}"> <br>
+				</div>
+	
+				<div>
+					<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+					<input type='hidden' id='xornot' value='0'> 
+					<input type='hidden' id='preexistenceimg' value='0'> 
+						
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>기업명</th>
 			<td><input class="form-control" type="text" value="${CInfoVO.cname}" readonly></td>
 			<th>대표자명</th>
@@ -112,6 +134,34 @@
 		<input type="submit" class="btn btn-danger" value="삭제">
 		<input type="submit" class="btn btn-primary" value="목록">
 	
+	<!-- 이미지 모달 -->
+	<div class="modal" id="ORIGINAL_modal">
+		<div class="modal-dialog modal-dialog-centered">
+
+			<div class="modal-content modal-dialog-centered">
+				<div class="modal-head"
+					style="text-align: center; vertical-align: middle; margin: 10px;">
+					<br>
+					<button type="button" class="close" data-dismiss="modal"
+						style="margin: 10px;">&times;</button>
+					이미지 크게 보기
+				</div>
+
+				<div class="modal-body modal-dialog-centered">
+
+					<!--x표시 누르면 창 사라지게 하는 코드 -->
+					<div class="row"
+						style="border: solid 3px #ccc; padding: 10px; margin: 10px;">
+						<img id="modal_get_Imgname1" style="width: 100%; height: auto;">
+					</div>
+				</div>
+				<!--//class="modal-body"  -->
+			</div>
+			<!--//class="modal-content"-->
+		</div>
+		<!--//modal-dialog -->
+	</div>
+	<!-- //이미지 모달 -->
 	
 	<!-- 이력서 보기  -->
 	<h1>채용공고 수정</h1>
@@ -139,6 +189,7 @@
 <script>
 /* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 var pwchk = $('#pwchk'); //Password check 알림
+var pwcheck = "ok";
 
 /* 정규식 */
 var pwReg = /[A-Za-z0-9]$/;
@@ -269,6 +320,134 @@ $(function(){
 });
 </script>
 <!-- //버튼에 대한 스크립트  -->
+
+<script>
+var xornot = document.getElementById('xornot');
+var preexistenceimg = document.getElementById('preexistenceimg');
+    if ($('#imgsrccheck').val() != "") {
+        console.log(" val이 널값아님");
+        
+        $('#imgsrc').attr("src", 'C_displayFile?fileName=${CInfoVO.img}');   // 문> .attr(attributeName, value)는 해당 요소의 속성(attributeName)의 값을 변경시킨다.
+        console.log("이미지 주소: "+'${CInfoVO.img}');
+           
+        var str = "";     
+       	str = "<a id='ORIGINAL'>크게보기</a>"+"<small data-src=${CInfoVO.img}>X</small>";
+        
+        $("#uploadedList").append(str);     
+        $("#ORIGINAL").on("click", function() {
+        	var src = "C_displayFile?fileName=${CInfoVO.img}";
+            $("#ORIGINAL_modal").modal();
+            $("#modal_get_Imgname1").attr("src", src);
+        });
+        
+        $("#preexistenceimg").val("1");
+    } else {
+        console.log(" val이 널값이다");
+        $('#imgsrc').attr("src", 'C_displayFile?fileName=/NoImage.png');
+        $('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+        $("#preexistenceimg").val("0");
+      
+    }
+    var upload = document.getElementById('fileupload'); 
+    var uploadedList = document.getElementById('uploadedList');
+    
+    if (typeof window.FileReader === 'undefined') {     // 소연> fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
+        console.log("window.FileReader 'fail'");
+    } else {
+        console.log("★★★★★★★★  window.FileReader 'success'  ★★★★★★★");
+    } 
+	
+    upload.onchange = function(e) {
+        var file = upload.files[0];
+        var reader = new FileReader();
+        
+        reader.onload = function(event) {     //reader.onload start
+            var image = new Image();
+            image.src = event.target.result;
+            uploadedList.innerHTML = '';
+            image.height = 150;
+            uploadedList.appendChild(image);
+        };     //reader.onload end
+        //img uploadedList에 추가 하는거 end //////////////////////////////////////////////////////////
+        //img 서버에 저장되도록 ajax start //////////////////////////////////////////////////////////  
+        event.preventDefault();
+        console.log("file name");
+        console.log(file);
+        var formData = new FormData();
+        formData.append("file", file);
+        $.ajax({
+            url : '/admin/C_uploadAjax',
+            data : formData,
+            dataType : 'text',
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            success : function(data) {
+                var str = "";
+                console.log("★data: "+data);
+                str = "<a id='ORIGINAL'>크게보기</a>"
+                        + "<small data-src="+data+">X</small>";
+                $("#uploadedList").append(str);
+                
+                $("#ORIGINAL").on("click", function() {
+                    console.log("ORIGINAL click");
+                    console.log("★★data: " + data);
+                    console.log(getImageLink(data));
+                    var src = "displayFile?fileName=" + data;
+                    $("#ORIGINAL_modal").modal();
+                    $("#modal_get_Imgname1").attr("src", src);
+                });
+                document.getElementById('uploadfilename').value = data;
+            }//success : function(data){ end
+        });//ajax end
+        //});//filedrop end
+        console.log(file);
+        reader.readAsDataURL(file);
+    };//upload change end
+    
+    //★★★ X버튼 ★★★
+    $("#uploadedList").on("click", "small", function(event) {
+        event.preventDefault();
+        
+        var that = $(this);
+       
+        
+        if($("#xornot").val()==0){
+			fileName = $(this).attr("data-src"); //전역변수로 설정
+			var front = fileName.substring(0, 12);
+			var end = fileName.substring(12);
+			var thumcheck = fileName.substring(12,14);
+			
+			if(thumcheck!="s_"){
+				console.log(thumcheck + "썸네일 아닐 때 fileName" + fileName);
+				fileName = front + "s_" + end;
+				console.log("썸네일 아니라서 바뀐 fileName" + fileName);
+			}else{
+				console.log(thumcheck + "썸네일인 fileName" + fileName);
+			}
+		
+			$("#fileupload").val("");
+			$("#uploadedList").empty();
+			console.log("img File appended deleted");
+			console.log("fileName"+fileName);
+			$('#uploadfilename').val('');
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}else if($("#xornot").val()==1){
+			console.log("img File on server deleted");
+			$(this).parent("div").empty();
+			$("#fileupload").val("");
+			$('#uploadfilename').val('');
+			$("#uploadedList").empty();
+			console.log("2번 이상 삭제 누름 img File appended deleted");
+			console.log("2번 이상 삭제 누름 fileName"+fileName);
+			
+			$("#xornot").val("1");
+			console.log($("#xornot").val());
+		}
+    });
+</script>
 
 <!-- 알림처리 -->
 <script>
