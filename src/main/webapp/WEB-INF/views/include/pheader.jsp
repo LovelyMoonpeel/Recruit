@@ -64,7 +64,7 @@
 }
 /* .badge-success:hover {
   background-color: #356635;
-} */
+}  */
 .badge-info {
   background-color: #56c0e0;
 }
@@ -112,7 +112,7 @@
 					href="/personal/write" class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a> <!-- p02 --><a
 					href="/personal/manage" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a> <!-- p01 --><a
 					href="/personal/recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a> <!-- p04 --><a
-					href="/personal/favor" id = "P_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a> <!-- p05 --><a
-					href="/personal/applied" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a><!-- p07 -->
+					href="/personal/favor_all" id = "P_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a> <!-- p05 --><a
+					href="/personal/applied_all" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a><!-- p07 -->
 			</div>
 		</div>

@@ -10,6 +10,7 @@
 position: fixed; 
 bottom: 30px; 
 right:10%;
+z-index:10000;
 /*margin-right: 150px;*/ 
 } 
 #back-top a { 
@@ -20,7 +21,7 @@ font: 11px/100% Arial, Helvetica, sans-serif;
 text-transform: uppercase; 
 text-decoration: none; 
 color: #bbb; 
-z-index:10;
+z-index:10000;
 /* transition */ 
 -webkit-transition: 1s; 
 -moz-transition: 1s; 
@@ -154,7 +155,7 @@ background-color: #777;
 	<br>
 
 
-	<div class="text-center">
+	<div id="apply_div" class="text-center">
 		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
 		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
 	</div>
@@ -191,7 +192,7 @@ background-color: #777;
 									</tr>
 								</c:forEach>
 							</table>
-							<input type="text" id="modal_recruitNum" name="recruitNum"
+							<input type="hidden" id="modal_recruitNum" name="recruitNum"
 								value="${RecruitVO.bno}">
 							<div class="col-xs-4">
 								<!--즉시지원 버튼 -->
@@ -208,14 +209,35 @@ background-color: #777;
 		</div>
 		<!--//modal-dialog -->
 	</div>
-	
+	<input type='hidden' id='RecruitVO_regdate' value='${RecruitVO.regdate}'>
+	<input type='hidden' id='RecruitVO_period' value='${RecruitVO.period}'>
 	<input type="hidden" id="pC" value="<%=pid%>">
 	<!-- 소연 코드 -->
 	<script>
 		$(document).ready(function() {
+			var RecruitVO_regdate = $('#RecruitVO_regdate').val();//현재날짜
+			var RecruitVO_period = $('#RecruitVO_period').val();//마감날짜
+			
+			if(RecruitVO_regdate>RecruitVO_period){
+				$("#applynow").removeClass('btn-primary');
+				$("#applynow").text('지원 마감');
+				$('#applynow').attr('id','applyend');
+				$("#applynow2").removeClass('btn-primary');
+				$("#applynow2").text('지원 마감');
+				$('#applynow2').attr('id','applyend2');
+			}
+			
+			$('#applyend').click(function(){
+				alert('모집이 마감된 채용공고입니다.')
+			});
+			$('#applyend2').click(function(){
+				alert('모집이 마감된 채용공고입니다.')
+			});
+		
 			var formObj = $("form[role = 'form']");
 			var rcno = $("#modal_recruitNum").val();
 			var pid = $("#modal_pid").val();
+			
 			$("#applynow").click(function(e) {
 				
 				if("<%=pid%>"==""&&"<%=cid%>"==""){
@@ -223,62 +245,112 @@ background-color: #777;
 				}else if("<%=pid%>"==""){
 					alert("개인회원으로 로그인 해주시길바랍니다.")
 				}else{
-					$("#applynow_modal").modal();
+					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+						type : 'post',
+						url : '/companyAjax/applycheck',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							rcno : rcno,
+							pid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								$("#applynow_modal").modal();
+							} else if (result == 'FALSE') {
+								alert("이미 지원한 공고 입니다.");
+								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
 				}
 				
 			});
 			$("#applynow2").click(function() {
-				
 				if("<%=pid%>"==""&&"<%=cid%>"==""){
 					alert("로그인해주시길바랍니다.")
 				}else if("<%=pid%>"==""){
 					alert("개인회원으로 로그인 해주시길바랍니다.")
 				}else{
-					$("#applynow_modal").modal();
+					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+						type : 'post',
+						url : '/companyAjax/applycheck',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							rcno : rcno,
+							pid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								$("#applynow_modal").modal();
+							} else if (result == 'FALSE') {
+								alert("이미 지원한 공고 입니다.");
+								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
 				}
-				
 			});
 			$("#applynow_btn").on("click", function(e) {
-				
-			
-				
 				console.log("applynow_btn clicked");
-				var rsno = $('input[name="bno"]:checked').val();
-				alert("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
-				$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-					type : 'post',
-					url : '/companyAjax/applycheck',
-					headers : {
-						"Content-Type" : "application/json",
-						"X-HTTP-Method-Override" : "POST"
-					},
-					dataType : 'text',
-					data : JSON.stringify({
-						rsno : rsno,
-						rcno : rcno,
-						pid : pid
-					}),
-					success : function(result) {
-						console.log("result가 뭐냐?" + result);
-						if (result == 'TRUE') {
-							alert("지원하였습니다.");
-							//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
-							formObj.attr("action", "/company/applynow");
-							formObj.attr("method", "post");
-							formObj.submit(); //button type이 submit라서 필요 없음
-							alert("submit됐니");
-						} else if (result == 'FALSE') {
-							alert("이미 지원한 공고 입니다.");
-							//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-						} else {
-							alert("어느 if문에도 들어가지 못함.");
-							console.log("어느 if문에도 들어가지 못함.");
-						}
-					}//success end
-				})//ajax end
-			});
-			$("#clipping").click(function() {
 				
+				var rsno = $('input[name="bno"]:checked').val();
+				
+				console.log("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
+				
+				if(rsno==undefined){
+					alert("이력서를 선택하세요!");
+					return false;
+				}else{
+					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
+						type : 'post',
+						url : '/companyAjax/applycheck',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						dataType : 'text',
+						data : JSON.stringify({
+							rsno : rsno,
+							rcno : rcno,
+							pid : pid
+						}),
+						success : function(result) {
+							console.log("result가 뭐냐?" + result);
+							if (result == 'TRUE') {
+								alert("지원하였습니다.");
+								//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
+								formObj.attr("action", "/company/applynow");
+								formObj.attr("method", "post");
+								formObj.submit(); //button type이 submit라서 필요 없음
+							} else if (result == 'FALSE') {
+								alert("이미 지원한 공고 입니다.");
+								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
+							} else {
+								alert("어느 if문에도 들어가지 못함.");
+								console.log("어느 if문에도 들어가지 못함.");
+							}
+						}//success end
+					})//ajax end
+				}
+			});
+			
+			$("#clipping").click(function() {
 				
 				if("<%=pid%>"==""&&"<%=cid%>"==""){
 					alert("로그인해주시길바랍니다.")

@@ -45,15 +45,12 @@
 	
 			</tr>
 			
-		<script>
-    $(function () {
-        $('[data-toggle="popover"]').popover({
-        	container: 'body'
-        	
-        })
-       
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover({
+    	container: 'body'
     })
-   
+});
 </script>
 <style>
 .popover{
@@ -61,9 +58,9 @@
    
 }
 </style>
-
+ㅗㅗ
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
+ㅗㅗ
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 

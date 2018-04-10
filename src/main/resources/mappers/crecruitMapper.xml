@@ -6,21 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace = "com.recruit.mapper.CRecruitMapper">
 	<!-- p178참고 -->
 	
-	<!-- 스크랩한 채용공고 목록 -->
-<!-- 	<select id = "selectCRList" resultType = "com.recruit.domain.CRecruitVO">
-	<![CDATA[
-		select *
-		from project.tblrecruit
-		where bno in (select rcbno
-						from project.tblinterestjob
-						where userid = #{id})
-		order by bno;
-	]]>
-	</select> -->
-	<!-- 스크랩한 채용공고 목록 소연 수정-->
-	<select id = "selectCRList" resultType = "com.recruit.domain.CRecruitVO">
+	<!-- 스크랩한 채용공고 목록  전체 조회수순 소연 수정-->
+	<select id = "selectCRList_veiwcnt_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
 		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
 		, (select cname from tblcinfo where id = rc.cid) recruitform
 		, if(period!='',period,'채용시까지') as jobdesc
 		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
@@ -29,30 +19,163 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno in (select rcbno
 						from tblinterestjob
 						where userid = #{id})
-		order by bno;
+		order by viewcnt desc;
 	]]>
 	</select> 
-
-	<!-- 지원한 채용공고 목록 안소연 사용 수정 -->
-<!-- 	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
-	<![CDATA[
-		select *
-		from project.tblrecruit
-		where bno in (select rcno
-						from project.tblapply
-						where rsno in ( select bno 
-										from project.tblresume
-										where userid = #{id}))
-	]]>
-	</select> -->
 	
-		<!-- 지원한 채용공고 목록 안소연 사용 수정 -->
-	<select id = "selectAPList" resultType = "com.recruit.domain.CRecruitVO">
+	<!-- 스크랩한 채용공고 목록  전체 지원자순 소연 수정-->
+	<select id = "selectCRList_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+		, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		order by adddesc desc;
+	]]>
+	</select> 
+	
+	<!-- 스크랩한 채용공고 목록 전체 마감일 순 소연 수정-->
+	<select id = "selectCRList_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+		, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		order by jobdesc asc;
+	]]>
+	</select> 
+	
+	<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_ongoing_veiwcnt_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period >= CURDATE() then '모집중' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period >= CURDATE()
+		order by viewcnt desc;
+	]]>
+	</select>
+	
+	<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_ongoing_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period >= CURDATE() then '모집중' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period >= CURDATE()
+		order by adddesc desc;
+	]]>
+	</select> 
+	
+	<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_ongoing_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select bno, title, viewcnt
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period >= CURDATE() then '모집중' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period >= CURDATE()
+		order by jobdesc asc;
+	]]>
+	</select>  
+	
+	<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_closed_veiwcnt_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		 select bno, title, viewcnt
+	  	, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period < CURDATE() then '모집완료' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period < CURDATE()
+		order by viewcnt desc;
+	]]>
+	</select> 
+	
+		<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_closed_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		 select bno, title, viewcnt
+	  	, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period < CURDATE() then '모집완료' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period < CURDATE()
+		order by adddesc desc;
+	]]>
+	</select> 
+	
+		<!-- 스크랩한 채용공고 목록 소연 수정-->
+	<select id = "selectCRList_closed_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		 select bno, title, viewcnt
+	  	, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, if(period!='',period,'채용시까지') as jobdesc
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as regdate
+        , case when period < CURDATE() then '모집완료' end as acceptmethod
+		from tblrecruit rc
+		where bno in (select rcbno
+						from tblinterestjob
+						where userid = #{id})
+		AND period < CURDATE()
+		order by jobdesc asc;
+	]]>
+	</select> 
+	
+	<!-- 위쪽 스크랩 -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+	<!-- 아래쪽 지원-->
+	
+	<!-- 지원한 채용공고 목록 전체 지원자수 순 안소연 사용 수정 -->
+	<select id = "selectAPList_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
 		select rc.bno, rc.title, rc.period
 		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
 		, (select cname from tblcinfo where id = rc.cid) recruitform
-		, (select count(*) from tblapply where rcno = rc.bno group by rcno) addesc
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
 		, (select title from tblresume where bno in (select rsno from tblapply
 													where rcno = rc.bno
                                                     )
@@ -68,7 +191,147 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblapply
 						where rsno in ( select bno 
 										from tblresume
-										where userid=#{id})));
+										where userid=#{id})))
+		ORDER BY adddesc desc;
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 전체 마감일 순 안소연 사용 수정 -->
+	<select id = "selectAPList_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})))
+		ORDER BY period asc;
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 진행중 지원자수 순 안소연 사용 수정 -->
+	<select id = "selectAPList_ongoing_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period >=CURDATE())
+		ORDER BY adddesc desc;
+	]]>
+	</select>
+	
+		<!-- 지원한 채용공고 목록 진행중 마감일 순 안소연 사용 수정 -->
+	<select id = "selectAPList_ongoing_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period >=CURDATE())
+		ORDER BY period asc;
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 마감 지원자수 순 안소연 사용 수정 -->
+	<select id = "selectAPList_closed_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period < CURDATE() then '모집완료' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period < CURDATE())
+		ORDER BY adddesc desc;
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 마감 마감일 순 안소연 사용 수정 -->
+	<select id = "selectAPList_closed_closingdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period < CURDATE() then '모집완료' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period < CURDATE())
+		ORDER BY period asc;
 	]]>
 	</select>
 	

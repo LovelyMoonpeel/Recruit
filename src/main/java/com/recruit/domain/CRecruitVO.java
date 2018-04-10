@@ -14,7 +14,8 @@ public class CRecruitVO {
 	private int salaryid;
 	private int edu;
 	private int exp;
-	private String addesc;
+	private String adddesc;
+	//소연 잘못적은건데 걍 이대로감 고칠게 넘많다
 	private String period;
 	private String acceptmethod;
 	private String recruitform;
@@ -94,11 +95,11 @@ public class CRecruitVO {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
-	public String getAddesc() {
-		return addesc;
+	public String getadddesc() {
+		return adddesc;
 	}
-	public void setAddesc(String addesc) {
-		this.addesc = addesc;
+	public void setadddesc(String adddesc) {
+		this.adddesc = adddesc;
 	}
 	public String getPeriod() {
 		return period;
@@ -141,7 +142,7 @@ public class CRecruitVO {
 		return "CRecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
 				+ ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc + ", recruitnum=" + recruitnum
 				+ ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", edu=" + edu + ", exp=" + exp
-				+ ", addesc=" + addesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
+				+ ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
 				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", creadornot=" + creadornot + "]";
 	}
 	

@@ -568,24 +568,19 @@ public class CompanyController {
 
 	}
 
-	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET) // 개인이
-																			// 보는
-																			// 페이지
-																			// 정보
+	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET)
 	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model)
 			throws Exception {
 		// 안소연 수정
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
-		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
+		RecruitVO rcvo = service.RecruitInfoRead(recruitNum); 
+		model.addAttribute("RecruitVO", rcvo );
+		
 		if (login != null) {
 			String id = login.getId();
-			model.addAttribute("PcStateCheck", service.PcStateCheck(id)); // 기업
-																			// 개인
-																			// 로그인
-																			// 했는지
-																			// 체크용
+			model.addAttribute("PcStateCheck", service.PcStateCheck(id));
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
 			model.addAttribute("PUserVO", Pservice.selectPUser(id));
 		}

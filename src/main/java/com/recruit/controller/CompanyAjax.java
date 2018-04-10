@@ -485,9 +485,6 @@ public class CompanyAjax {
 
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/applycheck", method = RequestMethod.POST)//소연
 	public ResponseEntity<String> applycheckPOST(@RequestBody PApplyVO pavo){
 		System.out.println("아 applycheck POST CONTROLLER");
@@ -497,14 +494,17 @@ public class CompanyAjax {
 			System.out.println(pavo.getPid() + "가 지원한 " + pavo.getRsno() + "번째 이력서" + pavo.getRcno() + "번 채용공고");
 			System.out.println("아아"+papService.selectAPOne(pavo));
 			
-			//select 해서 null이면 true
-			if(papService.selectAPOne(pavo)==null){//지원한 적 없을 때
-				System.out.println("true if문으로 들어옴");
-				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
-			}else{//지원한 적 있을 때
-				System.out.println("false if문으로 들어옴");
-				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			if(true){//마감 날짜 지났는지 안지났는지 확인하는 과정
+				//select 해서 null이면 true
+				if(papService.selectAPOne(pavo)==null){//지원한 적 없을 때
+					System.out.println("true if문으로 들어옴");
+					entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+				}else{//지원한 적 있을 때
+					System.out.println("false if문으로 들어옴");
+					entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+				}
 			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);

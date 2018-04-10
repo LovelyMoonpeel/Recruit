@@ -5,6 +5,8 @@
 <%@include file="../include/pheader.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
@@ -27,7 +29,7 @@
 	           	</td>
                 <th rowspan = "3" class="table-active" scope="row"><label for="img">사진</label></th>
 						<td rowspan="3" class="col-sm-4">
-							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted blue;'>
+							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted #c0c6d3;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> 
 							<!--  사진 보이는 div  --> 
@@ -79,7 +81,8 @@
                   <th>구직상태</th>
                   <td>
                      <div class="form-group col-md-5">
-                     <select id="jobstateid" class="form-control" name="jobstateid" > 
+                     <select id="jobstateid" class="form-control" name="jobstateid" >
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 6 }">
                               <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.jobstateid }">selected</c:if> > ${CodeVO.career } </option>
@@ -93,19 +96,20 @@
                  <tr>
                    <th>모집직종</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 30%; ">
                   <label for="jobgroupid">대분류</label> 
-                     <select id="jobGroup" class="form-control" name="jobgroupid" >
-                        <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
-                           <c:if test="${JobGroupVO.id2 == 0}">
-                              <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
-                           </c:if>
-                        </c:forEach>
-                     </select>          
-                  <br>
-                  <label for="jobgroupid">소분류</label> 
-                     <select id="subjobGroup" class="form-control" name="jobgroupid2">
-                     </select>
+                  <select id="jobGroup" class="form-control" data-live-search="true" name="jobgroupid" >
+                     <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
+                        <c:if test="${JobGroupVO.id2 == 0}">
+                           <option value="${JobGroupVO.id}" <c:if test="${JobGroupVO.id == ResumeVO.jobgroupid}">selected</c:if>>${JobGroupVO.jobgroup}</option>
+                        </c:if>
+                     </c:forEach>
+                  </select>    
+                  </div>
+                  <div style="float: left; width: 30%; ">      
+	              	  <label for="jobgroupid">소분류</label> 
+	                  <select id="subjobGroup" class="form-control" data-live-search="true" name="jobgroupid2">
+	                  </select>
                   </div>
                </td>
             </tr>
@@ -113,9 +117,10 @@
             <tr>
                <th>희망근무형태</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-4">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
+                        <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 4 }">
                               <option value="${CodeVO.id }" 
@@ -130,16 +135,18 @@
             <tr>
                    <th>희망근무지</th>
                <td>
-                  <div class="form-group col-md-5">
-                     <label for="jobgroupid">시/도</label> 
-                        <select id="region" class="form-control" name='rgbid'>
-                           <c:forEach items="${RegionVOlist}" var="RegionVO">
-                              <option value="${RegionVO.rgbid}" 
-                              <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
-                              >${RegionVO.rgbname}</option>
-                           </c:forEach>
-                        </select>
-                     <label for="jobgroupid">시/군/구</label> 
+                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%; ">
+                     <label for="regionid">시/도</label> 
+                     <select id="region" class="form-control" name='rgbid'>
+                        <c:forEach items="${RegionVOlist}" var="RegionVO">
+                           <option value="${RegionVO.rgbid}" 
+                           <c:if test="${RegionVO.rgbid == ResumeVO.rgbid}">selected</c:if>
+                           >${RegionVO.rgbname}</option>
+                        </c:forEach>
+                     </select>
+                  </div>
+                  <div style="float: left; width: 30%; ">
+                     <label for="regionid2">시/군/구</label> 
                      <select id="subRegion" class="form-control" name='rgsid'>
                      </select>
                   </div>
@@ -151,9 +158,11 @@
                   <div class="form-group col-md-5">
                      <!-- <label for="CodeList7">희망연봉</label> -->
                      <select class="form-control" name="salaryid" id="CodeList7">
+                     	<option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
                            <c:if test="${CodeVO.tid == 7 }">
-                              <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
+                              <option value="${CodeVO.id }" 
+                              <c:if test="${CodeVO.id == ResumeVO.salaryid }">selected</c:if> > ${CodeVO.career } </option>
                            </c:if>
                         </c:forEach>
                      </select>
@@ -164,44 +173,45 @@
          </table>
           </div>
       <!--j.code 03/22 : select태그 테이블형태로 수정 끝  -->
-	<hr style="border: solid 1px #ccc;">
-      <h4>
-         <b>학력사항</b>
-         <div class="form-group col-md-3">
-         <select class="form-control" name=levelofeducation id="CodeList2">
-             <c:forEach items="${CodeVOlist }" var="CodeVO">
-                <c:if test="${CodeVO.tid == 2 }">
-                   <c:if test="${CodeVO.id<=13 }">
-                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
-                   </c:if>
-                </c:if>
-             </c:forEach>
-          </select>
-          </div>
-      </h4>
-      <div id="edu_div"></div>
-      <hr style="border: solid 1px #ccc;">
-      <h4>
-         <b>경력사항</b>
-         <div class="form-group col-md-3">
-         <select class="form-control" name="lastcareer" id="CodeList1">
-             <c:forEach items="${CodeVOlist }" var="CodeVO">
-                <c:if test="${CodeVO.tid == 1 }">
-                   <c:if test="${CodeVO.id<=7 }">
-                      <option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
-                   </c:if>
-                </c:if>
-             </c:forEach>
-          </select>
-          </div>
-      </h4>
-      <div id="exp_div"></div>
+     	<hr style="border: solid 4px #ccc;">
+		<div style="font-size:18px;" class="form-group col-md-2"><b>학력 사항</b></div>
+		<div class="form-group col-md-2"><label for="edustatus">최종학력</label></div>
+		<div class="form-group col-md-3">
+		<select class="form-control" name=levelofeducation id="CodeList2">
+			<option value="102">선택</option>
+			<c:forEach items="${CodeVOlist }" var="CodeVO">
+				<c:if test="${CodeVO.tid == 2 }">
+					<c:if test="${CodeVO.id<=13 }">
+						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.levelofeducation}">selected</c:if> > ${CodeVO.career} </option>
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</select>
+		</div>
+		<div id="edu_div"></div>
+		
+		<hr style="border: solid 4px #ccc;">
+		<div style="font-size:18px;" class="form-group col-md-2"><b>경력 사항</b></div>
+		<div class="form-group col-md-2"><label for="career">경력</label>	</div>
+		<div class="form-group col-md-3">
+		<select class="form-control" name="lastcareer" id="CodeList1">
+			<option value="102">선택</option>
+			<c:forEach items="${CodeVOlist }" var="CodeVO">
+				<c:if test="${CodeVO.tid == 1 }">
+					<c:if test="${CodeVO.id<=7 }">
+						<option value="${CodeVO.id }" <c:if test="${CodeVO.id == ResumeVO.lastcareer}">selected</c:if> > ${CodeVO.career} </option>
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</select>
+		</div>
+     	<div id="exp_div"></div>
 		
 		<!-- r.code 03/13 : 학력/경력 폼 수정-->
 		<!-- end of r.code -->
 	    <hr style="border: solid 4px #ccc;">
 		<h4>
-			<b>사이트 목록</b>
+			<b>웹사이트 목록</b>
 		</h4>
 		<div id="web_div"></div>
 		<hr style="border: solid 4px #ccc;">
@@ -350,7 +360,7 @@
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -421,7 +431,7 @@
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
 
 	<div class="form-group col-md-3">
-		<label for="webtitle">사이트 (종류)</label> 
+		<label for="webtitle">웹사이트 (종류)</label> 
 		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
 	</div>
 
@@ -562,7 +572,7 @@
 </script>
 <script type='text/javascript'>
 $(document).ready(function() {
-	
+    
 	//<!--j.code 03/22 : jobGroup, region 대분류고정시켜주는 작업-->
    var largeNum = $('#jobGroup option:selected').val();
    SubJobGroup2(largeNum);
@@ -591,15 +601,14 @@ $(document).ready(function() {
 	}
 	
 	//이거start
-	var imgsrccheck = ('#imgsrccheck');
-	
-		 if($('#imgsrccheck').val()!=""){
+	 if($('#imgsrccheck').val()!=""){
 		console.log(" val이 널값아님");
 		$('#imgsrc').attr("src", 'displayFile?fileName=${ResumeVO.img}');
 		var str = "";
 		str = 
-			  "<a id='ORIGINAL'>크게보기</a>"
+			  "<a id='ORIGINAL'><br>크게보기</a>"
 			  +"<small data-src=${ResumeVO.img}>X</small>";
+			  
 		  $("#uploadedList").append(str); 
 		  
 		  $("#ORIGINAL").on("click", function(){
@@ -625,12 +634,11 @@ $(document).ready(function() {
 	 console.log("window.FileReader 'success'");
 	}  //fileLeader라는 프로그램 로딩이 제대로 되지 않았을 때
 	  
-	upload.onchange = function (e) {
+	upload.onchange = function upload_change(e) {
 		
-		 var file = upload.files[0];
+		 file = upload.files[0];
 		 var reader = new FileReader();
 		 //p542다시 보기
-	
 		 //reader.onload start
 		 reader.onload = function (event) {
 			 var image = new Image();
@@ -660,7 +668,6 @@ $(document).ready(function() {
 				 contentType : false,
 				 type : 'POST',
 				 success : function(data){
-					 alert("사진 올라감!")
 					   var str = "";
 					  
 					 	console.log(data);
@@ -681,15 +688,15 @@ $(document).ready(function() {
 					 // uploadedfilename_val = data;
 				  }//success : function(data){ end
 	 		  });//ajax end
-		//});//filedrop end
-	 console.log(file);
-	 reader.readAsDataURL(file);
+		 console.log(file);
+		 reader.readAsDataURL(file);
 	};//upload change end
-	
 	
 	$("#uploadedList").on("click", "small", function(event){
 		event.preventDefault();
 		var that = $(this);
+		
+		//file==undefined;
 		
 		if($("#xornot").val()==0){
 			
@@ -975,7 +982,7 @@ $(document).ready(function() {
 	}
 	function edu_list() {
 		var len = (${eduVOlist.size()});
-		
+	
 		if( len > 0 ) {
 			<c:forEach items="${eduVOlist}" var="eduVO">
 				var item = {
@@ -1164,36 +1171,43 @@ $(document).ready(function() {
          
          $(data).each(
                function() {
-                  if(sel==this.id){
-                     selected = "selected";
-                  }else{
-                     selected = "";
-                  }
-                  str += "<option value="+this.id+
-                  " "+selected+">"+ this.jobgroup + "</option>";
+            	   if(sel==this.id){
+                 	  if(this.id==0){
+                 		 str += "<option value="+this.id+
+                           " "+selected+">"+ "선택" + "</option>";
+                 	  }else{
+ 	                     selected = "selected";
+ 	                     str += "<option value="+this.id+
+ 	                     " "+selected+">"+ this.jobgroup + "</option>";
+                 	  } 
+                   }else{
+                      selected = "";
+                      str += "<option value="+this.id+
+                      " "+selected+">"+ this.jobgroup + "</option>";
+                   }
                });
          $("#subjobGroup").html(str);
       })
    }
    function SubRegion2(largeNum) {
-      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
-         var str = "";
-         <c:set value="${ResumeVO.rgsid}" var="sid"/>
-         var selec = '<c:out value="${sid}"/>';
-         var select = "";
-         $(data).each(
-               function() {
-                  if(selec==this.rgsid){
-                     select = "selected";
-                  }else{
-                     select = "";
-                  }
-                  str += "<option value="+this.rgsid+
-                  " " + select + ">" + this.rgsname + "</option>";
-               });
-         $("#subRegion").html(str);
-      })
-   }
+	      $.getJSON("/companyAjax/region/" + largeNum, function(data) {
+	         var str = "";
+	         <c:set value="${ResumeVO.rgsid}" var="sid"/>
+	         var selec = '<c:out value="${sid}"/>';
+	         var select = "";
+	         $(data).each(
+	               function() {
+	                  if(selec==this.rgsid){
+	                     select = "selected";
+	                  }else{
+	                     select = "";
+	                  }
+	                  str += "<option value="+this.rgsid+
+	                  " " + select + ">" + this.rgsname + "</option>";
+	               });
+	         $("#subRegion").html(str);
+	      })
+	   }
    $("#region").change(function() {
       var largeNum = $(this).val();
       SubRegion(largeNum)

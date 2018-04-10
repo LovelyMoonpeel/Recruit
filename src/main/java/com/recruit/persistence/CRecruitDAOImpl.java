@@ -11,22 +11,100 @@ import com.recruit.domain.CRecruitVO;
 
 @Repository
 public class CRecruitDAOImpl implements CRecruitDAO{
-	
+
 	@Inject
 	private SqlSession session;
-	
+
 	private static String namespace = "com.recruit.mapper.CRecruitMapper";
-	
+
 	// 스크랩한 채용공고 목록 
 	@Override
-	public List<CRecruitVO> selectCRList(String id)throws Exception{
-		return session.selectList(namespace + ".selectCRList", id);
+	public List<CRecruitVO> selectCRList(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("viewcnt_order")){
+			return session.selectList(namespace + ".selectCRList_veiwcnt_order", id);
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
+			return session.selectList(namespace + ".selectCRList_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectCRList 뭔가 이상함");
+			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
+		}
+	};
+
+	// 스크랩한 채용공고 목록 
+	@Override
+	public List<CRecruitVO> selectCRList_ongoing(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("viewcnt_order")){
+			return session.selectList(namespace + ".selectCRList_ongoing_veiwcnt_order", id);
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
+			return session.selectList(namespace + ".selectCRList_ongoing_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectCRList_ongoing 뭔가 이상함");
+			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", id);
+		}
+	};
+
+	// 스크랩한 채용공고 목록 
+	@Override
+	public List<CRecruitVO> selectCRList_closed(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("viewcnt_order")){
+			return session.selectList(namespace + ".selectCRList_closed_veiwcnt_order", id);
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
+			return session.selectList(namespace + ".selectCRList_closed_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectAPList_closed 뭔가 이상함");
+			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", id);
+		}
+	};
+
+	//지원한 채용공고 목록
+	@Override
+	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("applicant_order")){
+			 return session.selectList(namespace + ".selectAPList_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			 return session.selectList(namespace + ".selectAPList_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectAPList 뭔가 이상함");
+			return session.selectList(namespace + ".selectAPList_closingdate_order", id);
+		}
+	};
+
+	//지원한 채용공고 목록
+	@Override
+	public List<CRecruitVO> selectAPList_ongoing(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("applicant_order")){
+			 return session.selectList(namespace + ".selectAPList_ongoing_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			 return session.selectList(namespace + ".selectAPList_ongoing_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectAPList_ongoing 뭔가 이상함");
+			return session.selectList(namespace + ".selectAPList_ongoing_closingdate_order", id);
+		}
 	};
 	
 	//지원한 채용공고 목록
 	@Override
-	public List<CRecruitVO> selectAPList(String id)throws Exception{
-		return session.selectList(namespace + ".selectAPList", id);
+	public List<CRecruitVO> selectAPList_closed(String id, String order_value)throws Exception{
+		
+		if(order_value!=null&&order_value.equals("applicant_order")){
+			 return session.selectList(namespace + ".selectAPList_closed_applicant_order", id);
+		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			 return session.selectList(namespace + ".selectAPList_closed_closingdate_order", id);
+		}else{
+			System.out.println("CRecruitDAOImpl selectAPList_closed 뭔가 이상함");
+			return session.selectList(namespace + ".selectAPList_closed_closingdate_order", id);
+		}
 	};
 	
 	//스크랩한 채용공고 목록에서 선택한 채용공고 하나 확인
