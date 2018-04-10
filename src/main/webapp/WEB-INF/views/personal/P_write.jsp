@@ -106,7 +106,7 @@
               <tr>
                 <th style="text-align : center; vertical-align : middle;">모집직종</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%;">
                   <label for="jobgroupid">대분류</label> 
                      <select style="height:5;" data-size="5" id="jobGroup" class="form-control" data-live-search="true" name="jobgroupid" >
                         <option value="0">선택</option>
@@ -118,7 +118,8 @@
                            </c:if>
                         </c:forEach>
                      </select>          
-                  <br>
+                  </div>
+                  <div style="float: left; width: 30%;">
                   <label for="jobgroupid">소분류</label> 
                      <select id="subjobGroup" class="form-control" data-live-search="true" name="jobgroupid2">
                      </select>
@@ -146,13 +147,15 @@
             <tr>
                    <th style="text-align : center; vertical-align : middle;">희망근무지</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%;">
                      <label for="jobgroupid">시/도</label> 
                         <select id="region" class="form-control" name='rgbid' data-live-search="true">
                            <c:forEach items="${RegionVOlist}" var="RegionVO">
                               <option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
                            </c:forEach>
                         </select>
+                  </div>
+                  <div style="float: left; width: 30%;">
                      <label for="jobgroupid">시/군/구</label> 
                      <select id="subRegion" class="form-control" name='rgsid' data-live-search="true">
                      </select>
