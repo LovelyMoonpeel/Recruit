@@ -97,8 +97,7 @@ $("#p_search").on("click",function(){
 	var c_chk = "<%=c_chk%>";
 	
 	if(c_chk=="null"){
-		if("<%=location%>
-		" != "/admin/main") {
+		if("<%=location%>" != "/admin/main") {
 					alert("접근 권한이 없습니다.");
 				} else {
 					self.location = "/srch/main?stype=2";
