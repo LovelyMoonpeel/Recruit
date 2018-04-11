@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import = "com.recruit.domain.BoardVO" %>
+<%@ page import="com.recruit.domain.BoardVO"%>
 
 
 <%
@@ -10,30 +10,29 @@
 	BoardVO login = null;
 	String cname = "";
 	String location = "";
-	
-	try{
-		login = (BoardVO)session.getAttribute("login");
-		if(login != null){
-		id = login.getId();
-		cname = login.getCname();
+
+	try {
+		login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			id = login.getId();
+			cname = login.getCname();
 		}
-		if(cname == null){
-			if(id.equals("admin")){
+		if (cname == null) {
+			if (id.equals("admin")) {
 				location = "/admin/main";
-			}else{
+			} else {
 				location = "/personal/index";
 			}
-		}else{
+		} else {
 			location = "/company/C_index";
 		}
-	}catch(Exception e){
+	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	
 %>
 
- <!-- Navigation -->
-	<!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- Navigation -->
+<!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			Brand and toggle get grouped for better mobile display
 			<div class="navbar-header">
@@ -43,7 +42,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/" style="font-size:25px;">RecruIT</a>
+				<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
 			</div>
 			Collect the nav links, forms, and other content for toggling
 			<div class="collapse navbar-collapse"
