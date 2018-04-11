@@ -67,8 +67,9 @@ function deleteResumeList(){
 		var bno = $($(item).children()[1]).children();
 		
 		if(chk.is(':checked')) {
-			alert(bno.val());
-			array.push(parseInt(bno.val()));
+			if(bno.val()!=undefined){
+				array.push(parseInt(bno.val()));
+			}
 		}
 	});
 	

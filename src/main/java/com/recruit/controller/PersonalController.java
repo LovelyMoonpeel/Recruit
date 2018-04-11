@@ -44,6 +44,7 @@ import com.recruit.service.PApplyService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
 import com.recruit.service.PWebSiteService;
+import com.recruit.service.PreferenceService;
 import com.recruit.service.RLicenseService;
 import com.recruit.service.ResumeCareerService;
 import com.recruit.service.ResumeEduService;
@@ -97,6 +98,9 @@ public class PersonalController {
 	
 	@Inject
 	private PApplyService PAPService;
+	
+	@Inject
+	private PreferenceService PREFService;
 	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -444,7 +448,28 @@ public class PersonalController {
 
 			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
 			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
+			
+			return "personal/P_recom";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	// 추천채용공고
+	@RequestMapping(value = "/recom", method = RequestMethod.POST)
+	public String recomPOST(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+		System.out.println("recom POST Controller");
 
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
+			
 			return "personal/P_recom";
 		} else {
 			rttr.addFlashAttribute("msg", "login");

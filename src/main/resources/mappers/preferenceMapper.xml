@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.PreferenceMapper">
+	<!-- 여기 매퍼 4개 다 소연 사용함 -->
+	<!-- <insert id="createAPOne">
+	  <![CDATA[
+	  insert 
+	  into tblapply (rsno, rcno, pid, coverletter)
+	  values(#{rsno}, #{rcno}, #{pid}, #{coverletter});
+	  ]]>
+	</insert> -->
+	
+	<select id="selectPREFOne" resultType="PreferenceVO">
+	select *
+	from tblpreference
+	where userid=#{id}
+	</select>
+	
+<!-- 	<update id="CreadAPOne">
+	update tblapply
+	set readornot = '읽음'
+	where rcno=#{rcno}
+	AND rsno=#{rsno};
+	</update>
+		 -->
+<!-- 	<delete id = "deleteAPOne">
+	<![CDATA[
+	delete from tblapply
+	where pid=#{pid}
+	AND rcno=#{rcno};
+	]]>
+	</delete> -->
+	
+</mapper>
