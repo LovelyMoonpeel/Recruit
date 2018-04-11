@@ -478,14 +478,15 @@
 		$("#spanel").append(str);
 	}
 
-	var snum = 24; // 로딩 판넬 갯수
+	var snum = 8; // 로딩 판넬 갯수
 	var page = 0; // 무한스크롤 페이지
 	var lastpage = false;
 	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
 
 	var smsg = '<img src="/resources/rpjt/img/loading.gif" height="100">';
 	waitForSearching(smsg, 8);
-	getRecruitAllList(snum, page++);
+	getRecruitAllList(snum * 3, page++);
+	page += 2;
 
 	$("#sinput").focus();
 
