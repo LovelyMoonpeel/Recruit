@@ -43,7 +43,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">퍼팩트 매칭</a>
+				<a class="navbar-brand" href="/">recruIT</a>
 			</div>
 			Collect the nav links, forms, and other content for toggling
 			<div class="collapse navbar-collapse"

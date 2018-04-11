@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<p>Copyright &copy; 퍼팩트 매칭 2017</p>
+				<p>Copyright &copy; recruIT 2017</p>
 			</div>
 		</div>
 	</div>

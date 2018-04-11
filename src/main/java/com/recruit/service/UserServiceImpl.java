@@ -68,14 +68,14 @@ public class UserServiceImpl implements UserService{
 		dao.createAuthKey(board.getEmail(), key); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
+		sendMail.setSubject("[recruIT 서비스 이메일 인증]");
 		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1><br><br>")
 				.append("<span>하단의 링크를 클릭하여 가입을 완료하여 주세요.</span><br><br>")
 				.append("<a href='http://192.168.0.64:8080/user/emailConfirm?email=").append(board.getEmail())
 				.append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
-				.append("<br><br><span>퍼팩트 매칭에 가입하신것을 환영합니다.</span><br><br>")
+				.append("<br><br><span>recruIT에 가입하신것을 환영합니다.</span><br><br>")
 				.toString());
-		sendMail.setFrom("ProJ.B.Team@gmail.com", "퍼팩트 매칭 관리자");
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "recruIT 관리자");
 		sendMail.setTo(board.getEmail());
 		sendMail.send();
 	}
@@ -96,14 +96,14 @@ public class UserServiceImpl implements UserService{
 		dao.createAuthKey(board.getEmail(), key); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
+		sendMail.setSubject("[recruIT 서비스 이메일 인증]");
 		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1><br><br>")
 				.append("<span>하단의 링크를 클릭하여 가입을 완료하여 주세요.</span><br><br>")
 				.append("<a href='http://192.168.0.64:8080/user/emailConfirm?email=").append(board.getEmail())
 				.append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
-				.append("<br><br><span>퍼팩트 매칭에 가입하신것을 환영합니다.</span><br><br>")
+				.append("<br><br><span>recruIT에 가입하신것을 환영합니다.</span><br><br>")
 				.toString());
-		sendMail.setFrom("ProJ.B.Team@gmail.com", "퍼팩트 매칭 관리자");
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "recruIT 관리자");
 		sendMail.setTo(board.getEmail());
 		sendMail.send();
 	}
@@ -156,12 +156,12 @@ public class UserServiceImpl implements UserService{
 		dao.ppwchk(dto, encPassword); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
+		sendMail.setSubject("[recruIT 서비스 이메일 인증]");
 		sendMail.setText(new StringBuffer().append("<h1>임시비밀번호 발급 입니다.</h1>")
 				.append("당신의 임시 비밀번호는 <br><br><h3>").append(key)
 				.append("</h3><br><br><span>입니다.</span><br><br><span>로그인 하여 비밀번호를 바꿔주세요.</span><br><br>")
-				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>퍼팩트 매칭 홈페이지</a>").toString());
-		sendMail.setFrom("ProJ.B.Team@gmail.com", "퍼팩트 매칭 관리자");
+				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>recruIT 홈페이지</a>").toString());
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "recruIT 관리자");
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
 	}
@@ -179,12 +179,12 @@ public class UserServiceImpl implements UserService{
 		dao.cpwchk(dto, encPassword); // 인증키 DB저장
 
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[퍼팩트 매칭 서비스 이메일 인증]");
+		sendMail.setSubject("[recruIT 서비스 이메일 인증]");
 		sendMail.setText(new StringBuffer().append("<h1>임시비밀번호 발급 입니다.</h1>")
 				.append("당신의 임시 비밀번호는 <br><br><h3>").append(key)
 				.append("</h3><br><br><span>입니다.</span><br><br><span>로그인 하여 비밀번호를 바꿔주세요.</span><br><br>")
-				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>퍼팩트 매칭 홈페이지</a>").toString());
-		sendMail.setFrom("ProJ.B.Team@gmail.com", "퍼팩트 매칭 관리자");
+				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>recruIT 홈페이지</a>").toString());
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "recruIT 관리자");
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
 	}
