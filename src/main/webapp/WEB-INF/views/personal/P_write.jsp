@@ -285,7 +285,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 			</table>
 		</div>
 		<button id="write-success" class="btn btn-success col-md-offset-10"
-			type="submit">등록</button>
+			type="button">등록</button>
 		<button id="write-cancel" class="btn btn-danger"
 			onClick="javascript:self.location='/personal/manage?id=${PUserVO.id}';"
 			type="button">취소</button>

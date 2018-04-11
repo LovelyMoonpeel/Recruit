@@ -126,7 +126,6 @@ public class UserController {
 			String id = board.getId();
 			if(service.idoverlap(id)==null){
 				entity = new ResponseEntity<String>("success", HttpStatus.OK);
-				System.out.println("1");
 			}else{
 				entity = new ResponseEntity<String>("fail", HttpStatus.OK);
 			}
@@ -143,7 +142,6 @@ public class UserController {
 		
 		try{
 			String email = board.getEmail();
-			System.out.println(email);
 			if(service.emailoverlap(email)==null){
 				entity = new ResponseEntity<String>("success", HttpStatus.OK);				
 			}else{

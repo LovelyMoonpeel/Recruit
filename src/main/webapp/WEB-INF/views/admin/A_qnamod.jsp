@@ -41,8 +41,7 @@
 			<th>게시글 비밀번호</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="password" name="bpw" id="bpw"
-				value="${CsqnaVO.bpw}"></td>
+			<td><input class="form-control" type="password" name="bpw" id="bpw"></td>
 		</tr>
 		<tr>
 			<th>게시글 비밀번호 확인</th>

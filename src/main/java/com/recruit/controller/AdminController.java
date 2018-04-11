@@ -283,6 +283,10 @@ public class AdminController {
 		logger.info("qna Modify Post..........");
 		logger.info(vo.toString());
 
+		if(vo.getBpw().equals("")){
+			CsqnaVO bpw = qservice.read2(vo.getBno());
+			vo.setBpw(bpw.getBpw());
+		}
 		qservice.modify(vo);
 
 		rttr.addAttribute("page", cri.getPage());

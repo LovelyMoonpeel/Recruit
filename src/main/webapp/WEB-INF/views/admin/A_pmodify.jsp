@@ -107,6 +107,7 @@
 <script>
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var pwchk = $('#pwchk');
+	var pwcheck = "ok";
 	
 	var pwReg = /[A-Za-z0-9]$/;
 	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
@@ -158,7 +159,7 @@
 		
 		if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
 			alert("특수문자 금지");
-			$('#pw').val(pwcval.slice(0, -1));
+			$('#pw').val(pwval.slice(0, -1));
 		}
 		
 		pwval = $('#pw').val();

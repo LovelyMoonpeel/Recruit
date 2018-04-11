@@ -75,9 +75,13 @@ background-color: #777;
 				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
 			</div>
 			<div class="col-md-4 text-center"  style="padding-left: 0px; padding-right: 0px; border-left: 1px solid #dde2eb;">
+				<div>
+				<br>
 				<img src="${CInfoVO.img}" class="img-rounded"
 					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 200px;"/>
+					style="max-width: 150px; max-height: 150px;"/>
+					
+					<br>
 			</div>
 		</div>
 		

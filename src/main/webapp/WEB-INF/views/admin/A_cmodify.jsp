@@ -242,7 +242,7 @@ $('#pw').keyup(function(){
 	
 	if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
 		alert("특수문자 금지");
-		$('#pw').val(pwcval.slice(0, -1));
+		$('#pw').val(pwval.slice(0, -1));
 	}
 	
 	pwval = $('#pw').val();

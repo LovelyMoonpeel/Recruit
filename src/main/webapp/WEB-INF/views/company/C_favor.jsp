@@ -119,7 +119,7 @@ $(document).ready(function(){
 	
 	
 	$(document).on("click","#btt",function(){
-		window.open(this.href, '', 'width=400', 'height=430'); 
+		window.open(this.href, '', 'width=900, height=830'); 
 		
 		return false;
 	})
