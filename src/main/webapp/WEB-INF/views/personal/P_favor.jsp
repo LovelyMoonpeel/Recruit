@@ -10,7 +10,7 @@
 </form>
 
 <!--  스크랩한채용공고 페이지 -->
-<div class="col-md-9">
+<div class="container col-md-9">
 	<h1 class="ci_name">${PUserVO.pname}</h1>
 	<h4>님의 관심 채용공고 페이지</h4>
 	<br>
@@ -73,6 +73,7 @@
 		</table>
 	</div>
 	<br> <br>
+</div>
 </div>
 <script type="text/javascript">
 
