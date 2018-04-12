@@ -77,8 +77,6 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
-
-
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>

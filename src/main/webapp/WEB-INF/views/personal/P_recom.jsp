@@ -20,15 +20,24 @@
 .material-icons:hover {
    color: #56c0e0;
 }
-#job_bar .slider-selection {
+#slider_job .slider-selection {
+	background: #c0c6d3;
+}
+#slider_region .slider-selection {
+	background: #c0c6d3;
+}
+#slider_employstatus .slider-selection {
+	background: #c0c6d3;
+}
+#slider_levelofeducation .slider-selection {
 	background: #56c0e0;
 }
-#slider12a .slider-selection {
-	background: #BABABA;
+#slider_lastcareer .slider-selection {
+	background: #c0c6d3;
 }
-#ex19 .slider-selection {
-	background: #56c0e0;
-}
+.slider.slider-horizontal{
+	 width:90%;
+ }
 </style>
 <!-- Main content -->
 <form role="form">
@@ -39,27 +48,130 @@
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
 	<div class="container"
-		style="width: 100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; padding:20px;">
+		style="width: 100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; padding: 20px;">
 
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
-			<input id="job_bar" type="text" data-slider-min="0"
-				data-slider-max="20" data-slider-step="1" data-slider-value="14" />
+			<input id="slider_job" type="text" data-provide="slider"
+			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
+			data-slider-value="2" />
 		</div>
+		<span>직무 중요도 : <span id="val_job">${PreferenceVO.job}</span></span>
+		
+ 		<br>
+		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+			<input id="slider_region" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value="5" />
+		</div>
+		<span>지역 중요도 : <span id="val_region">${PreferenceVO.region}</span></span>
+
 		<br>
-
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
-			<span id="ex12a" class="hidden">Example slider label</span>
+			<input id="slider_employstatus" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value="5" />
 		</div>
+		<span>근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.employstatus}</span></span>
 		<br>
-
+		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
-			<input id="ex19" type="text" data-provide="slider"
-				data-slider-ticks="[1, 2, 3]"
-				data-slider-ticks-labels='["short", "medium", "long"]'
-				data-slider-min="1" data-slider-max="3" data-slider-step="1"
-				data-slider-value="3" data-slider-tooltip="hide" />
+			<input id="slider_levelofeducation" type="text" data-provide="slider"
+				data-slider-min="1" data-slider-max="5" data-slider-step="1"
+				data-slider-value="3" />
+				<!-- data-slider-ticks="[1, 2, 3, 4, 5]"
+				data-slider-ticks-labels='["1", "2", "3", "4", "5"]' -->
 		</div>
+		<span>학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.levelofeducation}</span></span>
+		
+		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+			<input id="slider_lastcareer" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value="3" />
+		</div>
+		<span>경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
+		<br> 
 	</div>
+
+<script>
+$(document).ready(function (){
+	$("#slider_job").slider({	
+		id: "slider_job" ,
+		formatter: function(value) {
+			return value;
+		}
+	}).on('change', function(){
+      var newvalue = parseInt($(this).val());
+      var oldvalue = parseInt($("#val_job").text());
+      
+      if(newvalue!=oldvalue){
+    	 $("#val_job").text(newvalue);
+      }
+    });
+	
+	$("#slider_region").slider({ 
+		id: "slider_region",
+		formatter: function(value) {
+			return value;
+		}
+	}).on('change', function(){
+      var newvalue = parseInt($(this).val());
+      var oldvalue = parseInt($("#val_region").text());
+      
+      if(newvalue!=oldvalue){
+    	 $("#val_region").text(newvalue);
+      }
+    });
+	
+	$("#slider_employstatus").slider({	
+		id: "slider_employstatus",
+	}).on('change', function(){
+      var newvalue = parseInt($(this).val());
+      var oldvalue = parseInt($("#val_employstatus").text());
+      
+      if(newvalue!=oldvalue){
+    	 $("#val_employstatus").text(newvalue);
+      }
+    });
+	$("#slider_employstatus").on("slide", function(slideEvt) {
+		$("#val_employstatus").text(slideEvt.value);
+	});
+
+	$("#slider_levelofeducation").slider({ 
+		id: "slider_levelofeducation",
+		formatter: function(value) {
+			return value;
+		}
+	}).on('change', function(){
+      var newvalue = parseInt($(this).val());
+      var oldvalue = parseInt($("#val_levelofeducation").text());
+      
+      if(newvalue!=oldvalue){
+    	 $("#val_levelofeducation").text(newvalue);
+      }
+    });
+	$("#slider_levelofeducation").on("slide", function(slideEvt) {
+		$("#val_levelofeducation").text(slideEvt.value);
+	});
+
+	$("#slider_lastcareer").slider({	
+		id: "slider_lastcareer",
+		formatter: function(value) {
+			return value;
+		}
+	}).on('change', function(){
+      var newvalue = parseInt($(this).val());
+      var oldvalue = parseInt($("#val_lastcareer").text());
+      
+      if(newvalue!=oldvalue){
+    	 $("#val_lastcareer").text(newvalue);
+      }
+    });
+	$("#slider_lastcareer").on("slide", function(slideEvt) {
+		$("#val_lastcareer").text(slideEvt.value);
+	});
+});
+
+</script>
 
 	<div class="container"
 		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 30px;">
@@ -133,14 +245,6 @@
 	</div>
 </div>
 <br>
-<script>
-$("#job_bar").slider({	id: "job_bar" });
-$("#job_bar").on("slide", function(slideEvt) {
-});
-$("#ex12a").slider({ id: "slider12a", min: 0, max: 10, value: 5 });
-$("#ex19").slider({ id: "ex19", min: 0, max: 10, value: 5 });
-</script>
-
 
 <script>
 function add_job() {
@@ -165,7 +269,7 @@ function add_job() {
 	if (width >= 100) {
 		width=0;
 	} else {
-		width=width+20;
+		width=width+25;
 	}
 	
 	bar_job.style.width = width + '%';
@@ -190,7 +294,7 @@ function add_region() {
 	if (width >= 100) {
 		width=0;
 	} else {
-		width=width+20;
+		width=width+25;
 	}
 	
 	bar_region.style.width = width + '%';
@@ -217,7 +321,7 @@ function add_employstatus() {
 		bar_employstatus.style.width = width + '%';
 		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
 	} else {
-		width=width+20;
+		width=width+25;
 		bar_employstatus.style.width = width + '%';
 		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
 	}
@@ -241,7 +345,7 @@ function add_levelofeducation() {
 	if (width >= 100) {
 		width=0;
 	} else {
-		width=width+20;
+		width=width+25;
 	}
 	
 	bar_levelofeducation.style.width = width + '%';
@@ -266,7 +370,7 @@ function add_lastcareer() {
 	if (width >= 100) {
 		width=0;
 	} else {
-		width=width+20;
+		width=width+25;
 	}
 	
 	bar_lastcareer.style.width = width + '%';

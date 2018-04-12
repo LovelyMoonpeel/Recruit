@@ -11,6 +11,7 @@
 
 <!--  스크랩한채용공고 페이지 -->
 <div class="container col-md-9">
+<div class="table-responsive" style="overflow-x:hidden;">	
 	<h1 class="ci_name">${PUserVO.pname}</h1>
 	<h4>님의 관심 채용공고 페이지</h4>
 	<br>
@@ -28,7 +29,6 @@
 	<input type="hidden" id="controller_value" value="${controller_value}">
 	<input type="hidden" id="order_value" name="order_value" value="${order_value}">
 	
-	<!-- <hr style="border: solid 1px #c0c6d3;"> -->
 	<div class="container col-md-4">
 		<small style="cursor:pointer" id="viewcnt_order" onclick="viewcnt_order()">조회수순<span id="viewcnt_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
 		| <small style="cursor:pointer" id="applicant_order" onclick="applicant_order()">지원자수<span id="applicant_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
@@ -68,7 +68,6 @@
 						<img src=/resources/rpjt/img/on.png id="non" name="clipping_cancel" onclick="clipping_cancel_function(rcno${status.index}.value)">
 						</td>
 				</tr>
-				<%-- </c:if> --%>
 			</c:forEach>
 		</table>
 	</div>
