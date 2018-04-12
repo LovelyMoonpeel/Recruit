@@ -3,11 +3,11 @@ package com.recruit.domain;
 public class PreferenceVO {
 
 	private String userid;
-	private String prefjob;
-	private String prefregion;
-	private String prefemploystatus;
-	private String preflevelofeducation;
-	private String preflastcareer;
+	private String job;
+	private String region;
+	private String employstatus;
+	private String levelofeducation;
+	private String lastcareer;
 	
 	public String getUserid() {
 		return userid;
@@ -15,41 +15,41 @@ public class PreferenceVO {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getPrefjob() {
-		return prefjob;
+	public String getjob() {
+		return job;
 	}
-	public void setPrefjob(String prefjob) {
-		this.prefjob = prefjob;
+	public void setjob(String job) {
+		this.job = job;
 	}
-	public String getPrefregion() {
-		return prefregion;
+	public String getregion() {
+		return region;
 	}
-	public void setPrefregion(String prefregion) {
-		this.prefregion = prefregion;
+	public void setregion(String region) {
+		this.region = region;
 	}
-	public String getPrefemploystatus() {
-		return prefemploystatus;
+	public String getemploystatus() {
+		return employstatus;
 	}
-	public void setPrefemploystatus(String prefemploystatus) {
-		this.prefemploystatus = prefemploystatus;
+	public void setemploystatus(String employstatus) {
+		this.employstatus = employstatus;
 	}
-	public String getPreflevelofeducation() {
-		return preflevelofeducation;
+	public String getlevelofeducation() {
+		return levelofeducation;
 	}
-	public void setPreflevelofeducation(String preflevelofeducation) {
-		this.preflevelofeducation = preflevelofeducation;
+	public void setlevelofeducation(String levelofeducation) {
+		this.levelofeducation = levelofeducation;
 	}
-	public String getPreflastcareer() {
-		return preflastcareer;
+	public String getlastcareer() {
+		return lastcareer;
 	}
-	public void setPreflastcareer(String preflastcareer) {
-		this.preflastcareer = preflastcareer;
+	public void setlastcareer(String lastcareer) {
+		this.lastcareer = lastcareer;
 	}
 	@Override
 	public String toString() {
-		return "PreferenceVO [userid=" + userid + ", prefjob=" + prefjob + ", prefregion=" + prefregion
-				+ ", prefemploystatus=" + prefemploystatus + ", preflevelofeducation=" + preflevelofeducation
-				+ ", preflastcareer=" + preflastcareer + "]";
+		return "PreferenceVO [userid=" + userid + ", job=" + job + ", region=" + region
+				+ ", employstatus=" + employstatus + ", levelofeducation=" + levelofeducation
+				+ ", lastcareer=" + lastcareer + "]";
 	}
 	
 }

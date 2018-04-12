@@ -7,13 +7,23 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<link href="/resources/personal/css/bootstrap-slider.css" rel="stylesheet">
 
+<script src="/resources/personal/js/bootstrap-slider.js"></script>
+
+<style>
+.material-icons:hover {
+   color: #56c0e0;
+}
+#progressBar {
+    width:300px;
+}
+</style>
 <!-- Main content -->
 <form role="form">
 		<input type='hidden' name='id' value="${PUserVO.id}">
@@ -22,7 +32,7 @@
 <div class="col-md-9">
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
-	<div style = 'width : 100%; height : 300px; border : 1px solid #c0c6d3; padding:30px;'>
+	<div class="container" style = 'width:100%; border:1px solid #c0c6d3; padding:30px;'>
 		<ul>
 			<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
 			<li>이력서를 <b>공개</b>하신 회원님께 해당이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.
@@ -35,82 +45,124 @@
 	</div>
 
 	<br>
-<!-- 	<div class="container col-md-12">
-			<h4><i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp; 항목 중요도 조절</h4>
-			<p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p>
-			<div class="progress">
-				<div class="progress-bar progress-bar-success" role="progressbar"
-					aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-					style="width: 40%; background-color:#c0c6d3;">40% Complete (success)</div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar progress-bar-info" role="progressbar"
-					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
-					style="width: 50%; background-color:#c0c6d3;" onclick="make_blue()">50% Complete (info)</div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" role="progressbar"
-					aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-					style="width: 60%; background-color:#c0c6d3;">60% Complete (warning)</div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar" role="progressbar"
-					aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-					style="width: 70%; background-color:#c0c6d3;">70% Complete (danger)</div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar" role="progressbar"
-					aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-					style="width: 70%; background-color:#c0c6d3;">70% Complete (danger)</div>
-			</div>
-		</div> -->
-	
-	<div class="container col-md-12"
-		style="border: 1px solid #c0c6d3; padding: 30px; margin-top: 30px; margin-bottom: 30px;">
-		<div class="w3-light-grey w3-round-xlarge">1 2 3 4 5</div>
-
-		
-	<%-- 	<div class="w3-light-grey w3-round-xlarge">
-			<i class="material-icons" style="color: #5bc0de">business</i>&nbsp;
-			<div class="preference_bar w3-container w3-round-xlarge"
-				style="width: ${PreferenceVO.prefjob}px; display:inline-block; cursor:pointer; background-color:#5bc0de;"
-				onclick="make_blue()">직무선호 ${PreferenceVO.prefjob}/20</div>
-		</div>
+	<div class="container" style="width:100%; background-color:#e0e0e0;">
 		<br>
-		<div class="w3-light-grey w3-round-xlarge">
-			<i class="material-icons">location_on</i>&nbsp;
-			<div class="w3-container w3-round-xlarge"
-				style="width: ${PreferenceVO.prefregion}px; display:inline-block; cursor:pointer; background-color:#c0c6d3;"
-				onclick="make_blue()">지역선호 ${PreferenceVO.prefregion}/20</div>
-		</div>
-		<br>
-		<div class="w3-light-grey w3-round-xlarge">
-			<i class="material-icons">people</i>&nbsp;
-			<div class="w3-container w3-round-xlarge"
-				style="width: ${PreferenceVO.prefemploystatus}px; display:inline-block; cursor:pointer; background-color:#c0c6d3;"
-				onclick="make_blue()">근무형태선호 ${PreferenceVO.preflastcareer}/20</div>
-		</div>
-		<br>
-		<div class="w3-light-grey w3-round-xlarge">
-			<i class="material-icons">school</i>&nbsp;
-			<div class="w3-container w3-round-xlarge"
-				style="width: ${PreferenceVO.preflevelofeducation}px; display:inline-block; cursor:pointer; background-color:#c0c6d3;"
-				onclick="make_blue()">학력선호 ${PreferenceVO.prefemploystatus}/20</div>
-		</div>
-		<br>
-		<div class="w3-light-grey w3-round-xlarge">
-			<i class="material-icons">work</i>&nbsp;
-			<div class="w3-container w3-round-xlarge"
-				style="width: ${PreferenceVO.preflastcareer}px; display:inline-block; cursor:pointer; background-color:#c0c6d3;"
-				onclick="make_blue()">경력선호 ${PreferenceVO.preflastcareer}/20</div>
-		</div> --%>
-		<br>
+		<input id="job_bar" type="text"/>
+		<br><br>
 	</div>
-	<br> <br>
+	<br>
+	<br>
+	
+	<div class="container" style="width:100%; height:200px; margin-bottom:100px; background-color:#e0e0e0; display:block;">
+   		<span id="test"></span>
+	</div>
+	
+	<progress id="progressBar" value="0.5" max="1"></progress>
+	<div id="result"></div>
+
+	<br>
+<script>
+$(document).ready(function(){
+	document.getElementById('progressBar').addEventListener('click', function (e) {
+	    var x = e.pageX - this.offsetLeft;
+	    
+	    //Uncomment the following line to activate alert
+	    //alert('Current position: ' + document.getElementById('progressBar').position);
+	    
+	    //Save position before the click
+	    var startPos = document.getElementById('progressBar').position;
+	    
+	    //Convert x value to progress range [0 1]
+	    var xconvert = x/300; //cause width is 300px and you need a value in [0,1] range
+	    var finalx = (xconvert).toFixed(1); //round up to one digit after coma
+	    
+	    //Uncomment the following line to activate alert
+	    //alert('Click value: ' + finalx);
+	  
+	    //If you don't want change progress bar value after click comment the following line
+	    document.getElementById('progressBar').value = finalx;
+	    
+	    document.getElementById('result').innerHTML = ('Start position: ' + startPos + "<br/><br/>");
+	    document.getElementById('result').innerHTML += ('Current position: ' + document.getElementById('progressBar').position + "<br/>");
+	    document.getElementById('result').innerHTML += ('Current value: ' + document.getElementById('progressBar').value + "<br/></br/>");
+	    document.getElementById('result').innerHTML += ('Real click value: ' + xconvert + "<br/>");
+	    document.getElementById('result').innerHTML += ('Current value set in progressbar: ' + finalx + "<br/>");
+	});
+    $("#job_bar").slider({
+    	min: 0,
+    	max: 10,
+    	value: 0,
+    	tooltip_position:'bottom'
+    });
+});
+</script>
+	
+
+<%-- 	<div class="container" style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 30px;">
+		<h4>
+		<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
+		항목 중요도 조절</h4>
+		<ul>
+			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p>
+			</li>
+		</ul>
+		
+ 		<div class="col-md-1">
+			<div class="progress">
+				<i id="icon_job" class="material-icons" style="cursor:pointer;" onclick="add_job();">business</i>
+			</div>
+			<div class="progress">
+				<i id="icon_region" class="material-icons" style="cursor:pointer;" onclick="add_region();">location_on</i>
+			</div>
+			<div class="progress">
+				<i id="icon_employstatus" class="material-icons" style="cursor:pointer;" onclick="add_employstatus();">people</i>
+			</div>
+			<div class="progress">
+				<i id="icon_levelofeducation" class="material-icons" style="cursor:pointer;" onclick="add_levelofeducation();">school</i>
+			</div>
+			<div class="progress">
+				<i id="icon_lastcareer" class="material-icons" style="cursor:pointer;" onclick="add_lastcareer();">work</i>
+			</div>
+		</div>
+		
+		<div class="col-md-11">
+			<div class="progress">
+				<div id="bar_job" class="progress-bar progress-bar-success" role="progressbar"
+					aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.job}%; background-color: #c0c6d3;"
+					>직무  ${PreferenceVO.job}%</div>
+				</div>
+			<div class="progress">
+				<div id="bar_region" class="progress-bar progress-bar-info" role="progressbar"
+					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.region}%; background-color: #c0c6d3;"
+					>지역  ${PreferenceVO.region}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_employstatus" class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.employstatus}%; background-color: #c0c6d3;"
+					>근무형태   ${PreferenceVO.employstatus}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_levelofeducation" class="progress-bar" role="progressbar" aria-valuenow="50"
+					aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.levelofeducation}%; background-color: #c0c6d3;"
+					>학력 ${PreferenceVO.levelofeducation}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_lastcareer" class="progress-bar" role="progressbar" aria-valuenow="50"
+					aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.lastcareer}%; background-color: #c0c6d3;"
+					>경력 ${PreferenceVO.lastcareer}%</div>
+			</div>
+		</div>
+	</div>
+	 --%>
+	<br>
+	
 	<div>
-		<!-- 본 바디 틀 -->
 		<table class="table table-bordered">
-			<!-- 공고 메인 공고 테이블 순서 번호는 java문 counter로 처리-->
 			<tr class="active">
 				<th style="width: 80px;">공고 번호</th>
 				<th style="text-align: center;">회사명</th>
@@ -136,13 +188,138 @@
 			</c:forEach>
 		</table>
 	</div>
-
-	<!-- //스크랩한 채용공고 페이지 첫번째 -->
-	<br> <br>
 </div>
-<!-- //스크랩한 채용공고 페이지 -->
+<br>
+
 <script>
-$(document).ready(function (){
-});
+function add_job() {
+	var bar_job = document.getElementById("bar_job");
+	var width = parseInt($("#bar_job").text().substr(3));
+	//background-color:
+	//회색 #c0c6d3;
+	//하늘색 #56c0e0;
+	
+	$("#icon_job").css("color", "#56c0e0");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#56c0e0");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_job.style.width = width + '%';
+	$("#bar_job").text('직무	' + width * 1 + '%');
+}
+function add_region() {
+	var bar_region = document.getElementById("bar_region");
+	var width = parseInt($("#bar_region").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#56c0e0");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#56c0e0");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_region.style.width = width + '%';
+	$("#bar_region").text('지역	' + width * 1 + '%');
+}
+function add_employstatus() {
+	var bar_employstatus = document.getElementById("bar_employstatus");
+	var width = parseInt($("#bar_employstatus").text().substr(5));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#56c0e0");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#56c0e0");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+		bar_employstatus.style.width = width + '%';
+		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
+	} else {
+		width=width+20;
+		bar_employstatus.style.width = width + '%';
+		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
+	}
+}
+function add_levelofeducation() {
+	var bar_levelofeducation = document.getElementById("bar_levelofeducation");
+	var width = parseInt($("#bar_levelofeducation").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#56c0e0");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#56c0e0");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_levelofeducation.style.width = width + '%';
+	$("#bar_levelofeducation").text('학력	' + width * 1 + '%');
+}
+function add_lastcareer() {
+	var bar_lastcareer = document.getElementById("bar_lastcareer");
+	var width = parseInt($("#bar_lastcareer").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#56c0e0");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#56c0e0");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_lastcareer.style.width = width + '%';
+	$("#bar_lastcareer").text('경력	' + width * 1 + '%');
+}
 </script>
 <%@include file="../include/cfooter.jsp"%>

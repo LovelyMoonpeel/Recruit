@@ -28,7 +28,7 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 		}else if(order_value!=null&&order_value.equals("closingdate_order")){
 			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
 		}else{
-			System.out.println("CRecruitDAOImpl selectCRList 뭔가 이상함");
+			System.out.println("CRecruitDAOImpl selectCRList order_value값 없을 때");
 			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
 		}
 	};

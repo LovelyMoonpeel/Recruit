@@ -1,597 +1,272 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
+<%@include file="../include/pheader.jsp"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/header_nonavi.jsp"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link href="/resources/personal/css/bootstrap-slider.css" rel="stylesheet">
+
+<script src="/resources/personal/js/bootstrap-slider.js"></script>
 
 <style>
-#back-top { 
-position: fixed; 
-bottom: 30px; 
-right:10%;
-z-index:10000;
-/*margin-right: 150px;*/ 
-} 
-#back-top a { 
-width: 50px; 
-display: block; 
-text-align: center; 
-font: 11px/100% Arial, Helvetica, sans-serif; 
-text-transform: uppercase; 
-text-decoration: none; 
-color: #bbb; 
-z-index:10000;
-/* transition */ 
--webkit-transition: 1s; 
--moz-transition: 1s; 
-transition: 1s; 
-} 
-#back-top a:hover { 
-color: #000; 
-} 
-/* arrow icon (span tag) */ 
-#back-top span { 
-width: 50px; 
-height: 50px; 
-display: block; 
-margin-bottom: 7px; 
-background: #ddd url(/resources/rpjt/img/up-arrow.png) no-repeat center center; 
-/* rounded corners */ 
--webkit-border-radius: 15px; 
--moz-border-radius: 15px; 
-border-radius: 15px; 
-/* transition */ 
--webkit-transition: 1s; 
--moz-transition: 1s; 
-transition: 1s; 
-} 
-#back-top a:hover span { 
-background-color: #777; 
-} 
+.material-icons:hover {
+   color: #56c0e0;
+}
+
 </style>
 <!-- Main content -->
-<div class="col-md-12 ">
-	<!-- 버튼 -->
-	<p id="back-top"> 
-   		<a href="#top"><span></span></a> 
-	</p>
-	<!-- 소연 버튼 -->
-	<!-- 메인 바디 입력 부분 -->
-	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
-		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
+<form role="form">
+		<input type='hidden' name='id' value="${PUserVO.id}">
+</form>
+<!--  스크랩한채용공고 페이지 -->
+<div class="col-md-9">
+	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
-
-
-
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<div class="row">
-			<div class="col-md-8"
-				style="border-bottom: 1px solid #dde2eb; padding-left: 15px; padding-top: 10px; padding-bottom: 10px">
-				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
-			</div>
-			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
-				<img src="${CInfoVO.img}" class="img-rounded"
-					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 240px; height: auto;" />
-			</div>
-
-			<div class="col-md-4">
-				<!-- 첫번쨰 칸 -->
-				<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
-					<h4>지원자격</h4>
-				</c:if>
-
-				<c:if test="${RecruitVO.exp eq null || RecruitVO.edu eq null}">
-				</c:if>
-
-				<c:if test="${RecruitVO.exp ne null}">
-					<small>경력&emsp;</small>
-					<a>${RecruitVO.exp}</a>
-					<br>
-					<br>
-				</c:if>
-
-				<c:if test="${RecruitVO.edu ne null}">
-					<small>학력&emsp;</small>
-					<a>${RecruitVO.edu}</a>
-					<br>
-					<br>
-				</c:if>
-				<c:if test="${RecruitVO.exp ne null || RecruitVO.edu ne null}">
-				</c:if>
-			</div>
-			<!-- /첫번째 칸 -->
-
-			<div class="col-md-4">
-				<!-- 두번째 칸 -->
-				<c:if
-					test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
-					<h4>근무조건</h4>
-				</c:if>
-
-				<c:if test="${RecruitVO.employstatusid ne null}">
-					<small>고용형태&emsp;</small>
-					<a>${RecruitVO.employstatusid}</a>
-					<br>
-					<br>
-				</c:if>
-
-				<c:if test="${RecruitVO.salaryid ne null}">
-					<small>급여&emsp;</small>
-					<a>${RecruitVO.salaryid}</a>
-					<br>
-					<br>
-				</c:if>
-
-				<c:if
-					test="${RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
-					<small>지역&emsp;</small>
-					<a>${RecruitVO.rgbid}</a>
-					<a>${RecruitVO.rgsid}</a>
-					<br>
-				</c:if>
-
-				<c:if
-					test="${RecruitVO.employstatusid ne null || RecruitVO.salaryid ne null || RecruitVO.rgbid ne 'NULL' || RecruitVO.rgbid ne 'NULL'}">
-				</c:if>
-			</div>
-			<!-- /두번째 칸 -->
-
-			<div class="col-md-4" style="border-left: 1px solid #dde2eb;">
-				<h4>기업정보</h4>
-				산업(업종) ${CInfoVO.ctype}<br> 사원수 ${CInfoVO.numemp}<br> 설립년도
-				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
-				${CInfoVO.homepage}<br> <br>
-				<div class="text-center">
-					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.cid}'>
-					<button class="btn btn-info">기업정보</button></a>
-				</div>
-				<br>
-			</div>
-		</div>
+	<div class="container" style = 'width:100%; border:1px solid #c0c6d3; padding:30px;'>
+		<ul>
+			<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
+			<li>이력서를 <b>공개</b>하신 회원님께 해당이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.
+			<li>공개된 이력서에서 <b>[희망 구직정보 - 희망 근무지, 희망직종], 최종학력, 최종경력</b>을 입력하시면<br>더 정확한 추천 공고 서비스를 이용하실 수 있습니다.<br><br></li>
+			
+			<li><b>직무, 지역, 근무형태, 학력, 경력</b> 총 5가지 항목을 기준으로 추천 채용공고를 제공합니다. </li>
+			<li>5가지 항목을 따로 설정하신 중요도에 따라 막대를 조절을 하시면 해당 기준따라 채용공고를 추천합니다. </li>
+		</ul>
+		<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
-	<br>
-
-
-	<div class="text-center">
-		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
-		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
-	</div>
-
-	<!-- 소연 모달 -->
-	<div class="modal" id="applynow_modal">
-		<div class="modal-dialog">
-			<!--★ 뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
-			<div class="modal-content col-xs-8">
-				<!--★ col-xs-8을 아래 붙이면 css적용이 안 됨 , col-xs-8을 써서 모달 가로 폭을 조정 -->
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<!--x표시 누르면 창 사라지게 하는 코드 -->
-
-					<form role="form">
-						<div class="row">
-							<h4>즉시지원하기 - [${PUserVO.pname }]님의 이력서 목록</h4>
-							<br> <input type="hidden" id="modal_pid" name="pid"
-								value="${PUserVO.id }">
-							<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
-							<table class="table table-bordered">
-								<tr>
-									<th style="width: 55px;">관리</th>
-									<th style="width: 55px;">순번</th>
-									<th>이력서 제목</th>
-								</tr>
-								<c:forEach items="${ResumeVOList}" var="ResumeVO">
-									<tr>
-										<td><input type="radio" name="bno"
-											value="${ResumeVO.bno}"></td>
-										<td>${ResumeVO.bno}</td>
-										<td><a href="/personal/detail?bno=${ResumeVO.bno}"
-											target="_blank">${ResumeVO.title}</a></td>
-									</tr>
-								</c:forEach>
-							</table>
-							<input type="hidden" id="modal_recruitNum" name="recruitNum"
-								value="${RecruitVO.bno}">
-							<div class="col-xs-4">
-								<!--즉시지원 버튼 -->
-								<button id="applynow_btn"
-									class="btn btn-primary btn-block btn-flat">즉시 지원</button>
-							</div>
-						</div>
-						<!--//row -->
-					</form>
-				</div>
-				<!--//class="modal-body"  -->
-			</div>
-			<!--//class="modal-content col-xs-8"-->
-		</div>
-		<!--//modal-dialog -->
-	</div>
-	<input type='hidden' id='RecruitVO_regdate' value='${RecruitVO.regdate}'>
-	<input type='hidden' id='RecruitVO_period' value='${RecruitVO.period}'>
-	<input type="hidden" id="pC" value="<%=pid%>">
-	<!-- 소연 코드 -->
-	<script>
-		$(document).ready(function() {
-			
-			var RecruitVO_regdate = $('#RecruitVO_regdate').val();//현재날짜
-			var RecruitVO_period = $('#RecruitVO_period').val();//마감날짜
-			
-			if(RecruitVO_regdate>RecruitVO_period){
-				alert($('#RecruitVO_regdate').val());
-				alert($('#RecruitVO_period').val());
-				$("#applynow_btn").remove();
-				str="<button id='applynow_btn' class='btn btn-block btn-flat'>지원 마감</button>";
-				$('#apply_div').append(str);
-			}
-			
-			
-			var formObj = $("form[role = 'form']");
-			var rcno = $("#modal_recruitNum").val();
-			var pid = $("#modal_pid").val();
-			$("#applynow").click(function(e) {
-				
-				if("<%=pid%>"==""&&"<%=cid%>"==""){
-					alert("로그인해주시길바랍니다.")
-				}else if("<%=pid%>"==""){
-					alert("개인회원으로 로그인 해주시길바랍니다.")
-				}else{
-					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-						type : 'post',
-						url : '/companyAjax/applycheck',
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						dataType : 'text',
-						data : JSON.stringify({
-							rcno : rcno,
-							pid : pid
-						}),
-						success : function(result) {
-							console.log("result가 뭐냐?" + result);
-							if (result == 'TRUE') {
-								$("#applynow_modal").modal();
-							} else if (result == 'FALSE') {
-								alert("이미 지원한 공고 입니다.");
-								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-							} else {
-								alert("어느 if문에도 들어가지 못함.");
-								console.log("어느 if문에도 들어가지 못함.");
-							}
-						}//success end
-					})//ajax end
-				}
-				
-			});
-			$("#applynow2").click(function() {
-				if("<%=pid%>"==""&&"<%=cid%>"==""){
-					alert("로그인해주시길바랍니다.")
-				}else if("<%=pid%>"==""){
-					alert("개인회원으로 로그인 해주시길바랍니다.")
-				}else{
-					$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-						type : 'post',
-						url : '/companyAjax/applycheck',
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						dataType : 'text',
-						data : JSON.stringify({
-							rcno : rcno,
-							pid : pid
-						}),
-						success : function(result) {
-							console.log("result가 뭐냐?" + result);
-							if (result == 'TRUE') {
-								$("#applynow_modal").modal();
-							} else if (result == 'FALSE') {
-								alert("이미 지원한 공고 입니다.");
-								//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-							} else {
-								alert("어느 if문에도 들어가지 못함.");
-								console.log("어느 if문에도 들어가지 못함.");
-							}
-						}//success end
-					})//ajax end
-				}
-			});
-			$("#applynow_btn").on("click", function(e) {
-				console.log("applynow_btn clicked");
-				var rsno = $('input[name="bno"]:checked').val();
-				console.log("rsno : " + rsno + "rcno : " + rcno + "pid : " + pid);
-				$.ajax({//ajax로 비교해서 true/false 값 받아와야 함.
-					type : 'post',
-					url : '/companyAjax/applycheck',
-					headers : {
-						"Content-Type" : "application/json",
-						"X-HTTP-Method-Override" : "POST"
-					},
-					dataType : 'text',
-					data : JSON.stringify({
-						rsno : rsno,
-						rcno : rcno,
-						pid : pid
-					}),
-					success : function(result) {
-						console.log("result가 뭐냐?" + result);
-						if (result == 'TRUE') {
-							alert("지원하였습니다.");
-							//이제 체크된 value에  id="bno" name="bno"를 주고 넘긴다.
-							formObj.attr("action", "/company/applynow");
-							formObj.attr("method", "post");
-							formObj.submit(); //button type이 submit라서 필요 없음
-						} else if (result == 'FALSE') {
-							alert("이미 지원한 공고 입니다.");
-							//location.href='/personal/index'; 어케하는거임 어쨌든 안움직여도 됨
-						} else {
-							alert("어느 if문에도 들어가지 못함.");
-							console.log("어느 if문에도 들어가지 못함.");
-						}
-					}//success end
-				})//ajax end
-			});
-			$("#clipping").click(function() {
-				
-				
-				if("<%=pid%>"==""&&"<%=cid%>"==""){
-					alert("로그인해주시길바랍니다.")
-				}else if("<%=pid%>"==""){
-					alert("개인회원으로 로그인 해주시길바랍니다.")
-				}else{
-					
-					$.ajax({
-						type : 'post',
-						url : '/companyAjax/clipping',
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						dataType : 'text',
-						data : JSON.stringify({ //name에 설정해줘야 함
-							rcbno : rcno,
-							userid : pid
-						}),
-						success : function(result) {
-							console.log("result가 뭐냐?" + result);
-							if (result == 'TRUE') {
-								alert("관심채용공고에 스크랩하였습니다.");
-							} else if (result == 'FALSE') {
-								alert("이미 스크랩했습니다.");
-							} else {
-								alert("어느 if문에도 들어가지 못함.");
-								console.log("어느 if문에도 들어가지 못함.");
-							}
-						}//success end
-					})//ajax end
-					
-				}
-			});
-		});
-	</script>
 
 	<br>
-	<!-- 공고 메인 -->
-	<div id="detail_content"></div>
-	<br><br>
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+	<br>
+	
 
-		<h4>모집내용 및 자격조건</h4>
-
-		<table class="table">
-			<tr>
-				<th scope="row" class="active">모집직종</th>
-				<td>${RecruitVO.jobgroupid}->${RecruitVO.jobgroupid2}</td>
-
-				<th scope="row" class="active">근무지역</th>
-				<td>${RecruitVO.rgbid}->${RecruitVO.rgsid}</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">담당업무</th>
-				<td colspan="3">${RecruitVO.jobdesc}</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">모집인원</th>
-				<td colspan="3">${RecruitVO.recruitnum }명</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">근무형태</th>
-				<td colspan="3">${RecruitVO.employstatusid }</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">급여사항</th>
-				<td colspan="3">${RecruitVO.salaryid }</td>
-			</tr>
-			<tr>
-				<th scope="row" class="active">학력</th>
-				<td colspan="3">${RecruitVO.edu }</td>
-			</tr>
-		</table>
-		<br>
-
-		<h4>상세모집내용</h4>
-
-		<table class="table">
-			<tr>
-				<td colspan="3">${RecruitVO.adddesc }</td>
-			</tr>
-		</table>
-	</div>
-	<!-- /공고 메인 -->
-	<br> <br>
-	<div id="accept_method"
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<div class="row">
-			<!-- 접수기간  -->
-			<div class="col-md-3">
-				<font size="6px">접수방법</font> <br> <span>마감일</span> <span>${RecruitVO.period }</span>
-			</div>
-
-			<div class="col-md-9">
-				<button id="applynow2" class="btn btn-primary btn-lg">지원하기</button>
-				<br>
-				<table>
-					<tr>
-						<td>접수방법</td>
-						<td>${RecruitVO.acceptmethod }</td>
-					</tr>
-					<tr>
-						<td>지원양식</td>
-						<td>${RecruitVO.recruitform }</td>
-					</tr>
-					<tr>
-						<td>모집인원</td>
-						<td>${RecruitVO.recruitnum }명<br></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<!-- /접수기간  -->
-	</div>
-	<br> <br>
-
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<table class="table table-bordered">
-			<tbody>
-				<tr>
-					<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-					<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-					<th class="active" scope="row">기업명</th>
-					<td>${CInfoVO.cname}</td>
-					<th class="active" scope="row">대표자명</th>
-					<td>${CInfoVO.ceo}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">업종</th>
-					<td colspan="3">${CInfoVO.ctype}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">기업형태</th>
-					<td colspan="3">${CInfoVO.form}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">설립일</th>
-					<td colspan="3">${CInfoVO.establish}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">사원수</th>
-					<td>${CInfoVO.numemp}명</td>
-					<th class="active" scope="row">매출액</th>
-					<td>${CInfoVO.sales}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">대표전화</th>
-					<td>${CInfoVO.tel}</td>
-					<th class="active" scope="row">FAX</th>
-					<td>${CInfoVO.fax}</td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">홈페이지</th>
-					<td><a href="${CInfoVO.homepage}" class="link_site"
-						target="_blank" rel="nofollow">${CInfoVO.homepage}</a></td>
-					<th class="active" scope="row">SNS</th>
-					<td><a href="${CInfoVO.sns}" class="link_site" target="_blank"
-						rel="nofollow">${CInfoVO.sns}</a></td>
-				</tr>
-				<tr>
-					<th class="active" scope="row">기업주소</th>
-					<td colspan="3">${CInfoVO.location}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<br> <br>
-
-	<div
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<div class="col-md-3">
-			<font size="6px">담당자 정보</font> <br>
-		</div>
-		<br><br>
-		<br>
-		<br>
-		<br>
+	<div class="container" style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 30px;">
+		<h4>
+		<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
+		항목 중요도 조절</h4>
+		<ul>
+			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p>
+			</li>
+		</ul>
 		
+		<div class="col-md-1">
+			<div class="progress">
+				<i id="icon_job" class="material-icons" style="cursor:pointer;" onclick="add_job();">business</i>
+			</div>
+			<div class="progress">
+				<i id="icon_region" class="material-icons" style="cursor:pointer;" onclick="add_region();">location_on</i>
+			</div>
+			<div class="progress">
+				<i id="icon_employstatus" class="material-icons" style="cursor:pointer;" onclick="add_employstatus();">people</i>
+			</div>
+			<div class="progress">
+				<i id="icon_levelofeducation" class="material-icons" style="cursor:pointer;" onclick="add_levelofeducation();">school</i>
+			</div>
+			<div class="progress">
+				<i id="icon_lastcareer" class="material-icons" style="cursor:pointer;" onclick="add_lastcareer();">work</i>
+			</div>
+		</div>
+		
+		<div class="col-md-11">
+			<div class="progress">
+				<div id="bar_job" class="progress-bar progress-bar-success" role="progressbar"
+					aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.job}%; background-color: #c0c6d3;"
+					>직무  ${PreferenceVO.job}%</div>
+				</div>
+			<div class="progress">
+				<div id="bar_region" class="progress-bar progress-bar-info" role="progressbar"
+					aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.region}%; background-color: #c0c6d3;"
+					>지역  ${PreferenceVO.region}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_employstatus" class="progress-bar progress-bar-warning" role="progressbar"
+					aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.employstatus}%; background-color: #c0c6d3;"
+					>근무형태   ${PreferenceVO.employstatus}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_levelofeducation" class="progress-bar" role="progressbar" aria-valuenow="50"
+					aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.levelofeducation}%; background-color: #c0c6d3;"
+					>학력 ${PreferenceVO.levelofeducation}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_lastcareer" class="progress-bar" role="progressbar" aria-valuenow="50"
+					aria-valuemin="0" aria-valuemax="100"
+					style="width: ${PreferenceVO.lastcareer}%; background-color: #c0c6d3;"
+					>경력 ${PreferenceVO.lastcareer}%</div>
+			</div>
+		</div>
 	</div>
-
-	<div id="human_resources_manager" 
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<table class="table table-bordered ">
-			<tbody>
-				<tr>
-					<th class="table-active" scope="row">회사 아이디</th>
-					<td colspan="3">${CInfoVO.id}</td>
-				</tr>
-
-				<tr>
-					<th class="table-active" scope="row">담당자</th>
-					<td colspan="3">${boardVO.pname}</td>
-				</tr>
-
-				<tr>
-					<th class="table-active" scope="row" name="phone">휴대폰 번호</th>
-					<td colspan="3">${CInfoVO.phone}</td>
-				</tr>
+	<br>
+	<div>
+		<table class="table table-bordered">
+			<tr class="active">
+				<th style="width: 80px;">공고 번호</th>
+				<th style="text-align: center;">회사명</th>
+				<th style="text-align: center;">공고 제목</th>
+				<th style="width: 90px; text-align: center;">등록일</th>
+				<th style="width: 90px; text-align: center;">마감 기한</th>
+				<th style="width: 65px;">조회수</th>
+				<th style="width: 80px;">지원여부</th>
+			</tr>
+			<c:forEach items="${CRecruitVOList}" var="CRecruitVO">
 
 				<tr>
-					<th class="table-active" scope="row">이메일</th>
-					<td colspan="3">${CInfoVO.email}</td>
+					<td style="text-align: center;">${CRecruitVO.bno}</td>
+					<td style="text-align: center;">${CRecruitVO.cid}</td>
+					<td style="text-align: center;"><a
+						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'
+						onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CRecruitVO.title}</a></td>
+					<td>${CRecruitVO.regdate}</td>
+					<td>${CRecruitVO.period}</td>
+					<td style="text-align: center;">${CRecruitVO.viewcnt}</td>
+					<td style="text-align: center;">2차개발</td>
 				</tr>
-			</tbody>
+			</c:forEach>
 		</table>
 	</div>
 </div>
-
-
-
-<%-- <form role="form" method="post">
-	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
-	<input type='hidden' name="id" value="${RecruitVO.cid}">
-</form> 소연 수정 이거 name 겹쳐서 에러나서 걍 주석처리함
- --%>
+<br><br>
 <script>
-$(document).ready(function(){ 
-	// hide #back-top first
-	//$("#back-top").hide();
-	
-	// fade in #back-top
-	$(function () {
-		$(window).scroll(function () {
-			if ($(this).scrollTop() > 50) {
-				$('#back-top').fadeIn();
-			} else {
-				$('#back-top').fadeOut();
-			}
-		});
-		// scroll body to 0px on click
-		$('#back-top').click(function () {
-			$('body,html').animate({
-				scrollTop: 0
-			}, 800);
-			return false;
-		});
-	});
-});
 
-$(document).ready(function() {
+
+function add_job() {
+	var bar_job = document.getElementById("bar_job");
+	var width = parseInt($("#bar_job").text().substr(3));
+	//background-color:
+	//회색 #c0c6d3;
+	//하늘색 #56c0e0;
 	
-	var imgsrccheck = ('#imgsrccheck');
-	if ($('#imgsrccheck').val() != "") {
-		console.log(" val값 뭐임? " + $('#imgsrccheck').val());
-		console.log(" val이 널값아님");
-		$('#imgsrc').attr("src", 'displayFile?fileName=${CInfoVO.img}');
+	$("#icon_job").css("color", "#56c0e0");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#56c0e0");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
 	} else {
-		console.log(" val이 널값이다");
-		$('#imgsrc').attr("src", 'displayFile?fileName=/NoImage.png');
-		$('#imgsrc').attr("alt", '사진이 등록되지 않았습니다.');
+		width=width+20;
 	}
-});
+	
+	bar_job.style.width = width + '%';
+	$("#bar_job").text('직무	' + width * 1 + '%');
+}
+function add_region() {
+	var bar_region = document.getElementById("bar_region");
+	var width = parseInt($("#bar_region").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#56c0e0");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#56c0e0");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_region.style.width = width + '%';
+	$("#bar_region").text('지역	' + width * 1 + '%');
+}
+function add_employstatus() {
+	var bar_employstatus = document.getElementById("bar_employstatus");
+	var width = parseInt($("#bar_employstatus").text().substr(5));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#56c0e0");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#56c0e0");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+		bar_employstatus.style.width = width + '%';
+		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
+	} else {
+		width=width+20;
+		bar_employstatus.style.width = width + '%';
+		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
+	}
+}
+function add_levelofeducation() {
+	var bar_levelofeducation = document.getElementById("bar_levelofeducation");
+	var width = parseInt($("#bar_levelofeducation").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#56c0e0");
+	$("#icon_lastcareer").css("color", "#333333");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#56c0e0");
+	$("#bar_lastcareer").css("background-color", "#c0c6d3");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_levelofeducation.style.width = width + '%';
+	$("#bar_levelofeducation").text('학력	' + width * 1 + '%');
+}
+function add_lastcareer() {
+	var bar_lastcareer = document.getElementById("bar_lastcareer");
+	var width = parseInt($("#bar_lastcareer").text().substr(3));
+	
+	$("#icon_job").css("color", "#333333");
+	$("#icon_region").css("color", "#333333");
+	$("#icon_employstatus").css("color", "#333333");
+	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_lastcareer").css("color", "#56c0e0");
+	
+	$("#bar_job").css("background-color", "#c0c6d3");
+	$("#bar_region").css("background-color", "#c0c6d3");
+	$("#bar_employstatus").css("background-color", "#c0c6d3");
+	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
+	$("#bar_lastcareer").css("background-color", "#56c0e0");
+	
+	if (width >= 100) {
+		width=0;
+	} else {
+		width=width+20;
+	}
+	
+	bar_lastcareer.style.width = width + '%';
+	$("#bar_lastcareer").text('경력	' + width * 1 + '%');
+}
 </script>
-<!-- //메인 바디 끝 -->
-
 <%@include file="../include/cfooter.jsp"%>

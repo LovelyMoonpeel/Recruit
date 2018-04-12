@@ -151,37 +151,38 @@ $(document).ready(function(){
 
 function clipping_cancel_function(rcno){
 		//var rcno = rcno.value;
-		var userid = $("#userid").val();
-		
-		console.log(rcno);
-		console.log(userid);
-		  $.ajax({
-			type:'post',
-			url:'/companyAjax/clippingcancel',
-			headers:{
-				"Content-Type":"application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType:'text',
-			data:JSON.stringify({
-				rcbno : rcno,
-				userid : userid 
-			}),
-			success:function(result){
-				console.log("result가 뭐냐?"+result);
-				if(result=='TRUE'){
-					alert("이미 스크랩 해제된 공고 입니다.");
-				}else if(result=='FALSE'){
-					alert("관심채용공고에서 삭제되었습니다.");
-					self.location="/personal/favor";
-					//self.location = "/company/C_recruitRemove?bno="+bno+"";
-				}else{
-					alert("어느 if문에도 들어가지 못함.");
-					console.log("어느 if문에도 들어가지 못함.");
-				}
-			}//success end
-		 })//ajax end 
-	}
+	var userid = $("#userid").val();
+	
+	console.log(rcno);
+	console.log(userid);
+	
+	$.ajax({
+		type:'post',
+		url:'/companyAjax/clippingcancel',
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType:'text',
+		data:JSON.stringify({
+			rcbno : rcno,
+			userid : userid 
+		}),
+		success:function(result){
+			console.log("result가 뭐냐?"+result);
+			if(result=='TRUE'){
+				alert("이미 스크랩 해제된 공고 입니다.");
+			}else if(result=='FALSE'){
+				alert("관심채용공고에서 삭제되었습니다.");
+				self.location="/personal/favor";
+				//self.location = "/company/C_recruitRemove?bno="+bno+"";
+			}else{
+				alert("어느 if문에도 들어가지 못함.");
+				console.log("어느 if문에도 들어가지 못함.");
+			}
+		}//success end
+	});//ajax end 
+}
 	
 </script>
 <%@include file="../include/cfooter.jsp"%>
