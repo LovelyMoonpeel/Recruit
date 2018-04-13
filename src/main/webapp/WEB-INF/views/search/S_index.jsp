@@ -442,6 +442,8 @@
 	}
 
 	var argum = null;
+	var tmp = null;
+	var moreView = false;
 
 	function RecruitInfHandler(data) {
 		if (argum !== false)
@@ -459,6 +461,11 @@
 		var source_pnl = $("#tmpnl_recruit").html();
 		template_pnl = Handlebars.compile(source_pnl);
 		$(dataR).each(recruitPnl);
+		if (moreView === false) {
+			tmp = '<div id="moreView" onclick="$(this).remove(); moreView = true;"><h5 align="center"><span style="color: white;">'
+					+ '_</span><br /><a href="javascript:;">채용공고 더보기</a></h5></div>';
+			$("#spanel").append(tmp);
+		}
 		infScrDone = true;
 	}
 
@@ -492,17 +499,19 @@
 
 	function infiniteScroll() {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			if (infScrDone && !lastpage) {
+			if (infScrDone && !lastpage && moreView) {
 				console.log(page);
 				getRecruitAllList(snum, page++, false);
 
-				var tmp = '<div id="infSrch"><br /><h3 align="center"><span style="color: white;">'
+				tmp = '<div id="infSrch"><br /><h3 align="center"><span style="color: white;">'
 						+ '_</span><br /><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
 						+ '</h3><br /></div>';
 
 				// var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
 				$("#spanel").append(tmp);
 				infScrDone = false;
+				if (page % 4 === 3)
+					moreView = false;
 			}
 		}
 	}
