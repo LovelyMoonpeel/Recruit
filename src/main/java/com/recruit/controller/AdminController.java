@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
+import com.recruit.domain.CsqnaReplyVO;
 import com.recruit.domain.CsqnaVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
@@ -397,6 +400,7 @@ public class AdminController {
 			throws Exception {
 		cservice.remove(bno);
 
+		System.out.println("test1");
 		rttr.addAttribute("id", id);
 		rttr.addFlashAttribute("msg", "remove");
 
@@ -455,6 +459,15 @@ public class AdminController {
 		rttr.addFlashAttribute("msg", "resume_mod");
 
 		return "redirect:/admin/pmodify?id=" + id;
+	}
+	
+	@RequestMapping(value="resremove", method = RequestMethod.POST)
+	public String RremovePOST(@RequestParam("bno") int bno, RedirectAttributes rttr)throws Exception{
+		String id = rservice.readROne(bno).getUserid();
+		int[] bno2 = {bno};
+		rservice.deleteROne(bno2);
+		rttr.addFlashAttribute("msg","remove");
+		return "redirect:/admin/pmodify?id="+id;
 	}
 	
 	S3Util s3 = new S3Util();
@@ -601,4 +614,12 @@ public class AdminController {
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public String chartGET(Model model) throws Exception{
+		model.addAttribute("P_member",aservice.pcount());
+		model.addAttribute("C_member", aservice.ccount());
+		return "/admin/A_chart";
+	}
+	
 }

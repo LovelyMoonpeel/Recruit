@@ -71,5 +71,15 @@ public class AdminServiceImpl implements AdminService {
 	public String readpw(BoardVO vo) throws Exception{
 		return dao.readpw(vo);
 	}
+	
+	@Override
+	public int pcount()throws Exception{
+		return dao.pcount();
+	}
+	
+	@Override
+	public int ccount()throws Exception{
+		return dao.ccount();
+	}
 
 }

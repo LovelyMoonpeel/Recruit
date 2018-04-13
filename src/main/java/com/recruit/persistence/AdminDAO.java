@@ -31,4 +31,8 @@ public interface AdminDAO {
 	public void aupdate(BoardVO vo) throws Exception;
 	
 	public String readpw(BoardVO vo) throws Exception;
+	
+	public int pcount()throws Exception;
+	
+	public int ccount()throws Exception;
 }

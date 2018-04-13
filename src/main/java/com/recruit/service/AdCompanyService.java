@@ -13,8 +13,6 @@ public interface AdCompanyService {
 
 	public void modify(BoardVO vo) throws Exception;
 
-	public void remove(String id) throws Exception;
-
 	public List<BoardVO> listAll() throws Exception;
 
 	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception;

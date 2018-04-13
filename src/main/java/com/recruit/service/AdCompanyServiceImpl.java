@@ -32,11 +32,6 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	}
 
 	@Override
-	public void remove(String id) throws Exception {
-		dao.delete(id);
-	}
-
-	@Override
 	public List<BoardVO> listAll() throws Exception {
 		return dao.listAll();
 	}

@@ -119,7 +119,7 @@
 			<a href="/admin/company" class="hover" name='sideBtns' id="company cmodify rmodify"><span class="glyphicon glyphicon-briefcase"></span> 기업관리</a>
 		</li>
 		<li>
-			<a href="#" class="hover" name='sideBtns' id="cc"><span class="glyphicon glyphicon-stats"></span> 통계</a>
+			<a href="/admin/chart" class="hover" name='sideBtns' id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
 		</li>
 		<li>
 			<a href="/admin/amodify" class="hover" name='sideBtns' id="amodify"><span class="glyphicon glyphicon-wrench"></span> 관리자정보수정</a>
@@ -132,21 +132,21 @@
 		</li>
 		</ul>
 	</div>
+
+<script>
 	
-			<script>
-			
-			var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
-			var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
-			
-	  		for(var i =0; i<=$("a[name='sideBtns']").length-1; i++){
-	 			var active_id = $("a[name='sideBtns']").eq(i).attr("id");
-	 			if(active_id.indexOf(thisfilefullname1)!= -1){
-	 				$("a[name='sideBtns']").eq(i).addClass("chk_active");
-	 				
-	 			}else if(active_id.indexOf(thisfilefullname2)!= -1){
-	 				
-	 				$("a[name='sideBtns']").eq(i).addClass("chk_active");
-	 			}
-	 		}
-	  		
-			</script>
+var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
+	
+  for(var i =0; i<=$("a[name='sideBtns']").length-1; i++){
+ 	var active_id = $("a[name='sideBtns']").eq(i).attr("id");
+ 	if(active_id.indexOf(thisfilefullname1)!= -1){
+ 		$("a[name='sideBtns']").eq(i).addClass("chk_active");
+ 		
+ 	}else if(active_id.indexOf(thisfilefullname2)!= -1){
+ 		
+ 		$("a[name='sideBtns']").eq(i).addClass("chk_active");
+ 	}
+ }
+  
+</script>

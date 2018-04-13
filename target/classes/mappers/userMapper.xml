@@ -7,8 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="create">
 		insert into tbluser (id, pw, cname, pname, email, registnum, birth)
-		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum},
-		#{birth})
+		values(#{id},#{pw}, #{cname}, #{pname}, #{email}, #{registnum}, #{birth})
 	</insert>
 	
 	<insert id="Ccreate">

@@ -244,6 +244,8 @@ var result = '${msg}';
 
 if(result == 'resume_mod'){
 	alert("이력서 수정 처리가 완료 되었습니다.");
+}else if(result == 'remove'){
+	alert("이력서 삭제가 완료되었습니다.");
 }
 </script>
 

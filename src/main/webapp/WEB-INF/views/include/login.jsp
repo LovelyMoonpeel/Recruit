@@ -1013,22 +1013,3 @@ $("#company").on("click", function(){
 	}, 500)
 })
 </script>
-
-<!-- <script>
-if($("#title").val()==""){   /* 타이틀 유효성 검사 */
-	
-	$("#titleDiv").addClass("form-group has-error has-feedback"); 
-	$("#titleTxt").css("color","#a94442")
-	$("#titleXIcon").css("display","");
-	$("#title").focus();
-	
-	e.preventDefault();
-	
-}else{
-	$("#titleDiv").removeClass(); 
-	$("#titleXIcon").css("display","none");
-	$("#titleDiv").addClass("form-group has-success has-feedback");
-	$("#titleTxt").css("color","#3c763d")
-	$("#titleOKIcon").css("display","");
-}
-</script> -->

@@ -25,11 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 	</update>
 
-	<delete id="delete">
-		delete from recruit where id = #{id}
-		delete from tbluser where id = #{id}
-	</delete>
-
 	<select id="listAll" resultType="BoardVO">
 	<![CDATA[
 	select

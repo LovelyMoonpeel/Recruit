@@ -17,7 +17,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Inject
 	private SqlSession session;
 
-	private static String namespace = "com.recruit.mapper.amainMapper";
+	private static String namespace = "com.recruit.mapper.adminMapper";
 
 	@Override
 	public BoardVO read(String id) throws Exception {
@@ -82,6 +82,16 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public String readpw(BoardVO vo) throws Exception{
 		return session.selectOne(namespace + ".readpw", vo);
+	}
+	
+	@Override
+	public int pcount()throws Exception{
+		return session.selectOne(namespace+".pcount");
+	}
+	
+	@Override
+	public int ccount()throws Exception{
+		return session.selectOne(namespace+".ccount");
 	}
 
 }
