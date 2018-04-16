@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace = "com.recruit.mapper.CRecruitMapper">
 	<!-- p178참고 -->
 	
+	
 	<!-- 스크랩한 채용공고 목록  전체 조회수순 소연 수정-->
 	<select id = "selectCRList_veiwcnt_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[

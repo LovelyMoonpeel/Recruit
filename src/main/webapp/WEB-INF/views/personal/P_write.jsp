@@ -36,39 +36,43 @@
 					<tr>
 						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label for="pname">이름</label>
 						</th>
-						<td class="col-sm-4"><input type="text" class="form-control"
-							id="pname" name="pname" value="${PUserVO.pname}" readonly>
+						<td class="col-sm-4" style="text-align : center; vertical-align : middle;">
+							${PUserVO.pname}
+							<%-- <input type="text" class="form-control"
+							id="pname" name="pname" value="${PUserVO.pname}" readonly> --%>
 						</td>
 						<th style="text-align : center; vertical-align : middle;" rowspan="3" class="table-active" scope="row"><label
 							for="img">사진</label></th>
-						<td style="overflow-y:hidden;" rowspan="3" class="col-sm-4">
-							<div id='uploadedList'
-								style='width: 127px; height: 152px; border: 1px solid #c0c6d3;'>
-								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br><br> 권장 사이즈 : <br>(235 x 315 pixel)</p>
+						<td style="overflow-y:hidden;" rowspan="3" style="text-align : center">
+							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px solid #c0c6d3;'>
+								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br><br> 권장 사이즈 : <br>(235 x 315 px)</p>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
-							</div> <!--  사진 보이는 div  --> <input type='hidden' id='imgsrccheck'
-							value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
+							</div> <!--  사진 보이는 div  -->
+							<input type='hidden' id='imgsrccheck' value="${ResumeVO.img}" />
+							<!-- db에 있는 file img 이름 받아오는 hidden input -->
 							<input type='hidden' id='uploadfilename' name='img' value=''>
-							<!-- db에 올라갈 file img 이름 받아오는 hidden input --> <br> <input
-							type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
+							<!-- db에 올라갈 file img 이름 받아오는 hidden input --> <br> 
+							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp">
 							<!--파일 업로드 하는 버튼--> <input type='hidden' id='xornot' value='0'>
 						</td>
 					</tr>
 					<tr>
 						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label>생년월일</label></th>
-						<td>
+						<td style="text-align : center; vertical-align : middle;">
 							<div class="form-group">
-								<input type="text" class="form-control" id="birth" name="birth"
-									value="${PUserVO.birth}" readonly>
+							${PUserVO.birth}
+								<%-- <input type="text" class="form-control" id="birth" name="birth"
+									value="${PUserVO.birth}" readonly> --%>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<th style="text-align : center; vertical-align : middle;" class="table-active" scope="row"><label for="email">이메일</label></th>
-						<td>
+						<td style="text-align : center; vertical-align : middle;">
 							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email"
-									value="${PUserVO.email}" readonly>
+								${PUserVO.email}
+					<%-- 			<input type="text" class="form-control" id="email" name="email"
+									value="${PUserVO.email}" readonly> --%>
 							</div>
 						</td>
 					</tr>

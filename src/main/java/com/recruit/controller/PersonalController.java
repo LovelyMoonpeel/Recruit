@@ -446,10 +446,21 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
+			//model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
+			//5가지의 선호도 불러옴
 			
+			//1. 이력서 공개 된거 있는지 확인하는 서비스
+			//2. 확인하고 해당 이력서 번호 가져오는 서비스
+			
+			model.addAttribute("CoordinateVO", PREFService.selectCodeCoordinate(3));
+			//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
+			
+			
+			//model.addAttribute("CRecruitVOList",CService.selectRecomList(bno);
+			//4. 채용공고 번호로 리스트 끌어오기
+					
 			return "personal/P_recom";
 		} else {
 			rttr.addFlashAttribute("msg", "login");

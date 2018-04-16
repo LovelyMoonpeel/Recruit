@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.PreferenceVO;
 
 @Repository
@@ -14,9 +15,14 @@ public class PreferenceDAOImpl implements PreferenceDAO{
 	private SqlSession session;
 
 	private static String namespace = "com.recruit.mapper.PreferenceMapper";
-
+	
 	@Override
 	public PreferenceVO selectPREFOne(String id)throws Exception{
 		return session.selectOne(namespace + ".selectPREFOne", id);
+	}
+	
+	@Override
+	public CoordinateVO selectCodeCoordinate(int bno)throws Exception{
+		return session.selectOne(namespace + ".selectCodeCoordinate", bno);
 	}
 }

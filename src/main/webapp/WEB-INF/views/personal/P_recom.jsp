@@ -91,7 +91,49 @@
 		<span>경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
 		<br> 
 	</div>
-
+	/*
+		select re.bno as bno, re.userid as userid
+	, re.levelofeducation as levelofeducation
+	, re.lastcareer as lastcareer, re.employstatusid as employstatusid
+	,(select z from tblcode where id=re.lastcareer) as z
+	,(select y from tblcode where id=re.levelofeducation) as y
+	,(select x from tblcode where id=re.employstatusid) as x
+	from tblresume re
+	<table class="table">
+	<tr>
+		<td>
+		${CoordinateVO.bno }
+		</td>
+		<td>
+		${CoordinateVO.userid }
+		</td>
+	</tr>
+<%-- 	<tr>
+		<td>
+		${CoordinateVO.levelofeducation }
+		</td>
+		<td>
+		${CoordinateVO.lastcareer }
+		</td>
+			<td>
+		${CoordinateVO.employstatusid }
+		</td>
+	</tr>
+		<tr>
+		<td>
+		${CoordinateVO.z }
+		</td>
+		<td>
+		${CoordinateVO.y }
+		</td>
+			<td>
+		${CoordinateVO.x }
+		</td>
+	</tr> --%>
+	
+	</table>
+	
+	
 <script>
 $(document).ready(function (){
 	$("#slider_job").slider({	
