@@ -182,20 +182,19 @@ public class SRestController {
 	}
 
 	// C.recruits 검색 (전체, 키워드, 필터)
-	@RequestMapping(value = "/recruits/{getdoc}/{skey}", method = RequestMethod.GET)
+	@RequestMapping(value = "/recruits/{getdoc}/{skey}/{pageSize}/{pageNum}", method = RequestMethod.GET)
 	public ResponseEntity<List<SpanelVO>> getRecruits(@PathVariable("getdoc") String getdoc,
-			@PathVariable("skey") String skey) {
+			@PathVariable("skey") String skey, @PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNum") int pageNum) {
 
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
 			if ("getall".equals(getdoc)) {
-				System.out.println("getall: " + skey);
-				int snum = Integer.parseInt(skey.split("p")[0]);
-				int spag = Integer.parseInt(skey.split("p")[1]);
-				System.out.println("getall: " + snum);
-				System.out.println("getall: " + spag);
-				spanelVOList = searchService.selectRecruitsAll(snum, spag);
+				System.out.println("getall_skey: " + skey);
+				System.out.println("getall_pageSize: " + pageSize);
+				System.out.println("getall_pageNum: " + pageNum);
+				spanelVOList = searchService.selectRecruitsAll(pageSize, pageNum);
 			} else if ("getkey".equals(getdoc)) {
 				System.out.println("getkey: " + skey);
 				spanelVOList = searchService.selectRecruits(skey);
@@ -218,20 +217,19 @@ public class SRestController {
 	}
 
 	// D.resumes 검색 (전체, 키워드, 필터)
-	@RequestMapping(value = "/resumes/{getdoc}/{skey}", method = RequestMethod.GET)
+	@RequestMapping(value = "/resumes/{getdoc}/{skey}/{pageSize}/{pageNum}", method = RequestMethod.GET)
 	public ResponseEntity<List<SpanelVO>> getResumes(@PathVariable("getdoc") String getdoc,
-			@PathVariable("skey") String skey) {
+			@PathVariable("skey") String skey, @PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNum") int pageNum) {
 
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
 			if ("getall".equals(getdoc)) {
-				System.out.println("getall: " + skey);
-				int snum = Integer.parseInt(skey.split("p")[0]);
-				int spag = Integer.parseInt(skey.split("p")[1]);
-				System.out.println("getall: " + snum);
-				System.out.println("getall: " + spag);
-				spanelVOList = searchService.selectResumesAll(snum);
+				System.out.println("getall_skey: " + skey);
+				System.out.println("getall_pageSize: " + pageSize);
+				System.out.println("getall_pageNum: " + pageNum);
+				spanelVOList = searchService.selectResumesAll(pageSize);
 			} else if ("getkey".equals(getdoc)) {
 				System.out.println("getkey: " + skey);
 				spanelVOList = searchService.selectResumes(skey);

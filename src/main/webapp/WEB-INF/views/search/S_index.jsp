@@ -472,7 +472,7 @@
 	// 모든 채용공고(recruits)를 보여주다.
 	function getRecruitAllList(pnum, panpg) {
 		argum = arguments[2];
-		$.getJSON("/sresult/recruits/getall/" + pnum + "p" + panpg,
+		$.getJSON("/sresult/recruits/getall/all/" + pnum + "/" + panpg,
 				RecruitInfHandler);
 	}
 

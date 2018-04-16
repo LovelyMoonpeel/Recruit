@@ -276,6 +276,13 @@
 		$("#spanel").children().remove();
 	}
 
+	var cSrchState = 0;
+	// 0: 채용공고 검색 초기화면
+	// 1: 채용공고 검색 요약화면
+	// 2: 기업검색 화면
+	// 3: 채용공고 검색 화면
+	// 4: 외부공고 검색 화면
+
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
@@ -413,11 +420,15 @@
 		}
 
 		var rtitle = '<div class="row" id="spanelc"><h4><br/><b>&nbsp; &nbsp; 기업정보('
-				+ dataC.length + ')</b><br/><br/></h4></div>';
+				+ dataC.length
+				+ ')</b></h4><h5 align="right">'
+				+ '<a href="javascript:;">기업정보 더보기</a> &nbsp; &nbsp; </h5></div>';
 		rtitle += '<div class="row" id="spanelr"><h4><span style="color:white;">_</span><br/>'
 				+ '<br/><b>&nbsp; &nbsp; 채용공고('
 				+ dataR.length
-				+ ')</b><br/><br/></h4></div>';
+				+ ')</b></h4><h5 align="right">'
+				+ '<a href="javascript:;">채용공고 더보기</a> &nbsp; &nbsp; </h5></div>';
+
 		$("#spanel").append(rtitle);
 
 		var source_pnl = $("#tmpnl_cinfo").html();
@@ -465,9 +476,9 @@
 	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
 	function getAllList(users) {
 		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/recruits/getall/0p0", RecruitHandler);
+			$.getJSON("/sresult/recruits/getall/all/0/0", RecruitHandler);
 		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/resumes/getall/0p0", ResumeHandler);
+			$.getJSON("/sresult/resumes/getall/all/0/0", ResumeHandler);
 		}
 	}
 
@@ -475,9 +486,11 @@
 	// 검색어(skey), 검색분류(users: recruits or resumes)
 	function getKeyList(users, skey) {
 		if (users == "recruits") {
-			$.getJSON("/sresult/recruits/getkey/" + skey, RecruitHandler);
+			var tmp_0 = "/sresult/recruits/getkey/";
+			$.getJSON(tmp_0 + skey + "/0/0", RecruitHandler);
 		} else { // resumes
-			$.getJSON("/sresult/resumes/getkey/" + skey, ResumeHandler);
+			var tmp_0 = "/sresult/resumes/getkey/";
+			$.getJSON(tmp_0 + skey + "/0/0", ResumeHandler);
 		}
 	}
 
@@ -485,10 +498,10 @@
 	// 검색분류(users: recruits or resumes)
 	function getSelList(users) {
 		if (users == 'recruits') // 'recruits'
-			$.getJSON("/sresult/recruits/getsel/0", RecruitHandler);
+			$.getJSON("/sresult/recruits/getsel/sel/0/0", RecruitHandler);
 		else
 			// 'resumes'
-			$.getJSON("/sresult/resumes/getsel/0", ResumeHandler);
+			$.getJSON("/sresult/resumes/getsel/sel/0/0", ResumeHandler);
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(1)
