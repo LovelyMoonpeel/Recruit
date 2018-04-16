@@ -80,38 +80,25 @@ public class SearchServiceImpl implements SearchService {
 		return codedao.CodeList(tid);
 	}
 
-	@Override
-	public List<SpanelVO> selectRecruits(String skey) throws Exception {
-		return convertToRecruitPanel(searchDAO.selectRecruits(skey));
-	}
-
-	@Override
-	public List<SpanelVO> selectResumes(String skey) throws Exception {
-		return convertToResumePanel(searchDAO.selectResumes(skey));
-	}
-
-	// 채용공고
-	@Override
-	public List<SpanelVO> selectRecruits_sel(List<String> sel_skeys) throws Exception {
-
-		List<RecruitVO> list_tmp = searchDAO.selectRecruits_selJob(sel_skeys);
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selRgn(sel_skeys));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, empArr));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, expArr));
-		list_tmp = intersection(list_tmp, searchDAO.selectRecruits_selCod(sel_skeys, eduArr));
-
-		List<SpanelVO> listSp_tmp;
-		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
-			listSp_tmp = new ArrayList<SpanelVO>();
-		else {
-			listSp_tmp = convertToRecruitPanel(list_tmp);
-		}
-		return listSp_tmp;
-	}
-
 	// 이력서
 	@Override
-	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception {
+	public List<SpanelVO> getkeyResumes(String skey, int pageSize, int pageNum) throws Exception {
+		if ("all".equals(skey)) {
+			List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
+			if (pageSize != 0 && list_tmp.size() > pageSize) {
+				List<ResumeVO> list_tmp1 = new ArrayList<ResumeVO>();
+				for (int i = 0; i < pageSize; i++) {
+					list_tmp1.add(list_tmp.get(i));
+				}
+				list_tmp = list_tmp1;
+			}
+			return convertToResumePanel(list_tmp);
+		} else
+			return convertToResumePanel(searchDAO.selectResumes(skey));
+	}
+
+	@Override
+	public List<SpanelVO> getselResumes(List<String> sel_skeys, int pageSize, int pageNum) throws Exception {
 
 		List<ResumeVO> list_tmp = searchDAO.selectResumes_selJob(sel_skeys);
 		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selRgn(sel_skeys));
@@ -194,6 +181,7 @@ public class SearchServiceImpl implements SearchService {
 			if (listRecruit.get(i).getCid() != null)
 				spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
 			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
+			spanelVO.setImg(cImgMap.get(spanelVO.getUserid()));
 
 			listPanel.add(spanelVO);
 		}
@@ -267,42 +255,61 @@ public class SearchServiceImpl implements SearchService {
 		return list;
 	}
 
+	Map<String, String> cImgMap = null;
+
+	// 채용공고
 	@Override
-	public List<SpanelVO> selectRecruitsAll(int snum, int spag) throws Exception {
-		List<RecruitVO> list_tmp = searchDAO.selectRecruitsAll();
-		if (snum != 0 && spag >= 0 && list_tmp.size() > snum) {
-			List<RecruitVO> list_tmp1 = new ArrayList<RecruitVO>();
+	public List<SpanelVO> getkeyRecruits(String skey, int pageSize, int pageNum) throws Exception {
+		List<RecruitVO> recruitVOList = null;
+		if ("all".equals(skey))
+			recruitVOList = searchDAO.selectRecruitsAll();
+		else
+			recruitVOList = searchDAO.selectRecruits(skey);
+		List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
+
+		if (pageSize != 0 && pageNum >= 0 && recruitVOList.size() > pageSize) {
+			List<RecruitVO> recruitVOList1 = new ArrayList<RecruitVO>();
 			// last page?
-			if (list_tmp.size() > snum * (spag + 1)) {
-				for (int i = 0; i < snum; i++) {
-					list_tmp1.add(list_tmp.get(snum * spag + i));
+			if (recruitVOList.size() > pageSize * (pageNum + 1)) {
+				for (int i = 0; i < pageSize; i++) {
+					recruitVOList1.add(recruitVOList.get(pageSize * pageNum + i));
 				}
 			} else { // last page
 				int i = 0;
 				RecruitVO lastRecruit = new RecruitVO();
 				lastRecruit.setPeriod("lastRecruit");
-				list_tmp1.add(lastRecruit);
-				while (list_tmp.size() > snum * spag + i) {
-					System.out.println("::" + list_tmp.size() + "::" + (snum * spag + i));
-					list_tmp1.add(list_tmp.get(snum * spag + i++));
+				recruitVOList1.add(lastRecruit);
+				while (recruitVOList.size() > pageSize * pageNum + i) {
+					System.out.println("::" + recruitVOList.size() + "::" + (pageSize * pageNum + i));
+					recruitVOList1.add(recruitVOList.get(pageSize * pageNum + i++));
 				}
 			}
-			list_tmp = list_tmp1;
+			recruitVOList = recruitVOList1;
 		}
-		return convertToRecruitPanel(list_tmp);
+
+		List<SpanelVO> spanelVOList = convertToRecruitPanel(recruitVOList);
+		spanelVOList.addAll(cpanelVOList);
+		return spanelVOList;
 	}
 
 	@Override
-	public List<SpanelVO> selectResumesAll(int snum) throws Exception {
-		List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
-		if (snum != 0 && list_tmp.size() > snum) {
-			List<ResumeVO> list_tmp1 = new ArrayList<ResumeVO>();
-			for (int i = 0; i < snum; i++) {
-				list_tmp1.add(list_tmp.get(i));
-			}
-			list_tmp = list_tmp1;
+	public List<SpanelVO> getselRecruits(List<String> sel_skeys, int pageSize, int pageNum) throws Exception {
+
+		List<RecruitVO> recruitVOList = searchDAO.selectRecruits_selJob(sel_skeys);
+		recruitVOList = intersection(recruitVOList, searchDAO.selectRecruits_selRgn(sel_skeys));
+		recruitVOList = intersection(recruitVOList, searchDAO.selectRecruits_selCod(sel_skeys, empArr));
+		recruitVOList = intersection(recruitVOList, searchDAO.selectRecruits_selCod(sel_skeys, expArr));
+		recruitVOList = intersection(recruitVOList, searchDAO.selectRecruits_selCod(sel_skeys, eduArr));
+
+		List<SpanelVO> spanelVOList;
+		if (recruitVOList.size() == 0 || recruitVOList.get(0).getBno() == -1)
+			spanelVOList = new ArrayList<SpanelVO>();
+		else {
+			List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
+			spanelVOList = convertToRecruitPanel(recruitVOList);
+			spanelVOList.addAll(cpanelVOList);
 		}
-		return convertToResumePanel(list_tmp);
+		return spanelVOList;
 	}
 
 	@Override
@@ -324,14 +331,14 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<SpanelVO> addCInforList(List<SpanelVO> spanelVOList) throws Exception {
+	public List<SpanelVO> getCInforList(List<RecruitVO> recruitVOList) throws Exception {
 
 		Set<String> cSet = new HashSet<String>();
-		Map<String, String> cImgMap = new HashMap<String, String>();
+		cImgMap = new HashMap<String, String>();
 
-		int spanelVONum = spanelVOList.size();
-		for (int i = 0; i < spanelVONum; i++)
-			cSet.add(spanelVOList.get(i).getUserid());
+		int recruitVONum = recruitVOList.size();
+		for (int i = 0; i < recruitVONum; i++)
+			cSet.add(recruitVOList.get(i).getCid());
 
 		List<String> cList = new ArrayList<String>(cSet);
 		List<SpanelVO> cpanelVOList = searchDAO.selectCInfo(cList);
@@ -341,22 +348,21 @@ public class SearchServiceImpl implements SearchService {
 			String title = cpanelVOList.get(i).getTitle();
 			String imageName = cpanelVOList.get(i).getImg();
 
+			// company intro article
+			if (title != null && title.length() > 70)
+				cpanelVOList.get(i).setTitle(title.substring(0, 70) + "...");
+
 			// image push
 			if (imageName == null || "".equals(imageName))
 				cpanelVOList.get(i).setImg("/NoImage.png");
 
 			cImgMap.put(cpanelVOList.get(i).getUserid(), cpanelVOList.get(i).getImg());
-
-			// company intro article
-			if (title != null && title.length() > 70)
-				cpanelVOList.get(i).setTitle(title.substring(0, 70) + "...");
 		}
 
-		for (int i = 0; i < spanelVONum; i++)
-			spanelVOList.get(i).setImg(cImgMap.get(spanelVOList.get(i).getUserid()));
+		// for (int i = 0; i < recruitVONum; i++)
+		// spanelVOList.get(i).setImg(cImgMap.get(spanelVOList.get(i).getUserid()));
+		// spanelVOList.addAll(cpanelVOList);
 
-		spanelVOList.addAll(cpanelVOList);
-
-		return spanelVOList;
+		return cpanelVOList;
 	}
 }

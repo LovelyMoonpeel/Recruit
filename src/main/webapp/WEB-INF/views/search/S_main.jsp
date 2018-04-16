@@ -286,16 +286,7 @@
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		var sinp = $("#sinput").val();
-		// $("#sinput").val("");
-		console.log(sinp);
-		if (sinp === "all") {
-			waitForSearching(smsg, 5);
-			if ($("#stype").attr("value") === "1") {
-				getAllList("recruits");
-			} else {
-				getAllList("resumes");
-			}
-		} else if (sinp === "") {
+		if (sinp === "") {
 			waitForSearching("키워드가 입력되지 않았습니다.", 5);
 			// $("#sdesc").html("키워드가 입력되지 않았습니다.");
 		} else { // 키워드 검색
@@ -470,15 +461,6 @@
 				waitForSearching(blank_, 1, false);
 		} else {
 			waitForSearching("검색결과가 없습니다.", 5);
-		}
-	}
-
-	// 모든 이력서(resumes) 또는 채용공고(recruits)를 보여주다.
-	function getAllList(users) {
-		if (users === "recruits") { // "/sresult/recruits"
-			$.getJSON("/sresult/recruits/getall/all/0/0", RecruitHandler);
-		} else { // "/sresult/resumes"
-			$.getJSON("/sresult/resumes/getall/all/0/0", ResumeHandler);
 		}
 	}
 

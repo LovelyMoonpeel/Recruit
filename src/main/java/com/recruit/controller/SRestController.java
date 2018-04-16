@@ -190,24 +190,18 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
-			if ("getall".equals(getdoc)) {
-				System.out.println("getall_skey: " + skey);
-				System.out.println("getall_pageSize: " + pageSize);
-				System.out.println("getall_pageNum: " + pageNum);
-				spanelVOList = searchService.selectRecruitsAll(pageSize, pageNum);
-			} else if ("getkey".equals(getdoc)) {
-				System.out.println("getkey: " + skey);
-				spanelVOList = searchService.selectRecruits(skey);
-				System.out.println("spanelVOList: " + spanelVOList);
-				System.out.println("spanelVOList.size: " + spanelVOList.size());
+			System.out.println("pageSize: " + pageSize);
+			System.out.println("pageNum: " + pageNum);
+
+			if ("getkey".equals(getdoc)) {
+				System.out.println("skey: " + skey);
+				spanelVOList = searchService.getkeyRecruits(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getsel: " + sel_scodes);
-				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
+				System.out.println("sel_scodes: " + sel_scodes);
+				spanelVOList = searchService.getselRecruits(sel_scodes, pageSize, pageNum);
 			}
-			// 기업정보 추가
-			searchService.addCInforList(spanelVOList);
-			System.out.println("spanelVOList2: " + spanelVOList);
-			System.out.println("spanelVOList.size2: " + spanelVOList.size());
+			System.out.println("spanelVOList: " + spanelVOList);
+			System.out.println("spanelVOList.size: " + spanelVOList.size());
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -225,17 +219,15 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
-			if ("getall".equals(getdoc)) {
-				System.out.println("getall_skey: " + skey);
-				System.out.println("getall_pageSize: " + pageSize);
-				System.out.println("getall_pageNum: " + pageNum);
-				spanelVOList = searchService.selectResumesAll(pageSize);
-			} else if ("getkey".equals(getdoc)) {
-				System.out.println("getkey: " + skey);
-				spanelVOList = searchService.selectResumes(skey);
+			System.out.println("pageSize: " + pageSize);
+			System.out.println("pageNum: " + pageNum);
+
+			if ("getkey".equals(getdoc)) {
+				System.out.println("skey: " + skey);
+				spanelVOList = searchService.getkeyResumes(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getsel: " + sel_scodes);
-				spanelVOList = searchService.selectResumes_sel(sel_scodes);
+				System.out.println("sel_scodes: " + sel_scodes);
+				spanelVOList = searchService.getselResumes(sel_scodes, pageSize, pageNum);
 			}
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
