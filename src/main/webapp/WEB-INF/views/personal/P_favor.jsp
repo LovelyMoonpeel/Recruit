@@ -3,44 +3,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/pheader.jsp"%>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Main content -->
+<!--  스크랩한채용공고 페이지 -->
 <form role="form">
 	<input type='hidden' id='userid' name='id' value="${PUserVO.id}">
 </form>
-
-<!--  스크랩한채용공고 페이지 -->
+	
 <div class="container col-md-9">
-<div class="table-responsive" style="overflow-x:hidden;">	
 	<h1 class="ci_name">${PUserVO.pname}</h1>
 	<h4>님의 관심 채용공고 페이지</h4>
-	<br>
-	<div style='width: 100%; height: 190px; border: 1px solid #c0c6d3; padding: 30px;'>
-		<ul>
-			<li>관심 공고로 등록한 채용공고는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
-			<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.<br></li>
-			<li>이력서를 등록하신 회원님께<b>이력서 기반 추천 공고 서비스를 무료</b>로 제공합니다.
+	
+	<div style='width: 100%; border: 1px solid #c0c6d3; padding: 30px;'>
+		<ul style="list-style-type: circle;">
+			<li>[${PUserVO.pname}]님이 지원한 채용공고/이력서 목록입니다.</li>
+			<li>공고 등록 순서에 따라 정렬됩니다.<br></li>
+			<li>이력서를 등록하신 회원님께 <b>이력서 기반 추천 공고 서비스를 무료</b>로 제공합니다.
 			</li>
 		</ul>
-		<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제
-		처리될 수 있습니다.<br>
+		<br>※ 퍼펙트 매칭 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
-	<br>
-	<input type="hidden" id="controller_value" value="${controller_value}">
+
+<input type="hidden" id="controller_value" value="${controller_value}">
 	<input type="hidden" id="order_value" name="order_value" value="${order_value}">
 	
-	<div class="container col-md-4">
+ 	<div class="container col-md-4" style="margin-top:30px;">
 		<small style="cursor:pointer" id="viewcnt_order" onclick="viewcnt_order()">조회수순<span id="viewcnt_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
 		| <small style="cursor:pointer" id="applicant_order" onclick="applicant_order()">지원자수<span id="applicant_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
 		| <small style="cursor:pointer" id="closingdate_order" onclick="closingdate_order()">마감일순<span id="closingdate_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
 	</div>
-	<div class="container col-md-offset-9">
-		<button id="all_btn" class="btn " onclick="all_recruits()">전체</button>
+	<div>
+	 	<button id="all_btn" class="btn col-md-offset-9" onclick="all_recruits()">전체</button>
 		<button id="ongoing_btn" class="btn" onclick="ongoing_recruits()">진행중</button>
 		<button id="closed_btn" class="btn" onclick="closed_recruits()">마감</button>
 	</div>
-	<br>
-	<div class="favor_table_container">
+	<br> 
+<div class="table-responsive">   
+ 	<div class="favor_table_container">
 		<table id="favor_table" class="table table-bordered">
 			<tr class="active">
 				<th style="text-align: center;">상태</th>
@@ -71,9 +70,9 @@
 			</c:forEach>
 		</table>
 	</div>
-	<br> <br>
 </div>
 </div>
+<br> <br>
 <script type="text/javascript">
 
 function ongoing_recruits(){//모집중

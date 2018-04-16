@@ -52,7 +52,7 @@
 
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_job" type="text" data-provide="slider"
-			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
+			data-slider-min="1"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
 		</div>
 		<span>직무 중요도 : <span id="val_job">${PreferenceVO.job}</span></span>
@@ -60,7 +60,7 @@
  		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_region" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
 		</div>
 		<span>지역 중요도 : <span id="val_region">${PreferenceVO.region}</span></span>
@@ -68,7 +68,7 @@
 		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_employstatus" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
 		</div>
 		<span>근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.employstatus}</span></span>
@@ -85,7 +85,7 @@
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_lastcareer" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="3" />
 		</div>
 		<span>경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
