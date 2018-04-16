@@ -283,15 +283,19 @@
 	// 3: 채용공고 검색 화면
 	// 4: 외부공고 검색 화면
 
+	var sout = null;
+
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
+		page = 0;
+		lastpage = false;
 		var sinp = $("#sinput").val();
 		if (sinp === "") {
 			waitForSearching("키워드가 입력되지 않았습니다.", 5);
 			// $("#sdesc").html("키워드가 입력되지 않았습니다.");
 		} else { // 키워드 검색
 			waitForSearching(smsg, 5);
-			var sout = "";
+			sout = "";
 			console.log(sinp);
 			var len = sinp.length;
 			for (var j = 0; j < len; j++) {
@@ -305,9 +309,9 @@
 			}
 			console.log(sout);
 			if ($("#stype").attr("value") === "1") {
-				getKeyList("recruits", sout);
+				getKeyList("recruits", sout, snum, page++);
 			} else {
-				getKeyList("resumes", sout);
+				getKeyList("resumes", sout, 0, 0);
 			}
 		}
 	});
@@ -396,47 +400,62 @@
 	function RecruitHandler(data) {
 		console.log("RecruitHandler.data.length: " + data.length);
 		inum = 0;
-		deletespanel();
+		$("#infSrch").remove();
 
 		// cinfo & recruit 분류
 		var dataC = new Array();
 		var dataR = new Array();
+		var firstPage = false;
+		var noPage = false;
 		// for (var i = data.length - 1; i >= 0; i--) {
 		for (var i = 0; i < data.length; i++) {
-
-			if (data[i].period === 'etern')
+			if (data.length == 1 && data[0].period === 'lastRecruit') {
+				firstPage = true;
+				noPage = true;
+				lastpage = true;
+			} else if (data[i].period === 'etern') {
 				dataC.push(data[i]);
-			else
+				firstPage = true;
+			} else if (data[i].period === 'lastRecruit') {
+				console.log("lastRecruit");
+				lastpage = true;
+			} else {
 				dataR.push(data[i]);
+			}
 		}
 
-		var rtitle = '<div class="row" id="spanelc"><h4><br/><b>&nbsp; &nbsp; 기업정보('
-				+ dataC.length
-				+ ')</b></h4><h5 align="right">'
-				+ '<a href="javascript:;">기업정보 더보기</a> &nbsp; &nbsp; </h5></div>';
-		rtitle += '<div class="row" id="spanelr"><h4><span style="color:white;">_</span><br/>'
-				+ '<br/><b>&nbsp; &nbsp; 채용공고('
-				+ dataR.length
-				+ ')</b></h4><h5 align="right">'
-				+ '<a href="javascript:;">채용공고 더보기</a> &nbsp; &nbsp; </h5></div>';
+		if (firstPage && !noPage) {
+			deletespanel();
 
-		$("#spanel").append(rtitle);
+			var rtitle = '<div class="row" id="spanelc"><h4><br/><b>&nbsp; &nbsp; 기업정보'
+					+ '</b></h4></div>';
+			rtitle += '<div class="row" id="spanelr"><h4><span style="color:white;">_</span><br/>'
+					+ '<br/><b>&nbsp; &nbsp; 채용공고</b></h4></div>';
 
-		var source_pnl = $("#tmpnl_cinfo").html();
-		template_pnl = Handlebars.compile(source_pnl);
-		$(dataC).each(cinfoPnl); // for cinfo
+			$("#spanel").append(rtitle);
+
+			var source_pnl = $("#tmpnl_cinfo").html();
+			template_pnl = Handlebars.compile(source_pnl);
+			$(dataC).each(cinfoPnl); // for cinfo
+		}
 
 		var source_pnl = $("#tmpnl_recruit").html();
 		template_pnl = Handlebars.compile(source_pnl);
 		$(dataR).each(recruitPnl); // for recruit
-		if (data.length > 0) {
-			// $("#sdesc").html(data.length + "개의 검색결과가 있습니다.");
-			if (data.length < 5)
-				waitForSearching(blank_, 3, false);
-			else if (data.length < 9)
-				waitForSearching(blank_, 1, false);
-		} else {
-			waitForSearching("검색결과가 없습니다.", 5);
+		infScrDone = true;
+
+		if (firstPage) {
+			if (data.length > 1) {
+				if (data.length < 6)
+					waitForSearching(blank_, 3, false);
+				else if (data.length < 10)
+					waitForSearching(blank_, 1, false);
+			} else {
+				if (noPage) {
+					deletespanel();
+					waitForSearching("검색결과가 없습니다.", 5);
+				}
+			}
 		}
 	}
 
@@ -464,15 +483,20 @@
 		}
 	}
 
+	var snum = 24; // 로딩 판넬 갯수
+	var page = 0; // 무한스크롤 페이지
+
 	// text 검색으로 관련 정보를 를 보여주다.
 	// 검색어(skey), 검색분류(users: recruits or resumes)
-	function getKeyList(users, skey) {
+	function getKeyList(users, skey, pageSize, pageNum) {
 		if (users == "recruits") {
-			var tmp_0 = "/sresult/recruits/getkey/";
-			$.getJSON(tmp_0 + skey + "/0/0", RecruitHandler);
+			var urltmp = "/sresult/recruits/getkey/" + skey + "/" + pageSize
+					+ "/" + pageNum;
+			$.getJSON(urltmp, RecruitHandler);
 		} else { // resumes
-			var tmp_0 = "/sresult/resumes/getkey/";
-			$.getJSON(tmp_0 + skey + "/0/0", ResumeHandler);
+			var urltmp = "/sresult/resumes/getkey/" + skey + "/" + pageSize
+					+ "/" + pageNum;
+			$.getJSON(urltmp, ResumeHandler);
 		}
 	}
 
@@ -490,6 +514,8 @@
 	// select 검색 버튼 click 이벤트 핸들러
 	// ajax로 select filters 전송 to controller
 	$("#sel_search_btn").on("click", function() {
+		page = 0;
+		lastpage = false;
 		var array = [];
 		var i = 0;
 		waitForSearching(smsg, 5);
@@ -681,6 +707,28 @@
 
 	waitForSearching(blank_, 5);
 	$("#sinput").focus();
+
+	var lastpage = false;
+	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
+
+	function infiniteScroll() {
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			if (infScrDone && !lastpage) {
+				console.log(page);
+				if ($("#stype").attr("value") === "1") {
+					getKeyList("recruits", sout, snum, page++);
+					tmp = '<div id="infSrch"><h3 align="center"><span style="color: white;">'
+							+ '_</span><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
+							+ '</h3></div>';
+
+					$("#spanel").append(tmp);
+					infScrDone = false;
+				}
+			}
+		}
+	}
+
+	$(window).scroll(infiniteScroll);
 <%if (!(srchVO.getSkeyword() == null || "".equals(srchVO.getSkeyword()))) {%>
 	$("#search_btn").trigger('click');
 <%} else if (!(srchVO.getSfilter() == null)) {%>

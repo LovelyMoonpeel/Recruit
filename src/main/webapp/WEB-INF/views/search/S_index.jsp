@@ -507,7 +507,6 @@
 						+ '_</span><br /><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
 						+ '</h3><br /></div>';
 
-				// var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
 				$("#spanel").append(tmp);
 				infScrDone = false;
 				if (page % 4 === 3)
