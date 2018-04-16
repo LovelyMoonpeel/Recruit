@@ -55,15 +55,15 @@
 			data-slider-min="1"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
 		</div>
-		<span>직무 중요도 : <span id="val_job">${PreferenceVO.job}</span></span>
+		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.job}</span></span>
 		
  		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_region" type="text" data-provide="slider"
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
-			data-slider-value="5" />
+			data-slider-value='5' />
 		</div>
-		<span>지역 중요도 : <span id="val_region">${PreferenceVO.region}</span></span>
+		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.region}</span></span>
 
 		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
@@ -71,71 +71,43 @@
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
 		</div>
-		<span>근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.employstatus}</span></span>
+		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.employstatus}</span></span>
 		<br>
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_levelofeducation" type="text" data-provide="slider"
 				data-slider-min="1" data-slider-max="5" data-slider-step="1"
 				data-slider-value="3" />
-				<!-- data-slider-ticks="[1, 2, 3, 4, 5]"
-				data-slider-ticks-labels='["1", "2", "3", "4", "5"]' -->
 		</div>
-		<span>학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.levelofeducation}</span></span>
+		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.levelofeducation}</span></span>
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_lastcareer" type="text" data-provide="slider"
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="3" />
 		</div>
-		<span>경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
+		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
 		<br> 
 	</div>
-	/*
-		select re.bno as bno, re.userid as userid
-	, re.levelofeducation as levelofeducation
-	, re.lastcareer as lastcareer, re.employstatusid as employstatusid
-	,(select z from tblcode where id=re.lastcareer) as z
-	,(select y from tblcode where id=re.levelofeducation) as y
-	,(select x from tblcode where id=re.employstatusid) as x
-	from tblresume re
-	<table class="table">
-	<tr>
-		<td>
-		${CoordinateVO.bno }
-		</td>
-		<td>
-		${CoordinateVO.userid }
-		</td>
-	</tr>
-<%-- 	<tr>
-		<td>
-		${CoordinateVO.levelofeducation }
-		</td>
-		<td>
-		${CoordinateVO.lastcareer }
-		</td>
-			<td>
-		${CoordinateVO.employstatusid }
-		</td>
-	</tr>
-		<tr>
-		<td>
-		${CoordinateVO.z }
-		</td>
-		<td>
-		${CoordinateVO.y }
-		</td>
-			<td>
-		${CoordinateVO.x }
-		</td>
-	</tr> --%>
-	
-	</table>
-	
-	
 <script>
 $(document).ready(function (){
+
+	$("#val_job").html(${PreferenceVO.job}/20);
+	$("#slider_job").attr("data-slider-value",(${PreferenceVO.job}/20));
+	
+	$("#val_region").html(${PreferenceVO.region}/20);
+	$("#slider_region").attr("data-slider-value",(${PreferenceVO.region}/20));
+	
+	$("#val_employstatus").html(${PreferenceVO.employstatus}/20);
+	$("#slider_employstatus").attr("data-slider-value",(${PreferenceVO.employstatus}/20));
+	
+	$("#val_levelofeducation").html(${PreferenceVO.levelofeducation}/20);
+	$("#slider_levelofeducation").attr("data-slider-value",(${PreferenceVO.levelofeducation}/20));
+	
+	$("#val_lastcareer").html(${PreferenceVO.lastcareer}/20);
+	$("#slider_lastcareer").attr("data-slider-value",(${PreferenceVO.lastcareer}/20)); 	
+
+	
 	$("#slider_job").slider({	
 		id: "slider_job" ,
 		formatter: function(value) {
@@ -212,11 +184,10 @@ $(document).ready(function (){
 		$("#val_lastcareer").text(slideEvt.value);
 	});
 });
-
 </script>
 
 	<div class="container"
-		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 30px;">
+		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
 		<h4>
 			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
 			항목 중요도 조절
@@ -278,11 +249,40 @@ $(document).ready(function (){
 					${PreferenceVO.levelofeducation}%</div>
 			</div>
 			<div class="progress">
-				<div id="bar_lastcareer" class="progress-bar" role="progressbar"
-					aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+				<div id="bar_lastcareer" class="progress-bar"
+					role="progressbar" aria-valuenow="50" aria-valuemin="0"
+					aria-valuemax="100"
 					style="width: ${PreferenceVO.lastcareer}%; background-color: #c0c6d3;">경력
 					${PreferenceVO.lastcareer}%</div>
 			</div>
+		</div>
+	</div><!-- container end -->
+	<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
+					<th style="text-align: center; vertical-align:middle;">회사명</th>
+					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
+					<th style="text-align: center; vertical-align:middle;">회사 ID</th>
+					<th style="text-align: center; vertical-align:middle;">모집기간</th>
+					<th style="text-align: center; vertical-align:middle;">지원자 수</th>
+					<th style="text-align: center; vertical-align:middle;">관리</th>
+				</tr>
+
+				<c:forEach items="${CRecruitVOList}" var="CRecruitVO"
+					varStatus="status">
+					<tr>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.title}</td>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 </div>

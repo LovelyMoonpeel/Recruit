@@ -3,7 +3,7 @@ package com.recruit.domain;
 public class CoordinateVO {
 	
 	private int bno;
-	private String userid;
+/*	private String userid;
 
 	private String cid;
 	
@@ -20,7 +20,7 @@ public class CoordinateVO {
 	private String w2;
 	private String x;
 	private String y;
-	private String z;
+	private String z;*/
 	
 	private String distance;
 
@@ -32,7 +32,7 @@ public class CoordinateVO {
 		this.bno = bno;
 	}
 
-	public String getUserid() {
+	/*public String getUserid() {
 		return userid;
 	}
 
@@ -143,7 +143,7 @@ public class CoordinateVO {
 	public void setZ(String z) {
 		this.z = z;
 	}
-
+*/
 	public String getDistance() {
 		return distance;
 	}
@@ -154,10 +154,7 @@ public class CoordinateVO {
 
 	@Override
 	public String toString() {
-		return "CoordinateVO [bno=" + bno + ", userid=" + userid + ", cid=" + cid + ", title=" + title
-				+ ", levelofeducation=" + levelofeducation + ", lastcareer=" + lastcareer + ", employstatusid="
-				+ employstatusid + ", edu=" + edu + ", exp=" + exp + ", v=" + v + ", w1=" + w1 + ", w2=" + w2 + ", x="
-				+ x + ", y=" + y + ", z=" + z + ", distance=" + distance + "]";
+		return "CoordinateVO [bno=" + bno + ", distance=" + distance + "]";
 	}
 	
 }
