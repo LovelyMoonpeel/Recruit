@@ -457,7 +457,6 @@ public class PersonalController {
 			model.addAttribute("CoordinateVO", PREFService.selectCodeCoordinate(3));
 			//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
 			
-			
 			//model.addAttribute("CRecruitVOList",CService.selectRecomList(bno);
 			//4. 채용공고 번호로 리스트 끌어오기
 					
