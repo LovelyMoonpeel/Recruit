@@ -70,9 +70,7 @@ public class CompanyAjax {
 
 	    return entity;
 	  }
-	
 
-	 
 	@RequestMapping(value = "/jobGroup/{id2}", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list(@PathVariable("id2") int id2) {
 

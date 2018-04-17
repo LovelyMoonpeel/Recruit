@@ -41,7 +41,7 @@
 </style>
 <!-- Main content -->
 <form role="form">
-		<input type='hidden' name='id' value="${PUserVO.id}">
+		<input type='hidden' id='userid' name='id' value="${PUserVO.id}">
 </form>
 <!--  스크랩한채용공고 페이지 -->
 <div class="col-md-9" style="padding-top:20px;">
@@ -92,20 +92,20 @@
 <script>
 $(document).ready(function (){
 
-	$("#val_job").html(${PreferenceVO.job}/20);
-	$("#slider_job").attr("data-slider-value",(${PreferenceVO.job}/20));
+	$("#val_job").html(${PreferenceVO.job});
+	$("#slider_job").attr("data-slider-value",(${PreferenceVO.job}));
 	
-	$("#val_region").html(${PreferenceVO.region}/20);
-	$("#slider_region").attr("data-slider-value",(${PreferenceVO.region}/20));
+	$("#val_region").html(${PreferenceVO.region});
+	$("#slider_region").attr("data-slider-value",(${PreferenceVO.region}));
 	
-	$("#val_employstatus").html(${PreferenceVO.employstatus}/20);
-	$("#slider_employstatus").attr("data-slider-value",(${PreferenceVO.employstatus}/20));
+	$("#val_employstatus").html(${PreferenceVO.employstatus});
+	$("#slider_employstatus").attr("data-slider-value",(${PreferenceVO.employstatus}));
 	
-	$("#val_levelofeducation").html(${PreferenceVO.levelofeducation}/20);
-	$("#slider_levelofeducation").attr("data-slider-value",(${PreferenceVO.levelofeducation}/20));
+	$("#val_levelofeducation").html(${PreferenceVO.levelofeducation});
+	$("#slider_levelofeducation").attr("data-slider-value",(${PreferenceVO.levelofeducation}));
 	
-	$("#val_lastcareer").html(${PreferenceVO.lastcareer}/20);
-	$("#slider_lastcareer").attr("data-slider-value",(${PreferenceVO.lastcareer}/20)); 	
+	$("#val_lastcareer").html(${PreferenceVO.lastcareer});
+	$("#slider_lastcareer").attr("data-slider-value",(${PreferenceVO.lastcareer})); 	
 
 	
 	$("#slider_job").slider({	
@@ -117,9 +117,37 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_job").text());
       
+     // var val_job = ${PreferenceVO.job};
+      var val_region = ${PreferenceVO.region};
+      var val_employstatus = ${PreferenceVO.employstatus};
+      var val_levelofeducation = ${PreferenceVO.levelofeducation};
+      var val_lastcareer = ${PreferenceVO.lastcareer};
+      
       if(newvalue!=oldvalue){
     	 $("#val_job").text(newvalue);
-      }
+    	 
+    	 $.ajax({
+       	  type:'POST',
+       	  url: '/personal/recom_modify',
+       	  headers:{
+       		  "Content-Type" : "application/json; charset=UTF-8",
+       		  "X-HTTP-Method-Override" : "POST"
+       	  },
+       	  dataType: 'text',
+       	  data:JSON.stringify({
+       		  job : newvalue,
+       		  region : val_region,
+       		  employstatus : val_employstatus,
+       		  levelofeducation : val_levelofeducation,
+       		  lastcareer : val_lastcareer
+       	  }),
+       	  success : function(result){
+       		  if(result=='success'){
+       			  location.href="/personal/recom";
+       		  }
+       	  }//success end
+         });//ajax end
+      }//if end
     });
 	
 	$("#slider_region").slider({ 
@@ -131,9 +159,37 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_region").text());
       
+      var val_job = ${PreferenceVO.job};
+      //var val_region = ${PreferenceVO.region};
+      var val_employstatus = ${PreferenceVO.employstatus};
+      var val_levelofeducation = ${PreferenceVO.levelofeducation};
+      var val_lastcareer = ${PreferenceVO.lastcareer};
+      
       if(newvalue!=oldvalue){
     	 $("#val_region").text(newvalue);
-      }
+
+    	 $.ajax({
+       	  type:'POST',
+       	  url: '/personal/recom_modify',
+       	  headers:{
+       		  "Content-Type" : "application/json; charset=UTF-8",
+       		  "X-HTTP-Method-Override" : "POST"
+       	  },
+       	  dataType: 'text',
+       	  data:JSON.stringify({
+       		  job : val_job,
+      		  region : newvalue,
+      		  employstatus : val_employstatus,
+      		  levelofeducation : val_levelofeducation,
+      		  lastcareer : val_lastcareer
+       	  }),
+       	  success : function(result){
+       		  if(result=='success'){
+       			location.href="/personal/recom";
+       		  }
+       	  }//success end
+         });//ajax end
+      }//if end
     });
 	
 	$("#slider_employstatus").slider({	
@@ -142,13 +198,40 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_employstatus").text());
       
+      var val_job = ${PreferenceVO.job};
+      var val_region = ${PreferenceVO.region};
+      //var val_employstatus = ${PreferenceVO.employstatus};
+      var val_levelofeducation = ${PreferenceVO.levelofeducation};
+      var val_lastcareer = ${PreferenceVO.lastcareer};
+      
       if(newvalue!=oldvalue){
     	 $("#val_employstatus").text(newvalue);
-      }
+    	 
+    	 $.ajax({
+       	  type:'POST',
+       	  url: '/personal/recom_modify',
+       	  headers:{
+       		  "Content-Type" : "application/json; charset=UTF-8",
+       		  "X-HTTP-Method-Override" : "POST"
+       	  },
+       	  dataType: 'text',
+       	  data:JSON.stringify({
+       		
+	       	job : val_job,
+	 		region : val_region,
+	 		employstatus : newvalue,
+	 		levelofeducation : val_levelofeducation,
+	 		lastcareer : val_lastcareer
+ 		  
+       	  }),
+       	  success : function(result){
+       		  if(result=='success'){
+       			  location.href="/personal/recom";
+       		  }
+       	  }//success end
+         });//ajax end
+      }//if end
     });
-	$("#slider_employstatus").on("slide", function(slideEvt) {
-		$("#val_employstatus").text(slideEvt.value);
-	});
 
 	$("#slider_levelofeducation").slider({ 
 		id: "slider_levelofeducation",
@@ -159,13 +242,38 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_levelofeducation").text());
       
+      var val_job = ${PreferenceVO.job};
+      var val_region = ${PreferenceVO.region};
+      var val_employstatus = ${PreferenceVO.employstatus};
+      //var val_levelofeducation = ${PreferenceVO.levelofeducation};
+      var val_lastcareer = ${PreferenceVO.lastcareer};
+      
       if(newvalue!=oldvalue){
     	 $("#val_levelofeducation").text(newvalue);
-      }
+    	 
+    	 $.ajax({
+       	  type:'POST',
+       	  url: '/personal/recom_modify',
+       	  headers:{
+       		  "Content-Type" : "application/json; charset=UTF-8",
+       		  "X-HTTP-Method-Override" : "POST"
+       	  },
+       	  dataType: 'text',
+       	  data:JSON.stringify({
+       		job : val_job,
+	 		region : val_region,
+	 		employstatus : val_employstatus,
+	 		levelofeducation : newvalue,
+	 		lastcareer : val_lastcareer
+       	  }),
+       	  success : function(result){
+       		  if(result=='success'){
+       			  location.href="/personal/recom";
+       		  }
+       	  }//success end
+         });//ajax end
+      }//if end
     });
-	$("#slider_levelofeducation").on("slide", function(slideEvt) {
-		$("#val_levelofeducation").text(slideEvt.value);
-	});
 
 	$("#slider_lastcareer").slider({	
 		id: "slider_lastcareer",
@@ -176,14 +284,43 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_lastcareer").text());
       
+      var val_job = ${PreferenceVO.job};
+      var val_region = ${PreferenceVO.region};
+      var val_employstatus = ${PreferenceVO.employstatus};
+      var val_levelofeducation = ${PreferenceVO.levelofeducation};
+      //var val_lastcareer = ${PreferenceVO.lastcareer};
+      
       if(newvalue!=oldvalue){
     	 $("#val_lastcareer").text(newvalue);
-      }
+    	 
+    	 $.ajax({
+          	  type:'POST',
+          	  url: '/personal/recom_modify',
+          	  headers:{
+          		  "Content-Type" : "application/json; charset=UTF-8",
+          		  "X-HTTP-Method-Override" : "POST"
+          	  },
+          	  dataType: 'text',
+          	  data:JSON.stringify({
+           		job : val_job,
+    	 		region : val_region,
+    	 		employstatus : val_employstatus,
+    	 		levelofeducation : val_levelofeducation,
+          		lastcareer : newvalue
+          	  }),
+          	  success : function(result){
+          		  if(result=='success'){
+          			  location.href="/personal/recom";
+          		  }
+          	  }//success end
+            });//ajax end
+      }//if end
     });
-	$("#slider_lastcareer").on("slide", function(slideEvt) {
+/* 	$("#slider_lastcareer").on("slide", function(slideEvt) {
 		$("#val_lastcareer").text(slideEvt.value);
-	});
+	}); */
 });
+
 </script>
 
 	<div class="container"
@@ -223,14 +360,14 @@ $(document).ready(function (){
 			<div class="progress">
 				<div id="bar_job" class="progress-bar progress-bar-success"
 					role="progressbar" aria-valuenow="20" aria-valuemin="0"
-					aria-valuemax="100"
+					aria-valuemax="5"
 					style="width: ${PreferenceVO.job}%; background-color: #c0c6d3;">직무
 					${PreferenceVO.job}%</div>
 			</div>
 			<div class="progress">
 				<div id="bar_region" class="progress-bar progress-bar-info"
 					role="progressbar" aria-valuenow="30" aria-valuemin="0"
-					aria-valuemax="100"
+					aria-valuemax="5"
 					style="width: ${PreferenceVO.region}%; background-color: #c0c6d3;">지역
 					${PreferenceVO.region}%</div>
 			</div>
@@ -269,25 +406,42 @@ $(document).ready(function (){
 					<th style="text-align: center; vertical-align:middle;">지원자 수</th>
 					<th style="text-align: center; vertical-align:middle;">관리</th>
 				</tr>
-
-				<c:forEach items="${CRecruitVOList}" var="CRecruitVO"
-					varStatus="status">
+				
+				<c:choose>
+				
+				<c:when test="${CRecruitVOList eq null}">
 					<tr>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.title}</td>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
-						<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;">공개된 이력서가 없어 추천이 불가능합니다.<br>추천 서비스를 이용하려면 이력서를 공개로 설정해주세요. </td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
 						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 					</tr>
-				</c:forEach>
+				</c:when>
+				
+				<c:otherwise>
+					<c:forEach items="${CRecruitVOList}" var="CRecruitVO" varStatus="status">
+						<tr>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.title}</td>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
 			</table>
 		</div>
 	</div>
 </div>
 <br>
-
+<br>
+<br>
 <script>
 function add_job() {
 	var bar_job = document.getElementById("bar_job");

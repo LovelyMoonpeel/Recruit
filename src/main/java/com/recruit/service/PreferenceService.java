@@ -11,6 +11,12 @@ public interface PreferenceService {
 	//5가지에 대한 선호도
 	public PreferenceVO selectPREFOne(String id)throws Exception;
 	
+	//5가지에 대한 선호도 udpate
+	public void updatePREFOne(PreferenceVO prefvo)throws Exception;
+	
+	//공개된 이력서가 있는지 확인하는 서비스
+	public Integer selectPublicResume(String id)throws Exception;
+	
 	//해당 이력서에 대한 추천 채용공고 리스트
 	public List<CoordinateVO> selectCoordinateList(int bno)throws Exception;
 	

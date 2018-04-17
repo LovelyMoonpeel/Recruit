@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.PreferenceVO;
+import com.recruit.domain.ResumeVO;
 
 @Repository
 public class PreferenceDAOImpl implements PreferenceDAO{
@@ -25,10 +26,22 @@ public class PreferenceDAOImpl implements PreferenceDAO{
 		return session.selectOne(namespace + ".selectPREFOne", id);
 	}
 	
+	//5가지에 대한 선호도 update
+	@Override
+	public void updatePREFOne(PreferenceVO prefvo)throws Exception{
+		session.update(namespace + ".updatePREFOne", prefvo);
+	}
+	
+	//공개된 이력서가 있는지 확인하는 서비스
+	@Override
+	public Integer selectPublicResume(String id)throws Exception{
+		return session.selectOne(namespace + ".selectPublicResume", id);
+	}	
+	
 	//해당 이력서에 대한 추천 채용공고 리스트
 	@Override
-	public List<CoordinateVO> selectCoordinateList(int bno)throws Exception{
-		System.out.println("DAO에서 받은 이력서 번호"+bno);
+	public List<CoordinateVO> selectCoordinateList(Integer bno)throws Exception{
+	//	System.out.println("DAO에서 받은 이력서 번호"+resume.getBno());
 		return session.selectList(namespace + ".selectCoordinateList", bno);
 	}
 	

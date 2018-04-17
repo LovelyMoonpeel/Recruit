@@ -30,11 +30,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.PApplyVO;
+import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
+import com.recruit.domain.PreferenceVO;
 import com.recruit.domain.RLicenseVO;
 import com.recruit.domain.ResumeCareerVO;
 import com.recruit.domain.ResumeEduVO;
@@ -450,23 +453,25 @@ public class PersonalController {
 		if (login != null) {
 			String id = login.getId();
 
-			//model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
-			//5가지의 선호도 불러옴
+			//1. 5가지의 선호도 불러옴
 			
-			//1. 이력서 공개 된거 있는지 확인하는 서비스
-			//2. 확인하고 해당 이력서 번호 가져오는 서비스
-			int bno=278;
-			
-			ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(bno));
-			
-			System.out.println("나오냐"+top10);
-			//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
-			
-			model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10));
-			//4. 채용공고 번호로 리스트 끌어오기
-					
+			//2. 이력서 공개 된거 있는지 확인하고 번호 가져오는 서비스
+			if(PREFService.selectPublicResume(id)==null){
+				System.out.println("공개된 이력서가 없다.");
+				model.addAttribute("CRecruitVOList",null);
+			}else{
+				Integer bno = PREFService.selectPublicResume(id);
+				
+				ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(bno));
+				System.out.println("나오냐"+top10);
+				//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
+				
+				model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10));
+				//4. 채용공고 번호로 리스트 끌어오기
+			};
+		
 			return "personal/P_recom";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -474,7 +479,39 @@ public class PersonalController {
 		}
 	}
 	
-	// 추천채용공고
+	// 추천채용공고 수정하는 ajax
+	@ResponseBody
+	@RequestMapping(value = "/recom_modify", method = RequestMethod.POST)
+	public ResponseEntity<String> recomModify(@RequestBody PreferenceVO prefvo, HttpSession session) throws Exception {
+		System.out.println("recom POST Controller");
+		
+		ResponseEntity<String> entity = null;
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			try{			
+				System.out.println("트라이");
+				prefvo.setUserid(id);
+				System.out.println(prefvo);
+				
+				//업데이트 하는 서비스
+				PREFService.updatePREFOne(prefvo);
+				
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		} else {
+			entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+		}
+		
+		return entity;
+	}
+	
+/*	// 추천채용공고
 	@RequestMapping(value = "/recom", method = RequestMethod.POST)
 	public String recomPOST(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("recom POST Controller");
@@ -492,7 +529,7 @@ public class PersonalController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
-	}
+	}*/
 
 	// 관심채용공고
 	@RequestMapping(value = "/favor_all", method = RequestMethod.GET)
