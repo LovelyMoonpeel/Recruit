@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.StatisticVO;
 import com.recruit.persistence.AdminDAO;
 
 @Service
@@ -82,4 +83,8 @@ public class AdminServiceImpl implements AdminService {
 		return dao.ccount();
 	}
 
+	@Override
+	public List<StatisticVO> count_recruit() throws Exception{
+		return dao.count_recruit();
+	}
 }

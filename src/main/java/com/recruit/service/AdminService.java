@@ -5,6 +5,7 @@ import java.util.List;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.StatisticVO;
 
 public interface AdminService {
 
@@ -33,4 +34,6 @@ public interface AdminService {
 	public int pcount()throws Exception;
 	
 	public int ccount()throws Exception;
+	
+	public List<StatisticVO> count_recruit() throws Exception;
 }

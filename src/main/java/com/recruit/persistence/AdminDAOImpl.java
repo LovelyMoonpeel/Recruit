@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.StatisticVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -94,4 +95,8 @@ public class AdminDAOImpl implements AdminDAO {
 		return session.selectOne(namespace+".ccount");
 	}
 
+	@Override
+	public List<StatisticVO> count_recruit() throws Exception{
+		return session.selectList(namespace+".count_recruit");
+	}
 }

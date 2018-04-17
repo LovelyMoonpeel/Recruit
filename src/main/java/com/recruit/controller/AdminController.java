@@ -619,6 +619,7 @@ public class AdminController {
 	public String chartGET(Model model) throws Exception{
 		model.addAttribute("P_member",aservice.pcount());
 		model.addAttribute("C_member", aservice.ccount());
+		model.addAttribute("weekRecruit", aservice.count_recruit());
 		return "/admin/A_chart";
 	}
 	

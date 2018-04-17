@@ -12,159 +12,102 @@
 		</div>
 	</div>
 	<!--/.row-->
-
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">Line Chart
-					<div class="panel-body">
-						<div class="canvas-wrapper">
-							<canvas class="main-chart" id="line-chart" height="200"
-								width="600"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> <!-- //row -->
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">회원수
-					<div class="panel-body">
-						<div class="canvas-wrapper">
-							<canvas class="main-chart" id="Member" height="200"
-								width="600"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> <!-- //row -->
+<!-- 화면전환 -->
 <ul class="nav nav-tabs">
-	<!--★ href부분 값은 밑에 id랑 연결된다  -->
-	<li class><a data-toggle="tab" href="#login_person">개인회원</a></li>
-	<li class><a data-toggle="tab" href="#login_company">기업회원</a></li>
+	<li class="active"><a data-toggle="tab" href="#test_chart" id="test_cha">테스트</a></li>
+	<li><a data-toggle="tab" href="#user_chart" id="user_cha">회원수</a></li>
+	<li><a data-toggle="tab" href="#recruit_chart" id="recruit_cha">채용공고</a></li>
 </ul>
-
-<br>
-
-<!--모달 안의 내용/개인회원&기업회원  -->
-<div class="tab-content">
-	<!--_____________________1-1.로그인 개인 회원 시작_____________________ -->
-	<div name="login_person" class="tab-pane fade">
-
-		<!-- action의 속성값으로 인해 UserController의 '/user/loginPost'부분으로 넘어간다  -->
-		<form action="/user/loginPost" method="post">
-			<input type="hidden" name="index" value="per"> <input
-				type="hidden" name="location" class="location">
-			<!--id입력  -->
-			<!--★ 는 빈칸을 두지않게 하는 장치  -->
-			<div class="form-group has-feedback">
-				<input type="text" name="id" class="form-control"
-					placeholder="ID 개인 회원 로그인" value="<%=pidc%>" /> <span
-					class="glyphicon  form-control-feedback"></span>
-			</div>
-
-			<!--password입력 -->
-			<div class="form-group has-feedback">
-				<input type="password"  name="pw" class="form-control"
-					placeholder="Password" /> <span
-					class="glyphicon form-control-feedback"></span>
-			</div>
-
-			<!--★ row로 인해서 여러 개를 한 줄에 나열 -->
-			<div class="row">
-
-				<!--기억하기 체크버튼  -->
-				<div class="col-xs-8">
-					<div class="checkbox icheck">
-						<label> <input type="checkbox" name="useCookie"
-							<%=pchkc%>> 기억하기
-						</label>
+	<div class="tab-content">
+		<div class="tab-pane fade active in" id="test_chart">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Line Chart
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="main-chart" id="line-chart" height="200"
+									width="600"></canvas>
+							</div>
+						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<!-- //tab-pane -->
 
-				<!--로그인 버튼 -->
-				<div class="col-xs-4">
-					<button type="submit" class="btn btn-primary btn-block btn-flat">로그인</button>
+		<div class="tab-pane fade" id="user_chart">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						회원수
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="main-chart" id="member" height="200" width="600"></canvas>
+							</div>
+						</div>
+					</div>
+					개인회원 기업회원    오늘 가입자수
 				</div>
-
 			</div>
-			<!--//row -->
-
-			<!--아이디, 패스워드 까먹었을 경우를 대비  -->
-			<a href="/user/IDsearch">아이디를 잊어버렸어요</a> <br> <a
-				href="/user/PWsearch">패스워드를 잊어버렸어요</a>
-
-		</form>
-
-	</div>
-	<!--_____________________//1-1.로그인 개인 회원 끝_____________________ -->
-
-
-	<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
-	<div  class="tab-pane fade <%=cactive%>">
-
-		<form action="/user/loginPost" method="post">
-			<input type="hidden" name="index" value="com"> <input
-				type="hidden" name="location" class="location">
-			<!--id입력 -->
-			<div class="form-group has-feedback">
-				<input type="text" name="logincid" name="id" class="form-control"
-					placeholder="ID 기업회원 로그인" value="<%=cidc%>" /> <span
-					class="glyphicon  form-control-feedback"></span>
-			</div>
-
-			<!--password입력 -->
-			<div class="form-group has-feedback">
-				<input type="password" name="logincpw" name="pw" class="form-control"
-					placeholder="Password" /> <span
-					class="glyphicon form-control-feedback"></span>
-			</div>
-
-			<!--row -->
-			<div class="row">
-				<!--기억하기 체크버튼  -->
-				<div class="col-xs-8">
-					<div class="checkbox icheck">
-						<label> <input type="checkbox" name="useCookie"
-							<%=cchkc%>> 기억하기
-						</label>
+		</div>
+		<!-- //tab-pane -->
+		<div class="tab-pane fade" id="recruit_chart">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						최근 일주일간 등록된 채용공고
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="main-chart" id="recruit" height="200" width="600"></canvas>
+							</div>
+						</div>
 					</div>
 				</div>
-
-				<!--로그인 버튼 -->
-				<div class="col-xs-4">
-					<button type="submit" class="btn btn-primary btn-block btn-flat">로그인</button>
-				</div>
-
+				<!-- piechart-대분류 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Pie Chart
+						</div>
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="chart" id="pie-chart"></canvas>
+							</div>
+						</div>
+					</div>
 			</div>
-			<!--//row -->
-
-			<!--아이디, 패스워드 까먹었을 경우를 대비  -->
-			<a href="/user/IDsearch">아이디를 잊어버렸어요</a> <br> <a
-				href="/user/PWsearch">패스워드를 잊어버렸어요</a>
-		</form>
-
+		</div>
 	</div>
-	<!--_____________________//1.2로그인 기업 회원 끝_____________________ -->
-
+	<!-- tab-content -->
 </div>
-<!--//tab-content 모달 안의 내용/개인회원&기업회원 -->
-</div>
-
-
-<!-- //FAQ 페이지 -->
-<!-- /.container -->
+<!-- main -->
+<!-- //chart 페이지 -->
 <script src="/resources/rpjt/js/chart.min.js"></script>
 <script src="/resources/rpjt/js/easypiechart.js"></script>
 <script src="/resources/rpjt/js/easypiechart-data.js"></script>
 
-<!-- 그래프 표현 -->
 <script>
-	window.onload = function test() {
+var day = [];
+var weekRecruit = [];
+var pieData = [];
+var color = ["#30a5ff", "#ffb53e", "#1ebfae", "#f9243f"];
+var highlight = ["#62b9fb", "#fac878", "#3cdfce", "#f6495f"];
+window.onload = function(){
+	
+	<% int cnt = 0; %>
+	<c:forEach items="${weekRecruit}" var="StatisticVO">
+		day[<%= cnt%>] = "${StatisticVO.day}";
+		weekRecruit[<%= cnt%>] = "${StatisticVO.weekRecruit}";
+		<% cnt++; %>
+	</c:forEach>
+
+}
+
+
+
+/* 그래프 표현 */
+$("#test_cha").on("click",function(){
+	setTimeout(function(){
 		var chart1 = document.getElementById("line-chart").getContext("2d");
 		window.myLine = new Chart(chart1).Line(lineChartData, {
 			responsive : true,
@@ -172,19 +115,46 @@
 			scaleGridLineColor : "rgba(0,0,0,.05)",
 			scaleFontColor : "#c5c7cc"
 		});
+	}, 200);
+});
 
-		var chart2 = document.getElementById("Member").getContext("2d");
-		window.myLine2 = new Chart(chart2).Line(Memberchart, {
+$("#user_cha").on("click", function(){
+	setTimeout(function(){
+		var chart2 = document.getElementById("member").getContext("2d");
+		window.myLine2 = new Chart(chart2).Line(memberChart, {
 			responsive : true,
 			scaleLineColor : "rgba(0,0,0,.2)",
 			scaleGridLineColor : "rgba(0,0,0,.05)",
 			scaleFontColor : "#c5c7cc"
 		});
-	};
-</script>
+	}, 200);
+});
 
-<!-- 그래프 데이터 -->
-<script>
+$("#recruit_cha").on("click", function(){
+	setTimeout(function(){
+		var chart3 = document.getElementById("recruit").getContext("2d");
+		window.myLine3 = new Chart(chart3).Line(recruitChart, {
+			responsive : true,
+			scaleLineColor : "rgba(0,0,0,.2)",
+			scaleGridLineColor : "rgba(0,0,0,.05)",
+			scaleFontColor : "#c5c7cc"
+		});
+		
+		for(var i=0;i<4;i++){
+			pieData[i] = {value:parseInt(weekRecruit[i+3]), color:color[i], highlight:highlight[i], label:day[i+3]};
+		}
+		
+		var chart4 = document.getElementById("pie-chart").getContext("2d");
+		window.myPie = new Chart(chart4).Pie(pieData, {
+		responsive: true,
+		segmentShowStroke: false
+		});
+	}
+	, 200);
+});
+
+
+/* 그래프 데이터 */
 var randomScalingFactor = function(){
 	return Math.round(Math.random()*1000)
 	};
@@ -205,7 +175,7 @@ var lineChartData ={
 	]
 }
 
-var Memberchart = {
+var memberChart = {
 	labels : ["개인회원","기업회원"],
 	datasets : [
 		{
@@ -220,6 +190,57 @@ var Memberchart = {
 		}
 	]
 }
+var recruitChart = {
+		labels : day,
+		datasets : [
+			{
+				label: "채용공고데이터",
+				fillColor : "rgba(48, 164, 255, 0.2)",
+				strokeColor : "rgba(48, 164, 255, 1)",
+				pointColor : "rgba(48, 164, 255, 1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : weekRecruit
+			}
+		]
+	}
+	
+/* for(var i=0;i<4;i++){
+	pieData[i] = {value:weekRecruit[i], color:color[i], highlight:highlight[i], label:day[i]};
+} */
+
+/* var pieData = [
+	{
+		value: 300,
+		color:"#30a5ff",
+		highlight: "#62b9fb",
+		label: "Blue"
+	},
+	{
+		value: 50,
+		color: "#ffb53e",
+		highlight: "#fac878",
+		label: "Orange"
+	},
+	{
+		value: 100,
+		color: "#1ebfae",
+		highlight: "#3cdfce",
+		label: "Teal"
+	},
+	{
+		value: 120,
+		color: "#f9243f",
+		highlight: "#f6495f",
+		label: "Red"
+	}
+]; */
 </script>
 
+<script>
+$(document).ready(function(){
+	$("#test_cha").trigger("click");
+})
+</script>
 <%@include file="../include/cfooter.jsp"%>
