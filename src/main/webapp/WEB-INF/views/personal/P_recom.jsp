@@ -392,6 +392,42 @@ $(document).ready(function (){
 			</div>
 		</div>
 	</div><!-- container end -->
+	
+		<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle;">이력서 번호</th>
+					<th style="text-align: center; vertical-align:middle;">아이디</th>
+					<th style="text-align: center; vertical-align:middle;">이력서 제목</th>
+					<th style="text-align: center; vertical-align:middle;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle;">경력 z</th>
+					<th style="text-align: center; vertical-align:middle;">관리</th>
+				</tr>
+				
+				<tr>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.bno}</td>
+					<td style="text-align: center; vertical-align:middle;">${PUserVO.id}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.title}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.x}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.y}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.z}</td>
+					<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	
 	<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
 		<div class="table-responsive">
 			<table class="table table-bordered">
@@ -399,13 +435,13 @@ $(document).ready(function (){
 					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
 					<th style="text-align: center; vertical-align:middle;">회사명</th>
 					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
-					<th style="text-align: center; vertical-align:middle;">직무1 v</th>
-					<th style="text-align: center; vertical-align:middle;">직무2 v</th>
-					<th style="text-align: center; vertical-align:middle;">지역1 w1</th>
-					<th style="text-align: center; vertical-align:middle;">지역2 w2</th>
-					<th style="text-align: center; vertical-align:middle;">근무형태  x</th>
-					<th style="text-align: center; vertical-align:middle;">학력  y</th>
-					<th style="text-align: center; vertical-align:middle;">경력  z</th>
+					<th style="text-align: center; vertical-align:middle;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle;">경력 z</th>
 					<th style="text-align: center; vertical-align:middle;">관리</th>
 				</tr>
 				
@@ -424,18 +460,18 @@ $(document).ready(function (){
 				</c:when>
 				
 				<c:otherwise>
-					<c:forEach items="${CRecruitVOList}" var="CRecruitVO" varStatus="status">
+					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
 						<tr>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.title}</td>
-							<td style="text-align: center; vertical-align:middle;"></td>
-							<td style="text-align: center; vertical-align:middle;">직무2</td>
-							<td style="text-align: center; vertical-align:middle;">지역1</ttdh>
-							<td style="text-align: center; vertical-align:middle;">지역2</td>
-							<td style="text-align: center; vertical-align:middle;">근무형태</td>
-							<td style="text-align: center; vertical-align:middle;">학력</td>
-							<td style="text-align: center; vertical-align:middle;">경력 </td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.cid}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.title}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.x}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.y}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.z}</td>
 							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 						</tr>
 					</c:forEach>

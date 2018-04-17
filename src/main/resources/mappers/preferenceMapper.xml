@@ -39,11 +39,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- CRecruitMapper에서 가져옴 채용공고 하나 확인 -->
-	<select id = "selectRecomendedOne" resultType = "com.recruit.domain.CRecruitVO">
+	<select id = "selectRecomendedOne" resultType = "com.recruit.domain.CoordinateVO">
 	<![CDATA[
-		select *
+		select bno, title, cid
+		, (select jobgroup from tbljobgroup where id=rc.jobgroupid ) as v1
+		, (select jobgroup from tbljobgroup where id=rc.jobgroupid2 ) as v2
+		, (select rgbname from tblregion where rgbid=rc.rgbid AND rgsid=rc.rgsid ) as w1
+		, (select rgsname from tblregion where rgbid=rc.rgbid AND rgsid=rc.rgsid ) as w2
+		, (select career from tblcode where id=rc.employstatusid ) as x
+		, (select career from tblcode where id=rc.edu ) as y
+		, (select career from tblcode where id=rc.exp ) as z
 		from
-		project.tblrecruit
+		tblrecruit rc
+		where bno = #{bno};
+	]]>
+	</select>
+	
+	<!-- 이력서 하나 확인 -->
+	<select id = "selectPublicResumeasCoordinateVO" resultType = "com.recruit.domain.CoordinateVO">
+	<![CDATA[
+		select bno, title
+		, (select jobgroup from tbljobgroup where id=re.jobgroupid ) as v1
+		, (select jobgroup from tbljobgroup where id=re.jobgroupid2 ) as v2
+		, (select rgbname from tblregion where rgbid=re.rgbid AND rgsid=re.rgsid ) as w1
+		, (select rgsname from tblregion where rgbid=re.rgbid AND rgsid=re.rgsid ) as w2
+		, (select career from tblcode where id=re.employstatusid ) as x
+		, (select career from tblcode where id=re.levelofeducation ) as y
+		, (select career from tblcode where id=re.lastcareer ) as z
+		from
+		tblresume re
 		where bno = #{bno};
 	]]>
 	</select>

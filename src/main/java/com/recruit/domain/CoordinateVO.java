@@ -3,24 +3,17 @@ package com.recruit.domain;
 public class CoordinateVO {
 	
 	private int bno;
-/*	private String userid;
-
-	private String cid;
 	
 	private String title;
-	private String levelofeducation;
-	private String lastcareer;
-	private String employstatusid;
-	
-	private String edu;
-	private String exp;
+	private String cid;
 
-	private String v;
+	private String v1;
+	private String v2;
 	private String w1;
 	private String w2;
 	private String x;
 	private String y;
-	private String z;*/
+	private String z;
 	
 	private String distance;
 
@@ -32,12 +25,12 @@ public class CoordinateVO {
 		this.bno = bno;
 	}
 
-	/*public String getUserid() {
-		return userid;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getCid() {
@@ -48,60 +41,20 @@ public class CoordinateVO {
 		this.cid = cid;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getV1() {
+		return v1;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setV1(String v1) {
+		this.v1 = v1;
 	}
 
-	public String getLevelofeducation() {
-		return levelofeducation;
+	public String getV2() {
+		return v2;
 	}
 
-	public void setLevelofeducation(String levelofeducation) {
-		this.levelofeducation = levelofeducation;
-	}
-
-	public String getLastcareer() {
-		return lastcareer;
-	}
-
-	public void setLastcareer(String lastcareer) {
-		this.lastcareer = lastcareer;
-	}
-
-	public String getEmploystatusid() {
-		return employstatusid;
-	}
-
-	public void setEmploystatusid(String employstatusid) {
-		this.employstatusid = employstatusid;
-	}
-
-	public String getEdu() {
-		return edu;
-	}
-
-	public void setEdu(String edu) {
-		this.edu = edu;
-	}
-
-	public String getExp() {
-		return exp;
-	}
-
-	public void setExp(String exp) {
-		this.exp = exp;
-	}
-
-	public String getV() {
-		return v;
-	}
-
-	public void setV(String v) {
-		this.v = v;
+	public void setV2(String v2) {
+		this.v2 = v2;
 	}
 
 	public String getW1() {
@@ -143,7 +96,7 @@ public class CoordinateVO {
 	public void setZ(String z) {
 		this.z = z;
 	}
-*/
+
 	public String getDistance() {
 		return distance;
 	}
@@ -154,7 +107,8 @@ public class CoordinateVO {
 
 	@Override
 	public String toString() {
-		return "CoordinateVO [bno=" + bno + ", distance=" + distance + "]";
+		return "CoordinateVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", v1=" + v1 + ", v2=" + v2 + ", w1="
+				+ w1 + ", w2=" + w2 + ", x=" + x + ", y=" + y + ", z=" + z + ", distance=" + distance + "]";
 	}
 	
 }

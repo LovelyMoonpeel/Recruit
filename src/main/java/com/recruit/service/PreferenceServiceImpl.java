@@ -45,14 +45,20 @@ public class PreferenceServiceImpl implements PreferenceService {
 	
 	//채용공고 번호 리스트로 채용공고 리스트 끌어오기
 	@Override
-	public List<CRecruitVO> selectRecomendedList(List<CoordinateVO> top10)throws Exception{
+	public List<CoordinateVO> selectRecomendedList(List<CoordinateVO> top10)throws Exception{
 		
-		List<CRecruitVO> real_top10 = new ArrayList<CRecruitVO>();
+		List<CoordinateVO> real_top10 = new ArrayList<CoordinateVO>();
 		
 		for(int i=0;i<top10.size()-1;i++){
 			real_top10.add(dao.selectRecomendedOne(top10.get(i)));
 		}
 		System.out.println("PreferenceServiceImpl selectRecomendedList real_top10"+ real_top10);
 		return real_top10;
+	}
+	
+	//해당 이력서 Coordinate로 가져오기
+	@Override
+	public CoordinateVO selectPublicResumeasCoordinateVO(Integer bno)throws Exception{
+		return dao.selectPublicResumeasCoordinateVO(bno);
 	}
 }
