@@ -399,9 +399,13 @@ $(document).ready(function (){
 					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
 					<th style="text-align: center; vertical-align:middle;">회사명</th>
 					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
-					<th style="text-align: center; vertical-align:middle;">회사 ID</th>
-					<th style="text-align: center; vertical-align:middle;">모집기간</th>
-					<th style="text-align: center; vertical-align:middle;">지원자 수</th>
+					<th style="text-align: center; vertical-align:middle;">직무1 v</th>
+					<th style="text-align: center; vertical-align:middle;">직무2 v</th>
+					<th style="text-align: center; vertical-align:middle;">지역1 w1</th>
+					<th style="text-align: center; vertical-align:middle;">지역2 w2</th>
+					<th style="text-align: center; vertical-align:middle;">근무형태  x</th>
+					<th style="text-align: center; vertical-align:middle;">학력  y</th>
+					<th style="text-align: center; vertical-align:middle;">경력  z</th>
 					<th style="text-align: center; vertical-align:middle;">관리</th>
 				</tr>
 				
@@ -425,9 +429,13 @@ $(document).ready(function (){
 							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
 							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
 							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.title}</td>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.cid}</td>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
-							<td style="text-align: center; vertical-align:middle;">${CRecruitVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;"></td>
+							<td style="text-align: center; vertical-align:middle;">직무2</td>
+							<td style="text-align: center; vertical-align:middle;">지역1</ttdh>
+							<td style="text-align: center; vertical-align:middle;">지역2</td>
+							<td style="text-align: center; vertical-align:middle;">근무형태</td>
+							<td style="text-align: center; vertical-align:middle;">학력</td>
+							<td style="text-align: center; vertical-align:middle;">경력 </td>
 							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 						</tr>
 					</c:forEach>
