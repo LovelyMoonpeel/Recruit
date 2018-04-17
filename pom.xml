@@ -253,14 +253,6 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
-
-		<!-- jsoup HTML parser library @ https://jsoup.org/ -->
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.2</version>
-		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>

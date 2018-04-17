@@ -190,7 +190,8 @@
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
 			</p>
-			~ {{period}}
+			~ {{period}}<br />
+			{{jobstateid}}
 		</div>
 	</div>
 </div>
@@ -436,6 +437,7 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
+			jobstateid : that.jobstateid,
 			url : recruitUrl + that.bno
 		};
 		$("#spanel").append(template_pnl(item));

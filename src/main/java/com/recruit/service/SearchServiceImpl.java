@@ -1,9 +1,10 @@
 package com.recruit.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -182,8 +183,17 @@ public class SearchServiceImpl implements SearchService {
 			// recruit
 			if (listRecruit.get(i).getCid() != null)
 				spanelVO.setCname(cuserdao.selectCUser(listRecruit.get(i).getCid()).getCname());
-			spanelVO.setPeriod(listRecruit.get(i).getPeriod());
 			spanelVO.setImg(cImgMap.get(spanelVO.getUserid()));
+
+			String period = listRecruit.get(i).getPeriod();
+			spanelVO.setPeriod(period);
+
+			// LocalDate currentDate = LocalDate.now();
+			try {
+				if (LocalDate.now().isAfter(LocalDate.parse(period)))
+					spanelVO.setJobstateid("[채용마감]");
+			} catch (DateTimeParseException e) {
+			}
 
 			listPanel.add(spanelVO);
 		}
@@ -289,15 +299,7 @@ public class SearchServiceImpl implements SearchService {
 		else
 			recruitVOList = searchDAO.selectRecruits(skey);
 		List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
-
-		System.out.println("***********************************");
-		System.out.println("pageSize: " + pageSize);
-		System.out.println("pageNum: " + pageNum);
-		System.out.println("recruitVOList.size(): " + recruitVOList.size());
-		System.out.println("***********************************");
-
 		// if (pageSize != 0 && pageNum >= 0 && recruitVOList.size() > pageSize)
-		// {
 		if (pageSize != 0 && pageNum >= 0) {
 			recruitVOList = getRecruitPage(recruitVOList, pageSize, pageNum);
 		}
@@ -322,7 +324,7 @@ public class SearchServiceImpl implements SearchService {
 			spanelVOList = new ArrayList<SpanelVO>();
 		else {
 			List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
-			if (pageSize != 0 && pageNum >= 0 && recruitVOList.size() > pageSize) {
+			if (pageSize != 0 && pageNum >= 0) {
 				recruitVOList = getRecruitPage(recruitVOList, pageSize, pageNum);
 			}
 			spanelVOList = convertToRecruitPanel(recruitVOList);

@@ -158,7 +158,7 @@ public class SRestController {
 
 	// B.필터 검색준비
 	// B-1.필터 전역변수
-	private List<String> sel_scodes;
+	private List<String> getselCodes;
 
 	// B-2.필터코드 저장
 	@RequestMapping(value = "/getsel", method = RequestMethod.POST)
@@ -169,8 +169,8 @@ public class SRestController {
 			System.out.println("Scode: " + scode);
 			scodes.set(i, convertJob1to2(scode));
 		}
-		sel_scodes = scodes;
-		System.out.println("Scodes 1: " + sel_scodes);
+		getselCodes = scodes;
+		System.out.println("getselCodes: " + getselCodes);
 		ResponseEntity<String> entity = null;
 		try {
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -197,8 +197,8 @@ public class SRestController {
 				System.out.println("skey: " + skey);
 				spanelVOList = searchService.getkeyRecruits(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("sel_scodes: " + sel_scodes);
-				spanelVOList = searchService.getselRecruits(sel_scodes, pageSize, pageNum);
+				System.out.println("sel_scodes: " + getselCodes);
+				spanelVOList = searchService.getselRecruits(getselCodes, pageSize, pageNum);
 			}
 			System.out.println("spanelVOList: " + spanelVOList);
 			System.out.println("spanelVOList.size: " + spanelVOList.size());
@@ -226,8 +226,8 @@ public class SRestController {
 				System.out.println("skey: " + skey);
 				spanelVOList = searchService.getkeyResumes(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("sel_scodes: " + sel_scodes);
-				spanelVOList = searchService.getselResumes(sel_scodes, pageSize, pageNum);
+				System.out.println("getselCodes: " + getselCodes);
+				spanelVOList = searchService.getselResumes(getselCodes, pageSize, pageNum);
 			}
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {

@@ -209,7 +209,7 @@
 				<img class="recruit-img thumbnail" src="{{img}}">
 			</div>
 			<h4>
-				<b>{{cname}}</b>
+				<b>{{bno}} {{cname}}</b>
 			</h4>
 			<p>
 				<a href="{{url}}"
@@ -218,7 +218,8 @@
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
 			</p>
-			~ {{period}}
+			~ {{period}}<br />
+			{{jobstateid}}
 		</div>
 	</div>
 </div>
@@ -277,17 +278,15 @@
 	}
 
 	var cSrchState = 0;
-	// 0: 채용공고 검색 초기화면
-	// 1: 채용공고 검색 요약화면
-	// 2: 기업검색 화면
-	// 3: 채용공고 검색 화면
-	// 4: 외부공고 검색 화면
+	// 0: getkey
+	// 1: getsel
 
 	var sout = null;
 
 	// text 검색 버튼 click 이벤트 핸들러
 	$("#search_btn").on("click", function() {
 		page = 0;
+		cSrchState = 0;
 		lastpage = false;
 		var sinp = $("#sinput").val();
 		if (sinp === "") {
@@ -369,6 +368,7 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
+			jobstateid : that.jobstateid,
 			url : recruitUrl + that.bno
 		};
 		$("#spanelr").append(template_pnl(item));
@@ -502,12 +502,16 @@
 
 	// select 검색으로 관련 정보를 를 보여주다.(2)
 	// 검색분류(users: recruits or resumes)
-	function getSelList(users) {
-		if (users == 'recruits') // 'recruits'
-			$.getJSON("/sresult/recruits/getsel/sel/0/0", RecruitHandler);
-		else
-			// 'resumes'
-			$.getJSON("/sresult/resumes/getsel/sel/0/0", ResumeHandler);
+	function getSelList(users, pageSize, pageNum) {
+		if (users == 'recruits') {
+			var urltmp = "/sresult/recruits/getsel/sel/" + pageSize + "/"
+					+ pageNum;
+			$.getJSON(urltmp, RecruitHandler);
+		} else { // 'resumes'
+			var urltmp = "/sresult/resumes/getsel/sel/" + pageSize + "/"
+					+ pageNum;
+			$.getJSON(urltmp, ResumeHandler);
+		}
 	}
 
 	// select 검색으로 관련 정보를 를 보여주다.(1)
@@ -515,6 +519,7 @@
 	// ajax로 select filters 전송 to controller
 	$("#sel_search_btn").on("click", function() {
 		page = 0;
+		cSrchState = 1;
 		lastpage = false;
 		var array = [];
 		var i = 0;
@@ -537,9 +542,9 @@
 				if (result == 'SUCCESS') {
 					console.log('sel: SUCCESS');
 					if ($("#stype").attr("value") === "1") { // recruits 검색 
-						getSelList('recruits');
+						getSelList('recruits', snum, page++);
 					} else {
-						getSelList('resumes');
+						getSelList('resumes', 0, 0);
 					}
 				}
 			}
@@ -716,7 +721,11 @@
 			if (infScrDone && !lastpage) {
 				console.log(page);
 				if ($("#stype").attr("value") === "1") {
-					getKeyList("recruits", sout, snum, page++);
+					if (cSrchState === 0)
+						getKeyList("recruits", sout, snum, page++);
+					else
+						getSelList("recruits", snum, page++);
+
 					tmp = '<div id="infSrch"><h3 align="center"><span style="color: white;">'
 							+ '_</span><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
 							+ '</h3></div>';
