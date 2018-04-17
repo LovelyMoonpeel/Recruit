@@ -16,48 +16,27 @@ import com.recruit.domain.SrchVO;
 public class SearchController {
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	// public String main1GET(@ModelAttribute("type") int type, Model model)
 	public String mainGET(HttpSession session, HttpServletRequest request, SrchVO srchVO, Model model)
 			throws Exception {
-		String stype = request.getParameter("stype");
-		String skeyword = request.getParameter("skeyword");
-		String sfilter = request.getParameter("sfilter");
 
 		// 로그인 상태확인
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String cname = null;
 		String id = null;
+		String stype = request.getParameter("stype");
+
 		if (login != null) {
 			cname = login.getCname();
 			id = login.getId();
 		}
 
-		if ("2".equals(stype)) {
-			if (login == null || cname == null) {
-				stype = "1";
-				if ("admin".equals(id))
-					stype = "2";
-			}
-		}
-		// if (login == null || cname == null || !id.equals("admin"))
-		// stype = "1";
-
-		System.out.println("stype: " + stype);
-		System.out.println("skeyword: " + skeyword);
-		System.out.println("sfilter: " + sfilter);
+		if (login == null || (!("admin".equals(id)) && cname == null))
+			stype = "1";
 
 		srchVO.setStype(stype);
-		srchVO.setSkeyword(skeyword);
-		srchVO.setSfilter(sfilter);
-
-		if ((null == skeyword) || ("".equals(skeyword))) {
-			srchVO.setSdesc("키워드가 입력되지 않았습니다.");
-		} else {
-			srchVO.setSdesc("찾으시는 키워드는 " + skeyword + "입니다.");
-		}
+		srchVO.setSkeyword(request.getParameter("skeyword"));
+		srchVO.setSfilter(request.getParameter("sfilter"));
 		model.addAttribute(srchVO);
-		model.addAttribute("sdesc", "키워드를 입력후 돋보기 아이콘을 누르세요.");
-		// model.addAttribute("stypeModel", stype);
 		return "search/S_main";
 	}
 

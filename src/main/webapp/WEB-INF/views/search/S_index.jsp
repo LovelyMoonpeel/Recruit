@@ -9,20 +9,6 @@
 
 <!-- Page Content -->
 <div class="container">
-	<%
-		String recruitUrl;
-
-		if (login != null) { // login
-			if (cname == null) { // personal
-				recruitUrl = "/company/C_recruitMent?recruitNum=";
-			} else { // company
-				recruitUrl = "/company/C_recruitMent?recruitNum=";
-			}
-		} else { // logout
-			recruitUrl = "/company/C_recruitMent?recruitNum=";
-		}
-		request.setAttribute("recruitUrl", recruitUrl);
-	%>
 	<!-- carousel -->
 	<div class="row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -202,7 +188,7 @@
 	var cImgSrc = "/company/displayFile?fileName=";
 
 	// 링크 url 변수
-	var recruitUrl = "${recruitUrl}";
+	var recruitUrl = "/company/C_recruitMent?recruitNum=";
 
 	// Menu 갯수
 	var mnum = 8;
@@ -416,14 +402,12 @@
 	});
 
 	// 채용공고 판넬 전역변수
-	var inum;
 	var item;
 	var template_pnl;
 
 	// 채용공고 판넬 연결
 	function recruitPnl(index, that) {
 		item = {
-			num : ++inum,
 			bno : that.bno,
 			userid : that.userid,
 			title : that.title,
@@ -451,7 +435,6 @@
 		if (argum !== false)
 			deletespanel();
 		$("#infSrch").remove();
-		inum = 0;
 		// cinfo & recruit 분류
 		var dataR = new Array();
 		for (var i = 0; i < data.length; i++) {

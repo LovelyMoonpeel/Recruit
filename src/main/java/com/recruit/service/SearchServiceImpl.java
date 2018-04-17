@@ -188,7 +188,6 @@ public class SearchServiceImpl implements SearchService {
 			String period = listRecruit.get(i).getPeriod();
 			spanelVO.setPeriod(period);
 
-			// LocalDate currentDate = LocalDate.now();
 			try {
 				if (LocalDate.now().isAfter(LocalDate.parse(period)))
 					spanelVO.setJobstateid("[채용마감]");
@@ -320,9 +319,10 @@ public class SearchServiceImpl implements SearchService {
 		recruitVOList = intersection(recruitVOList, searchDAO.selectRecruits_selCod(sel_skeys, eduArr));
 
 		List<SpanelVO> spanelVOList;
-		if (recruitVOList.size() == 0 || recruitVOList.get(0).getBno() == -1)
-			spanelVOList = new ArrayList<SpanelVO>();
-		else {
+		if (recruitVOList.size() == 0 || recruitVOList.get(0).getBno() == -1) {
+			recruitVOList = getRecruitPage(new ArrayList<RecruitVO>(), pageSize, pageNum);
+			spanelVOList = convertToRecruitPanel(recruitVOList);
+		} else {
 			List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
 			if (pageSize != 0 && pageNum >= 0) {
 				recruitVOList = getRecruitPage(recruitVOList, pageSize, pageNum);
