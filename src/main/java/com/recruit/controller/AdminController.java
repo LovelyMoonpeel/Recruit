@@ -620,6 +620,10 @@ public class AdminController {
 		model.addAttribute("P_member",aservice.pcount());
 		model.addAttribute("C_member", aservice.ccount());
 		model.addAttribute("weekRecruit", aservice.count_recruit());
+		model.addAttribute("weekJobgroup",aservice.jobgroup_recruit());
+		model.addAttribute("weekJobgroup2", aservice.jobgroup2_recruit());
+		model.addAttribute("weekPerson", aservice.weekPerson());
+		model.addAttribute("weekCompany", aservice.weekCompany());
 		return "/admin/A_chart";
 	}
 	

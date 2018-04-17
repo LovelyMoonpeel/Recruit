@@ -313,7 +313,7 @@
 									<div class="form-group"> 회사 아이디
 									<div id="CIDDiv" style="margin-bottom:0px;">
 										<input type="text" id="cid" name='id' class="form-control"
-											placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
+											placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
 										<span class="glyphicon glyphicon-remove form-control-feedback" id="CIDXIcon" aria-hidden="true" style="display:none"></span>
   				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CIDOKIcon" aria-hidden="true" style="display:none"></span>
   									</div>
@@ -325,7 +325,7 @@
 									<div class="form-group">비밀번호
 									<div id="CPWDiv" style="margin-bottom:0px;">
 									<input type="password" id='cpw' name='pw' class="form-control" placeholder="6자리를 입력하세요." maxlength="20" 
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
+										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
 										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWXIcon" aria-hidden="true" style="display:none"></span>
   				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWOKIcon" aria-hidden="true" style="display:none"></span>
   				 					</div>
@@ -335,7 +335,7 @@
 									<div class="form-group">비밀번호 확인
 									<div id="CPWCDiv" style="margin-bottom:0px;">
 									<input type="password" id='cpwc' class="form-control" placeholder="6자리를 입력하세요." maxlength="20"
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
+										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
 										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWCXIcon" aria-hidden="true" style="display:none"></span>
   				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWCOKIcon" aria-hidden="true" style="display:none"></span>
   				 					</div>
@@ -347,14 +347,14 @@
 									<!--회사명 -->
 									<div class="form-group">
 										회사명<input type="text" name='cname' class="form-control"
-											placeholder="회사명을 입력하세요." >
+											placeholder="회사명을 입력하세요." required>
 									</div>
 
 
 									<!--담당자 이름 -->
 									<div class="form-group">
 										담당자 이름<input type="text" name='pname' class="form-control"
-											placeholder="담당자 이름을 입력하세요." >
+											placeholder="담당자 이름을 입력하세요." required>
 									</div>
 
 
@@ -362,7 +362,7 @@
 									<div class="form-group has-feedback">담당자 이메일
 									<div id="CEmailDiv" style="margin-bottom:0px;">
 										<input type="text" id="cemail" name="email" class="form-control"
-											placeholder="담당자의 회사 이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
+											placeholder="담당자의 회사 이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
 										<span class="glyphicon glyphicon-remove form-control-feedback" id="CEmailXIcon" aria-hidden="true" style="display:none"></span>
   				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CEmailOKIcon" aria-hidden="true" style="display:none"></span>
   									</div>
@@ -377,7 +377,7 @@
 									<!--사업자 등록번호 -->
 									<div class="form-group">
 										사업자 등록번호<input type="text" name='registnum'
-											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." >
+											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." required>
 									</div>
 
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->

@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="read" resultType="BoardVO">
 	select
-		id, cname, pname, email, registnum
+		id, cname, pname, email, registnum, authCode
 	from
 		tbluser
 	where id = #{id}

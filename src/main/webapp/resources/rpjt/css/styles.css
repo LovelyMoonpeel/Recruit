@@ -744,7 +744,12 @@ position: relative;
 }
 
 .chk_active{
-  color: #fff !important; 
-  text-decoration: none;
-  background-color: #30a5ff;
+	color: #fff !important; 
+	text-decoration: none;
+	background-color: #30a5ff;
+}
+
+.statCheck{
+	color: #fff; 
+	background-color: #30a5ff;	
 }

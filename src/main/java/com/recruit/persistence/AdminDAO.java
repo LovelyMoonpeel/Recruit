@@ -38,4 +38,12 @@ public interface AdminDAO {
 	public int ccount()throws Exception;
 	
 	public List<StatisticVO> count_recruit() throws Exception;
+	
+	public List<StatisticVO> jobgroup_recruit() throws Exception;
+	
+	public List<StatisticVO> jobgroup2_recruit() throws Exception;
+	
+	public List<StatisticVO> weekPerson() throws Exception;
+	
+	public List<StatisticVO> weekCompany() throws Exception;
 }

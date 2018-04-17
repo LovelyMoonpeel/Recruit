@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="read" resultType="BoardVO">
 	select
-		id, pname, email, birth
+		id, pname, email, birth, authCode
 	from
 		tbluser
 	where id = #{id}
@@ -171,4 +171,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	group by date_format(u.createdate, '%Y-%m-%d'), t.selected_date
 	order by t.selected_date;
 	</select>
+	
+	<select id="jobgroup_recruit" resultType="StatisticVO">
+	select distinct j.jobgroup as jobgroup, count(r.jobgroupid) as weekJobgroup from project.tblrecruit r, project.tbljobgroup j
+	where r.jobgroupid = j.id and j.id != 0 and r.createdate between current_date()-interval 6 day and current_date()
+	group by r.jobgroupid
+	order by weekJobgroup desc
+	limit 4
+	</select>
+	
+	<!-- 직업군 소분류 기준 그래프 -->
+	<select id="jobgroup2_recruit" resultType="StatisticVO">
+	select distinct j2.jobgroup as jobgroup1, j.jobgroup as jobgroup2, count(r.jobgroupid2) as weekJobgroup2 from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup j2
+	where r.jobgroupid2 = j.id and j.id != 0 and j.id != 18 and j.id != 43 and j.id != 86 and j.id != 94 and j.id != 107
+		and j.id != 129 and j.id != 142	and j.id != 150 and j.id != 161 and j.id !=  171 and j.id != 194 and j.id != 203
+	    and j.id != 223 and j.id != 232 and j.id != 238 and j.id != 244 and j.id != 260 and j.id2 = j2.id
+    	and r.createdate between current_date()-interval 6 day and current_date()
+	group by r.jobgroupid2
+	order by weekJobgroup2 desc
+	limit 4
+	</select>
+	
+	<select id="weekPerson" resultType="StatisticVO">
+	select t.selected_date as day, (count(u.id)-count(u.cname)) as weekPerson
+	from project.tbluser u right outer join(
+	select * from 
+	(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+	where selected_date between current_date()-interval 6 day and current_date()
+	) t
+	on date_format(u.joindate, '%Y-%m-%d') = t.selected_date
+	group by date_format(u.joindate, '%Y-%m-%d'), t.selected_date
+	order by t.selected_date
+	</select>
+	
+	<select id="weekCompany" resultType="StatisticVO">
+	select t.selected_date as day, count(u.cname) as weekCompany
+	from project.tbluser u right outer join(
+	select * from 
+	(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+	where selected_date between current_date()-interval 6 day and current_date()
+	) t
+	on date_format(u.joindate, '%Y-%m-%d') = t.selected_date
+	group by date_format(u.joindate, '%Y-%m-%d'), t.selected_date
+	order by t.selected_date
+	</select>
+	
+	<update id="emailauth">
+	update tbluser set
+	authCode = null
+	where id = #{id}
+	</update>
+
 </mapper>

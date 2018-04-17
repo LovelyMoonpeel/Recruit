@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
@@ -86,5 +87,24 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<StatisticVO> count_recruit() throws Exception{
 		return dao.count_recruit();
+	}
+	
+	@Override
+	public List<StatisticVO> jobgroup_recruit() throws Exception{
+		return dao.jobgroup_recruit();
+	}
+	
+	@Override
+	public List<StatisticVO> jobgroup2_recruit() throws Exception{
+		return dao.jobgroup2_recruit();
+	}
+	
+	@Override
+	public List<StatisticVO> weekPerson() throws Exception{
+		return dao.weekPerson();
+	}
+	
+	public List<StatisticVO> weekCompany() throws Exception{
+		return dao.weekCompany();
 	}
 }

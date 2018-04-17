@@ -60,7 +60,19 @@
 				</div>
 				</td>
 			</tr>
-			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${BoardVO.birth}" /> --%>
+			<tr>
+				<th>이메일 인증</th>
+				<td>
+					<c:choose>
+					<c:when test="${BoardVO.authCode eq null}">
+					<div>인증완료</div>
+					</c:when>
+					<c:otherwise>
+					<div>인증이 필요합니다.&nbsp;&nbsp;<button type="button" class="btn btn-info">인증</button></div>
+					</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
 		</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">

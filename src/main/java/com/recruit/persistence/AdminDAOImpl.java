@@ -99,4 +99,24 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<StatisticVO> count_recruit() throws Exception{
 		return session.selectList(namespace+".count_recruit");
 	}
+	
+	@Override
+	public List<StatisticVO> jobgroup_recruit() throws Exception{
+		return session.selectList(namespace+".jobgroup_recruit");
+	}
+	
+	@Override
+	public List<StatisticVO> jobgroup2_recruit() throws Exception{
+		return session.selectList(namespace+".jobgroup2_recruit");
+	}
+	
+	@Override
+	public List<StatisticVO> weekPerson() throws Exception{
+		return session.selectList(namespace+".weekPerson");
+	}
+	
+	@Override
+	public List<StatisticVO> weekCompany() throws Exception{
+		return session.selectList(namespace+".weekCompany");
+	}
 }
