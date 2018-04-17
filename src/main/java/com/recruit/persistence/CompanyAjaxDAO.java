@@ -47,6 +47,12 @@ public interface CompanyAjaxDAO {
 	
 	public void FavorPersonDelete(int bno, String id) throws Exception;
 	
+	public int FavorListCount(String id) throws Exception;
+	
+	public void endRecruit(int bno, String id) throws Exception;
+	
+	public void RecruitReRegister(String id, int bno, int day)throws Exception; // 채용 공고 재등록
+	 
 	public int recruitCriteriaCount(CompanySearchCriteria cri, String id) throws Exception;
 	
 	public int ajaxIngRecruitListCount(CompanySearchCriteria cri, String id) throws Exception;

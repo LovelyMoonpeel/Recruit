@@ -305,7 +305,9 @@ public class CompanyController {
 
 		return "redirect:/company/C_manage";
 	}
-
+	
+	
+	
 	@RequestMapping(value = "/C_recruitExtension", method = RequestMethod.GET)
 	public void recruitExtension(HttpSession session, int bno, Model model, RedirectAttributes rttr) throws Exception {
 
@@ -327,49 +329,6 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/C_recruitInfo", method = RequestMethod.GET)
-	public String readRecruit(int recruitNum, HttpSession session, Model model, RedirectAttributes rttr)
-			throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			/*
-			 * if (login.getCname() == null){ rttr.addFlashAttribute("msg",
-			 * "fail"); return "redirect:/"; }
-			 */
-			// 소연 수정
-
-			String id = login.getId();
-
-			String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
-			String adddesc2 = adddesc.replace("<", "&lt;");
-			String adddesc3 = adddesc2.replace("\r\n", "<br>");
-			String adddesc4 = adddesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
-																// 변환
-			String jobdesc = service.RecruitInfoRead2(recruitNum).getJobdesc();
-			String jobdesc2 = jobdesc.replace("<", "&lt;");
-			String jobdesc3 = jobdesc2.replace("\r\n", "<br>");
-			String jobdesc4 = jobdesc3.replace(" ", "&nbsp;"); // 공백을 &nbsp; 로
-															   // 변환
-
-			model.addAttribute("adddesc", adddesc4);
-			model.addAttribute("jobdesc", jobdesc4);
-
-			model.addAttribute("CInfoVO", service.CompanyInfoRead(id));
-			if(login==null){
-				model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
-			}else{
-				model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum,login));
-			}
-			model.addAttribute("ApplyList", service.ApplyList(recruitNum));
-
-			return "/company/C_recruitInfo";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-
-	}
 
 	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.GET) // 채용공고
 	public String C_recruitModfiy(HttpSession session, RedirectAttributes rttr, int bno, Model model) throws Exception { // 채용공고
@@ -412,42 +371,6 @@ public class CompanyController {
 		return "/company/C_manage";
 	}
 
-	@RequestMapping(value = "/C_recruitReregister", method = RequestMethod.GET)
-	public String Reregister(@RequestParam("bno") int bno, @RequestParam("day") int day, HttpSession session,
-			RedirectAttributes rttr) throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-
-		if (login != null) {
-			String id = login.getId();
-			service.RecruitReRegister(id, bno, day);
-			rttr.addFlashAttribute("msg", "DELESUCCESS");
-			return "/company/C_manage";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/cs/S_faq";
-		}
-	}
-
-	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
-	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-
-		if (login != null) {
-			if (login.getCname() == null) {
-				rttr.addFlashAttribute("msg", "fail");
-				return "redirect:/";
-			}
-			String id = login.getId();
-			service.RecruitRemove(bno, id);
-			rttr.addFlashAttribute("msg", "DELESUCCESS");
-			return "redirect:/company/C_manage";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}
 
 	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
 	public String manage(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model,

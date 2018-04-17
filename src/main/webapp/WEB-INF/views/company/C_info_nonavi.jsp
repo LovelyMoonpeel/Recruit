@@ -48,6 +48,10 @@
 						<td colspan="3">${CInfoVO.form}</td>
 					</tr>
 					<tr>
+						<th class="table-active" scope="row">기업주소</th>
+						<td colspan="3" id="location"></td>
+					</tr>
+					<tr>
 						<th class="table-active" scope="row">설립일</th>
 						<td colspan="3">${CInfoVO.establish}</td>
 					</tr>
@@ -71,10 +75,7 @@
 						<td><a href="${CInfoVO.sns}"
 							class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a></td>
 					</tr>
-					<tr>
-						<th class="table-active" scope="row">기업주소</th>
-						<td colspan="3">${CInfoVO.location}</td>
-					</tr>
+					
 					<!-- ★복지는 2차 개발 -->
 					<!-- <tr>
                         <th class="table-active" scope="row">복지</th>
@@ -82,6 +83,12 @@
                       </tr> -->
 				</tbody>
 			</table>
+			
+			<p class="lead">
+				<strong>기업 위치</strong>
+			</p>
+			<div id="map"></div>
+			
 			<!-- //table class -->
 		</div>
 		<!-- //table-responsive -->
@@ -145,5 +152,64 @@ $(document).on("click",'#r1',function(){
 		}
 	});
 </script>
+
+<script type="text/javascript"> /* 위도 경도를 주소로 변환 */
+    function googleapisView() {
+        var lat = "<c:out value="${CInfoVO.lat}"/>"; // 위도
+        var lng = "<c:out value="${CInfoVO.lng}"/>"; // 경도
+        var geocode = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false";
+        jQuery.ajax({
+            url: geocode,
+            type: 'POST',
+            success: function(myJSONResult){
+                if(myJSONResult.status == 'OK') {
+                    var tag = "";
+
+
+                        tag += "" +myJSONResult.results[0].formatted_address+" <br />";
+
+
+                    document.getElementById("location").innerHTML = tag;
+                } else if(myJSONResult.status == 'ZERO_RESULTS') {
+                    alert("지오코딩이 성공했지만 반환된 결과가 없음을 나타냅니다.\n\n이는 지오코딩이 존재하지 않는 address 또는 원격 지역의 latlng을 전달받는 경우 발생할 수 있습니다.")
+                } else if(myJSONResult.status == 'OVER_QUERY_LIMIT') {
+                    alert("할당량이 초과되었습니다.");
+                } else if(myJSONResult.status == 'REQUEST_DENIED') {
+                    alert("요청이 거부되었습니다.\n\n대부분의 경우 sensor 매개변수가 없기 때문입니다.");
+                } else if(myJSONResult.status == 'INVALID_REQUEST') {
+                    alert("일반적으로 쿼리(address 또는 latlng)가 누락되었음을 나타냅니다.");
+                }
+            }
+        });
+
+    }
+    googleapisView();
+</script> 
+
+<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+ <script>
+
+      function initMap() {
+    	  var uluru = {lat: <c:out value="${CInfoVO.lat}"/>, lng: <c:out value="${CInfoVO.lng}"/>};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
+    </script>
 
 <%@include file="../include/cfooter.jsp"%>

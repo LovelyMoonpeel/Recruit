@@ -21,31 +21,8 @@ public class CPersonInfoVO {
 	private String period;
 	private String recruitstate;
 	private String week;
-	
-	@Override
-	public String toString() {
-		return "CPersonInfoVO [bno=" + bno + ", recruitnum=" + recruitnum + ", name=" + name + ", title=" + title
-				+ ", img=" + img + ", career=" + career + ", edu=" + edu + ", rgbid=" + rgbid + ", rgsid=" + rgsid
-				+ ", salary=" + salary + ", schoolname=" + schoolname + ", major=" + major + ", jobgroup1=" + jobgroup1
-				+ ", jobgroup2=" + jobgroup2 + ", period=" + period + ", recruitstate=" + recruitstate + ", week="
-				+ week + "]";
-	}
-
-	public String getRecruitstate() {
-		return recruitstate;
-	}
-
-	public void setRecruitstate(String recruitstate) {
-		this.recruitstate = recruitstate;
-	}
-
-	public String getWeek() {
-		return week;
-	}
-
-	public void setWeek(String week) {
-		this.week = week;
-	}
+	private String days;
+	private String todays;
 	
 	public int getBno() {
 		return bno;
@@ -137,12 +114,40 @@ public class CPersonInfoVO {
 	public void setPeriod(String period) {
 		this.period = period;
 	}
+	public String getRecruitstate() {
+		return recruitstate;
+	}
+	public void setRecruitstate(String recruitstate) {
+		this.recruitstate = recruitstate;
+	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
+	}
+	public String getDays() {
+		return days;
+	}
+	public void setDays(String days) {
+		this.days = days;
+	}
+	public String getTodays() {
+		return todays;
+	}
+	public void setTodays(String todays) {
+		this.todays = todays;
+	}
+	@Override
+	public String toString() {
+		return "CPersonInfoVO [bno=" + bno + ", recruitnum=" + recruitnum + ", name=" + name + ", title=" + title
+				+ ", img=" + img + ", career=" + career + ", edu=" + edu + ", rgbid=" + rgbid + ", rgsid=" + rgsid
+				+ ", salary=" + salary + ", schoolname=" + schoolname + ", major=" + major + ", jobgroup1=" + jobgroup1
+				+ ", jobgroup2=" + jobgroup2 + ", period=" + period + ", recruitstate=" + recruitstate + ", week="
+				+ week + ", days=" + days + ", todays=" + todays + "]";
+	}
 	
 	
 	
-
-	
-	
-
 }
 	

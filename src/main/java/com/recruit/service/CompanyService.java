@@ -52,11 +52,9 @@ public interface CompanyService {
 	
 	  public RecruitVO RecruitModifyRead(int bno, String id)throws Exception;
 	  
-	  public void RecruitReRegister(String id, int bno, int day)throws Exception;
-	  
 	  public void RecruitRemove(int bno, String id)throws Exception;
 	  
-	  public List<CPersonInfoVO> ApplyList(int recruitNum)throws Exception;
+	  public List<CPersonInfoVO> ApplyList(CompanySearchCriteria cri)throws Exception;
 	  
 	  public List<CInterestPersonVO> FavorCompareList(String id)throws Exception;
 	  

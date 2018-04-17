@@ -52,6 +52,11 @@
 		</tbody>
 	</table>
 	
+	<div class="text-center">
+		<ul class="pagination" id="listPage">
+		
+		</ul>
+	</div>
 	
 
 	<!-- //기업 페이지 -->
@@ -60,7 +65,10 @@
 <script>
 $(document).ready(function(){
 	
-	favList();
+	var pN = 1;
+	
+	favList(pN);
+
 	
 })
 	 
@@ -91,27 +99,96 @@ $(document).ready(function(){
 		favList();
 	}
 	
-	function favList(){
-		$.getJSON("/companyAjax/favorList/", function(data){
-		var str = "";
+	function favList(pN){
 		
+		
+		$.getJSON("/companyAjax/favorList/", function(data){
+		
+			var str = "";
+		
+			var chr = "";
+		
+			var length = data.length;
+			
+			var i = 0;
+			
+			var pN = pN
+			
 		$(data).each(function(){
 			
+			i++;
+			
+			if(i < length){
+				
 			str += "<tr><td class=text-right style=vertical-align:middle><img src=/resources/rpjt/img/on.png id=non value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
-				+ "<td><span class=careerLine>경력 "+this.career+"</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+				+ "<td>"
+				if(this.career == "신입"){
+					str += "<span class=careerLine>"+this.career+"</span>"
+				}else if(this.career == "선택"){
+					str += "</span>"
+				}
+				else{
+					str += "<span class=careerLine> 경력 "+this.career+"</span>"
+				}
+				
+				str += "<a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
 				+ ""+this.title+"</a>"
 				+ "<br><p>"+"학력: "+this.edu+" </p>"
 				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
 				+ "<p>"+"희망연봉: "+this.salary+"</p>"
-				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>"
+				
+				if(this.days==0){
+					if(this.todays.substr(0,1)==0 && this.todays.substr(1,1)!=0){
+						
+						str	+=	""+this.todays.substr(1,1)+"시간"+this.todays.substr(2,2)+"분</td></tr>"
+					
+					}if(this.todays.substr(0,2)>=10){
+						
+						str	+=	""+this.todays.substr(0,2)+"시간"+this.todays.substr(2,2)+"분</td></tr>"
+					
+					}
+					else if(this.todays.substr(0,2)==00 && this.todays.substr(2,2)!=00){
+						
+						str	+=	""+this.todays.substr(2,2)+"분</td></tr>"
+					
+					}
+					else{
+					
+						str +="방금전</td></tr>"
+					
+					}
+					
+				}else{
+				
+					str +=""+this.days+"일</td></tr>"
+					
+				}
+			}else{
+				
+					if(this.prev){
+					chr += "<li><a id=favorListBack name=all value="+this.startPage+">&laquo;</a></li>";
+				}
+				
+				for(var z = this.startPage; z<=this.endPage; z++){
+					chr += "<li id=favorListLi name="+z+"><a id=favorList name=all>"+z+"</a></li>"
+					
+				} 
+			 	if(this.next&&this.endPage>0){
+					chr += "<li><a id=faovrListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+				} 
+			}
 			
 			
 		});
 		
 		$("#favList").html(str);
-		
 
+		$("#listPage").html(chr);
+		
+		$("#favorListLi").prop("name",pN).addClass("active");
+		
 		})
 		
 		
@@ -119,7 +196,7 @@ $(document).ready(function(){
 	
 	
 	$(document).on("click","#btt",function(){
-		window.open(this.href, '', 'width=400', 'height=430'); 
+		window.open(this.href, '', 'width=800, height=960'); 
 		
 		return false;
 	})
