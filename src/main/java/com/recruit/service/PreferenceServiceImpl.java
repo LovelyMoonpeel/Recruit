@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.PreferenceVO;
+import com.recruit.domain.ResumeVO;
 import com.recruit.persistence.PreferenceDAO;
 
 @Service
@@ -38,8 +39,8 @@ public class PreferenceServiceImpl implements PreferenceService {
 		
 	//해당 이력서에 대한 추천 채용공고 번호 리스트
 	@Override
-	public List<CoordinateVO> selectCoordinateList(int bno)throws Exception{
-		return dao.selectCoordinateList(bno);
+	public List<CoordinateVO> selectCoordinateList(ResumeVO resume)throws Exception{
+		return dao.selectCoordinateList(resume);
 	}
 	
 	//채용공고 번호 리스트로 채용공고 리스트 끌어오기

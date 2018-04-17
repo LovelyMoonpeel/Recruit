@@ -40,9 +40,9 @@ public class PreferenceDAOImpl implements PreferenceDAO{
 	
 	//해당 이력서에 대한 추천 채용공고 리스트
 	@Override
-	public List<CoordinateVO> selectCoordinateList(Integer bno)throws Exception{
+	public List<CoordinateVO> selectCoordinateList(ResumeVO resume)throws Exception{
 	//	System.out.println("DAO에서 받은 이력서 번호"+resume.getBno());
-		return session.selectList(namespace + ".selectCoordinateList", bno);
+		return session.selectList(namespace + ".selectCoordinateList", resume);
 	}
 	
 	/*//채용공고 번호 리스트로 채용공고 리스트 끌어오기

@@ -455,16 +455,22 @@ public class PersonalController {
 
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
+			//실제는 tbluser에서 가져옴
 			//1. 5가지의 선호도 불러옴
-			
+			System.out.println("선호도"+PREFService.selectPREFOne(id));
 			//2. 이력서 공개 된거 있는지 확인하고 번호 가져오는 서비스
 			if(PREFService.selectPublicResume(id)==null){
 				System.out.println("공개된 이력서가 없다.");
 				model.addAttribute("CRecruitVOList",null);
 			}else{
 				Integer bno = PREFService.selectPublicResume(id);
+				//공개된 이력서 번호
 				
-				ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(bno));
+				ResumeVO resume = Rservice.readROne(bno);
+				//이력서 객체 가져오기
+				System.out.println("이력서"+resume);
+				
+				ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(resume));
 				System.out.println("나오냐"+top10);
 				//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
 				
@@ -493,7 +499,7 @@ public class PersonalController {
 			
 			try{			
 				System.out.println("트라이");
-				prefvo.setUserid(id);
+				prefvo.setId(id);
 				System.out.println(prefvo);
 				
 				//업데이트 하는 서비스

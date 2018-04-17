@@ -55,7 +55,7 @@
 			data-slider-min="1"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
 		</div>
-		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.job}</span></span>
+		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
 		
  		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
@@ -63,7 +63,7 @@
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value='5' />
 		</div>
-		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.region}</span></span>
+		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
 
 		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
@@ -71,7 +71,7 @@
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
 		</div>
-		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.employstatus}</span></span>
+		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
 		<br>
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
@@ -79,33 +79,34 @@
 				data-slider-min="1" data-slider-max="5" data-slider-step="1"
 				data-slider-value="3" />
 		</div>
-		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.levelofeducation}</span></span>
+		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_lastcareer" type="text" data-provide="slider"
 			data-slider-min="1" data-slider-max="5" data-slider-step="1"
 			data-slider-value="3" />
 		</div>
-		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.lastcareer}</span></span>
+		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
 		<br> 
 	</div>
 <script>
+
 $(document).ready(function (){
 
-	$("#val_job").html(${PreferenceVO.job});
-	$("#slider_job").attr("data-slider-value",(${PreferenceVO.job}));
+	$("#val_job").html(${PreferenceVO.pref_job});
+	$("#slider_job").attr("data-slider-value",(${PreferenceVO.pref_job}));
 	
-	$("#val_region").html(${PreferenceVO.region});
-	$("#slider_region").attr("data-slider-value",(${PreferenceVO.region}));
+	$("#val_region").html(${PreferenceVO.pref_region});
+	$("#slider_region").attr("data-slider-value",(${PreferenceVO.pref_region}));
 	
-	$("#val_employstatus").html(${PreferenceVO.employstatus});
-	$("#slider_employstatus").attr("data-slider-value",(${PreferenceVO.employstatus}));
+	$("#val_employstatus").html(${PreferenceVO.pref_employstatus});
+	$("#slider_employstatus").attr("data-slider-value",(${PreferenceVO.pref_employstatus}));
 	
-	$("#val_levelofeducation").html(${PreferenceVO.levelofeducation});
-	$("#slider_levelofeducation").attr("data-slider-value",(${PreferenceVO.levelofeducation}));
+	$("#val_levelofeducation").html(${PreferenceVO.pref_levelofeducation});
+	$("#slider_levelofeducation").attr("data-slider-value",(${PreferenceVO.pref_levelofeducation}));
 	
-	$("#val_lastcareer").html(${PreferenceVO.lastcareer});
-	$("#slider_lastcareer").attr("data-slider-value",(${PreferenceVO.lastcareer})); 	
+	$("#val_lastcareer").html(${PreferenceVO.pref_lastcareer});
+	$("#slider_lastcareer").attr("data-slider-value",(${PreferenceVO.pref_lastcareer})); 	
 
 	
 	$("#slider_job").slider({	
@@ -117,11 +118,11 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_job").text());
       
-     // var val_job = ${PreferenceVO.job};
-      var val_region = ${PreferenceVO.region};
-      var val_employstatus = ${PreferenceVO.employstatus};
-      var val_levelofeducation = ${PreferenceVO.levelofeducation};
-      var val_lastcareer = ${PreferenceVO.lastcareer};
+     // var val_job = ${PreferenceVO.pref_job};
+      var val_region = ${PreferenceVO.pref_region};
+      var val_employstatus = ${PreferenceVO.pref_employstatus};
+      var val_levelofeducation = ${PreferenceVO.pref_levelofeducation};
+      var val_lastcareer = ${PreferenceVO.pref_lastcareer};
       
       if(newvalue!=oldvalue){
     	 $("#val_job").text(newvalue);
@@ -135,11 +136,11 @@ $(document).ready(function (){
        	  },
        	  dataType: 'text',
        	  data:JSON.stringify({
-       		  job : newvalue,
-       		  region : val_region,
-       		  employstatus : val_employstatus,
-       		  levelofeducation : val_levelofeducation,
-       		  lastcareer : val_lastcareer
+				pref_job : newvalue,
+				pref_region : val_region,
+				pref_employstatus : val_employstatus,
+				pref_levelofeducation : val_levelofeducation,
+				pref_lastcareer : val_lastcareer
        	  }),
        	  success : function(result){
        		  if(result=='success'){
@@ -159,11 +160,11 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_region").text());
       
-      var val_job = ${PreferenceVO.job};
-      //var val_region = ${PreferenceVO.region};
-      var val_employstatus = ${PreferenceVO.employstatus};
-      var val_levelofeducation = ${PreferenceVO.levelofeducation};
-      var val_lastcareer = ${PreferenceVO.lastcareer};
+      var val_job = ${PreferenceVO.pref_job};
+      //var val_region = ${PreferenceVO.pref_region};
+      var val_employstatus = ${PreferenceVO.pref_employstatus};
+      var val_levelofeducation = ${PreferenceVO.pref_levelofeducation};
+      var val_lastcareer = ${PreferenceVO.pref_lastcareer};
       
       if(newvalue!=oldvalue){
     	 $("#val_region").text(newvalue);
@@ -177,11 +178,11 @@ $(document).ready(function (){
        	  },
        	  dataType: 'text',
        	  data:JSON.stringify({
-       		  job : val_job,
-      		  region : newvalue,
-      		  employstatus : val_employstatus,
-      		  levelofeducation : val_levelofeducation,
-      		  lastcareer : val_lastcareer
+				pref_job : val_job,
+				pref_region : newvalue,
+				pref_employstatus : val_employstatus,
+				pref_levelofeducation : val_levelofeducation,
+				pref_lastcareer : val_lastcareer
        	  }),
        	  success : function(result){
        		  if(result=='success'){
@@ -198,11 +199,11 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_employstatus").text());
       
-      var val_job = ${PreferenceVO.job};
-      var val_region = ${PreferenceVO.region};
-      //var val_employstatus = ${PreferenceVO.employstatus};
-      var val_levelofeducation = ${PreferenceVO.levelofeducation};
-      var val_lastcareer = ${PreferenceVO.lastcareer};
+      var val_job = ${PreferenceVO.pref_job};
+      var val_region = ${PreferenceVO.pref_region};
+      //var val_employstatus = ${PreferenceVO.pref_employstatus};
+      var val_levelofeducation = ${PreferenceVO.pref_levelofeducation};
+      var val_lastcareer = ${PreferenceVO.pref_lastcareer};
       
       if(newvalue!=oldvalue){
     	 $("#val_employstatus").text(newvalue);
@@ -217,11 +218,11 @@ $(document).ready(function (){
        	  dataType: 'text',
        	  data:JSON.stringify({
        		
-	       	job : val_job,
-	 		region : val_region,
-	 		employstatus : newvalue,
-	 		levelofeducation : val_levelofeducation,
-	 		lastcareer : val_lastcareer
+       		pref_job : val_job,
+	       	pref_region : val_region,
+	 		pref_employstatus : newvalue,
+	 		pref_levelofeducation : val_levelofeducation,
+	 		pref_lastcareer : val_lastcareer
  		  
        	  }),
        	  success : function(result){
@@ -242,11 +243,11 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_levelofeducation").text());
       
-      var val_job = ${PreferenceVO.job};
-      var val_region = ${PreferenceVO.region};
-      var val_employstatus = ${PreferenceVO.employstatus};
-      //var val_levelofeducation = ${PreferenceVO.levelofeducation};
-      var val_lastcareer = ${PreferenceVO.lastcareer};
+      var val_job = ${PreferenceVO.pref_job};
+      var val_region = ${PreferenceVO.pref_region};
+      var val_employstatus = ${PreferenceVO.pref_employstatus};
+      //var val_levelofeducation = ${PreferenceVO.pref_levelofeducation};
+      var val_lastcareer = ${PreferenceVO.pref_lastcareer};
       
       if(newvalue!=oldvalue){
     	 $("#val_levelofeducation").text(newvalue);
@@ -260,11 +261,11 @@ $(document).ready(function (){
        	  },
        	  dataType: 'text',
        	  data:JSON.stringify({
-       		job : val_job,
-	 		region : val_region,
-	 		employstatus : val_employstatus,
-	 		levelofeducation : newvalue,
-	 		lastcareer : val_lastcareer
+       		pref_job : val_job,
+       		pref_region : val_region,
+	 		pref_employstatus : val_employstatus,
+	 		pref_levelofeducation : newvalue,
+	 		pref_lastcareer : val_lastcareer
        	  }),
        	  success : function(result){
        		  if(result=='success'){
@@ -284,11 +285,11 @@ $(document).ready(function (){
       var newvalue = parseInt($(this).val());
       var oldvalue = parseInt($("#val_lastcareer").text());
       
-      var val_job = ${PreferenceVO.job};
-      var val_region = ${PreferenceVO.region};
-      var val_employstatus = ${PreferenceVO.employstatus};
-      var val_levelofeducation = ${PreferenceVO.levelofeducation};
-      //var val_lastcareer = ${PreferenceVO.lastcareer};
+      var val_job = ${PreferenceVO.pref_job};
+      var val_region = ${PreferenceVO.pref_region};
+      var val_employstatus = ${PreferenceVO.pref_employstatus};
+      var val_levelofeducation = ${PreferenceVO.pref_levelofeducation};
+      //var val_lastcareer = ${PreferenceVO.pref_lastcareer};
       
       if(newvalue!=oldvalue){
     	 $("#val_lastcareer").text(newvalue);
@@ -302,11 +303,11 @@ $(document).ready(function (){
           	  },
           	  dataType: 'text',
           	  data:JSON.stringify({
-           		job : val_job,
-    	 		region : val_region,
-    	 		employstatus : val_employstatus,
-    	 		levelofeducation : val_levelofeducation,
-          		lastcareer : newvalue
+           		pref_job : val_job,
+           		pref_region : val_region,
+           		pref_employstatus : val_employstatus,
+           		pref_levelofeducation : val_levelofeducation,
+           		pref_lastcareer : newvalue
           	  }),
           	  success : function(result){
           		  if(result=='success'){
@@ -316,9 +317,6 @@ $(document).ready(function (){
             });//ajax end
       }//if end
     });
-/* 	$("#slider_lastcareer").on("slide", function(slideEvt) {
-		$("#val_lastcareer").text(slideEvt.value);
-	}); */
 });
 
 </script>
@@ -348,7 +346,7 @@ $(document).ready(function (){
 			</div>
 			<div class="progress">
 				<i id="icon_levelofeducation" class="material-icons"
-					style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+					style="cursor: pointer;" onclick="add_.pref_levelofeducation();">school</i>
 			</div>
 			<div class="progress">
 				<i id="icon_lastcareer" class="material-icons"
@@ -361,36 +359,36 @@ $(document).ready(function (){
 				<div id="bar_job" class="progress-bar progress-bar-success"
 					role="progressbar" aria-valuenow="20" aria-valuemin="0"
 					aria-valuemax="5"
-					style="width: ${PreferenceVO.job}%; background-color: #c0c6d3;">직무
-					${PreferenceVO.job}%</div>
+					style="width: ${PreferenceVO.pref_job}%; background-color: #c0c6d3;">직무
+					${PreferenceVO.pref_job}%</div>
 			</div>
 			<div class="progress">
 				<div id="bar_region" class="progress-bar progress-bar-info"
 					role="progressbar" aria-valuenow="30" aria-valuemin="0"
 					aria-valuemax="5"
-					style="width: ${PreferenceVO.region}%; background-color: #c0c6d3;">지역
-					${PreferenceVO.region}%</div>
+					style="width: ${PreferenceVO.pref_region}%; background-color: #c0c6d3;">지역
+					${PreferenceVO.pref_region}%</div>
 			</div>
 			<div class="progress">
 				<div id="bar_employstatus" class="progress-bar progress-bar-warning"
 					role="progressbar" aria-valuenow="40" aria-valuemin="0"
 					aria-valuemax="100"
-					style="width: ${PreferenceVO.employstatus}%; background-color: #c0c6d3;">근무형태
-					${PreferenceVO.employstatus}%</div>
+					style="width: ${PreferenceVO.pref_employstatus}%; background-color: #c0c6d3;">근무형태
+					${PreferenceVO.pref_employstatus}%</div>
 			</div>
 			<div class="progress">
 				<div id="bar_levelofeducation" class="progress-bar"
 					role="progressbar" aria-valuenow="50" aria-valuemin="0"
 					aria-valuemax="100"
-					style="width: ${PreferenceVO.levelofeducation}%; background-color: #c0c6d3;">학력
-					${PreferenceVO.levelofeducation}%</div>
+					style="width: ${PreferenceVO.pref_levelofeducation}%; background-color: #c0c6d3;">학력
+					${PreferenceVO.pref_levelofeducation}%</div>
 			</div>
 			<div class="progress">
 				<div id="bar_lastcareer" class="progress-bar"
 					role="progressbar" aria-valuenow="50" aria-valuemin="0"
 					aria-valuemax="100"
-					style="width: ${PreferenceVO.lastcareer}%; background-color: #c0c6d3;">경력
-					${PreferenceVO.lastcareer}%</div>
+					style="width: ${PreferenceVO.pref_lastcareer}%; background-color: #c0c6d3;">경력
+					${PreferenceVO.pref_lastcareer}%</div>
 			</div>
 		</div>
 	</div><!-- container end -->
@@ -503,7 +501,7 @@ function add_employstatus() {
 	$("#icon_job").css("color", "#333333");
 	$("#icon_region").css("color", "#333333");
 	$("#icon_employstatus").css("color", "#56c0e0");
-	$("#icon_levelofeducation").css("color", "#333333");
+	$("#icon_evelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#333333");
 	
 	$("#bar_job").css("background-color", "#c0c6d3");
@@ -544,7 +542,7 @@ function add_levelofeducation() {
 		width=width+25;
 	}
 	
-	bar_levelofeducation.style.width = width + '%';
+	bar_.pref_levelofeducation.style.width = width + '%';
 	$("#bar_levelofeducation").text('학력	' + width * 1 + '%');
 }
 function add_lastcareer() {
@@ -572,5 +570,6 @@ function add_lastcareer() {
 	bar_lastcareer.style.width = width + '%';
 	$("#bar_lastcareer").text('경력	' + width * 1 + '%');
 }
+
 </script>
 <%@include file="../include/cfooter.jsp"%>

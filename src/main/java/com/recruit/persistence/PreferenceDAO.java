@@ -5,6 +5,7 @@ import java.util.List;
 import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.PreferenceVO;
+import com.recruit.domain.ResumeVO;
 
 public interface PreferenceDAO {
 	
@@ -15,7 +16,7 @@ public interface PreferenceDAO {
 	public void updatePREFOne(PreferenceVO prefvo)throws Exception;
 
 	//해당 이력서에 대한 추천 채용공고 리스트
-	public List<CoordinateVO> selectCoordinateList(Integer bno)throws Exception;
+	public List<CoordinateVO> selectCoordinateList(ResumeVO resume)throws Exception;
 	
 	//공개된 이력서가 있는지 확인하는 서비스
 	public Integer selectPublicResume(String id)throws Exception;

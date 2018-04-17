@@ -9,20 +9,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectPREFOne" resultType="PreferenceVO">
 	<![CDATA[
 		select *
-		from tblpreference
-		where userid=#{id}
+		from tbluser
+		where id=#{id}
 	]]>
 	</select>
 	
 	<update id="updatePREFOne">
 	<![CDATA[
 		update 
-		tblpreference
-		set job=#{job}, region=#{region}
-		, employstatus=#{employstatus}
-		, levelofeducation=#{levelofeducation}
-		, lastcareer=#{lastcareer}
-		where userid=#{userid}
+		tbluser
+		set pref_job=#{pref_job}
+		, pref_region=#{pref_region}
+		, pref_employstatus=#{pref_employstatus}
+		, pref_levelofeducation=#{pref_levelofeducation}
+		, pref_lastcareer=#{pref_lastcareer}
+		where id=#{id}
 	]]>
 	</update>
 	
@@ -47,26 +48,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<!-- Coordinate 비교해서 top10 bno 리스트  -->
-<!-- 	<select id="selectCoordinateList" resultType="CoordinateVO">
+	<!-- Coordinate 비교해서 top10 bno 리스트  버전2-->
+	<select id="selectCoordinateList" resultType="CoordinateVO">
 	<![CDATA[
 		select distinct rc.bno as bno
 		,SQRT(
-		POW(((select z from tblcode where id=re.lastcareer)-(select z from tblcode where id=rc.exp)),2) * pref.lastcareer 
-		+ POW(((select y from tblcode where id=re.levelofeducation)-(select y from tblcode where id=rc.edu)),2) * pref.levelofeducation
-		+ POW(((select x from tblcode where id=re.employstatusid)-(select x from tblcode where id=rc.employstatusid)),2) * pref.employstatus
+		POW(((select z from tblcode where id=re.lastcareer)-(select z from tblcode where id=rc.exp)),2) * user.pref_lastcareer 
+		+ POW(((select y from tblcode where id=re.levelofeducation)-(select y from tblcode where id=rc.edu)),2) * user.pref_levelofeducation
+		+ POW(((select x from tblcode where id=re.employstatusid)-(select x from tblcode where id=rc.employstatusid)),2) * user.pref_employstatus
 		) as distance
-		from tblresume re, tblrecruit rc
+		from tblresume re, tblrecruit rc, tbluser user
 		where re.bno=#{bno}
-		and pref.userid=#{userid}
+		and user.id=#{userid}
 		order by distance asc
 		limit 10
 		;
 	]]>
-	</select> -->
+	</select>
 	
 	<!-- Coordinate 비교해서 top10 bno 리스트  버전1-->
-	<select id="selectCoordinateList" resultType="CoordinateVO">
+<!-- 	<select id="selectCoordinateList" resultType="CoordinateVO">
 	<![CDATA[
 		select distinct rc.bno as bno
 		,SQRT(
@@ -80,16 +81,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit 10
 		;
 	]]>
-	</select>
+	</select> -->
 	
 	<select id="selectCodeCoordinate_forC" resultType="CoordinateVO">
-		select rc.bno as bno, rc.cid as cid, rc.title as title, rc.edu as edu, rc.exp as exp
+	<!-- 	select rc.bno as bno, rc.cid as cid, rc.title as title, rc.edu as edu, rc.exp as exp
 		, rc.employstatusid as employstatusid
 		,(select z from tblcode where id=rc.exp) as z
 		,(select y from tblcode where id=rc.edu) as y
 		, (select x from tblcode where id=rc.employstatusid) as x
 		from tblrecruit rc
-		where bno=1	;
+		where bno=1	; -->
 	</select>
 	
 </mapper>
