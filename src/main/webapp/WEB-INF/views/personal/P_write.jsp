@@ -21,6 +21,7 @@
 </style>
 
 <div class="col-md-9">
+
 	<h1>${PUserVO.pname}님의이력서 작성</h1>
 
 	<form role="form" method="post">

@@ -138,10 +138,6 @@ public class CompanyServiceImpl implements CompanyService {
 	public RecruitVO RecruitModifyRead(int bno, String id)throws Exception{
 		return dao.RecruitModifyRead(bno,id);
 	}
-	@Override
-	public void RecruitReRegister(String id, int bno, int day)throws Exception{
-		dao.RecruitReRegister(id,bno,day);
-	}
 
 	@Override
 	public void RecruitRemove(int bno, String id) throws Exception {
@@ -150,9 +146,9 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<CPersonInfoVO> ApplyList(int recruitNum) throws Exception {
+	public List<CPersonInfoVO> ApplyList(CompanySearchCriteria cri) throws Exception {
 		
-		return dao.ApplyList(recruitNum);
+		return dao.ApplyList(cri);
 	}
 
 	 @Override

@@ -120,7 +120,11 @@
 
 		<div class="row">
 			<div class="form-group col-lg-12">
-				<label>기업주소</label> <input type="text" name="location" class="form-control" value="${CInfoVO.location}">
+				<label>기업주소</label>
+				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				<input type="text" name="lat" id="lat">
+				<input type="text" name="lng" id="lng">
+				<div id="map"></div>
 			</div>
 		</div>
 
@@ -205,8 +209,59 @@
 </script>
 
 
+ 	<style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+      		width:	100%;
+            height: 300px; 
+        }
+        
+       .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
 
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
 
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
 
 <script>
 
@@ -416,5 +471,190 @@ var preexistenceimg = document.getElementById('preexistenceimg');
         // 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify
     });
 </script>
+
+
+
+<script> /* 구글 maps api */
+
+/*  llat = "";
+ llng = "";
+
+$(document).ready(function(){
+	
+	if("<c:out value="${CInfoVO.lat}"/>"==""){
+		
+		llat = "37.49794199999999";
+		llng = "127.02762099999995";
+		alert(llat);
+	}else if("<c:out value="${CInfoVO.lat}"/>"!=""){
+		llat = "<c:out value="${CInfoVO.lat}"/>";
+		llng = "<c:out value="${CInfoVO.lng}"/>";
+	}
+	
+}) */
+
+var map;
+
+ function initAutocomplete() {
+	 
+	 llat = "";
+	 llng = "";
+	 
+	 llat1 = "<c:out value="${CInfoVO.lat}"/>";
+	 llng1 = "<c:out value="${CInfoVO.lng}"/>";
+	 
+	 llat = Number(llat1);
+	 llng = Number(llng1);
+	 
+	 
+		 if("<c:out value="${CInfoVO.lat}"/>"==""){
+			var map = new google.maps.Map(document.getElementById('map'), {
+	        	
+		          center: {lat: 37.49794199999999, lng: 127.02762099999995},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
+			 
+			
+			
+			var map = new google.maps.Map(document.getElementById('map'), {
+		        	
+		          center: {lat: llat, lng: llng},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}
+		
+       
+        
+        
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            
+            var lat = place.geometry.location.lat()
+            var lng = place.geometry.location.lng()
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+			
+				
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+        
+        map.addListener('click', function(event) {
+        	
+        	
+            deleteMarkers();
+        
+            addMarker(event.latLng);
+        
+           alert(map.center)
+           
+           
+          });
+        
+        function addMarker(location) {
+    	    var marker = new google.maps.Marker({
+    	      position: location,
+    	      map: map
+    	    });
+    	 	
+    	    
+    	    
+    	    markers.push(marker);
+    	    
+    	    var lat = location.lat();
+            var lng = location.lng();
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+    	  }
+    	  
+    	//Sets the map on all markers in the array.
+    	  function setMapOnAll(map) {
+    	    for (var i = 0; i < markers.length; i++) {
+    	      markers[i].setMap(map);
+    	    }
+    	  }
+    	  
+    	  function deleteMarkers() {
+    	      clearMarkers();
+    	      markers = [];
+    	    }
+    	  
+    	  function clearMarkers() {
+    	      setMapOnAll(null);
+    	    }
+
+    	 
+          addMarker(map.center);
+          
+      } 
+ 
+    </script> <!-- 구글 maps api -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3xjt6_kAjGLYyJN4Mjvd_3coDo3nB7tg&libraries=places&callback=initAutocomplete"
+    async defer></script> <!--api 스크립트 -->
 
 <%@include file="../include/cfooter.jsp"%>

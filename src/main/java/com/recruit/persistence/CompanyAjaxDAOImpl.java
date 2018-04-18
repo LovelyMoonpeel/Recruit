@@ -146,13 +146,46 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 			
 	 session.insert(namespace + ".ajaxFavorPersonDelete" , paraMap);
 	}
+	
+	@Override
+	public int FavorListCount(String id) throws Exception{
+		
+		return session.selectOne(namespace + ".favorListCount", id);
+		
+	}
+	
+	@Override // 채용공고 마감
+	public void endRecruit(int bno, String id) throws Exception{
+		
+		HashMap<String, Object> paraMap = new HashMap<>();
+		
+		paraMap.put("bno", bno);
+		paraMap.put("id", id);
+			
+		session.update(namespace + ".endRecruit",paraMap);
+		
+	}
 
+	@Override // 채용공고 재등록
+	public void RecruitReRegister(String id, int bno, int day)throws Exception{
+		
+		HashMap<String,Object> RR = new HashMap<>();
+		
+		RR.put("id",id);
+		RR.put("bno", bno);
+		RR.put("day", day);
+		
+		session.update(namespace +".recruitReRegister", RR);
+		
+	}
+	
 	@Override
 	public List<RecruitVO> RecruitCriteria(CompanySearchCriteria cri, String id) throws Exception {
 		
 		HashMap<String, Object> paraMap = new HashMap<>();
 		
 		paraMap.put("id", id);	
+		paraMap.put("State", cri.getState());
 		paraMap.put("searchType", cri.getSearchType());
 		paraMap.put("keyword", cri.getKeyword());
 		paraMap.put("perPageNum", cri.getPerPageNum());
@@ -174,7 +207,10 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		paraMap.put("pageStart", cri.getPageStart());
 		paraMap.put("orderType", cri.getOrderType());
 		
+		System.out.println("test"+cri.getState());
+		
 		return session.selectOne(namespace + ".recruitCriteriaCount",paraMap);
+	
 	}
 
 	@Override

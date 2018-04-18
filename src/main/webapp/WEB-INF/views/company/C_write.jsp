@@ -300,10 +300,7 @@ $(function () {
 				</div>
 				
 				
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
-						<span class="glyphicon glyphicon-remove form-control-feedback" id="recruitnumXIcon" aria-hidden="true" style="display:none"></span>
-						<span class="glyphicon glyphicon-ok form-control-feedback" id="recruitnumOKIcon" aria-hidden="true" style="display:none"></span>
 					
 				</div>
 				</td>
@@ -504,18 +501,24 @@ $(function () {
 				<th class="text-center" id="periodTxt" style="vertical-align:middle;">접수기간</th>
 				<td>
 				
-					<div style="padding:15px 15px 15px 0px;">
-				
-					<div class="form-group" style="vertical-align:middle;">
+					
+					<div class="" style="vertical-align:middle;">
 						<div class="input-group date" data-provide="datepicker" >
 							<input type="text" class="form-control" id="period" name="period" /> <span
 								class="input-group-addon"> <i
 								class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
+						
+						<!-- <div class="input-group date" data-provide="datepicker" >
+							<input type="text" class="form-control" id="period" name="period" /> <span
+								class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div> -->
 					</div>
 
-					</div>
+					
 				</td>
 			</tr>
 			<tr>

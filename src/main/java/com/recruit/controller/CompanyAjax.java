@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -118,17 +119,38 @@ public class CompanyAjax {
 		return entity;
 	}
 	@RequestMapping(value = "/favorList/", method = RequestMethod.GET)
-	public ResponseEntity<List<CPersonInfoVO>> favList(HttpSession session, Model model){
+	public Object favList(HttpSession session, CompanySearchCriteria cri, Model model){
 		
 		
-		ResponseEntity<List<CPersonInfoVO>> entity = null;
+		ResponseEntity<List<Object>> entity = null;
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		
 		String id = login.getId();
 		try {
 			
-			entity = new ResponseEntity<>(jobService.FavorList(id), HttpStatus.OK);
+	
+		List<CPersonInfoVO> a = jobService.FavorList(id);
+		
+		List<Object> b = new ArrayList<Object>();	
+		
+		CompanyPageMaker pageMaker = new CompanyPageMaker();
+			
+		for(int i =0; i<a.size(); i++){
+			b.add((Object)(a.get(i)));
+			
+		}
+		
+		pageMaker.setCri(cri);
+			
+		pageMaker.setTotalCount(service.FavorListCount(id));	
+		
+		
+		b.add(pageMaker);
+		
+		
+			
+			entity = new ResponseEntity<>(b, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,6 +193,30 @@ public class CompanyAjax {
 		
 	
 }
+	
+	@RequestMapping(value ="endRecruit/{bno}",method = RequestMethod.POST)
+	public void endRecruit(@PathVariable("bno") int bno, HttpSession session, RedirectAttributes rttr)throws Exception{
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		
+		String id = login.getId();
+		
+		service.endRecruit(bno, id);
+	}
+	
+	@RequestMapping(value = "reRegister/{bno}/{day}", method = RequestMethod.POST)
+	public void reRegister(@PathVariable("bno") int bno, @PathVariable("day") int day, HttpSession session,
+			RedirectAttributes rttr) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			service.RecruitReRegister(id, bno, day);
+			rttr.addFlashAttribute("msg", "DELESUCCESS");
+		}
+	}
+	
 	private List<String> sel_skeys;
 
 	@RequestMapping(value = "/recruitList/",method = RequestMethod.POST)
@@ -181,35 +227,46 @@ public class CompanyAjax {
 		
 		
 		String page = "";
+		String state = "";
 		String  searchType = "";
 		String keyword = "";
 		String perPageNum = "";
 		String orderType = "";
 		
-		if(array.size() >= 4){
+		if(array.size() >= 5){
 		page = array.get(0);	
-		perPageNum = array.get(1);
-		searchType = array.get(2);
-		keyword = array.get(3);
-		if(array.size() > 4){
-		orderType = array.get(4); 
+		state = array.get(1);
+		perPageNum = array.get(2);
+		searchType = array.get(3);
+		keyword = array.get(4);
+		if(array.size() > 5){
+		orderType = array.get(5); 
 		cri.setOrderType(orderType);
-		
 		}
 		
-		cri.setPage(Integer.parseInt(page));
+		
+		if(page!=null){
+			
+			int pa = Integer.parseInt(page);
+			cri.setPage(pa);
+			
+		}
+		cri.setState(state);
 		cri.setSearchType(searchType);
 		cri.setKeyword(keyword);
 		cri.setPerPageNum(Integer.parseInt(perPageNum));			
 	
-		}else if(array.size() < 4){
+		}else if(array.size() < 5){
 			page = array.get(0);
-			perPageNum = array.get(1);
+			state = array.get(1);
+			perPageNum = array.get(2);
+			cri.setState(state);
 			cri.setPage(Integer.parseInt(page));
 			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
 		
 		System.out.println("page는"+page);
+		System.out.println("state는"+state);
 		System.out.println("searchType는"+searchType);
 		System.out.println("keyword는"+keyword);
 			
@@ -234,94 +291,17 @@ public class CompanyAjax {
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(service.recruitCriteriaCount(cri,id));
-				System.out.println(pageMaker);
-				b.add(pageMaker);
 				
-				
-				entity = new ResponseEntity<>(b, HttpStatus.OK);
-
-		
-//				model.addAttribute("pageMaker",pageMaker);
-//				
-				System.out.println("출력됨 : "+entity.toString());
-				
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				System.out.println("출력안됨 : "+entity.toString());
-			}
 			
-		}
-		
-		
-		return entity;
-		
-	}
-	
-	
-	@RequestMapping(value = "/ingRecruitList/",method = RequestMethod.POST)
-	public Object IngRecruitList(@RequestBody List<String> array,CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
-		
-		System.out.println(array);
-		
-	
-		String page = "";
-		String  searchType = "";
-		String keyword = "";
-		String perPageNum = "";
-		String orderType = "";
-		
-		if(array.size() >= 4){
-		page = array.get(0);	
-		perPageNum = array.get(1);
-		searchType = array.get(2);
-		keyword = array.get(3);
-		if(array.size() > 4){
-		orderType = array.get(4); // if 문 사용해서 채우기
-		cri.setOrderType(orderType);		
-		}
-		cri.setPage(Integer.parseInt(page));
-		cri.setSearchType(searchType);
-		cri.setKeyword(keyword);
-		cri.setPerPageNum(Integer.parseInt(perPageNum));			
-		
-	
-		}else if(array.size() < 4){
-			page = array.get(0);
-			perPageNum = array.get(1);
-			cri.setPage(Integer.parseInt(page));
-			cri.setPerPageNum(Integer.parseInt(perPageNum));
-		}
-		
-		System.out.println("page는"+page);
-		System.out.println("searchType는"+searchType);
-		System.out.println("keyword는"+keyword);
 			
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		ResponseEntity<List<Object>> entity = null;
-		Map<String, Object> result = new HashMap<String,Object>();
-		if (login != null) {
-			
-			String id = login.getId();
-			
-			try {
-				System.out.println("cri는 = "+cri);
-				System.out.println("cri.toString은 = "+cri.toString());
-//				List<RecruitVO> a = service.RecruitCriteria(cri);
-				List<RecruitVO> a = service.IngRecruitList(cri, id);
-				List<Object> b = new ArrayList<Object>();
-				
-				for(int i =0; i<a.size(); i++){
-					b.add((Object)(a.get(i)));
-					
+				if(cri.getState().equals("전체")){
+					System.out.println("전체들어옴");
+					pageMaker.setTotalCount(service.recruitCriteriaCount(cri, id));	
+				}else if(cri.getState().equals("진행중")){
+					pageMaker.setTotalCount(service.ajaxIngRecruitListCount(cri, id));
+				}else{
+					pageMaker.setTotalCount(service.ajaxEndRecruitListCount(cri, id));
 				}
-				
-				CompanyPageMaker pageMaker = new CompanyPageMaker();
-				pageMaker.setCri(cri);
-//				pageMaker.setTotalCount(131);
-				pageMaker.setTotalCount(service.ajaxIngRecruitListCount(cri,id));
 				System.out.println(pageMaker);
 				b.add(pageMaker);
 				
@@ -347,99 +327,6 @@ public class CompanyAjax {
 		
 	}
 	
-	
-	
-	@RequestMapping(value = "/endRecruitList/",method = RequestMethod.POST)
-	public Object EndRecruitList(@RequestBody List<String> array, CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){
-		
-		System.out.println(array);
-		
-	
-		
-		String page = "";
-		String  searchType = "";
-		String keyword = "";
-		String perPageNum = "";
-		String orderType = "";
-		
-		if(array.size() >= 4){
-		page = array.get(0);	
-		perPageNum = array.get(1);
-		searchType = array.get(2);
-		keyword = array.get(3);
-		if(array.size() > 4){
-		orderType = array.get(4); // if 문 사용해서 채우기
-		cri.setOrderType(orderType);		
-		}
-		
-		cri.setPage(Integer.parseInt(page));
-		cri.setSearchType(searchType);
-		cri.setKeyword(keyword);
-		cri.setPerPageNum(Integer.parseInt(perPageNum));			
-		
-	
-		}else if(array.size() < 4){
-			page = array.get(0);
-			perPageNum = array.get(1);
-			cri.setPage(Integer.parseInt(page));
-			cri.setPerPageNum(Integer.parseInt(perPageNum));
-		}
-		
-		System.out.println("page는"+page);
-		System.out.println("searchType는"+searchType);
-		System.out.println("keyword는"+keyword);
-		System.out.println("perPageNum는"+perPageNum);	
-		
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		ResponseEntity<List<Object>> entity = null;
-		Map<String, Object> result = new HashMap<String,Object>();
-		if (login != null) {
-			
-			String id = login.getId();
-			
-			try {
-				System.out.println("cri는 = "+cri);
-				System.out.println("cri.toString은 = "+cri.toString());
-//				List<RecruitVO> a = service.RecruitCriteria(cri);
-				List<RecruitVO> a = service.EndRecruitList(cri, id);
-				List<Object> b = new ArrayList<Object>();
-				
-				for(int i =0; i<a.size(); i++){
-					b.add((Object)(a.get(i)));
-					
-				}
-				
-				CompanyPageMaker pageMaker = new CompanyPageMaker();
-				pageMaker.setCri(cri);
-//				pageMaker.setTotalCount(131);
-				pageMaker.setTotalCount(service.ajaxEndRecruitListCount(cri,id));
-				System.out.println(pageMaker);
-				b.add(pageMaker);
-				
-				
-				entity = new ResponseEntity<>(b, HttpStatus.OK);
-
-		
-//				model.addAttribute("pageMaker",pageMaker);
-//				
-				System.out.println("출력됨 : "+entity.toString());
-				
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				System.out.println("출력안됨 : "+entity.toString());
-			}
-			
-		}
-		
-		
-		return entity;
-		
-		
-	}
-
-
 	/*문> 매개변수에 @RequestBody LoginDTO dto를 써줬다.
 	보내는 곳에 다음과 같이 써있다.
 	data : JSON.stringify({
@@ -587,19 +474,30 @@ public class CompanyAjax {
 		return entity;
 	}
 	
-	@RequestMapping(value = "/applyList/{bno}", method = RequestMethod.GET)
-	public Object appList(@PathVariable("bno") int bno, CompanySearchCriteria cri){
+	@RequestMapping(value = "/applyList/{pArray}", method = RequestMethod.GET)
+	public Object appList(@PathVariable("pArray") List<String> pArray, CompanySearchCriteria cri){
 	
 		ResponseEntity<List<Object>> entity = null;
 	
-		System.out.println("bno"+bno);
 		
-		int Count;
-		String page = "";
-		String  searchType = "";
-		String keyword = "";
-		String perPageNum = "";
+		System.out.println(pArray);
 		
+		
+		
+		
+		if(pArray.size()==2){
+			 cri.setBno(Integer.parseInt(pArray.get(0)));
+			 cri.setPage(Integer.parseInt(pArray.get(1)));
+			}else{
+				
+				 cri.setBno(Integer.parseInt(pArray.get(0)));
+				 cri.setPage(Integer.parseInt(pArray.get(1)));
+				 cri.setpKeyword(pArray.get(2));
+				 cri.setpSearchType(pArray.get(3));
+				 
+			}
+			
+		System.out.println(cri);
 		
 		try {
 			
@@ -607,17 +505,16 @@ public class CompanyAjax {
 			
 			CompanyPageMaker pageMaker = new CompanyPageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(service.appListCount(bno));
+			pageMaker.setTotalCount(service.appListCount(cri.getBno()));
 			
-			List<CPersonInfoVO> a = jobService.ApplyList(bno);
+			List<CPersonInfoVO> a = jobService.ApplyList(cri);
 			List<Object> b = new ArrayList<Object>();
 			
 			
 			
 			
 			for(int i =0; i<a.size(); i++){
-				b.add((Object)(a.get(i)));
-				
+				b.add((Object)(a.get(i)));	
 			}
 			
 			b.add(pageMaker);
@@ -631,4 +528,6 @@ public class CompanyAjax {
 		}
 		return entity;	
 	}
+	
+	
 }

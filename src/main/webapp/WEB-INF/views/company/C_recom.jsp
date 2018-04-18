@@ -56,7 +56,7 @@
 							담당자</option> --%>
 				</select>
 				</div>
-					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> <span class="input-group-btn">
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword}'> <span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
 					</span>
 					

@@ -49,4 +49,9 @@ public class HomeController {
 
 		return "home2";
 	}
+	@RequestMapping(value = "/socket.io/", method = RequestMethod.GET)
+	public void in1dexTest(Locale locale, Model model) throws Exception {
+		
+	}
+	
 }

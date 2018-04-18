@@ -102,8 +102,21 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 public void FavorPersonDelete(int bno, String id) throws Exception{
 		 dao.FavorPersonDelete(bno, id);
 	 }
-
-	@Override
+	 @Override // 관심인재 페이지네이션용 카운터
+	 public int FavorListCount(String id) throws Exception{
+		 return dao.FavorListCount(id);
+	 }
+	 @Override
+	 public void endRecruit(int bno, String id) throws Exception{
+		 dao.endRecruit(bno, id);
+	 }
+	 
+	 @Override
+		public void RecruitReRegister(String id, int bno, int day)throws Exception{
+			dao.RecruitReRegister(id,bno,day);
+	}
+	
+	 @Override
 	public int recruitCriteriaCount(CompanySearchCriteria cri, String id) throws Exception {
 		
 		return dao.recruitCriteriaCount(cri,id);

@@ -13,45 +13,53 @@
 <!-- Main content -->
 <!-- 기업 채용공고 목록 -->
 <div class="col-md-9">
+
 	<p class="lead">
+	
 		<strong>채용공고관리</strong>
+		
 	</p>
 	
 
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> <!-- selectpicker용 스크립트 -->
 	
 
-	<!--소스  -->
+	
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
+		
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
+			
 				<ul class="nav navbar-nav">
 					<li id="btnsState" name="SearchReset" class="active"><a id="btns" style="cursor:pointer">전체</a></li>
 				</ul>
 			</div>
+			
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-<li id="btnsState"><a id="btns" style="cursor:pointer">진행중</a></li>
-<li id="btnsState"><a id="btns" style="cursor:pointer">마감</a></li>
+					
+					<li id="btnsState"><a id="btns" style="cursor:pointer">진행중</a></li>
+					<li id="btnsState"><a id="btns" style="cursor:pointer">마감</a></li>
+				
 				</ul>
-				<div class="input-group" >
-					<div class="input-group-btn" style="vertical-align:middle">
-						<select class="selectpicker" name="searchType" style="width:50px;">
+				
+				
+			<div class="input-group" >
+				<div class="input-group-btn" style="vertical-align:middle">
+					<select class="selectpicker" name="searchType" style="width:50px;">
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
 							<%-- <option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option> --%>
-						</select>
-					</div>
+					</select>
+				</div>
 					<!-- /btn-group -->
 					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> 
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
-					</span>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+						</span>
 					<ul class="nav navbar-nav navbar-right" style="vertical-align:middle">
 						<select class="selectpicker" id="perPageNum" style="width: 120px">
 							<option value="5" selected>5개씩보기</option>
@@ -113,23 +121,30 @@
 				<th style="text-align: center" class="active">조회수</th>
 			</tr>
 		</thead>
-		<tbody id="recruitList">
+		<tbody id="recruitLists">
 		
 		</tbody>
 	</table>
+	
+	<div id="noStrs">
+	
+	</div>
+	
 	<div class="text-center">
 		<ul class="pagination" id="listPage">
+		
 		</ul>
 	</div>
+	
 	<table class="table table-bordered">
 		<tr class="active gobox2">
 			<td style="line-height: 200%">
 				<ul style="list-style-type: circle">
 					<li>진행중 공고의 게재 기간은 <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br>
 					<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li>
-					<br>
+						<br>
 					<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li>
-					<br>
+						<br>
 					<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
 				</ul>
 			</td>
@@ -162,15 +177,48 @@
           <h4 class="modal-title">지원자 리스트</h4>
         </div>
         <div class="modal-body">
-         
-         	 <table class="table table-striped" >
+      
+    
+      <div class="collapse navbar-collapse">
+				
+				<div class="input-group">
+					<div class="input-group-btn" style="vertical-align:middle;">
+					
+
+						<select class="selectpicker" name="pSearchType">
+							<option value="n"
+							<c:out value="${cri.pSearchType eq 'n'?'selected':''}"/>>
+							지원자이름</option>
+							<option value="j"
+							<c:out value="${cri.pSearchType eq 'j'?'selected':''}"/>>
+							전화번호</option>
+							<option value="e"
+							<c:out value="${cri.pSearchType eq 'e'?'selected':''}"/>>
+							이메일</option>
+						</select>
+					</div>
+					<input type="text" class="form-control" name='pKeyword' id="pKeywordInput" placeholder="Search for..." value='${cri.pKeyword}'/><span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="pSearchBtn">검색하기</button>
+					</span>
+					
+				</div>			
+				<!-- /.navbar-collapse -->
+				
+				
+					
+			</div>
+			
+					
+          <table class="table table-striped" >
          	 <thead class=active>
-          <tr class=active>
-          <th class="text-center" style="width:5%"></th>
-          <th class="text-center" style="width:15%">이름</th>
-          <th class="text-center" style="width:65%">이력서 요약</th>
-          <th class="text-center" style="width:15%">업데이트일</th>
-          </tr>
+         
+		<tr class=active>
+			<th class="text-center" style="width:5%"></th>
+        	<th class="text-center" style="width:15%">이름</th>
+      		<th class="text-center" style="width:65%">이력서 요약</th>
+       		
+		</tr>
+          
           </thead>
           
           <tbody id="appList">
@@ -179,6 +227,10 @@
           
         
           </table>
+          
+          <div id="noApplyList">
+          
+          </div>
           
         </div>
         
@@ -199,24 +251,23 @@
 <!-- //기업 채용공고 목록 끝 -->
 
 
+				
 <script>
+
+
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
 	var orderType = $("small[name=states]").attr('value');
 		
 	var perPageNum = $("#perPageNum option:selected").val();  
 	var pN = 1;
-	var btnsStates = $("#btnsState[class^=active]").text();
+	var state = $("#btnsState[class^=active]").text();
 	var searchType = $("select option:selected").val();
 	var keyword = $('#keywordInput').val();
 	
-	if(btnsStates == "전체"){
-		RecruitList(pN, perPageNum, searchType, keyword, orderType);
-	}else if(btnsStates == "진행중"){
-		RecruitIngList(pN, perPageNum, searchType, keyword, orderType);
-	}else{	
-		RecruitEndList(pN, perPageNum, searchType, keyword, orderType);
-	}
+
+	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+
 	
 	
 	
@@ -323,78 +374,45 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 })
 </script>
 <script>
-			 $("#keywordInput").keypress(function (e) {
+			 $("#keywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
 			        if (e.which == 13){
 			        	
 			        	$('#searchBtn').trigger('click');
+			        }
+			    });
+			 
+			 $("#pKeywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
+			        if (e.which == 13){
+			        	
+			        	$('#pSearchBtn').trigger('click');
 			        }
 			    });
 			</script>
 <script>
  function check(orderType){
 	
-	
-	if($("#btnsState[class^=active]").text()=="전체"){
 		var pN = 1;
+		var state = $("#btnsState[class^=active]").text();
 		var searchType = $("select option:selected").val();
 		var keyword = $('#keywordInput').val();
 		var perPageNum = $("#perPageNum option:selected").val();
-	      
-		
-		RecruitList(pN, perPageNum, searchType, keyword, orderType);
 			
-	}else if($("#btnsState[class^=active]").text()=="진행중"){
-		
-		var pN = 1;
-		var searchType = $("select option:selected").val();
-		var keyword = $('#keywordInput').val();
-		var perPageNum = $("#perPageNum option:selected").val();
-	      
-		RecruitIngList(pN, perPageNum, searchType, keyword, orderType);
-	
-		
-	}else{
-		
-		var pN = 1;
-		var searchType = $("select option:selected").val();
-		var keyword = $('#keywordInput').val();
-		var perPageNum = $("#perPageNum option:selected").val();
-		
-		RecruitEndList(pN, perPageNum, searchType, keyword, orderType);		
-	}
-	
+		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+
 }
 </script>
 <script>
 $(document).on("click",'#recruitList',function(){ /* 전체 페이징 이동 */
 	
 		var orderType = $("small[name=states]").attr('value');
+		var state = $("#btnsState[class^=active]").text();
 		var searchType = $("select option:selected").val();
 		var keyword = $('#keywordInput').val();
 		var perPageNum = $("#perPageNum option:selected").val();  
-	
-		if($(this).attr("name")=="all"){
-		
-			
 		var pN = $(this).html();
 		
-		RecruitList(pN, perPageNum, searchType, keyword, orderType);		
+		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);		
 		
-		}else if($(this).attr("name")=="ing"){
-		
-		var pN = $(this).html();
-		$(this).addClass("active");
-		
-		RecruitIngList(pN, perPageNum, searchType, keyword, orderType);		
-			
-		}else if($(this).attr("name")=="end"){
-			
-		var pN = $(this).html();
-		$(this).addClass("active");
-		
-		RecruitEndList(pN, perPageNum, searchType, keyword, orderType);		
-					
-		}
 		
 	})
 $(document).on("click",'#recruitListExtend',function(){ /* 다음 리스트로 넘어가는 페이징 */
@@ -402,92 +420,44 @@ $(document).on("click",'#recruitListExtend',function(){ /* 다음 리스트로 �
 		var one = "1";
 		
 		var orderType = $("small[name=states]").attr('value');
+		var state = $("#btnsState[class^=active]").text();
 		var searchType = $("select option:selected").val();
 		var keyword = $('#keywordInput').val();
 		var perPageNum = $("#perPageNum option:selected").val();  
 		
-		if($(this).attr("name")=="all"){
-			
-			
+	
 		var cn = $(this).attr('value');	
 		var pN = Number(cn) + Number(one);
 		
-		RecruitList(pN, perPageNum, searchType, keyword, orderType);
+		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 		
-		}else if($(this).attr("name")=="ing"){
 		
-			var cn = $(this).attr('value');	
-			var pN = Number(cn) + Number(one);
-			RecruitIngList(pN, perPageNum, searchType, keyword, orderType);		
-			
-		}else if($(this).attr("name")=="end"){
-			
-			
-			var cn = $(this).attr('value');	
-			var pN = Number(cn) + Number(one);
-			
-			RecruitEndList(pN, perPageNum, searchType, keyword, orderType);		
-					
-		}
 		
 })
 $(document).on("click",'#recruitListBack',function(){
 	
-	var one = "1";
+		var one = "1";
 		
 		var orderType = $("small[name=states]").attr('value');
+		var state = $("#btnsState[class^=active]").text();
 		var searchType = $("select option:selected").val();
 		var keyword = $('#keywordInput').val();
 		var perPageNum = $("#perPageNum option:selected").val();  
-		
-		if($(this).attr("name")=="all"){
-			
+	
 		var cn = $(this).attr('value');	
 		var pN = Number(cn) - Number(one);
 		
-		RecruitList(pN, perPageNum, searchType, keyword, orderType);
+		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 		
-		}else if($(this).attr("name")=="ing"){
-			
-			var cn = $(this).attr('value');	
-			var pN = Number(cn) - Number(one);
-				
-		RecruitIngList(pN, perPageNum, searchType, keyword, orderType);		
-			
-		}else{
-			
 		
-			RecruitEndList(pN, perPageNum, searchType, keyword, orderType);		
-					
-		}
 	
 })
 $(document).ready(function(){
 		var perPageNum = $("#perPageNum option:selected").val();  
 	  var pN = 1;
-	RecruitList(pN, perPageNum);
+	  var state = "전체";
+	RecruitList(pN, state, perPageNum);
 	
-	
-	$(document).on("click",'#RecruitIngList',function(){
-		
-		var pN = $(this).html();
-		var searchType = $("select option:selected").val();
-		var keyword = $('#keywordInput').val();
-		var perPageNum = $("#perPageNum option:selected").val();  
-		
-		RecruitIngList(pN, perPageNum, searchType, keyword);
-		
-	})
-	$(document).on("click",'#RecruitEndList',function(){
-		
-		var pN = $(this).html();
-		var searchType = $("select option:selected").val();
-		var keyword = $('#keywordInput').val();
-		var perPageNum = $("#perPageNum option:selected").val();  
-		
-		RecruitEndList(pN, perPageNum, searchType, keyword);
-		
-	})
 	
 	$(document).on("click",'#btns',function(){ /* 전체, 진행중, 마감용 상단 버튼 */
 		
@@ -502,17 +472,19 @@ $(document).ready(function(){
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
+			var state = "전체";
 			
 			
-			RecruitList(pN, perPageNum, searchType, keyword);
+			RecruitList(pN, state, perPageNum, searchType, keyword);
 				
 		}else if($(this).text()=="진행중"){
 			var pN = 1;
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
+			var state = "진행중";
 		      
-			RecruitIngList(pN, perPageNum, searchType, keyword);
+			RecruitList(pN, state, perPageNum, searchType, keyword);
 		
 		
 		}else{
@@ -520,8 +492,9 @@ $(document).ready(function(){
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
-			
-			RecruitEndList(pN, perPageNum, searchType, keyword);
+			var state = "마감";
+		      
+			RecruitList(pN, state, perPageNum, searchType, keyword);
 			
 			
 		}
@@ -548,15 +521,35 @@ var formObj = $("form[role='form']");
 			  
 			  var text = $(this).html();
 			  
+			 
 			  if(text == "수정"){
 				  self.location = "/company/C_recruitModify?bno="+bno+"";
 			  }else{
 				  var day = prompt("연장일을 숫자로만 입력해주세요.");
 				  if (day != null){
 						 
-					  alert("해당 공고가 재등록됐습니다.");
-					  
-					  self.location = "/company/C_recruitReregister?bno="+bno+"&day="+day+"";
+						$.ajax({
+							type:'POST',
+							url:'/companyAjax/reRegister/'+bno+'/'+day,
+							headers: { 
+							      "Content-Type": "application/json; ",
+							      "X-HTTP-Method-Override": "POST" },
+							data:JSON.stringify(), 
+							success : function(result) {
+								
+								var orderType = $("small[name=states]").attr('value');
+								
+								var perPageNum = $("#perPageNum option:selected").val();  
+								var pN = $("#recruitListLi[class^=active]").attr("name");
+								var state = $("#btnsState[class^=active]").text();
+								var searchType = $("select option:selected").val();
+								var keyword = $('#keywordInput').val();
+
+								RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+								
+							}	
+							      
+					 }); 
 				  
 				  }
 			  }
@@ -578,19 +571,20 @@ var formObj = $("form[role='form']");
 			$("span[name='orders']").removeClass();
 			 $("#btnsState[class^=active]").removeClass();
 			 $("#btnsState[name='SearchReset']").addClass("active");
+			 var state = $("#btnsState[class^=active]").text();
 			var pN = 1;
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
 			var orderType = $("#appIcon").attr("value");
-			RecruitList(pN, perPageNum, searchType, keyword, orderType)
+			RecruitList(pN, state, perPageNum, searchType, keyword, orderType)
 			
  		});
  		
  
 	
 		
-		function RecruitList(pN, perPageNum, searchType,keyword, orderType){
+		function RecruitList(pN, state, perPageNum, searchType,keyword, orderType){
 			
 			
 			
@@ -598,8 +592,8 @@ var formObj = $("form[role='form']");
 			
 			for(var p = 0; p<arguments.length; p++){
 			array[p] = arguments[p];
+			}	
 			
-			}
 			
 			  $.ajax({
 					type:'POST',
@@ -614,6 +608,7 @@ var formObj = $("form[role='form']");
 						
 						var str = "";	
 						var chr = "";
+						var noStr = "";
 						var length = data.length;
 						var i = 0;
 						
@@ -630,27 +625,42 @@ var formObj = $("form[role='form']");
 										+"<li>경력 : "+this.exp+"</li>"
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
 										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-										+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
-										+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"
+										if(this.btnstate=="수정"){
+											str += "<br><button id=endRecruit value="+this.bno+">모집완료하기</button>"
+												+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
+												+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
+										}else{
+											str += "<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
+											+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
+										}
+										
+										
 								}else{
 									
 				 					if(this.prev){
 										chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
 									}
 									
-									
 									for(var z = this.startPage; z<=this.endPage; z++){
-										chr += "<li name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
+										chr += "<li id=recruitListLi name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
 										
 									} 
 								 	if(this.next&&this.endPage>0){
 										chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
 									} 
 				 				}
-			
+							if(length == 1){
+								
+								noStr += "<br><br><br><br><h2>공고가 없습니다</h2><br><br><br><br>"
+							
+							}
 						});			
 						
-						$("#recruitList").html(str);	
+						$("#recruitLists").html(str);	
+						
+						 $("#noStrs").html(noStr); 
+						 
+						 $("#noStrs").addClass("text-center");
 						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
 					/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
 						 $("#listPage").html(chr); 
@@ -672,143 +682,54 @@ var formObj = $("form[role='form']");
 				
 		})
 		
-		 function RecruitIngList(pN, perPageNum, searchType,keyword, orderType){
-				
-			 var array = [];
-					
-					for(var p = 0; p<arguments.length; p++){
-					array[p] = arguments[p];
-					}
-					
-					  $.ajax({
-							type:'POST',
-							url:'/companyAjax/ingRecruitList/',
-							headers: { 
-							      "Content-Type": "application/json; ",
-							      "X-HTTP-Method-Override": "POST" },
-							dataType:'json', 
-							data:JSON.stringify(array), 
-							success : function(data) {
-								
-								
-								var str = "";	
-								var chr = "";
-								var length = data.length;
-								var i = 0;
-								
-								
-								
-								$(data).each(function(){
-									i++;
-									
-									if(i < length){
-										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
-												+"<li>근무형태 : "+this.employstatusid+"</li>"
-												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
-												+"<li>경력 : "+this.exp+"</li>"
-												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
-										}else{
-											
-											if(this.prev){
-												chr += "<li><a id=recruitListBack name=ing value="+this.startPage+">&laquo;</a></li>";
-											}
-											
-											
-											for(var z = this.startPage; z<=this.endPage; z++){
-												chr += "<li name="+z+"><a id=recruitList name=ing>"+z+"</a></li>"
-												
-											} 
-										 	if(this.next&&this.endPage>0){
-												chr += "<li><a id=recruitListExtend value="+this.endPage+" name=ing>&raquo;</a></li>";
-											}
-						 				}
-					
-								});			
-							
-								$("#recruitList").html(str);	
-							
-								 $("#listPage").html(chr); 
-									 
-								 $("li[name="+pN+"]").addClass("active");
-							}	
-							      
-							     
-					 
-					 }); 
-				}
 		
-		 function RecruitEndList(pN, perPageNum, searchType,keyword, orderType){
-				
-					var array = [];
+	</script>
+	
+	
+	<script>
+	
+	$(document).on("click","#endRecruit", function(){
+		
+		bno = $(this).val();
+		
+		endFunction(bno);
+		
+	})
+	
+	function endFunction(bno){
+		
+		if(confirm("공고를 마감하시겠습니까?")){
+			$.ajax({
+				type:'POST',
+				url:'/companyAjax/endRecruit/'+bno,
+				headers: { 
+				      "Content-Type": "application/json; ",
+				      "X-HTTP-Method-Override": "POST" },
+				data:JSON.stringify(), 
+				success : function(result) {
 					
-					for(var p = 0; p<arguments.length; p++){
-					array[p] = arguments[p];
-					}
+					var orderType = $("small[name=states]").attr('value');
 					
-					  $.ajax({
-							type:'POST',
-							url:'/companyAjax/endRecruitList/',
-							headers: { 
-							      "Content-Type": "application/json; ",
-							      "X-HTTP-Method-Override": "POST" },
-							dataType:'json', 
-							data:JSON.stringify(array), 
-							success : function(data) {
-								
-								
-								var str = "";	
-								var chr = "";
-								var length = data.length;
-								var i = 0;
-								
-								
-								
-								$(data).each(function(){
-									i++;
-									
-									if(i < length){
-										str += "<tr><th rowspan=2><span class=badge badge-inverse>"+this.recruitstate+"</span></th>"
-										+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
-												+"<li>근무형태 : "+this.employstatusid+"</li>"
-												+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
-												+"<li>경력 : "+this.exp+"</li>"
-												+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-												+"<th><button type=button id=modify value="+this.bno+" class=btn-primary>"+this.btnstate+"</button><br><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
-												+"<th><li>지원자수 : "+this.applynum+"</li></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th colspan=4 class=text-center><li>최근수정 : "+this.regdate+" (담당자:)</li></th></tr>"
-										}else{
-											
-											if(this.prev){
-												chr += "<li><a id=recruitListBack name=end value="+this.startPage+">&laquo;</a></li>";
-											}
-											
-											
-											for(var z = this.startPage; z<=this.endPage; z++){
-												chr += "<li name="+z+"><a id=recruitList name=end>"+z+"</a></li>"
-												
-											} 
-										 	if(this.next&&this.endPage>0){
-												chr += "<li><a id=recruitListExtend value="+this.endPage+" name=end>&raquo;</a></li>";
-											}
-						 				}
+					var perPageNum = $("#perPageNum option:selected").val();  
+					var pN = $("#recruitListLi[class^=active]").attr("name");
+					var state = $("#btnsState[class^=active]").text();
+					var searchType = $("select option:selected").val();
+					var keyword = $('#keywordInput').val();
+
+					RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 					
-								});			
-							
-								$("#recruitList").html(str);	
-							
-								 $("#listPage").html(chr); 		 
-								 
-								 $("li[name="+pN+"]").addClass("active");
-							}	
-							      
-							     
-					 
-					 }); 
-				}
+				}	
+				      
+		 }); 
+			
+		}else{
+		
+			return false;
+			
+		}	
+			
+	}
+	
 	</script>
 	
 	<script>
@@ -822,21 +743,43 @@ var formObj = $("form[role='form']");
 	</script>
 	<script> /* 모달용 스크립트 */
 $(document).on("click", "button[name=onLoad]", function() {
-	
-	
-	
+
 	 var bno = $(this).val();
+	 
+	 var pN = 1;
+	 
+	 $("#pKeywordInput").prop("value","");
+	 
+	 PersonList(bno, pN);
 	
-	PersonList(bno);
-	
-	function PersonList(bno){
+})
+
+
+
+function PersonList(bno, pN, pSearchType, pKeyword){
 		
 		
-		$.getJSON("/companyAjax/applyList/" + bno, function(data) {
+		$("#pSearchBtn").attr("value",bno);
+		
+		
+		var pArray = [];
+		
+		var pN = pN;
+	
+		
+		for(var pA = 0; pA<arguments.length; pA++){
+			
+			pArray[pA] = arguments[pA];
+			
+		}
+		
+		$.getJSON("/companyAjax/applyList/" + pArray, function(data) {
 			
 			var str = "";
 			
 			var chr = "";
+			
+			var noStr = "";
 			
 			var i = 0;
 			
@@ -844,6 +787,7 @@ $(document).on("click", "button[name=onLoad]", function() {
 			
 			var length = data.length;
 			
+		
 			$(data).each(function() {
 						
 				i++;
@@ -856,52 +800,74 @@ $(document).on("click", "button[name=onLoad]", function() {
 				+ "<p>"+"학력: "+this.edu+"</p>"
 				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
 				+ "<p>"+"희망연봉: "+this.salary+"</p>"
-				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td><td class=text-center style=vertical-align:middle>1분전</td></tr>"
+				+ "<p>희망직종: "+this.jobgroup1+"("+this.jobgroup2+")</p></td></tr>"
 				
 				comparison.push(this.bno)
 				
 			 	}else{
 					
  					if(this.prev){
-						chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
+						chr += "<li><a id=applyListBack name=all value="+this.startPage+">&laquo;</a></li>";
 					}
 					
 					
 					for(var z = this.startPage; z<=this.endPage; z++){
-						chr += "<li name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
+						chr += "<li id=applyLi name="+z+"><a id=applyList name=all>"+z+"</a></li>"
 						
 					} 
 				 	if(this.next&&this.endPage>0){
-						chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+						chr += "<li><a id=applyListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
 					} 
  				}
-					 
-				});
-			
-			
-			
-		 	$("#appList").html(str);
 		 	
-		 	$("#applyListPage").html(chr); 
+		 	
+			});
+			
+			 if(length == 1){ /* 지원자 리스트가 없을 경우의 수 */
+				
+				if($("#pKeywordInput").val().length == 0){ /* 그냥 지원자 자체가 없을 때 */ 
+					noStr += "<br><br><h3>지원한 인재가 아직 없습니다<h3>"
+				}
+				if($("#pKeywordInput").val().length > 0){ /* 검색 결과가 없을 때 */
+					noStr += "<br><br><h3>검색결과가 없습니다<h3>"
+				}
+			
+			 }
+			
+			if(noStr!=null){ /* 지원자 리스트 & 검색결과가 없을 때 문서객체 추가 */
+			$("#noApplyList").html(noStr); 
+			
+			$("#noApplyList").addClass("text-center"); 
+			}
+			
+		 	$("#appList").html(str);	   /* 지원자 리스트& 검색결과가 있을 경우 추가 */
+		 	
+		 	$("#applyListPage").html(chr); /* 지원자 리스트 페이지 네이션을 위해 추가 */
+		 		 	
+		 	
 		 	 
-		 	favorComparison(comparison)
+		 	$("#applyLi[name="+pN+"]").addClass("active"); /* 선택된 페이지에 색상 추가용 클래스 추가 */
+		 	
+		 	favorComparison(comparison) /* 지원한 지원자가 관심인재에 등록된지 확인하기 위한 함수 */
 			
 		})
 		
 	
 	}
-	
-})
 
-$(document).on("click","#btt",function(){
+$(document).on("click","#btt",function(){ /* 이력서 새창에 보기위해 지정하는 스크립트 */
+	
 		window.open(this.href, '', 'width=800, height=1000'); 
 		
 		return false;
-	})
+		
+})
+
+
 	
 	
 	
-function favorComparison(comparison){
+function favorComparison(comparison){ /* 스크랩할려는 인재가 이미 스크랩한 인재인지 검사하기위한 비교문 */
 	
 	var compare = document.getElementsByName('CompareList');
 	var compareList = [];
@@ -909,10 +875,7 @@ function favorComparison(comparison){
 		
 	compareList.push(compare[i].value);
 	}
-	/*
- 	$('#recomList img').prop("src","/resources/rpjt/img/non.png")
- 	$("img[value="+i+"]").prop("src","/resources/rpjt/img/on.png")
-   */
+	
  	for(var i= 0; i<compareList.length; i++){
  		
  		for(var j = 0; j<comparison.length; j++){
@@ -928,7 +891,7 @@ function favorComparison(comparison){
 </script>
 
 <script>
-$(document).ready(function(){
+$(document).ready(function(){ /* 관심인재 스크립하기 이벤트 */
 	
 	$(document).on("click", '#non', function(){
 		
@@ -953,8 +916,10 @@ function favAdd(bno, id){   // 관심인재 등록
 		var str = "";
 		
 		$(data).each(
-				function() {
-				});
+				
+			function() {
+				
+		});
 		
 	})
 	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
@@ -978,4 +943,58 @@ function favDel(bno, id){ 	// 관심인재 삭제
 }
 
 </script>
+
+    <script>
+    	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
+    		var bno = $("#pSearchBtn").val();
+    		var pKeyword = $("#pKeywordInput").val();
+    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+    		var pN = 1
+
+    	
+    		
+    		PersonList(bno, pN, pKeyword,pSearchType);
+    		 
+    		 
+    	})
+    	
+    	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
+    		
+    		var bno = $("#pSearchBtn").val();
+    		var pN = $(this).attr("name");
+    		var pKeyword = $("#pKeywordInput").val();
+    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+	
+    		PersonList(bno, pN, pKeyword,pSearchType);
+    		
+    	})
+    	
+    	$(document).on("click","#applyListBack",function(){
+    		
+    		var one = "1";
+    		var bno = $("#pSearchBtn").val();
+    		var cn = $(this).attr("name");
+    		var pKeyword = $("#pKeywordInput").val();
+    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+    		var pN = Number(cn) - Number(one);
+
+    		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+    		
+    	})
+    	
+    	$(document).on("click","#applyListExtend",function(){
+    		
+    		var one = "1";
+    		var bno = $("#pSearchBtn").val();
+    		var cn = $(this).attr("name");
+    		var pKeyword = $("#pKeywordInput").val();
+    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+    		var pN = Number(cn) + Number(one);
+
+    		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+    		
+    	})
+      
+     </script>
+     
 <%@include file="../include/cfooter.jsp"%>
