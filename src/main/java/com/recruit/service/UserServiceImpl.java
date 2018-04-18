@@ -142,7 +142,6 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	@Override
 	public void ppwchk(LoginDTO dto) throws Exception{
-//		dao.ppwchk(dto);
 		
 		String key = new TempKey().getPw(10, false); // 인증키 생성
 
@@ -155,7 +154,7 @@ public class UserServiceImpl implements UserService{
 		sendMail.setText(new StringBuffer().append("<h1>임시비밀번호 발급 입니다.</h1>")
 				.append("당신의 임시 비밀번호는 <br><br><h3>").append(key)
 				.append("</h3><br><br><span>입니다.</span><br><br><span>로그인 하여 비밀번호를 바꿔주세요.</span><br><br>")
-				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>RecruIT 홈페이지</a>").toString());
+				.append("<a href='http://192.168.0.64:8080/'>RecruIT 홈페이지</a>").toString());
 		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
@@ -165,7 +164,6 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	@Override
 	public void cpwchk(LoginDTO dto) throws Exception{
-//		dao.cpwchk(dto);
 		
 		String key = new TempKey().getKey(10, false); // 인증키 생성
 		
@@ -178,7 +176,7 @@ public class UserServiceImpl implements UserService{
 		sendMail.setText(new StringBuffer().append("<h1>임시비밀번호 발급 입니다.</h1>")
 				.append("당신의 임시 비밀번호는 <br><br><h3>").append(key)
 				.append("</h3><br><br><span>입니다.</span><br><br><span>로그인 하여 비밀번호를 바꿔주세요.</span><br><br>")
-				.append("<a href='http://192.168.0.64:8080/cs/S_faq'>RecruIT 홈페이지</a>").toString());
+				.append("<a href='http://192.168.0.64:8080/'>RecruIT 홈페이지</a>").toString());
 		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
@@ -194,7 +192,44 @@ public class UserServiceImpl implements UserService{
 		return dao.getppw(dto);
 	}
 	
+	@Override
 	public BoardVO getcpw(LoginDTO dto) throws Exception{
 		return dao.getcpw(dto);
+	}
+	
+	@Async
+	@Transactional
+	@Override
+	public void pRead(LoginDTO dto) throws Exception{
+		String id = ""; 
+		id = dao.pread(dto).getId();
+		
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[RecruIT 서비스 이메일 인증]");
+		sendMail.setText(new StringBuffer().append("<h1>아이디 찾기 입니다.</h1>")
+				.append("당신의 아이디는 <br><br><h3>").append(id)
+				.append("</h3><br><br><span>입니다.</span><br><br><span>아래의 링크를 이용하여 홈페이지에 접속해주세요.</span><br><br>")
+				.append("<a href='http://192.168.0.64:8080/'>RecruIT 홈페이지</a>").toString());
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
+		sendMail.setTo(dto.getEmail());
+		sendMail.send();
+	}
+	
+	@Async
+	@Transactional
+	@Override
+	public void cRead(LoginDTO dto) throws Exception{
+		String id = ""; 
+		id = dao.cread(dto).getId();
+		
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[RecruIT 서비스 이메일 인증]");
+		sendMail.setText(new StringBuffer().append("<h1>아이디 찾기 입니다.</h1>")
+				.append("당신의 아이디는 <br><br><h3>").append(id)
+				.append("</h3><br><br><span>입니다.</span><br><br><span>아래의 링크를 이용하여 홈페이지에 접속해주세요.</span><br><br>")
+				.append("<a href='http://192.168.0.64:8080/'>RecruIT 홈페이지</a>").toString());
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
+		sendMail.setTo(dto.getEmail());
+		sendMail.send();
 	}
 }

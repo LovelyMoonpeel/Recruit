@@ -39,4 +39,8 @@ public interface UserService {
 	public BoardVO getppw(LoginDTO dto) throws Exception;
 	
 	public BoardVO getcpw(LoginDTO dto) throws Exception;
+	
+	public void pRead(LoginDTO dto) throws Exception;
+	
+	public void cRead(LoginDTO dto) throws Exception;
 }

@@ -54,12 +54,11 @@ $("#submit").on("click", function(){
 		dataType:'text',
 		data: JSON.stringify({pname:pname, email:email}),
 		success:function(result){
-			if(result == 'fail'){
-				alert("이름이나 이메일을 다시 확인해주세요.");
-			}else{
-				alert("당신의 아이디는 "+result+" 입니다.");
-				alert("확인된 아이디로 로그인해주세요.");
+			if(result == 'success'){
+				alert("이메일로 아이디가 전송되었습니다.");
 				self.location="/";
+			}else{
+				alert("아이디나 이메일을 다시 확인해주세요.");
 			}
 		}
 	})
@@ -81,12 +80,11 @@ $("#submit").on("click", function(){
 		dataType:'text',
 		data: JSON.stringify({cname:cname, email:email}),
 		success:function(result){
-			if(result == 'fail'){
-				alert("이름이나 이메일을 다시 확인해주세요.");
-			}else{
-				alert("당신의 아이디는 "+result+" 입니다.");
-				alert("확인된 아이디로 로그인해주세요.");
+			if(result == 'success'){
+				alert("이메일로 아이디가 전송되었습니다.");
 				self.location="/";
+			}else{
+				alert("아이디나 이메일을 다시 확인해주세요.");
 			}
 		}
 	})

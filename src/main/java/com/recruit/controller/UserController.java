@@ -181,20 +181,14 @@ public class UserController {
 			if(dto.getCname()==null){
 				if(service.pread(dto)!=null){
 					id = service.pread(dto).getId();
-				}
-				if(id != ""){
-					entity = new ResponseEntity<String>(id, HttpStatus.OK);
-				}else{
-					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+					service.pRead(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
 				}
 			}else{
 				if(service.cread(dto)!=null){
 					id = service.cread(dto).getId();
-				}
-				if(id != ""){
-					entity = new ResponseEntity<String>(id, HttpStatus.OK);
-				}else{
-					entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+					service.cRead(dto);
+					entity = new ResponseEntity<String>("success", HttpStatus.OK);
 				}
 			}
 		}catch(Exception e){

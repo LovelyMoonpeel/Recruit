@@ -26,7 +26,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
+				<td><input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
@@ -61,6 +61,19 @@
 				<th>사업자등록번호</th>
 				<td><input class="form-control" type="text" name="registnum"
 					value="${BoardVO.registnum}" required></td>
+			</tr>
+			<tr>
+				<th>이메일 인증</th>
+				<td>
+					<c:choose>
+					<c:when test="${BoardVO.authCode eq null}">
+					<div id="authDiv">인증완료</div>
+					</c:when>
+					<c:otherwise>
+					<div id="authDiv">인증이 필요합니다.&nbsp;&nbsp;<button type="button" class="btn btn-info" id="emailAuth">인증</button></div>
+					</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 		</table>
 	
@@ -316,6 +329,27 @@ $(function(){
 	$(".btn-primary").on("click", function(){
 		self.location = "/admin/company?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+	});
+	
+	$("#emailAuth").on("click", function(){
+		if(confirm("이메일 인증을 하시겠습니까?")){
+			var id = $("#userid").val();
+			
+			$.ajax({
+				type:'put',
+				url:'/admin/emailAuth',
+				headers:{
+					"Content-Type": "application/json; charset=UTF-8",
+					"X-HTTP-Method-Override":"PUT"},
+				data:JSON.stringify({id:id}),
+				dataType:'text',
+				success:function(result){
+					if(result == 'success'){
+						alert("이메일 인증이 완료되었습니다.");
+						document.getElementById("authDiv").innerHTML = "인증완료";
+					}
+				}});			
+		}
 	});
 });
 </script>

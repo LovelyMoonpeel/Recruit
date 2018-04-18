@@ -119,4 +119,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<StatisticVO> weekCompany() throws Exception{
 		return session.selectList(namespace+".weekCompany");
 	}
+	
+	@Override
+	public void emailauth(BoardVO vo) throws Exception{
+		session.update(namespace+".emailauth", vo);
+	}
 }

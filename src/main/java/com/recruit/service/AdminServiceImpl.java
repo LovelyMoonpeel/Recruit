@@ -104,7 +104,13 @@ public class AdminServiceImpl implements AdminService {
 		return dao.weekPerson();
 	}
 	
+	@Override
 	public List<StatisticVO> weekCompany() throws Exception{
 		return dao.weekCompany();
+	}
+	
+	@Override
+	public void emailauth(BoardVO vo) throws Exception{
+		dao.emailauth(vo);
 	}
 }

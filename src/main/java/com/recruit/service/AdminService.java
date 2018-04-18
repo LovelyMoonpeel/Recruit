@@ -44,4 +44,6 @@ public interface AdminService {
 	public List<StatisticVO> weekPerson() throws Exception;
 	
 	public List<StatisticVO> weekCompany() throws Exception;
+	
+	public void emailauth(BoardVO vo) throws Exception;
 }

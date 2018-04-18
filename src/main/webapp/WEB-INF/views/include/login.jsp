@@ -377,7 +377,7 @@
 									<!--사업자 등록번호 -->
 									<div class="form-group">
 										사업자 등록번호<input type="text" name='registnum'
-											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." required>
+											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." maxlength="10" required>
 									</div>
 
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->

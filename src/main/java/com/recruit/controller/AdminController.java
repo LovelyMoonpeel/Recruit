@@ -627,4 +627,16 @@ public class AdminController {
 		return "/admin/A_chart";
 	}
 	
+	@RequestMapping(value = "/emailAuth", method = RequestMethod.PUT)
+	public ResponseEntity<String> Pemailauth(@RequestBody BoardVO vo){
+		ResponseEntity<String> entity = null;
+		try{
+			aservice.emailauth(vo);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }
