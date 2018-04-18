@@ -198,8 +198,9 @@ public class SearchServiceImpl implements SearchService {
 			else
 				spanelVO.setImg(imageName);
 
-			// resume
-			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
+			String userid = listResume.get(i).getUserid();
+			if (userid != null)
+				spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
 			spanelVO.setJobstateid(codeMap.get(listResume.get(i).getJobstateid()));
 
 			listPanel.add(spanelVO);

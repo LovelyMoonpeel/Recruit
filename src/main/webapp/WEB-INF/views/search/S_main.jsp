@@ -226,9 +226,10 @@
 	var srchWord = null; // 검색단어
 
 	// 무한 스크롤
-	var infPNum = 24; // 로딩 판넬 갯수
+	var infPNum = 8; // 24 로딩 판넬 갯수
 	var infPage = 0; // 무한스크롤 페이지
 	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
+	var firstPage = true; // 첫 페이지
 	var lastpage = false; // 마지막 페이지
 
 	// 검색 결과 판넬 list 제거
@@ -456,15 +457,13 @@
 	// Recruit 판넬 List 생성
 	function RecruitHandler(data) {
 		$("#infSrch").remove();
-		console.log("sel.sel1");
 		console.log("data.len: " + data.length);
-		console.log("data: " + data);
 
 		// cinfo & recruit 분류
 		var dataC = new Array();
 		var dataR = new Array();
-		var firstPage = false;
 		var noPage = false;
+		firstPage = false;
 
 		for (var i = 0; i < data.length; i++) {
 			if (data.length == 1 && data[0].title === 'lastRecruit') {
@@ -519,22 +518,49 @@
 
 	// Resume 판넬 List 생성
 	function ResumeHandler(data) {
-		deletespanel();
+		$("#infSrch").remove();
 
-		var rtitle = '<div class="row" id="spanelr"><h4><br/><b>&nbsp; &nbsp; 인재정보'
-				+ '</b><br/><br/></h4></div>';
-		$("#spanel").append(rtitle);
+		var noPage = false;
+		var dataR = new Array();
+
+		for (var i = 0; i < data.length; i++) {
+			if (data.length == 1 && data[0].title === 'lastResume') {
+				firstPage = true;
+				noPage = true;
+				lastpage = true;
+			} else if (data[i].title === 'lastResume') {
+				console.log("lastResume");
+				lastpage = true;
+			} else {
+				dataR.push(data[i]);
+			}
+		}
+
+		if (firstPage && !noPage) {
+			deletespanel();
+			var rtitle = '<div class="row" id="spanelr"><h4><br/><b>&nbsp; &nbsp; 인재정보'
+					+ '</b><br/><br/></h4></div>';
+			$("#spanel").append(rtitle);
+		}
 
 		var source_pnl = $("#tmpnl_resume").html();
 		template_pnl = Handlebars.compile(source_pnl);
-		$(data).each(resumePnl);
-		if (data.length > 0) {
-			if (data.length < 5)
-				waitForSearching(blank_, 3, false);
-			else if (data.length < 9)
-				waitForSearching(blank_, 1, false);
-		} else {
-			waitForSearching("검색결과가 없습니다.", 5);
+		$(dataR).each(resumePnl); // for resume
+		infScrDone = true;
+
+		if (firstPage) {
+			firstPage = false;
+			if (data.length > 1) {
+				if (data.length < 6)
+					waitForSearching(blank_, 3, false);
+				else if (data.length < 10)
+					waitForSearching(blank_, 1, false);
+			} else {
+				if (noPage) {
+					deletespanel();
+					waitForSearching("검색결과가 없습니다.", 5);
+				}
+			}
 		}
 	}
 
@@ -567,12 +593,11 @@
 
 	// 검색 초기화 작업
 	function searchInit(stype_) {
-		// 검색 타입 설정
-		srchType = stype_;
-
 		// 무한 스크롤 초기화
 		infPage = 0;
 		lastpage = false;
+		firstPage = true;
+		srchType = stype_; // 검색 타입 설정
 	}
 
 	var smsg = '<img src="/resources/rpjt/img/loading.gif" height="100">';
@@ -598,7 +623,7 @@
 			if ($("#stype").attr("value") === "1") {
 				getKeyList("recruits", srchWord, infPNum, infPage++);
 			} else {
-				getKeyList("resumes", srchWord, 0, 0);
+				getKeyList("resumes", srchWord, infPNum, infPage++);
 			}
 		}
 	});
@@ -632,7 +657,7 @@
 					if ($("#stype").attr("value") === "1") { // recruits 검색 
 						getSelList('recruits', infPNum, infPage++);
 					} else {
-						getSelList('resumes', 0, 0);
+						getSelList('resumes', infPNum, infPage++);
 					}
 				}
 			}
@@ -661,19 +686,23 @@
 	function infiniteScroll() {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			if (infScrDone && !lastpage) {
-				if ($("#stype").attr("value") === "1") { // 채용공고 검색
-					if (srchType === 0) // 키워드 검색
-						getKeyList("recruits", srchWord, infPNum, infPage++);
-					else
-						getSelList("recruits", infPNum, infPage++);
+				var users = null;
+				if ($("#stype").attr("value") === "1")
+					users = "recruits"; // 채용공고 검색
+				else
+					users = "resumes"; // 이력서 검색
 
-					tmp = '<div id="infSrch"><h3 align="center"><span style="color: white;">'
-							+ '_</span><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
-							+ '</h3></div>';
+				if (srchType === 0)
+					getKeyList(users, srchWord, infPNum, infPage++); // 키워드 검색
+				else
+					getSelList(users, infPNum, infPage++); // 필터 검색
 
-					$("#spanel").append(tmp);
-					infScrDone = false;
-				}
+				tmp = '<div id="infSrch"><h3 align="center"><span style="color: white;">'
+						+ '_</span><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
+						+ '</h3></div>';
+
+				$("#spanel").append(tmp);
+				infScrDone = false;
 			}
 		}
 	}
