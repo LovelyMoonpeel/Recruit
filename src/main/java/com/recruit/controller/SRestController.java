@@ -150,15 +150,12 @@ public class SRestController {
 			}
 		} catch (Exception e) {
 		}
-		// Region
-		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
-		// scode = scode + "99";
 		return scode;
 	}
 
 	// B.필터 검색준비
 	// B-1.필터 전역변수
-	private List<String> sel_scodes;
+	private List<String> getselCodes;
 
 	// B-2.필터코드 저장
 	@RequestMapping(value = "/getsel", method = RequestMethod.POST)
@@ -169,8 +166,8 @@ public class SRestController {
 			System.out.println("Scode: " + scode);
 			scodes.set(i, convertJob1to2(scode));
 		}
-		sel_scodes = scodes;
-		System.out.println("Scodes 1: " + sel_scodes);
+		getselCodes = scodes;
+		System.out.println("getselCodes: " + getselCodes);
 		ResponseEntity<String> entity = null;
 		try {
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -182,33 +179,26 @@ public class SRestController {
 	}
 
 	// C.recruits 검색 (전체, 키워드, 필터)
-	@RequestMapping(value = "/recruits/{getdoc}/{skey}", method = RequestMethod.GET)
+	@RequestMapping(value = "/recruits/{getdoc}/{skey}/{pageSize}/{pageNum}", method = RequestMethod.GET)
 	public ResponseEntity<List<SpanelVO>> getRecruits(@PathVariable("getdoc") String getdoc,
-			@PathVariable("skey") String skey) {
+			@PathVariable("skey") String skey, @PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNum") int pageNum) {
 
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
-			if ("getall".equals(getdoc)) {
-				System.out.println("getall: " + skey);
-				int snum = Integer.parseInt(skey.split("p")[0]);
-				int spag = Integer.parseInt(skey.split("p")[1]);
-				System.out.println("getall: " + snum);
-				System.out.println("getall: " + spag);
-				spanelVOList = searchService.selectRecruitsAll(snum, spag);
-			} else if ("getkey".equals(getdoc)) {
-				System.out.println("getkey: " + skey);
-				spanelVOList = searchService.selectRecruits(skey);
-				System.out.println("spanelVOList: " + spanelVOList);
-				System.out.println("spanelVOList.size: " + spanelVOList.size());
+			System.out.println("pageSize: " + pageSize);
+			System.out.println("pageNum: " + pageNum);
+
+			if ("getkey".equals(getdoc)) {
+				System.out.println("skey: " + skey);
+				spanelVOList = searchService.getkeyRecruits(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getsel: " + sel_scodes);
-				spanelVOList = searchService.selectRecruits_sel(sel_scodes);
+				System.out.println("getselCodes: " + getselCodes);
+				spanelVOList = searchService.getselRecruits(getselCodes, pageSize, pageNum);
 			}
-			// 기업정보 추가
-			searchService.addCInforList(spanelVOList);
-			System.out.println("spanelVOList2: " + spanelVOList);
-			System.out.println("spanelVOList.size2: " + spanelVOList.size());
+			System.out.println("spanelVOList: " + spanelVOList);
+			System.out.println("spanelVOList.size: " + spanelVOList.size());
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -218,26 +208,23 @@ public class SRestController {
 	}
 
 	// D.resumes 검색 (전체, 키워드, 필터)
-	@RequestMapping(value = "/resumes/{getdoc}/{skey}", method = RequestMethod.GET)
+	@RequestMapping(value = "/resumes/{getdoc}/{skey}/{pageSize}/{pageNum}", method = RequestMethod.GET)
 	public ResponseEntity<List<SpanelVO>> getResumes(@PathVariable("getdoc") String getdoc,
-			@PathVariable("skey") String skey) {
+			@PathVariable("skey") String skey, @PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNum") int pageNum) {
 
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
-			if ("getall".equals(getdoc)) {
-				System.out.println("getall: " + skey);
-				int snum = Integer.parseInt(skey.split("p")[0]);
-				int spag = Integer.parseInt(skey.split("p")[1]);
-				System.out.println("getall: " + snum);
-				System.out.println("getall: " + spag);
-				spanelVOList = searchService.selectResumesAll(snum);
-			} else if ("getkey".equals(getdoc)) {
-				System.out.println("getkey: " + skey);
-				spanelVOList = searchService.selectResumes(skey);
+			System.out.println("pageSize: " + pageSize);
+			System.out.println("pageNum: " + pageNum);
+
+			if ("getkey".equals(getdoc)) {
+				System.out.println("skey: " + skey);
+				spanelVOList = searchService.getkeyResumes(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getsel: " + sel_scodes);
-				spanelVOList = searchService.selectResumes_sel(sel_scodes);
+				System.out.println("getselCodes: " + getselCodes);
+				spanelVOList = searchService.getselResumes(getselCodes, pageSize, pageNum);
 			}
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {

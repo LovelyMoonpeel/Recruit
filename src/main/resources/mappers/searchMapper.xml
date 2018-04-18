@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where title like
 		CONCAT('%',#{skey},'%')
 		or coverletter like
-		CONCAT('%'#{skey},'%')
+		CONCAT('%',#{skey},'%')
 		union
 		select a.bno, a.userid, a.title, a.address, a.postcode, a.coverletter,
 		a.jobstateid, a.jobgroupid, a.rgbid, a.rgsid, a.employstatusid,

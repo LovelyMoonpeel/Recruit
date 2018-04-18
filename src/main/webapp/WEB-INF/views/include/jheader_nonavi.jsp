@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import = "com.recruit.domain.BoardVO" %>
+<%@ page import="com.recruit.domain.BoardVO"%>
 
 
 <%
-
 	String pid = "";
 	String cid = "";
 
@@ -14,34 +13,31 @@
 	String cname = "";
 	String location = "";
 
-	
-	try{
-		login = (BoardVO)session.getAttribute("login");
-		if(login != null){
-		
-		cname = login.getCname();
+	try {
+		login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+
+			cname = login.getCname();
 		}
-		if(cname == null){
-			
-			if(login != null){
-			
+		if (cname == null) {
+
+			if (login != null) {
+
 				pid = login.getId();
-			
+
 			}
-			
-			
-		}else{
-			
+
+		} else {
+
 			cid = login.getId();
-			
+
 		}
-		
-	}catch(Exception e){
-		
+
+	} catch (Exception e) {
+
 		e.printStackTrace();
 	}
-	
-%> 
+%>
 
  <!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -67,8 +63,8 @@
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+	</div>
+	<!-- /.container -->
+</nav>
 
 <%@ include file="../include/login.jsp"%>

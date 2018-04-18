@@ -2,27 +2,27 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/sheader2.jsp"%>
+<%
+	// carousel 연결주소 및 이미지
+	String carouselUrl = "/company/C_info_nonavi?recruitNum=";
+	String carouselImg = "/resources/rpjt/img/";
+	String[][] carouselItems = { // 회사 아이디, carousel 이미지
+			{"rcode0", "frontimg5.jpg"}, //
+			{"assagini", "frontimg6.jpg"}, //
+			{"octest", "frontimg7.jpg"}};
+
+	for (int i = 0; i < carouselItems.length; i++) {
+		request.setAttribute("carouselUrl" + i, carouselUrl + carouselItems[i][0]);
+		request.setAttribute("carouselImg" + i, carouselImg + carouselItems[i][1]);
+	}
+%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">
 	
 </script>
 
-<!-- Page Content -->
+<!-- container -->
 <div class="container">
-	<%
-		String recruitUrl;
-
-		if (login != null) { // login
-			if (cname == null) { // personal
-				recruitUrl = "/company/C_recruitMent?recruitNum=";
-			} else { // company
-				recruitUrl = "/company/C_recruitMent?recruitNum=";
-			}
-		} else { // logout
-			recruitUrl = "/company/C_recruitMent?recruitNum=";
-		}
-		request.setAttribute("recruitUrl", recruitUrl);
-	%>
 	<!-- carousel -->
 	<div class="row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -37,27 +37,24 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<a href="/company/C_info_nonavi?recruitNum=rcode0"
+					<a href="${carouselUrl0}"
 						onclick='window.open(this.href, "cinforcode0", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-						<img src="/resources/rpjt/img/frontimg5.jpg" alt="Los Angeles"
-						style="width: 100%;">
+						<img src="${carouselImg0}" alt="Los Angeles" style="width: 100%;">
 					</a>
 					<div class="carousel-caption"></div>
 				</div>
 
 				<div class="item">
-					<a href="/company/C_info_nonavi?recruitNum=assagini"
+					<a href="${carouselUrl1}"
 						onclick='window.open(this.href, "cinfoassagini", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-						<img src="/resources/rpjt/img/frontimg6.jpg" alt="Chicago"
-						style="width: 100%;">
+						<img src="${carouselImg1}" alt="Chicago" style="width: 100%;">
 					</a>
 				</div>
 
 				<div class="item">
-					<a href="/company/C_info_nonavi?recruitNum=octest"
+					<a href="${carouselUrl2}"
 						onclick='window.open(this.href, "cinfooctest", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
-						<img src="/resources/rpjt/img/frontimg7.jpg" alt="New york"
-						style="width: 100%;">
+						<img src="${carouselImg2}" alt="New york" style="width: 100%;">
 					</a>
 				</div>
 			</div>
@@ -91,9 +88,11 @@
 				</div>
 			</form>
 		</div>
+		<!-- end of col-md-8 -->
 	</div>
 	<!-- end of 검색 텍스트 -->
 </div>
+<!-- end of container -->
 <br />
 
 <nav class="navbar navbar-inverse">
@@ -137,6 +136,7 @@
 	</div>
 </nav>
 
+<!-- carousel, 판넬 스타일 -->
 <style>
 .carousel-div {
 	width: 220px;
@@ -170,8 +170,8 @@
 <div class="container">
 	<div class="row" id="spanel"></div>
 </div>
-<!-- /Page Content -->
 
+<!-- 채용공고 판넬 -->
 <script id="tmpnl_recruit" type="text/x-handlebars-template">
 <div class="col-lg-3 col-sm-6 result">
 	<div class="panel panel-default fixed-panelr">
@@ -190,27 +190,23 @@
 			<p>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
 			</p>
-			~ {{period}}
+			~ {{period}}<br />
+			{{jobstateid}}
 		</div>
 	</div>
 </div>
 </script>
 
 <script>
-	// 사진 url 변수
-	var cImgSrc = "/company/displayFile?fileName=";
-
-	// 링크 url 변수
-	var recruitUrl = "${recruitUrl}";
-
-	// Menu 갯수
-	var mnum = 8;
+	var cImgSrc = "/company/displayFile?fileName="; // 사진 url 변수
+	var recruitUrl = "/company/C_recruitMent?recruitNum="; // 링크 url 변수
+	var menuNum = 8; // 드롭다운 Menu 갯수
 
 	// DropDown Menu
 	// dropdown 근무형태, 학력, 경력
 	// 전역변수
-	var str;
-	var drop1ListItems;
+	var str; // 드롭다운 메뉴 리스트
+	var drop1ListItems; // 드롭다운 메뉴 리스트 생성함수
 
 	// dropdown 1번째 code 생성하기
 	function drop1CodHandler(data) {
@@ -237,18 +233,6 @@
 	$.getJSON("/sresult/code/2", drop1CodHandler); // education(2)
 	$.getJSON("/sresult/code/4", drop1CodHandler); // employment status(4)
 
-	$("#exp").on("click", "li", function() {
-		console.log($(this).attr("value"));
-	});
-
-	$("#edu").on("click", "li", function() {
-		console.log($(this).attr("value"));
-	});
-
-	$("#emp").on("click", "li", function() {
-		console.log($(this).attr("value"));
-	});
-
 	// dropdown 직무
 	// 전역변수
 	var j1page = 0;
@@ -266,12 +250,8 @@
 	function drop1JobHandler(data) {
 		$("#jobgroup .cls1,#jobgroup .cls2").remove();
 		str = "";
-		var tPage = parseInt((data.length - 1) / mnum);
-		var dataSlice = data.slice(mnum * j1page, mnum * (j1page + 1));
-
-		// for (var i = 0; i <= tPage; i++) {
-		// 	console.log(data.slice(mnum * i, mnum * (i + 1))); // i: n 페이지 -> page 0~(n-1)
-		// }
+		var tPage = parseInt((data.length - 1) / menuNum);
+		var dataSlice = data.slice(menuNum * j1page, menuNum * (j1page + 1));
 
 		if (tPage !== 0 && j1page !== 0) {
 			str += '<li id="jup" class="cls1" style="text-align: center;" value="' + j1page + '"><a href="javascript:;">'
@@ -337,8 +317,8 @@
 	function drop1RegHandler(data) {
 		$("#region .cls1,#region .cls2").remove();
 		str = "";
-		var tPage = parseInt((data.length - 1) / mnum);
-		var dataSlice = data.slice(mnum * r1page, mnum * (r1page + 1));
+		var tPage = parseInt((data.length - 1) / menuNum);
+		var dataSlice = data.slice(menuNum * r1page, menuNum * (r1page + 1));
 		if (tPage !== 0 && r1page !== 0) {
 			str += '<li id="rup" class="cls1" style="text-align: center;" value="' + r1page + '"><a href="javascript:;">'
 					+ '<i class="glyphicon glyphicon-chevron-up"></i>'
@@ -415,14 +395,12 @@
 	});
 
 	// 채용공고 판넬 전역변수
-	var inum;
 	var item;
 	var template_pnl;
 
 	// 채용공고 판넬 연결
 	function recruitPnl(index, that) {
 		item = {
-			num : ++inum,
 			bno : that.bno,
 			userid : that.userid,
 			title : that.title,
@@ -436,36 +414,43 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
+			jobstateid : that.jobstateid,
 			url : recruitUrl + that.bno
 		};
 		$("#spanel").append(template_pnl(item));
 	}
 
 	var argum = null;
+	var tmp = null;
+	var moreView = false;
 
 	function RecruitInfHandler(data) {
 		if (argum !== false)
 			deletespanel();
 		$("#infSrch").remove();
-		inum = 0;
 		// cinfo & recruit 분류
 		var dataR = new Array();
 		for (var i = 0; i < data.length; i++) {
-			if (data[i].period !== 'etern' && data[i].period !== 'lastRecruit')
+			if (data[i].period !== 'etern' && data[i].title !== 'lastRecruit')
 				dataR.push(data[i]);
-			if (data[i].period === 'lastRecruit')
+			if (data[i].title === 'lastRecruit')
 				lastpage = true;
 		}
 		var source_pnl = $("#tmpnl_recruit").html();
 		template_pnl = Handlebars.compile(source_pnl);
 		$(dataR).each(recruitPnl);
+		if (moreView === false) {
+			tmp = '<div id="moreView" onclick="$(this).remove(); moreView = true;"><h5 align="center"><span style="color: white;">'
+					+ '_</span><br /><a href="javascript:;">채용공고 더보기</a></h5></div>';
+			$("#spanel").append(tmp);
+		}
 		infScrDone = true;
 	}
 
 	// 모든 채용공고(recruits)를 보여주다.
 	function getRecruitAllList(pnum, panpg) {
 		argum = arguments[2];
-		$.getJSON("/sresult/recruits/getall/" + pnum + "p" + panpg,
+		$.getJSON("/sresult/recruits/getkey/all/" + pnum + "/" + panpg,
 				RecruitInfHandler);
 	}
 
@@ -478,30 +463,32 @@
 		$("#spanel").append(str);
 	}
 
-	var snum = 24; // 로딩 판넬 갯수
+	var snum = 8; // 로딩 판넬 갯수
 	var page = 0; // 무한스크롤 페이지
 	var lastpage = false;
 	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
 
 	var smsg = '<img src="/resources/rpjt/img/loading.gif" height="100">';
 	waitForSearching(smsg, 8);
-	getRecruitAllList(snum, page++);
+	getRecruitAllList(snum * 3, page++);
+	page += 2;
 
 	$("#sinput").focus();
 
 	function infiniteScroll() {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			if (infScrDone && !lastpage) {
+			if (infScrDone && !lastpage && moreView) {
 				console.log(page);
 				getRecruitAllList(snum, page++, false);
 
-				var tmp = '<div id="infSrch"><br /><h3 align="center"><span style="color: white;">'
+				tmp = '<div id="infSrch"><br /><h3 align="center"><span style="color: white;">'
 						+ '_</span><br /><br /><img src="/resources/rpjt/img/loading.gif" height="60">'
 						+ '</h3><br /></div>';
 
-				// var tmp = '<div id="infSrch"><br/><h3 align="center"><span style="color:white;">_</span><br/><br/>검색중...</h3><br/></div>';
 				$("#spanel").append(tmp);
 				infScrDone = false;
+				if (page % 4 === 3)
+					moreView = false;
 			}
 		}
 	}

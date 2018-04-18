@@ -2,40 +2,38 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import = "com.recruit.domain.BoardVO" %>
+<%@ page import="com.recruit.domain.BoardVO"%>
 
 
 <%
-
 	String id = "";
 	BoardVO login = null;
 	String cname = "";
 	String location = ""; //mypage 경로 설정 변수
 	String c_chk = null; //company_check
-	
-	try{
-		login = (BoardVO)session.getAttribute("login");
-		if(login != null){
-		id = login.getId();
-		cname = login.getCname();
-		c_chk = login.getCname();
+
+	try {
+		login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			id = login.getId();
+			cname = login.getCname();
+			c_chk = login.getCname();
 		}
-		if(cname == null){
-			if(id.equals("admin")){
+		if (cname == null) {
+			if (id.equals("admin")) {
 				location = "/admin/main";
-			}else{
+			} else {
 				location = "/personal/index";
 			}
-		}else{
+		} else {
 			location = "/company/C_index";
 		}
-	}catch(Exception e){
+	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	
 %>
 <div class="wrap">
-<!-- Navigation -->
+	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -74,16 +72,18 @@
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
 
-						<li><a href="<%= location%>">MyPage</a></li>
-						
-						
+						<li><a href="<%=location%>">MyPage</a></li>
+
+
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-						<li><a href="/user/logout">
-						<span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
-						<li><a style="color: white;">${sessionScope.login.pname}님 환영합니다.</a></li>
+						<li><a href="/user/logout"> <span
+								class="glyphicon glyphicon-log-out"></span>로그아웃
+						</a></li>
+						<li><a style="color: white;">${sessionScope.login.pname}님
+								환영합니다.</a></li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
-					
+
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -91,20 +91,20 @@
 		<!-- /.container -->
 	</nav>
 
-<!-- 인재찾기 접근 가능 스크립트 -->
-<script>
+	<!-- 인재찾기 접근 가능 스크립트 -->
+	<script>
 $("#p_search").on("click",function(){
 	var c_chk = "<%=c_chk%>";
 	
 	if(c_chk=="null"){
-		if("<%=location%>" != "/admin/main"){
-			alert("접근 권한이 없습니다.");
-		}else{
-			self.location="/srch/main?stype=2";
-		}
-	}else{
-		self.location="/srch/main?stype=2";
-	}
-});
-</script>
-<%@ include file="../include/login.jsp"%>
+		if("<%=location%>" != "/admin/main") {
+					alert("접근 권한이 없습니다.");
+				} else {
+					self.location = "/srch/main?stype=2";
+				}
+			} else {
+				self.location = "/srch/main?stype=2";
+			}
+		});
+	</script>
+	<%@ include file="../include/login.jsp"%>

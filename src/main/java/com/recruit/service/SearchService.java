@@ -6,7 +6,6 @@ import com.recruit.domain.CUserVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.RecruitVO;
-import com.recruit.domain.ResumeVO;
 import com.recruit.domain.SpanelVO;
 
 public interface SearchService {
@@ -25,21 +24,17 @@ public interface SearchService {
 
 	public List<CodeVO> CodeList(int tid) throws Exception;
 
-	public List<SpanelVO> selectRecruits(String skey) throws Exception;
+	public List<SpanelVO> getkeyRecruits(String skey, int pageSize, int pageNum) throws Exception;
 
-	public List<SpanelVO> selectResumes(String skey) throws Exception;
+	public List<SpanelVO> getkeyResumes(String skey, int pageSize, int pageNum) throws Exception;
 
-	public List<SpanelVO> selectRecruits_sel(List<String> sel_skeys) throws Exception;
+	public List<SpanelVO> getselRecruits(List<String> sel_skeys, int pageSize, int pageNum) throws Exception;
 
-	public List<SpanelVO> selectResumes_sel(List<String> sel_skeys) throws Exception;
-
-	public List<SpanelVO> selectRecruitsAll(int snum, int spag) throws Exception;
-
-	public List<SpanelVO> selectResumesAll(int snum) throws Exception;
+	public List<SpanelVO> getselResumes(List<String> sel_skeys, int pageSize, int pageNum) throws Exception;
 
 	public String codeToName(String scode) throws Exception;
 
 	public List<Integer> selectJobCode() throws Exception;
 
-	public List<SpanelVO> addCInforList(List<SpanelVO> spanelVOList) throws Exception;
+	public List<SpanelVO> getCInforList(List<RecruitVO> recruitVOList) throws Exception;
 }

@@ -23,16 +23,13 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
 		String formattedDate = dateFormat.format(date);
-
 		model.addAttribute("serverTime", formattedDate);
-
 		return "home";
 	}
 
@@ -42,7 +39,7 @@ public class HomeController {
 
 		return "search/S_index";
 	}
-	
+
 	@RequestMapping(value = "/2", method = RequestMethod.GET)
 	public String indexTest(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
