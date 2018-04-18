@@ -53,17 +53,64 @@ background-color: #777;
 
 <!-- Main content -->
 <div class="col-md-12 ">
+
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<a id="kakao-link-btn" href="javascript:;">
+    <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+</a>
+<script type='text/javascript'>
+    //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('255f0ac190064fdd43c712921a3fbb03');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createDefaultButton({
+        container: '#kakao-link-btn',
+        objectType: 'location',
+        address: '서대문구청',
+        addressTitle: '',
+        content: {
+            title: 'KR-서비스 스페셜리스트 (파트타임)',
+            description: 'KR-서비스 스페셜리스트 (파트타임)',
+            imageUrl: 'https://s3.ap-northeast-2.amazonaws.com/matchingbucket/matching/company${CInfoVO.img}',
+            link: {
+                mobileWebUrl: 'https://developers.kakao.com',
+                webUrl: 'https://developers.kakao.com'
+            }
+        },
+        social: {
+            likeCount: 286,
+            commentCount: 45,
+            sharedCount: 845
+        },
+        buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                    mobileWebUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
+                    webUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
+                }
+            }
+        ]
+    });
+    //]]>
+</script>
+
+
+
+
 	<!-- 버튼 -->
 
 	<p id="back-top"> 
    		<a href="#top"><span></span></a> 
 	</p>
+	
+	
 	<!-- 소연 버튼 -->
 	<!-- 메인 바디 입력 부분 -->
 	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
 	<br>
-
 
 
 	<div
@@ -86,6 +133,8 @@ background-color: #777;
 			<div class="col-md-4 col-sm-4 col-xs-4">
 				<!-- 첫번쨰 칸 -->
 		
+		
+		
 					<h4>지원자격</h4>
 
 					<small>경력&emsp;</small>
@@ -101,6 +150,7 @@ background-color: #777;
 			
 			<!-- /첫번째 칸 -->
 
+	
 			<div class="col-md-4 col-sm-4 col-xs-4">
 				<!-- 두번째 칸 -->
 					<h4>근무조건</h4>
@@ -547,7 +597,9 @@ background-color: #777;
 			
 	<h4>담당자 정보</h4>
 		
-
+<input type="text" value="hhhhhhhhh"/>
+	
+	
 	<div id="human_resources_manager" 
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<table class="table table-bordered ">
@@ -617,6 +669,9 @@ $(document).ready(function() {
 	}
 });
 </script>
+
+
+
 <!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>

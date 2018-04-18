@@ -8,7 +8,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -345,6 +348,12 @@ public class CompanyController {
 			System.out.println("아이디입니당." + id);
 			System.out.println("bno값입니당." + bno);
 			model.addAttribute("jobgroupList", ajaxService.jobgroupList());
+			
+			model.addAttribute("subJobgroupList", ajaxService.subJobgroupList()); // subJobGroupList
+			model.addAttribute("subRegionList", ajaxService.subRegionList()); // subRegionList
+			model.addAttribute("jobGroupCount", ajaxService.jobGroupCount()); // jobgroup
+			model.addAttribute("regionCount", ajaxService.regionCount()); // region
+
 			model.addAttribute("codeList", service.CodeList());
 			model.addAttribute("regionList", service.RegionList());
 			model.addAttribute("RecruitVO", service.RecruitModifyRead(bno, id));
@@ -726,5 +735,10 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void home() {
+	
 	}
 }

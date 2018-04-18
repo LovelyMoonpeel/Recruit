@@ -300,10 +300,7 @@ $(function () {
 				</div>
 				
 				
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
-						<span class="glyphicon glyphicon-remove form-control-feedback" id="recruitnumXIcon" aria-hidden="true" style="display:none"></span>
-						<span class="glyphicon glyphicon-ok form-control-feedback" id="recruitnumOKIcon" aria-hidden="true" style="display:none"></span>
 					
 				</div>
 				</td>
