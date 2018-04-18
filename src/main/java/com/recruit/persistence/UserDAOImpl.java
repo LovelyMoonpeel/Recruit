@@ -65,9 +65,6 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public void insertUser(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-
-		System.out.println("DAO 로그 : 회원가입 중");
 		session.insert(namespace +".insertUser", vo);
 	}
 

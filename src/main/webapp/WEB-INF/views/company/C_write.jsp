@@ -299,9 +299,6 @@ $(function () {
 				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />명
 				</div>
 				
-				
-				
-					
 				</div>
 				</td>
 			</tr>

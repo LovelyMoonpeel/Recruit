@@ -233,7 +233,8 @@
 	       </table>      
 	    </div> 
   	</form>
-		<button id="write-success" class="btn btn-success col-md-offset-10" type="submit">수정</button>
+		<button id="write-success" class="btn btn-success col-md-offset-9" type="submit">수정</button>
+		<button id="write-remove" class="btn btn-warning" type="submit">삭제</button>
 		<button id ="write-cancel" class="btn btn-danger" onClick="javascript:self.location='/admin/pmodify?id=${ResumeVO.userid}';" type="button">취소</button>
 </div>
 <!-- 소연 모달 -->
@@ -773,6 +774,14 @@ $(document).ready(function() {
 		numberingList();
 		formObj.submit();
 	   }
+	});
+	
+	$("#write-remove").on("click", function(){
+		alert();
+		formObj = $("form[role = 'form']");
+		formObj.attr("action", "/admin/resremove");
+		formObj.attr("method", "post");
+		formObj.submit();
 	});
 	
 	function numberingList() {

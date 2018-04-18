@@ -27,18 +27,12 @@ public class AdCompanyDAOImpl implements AdCompanyDAO {
 
 	@Override
 	public void update(BoardVO vo) throws Exception {
-//		System.out.println("dao test");
 		session.update(namespace + ".update", vo);
 	}
 	
 	@Override
 	public void cnameupdate(BoardVO vo) throws Exception{
 		session.update(namespace+".cnameupdate", vo);
-	}
-
-	@Override
-	public void delete(String id) throws Exception {
-		session.delete(namespace + ".delete", id);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.StatisticVO;
 
 public interface AdminDAO {
 
@@ -31,4 +32,20 @@ public interface AdminDAO {
 	public void aupdate(BoardVO vo) throws Exception;
 	
 	public String readpw(BoardVO vo) throws Exception;
+	
+	public int pcount()throws Exception;
+	
+	public int ccount()throws Exception;
+	
+	public List<StatisticVO> count_recruit() throws Exception;
+	
+	public List<StatisticVO> jobgroup_recruit() throws Exception;
+	
+	public List<StatisticVO> jobgroup2_recruit() throws Exception;
+	
+	public List<StatisticVO> weekPerson() throws Exception;
+	
+	public List<StatisticVO> weekCompany() throws Exception;
+	
+	public void emailauth(BoardVO vo) throws Exception;
 }

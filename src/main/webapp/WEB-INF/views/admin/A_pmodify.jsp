@@ -26,7 +26,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
+				<td><input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
@@ -60,7 +60,19 @@
 				</div>
 				</td>
 			</tr>
-			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${BoardVO.birth}" /> --%>
+			<tr>
+				<th>이메일 인증</th>
+				<td>
+					<c:choose>
+					<c:when test="${BoardVO.authCode eq null}">
+					<div id="authDiv">인증완료</div>
+					</c:when>
+					<c:otherwise>
+					<div id="authDiv">인증이 필요합니다.&nbsp;&nbsp;<button type="button" class="btn btn-info" id="emailAuth">인증</button></div>
+					</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
 		</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">
@@ -107,6 +119,7 @@
 <script>
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var pwchk = $('#pwchk');
+	var pwcheck = "ok";
 	
 	var pwReg = /[A-Za-z0-9]$/;
 	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
@@ -158,7 +171,7 @@
 		
 		if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
 			alert("특수문자 금지");
-			$('#pw').val(pwcval.slice(0, -1));
+			$('#pw').val(pwval.slice(0, -1));
 		}
 		
 		pwval = $('#pw').val();
@@ -234,6 +247,27 @@ $(function(){
 		self.location = "/admin/main?page=${cri.page}&perPageNum=${cri.perPageNum}"
 			+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 	});
+	
+	$("#emailAuth").on("click", function(){
+		if(confirm("이메일 인증을 하시겠습니까?")){
+			var id = $("#userid").val();
+			
+			$.ajax({
+				type:'put',
+				url:'/admin/emailAuth',
+				headers:{
+					"Content-Type": "application/json; charset=UTF-8",
+					"X-HTTP-Method-Override":"PUT"},
+				data:JSON.stringify({id:id}),
+				dataType:'text',
+				success:function(result){
+					if(result == 'success'){
+						alert("이메일 인증이 완료되었습니다.");
+						document.getElementById("authDiv").innerHTML = "인증완료";
+					}
+				}});			
+		}
+	});
 });
 </script>
 <!-- //버튼에 대한 스크립트  -->
@@ -243,6 +277,8 @@ var result = '${msg}';
 
 if(result == 'resume_mod'){
 	alert("이력서 수정 처리가 완료 되었습니다.");
+}else if(result == 'remove'){
+	alert("이력서 삭제가 완료되었습니다.");
 }
 </script>
 

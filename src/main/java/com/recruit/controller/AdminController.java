@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,7 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
+import com.recruit.domain.CsqnaReplyVO;
 import com.recruit.domain.CsqnaVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
@@ -283,6 +286,10 @@ public class AdminController {
 		logger.info("qna Modify Post..........");
 		logger.info(vo.toString());
 
+		if(vo.getBpw().equals("")){
+			CsqnaVO bpw = qservice.read2(vo.getBno());
+			vo.setBpw(bpw.getBpw());
+		}
 		qservice.modify(vo);
 
 		rttr.addAttribute("page", cri.getPage());
@@ -393,6 +400,7 @@ public class AdminController {
 			throws Exception {
 		cservice.remove(bno);
 
+		System.out.println("test1");
 		rttr.addAttribute("id", id);
 		rttr.addFlashAttribute("msg", "remove");
 
@@ -451,6 +459,15 @@ public class AdminController {
 		rttr.addFlashAttribute("msg", "resume_mod");
 
 		return "redirect:/admin/pmodify?id=" + id;
+	}
+	
+	@RequestMapping(value="resremove", method = RequestMethod.POST)
+	public String RremovePOST(@RequestParam("bno") int bno, RedirectAttributes rttr)throws Exception{
+		String id = rservice.readROne(bno).getUserid();
+		int[] bno2 = {bno};
+		rservice.deleteROne(bno2);
+		rttr.addFlashAttribute("msg","remove");
+		return "redirect:/admin/pmodify?id="+id;
 	}
 	
 	S3Util s3 = new S3Util();
@@ -596,5 +613,30 @@ public class AdminController {
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public String chartGET(Model model) throws Exception{
+		model.addAttribute("P_member",aservice.pcount());
+		model.addAttribute("C_member", aservice.ccount());
+		model.addAttribute("weekRecruit", aservice.count_recruit());
+		model.addAttribute("weekJobgroup",aservice.jobgroup_recruit());
+		model.addAttribute("weekJobgroup2", aservice.jobgroup2_recruit());
+		model.addAttribute("weekPerson", aservice.weekPerson());
+		model.addAttribute("weekCompany", aservice.weekCompany());
+		return "/admin/A_chart";
+	}
+	
+	@RequestMapping(value = "/emailAuth", method = RequestMethod.PUT)
+	public ResponseEntity<String> Pemailauth(@RequestBody BoardVO vo){
+		ResponseEntity<String> entity = null;
+		try{
+			aservice.emailauth(vo);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 }

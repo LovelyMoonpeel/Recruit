@@ -15,8 +15,6 @@ public interface AdCompanyDAO {
 	
 	public void cnameupdate(BoardVO vo) throws Exception;
 
-	public void delete(String id) throws Exception;
-
 	public List<BoardVO> listAll() throws Exception;
 
 	public List<BoardVO> listPage(int page) throws Exception;
