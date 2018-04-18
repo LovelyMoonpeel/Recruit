@@ -52,7 +52,7 @@
 
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_job" type="text" data-provide="slider"
-			data-slider-min="1"	data-slider-max="5" data-slider-step="1"
+			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
 		</div>
 		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
@@ -60,7 +60,7 @@
  		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_region" type="text" data-provide="slider"
-			data-slider-min="1" data-slider-max="5" data-slider-step="1"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value='5' />
 		</div>
 		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
@@ -68,7 +68,7 @@
 		<br>
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_employstatus" type="text" data-provide="slider"
-			data-slider-min="1" data-slider-max="5" data-slider-step="1"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
 		</div>
 		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
@@ -76,14 +76,14 @@
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_levelofeducation" type="text" data-provide="slider"
-				data-slider-min="1" data-slider-max="5" data-slider-step="1"
+				data-slider-min="0" data-slider-max="5" data-slider-step="1"
 				data-slider-value="3" />
 		</div>
 		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
 		
 		<div class="container" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_lastcareer" type="text" data-provide="slider"
-			data-slider-min="1" data-slider-max="5" data-slider-step="1"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value="3" />
 		</div>
 		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
@@ -317,81 +317,41 @@ $(document).ready(function (){
             });//ajax end
       }//if end
     });
-});
+	
+	var width = parseInt($("#bar_job").text().substr(3));
+	
+	$("#bar_job").css("width", width*20+"%");
+	$("#bar_job").text('직무	' + width * 1 * 20 + '%');
+	
+	var r_width = parseInt($("#bar_region").text().substr(3));
+	
+	bar_region.style.width = r_width + '%';
+	$("#bar_region").css("width", width*20+"%");
+	$("#bar_region").text('지역	' + r_width * 1 * 20 + '%');
+	
+	
+	var edu_width = parseInt($("#bar_levelofeducation").text().substr(3));
+	
+	bar_levelofeducation.style.width = edu_width + '%';
+	$("#bar_levelofeducation").css("width", edu_width*20+"%");
+	$("#bar_levelofeducation").text('학력	' + edu_width * 1 * 20 + '%');
+	
+	var emp_width = parseInt($("#bar_employstatus").text().substr(5));
+	
+	bar_employstatus.style.width = emp_width + '%';
+	$("#bar_employstatus").css("width", emp_width*20+"%");
+	$("#bar_employstatus").text('근무형태	' + emp_width * 1 * 20 + '%');
+	
+	var lc_width = parseInt($("#bar_lastcareer").text().substr(3));
+	
+	bar_lastcareer.style.width = lc_width + '%';
+	$("#bar_lastcareer").css("width", lc_width*20+"%");
+	$("#bar_lastcareer").text('경력	' + lc_width * 1 * 20 + '%');
+	
+});//document ready end
 
 </script>
 
-	<div class="container"
-		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
-		<h4>
-			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
-			항목 중요도 조절
-		</h4>
-		<ul>
-			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p></li>
-		</ul>
-
-		<div class="col-md-1">
-			<div class="progress">
-				<i id="icon_job" class="material-icons" style="cursor: pointer;"
-					onclick="add_job();">business</i>
-			</div>
-			<div class="progress">
-				<i id="icon_region" class="material-icons" style="cursor: pointer;"
-					onclick="add_region();">location_on</i>
-			</div>
-			<div class="progress">
-				<i id="icon_employstatus" class="material-icons"
-					style="cursor: pointer;" onclick="add_employstatus();">people</i>
-			</div>
-			<div class="progress">
-				<i id="icon_levelofeducation" class="material-icons"
-					style="cursor: pointer;" onclick="add_.pref_levelofeducation();">school</i>
-			</div>
-			<div class="progress">
-				<i id="icon_lastcareer" class="material-icons"
-					style="cursor: pointer;" onclick="add_lastcareer();">work</i>
-			</div>
-		</div>
-
-		<div class="col-md-11">
-			<div class="progress">
-				<div id="bar_job" class="progress-bar progress-bar-success"
-					role="progressbar" aria-valuenow="20" aria-valuemin="0"
-					aria-valuemax="5"
-					style="width: ${PreferenceVO.pref_job}%; background-color: #c0c6d3;">직무
-					${PreferenceVO.pref_job}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_region" class="progress-bar progress-bar-info"
-					role="progressbar" aria-valuenow="30" aria-valuemin="0"
-					aria-valuemax="5"
-					style="width: ${PreferenceVO.pref_region}%; background-color: #c0c6d3;">지역
-					${PreferenceVO.pref_region}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_employstatus" class="progress-bar progress-bar-warning"
-					role="progressbar" aria-valuenow="40" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_employstatus}%; background-color: #c0c6d3;">근무형태
-					${PreferenceVO.pref_employstatus}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_levelofeducation" class="progress-bar"
-					role="progressbar" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_levelofeducation}%; background-color: #c0c6d3;">학력
-					${PreferenceVO.pref_levelofeducation}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_lastcareer" class="progress-bar"
-					role="progressbar" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_lastcareer}%; background-color: #c0c6d3;">경력
-					${PreferenceVO.pref_lastcareer}%</div>
-			</div>
-		</div>
-	</div><!-- container end -->
 	
 		<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
 		<div class="table-responsive">
@@ -480,15 +440,13 @@ $(document).ready(function (){
 			</table>
 		</div>
 	</div>
-</div>
+
 <br>
 <br>
 <br>
 <script>
 function add_job() {
 	var bar_job = document.getElementById("bar_job");
-	var width = parseInt($("#bar_job").text().substr(3));
-	//background-color:
 	//회색 #c0c6d3;
 	//하늘색 #56c0e0;
 	
@@ -503,19 +461,10 @@ function add_job() {
 	$("#bar_employstatus").css("background-color", "#c0c6d3");
 	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
 	$("#bar_lastcareer").css("background-color", "#c0c6d3");
-	
-	if (width >= 100) {
-		width=0;
-	} else {
-		width=width+25;
-	}
-	
-	bar_job.style.width = width + '%';
-	$("#bar_job").text('직무	' + width * 1 + '%');
 }
 function add_region() {
 	var bar_region = document.getElementById("bar_region");
-	var width = parseInt($("#bar_region").text().substr(3));
+	
 	
 	$("#icon_job").css("color", "#333333");
 	$("#icon_region").css("color", "#56c0e0");
@@ -528,19 +477,9 @@ function add_region() {
 	$("#bar_employstatus").css("background-color", "#c0c6d3");
 	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
 	$("#bar_lastcareer").css("background-color", "#c0c6d3");
-	
-	if (width >= 100) {
-		width=0;
-	} else {
-		width=width+25;
-	}
-	
-	bar_region.style.width = width + '%';
-	$("#bar_region").text('지역	' + width * 1 + '%');
 }
 function add_employstatus() {
 	var bar_employstatus = document.getElementById("bar_employstatus");
-	var width = parseInt($("#bar_employstatus").text().substr(5));
 	
 	$("#icon_job").css("color", "#333333");
 	$("#icon_region").css("color", "#333333");
@@ -554,19 +493,9 @@ function add_employstatus() {
 	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
 	$("#bar_lastcareer").css("background-color", "#c0c6d3");
 	
-	if (width >= 100) {
-		width=0;
-		bar_employstatus.style.width = width + '%';
-		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
-	} else {
-		width=width+25;
-		bar_employstatus.style.width = width + '%';
-		$("#bar_employstatus").text('근무형태	' + width * 1 + '%');
-	}
 }
 function add_levelofeducation() {
 	var bar_levelofeducation = document.getElementById("bar_levelofeducation");
-	var width = parseInt($("#bar_levelofeducation").text().substr(3));
 	
 	$("#icon_job").css("color", "#333333");
 	$("#icon_region").css("color", "#333333");
@@ -580,18 +509,9 @@ function add_levelofeducation() {
 	$("#bar_levelofeducation").css("background-color", "#56c0e0");
 	$("#bar_lastcareer").css("background-color", "#c0c6d3");
 	
-	if (width >= 100) {
-		width=0;
-	} else {
-		width=width+25;
-	}
-	
-	bar_.pref_levelofeducation.style.width = width + '%';
-	$("#bar_levelofeducation").text('학력	' + width * 1 + '%');
 }
 function add_lastcareer() {
 	var bar_lastcareer = document.getElementById("bar_lastcareer");
-	var width = parseInt($("#bar_lastcareer").text().substr(3));
 	
 	$("#icon_job").css("color", "#333333");
 	$("#icon_region").css("color", "#333333");
@@ -604,16 +524,80 @@ function add_lastcareer() {
 	$("#bar_employstatus").css("background-color", "#c0c6d3");
 	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
 	$("#bar_lastcareer").css("background-color", "#56c0e0");
-	
-	if (width >= 100) {
-		width=0;
-	} else {
-		width=width+25;
-	}
-	
-	bar_lastcareer.style.width = width + '%';
-	$("#bar_lastcareer").text('경력	' + width * 1 + '%');
 }
 
 </script>
+
+	<div class="container"
+		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
+		<h4>
+			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
+			항목 중요도 조절
+		</h4>
+		<ul>
+			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p></li>
+		</ul>
+
+		<div class="col-md-1">
+			<div class="progress">
+				<i id="icon_job" class="material-icons" style="cursor: pointer;"
+					onclick="add_job();">business</i>
+			</div>
+			<div class="progress">
+				<i id="icon_region" class="material-icons" style="cursor: pointer;"
+					onclick="add_region();">location_on</i>
+			</div>
+			<div class="progress">
+				<i id="icon_employstatus" class="material-icons"
+					style="cursor: pointer;" onclick="add_employstatus();">people</i>
+			</div>
+			<div class="progress">
+				<i id="icon_levelofeducation" class="material-icons"
+					style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+			</div>
+			<div class="progress">
+				<i id="icon_lastcareer" class="material-icons"
+					style="cursor: pointer;" onclick="add_lastcareer();">work</i>
+			</div>
+		</div>
+
+		<div class="col-md-11">
+			<div class="progress">
+				<div id="bar_job" class="progress-bar progress-bar-success"
+					role="progressbar" aria-valuenow="20" aria-valuemin="0"
+					aria-valuemax="5"
+					style="width: ${PreferenceVO.pref_job}%; background-color: #c0c6d3;">직무
+					${PreferenceVO.pref_job}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_region" class="progress-bar progress-bar-info"
+					role="progressbar" aria-valuenow="30" aria-valuemin="0"
+					aria-valuemax="5"
+					style="width: ${PreferenceVO.pref_region}%; background-color: #c0c6d3;">지역
+					${PreferenceVO.pref_region}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_employstatus" class="progress-bar progress-bar-warning"
+					role="progressbar" aria-valuenow="40" aria-valuemin="0"
+					aria-valuemax="100"
+					style="width: ${PreferenceVO.pref_employstatus}%; background-color: #c0c6d3;">근무형태
+					${PreferenceVO.pref_employstatus}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_levelofeducation" class="progress-bar"
+					role="progressbar" aria-valuenow="50" aria-valuemin="0"
+					aria-valuemax="100"
+					style="width: ${PreferenceVO.pref_levelofeducation}%; background-color: #c0c6d3;">학력
+					${PreferenceVO.pref_levelofeducation}%</div>
+			</div>
+			<div class="progress">
+				<div id="bar_lastcareer" class="progress-bar"
+					role="progressbar" aria-valuenow="50" aria-valuemin="0"
+					aria-valuemax="100"
+					style="width: ${PreferenceVO.pref_lastcareer}%; background-color: #c0c6d3;">경력
+					${PreferenceVO.pref_lastcareer}%</div>
+			</div>
+		</div>
+	</div><!-- container end -->
+</div>
 <%@include file="../include/cfooter.jsp"%>
