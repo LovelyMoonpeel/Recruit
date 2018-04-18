@@ -226,7 +226,7 @@
 	var srchWord = null; // 검색단어
 
 	// 무한 스크롤
-	var infPNum = 8; // 24 로딩 판넬 갯수
+	var infPNum = 16; // 로딩 판넬 갯수
 	var infPage = 0; // 무한스크롤 페이지
 	var infScrDone = false; // false 무한 스크롤 작업중, true 무한스크롤 작업대기
 	var firstPage = true; // 첫 페이지
@@ -566,29 +566,22 @@
 
 	// 키워드 검색: 검색어(skey), 검색분류(users: recruits or resumes)
 	function getKeyList(users, skey, pageSize, pageNum) {
-		if (users == "recruits") {
-			var urltmp = "/sresult/recruits/getkey/" + skey + "/" + pageSize
-					+ "/" + pageNum;
-			$.getJSON(urltmp, RecruitHandler);
-		} else { // resumes
-			var urltmp = "/sresult/resumes/getkey/" + skey + "/" + pageSize
-					+ "/" + pageNum;
-			$.getJSON(urltmp, ResumeHandler);
-		}
+		var urltmp = "/sresult/" + users + "/getkey/" + skey + "/" + pageSize
+				+ "/" + pageNum;
+		if (users == "recruits")
+			$.getJSON(urltmp, RecruitHandler); // recruits
+		else
+			$.getJSON(urltmp, ResumeHandler); // resumes
 	}
 
 	// 필터 검색: 검색분류(users: recruits or resumes)
 	function getSelList(users, pageSize, pageNum) {
-		if (users == 'recruits') {
-			console.log("sel.sel0");
-			var urltmp = "/sresult/recruits/getsel/sel/" + pageSize + "/"
-					+ pageNum;
-			$.getJSON(urltmp, RecruitHandler);
-		} else { // 'resumes'
-			var urltmp = "/sresult/resumes/getsel/sel/" + pageSize + "/"
-					+ pageNum;
-			$.getJSON(urltmp, ResumeHandler);
-		}
+		var urltmp = "/sresult/" + users + "/getsel/sel/" + pageSize + "/"
+				+ pageNum;
+		if (users == 'recruits')
+			$.getJSON(urltmp, RecruitHandler); // recruits
+		else
+			$.getJSON(urltmp, ResumeHandler); // resumes
 	}
 
 	// 검색 초기화 작업
