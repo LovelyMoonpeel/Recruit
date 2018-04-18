@@ -177,16 +177,13 @@ public class UserController {
 	public ResponseEntity<String> IDsearchPOST(@RequestBody LoginDTO dto, Model model) throws Exception {
 		ResponseEntity<String> entity = null;
 		try{
-			String id = "";
 			if(dto.getCname()==null){
 				if(service.pread(dto)!=null){
-					id = service.pread(dto).getId();
 					service.pRead(dto);
 					entity = new ResponseEntity<String>("success", HttpStatus.OK);
 				}
 			}else{
 				if(service.cread(dto)!=null){
-					id = service.cread(dto).getId();
 					service.cRead(dto);
 					entity = new ResponseEntity<String>("success", HttpStatus.OK);
 				}
