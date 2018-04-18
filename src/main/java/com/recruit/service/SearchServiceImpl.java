@@ -1,7 +1,6 @@
 package com.recruit.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,42 +80,6 @@ public class SearchServiceImpl implements SearchService {
 		return codedao.CodeList(tid);
 	}
 
-	// 이력서
-	@Override
-	public List<SpanelVO> getkeyResumes(String skey, int pageSize, int pageNum) throws Exception {
-		if ("all".equals(skey)) {
-			List<ResumeVO> list_tmp = searchDAO.selectResumesAll();
-			if (pageSize != 0 && list_tmp.size() > pageSize) {
-				List<ResumeVO> list_tmp1 = new ArrayList<ResumeVO>();
-				for (int i = 0; i < pageSize; i++) {
-					list_tmp1.add(list_tmp.get(i));
-				}
-				list_tmp = list_tmp1;
-			}
-			return convertToResumePanel(list_tmp);
-		} else {
-			return convertToResumePanel(searchDAO.selectResumes(skey));
-		}
-	}
-
-	@Override
-	public List<SpanelVO> getselResumes(List<String> sel_skeys, int pageSize, int pageNum) throws Exception {
-
-		List<ResumeVO> list_tmp = searchDAO.selectResumes_selJob(sel_skeys);
-		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selRgn(sel_skeys));
-		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, empArr));
-		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, expArr));
-		list_tmp = intersection(list_tmp, searchDAO.selectResumes_selCod(sel_skeys, eduArr));
-
-		List<SpanelVO> listSp_tmp;
-		if (list_tmp.size() == 0 || list_tmp.get(0).getBno() == -1)
-			listSp_tmp = new ArrayList<SpanelVO>();
-		else {
-			listSp_tmp = convertToResumePanel(list_tmp);
-		}
-		return listSp_tmp;
-	}
-
 	// 코드테이블 맵
 	Map<String, String> jobGroupMap = null;
 	Map<String, String> region1Map = null;
@@ -191,7 +154,7 @@ public class SearchServiceImpl implements SearchService {
 			try {
 				if (LocalDate.now().isAfter(LocalDate.parse(period)))
 					spanelVO.setJobstateid("[채용마감]");
-			} catch (DateTimeParseException e) {
+			} catch (Exception e) {
 			}
 
 			listPanel.add(spanelVO);
@@ -230,12 +193,10 @@ public class SearchServiceImpl implements SearchService {
 
 			// image push
 			String imageName = listResume.get(i).getImg();
-			if (imageName == null || "".equals(imageName)) {
+			if (imageName == null || "".equals(imageName))
 				spanelVO.setImg("/NoImage.png");
-			} else {
+			else
 				spanelVO.setImg(imageName);
-				// spanelVO.setImg("/DogImage.png");
-			}
 
 			// resume
 			spanelVO.setPname(puserdao.selectPUser(listResume.get(i).getUserid()).getPname());
@@ -278,7 +239,7 @@ public class SearchServiceImpl implements SearchService {
 		} else { // last page
 			int i = 0;
 			RecruitVO lastRecruit = new RecruitVO();
-			lastRecruit.setPeriod("lastRecruit");
+			lastRecruit.setTitle("lastRecruit");
 			recruitVOList1.add(lastRecruit);
 			while (recruitVOList.size() > pageSize * pageNum + i) {
 				System.out.println("::" + recruitVOList.size() + "::" + (pageSize * pageNum + i));
@@ -289,6 +250,27 @@ public class SearchServiceImpl implements SearchService {
 		return recruitVOList;
 	}
 
+	public List<ResumeVO> getResumePage(List<ResumeVO> resumeVOList, int pageSize, int pageNum) {
+		List<ResumeVO> resumeVOList1 = new ArrayList<ResumeVO>();
+		// last page?
+		if (resumeVOList.size() > pageSize * (pageNum + 1)) {
+			for (int i = 0; i < pageSize; i++) {
+				resumeVOList1.add(resumeVOList.get(pageSize * pageNum + i));
+			}
+		} else { // last page
+			int i = 0;
+			ResumeVO lastResume = new ResumeVO();
+			lastResume.setTitle("lastResume");
+			resumeVOList1.add(lastResume);
+			while (resumeVOList.size() > pageSize * pageNum + i) {
+				System.out.println("::" + resumeVOList.size() + "::" + (pageSize * pageNum + i));
+				resumeVOList1.add(resumeVOList.get(pageSize * pageNum + i++));
+			}
+		}
+		resumeVOList = resumeVOList1;
+		return resumeVOList;
+	}
+
 	// 채용공고
 	@Override
 	public List<SpanelVO> getkeyRecruits(String skey, int pageSize, int pageNum) throws Exception {
@@ -297,8 +279,9 @@ public class SearchServiceImpl implements SearchService {
 			recruitVOList = searchDAO.selectRecruitsAll();
 		else
 			recruitVOList = searchDAO.selectRecruits(skey);
+
 		List<SpanelVO> cpanelVOList = getCInforList(recruitVOList);
-		// if (pageSize != 0 && pageNum >= 0 && recruitVOList.size() > pageSize)
+
 		if (pageSize != 0 && pageNum >= 0) {
 			recruitVOList = getRecruitPage(recruitVOList, pageSize, pageNum);
 		}
@@ -330,6 +313,43 @@ public class SearchServiceImpl implements SearchService {
 			spanelVOList = convertToRecruitPanel(recruitVOList);
 			if (pageNum == 0)
 				spanelVOList.addAll(cpanelVOList);
+		}
+		return spanelVOList;
+	}
+
+	// 이력서
+	@Override
+	public List<SpanelVO> getkeyResumes(String skey, int pageSize, int pageNum) throws Exception {
+		List<ResumeVO> resumeVOList = null;
+		if ("all".equals(skey))
+			resumeVOList = searchDAO.selectResumesAll();
+		else
+			resumeVOList = searchDAO.selectResumes(skey);
+
+		if (pageSize != 0 && pageNum >= 0) {
+			resumeVOList = getResumePage(resumeVOList, pageSize, pageNum);
+		}
+		return convertToResumePanel(resumeVOList);
+	}
+
+	@Override
+	public List<SpanelVO> getselResumes(List<String> sel_skeys, int pageSize, int pageNum) throws Exception {
+
+		List<ResumeVO> resumeVOList = searchDAO.selectResumes_selJob(sel_skeys);
+		resumeVOList = intersection(resumeVOList, searchDAO.selectResumes_selRgn(sel_skeys));
+		resumeVOList = intersection(resumeVOList, searchDAO.selectResumes_selCod(sel_skeys, empArr));
+		resumeVOList = intersection(resumeVOList, searchDAO.selectResumes_selCod(sel_skeys, expArr));
+		resumeVOList = intersection(resumeVOList, searchDAO.selectResumes_selCod(sel_skeys, eduArr));
+
+		List<SpanelVO> spanelVOList;
+		if (resumeVOList.size() == 0 || resumeVOList.get(0).getBno() == -1) {
+			resumeVOList = getResumePage(new ArrayList<ResumeVO>(), pageSize, pageNum);
+			spanelVOList = convertToResumePanel(resumeVOList);
+		} else {
+			if (pageSize != 0 && pageNum >= 0) {
+				resumeVOList = getResumePage(resumeVOList, pageSize, pageNum);
+			}
+			spanelVOList = convertToResumePanel(resumeVOList);
 		}
 		return spanelVOList;
 	}

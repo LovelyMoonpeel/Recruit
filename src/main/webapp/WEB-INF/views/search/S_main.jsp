@@ -8,7 +8,7 @@
 	
 </script>
 
-<!-- Page Content -->
+<!-- container -->
 <div class="container">
 	<%
 		SrchVO srchVO = (SrchVO) request.getAttribute("srchVO");
@@ -467,14 +467,14 @@
 		var noPage = false;
 
 		for (var i = 0; i < data.length; i++) {
-			if (data.length == 1 && data[0].period === 'lastRecruit') {
+			if (data.length == 1 && data[0].title === 'lastRecruit') {
 				firstPage = true;
 				noPage = true;
 				lastpage = true;
 			} else if (data[i].period === 'etern') {
 				dataC.push(data[i]);
 				firstPage = true;
-			} else if (data[i].period === 'lastRecruit') {
+			} else if (data[i].title === 'lastRecruit') {
 				console.log("lastRecruit");
 				lastpage = true;
 			} else {

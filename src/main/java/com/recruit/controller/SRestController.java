@@ -150,9 +150,6 @@ public class SRestController {
 			}
 		} catch (Exception e) {
 		}
-		// Region
-		// if ("R".equals(scode.substring(0, 1)) && scode.length() == 2)
-		// scode = scode + "99";
 		return scode;
 	}
 
@@ -197,7 +194,7 @@ public class SRestController {
 				System.out.println("skey: " + skey);
 				spanelVOList = searchService.getkeyRecruits(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("sel_scodes: " + getselCodes);
+				System.out.println("getselCodes: " + getselCodes);
 				spanelVOList = searchService.getselRecruits(getselCodes, pageSize, pageNum);
 			}
 			System.out.println("spanelVOList: " + spanelVOList);
