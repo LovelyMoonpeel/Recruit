@@ -125,7 +125,7 @@
                         </c:forEach>
                      </select>          
                   </div>
-                  <div style="float: left; width: 30%;">
+                  <div id="behidden" style="float: left; width: 30%;">
                   <label for="jobgroupid">소분류</label> 
                      <select id="subjobGroup" class="form-control" data-live-search="true" name="jobgroupid2">
                      </select>
@@ -716,6 +716,9 @@ $(document).ready(function(){
 	    	container: 'body'
 	    });
 	});
+	
+	
+	$("#behidden").hide();
 
 	//소연 수정
     $("#region").val("Z").attr("selected", "selected"); //희망근무지
@@ -1204,8 +1207,14 @@ $(document).ready(function(){
 <script>
 //<!--j.code 03/22 : jobGroup, region 소분류 받는 작업-->
    function SubJobGroup2(largeNum) {
-      $.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
-         var str = "";
+		
+
+		$.getJSON("/companyAjax/jobGroup/" + largeNum, function(data) {
+			
+		
+		
+        
+		var str = "";
          <c:set value="${ResumeVO.jobgroupid2}" var="select"/>
          var sel = '<c:out value="${select}"/>';
          var selected = "";
@@ -1257,6 +1266,7 @@ $(document).ready(function(){
 	   console.log("1026번째줄");
       var largeNum = $(this).val();
       SubJobGroup(largeNum);
+      $("#behidden").show();
    })
    function SubJobGroup(largeNum) {
 	   console.log(largeNum);
