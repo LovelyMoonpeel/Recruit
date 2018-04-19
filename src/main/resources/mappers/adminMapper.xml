@@ -155,6 +155,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<update id="emailauth">
+	update tbluser set
+	authCode = null
+	where id = #{id}
+	</update>
+	
 	<select id="count_recruit" resultType="StatisticVO">
 	select t.selected_date as day, count(date_format(u.createdate, '%Y-%m-%d')) as weekRecruit
 	from project.tblrecruit u right outer join(
@@ -174,21 +180,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="jobgroup_recruit" resultType="StatisticVO">
 	select distinct j.jobgroup as jobgroup, count(r.jobgroupid) as weekJobgroup from project.tblrecruit r, project.tbljobgroup j
-	where r.jobgroupid = j.id and j.id != 0 and r.createdate between current_date()-interval 6 day and current_date()
+	where r.jobgroupid = j.id and j.id != 0 and r.createdate between current_date()-interval 6 day and now()
 	group by r.jobgroupid
 	order by weekJobgroup desc
 	limit 4
 	</select>
 	
-	<!-- 직업군 소분류 기준 그래프 -->
-	<select id="jobgroup2_recruit" resultType="StatisticVO">
-	select distinct j2.jobgroup as jobgroup1, j.jobgroup as jobgroup2, count(r.jobgroupid2) as weekJobgroup2 from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup j2
-	where r.jobgroupid2 = j.id and j.id != 0 and j.id != 18 and j.id != 43 and j.id != 86 and j.id != 94 and j.id != 107
-		and j.id != 129 and j.id != 142	and j.id != 150 and j.id != 161 and j.id !=  171 and j.id != 194 and j.id != 203
-	    and j.id != 223 and j.id != 232 and j.id != 238 and j.id != 244 and j.id != 260 and j.id2 = j2.id
-    	and r.createdate between current_date()-interval 6 day and current_date()
-	group by r.jobgroupid2
-	order by weekJobgroup2 desc
+	<!-- 채용공고 지역별 기준 그래프 -->
+	<select id="rgb_recruit" resultType="StatisticVO">
+	select distinct g.rgbname, count(distinct(r.bno)) as weekRgb from project.tblrecruit r, project.tblregion g
+	where r.rgbid = g.rgbid and g.rgbid != 'Z' and r.createdate between current_date()-interval 6 day and now()
+	group by g.rgbid
+	order by weekRgb desc
 	limit 4
 	</select>
 	
@@ -226,10 +229,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by t.selected_date
 	</select>
 	
-	<update id="emailauth">
-	update tbluser set
-	authCode = null
-	where id = #{id}
-	</update>
+	<select id="weekResume" resultType="StatisticVO">
+	select t.selected_date as day, count(r.bno) as weekResume
+	from project.tblresume r right outer join(
+	select * from 
+	(select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+	(select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+	where selected_date between current_date()-interval 6 day and current_date()
+	) t
+	on date_format(r.regdate, '%Y-%m-%d') = t.selected_date
+	group by date_format(r.regdate, '%Y-%m-%d'), t.selected_date
+	order by t.selected_date;
+	</select>
 
+	<select id="jobgroup_resume" resultType="StatisticVO">
+	select distinct j.jobgroup as rJobgroup, count(r.jobgroupid) as weekRJobgroup from project.tblresume r, project.tbljobgroup j
+	where r.jobgroupid = j.id and j.id != 0 and r.regdate between current_date()-interval 6 day and now()
+	group by r.jobgroupid
+	order by weekRJobgroup desc
+	limit 4;
+	</select>
+	
+	<!-- 이력서 지역별 그래프 -->
+	<select id="rRgb_resume" resultType="StatisticVO">
+	select distinct g.rgbname as rRgbname, count(distinct(r.bno)) as weekRRgb from project.tblresume r, project.tblregion g
+	where r.rgbid = g.rgbid and g.rgbid != 'Z' and r.regdate between current_date()-interval 6 day and now()
+	group by g.rgbid
+	order by weekRRgb desc
+	limit 4
+	</select>
 </mapper>

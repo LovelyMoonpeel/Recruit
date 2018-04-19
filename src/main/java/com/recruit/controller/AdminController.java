@@ -20,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +35,6 @@ import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CsfaqVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
-import com.recruit.domain.CsqnaReplyVO;
 import com.recruit.domain.CsqnaVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
@@ -621,9 +619,12 @@ public class AdminController {
 		model.addAttribute("C_member", aservice.ccount());
 		model.addAttribute("weekRecruit", aservice.count_recruit());
 		model.addAttribute("weekJobgroup",aservice.jobgroup_recruit());
-		model.addAttribute("weekJobgroup2", aservice.jobgroup2_recruit());
+		model.addAttribute("weekRgb", aservice.rgb_recruit());
 		model.addAttribute("weekPerson", aservice.weekPerson());
 		model.addAttribute("weekCompany", aservice.weekCompany());
+		model.addAttribute("weekResume", aservice.weekResume());
+		model.addAttribute("weekRJobgroup", aservice.jobgroup_resume());
+		model.addAttribute("weekRRgb",aservice.rRgb_resume());
 		return "/admin/A_chart";
 	}
 	

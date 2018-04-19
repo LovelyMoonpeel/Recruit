@@ -7,10 +7,15 @@ public class StatisticVO {
 	private String jobgroup;
 	private Integer weekJobgroup;
 	private String jobgroup1;
-	private String jobgroup2;
-	private Integer weekJobgroup2;
+	private String rgbname;
+	private Integer weekRgb;
 	private Integer weekPerson;
 	private Integer weekCompany;
+	private Integer weekResume;
+	private String rJobgroup;		//이력서 직업군
+	private Integer weekRJobgroup;	//주간 이력서 직업군
+	private String rRgbname;		//이력서 지역
+	private Integer weekRRgb;		//이력서 지역 수
 	
 	public String getDay() {
 		return day;
@@ -42,17 +47,17 @@ public class StatisticVO {
 	public void setJobgroup1(String jobgroup1) {
 		this.jobgroup1 = jobgroup1;
 	}
-	public String getJobgroup2() {
-		return jobgroup2;
+	public String getRgbname() {
+		return rgbname;
 	}
-	public void setJobgroup2(String jobgroup2) {
-		this.jobgroup2 = jobgroup2;
+	public void setRgbname(String rgbname) {
+		this.rgbname = rgbname;
 	}
-	public Integer getWeekJobgroup2() {
-		return weekJobgroup2;
+	public Integer getWeekRgb() {
+		return weekRgb;
 	}
-	public void setWeekJobgroup2(Integer weekJobgroup2) {
-		this.weekJobgroup2 = weekJobgroup2;
+	public void setWeekRgb(Integer weekRgb) {
+		this.weekRgb = weekRgb;
 	}
 	public Integer getWeekPerson() {
 		return weekPerson;
@@ -66,12 +71,44 @@ public class StatisticVO {
 	public void setWeekCompany(Integer weekCompany) {
 		this.weekCompany = weekCompany;
 	}
+	public Integer getWeekResume() {
+		return weekResume;
+	}
+	public void setWeekResume(Integer weekResume) {
+		this.weekResume = weekResume;
+	}
+	public String getrJobgroup() {
+		return rJobgroup;
+	}
+	public void setrJobgroup(String rJobgroup) {
+		this.rJobgroup = rJobgroup;
+	}
+	public Integer getWeekRJobgroup() {
+		return weekRJobgroup;
+	}
+	public void setWeekRJobgroup(Integer weekRJobgroup) {
+		this.weekRJobgroup = weekRJobgroup;
+	}
+	public String getrRgbname() {
+		return rRgbname;
+	}
+	public void setrRgbname(String rRgbname) {
+		this.rRgbname = rRgbname;
+	}
+	public Integer getWeekRRgb() {
+		return weekRRgb;
+	}
+	public void setWeekRRgb(Integer weekRRgb) {
+		this.weekRRgb = weekRRgb;
+	}
 	
 	@Override
 	public String toString() {
 		return "StatisticVO [day=" + day + ", weekRecruit=" + weekRecruit + ", jobgroup=" + jobgroup + ", weekJobgroup="
-				+ weekJobgroup + ", jobgroup1=" + jobgroup1 + ", jobgroup2=" + jobgroup2 + ", weekJobgroup2="
-				+ weekJobgroup2 + ", weekPerson=" + weekPerson + ", weekCompany=" + weekCompany + "]";
+				+ weekJobgroup + ", jobgroup1=" + jobgroup1 + ", rgbname=" + rgbname + ", weekRgb=" + weekRgb
+				+ ", weekPerson=" + weekPerson + ", weekCompany=" + weekCompany + ", weekResume=" + weekResume
+				+ ", rJobgroup=" + rJobgroup + ", weekRJobgroup=" + weekRJobgroup + ", rRgbname=" + rRgbname
+				+ ", weekRRgb=" + weekRRgb + "]";
 	}
 	
 }

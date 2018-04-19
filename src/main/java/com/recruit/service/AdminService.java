@@ -39,11 +39,17 @@ public interface AdminService {
 	
 	public List<StatisticVO> jobgroup_recruit() throws Exception;
 	
-	public List<StatisticVO> jobgroup2_recruit() throws Exception;
+	public List<StatisticVO> rgb_recruit() throws Exception;
 	
 	public List<StatisticVO> weekPerson() throws Exception;
 	
 	public List<StatisticVO> weekCompany() throws Exception;
 	
 	public void emailauth(BoardVO vo) throws Exception;
+	
+	public List<StatisticVO> weekResume() throws Exception;
+	
+	public List<StatisticVO> jobgroup_resume() throws Exception;
+	
+	public List<StatisticVO> rRgb_resume() throws Exception;
 }

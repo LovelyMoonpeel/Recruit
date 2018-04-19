@@ -95,8 +95,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<StatisticVO> jobgroup2_recruit() throws Exception{
-		return dao.jobgroup2_recruit();
+	public List<StatisticVO> rgb_recruit() throws Exception{
+		return dao.rgb_recruit();
 	}
 	
 	@Override
@@ -112,5 +112,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void emailauth(BoardVO vo) throws Exception{
 		dao.emailauth(vo);
+	}
+	
+	@Override
+	public List<StatisticVO> weekResume() throws Exception{
+		return dao.weekResume();
+	}
+	
+	@Override
+	public List<StatisticVO> jobgroup_resume() throws Exception{
+		return dao.jobgroup_resume();
+	}
+	
+	@Override
+	public List<StatisticVO> rRgb_resume() throws Exception{
+		return dao.rRgb_resume();
 	}
 }

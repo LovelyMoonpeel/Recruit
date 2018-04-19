@@ -15,7 +15,7 @@
 <!-- 화면전환 -->
 <ul class="nav nav-tabs">
 	<li class="active"><a data-toggle="tab" href="#user_chart" id="user_cha">회원수</a></li>
-	<li><a data-toggle="tab" href="#test_chart" id="test_cha">테스트</a></li>
+	<li><a data-toggle="tab" href="#resume_chart" id="resume_cha">이력서</a></li>
 	<li><a data-toggle="tab" href="#recruit_chart" id="recruit_cha">채용공고</a></li>
 </ul>
 	<div class="tab-content">
@@ -54,15 +54,41 @@
 			</div>
 		</div>
 		<!-- //tab-pane -->
-		<div class="tab-pane fade" id="test_chart">
+		<div class="tab-pane fade" id="resume_chart">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Line Chart
+						일주일간 등록된 이력서
 						<div class="panel-body">
 							<div class="canvas-wrapper">
-								<canvas class="main-chart" id="line-chart" height="200"
+								<canvas class="main-chart" id="resume" height="200"
 									width="600"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- piechart-대분류 -->
+				<div class="col-xs-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							많이 올라온 직종(최근 일주일)
+						</div>
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="chart" id="rJobgroup-chart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- piechart-지역 -->
+				<div class="col-xs-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							많이 올라온 지역(최근 일주일)
+						</div>
+						<div class="panel-body">
+							<div class="canvas-wrapper">
+								<canvas class="chart" id="rRgb-chart"></canvas>
 							</div>
 						</div>
 					</div>
@@ -85,7 +111,7 @@
 				<div class="col-xs-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							많이 올라온 대분류(최근 일주일)
+							많이 올라온 직종(최근 일주일)
 						</div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
@@ -94,15 +120,15 @@
 						</div>
 					</div>
 				</div>
-				<!-- piechart-소분류 -->
+				<!-- piechart-지역 -->
 				<div class="col-xs-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							많이 올라온 소분류(최근 일주일)
+							많이 올라온 지역(최근 일주일)
 						</div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
-								<canvas class="chart" id="jobgroup2-chart"></canvas>
+								<canvas class="chart" id="rgb-chart"></canvas>
 							</div>
 						</div>
 					</div>
@@ -124,11 +150,18 @@ var weekRecruit = [];	//등록된 채용공고 수
 var jobgroup = [];		//대분류용(jobgroup)
 var weekJobgroup = [];	//대분류용(jobgroup)
 var jobgroupData = [];	//대분류용(jobgroup)
-var jobgroup2 = [];		//소분류용(jobgroup)
-var weekJobgroup2 = [];	//소분류용(jobgroup)
-var jobgroup2Data = [];	//소분류용(jobgroup)
-var weekPerson = [];
-var weekCompany = [];
+var rgbname = [];		//채용공고 지역별
+var weekRgb= [];		//채용공고 지역별
+var rgbData = [];		//채용공고 지역별
+var rRgbname = [];		//이력서 지역별
+var weekRRgb= [];		//이력서 지역별
+var rRgbData = [];		//이력서 지역별
+var weekPerson = [];	//주간 개인회원 가입자 수
+var weekCompany = [];	//주간 기업회원 가입자 수
+var weekResume = [];	//주간 이력서 작성 수
+var rJobgroup = [];		//이력서 대분류(jobgroup)
+var weekRJobgroup = [];	//이력서 대분류 수
+var rJobgroupData = [];	//이력서 대분류용(jobgroup)
 var color = ["#30a5ff", "#ffb53e", "#1ebfae", "#f9243f"];
 var highlight = ["#62b9fb", "#fac878", "#3cdfce", "#f6495f"];
 window.onload = function(){
@@ -148,9 +181,9 @@ window.onload = function(){
 	</c:forEach>
 	
 	<% cnt = 0; %>
-	<c:forEach items="${weekJobgroup2}" var = "StatisticVO">
-		jobgroup2[<%= cnt%>] = "${StatisticVO.jobgroup1}, "+"${StatisticVO.jobgroup2}";
-		weekJobgroup2[<%= cnt%>] = ${StatisticVO.weekJobgroup2};
+	<c:forEach items="${weekRgb}" var = "StatisticVO">
+		rgbname[<%= cnt%>] = "${StatisticVO.rgbname}";
+		weekRgb[<%= cnt%>] = ${StatisticVO.weekRgb};
 		<% cnt++; %>
 	</c:forEach>
 	
@@ -163,6 +196,26 @@ window.onload = function(){
 	<% cnt = 0; %>
 	<c:forEach items="${weekCompany}" var = "StatisticVO">
 		weekCompany[<%= cnt%>] = ${StatisticVO.weekCompany};
+		<% cnt++; %>
+	</c:forEach>
+	
+	<% cnt = 0; %>
+	<c:forEach items="${weekResume}" var = "StatisticVO">
+		weekResume[<%= cnt%>] = ${StatisticVO.weekResume};
+		<% cnt++; %>
+	</c:forEach>
+	
+	<% cnt = 0; %>
+	<c:forEach items="${weekRJobgroup}" var = "StatisticVO">
+		rJobgroup[<%= cnt%>] = "${StatisticVO.rJobgroup}";
+		weekRJobgroup[<%= cnt%>] = ${StatisticVO.weekRJobgroup};
+		<% cnt++; %>
+	</c:forEach>
+	
+	<% cnt = 0; %>
+	<c:forEach items="${weekRRgb}" var = "StatisticVO">
+		rRgbname[<%= cnt%>] = "${StatisticVO.rRgbname}";
+		weekRRgb[<%= cnt%>] = ${StatisticVO.weekRRgb};
 		<% cnt++; %>
 	</c:forEach>
 }
@@ -184,14 +237,34 @@ $("#user_cha").on("click", function(){
 	}, 200);
 });
 
-$("#test_cha").on("click",function(){
+$("#resume_cha").on("click",function(){
 	setTimeout(function(){
-		var chart1 = document.getElementById("line-chart").getContext("2d");
-		window.myLine = new Chart(chart1).Line(lineChartData, {
+		var chart1 = document.getElementById("resume").getContext("2d");
+		window.myLine = new Chart(chart1).Line(resumeChart, {
 			responsive : true,
 			scaleLineColor : "rgba(0,0,0,.2)",
 			scaleGridLineColor : "rgba(0,0,0,.05)",
 			scaleFontColor : "#c5c7cc"
+		});
+		
+		for(var i=0;i<4;i++){
+			rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]};
+		}
+		
+		for(var i=0;i<4;i++){
+			rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]};
+		}
+		
+		var chart6 = document.getElementById("rJobgroup-chart").getContext("2d");
+		window.myPie = new Chart(chart6).Pie(rJobgroupData, {
+		responsive: true,
+		segmentShowStroke: false
+		});
+		
+		var chart7 = document.getElementById("rRgb-chart").getContext("2d");
+		window.myPie = new Chart(chart7).Pie(rRgbData, {
+		responsive: true,
+		segmentShowStroke: false
 		});
 	}, 200);
 });
@@ -211,7 +284,7 @@ $("#recruit_cha").on("click", function(){
 		}
 		
 		for(var i=0;i<4;i++){
-			jobgroup2Data[i] = {value:weekJobgroup2[i], color:color[i], highlight:highlight[i], label:jobgroup2[i]};
+			rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]};
 		}
 		
 		var chart4 = document.getElementById("jobgroup-chart").getContext("2d");
@@ -220,8 +293,8 @@ $("#recruit_cha").on("click", function(){
 		segmentShowStroke: false
 		});
 		
-		var chart5 = document.getElementById("jobgroup2-chart").getContext("2d");
-		window.myPie = new Chart(chart5).Pie(jobgroup2Data, {
+		var chart5 = document.getElementById("rgb-chart").getContext("2d");
+		window.myPie = new Chart(chart5).Pie(rgbData, {
 		responsive: true,
 		segmentShowStroke: false
 		});
@@ -264,7 +337,7 @@ var personMemberChart = {
 	labels : day,
 	datasets : [
 		{
-			label: "회원데이터",
+			label: "개인회원 데이터",
 			fillColor : "rgba(48, 164, 255, 0.2)",
 			strokeColor : "rgba(48, 164, 255, 1)",
 			pointColor : "rgba(48, 164, 255, 1)",
@@ -280,7 +353,7 @@ var companyMemberChart = {
 		labels : day,
 		datasets : [
 			{
-				label: "회원데이터",
+				label: "기업회원 데이터",
 				fillColor : "rgba(48, 164, 255, 0.2)",
 				strokeColor : "rgba(48, 164, 255, 1)",
 				pointColor : "rgba(48, 164, 255, 1)",
@@ -292,22 +365,18 @@ var companyMemberChart = {
 		]
 	}
 
-var randomScalingFactor = function(){
-	return Math.round(Math.random()*1000)
-	};
- 
-var lineChartData ={
-	labels : ["January","February","March","April","May","June","July"],
+var resumeChart ={
+	labels : day,
 	datasets : [
 		{
-			label: "My First dataset",
+			label: "이력서 데이터",
 			fillColor : "rgba(48, 164, 255, 0.2)",
 			strokeColor : "rgba(48, 164, 255, 1)",
 			pointColor : "rgba(48, 164, 255, 1)",
 			pointStrokeColor : "#fff",
 			pointHighlightFill : "#fff",
 			pointHighlightStroke : "rgba(220,220,220,1)",
-			data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+			data : weekResume
 		}
 	]
 }
@@ -316,7 +385,7 @@ var recruitChart = {
 		labels : day,
 		datasets : [
 			{
-				label: "채용공고데이터",
+				label: "채용공고 데이터",
 				fillColor : "rgba(48, 164, 255, 0.2)",
 				strokeColor : "rgba(48, 164, 255, 1)",
 				pointColor : "rgba(48, 164, 255, 1)",

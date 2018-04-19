@@ -11,6 +11,7 @@
 	String cname = "";
 	String location = ""; //mypage 경로 설정 변수
 	String c_chk = null; //company_check
+	String myPage = "MyPage"; //myPage 이름 변경
 
 	try {
 		login = (BoardVO) session.getAttribute("login");
@@ -22,6 +23,7 @@
 		if (cname == null) {
 			if (id.equals("admin")) {
 				location = "/admin/main";
+				myPage = "관리자 페이지";
 			} else {
 				location = "/personal/index";
 			}
@@ -72,7 +74,7 @@
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
 
-						<li><a href="<%=location%>">MyPage</a></li>
+						<li><a href="<%=location%>"><%=myPage %></a></li>
 
 
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
