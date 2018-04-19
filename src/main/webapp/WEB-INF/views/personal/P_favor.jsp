@@ -173,7 +173,7 @@ function clipping_cancel_function(rcno){
 				alert("이미 스크랩 해제된 공고 입니다.");
 			}else if(result=='FALSE'){
 				alert("관심채용공고에서 삭제되었습니다.");
-				self.location="/personal/favor";
+				self.location="/personal/favor_all";
 				//self.location = "/company/C_recruitRemove?bno="+bno+"";
 			}else{
 				alert("어느 if문에도 들어가지 못함.");

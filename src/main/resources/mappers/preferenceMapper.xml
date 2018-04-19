@@ -78,17 +78,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select distinct rc.bno as bno
 		,SQRT(
 		POW(((select z from tblcode where id=re.lastcareer)-(select z from tblcode where id=rc.exp)),2) 
-        * POW(user.pref_lastcareer,3)
+        * (user.pref_lastcareer *20)
 		+ POW(((select y from tblcode where id=re.levelofeducation)-(select y from tblcode where id=rc.edu)),2) 
-        * POW(user.pref_levelofeducation,3)
+        * (user.pref_levelofeducation *20)
 		+ POW(((select x from tblcode where id=re.employstatusid)-(select x from tblcode where id=rc.employstatusid)),2) 
-        * POW(user.pref_employstatus,3)
+        * (user.pref_employstatus *20)
 		) as distance
 		from tblresume re, tblrecruit rc, tbluser user
 		where re.bno=#{bno}
 		and user.id=#{userid}
 		order by distance asc
-		
+		limit 10
 		;
 	]]>
 	</select>

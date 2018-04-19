@@ -677,7 +677,7 @@
 	}
 
 	function infiniteScroll() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
 			if (infScrDone && !lastpage) {
 				var users = null;
 				if ($("#stype").attr("value") === "1")

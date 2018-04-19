@@ -476,7 +476,7 @@
 	$("#sinput").focus();
 
 	function infiniteScroll() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
 			if (infScrDone && !lastpage && moreView) {
 				console.log(page);
 				getRecruitAllList(snum, page++, false);
