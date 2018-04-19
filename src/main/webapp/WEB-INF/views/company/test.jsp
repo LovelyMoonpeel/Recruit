@@ -26,7 +26,7 @@
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new daum.maps.LatLng(37.5010743475473, 126.98118659753413), // 지도의 중심좌표
+            center: new daum.maps.LatLng(37.495626702143824, 126.99933978814693), // 지도의 중심좌표
             level: 1 // 지도의 확대 레벨
         };
 
@@ -46,7 +46,10 @@
     // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
   
         searchDetailAddrFromCoords(mapOption.center, function(result, status) {
-        	alert(result[0].road_address.address_name);
+        	 var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+        	alert(result[0].address.address_name);
+        	alert(detailAddr)
             
         });
   

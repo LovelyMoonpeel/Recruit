@@ -59,42 +59,7 @@ background-color: #777;
 <a id="kakao-link-btn" href="javascript:;">
     <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
 </a>
-<script type='text/javascript'>
-    //<![CDATA[
-    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('255f0ac190064fdd43c712921a3fbb03');
-    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    Kakao.Link.createDefaultButton({
-        container: '#kakao-link-btn',
-        objectType: 'location',
-        address: '서대문구청',
-        addressTitle: '',
-        content: {
-            title: 'KR-서비스 스페셜리스트 (파트타임)',
-            description: 'KR-서비스 스페셜리스트 (파트타임)',
-            imageUrl: 'https://s3.ap-northeast-2.amazonaws.com/matchingbucket/matching/company${CInfoVO.img}',
-            link: {
-                mobileWebUrl: 'https://developers.kakao.com',
-                webUrl: 'https://developers.kakao.com'
-            }
-        },
-        social: {
-            likeCount: 286,
-            commentCount: 45,
-            sharedCount: 845
-        },
-        buttons: [
-            {
-                title: '웹으로 보기',
-                link: {
-                    mobileWebUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
-                    webUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
-                }
-            }
-        ]
-    });
-    //]]>
-</script>
+
 
 
 
@@ -108,7 +73,7 @@ background-color: #777;
 	
 	<!-- 소연 버튼 -->
 	<!-- 메인 바디 입력 부분 -->
-	<br> <br> <span>${RecruitVO.period}</span> <span>조회수
+	<br> <br> <span>${RecruitVO.period}</span> | <span>조회수
 		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
 	<br>
 
@@ -122,13 +87,9 @@ background-color: #777;
 				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
 			</div>
 			<div class="col-md-4 text-center"  style="padding-left: 0px; padding-right: 0px; border-left: 1px solid #dde2eb;">
-				<div>
-				<br>
 				<img src="${CInfoVO.img}" class="img-rounded"
 					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="max-width: 150px; max-height: 150px;"/>
-					
-					<br>
+					style="width: 200px;"/>
 			</div>
 		</div>
 		
@@ -601,8 +562,8 @@ background-color: #777;
 			
 	<h4>담당자 정보</h4>
 		
-<input type="text" value="hhhhhhhhh"/>
-	
+		<input type="text" id="test" value="1212"/>
+			
 	
 	<div id="human_resources_manager" 
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
@@ -661,6 +622,8 @@ $(document).ready(function(){
 
 $(document).ready(function() {
 	
+   
+    
 	var imgsrccheck = ('#imgsrccheck');
 	if ($('#imgsrccheck').val() != "") {
 		console.log(" val값 뭐임? " + $('#imgsrccheck').val());
@@ -675,6 +638,46 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+
+    //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('255f0ac190064fdd43c712921a3fbb03');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createDefaultButton({
+        container: '#kakao-link-btn',
+        objectType: 'location',
+        address: '${CInfoVO.location}',
+        addressTitle: '',
+        content: {
+            title: 'KR-서비스 스페셜리스트 (파트타임)',
+            description: 'KR-서비스 스페셜리스트 (파트타임)',
+            imageUrl: 'https://s3.ap-northeast-2.amazonaws.com/matchingbucket/matching/company${CInfoVO.img}',
+            link: {
+                mobileWebUrl: 'https://developers.kakao.com',
+                webUrl: 'https://developers.kakao.com'
+            }
+        },
+        social: {
+            likeCount: 286,
+            commentCount: 45,
+            sharedCount: 845
+        },
+        buttons: [
+            {
+                title: '웹으로 보기',
+                link: {
+                    mobileWebUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
+                    webUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
+                }
+            }
+        ]
+    });
+    //]]>
+    
+	
+
+</script>
 
 <!-- //메인 바디 끝 -->
 

@@ -17,7 +17,7 @@
 	
 	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
 		select
-		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form,
+		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form, location,
 		establish, numemp, sales, tel, fax, sns, lng, lat , phone, email, tu.pname
 		from
 		tblcinfo as tci, tbluser as tu
@@ -35,7 +35,7 @@
 		, form=#{form}, establish=#{establish},
 		numemp=#{numemp},
 		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} ,
-		img=#{img}
+		img=#{img}, location=#{location}
 		, phone=#{phone} , email=#{email}, lat = #{lat}, lng = #{lng}
 		where
 		tu.id = #{id} and tci.id = tu.id
