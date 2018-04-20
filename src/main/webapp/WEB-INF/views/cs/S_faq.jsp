@@ -4,6 +4,18 @@
 
 <%@include file="../include/sheader.jsp"%>
 
+<%
+	String reg = "hidden";
+	try{
+		if(id.equals("admin")){
+			reg = "button";
+			
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+%>
+
 <!-- 개인관리 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<h1>FAQ</h1>
@@ -20,8 +32,8 @@
 			
 	</table>
 	
-	<!-- <button class="btn btn-success" type="button" onclick="location.href='/cs/S_faqreg'">작성</button> -->
-<!-- <br><br><br><br><br><br><br><br><br><br><br><br> -->
+	<input class="btn btn-success" type=<%=reg %> onclick="location.href='/cs/faqreg'" value="작성">
+
 </div>
 
 <!-- 수정, 삭제 처리시 -->
@@ -34,12 +46,8 @@ if(result == 'modify'){
 	alert("삭제가 완료 되었습니다.");
 }else if(result == 'regist'){
 	alert("FAQ가 등록 되었습니다..");
-}else if(result == 'login'){
-	alert("로그인이 필요합니다.");
-}else if(result == 'NO_per'){
-	alert("기업 회원이 아닙니다.");
-}else if(result == 'logout'){
-	alert("로그아웃 되었습니다.");
+}else if(result == 'fail'){
+	alert("접근권한이 없습니다.");
 }
 </script>
 <!-- //수정, 삭제 처리시 -->

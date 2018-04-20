@@ -139,4 +139,24 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<StatisticVO> rRgb_resume() throws Exception{
 		return session.selectList(namespace+".rRgb_resume");
 	}
+	
+	@Override
+	public int weekPcount()throws Exception{
+		return session.selectOne(namespace+".weekPcount");
+	}
+	
+	@Override
+	public int weekCcount()throws Exception{
+		return session.selectOne(namespace+".weekCcount");
+	}
+	
+	@Override
+	public int weekResumeCount()throws Exception{
+		return session.selectOne(namespace+".weekResumeCount");
+	}
+	
+	@Override
+	public int weekRecruitCount()throws Exception{
+		return session.selectOne(namespace+".weekRecruitCount");
+	}
 }

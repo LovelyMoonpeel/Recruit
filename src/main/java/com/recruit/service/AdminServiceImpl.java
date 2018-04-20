@@ -128,4 +128,23 @@ public class AdminServiceImpl implements AdminService {
 	public List<StatisticVO> rRgb_resume() throws Exception{
 		return dao.rRgb_resume();
 	}
+	
+	@Override
+	public int weekPcount()throws Exception{
+		return dao.weekPcount();
+	}
+	
+	@Override
+	public int weekCcount()throws Exception{
+		return dao.weekCcount();
+	}
+	
+	@Override
+	public int weekResumeCount()throws Exception{
+		return dao.weekResumeCount();
+	}
+	
+	public int weekRecruitCount()throws Exception{
+		return dao.weekRecruitCount();
+	}
 }

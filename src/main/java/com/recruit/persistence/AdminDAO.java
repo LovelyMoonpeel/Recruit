@@ -55,4 +55,12 @@ public interface AdminDAO {
 	
 	public List<StatisticVO> rRgb_resume() throws Exception;
 	
+	public int weekPcount()throws Exception;
+	
+	public int weekCcount()throws Exception;
+	
+	public int weekResumeCount()throws Exception;
+	
+	public int weekRecruitCount()throws Exception;
+	
 }

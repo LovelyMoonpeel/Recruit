@@ -615,8 +615,12 @@ public class AdminController {
 	
 	@RequestMapping(value = "/chart", method = RequestMethod.GET)
 	public String chartGET(Model model) throws Exception{
-		model.addAttribute("P_member",aservice.pcount());
-		model.addAttribute("C_member", aservice.ccount());
+		model.addAttribute("P_member",aservice.pcount());	//전체 가입한 개인회원 수
+		model.addAttribute("C_member", aservice.ccount());	//전체 가입한 기업회원 수
+		model.addAttribute("weekPcount", aservice.weekPcount());	//주간 가입한 개인회원 수
+		model.addAttribute("weekCcount", aservice.weekCcount());	//주간 가입한 기업회원 수
+		model.addAttribute("weekResumeCount", aservice.weekResumeCount());	//주간 이력서 등록 수 
+		model.addAttribute("weekRecruitCount", aservice.weekRecruitCount());//주간 채용공고 등록 수
 		model.addAttribute("weekRecruit", aservice.count_recruit());
 		model.addAttribute("weekJobgroup",aservice.jobgroup_recruit());
 		model.addAttribute("weekRgb", aservice.rgb_recruit());

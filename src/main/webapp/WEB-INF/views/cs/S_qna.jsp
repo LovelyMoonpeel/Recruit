@@ -146,6 +146,7 @@ $("#qnabpw").on("click", function(){
 			}else{
 				alert("비밀번호 불일치");
 				bpwObj.val("");
+				bpwObj.focus();
 			}
 		}});
 });

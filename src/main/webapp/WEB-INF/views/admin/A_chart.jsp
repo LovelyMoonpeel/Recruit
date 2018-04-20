@@ -20,32 +20,35 @@
 </ul>
 	<div class="tab-content">
 		<div class="tab-pane fade active in" id="user_chart">
-			<div class="col-sm-6 result" id="personCheck">
+			<div class="col-md-6 result" id="personCheck">
 				<div class="panel panel-default fixed-panelr">
 					<div align="center" class="panel-body" id="personCheckPanel" style="cursor:pointer">
-						<br />
+						<br>
 						<div class="recruit-div">
-							개인회원 수 <br> ${P_member}
+							개인회원 수 <br>${P_member}
 						</div>
+						<br>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 result" id="companyCheck">
+			<div class="col-md-6 result" id="companyCheck">
 				<div class="panel panel-default fixed-panelr">
 					<div align="center" class="panel-body" id="companyCheckPanel" style="cursor:pointer">
-						<br />
+						<br>
 						<div class="recruit-div">
-							기업회원 수 <br> ${C_member}
+							기업회원 수 <br>${C_member}
 						</div>
+						<br>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<p id="memberTitle">일주일간 가입한 개인회원 수</p>
+						<p id="memberTitle">일주일간 가입한 개인회원 수 : ${weekPcount}</p>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
+								<div id="member2" style="width: 100%;"></div>
 								<canvas class="main-chart" id="member" height="200" width="600"></canvas>
 							</div>
 						</div>
@@ -58,7 +61,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						일주일간 등록된 이력서
+						<p>일주일간 등록된 이력서 : ${weekResumeCount}</p>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
 								<canvas class="main-chart" id="resume" height="200"
@@ -68,28 +71,28 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-xs-6">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
 						</div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
-								<canvas class="chart" id="rJobgroup-chart"></canvas>
-							</div>
+						<div class="panel-body" style="height: 450px;">
+								<%-- <canvas class="chart" id="rJobgroup-chart"></canvas> --%>
+								<div id="rJobgroup-chart"></div>
 						</div>
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-xs-6">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
 						</div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
+						<div class="panel-body" style="height: 450px;">
+							<div id="rRgb-chart"></div>
+							<%-- <div class="canvas-wrapper">
 								<canvas class="chart" id="rRgb-chart"></canvas>
-							</div>
+							</div> --%>
 						</div>
 					</div>
 				</div>
@@ -99,7 +102,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						최근 일주일간 등록된 채용공고
+						<p>최근 일주일간 등록된 채용공고 : ${weekRecruitCount}</p>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
 								<canvas class="main-chart" id="recruit" height="200" width="600"></canvas>
@@ -108,28 +111,24 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-xs-6">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
 						</div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
-								<canvas class="chart" id="jobgroup-chart"></canvas>
-							</div>
+						<div class="panel-body" style="height: 450px;">
+							<div id="jobgroup-chart"></div>
 						</div>
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-xs-6">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
 						</div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
-								<canvas class="chart" id="rgb-chart"></canvas>
-							</div>
+						<div class="panel-body" style="height: 450px;">
+							<div id="rgb-chart"></div>
 						</div>
 					</div>
 				</div>
@@ -140,9 +139,10 @@
 </div>
 <!-- main -->
 <!-- //chart 페이지 -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.0/Chart.bundle.min.js"></script> -->
 <script src="/resources/rpjt/js/chart.min.js"></script>
-<script src="/resources/rpjt/js/easypiechart.js"></script>
-<script src="/resources/rpjt/js/easypiechart-data.js"></script>
+<script src="/resources/rpjt/js/chart.min2.js"></script>
+<!-- <script src="/resources/rpjt/js/easypiechart.js"></script> -->
 
 <script>
 var day = [];			//등록된 채용공고 날짜별 분류
@@ -248,24 +248,50 @@ $("#resume_cha").on("click",function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]};
+			/* rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]}; */
+			rJobgroupData[i] = {y:weekRJobgroup[i], label:rJobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]};
+			/* rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]}; */
+			rRgbData[i] = {y:weekRRgb[i], label:rRgbname[i]};
 		}
 		
-		var chart6 = document.getElementById("rJobgroup-chart").getContext("2d");
+		var chart6 = new CanvasJS.Chart("rJobgroup-chart", {
+			animationEnabled: true,
+			data: [{
+				type: "pie",
+				startAngle: 270,
+				yValueFormatString: "#,##0",
+				indexLabel: "{label} {y}",
+				dataPoints: rJobgroupData
+			}]
+		});
+		chart6.render();
+		
+		/* var chart6 = document.getElementById("rJobgroup-chart").getContext("2d");
 		window.myPie = new Chart(chart6).Pie(rJobgroupData, {
 		responsive: true,
 		segmentShowStroke: false
-		});
+		}); */
 		
-		var chart7 = document.getElementById("rRgb-chart").getContext("2d");
+		var chart7 = new CanvasJS.Chart("rRgb-chart", {
+			animationEnabled: true,
+			data: [{
+				type: "pie",
+				startAngle: 270,
+				yValueFormatString: "#,##0",
+				indexLabel: "{label} {y}",
+				dataPoints: rRgbData
+			}]
+		});
+		chart7.render();
+		
+		/* var chart7 = document.getElementById("rRgb-chart").getContext("2d");
 		window.myPie = new Chart(chart7).Pie(rRgbData, {
 		responsive: true,
 		segmentShowStroke: false
-		});
+		}); */
 	}, 200);
 });
 
@@ -280,31 +306,57 @@ $("#recruit_cha").on("click", function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			jobgroupData[i] = {value:weekJobgroup[i], color:color[i], highlight:highlight[i], label:jobgroup[i]};
+			/* jobgroupData[i] = {value:weekJobgroup[i], color:color[i], highlight:highlight[i], label:jobgroup[i]}; */
+			jobgroupData[i] = {y:weekJobgroup[i], label:jobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]};
+			/* rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]}; */
+			rgbData[i] = {y:weekRgb[i], label:rgbname[i]};
 		}
 		
-		var chart4 = document.getElementById("jobgroup-chart").getContext("2d");
+		var chart4 = new CanvasJS.Chart("jobgroup-chart", {
+			animationEnabled: true,
+			data: [{
+				type: "pie",
+				startAngle: 270,
+				yValueFormatString: "#,##0",
+				indexLabel: "{label} {y}",
+				dataPoints: jobgroupData
+			}]
+		});
+		chart4.render();
+		
+		/* var chart4 = document.getElementById("jobgroup-chart").getContext("2d");
 		window.myPie = new Chart(chart4).Pie(jobgroupData, {
 		responsive: true,
 		segmentShowStroke: false
-		});
+		}); */
 		
-		var chart5 = document.getElementById("rgb-chart").getContext("2d");
+		var chart5 = new CanvasJS.Chart("rgb-chart", {
+			animationEnabled: true,
+			data: [{
+				type: "pie",
+				startAngle: 270,
+				yValueFormatString: "#,##0",
+				indexLabel: "{label} {y}",
+				dataPoints: rgbData
+			}]
+		});
+		chart5.render();
+		
+		/* var chart5 = document.getElementById("rgb-chart").getContext("2d");
 		window.myPie = new Chart(chart5).Pie(rgbData, {
 		responsive: true,
 		segmentShowStroke: false
-		});
+		}); */
 	}
 	, 200);
 });
 
 $("#personCheck").on("click", function(){
 	setTimeout(function(){
-		document.getElementById("memberTitle").innerHTML = "일주일간 가입한 개인회원 수";
+		document.getElementById("memberTitle").innerHTML = "일주일간 가입한 개인회원 수"+" : ${weekPcount}";
 		$("#companyCheckPanel").removeClass("statCheck");
 		$("#personCheckPanel").addClass("statCheck");
 		var chart2 = document.getElementById("member").getContext("2d");
@@ -319,7 +371,7 @@ $("#personCheck").on("click", function(){
 
 $("#companyCheck").on("click", function(){
 	setTimeout(function(){
-		document.getElementById("memberTitle").innerHTML = "일주일간 가입한 기업회원 수";
+		document.getElementById("memberTitle").innerHTML = "일주일간 가입한 기업회원 수"+" : ${weekCcount}";
 		$("#personCheckPanel").removeClass("statCheck");
 		$("#companyCheckPanel").addClass("statCheck");
 		var chart2 = document.getElementById("member").getContext("2d");
@@ -396,11 +448,37 @@ var recruitChart = {
 			}
 		]
 	}
+
+/* var ctx = document.getElementById("test-chart").getContext("2d");
+
+var data = {
+    labels: rJobgroup,
+    datasets: [
+        {
+            data: weekRJobgroup,
+            backgroundColor: color,
+            hoverBackgroundColor: highlight
+        }]
+};
+
+var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: {
+        showAllTooltips: true
+    }
+}); */
+
 </script>
 
 <script>
 $(document).ready(function(){
 	$("#user_cha").trigger("click");
-})
+});
+
+$('.canvasjs-chart-canvas').contents()
+.filter(function(){
+    return this.nodeType === 3 && $.trim(this.nodeValue) !== '';
+}).remove();
 </script>
 <%@include file="../include/cfooter.jsp"%>

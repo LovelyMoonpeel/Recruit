@@ -59,10 +59,23 @@ public class CsController {
 		return "/cs/S_faqread";
 	}
 
-	@RequestMapping(value = "/S_faqmod", method = RequestMethod.GET)
-	public void faqModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/faqmod", method = RequestMethod.GET)
+	public String faqModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Modify Get..........");
-		model.addAttribute("CsfaqVO", fservice.read(bno));
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				model.addAttribute("CsfaqVO", fservice.read(bno));
+				return "/cs/S_faqmod";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/faq";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/faq";
+		}
 	}
 
 	@RequestMapping(value = "/S_faqmod", method = RequestMethod.POST)
@@ -73,6 +86,15 @@ public class CsController {
 		fservice.modify(vo);
 
 		rttr.addFlashAttribute("msg", "modify");
+
+		return "redirect:/cs/faq";
+	}
+	
+	@RequestMapping(value = "/faqremove", method = RequestMethod.POST)
+	public String faqRemove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception {
+		fservice.remove(bno);
+
+		rttr.addFlashAttribute("msg", "remove");
 
 		return "redirect:/cs/faq";
 	}
@@ -182,7 +204,7 @@ public class CsController {
 		if (login != null) {
 			String id = login.getId();
 			String idc = qservice.read2(bno).getUser();
-			if(id.equals(idc)){
+			if(id.equals(idc)||id.equals("admin")){
 				model.addAttribute("CsqnaVO", qservice.read2(bno));
 				return "/cs/S_qnamod";				
 			}else{
@@ -247,4 +269,35 @@ public class CsController {
 		return entity;
 	}
 
+	@RequestMapping(value = "/faqreg", method = RequestMethod.GET)
+	public String faqRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		logger.info("faq Register..........");
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				return "/cs/S_faqreg";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/faq";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/faq";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/S_faqreg", method = RequestMethod.POST)
+	public String faqRegisterPOST(CsfaqVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("faq Register..........");
+		logger.info(vo.toString());
+
+		fservice.regist(vo);
+
+		rttr.addFlashAttribute("msg", "regist");
+
+		return "redirect:/cs/faq";
+	}
 }

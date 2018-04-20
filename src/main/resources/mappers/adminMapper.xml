@@ -155,6 +155,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<select id="weekPcount" resultType="int">
+	select count(pname) from tbluser
+	where cname is null and id != 'admin'
+	and joindate between current_date()-interval 6 day and current_date()
+	</select>
+	
+	<select id="weekCcount" resultType="int">
+	select count(cname) from tbluser
+	where joindate between current_date()-interval 6 day and current_date()
+	</select>
+	
+	<select id="weekResumeCount" resultType="int">
+	select count(bno) from tblresume
+	where regdate between current_date()-interval 6 day and current_date()
+	</select>
+	
+	<select id="weekRecruitCount" resultType="int">
+	select count(bno) from tblrecruit
+	where createdate between current_date()-interval 6 day and current_date()
+	</select>
+	
 	<update id="emailauth">
 	update tbluser set
 	authCode = null

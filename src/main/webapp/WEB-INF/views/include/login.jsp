@@ -42,7 +42,7 @@
 		<div class="modal-dialog">
 
 			<!--★ 아래 두개의 클래스를 추가 했음, col-xs-8을 아래 붙이면 css적용이 안 됨 , col-xs-8을 써서 모달 가로 폭을 조정 -->
-			<div class="modal-content col-xs-8">
+			<div class="modal-content col-xs-12 col-md-8">
 
 				<div class="modal-body">
 
@@ -191,7 +191,7 @@
 
 
 			<!--아래 두개의 클래스를 추가 했음, col-xs-8을 아래 붙이면 css적용이 안 됨  -->
-			<div class="modal-content join col-xs-8">
+			<div class="modal-content join col-xs-12 col-md-8">
 
 				<div class="modal-body">
 
