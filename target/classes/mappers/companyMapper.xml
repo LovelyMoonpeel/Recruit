@@ -176,11 +176,14 @@
 <!-- CURDATE 소연 추가 -->
 	<select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid,
-	 d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt
-	, CURDATE() as regdate	
-		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g
-		, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid,
+    g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid,
+	 d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt, h.applycnt , h.interestcnt
+	, CURDATE() as regdate
+		from project.tbljobgroup j, project.tbljobgroup u, project.tblregion g
+		, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e ,project.tblrecruit r
+        LEFT JOIN(select (select count(a.rcno) from tblapply a where a.rcno = #{recruitNum}) as applycnt , (select  count(b.rcbno) from tblinterestjob b where b.rcbno = #{recruitNum})as interestcnt
+        from dual)h on  #{recruitNum}= r.bno
 	where r.bno = #{recruitNum}
     	and r.jobgroupid = j.id
     	and r.jobgroupid2 = u.id
@@ -189,7 +192,7 @@
     	and r.employstatusid = c.id
     	and r.salaryid = o.id
     	and r.edu = d.id
-    	and r.exp = e.id or r.exp = null
+    	and r.exp = e.id or r.exp = null;
 ]]>
 	</select> <!-- 채용공고 정보 -->
 

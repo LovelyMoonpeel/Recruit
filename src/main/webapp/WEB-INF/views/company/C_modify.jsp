@@ -122,9 +122,9 @@
 			<div class="form-group col-lg-12">
 				<label>기업주소</label>
 				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-				<input type="text" name="lat" id="lat">
-				<input type="text" name="lng" id="lng">
-				<input type="text" name="location" id="test">
+				<input type="hidden" name="lat" id="lat">
+				<input type="hidden" name="lng" id="lng">
+				<input type="hidden" name="location" id="test">
 				<div id="map"></div>
 			</div>
 		</div>
@@ -607,7 +607,6 @@ var map;
         
             addMarker(event.latLng);
         
-           alert(map.center)
            
            
           });
@@ -693,7 +692,6 @@ var map;
 	             
 	
              
-	        	alert(detailAddr);
 	        	
 	        	
 			$("#test").attr("value",result[0].address.address_name);
@@ -703,7 +701,6 @@ var map;
 
 	    function searchDetailAddrFromCoords(coords, callback) {
 	        // 좌표로 법정동 상세 주소 정보를 요청합니다
-	        alert(coords)
 	        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	    }
 

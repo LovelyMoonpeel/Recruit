@@ -202,11 +202,8 @@
       }
     </script>
 
-<script>
-
-</script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
+	<script async defer
+   		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
     </script>
 
 <%@include file="../include/cfooter.jsp"%>

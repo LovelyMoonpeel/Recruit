@@ -59,6 +59,9 @@ import com.recruit.util.MediaUtils;
 import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
 
+
+
+
 @Controller
 @RequestMapping("/company/*")
 public class CompanyController {
@@ -647,6 +650,26 @@ public class CompanyController {
 		/* String uploadPath = "matching/certificate"; */
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
+	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+	         if (login.getCname() == null){
+	             rttr.addFlashAttribute("msg", "fail");
+	             return "redirect:/";
+	          }
+			String id = login.getId();
+			service.RecruitRemove(bno, id);
+			rttr.addFlashAttribute("msg", "DELESUCCESS");
+			return "redirect:/company/C_manage";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
 	}
 
 	@ResponseBody

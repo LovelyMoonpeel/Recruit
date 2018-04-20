@@ -32,7 +32,8 @@ public class RecruitVO implements Bnoble {
 	private String pname;
 	private String lat;
 	private String lng;
-	
+	private String interestcnt;
+	private String applycnt;
 	public int getBno() {
 		return bno;
 	}
@@ -195,7 +196,18 @@ public class RecruitVO implements Bnoble {
 	public void setLng(String lng) {
 		this.lng = lng;
 	}
-	
+	public String getInterestcnt() {
+		return interestcnt;
+	}
+	public void setInterestcnt(String interestcnt) {
+		this.interestcnt = interestcnt;
+	}
+	public String getApplycnt() {
+		return applycnt;
+	}
+	public void setApplycnt(String applycnt) {
+		this.applycnt = applycnt;
+	}
 	
 	@Override
 	public String toString() {
@@ -205,7 +217,9 @@ public class RecruitVO implements Bnoble {
 				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
 				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt
 				+ ", recruitstate=" + recruitstate + ", week=" + week + ", applynum=" + applynum + ", rownum=" + rownum
-				+ ", btnstate=" + btnstate + ", pname=" + pname + ", lat=" + lat + ", lng=" + lng + "]";
+				+ ", btnstate=" + btnstate + ", pname=" + pname + ", lat=" + lat + ", lng=" + lng + ", interestcnt="
+				+ interestcnt + ", applycnt=" + applycnt + "]";
 	}
+	
 	
 }

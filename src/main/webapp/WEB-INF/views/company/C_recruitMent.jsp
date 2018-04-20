@@ -54,15 +54,6 @@ background-color: #777;
 <!-- Main content -->
 <div class="col-md-12 ">
 
-  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
-<a id="kakao-link-btn" href="javascript:;">
-    <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
-</a>
-
-
-
-
 
 	<!-- 버튼 -->
 
@@ -73,10 +64,13 @@ background-color: #777;
 	
 	<!-- 소연 버튼 -->
 	<!-- 메인 바디 입력 부분 -->
-	<br> <br> <span>${RecruitVO.period}</span> | <span>조회수
-		${RecruitVO.viewcnt}</span> |<span>스크랩 수</span><span>지원자수</span> <span>공유하기</span>
+	
 	<br>
 
+
+<!--  <a id="kakao-link-btn" href="javascript:;"> 카카오
+    <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+</a>  -->
 
 	<div
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px;">
@@ -557,12 +551,22 @@ background-color: #777;
 	</div>
 	<br> <br>
 
+	<p class="lead">
 	
+		<strong>지도 위치</strong>
+		
+	</p>
+			
+		
+	<div id="map"></div>
+	
+			
+	<br>
 			
 			
 	<h4>담당자 정보</h4>
 		
-		<input type="text" id="test" value="1212"/>
+		<%-- <input type="text" id="test" value="${CInfoVO.location}"/> --%>
 			
 	
 	<div id="human_resources_manager" 
@@ -577,7 +581,7 @@ background-color: #777;
 
 				<tr>
 					<th class="table-active" scope="row" name="phone">휴대폰 번호</th>
-					<td colspan="3">${CInfoVO.phone}</td>
+					<td colspan="3">010-9843-4305${CInfoVO.phone}</td>
 				</tr>
 
 				<tr>
@@ -638,6 +642,9 @@ $(document).ready(function() {
 </script>
 
 
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
 <script>
 
     //<![CDATA[
@@ -650,25 +657,24 @@ $(document).ready(function() {
         address: '${CInfoVO.location}',
         addressTitle: '',
         content: {
-            title: 'KR-서비스 스페셜리스트 (파트타임)',
-            description: 'KR-서비스 스페셜리스트 (파트타임)',
+            title: '${RecruitVO.title}',
+            description: '${CInfoVO.cname}',
             imageUrl: 'https://s3.ap-northeast-2.amazonaws.com/matchingbucket/matching/company${CInfoVO.img}',
             link: {
-                mobileWebUrl: 'https://developers.kakao.com',
+            	mobileWebUrl: 'https://developers.kakao.com',
                 webUrl: 'https://developers.kakao.com'
             }
         },
         social: {
-            likeCount: 286,
-            commentCount: 45,
-            sharedCount: 845
+            likeCount: ${RecruitVO.interestcnt},
+            viewCount: ${RecruitVO.viewcnt}
         },
         buttons: [
             {
-                title: '웹으로 보기',
+                title: '채용공고 보기',
                 link: {
-                    mobileWebUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
-                    webUrl: 'http://localhost:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
+                	mobileWebUrl: 'http://localhost:8070/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
+                    webUrl: 'http://localhost:8070/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
                 }
             }
         ]
@@ -678,6 +684,33 @@ $(document).ready(function() {
 	
 
 </script>
+
+<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+ <script>
+
+      function initMap() {
+    	  var uluru = {lat: <c:out value="${CInfoVO.lat}"/>, lng: <c:out value="${CInfoVO.lng}"/>};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    
+    <script async defer
+    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
+    </script>
+    
 
 <!-- //메인 바디 끝 -->
 

@@ -293,10 +293,10 @@ $(function () {
 				
 				<div id="numChk">
 				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1">&nbsp;1명</label>
-				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;2명</label>
+				<input type="radio" nㅠㅗㅕㅅ 라쇼 ame="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;2명</label>
 				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3">&nbsp;3명</label>
 				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4">&nbsp;4명</label>
-				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />명
+				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" value="12" />명
 				</div>
 				
 				</div>
@@ -304,17 +304,16 @@ $(function () {
 			</tr>
 			
 			<script>
-			$("#numChk > input[type='checkbox']").on("click",function(){
-				
-				
+			 $("#numChk > input[type='checkbox']").on("click",function(){
+			
 				$("#numChk > input[type='checkbox'] ").prop("checked",false);
 				$("#numChk > input[type='checkbox'] ").prop("name","");	
 				
 				$(this).prop("checked",true)
 				$(this).prop("name","recruitnum");
-				$("#numText").prop("value","")
 				
-			})
+				
+			}) 
 			
 			$("#numText").focusin(function(){
 				
@@ -474,7 +473,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="adddescTxt" style="vertical-align:middle;">상세내용 및 우대사항</th>
+				<th class="text-center" id="adddescTxt" style="vertical-align:middle;">상세내용 및 우대사항<br>(공통자격요건)</th>
 				
 				<td>
 				
