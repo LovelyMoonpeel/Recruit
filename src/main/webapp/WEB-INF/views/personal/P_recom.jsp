@@ -441,9 +441,6 @@ $(document).ready(function (){
 		</div>
 	</div>
 
-<br>
-<br>
-<br>
 <script>
 function add_job() {
 	var bar_job = document.getElementById("bar_job");
