@@ -66,5 +66,3 @@
 	</div>
 	<!-- /.container -->
 </nav>
-
-<%@ include file="../include/login.jsp"%>

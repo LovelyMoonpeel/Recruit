@@ -72,8 +72,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<!-- Coordinate 비교해서 top10 bno 리스트  버전3-->
+ 	<select id="selectCoordinateList" resultType="CoordinateVO">
+	<![CDATA[
+	select distinct rc.bno as bno, rc.cid, rc.title
+	,SQRT(
+	POW(((select z from tblcode where id=re.lastcareer)-(select z from tblcode where id=rc.exp))*10,2)  * (user.pref_lastcareer *20)
+	+ POW(((select y from tblcode where id=re.levelofeducation)-(select y from tblcode where id=rc.edu))*10,2)  * (user.pref_levelofeducation *20)
+	+ POW(((select x from tblcode where id=re.employstatusid)-(select x from tblcode where id=rc.employstatusid))*10,2)  * (user.pref_employstatus *20)
+	+
+    case 
+    when (re.jobgroupid2=rc.jobgroupid2) then 0
+	when (re.jobgroupid=rc.jobgroupid) then 1
+	else 
+    (POW((select v1 from tbljobgroup where id=re.jobgroupid2)-(select v1 from tbljobgroup where id=rc.jobgroupid2),2)
+    +POW((select v2 from tbljobgroup where id=re.jobgroupid2)-(select v2 from tbljobgroup where id=rc.jobgroupid2),2))
+    *10 * (user.pref_job *20)
+	end  
+    +
+    case 
+	when (re.rgbid=rc.rgbid AND re.rgsid=rc.rgsid) then 0
+	when (re.rgbid=rc.rgbid) then 1
+	else 
+	(POW((select w1 from tblregion where rgbid=re.rgbid and rgsid=re.rgsid)-(select w1 from tblregion where rgbid=rc.rgbid and rgsid=rc.rgsid),2)
+	+POW((select w2 from tblregion where rgbid=re.rgbid and rgsid=re.rgsid)-(select w2 from tblregion where rgbid=rc.rgbid and rgsid=rc.rgsid),2))
+	*600 * (user.pref_region *20)
+    end
+	) as distance    
+	from tblresume re, tblrecruit rc, tbluser user
+	where re.bno=#{bno}
+	and user.id=#{userid}
+	order by distance asc
+	limit 10
+	;
+	]]>
+	</select>
+
+	
 	<!-- Coordinate 비교해서 top10 bno 리스트  버전2-->
-	<select id="selectCoordinateList" resultType="CoordinateVO">
+<!-- 	<select id="selectCoordinateList" resultType="CoordinateVO">
 	<![CDATA[
 		select distinct rc.bno as bno
 		,SQRT(
@@ -91,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit 10
 		;
 	]]>
-	</select>
+	</select> -->
 	
 	<!-- Coordinate 비교해서 top10 bno 리스트  버전1-->
 <!-- 	<select id="selectCoordinateList" resultType="CoordinateVO">

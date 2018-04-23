@@ -478,12 +478,14 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 
 	<div class="form-group col-md-3">
 		<label for="webtitle">웹사이트 (종류)</label> 
-		<input class="form-control webtitle webclass" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
+		<input class="form-control webtitle webclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[사이트(종류) 예시]</b>"
+		data-content="Git <br> 블로그" name= "pwebsitesvolist[].webtitle" value="{{webtitle}}"> </input>
 	</div>
 
 	<div class="form-group col-md-4">
 		<label for="webadd">주소</label> 
-		<input class="form-control webadd webclass" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
+		<input class="form-control webadd webclass" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[사이트 주소 예시]</b>"
+		data-content="github.com/LovelyMoonpeel <br> blog.naver.com/lovelymoonpeel" name="pwebsitesvolist[].webadd" value="{{webadd}}"></input>
 	</div>
 
 	<div class="form-group col-md-2">

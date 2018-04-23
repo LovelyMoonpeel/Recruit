@@ -48,7 +48,7 @@
 				<th id="closingdate_th" style="text-align: center; width: 90px;">모집기간</th>
 				<th id="applicant_th" style="text-align: center; width: 79px;">지원자 수</th>
 				<th id="viewcnt_th" style="width: 65px;">조회수</th>
-				<th style="text-align: center;">관리</th>
+				<th style="text-align: center;">삭제</th>
 			</tr>
 			<c:forEach items="${CRecruitVOList}" var="CRecruitVO" varStatus="status">
 				<tr>

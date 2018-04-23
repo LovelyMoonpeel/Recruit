@@ -20,7 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno in (select rcbno
 						from tblinterestjob
 						where userid = #{id})
-		order by viewcnt desc;
+		order by viewcnt desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	

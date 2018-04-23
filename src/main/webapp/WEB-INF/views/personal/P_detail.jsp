@@ -20,7 +20,7 @@
             <tr>
                <th class="table-active" scope="row" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">
                <label for="title">제목</label>
-               <td colspan="5" style="text-align: center; vertical-align:middle; line-height:200%;  background-color:rgba(192,198,211,0.5)">${ResumeVO.title}</td>
+               <td colspan="5" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">${ResumeVO.title}</td>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
@@ -83,8 +83,8 @@
                   for="test">학과</label></th>
                <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="score">졸업상태</label></th>
-               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
-                  for="lanpubleoffice">입학일</label></th>
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">
+               <label for="lanpubleoffice">입학일</label></th>
                <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="lanacquidate">졸업일</label></th>
             </tr>
