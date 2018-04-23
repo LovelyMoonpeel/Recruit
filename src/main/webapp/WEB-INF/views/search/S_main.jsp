@@ -144,7 +144,7 @@
 			<div class="col-md-6">
 				<div class="company-div">
 					<a href="{{url}}"
-						onclick='window.open(this.href, "cinfo{{userid}}", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						onclick='window.open(this.href, "cinfo{{userid}}", "width=1000, height=960, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
 						<img class="company-img" src="{{img}}">
 					</a>
 				</div>

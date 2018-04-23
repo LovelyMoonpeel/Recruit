@@ -18,9 +18,9 @@
             <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
             <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
             <tr>
-               <th class="table-active" scope="row" style="text-align: center;"><label
-                  for="title">제목</label>
-               <td colspan="5" style="text-align: center;">${ResumeVO.title}</td>
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">
+               <label for="title">제목</label>
+               <td colspan="5" style="text-align: center; vertical-align:middle;">${ResumeVO.title}</td>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
@@ -31,7 +31,7 @@
                   for="img">사진</label></th>
                <td colspan="3" rowspan="3" class="col-sm-4">
                   <div id='uploadedList'
-                     style='width: 127px; height: 152px;'>
+                     style='width: 127px; height: 151px;'>
                      <img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
                   </div> <!--  사진 보이는 div  --> <input id='imgsrccheck' type='hidden'
                   value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
@@ -51,7 +51,7 @@
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">연락처 목록</th>
+                  style="text-align: center; line-height:300%;">연락처 목록</th>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -71,21 +71,21 @@
             
             <tr>
                   <th class="table-active" colspan="2" scope="row"
-                     style="text-align: center;">학력사항</th>
-                  <th class="table-active" scope="row" style="text-align: center;"><label
+                     style="text-align: center; line-height:300%;">학력사항</th>
+                  <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                      for="test">최종학력</label></th>   
-                  <td class="code" style="text-align: center;" colspan="2">${resumeRead.levelofeducation}</td>
+                  <td class="code" style="text-align: center; vertical-align:middle;" colspan="2">${resumeRead.levelofeducation}</td>
                  </tr>
             <tr>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="test">학교명</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="test">학과</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="score">졸업상태</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="lanpubleoffice">입학일</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="lanacquidate">졸업일</label></th>
             </tr>
             <c:forEach items="${eduVOlist}" var="eduVO">
@@ -100,21 +100,21 @@
 			
             <tr>
                   <th class="table-active" colspan="2" scope="row"
-                     style="text-align: center;">경력사항</th>
-                  <th class="table-active" scope="row" style="text-align: center;"><label
+                     style="text-align: center; line-height:300%;">경력사항</th>
+                  <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                      for="test">경력</label></th>   
-                  <td class="code" style="text-align: center;" colspan="2">${resumeRead.lastcareer}</td>
+                  <td class="code" style="text-align: center; vertical-align:middle;" colspan="2">${resumeRead.lastcareer}</td>
             </tr>
             <tr>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="test">회사명</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="test">담당업무</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="score">연봉</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
                   for="lanpubleoffice">입사일</label></th>
-               <th class="table-active" scope="row" style="text-align: center;"><label for="lanacquidate" >퇴사일</label></th>
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label for="lanacquidate" >퇴사일</label></th>
             </tr>
             <c:forEach items="${careerVOList}" var="careerVO">
                <tr>
@@ -128,7 +128,7 @@
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">희망 구직 정보</th>
+                  style="text-align: center; line-height:300%;">희망 구직 정보</th>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;">구직상태</th>
@@ -155,7 +155,7 @@
             </tr>
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">웹사이트 목록</th>
+                  style="text-align: center; line-height:300%;">웹사이트 목록</th>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -175,7 +175,7 @@
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">보유자격증 목록</th>
+                  style="text-align: center; line-height:300%;">보유자격증 목록</th>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -197,7 +197,7 @@
             </c:forEach>
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">어학능력 자격증 목록</th>
+                  style="text-align: center; line-height:300%;">어학능력 자격증 목록</th>
             </tr>
             <tr>
                <th class="table-active" scope="row" style="text-align: center;"><label
@@ -224,7 +224,7 @@
 			
             <tr>
                <th class="table-active" colspan="5" scope="row"
-                  style="text-align: center;">자기소개서</th>
+                  style="text-align: center; line-height:300%;">자기소개서</th>
             </tr>
             <tr>
                <td colspan="5" rowspan="3">${coverletter}</td>

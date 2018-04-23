@@ -208,7 +208,7 @@ background-color: #777;
 	<div class="modal" id="applynow_modal">
 		<div class="modal-dialog">
 			<!--★ 뭔지 모르겠지만 없애면 왼쪽에 붙고, 가로폭도 조절이 안됨  -->
-			<div class="modal-content col-xs-8">
+			<div class="modal-content col-xs-12 col-md-8">
 				<!--★ col-xs-8을 아래 붙이면 css적용이 안 됨 , col-xs-8을 써서 모달 가로 폭을 조정 -->
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -238,7 +238,7 @@ background-color: #777;
 							</table>
 							<input type="hidden" id="modal_recruitNum" name="recruitNum"
 								value="${RecruitVO.bno}">
-							<div class="col-xs-4">
+							<div class="col-xs-6 col-md-4">
 								<!--즉시지원 버튼 -->
 								<button id="applynow_btn"
 									class="btn btn-primary btn-block btn-flat">즉시 지원</button>
