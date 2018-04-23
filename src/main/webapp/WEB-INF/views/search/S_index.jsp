@@ -165,6 +165,13 @@
 .fixed-panelr {
 	min-height: 360px;
 }
+
+.title_ellipsis{
+	white-space: nowrap;
+	width : 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
 </style>
 
 <div class="container">
@@ -183,11 +190,11 @@
 			<h4>
 				<b>{{cname}}</b>
 			</h4>
-			<p>
+			<p class="col-md-12">
 				<a href="{{url}}"
 					onclick='window.open(this.href, "recruit{{bno}}", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'><b>{{title}}</b></a>
 			</p>
-			<p>
+			<p class='title_ellipsis col-md-12'>
 				{{jobgroupid}}, {{jobgroupid2}}<br /> {{edu}}, {{exp}}
 			</p>
 			~ {{period}}<br />
