@@ -670,20 +670,8 @@ public class AdminController {
 
 	@RequestMapping(value = "/noticemod", method = RequestMethod.GET)
 	public String noticeModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-			if(id.equals("admin")){
-				model.addAttribute("CsVO", fservice.noticeRead(bno));
-				return "/admin/A_noticemod";		
-			}else{
-				rttr.addFlashAttribute("msg", "fail");
-				return "redirect:/admin/notice";
-				}
-		} else {
-			rttr.addFlashAttribute("msg", "fail");
-			return "redirect:/admin/notice";
-		}
+		model.addAttribute("CsVO", fservice.noticeRead(bno));
+		return "/admin/A_noticemod";		
 	}
 
 	@RequestMapping(value = "/S_noticemod", method = RequestMethod.POST)
@@ -706,20 +694,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/noticereg", method = RequestMethod.GET)
 	public String noticeRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-			if(id.equals("admin")){
-				return "/admin/A_noticereg";		
-			}else{
-				rttr.addFlashAttribute("msg", "fail");
-				return "redirect:/admin/notice";
-				}
-		} else {
-			rttr.addFlashAttribute("msg", "fail");
-			return "redirect:/admin/notice";
-		}
-		
+		return "/admin/A_noticereg";		
 	}
 	
 	@RequestMapping(value = "/S_noticereg", method = RequestMethod.POST)
