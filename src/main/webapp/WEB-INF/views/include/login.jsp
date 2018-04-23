@@ -113,7 +113,6 @@
 						</div>
 						<!--_____________________//1-1.로그인 개인 회원 끝_____________________ -->
 
-
 						<!--_____________________1-2.로그인 기업 회원 시작_____________________ -->
 						<div id="login_company" class="tab-pane fade <%= cactive%>">
 							
@@ -216,87 +215,120 @@
 							
 								<!--뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  -->
 								<div class="box-body">
+								<table>
+								<tr>
 
 									<!--아이디 -->
-									<div class="form-group">
-										<div id="PIDDiv" style="margin-bottom:0px;">
-										아이디<input type="text" id='pid' name='id' class="form-control"
+										<th>아이디</th>
+										<td>
+										<div class="form-group">
+										<span id="PIDDiv" style="margin-bottom:0px;">
+										<input type="text" id='pid' name='id' class="form-control"
 											placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="15">
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PIDXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PIDOKIcon" aria-hidden="true" style="display:none"></span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="PIDXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PIDOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
+  				 						</div>
+  				 						</td>
+										<td>
 										<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
-  										</div>
-									</div>
-
-
-									<!--비밀번호 -->
-									<div class="form-group">
-									<div id="PPWDiv" style="margin-bottom:0px;">비밀번호
-									<input type="password" id='ppw' name='pw' class="form-control" placeholder="6자리를 입력하세요." maxlength="20" 
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWOKIcon" aria-hidden="true" style="display:none"></span>
-  				 					</div>
-									<span><small>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</small></span>
-									</div>
+  										</td>
 									
-									<div class="form-group">
-									<div id="PPWCDiv" style="margin-bottom:0px;">비밀번호 확인
-									<input type="password" id="ppwc" class="form-control" placeholder="6자리를 입력하세요." maxlength="20" 
+								</tr>
+
+								<tr>
+									<!--비밀번호 -->
+									<!-- <div class="form-group"> -->
+									<th>비밀번호</th>
+									<td colspan="2"><span id="PPWDiv" style="margin-bottom:0px;">
+									<input type="password" id='ppw' name='pw' class="form-control" placeholder="비밀번호를 입력하세요." maxlength="20" 
 										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWCXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWCOKIcon" aria-hidden="true" style="display:none"></span>
-  				 					</div>
-									<span id="ppwchk"></span>
-									</div>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWOKIcon" aria-hidden="true" style="visibility:hidden"></span></span></td>
+  				 				</tr>
+  				 				<tr>
+									<td colspan="3"><span><small>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</small></span><br></td>
+									<!-- </div> -->
+								</tr>
+								<tr>
+									<!-- <div class="form-group"> -->
+									<th>비밀번호 확인</th>
+									<td colspan="2">
+									<span id="PPWCDiv" style="margin-bottom:0px;">
+									<input type="password" id="ppwc" class="form-control" placeholder="비밀번호를 다시 입력하세요." maxlength="20" 
+										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
+  				 					</td>
+									<!-- </div> -->
+								</tr>
 
-
+								<tr>
 									<!--이름 -->
-									<div class="form-group">
-										이름<input type="text" name='pname' class="form-control"
-											placeholder="이름을 입력하세요." >
-									</div>
+									<th>이름</th>
+									<!-- <div class="form-group"> -->
+										<td colspan="2"><input type="text" name='pname' class="form-control"
+											placeholder="이름을 입력하세요." maxlength="15"></td>
+									<!-- </div> -->
+								</tr>
 
 
+								<tr>
 									<!--생년월일/날짜 폼을 썼음 -->
-									<div class="form-group">
-										생년월일
-										<div class="input-group date" data-provide="datepicker">
+									<!-- <div class="form-group"> -->
+										<th>생년월일</th>
+										<td colspan="2">
+										<span class="input-group date" data-provide="datepicker">
 											<input type="text" name='birth' class="form-control"
-												placeholder="생년월일을 입력하세요." > <span
-												class="input-group-addon"> <i
-												class="glyphicon glyphicon-calendar"></i>
+												placeholder="생년월일을 입력하세요." >
+												<span class="input-group-addon">
+												<i class="glyphicon glyphicon-calendar"></i>
 											</span>
-										</div>
-									</div>
+										</span>
+										</td>
+									<!-- </div> -->
+								</tr>
 
 
+								<tr>
 									<!--이메일 -->
-									<div class="form-group has-feedback">이메일
-									<div id="PEmailDiv" style="margin-bottom:0px;">
+									<!-- <div class="form-group has-feedback"> -->
+									<th>이메일</th>
+									<td>
+									<span id="PEmailDiv" style="margin-bottom:0px;">
 										<input type="text" id="pemail" name="email" class="form-control"
 											placeholder="이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PEmailXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PEmailOKIcon" aria-hidden="true" style="display:none"></span>
-  									</div>
-									<span class="glyphicon  form-control-feedback"></span>
-									<input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크">
-									</div>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="PEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+  									</span>
+  									</td>
+									<!-- <span class="glyphicon  form-control-feedback"></span> -->
+									<td><input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크"></td>
+									<!-- </div> -->
+								</tr>
 
 
+								<tr>
 									<!--이메일 인증  -->
-									<div>
+									<!-- <div> -->
+									<td colspan="3">
 									<br>
 									<span class="text-center">회원가입 후 이메일 인증이 발송됩니다.</span>
-									</div>
+									</td>
+									<!-- </div> -->
+								</tr>
 
+								<tr>
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->
-									<div class="row">
-										<div class="col-xs-8"></div>
-										<div class="col-xs-4">
+									<!-- <div class="row"> -->
+									<td colspan="3">
+										<span class="col-xs-11"></span>
+										<span class="col-xs-1">
 											<button type="submit" id="pjoin" class="btn btn-primary">가입하기</button>
-										</div>
-									</div>
+										</span>
+									</td>
+									<!-- </div> -->
+								</tr>
+									</table>
 								</div>
 								<!--//class="box-body" 뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐   -->
 							</form>
@@ -315,8 +347,8 @@
 									<div id="CIDDiv" style="margin-bottom:0px;">
 										<input type="text" id="cid" name='id' class="form-control"
 											placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CIDXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CIDOKIcon" aria-hidden="true" style="display:none"></span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="CIDXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CIDOKIcon" aria-hidden="true" style="visibility:hidden"></span>
   									</div>
 									<input class="btn btn-success" type="button" id="cid_overlap" value="중복체크">
 									</div>
@@ -327,8 +359,8 @@
 									<div id="CPWDiv" style="margin-bottom:0px;">
 									<input type="password" id='cpw' name='pw' class="form-control" placeholder="6자리를 입력하세요." maxlength="20" 
 										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWOKIcon" aria-hidden="true" style="display:none"></span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>
   				 					</div>
   				 					<span>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</span>
 									</div>
@@ -337,8 +369,8 @@
 									<div id="CPWCDiv" style="margin-bottom:0px;">
 									<input type="password" id='cpwc' class="form-control" placeholder="6자리를 입력하세요." maxlength="20"
 										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWCXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWCOKIcon" aria-hidden="true" style="display:none"></span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
   				 					</div>
 										<span id="cpwchk"></span>
 									</div>
@@ -364,8 +396,8 @@
 									<div id="CEmailDiv" style="margin-bottom:0px;">
 										<input type="text" id="cemail" name="email" class="form-control"
 											placeholder="담당자의 회사 이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CEmailXIcon" aria-hidden="true" style="display:none"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CEmailOKIcon" aria-hidden="true" style="display:none"></span>
+										<span class="glyphicon glyphicon-remove form-control-feedback" id="CEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
   									</div>
 									<span class="glyphicon  form-control-feedback"></span>
 									<input class="btn btn-success" type="button" id="cemail_overlap" value="중복체크">
@@ -492,14 +524,14 @@ $('#pjoin').on("click", function(event){
 			}
 		}else{
 			$("#PEmailDiv").addClass("form-group has-error has-feedback"); 
-			$("#PEmailXIcon").css("display","");
+			$("#PEmailXIcon").css("visibility","visible");
 			$("#pemail").attr("data-content", "이메일 중복체크를 해주세요.");
 			$("#pemail").focus();
 			event.preventDefault();
 		}
 	}else{
 		$("#PIDDiv").addClass("form-group has-error has-feedback"); 
-		$("#PIDXIcon").css("display","");
+		$("#PIDXIcon").css("visibility","visible");
 		$("#pid").attr("data-content", "아이디 중복체크를 해주세요.");
 		$("#pid").focus();
 		event.preventDefault();
@@ -540,9 +572,9 @@ $('#cjoin').on("click", function(event){
 
 	function PWCXcheck(){
 		$("#PPWCDiv").removeClass();
-		$("#PPWCOKIcon").css("display","none");
+		$("#PPWCOKIcon").css("visibility","hidden");
 		$("#PPWCDiv").addClass("form-group has-error has-feedback"); 
-		$("#PPWCXIcon").css("display","");
+		$("#PPWCXIcon").css("visibility","visible");
 		$("#ppwc").attr("data-content", "사용 불가능한 비밀번호 입니다.");
 		$("#ppwc").focusout();
 		$("#ppwc").focus();
@@ -551,9 +583,9 @@ $('#cjoin').on("click", function(event){
 	
 	function PWXcheck(){
 		$("#PPWDiv").removeClass();
-		$("#PPWOKIcon").css("display","none");
+		$("#PPWOKIcon").css("visibility","hidden");
 		$("#PPWDiv").addClass("form-group has-error has-feedback"); 
-		$("#PPWXIcon").css("display","");
+		$("#PPWXIcon").css("visibility","visible");
 		$("#ppw").attr("data-content", "사용 불가능한 비밀번호 입니다.");
 		$("#ppw").focusout();
 		$("#ppw").focus();
@@ -562,9 +594,9 @@ $('#cjoin').on("click", function(event){
 	
 	function PWCOcheck(){
 		$("#PPWCDiv").removeClass();
-		$("#PPWCXIcon").css("display","none");
+		$("#PPWCXIcon").css("visibility","hidden");
 		$("#PPWCDiv").addClass("form-group has-success has-feedback"); 
-		$("#PPWCOKIcon").css("display","");
+		$("#PPWCOKIcon").css("visibility","visible");
 		$("#ppwc").attr("data-content", "사용 가능한 비밀번호 입니다.");
 		$("#ppwc").focusout();
 		$("#ppwc").focus();
@@ -573,9 +605,9 @@ $('#cjoin').on("click", function(event){
 	
 	function PWOcheck(){
 		$("#PPWDiv").removeClass();
-		$("#PPWXIcon").css("display","none");
+		$("#PPWXIcon").css("visibility","hidden");
 		$("#PPWDiv").addClass("form-group has-success has-feedback"); 
-		$("#PPWOKIcon").css("display","");
+		$("#PPWOKIcon").css("visibility","visible");
 		$("#ppw").attr("data-content", "사용 가능한 비밀번호 입니다.");
 		$("#ppw").focusout();
 		$("#ppw").focus();
@@ -668,9 +700,9 @@ $('#cjoin').on("click", function(event){
 	
 	function CPWCXcheck(){
 		$("#CPWCDiv").removeClass();
-		$("#CPWCOKIcon").css("display","none");
+		$("#CPWCOKIcon").css("visibility","hidden");
 		$("#CPWCDiv").addClass("form-group has-error has-feedback"); 
-		$("#CPWCXIcon").css("display","");
+		$("#CPWCXIcon").css("visibility","visible");
 		$("#cpwc").attr("data-content", "사용 불가능한 비밀번호 입니다.");
 		$("#cpwc").focusout();
 		$("#cpwc").focus();
@@ -679,9 +711,9 @@ $('#cjoin').on("click", function(event){
 	
 	function CPWXcheck(){
 		$("#CPWDiv").removeClass();
-		$("#CPWOKIcon").css("display","none");
+		$("#CPWOKIcon").css("visibility","hidden");
 		$("#CPWDiv").addClass("form-group has-error has-feedback"); 
-		$("#CPWXIcon").css("display","");
+		$("#CPWXIcon").css("visibility","visible");
 		$("#cpw").attr("data-content", "사용 불가능한 비밀번호 입니다.");
 		$("#cpw").focusout();
 		$("#cpw").focus();
@@ -690,9 +722,9 @@ $('#cjoin').on("click", function(event){
 	
 	function CPWCOcheck(){
 		$("#CPWCDiv").removeClass();
-		$("#CPWCXIcon").css("display","none");
+		$("#CPWCXIcon").css("visibility","hidden");
 		$("#CPWCDiv").addClass("form-group has-success has-feedback"); 
-		$("#CPWCOKIcon").css("display","");
+		$("#CPWCOKIcon").css("visibility","visible");
 		$("#cpwc").attr("data-content", "사용 가능한 비밀번호 입니다.");
 		$("#cpwc").focusout();
 		$("#cpwc").focus();
@@ -701,9 +733,9 @@ $('#cjoin').on("click", function(event){
 	
 	function CPWOcheck(){
 		$("#CPWDiv").removeClass();
-		$("#CPWXIcon").css("display","none");
+		$("#CPWXIcon").css("visibility","hidden");
 		$("#CPWDiv").addClass("form-group has-success has-feedback"); 
-		$("#CPWOKIcon").css("display","");
+		$("#CPWOKIcon").css("visibility","visible");
 		$("#cpw").attr("data-content", "사용 가능한 비밀번호 입니다.");
 		$("#cpw").focusout();
 		$("#cpw").focus();
@@ -795,7 +827,7 @@ $("#pid_overlap").on("click", function(event){
 	var pjoinidchk = document.getElementById("pid").value;
 	if(!idReg.test(pjoinidchk)){
 		$("#PIDDiv").addClass("form-group has-error has-feedback"); 
-		$("#PIDXIcon").css("display","");
+		$("#PIDXIcon").css("visibility","visible");
 		$("#pid").attr("data-content", "유효하지 않은 아이디 입니다.");
 		$("#pid").focus();
 		event.preventDefault();
@@ -813,17 +845,17 @@ $("#pid_overlap").on("click", function(event){
 			console.log("result: " + result);
 			if(result == 'success'){
 				$("#PIDDiv").removeClass(); 
-				$("#PIDXIcon").css("display","none");
+				$("#PIDXIcon").css("visibility","hidden");
 				$("#PIDDiv").addClass("form-group has-success has-feedback");
-				$("#PIDXIcon").css("display","none");
-				$("#PIDOKIcon").css("display","");
+				$("#PIDXIcon").css("visibility","hidden");
+				$("#PIDOKIcon").css("visibility","visible");
 				$("#pid").attr("data-content", "사용 가능한 아이디 입니다.");
 				$("#pid").focus();
 				pidchk = Pid;
 			}else{
 				$("#PIDDiv").addClass("form-group has-error has-feedback");
-				$("#PIDOKIcon").css("display","none");
-				$("#PIDXIcon").css("display","");
+				$("#PIDOKIcon").css("visibility","hidden");
+				$("#PIDXIcon").css("visibility","visible");
 				$("#pid").attr("data-content", "아이디가 중복되었습니다.");
 				$("#pid").focus();
 			}
@@ -843,7 +875,7 @@ $("#cid_overlap").on("click", function(){
 	var cjoinidchk = document.getElementById("cid").value;
 	if(!idReg.test(cjoinidchk)){
 		$("#CIDDiv").addClass("form-group has-error has-feedback"); 
-		$("#CIDXIcon").css("display","");
+		$("#CIDXIcon").css("visibility","visible");
 		$("#cid").attr("data-content", "유효하지 않은 아이디 입니다.");
 		$("#cid").focus();
 		event.preventDefault();
@@ -862,15 +894,15 @@ $("#cid_overlap").on("click", function(){
 			if(result == 'success'){
 				$("#CIDDiv").removeClass(); 
 				$("#CIDDiv").addClass("form-group has-success has-feedback");
-				$("#CIDXIcon").css("display","none");
-				$("#CIDOKIcon").css("display","");
+				$("#CIDXIcon").css("visibility","hidden");
+				$("#CIDOKIcon").css("visibility","visible");
 				$("#cid").attr("data-content", "사용 가능한 아이디 입니다.");
 				$("#cid").focus();
 				cidchk = Cid;
 			}else{
 				$("#CIDDiv").addClass("form-group has-error has-feedback");
-				$("#CIDOKIcon").css("display","none");
-				$("#CIDXIcon").css("display","");
+				$("#CIDOKIcon").css("visibility","hidden");
+				$("#CIDXIcon").css("visibility","visible");
 				$("#cid").attr("data-content", "아이디가 중복되었습니다.");
 				$("#cid").focus();
 			}
@@ -890,7 +922,7 @@ $("#pemail_overlap").on("click", function(){
     if(!regEmail.test(Pemail)){
     	$("#PEmailDiv").removeClass();
 		$("#PEmailDiv").addClass("form-group has-error has-feedback"); 
-		$("#PEmailXIcon").css("display","");
+		$("#PEmailXIcon").css("visibility","visible");
 		$("#pemail").attr("data-content", "유효하지 않은 이메일입니다.");
 		$("#pemail").focus();
     }else{
@@ -907,16 +939,16 @@ $("#pemail_overlap").on("click", function(){
 			if(result == 'success'){
 				$("#PEmailDiv").removeClass();
 				$("#PEmailDiv").addClass("form-group has-success has-feedback");
-				$("#PEmailXIcon").css("display","none");
-				$("#PEmailOKIcon").css("display","");
+				$("#PEmailXIcon").css("visibility","hidden");
+				$("#PEmailOKIcon").css("visibility","visible");
 				$("#pemail").attr("data-content", "사용 가능한 이메일입니다.");
 				$("#pemail").focus();
 				pemailchk = Pemail;
 			}else{
 				$("#PEmailDiv").removeClass();
 				$("#PEmailDiv").addClass("form-group has-error has-feedback");
-				$("#PEmailOKIcon").css("display","none");
-				$("#PEmailXIcon").css("display","");
+				$("#PEmailOKIcon").css("visibility","hidden");
+				$("#PEmailXIcon").css("visibility","visible");
 				$("#pemail").attr("data-content", "중복된 이메일입니다.");
 				$("#pemail").focus();
 			}
@@ -936,7 +968,7 @@ $("#cemail_overlap").on("click", function(){
     if(!regEmail.test(Cemail)){
     	$("#CEmailDiv").removeClass();
 		$("#CEmailDiv").addClass("form-group has-error has-feedback"); 
-		$("#CEmailXIcon").css("display","");
+		$("#CEmailXIcon").css("visibility","visible");
 		$("#cemail").attr("data-content", "유효하지 않은 이메일입니다.");
 		$("#cemail").focus();
     }else{
@@ -954,8 +986,8 @@ $("#cemail_overlap").on("click", function(){
 				//alert("사용 가능한 이메일 입니다.");
 				$("#CEmailDiv").removeClass();
 				$("#CEmailDiv").addClass("form-group has-success has-feedback");
-				$("#CEmailXIcon").css("display","none");
-				$("#CEmailOKIcon").css("display","");
+				$("#CEmailXIcon").css("visibility","hidden");
+				$("#CEmailOKIcon").css("visibility","visible");
 				$("#cemail").attr("data-content", "사용 가능한 이메일입니다.");
 				$("#cemail").focus();
 				cemailchk = Cemail;
@@ -963,8 +995,8 @@ $("#cemail_overlap").on("click", function(){
 				//alert("사용 불가능");
 				$("#CEmailDiv").removeClass();
 				$("#CEmailDiv").addClass("form-group has-error has-feedback");
-				$("#CEmailOKIcon").css("display","none");
-				$("#CEmailXIcon").css("display","");
+				$("#CEmailOKIcon").css("visibility","hidden");
+				$("#CEmailXIcon").css("visibility","visible");
 				$("#cemail").attr("data-content", "중복된 이메일입니다.");
 				$("#cemail").focus();
 			}

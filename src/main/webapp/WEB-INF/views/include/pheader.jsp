@@ -77,6 +77,15 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
+table {
+	border-collapse:seperate;
+	border-spacing:0px 10px;
+}
+td {
+	border-collapse:seperate;
+}
+
+
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
