@@ -99,6 +99,24 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	//문> 기업회원 탈퇴
+	@RequestMapping(value = "/leave", method = RequestMethod.GET)
+	public String leave(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes rttr)
+			throws Exception {
+
+		Object obj = session.getAttribute("login");
+
+		if (obj != null) {
+
+			session.removeAttribute("login");
+
+			session.invalidate();
+
+		}
+		rttr.addFlashAttribute("msg", "leave");
+		return "redirect:/";
+	}
+	
 	
 	@RequestMapping(value = "/joinPost", method = RequestMethod.POST)
 	public String joinPost(BoardVO board, RedirectAttributes rttr) throws Exception {

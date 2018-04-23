@@ -149,7 +149,7 @@
 	height: 100%;
 	object-fit: cover;
 }
-
+/*아래 네모칸  */
 .recruit-div {
 	width: 220px;
 	height: 120px;
@@ -165,6 +165,7 @@
 .fixed-panelr {
 	min-height: 360px;
 }
+/*//  */
 </style>
 
 <div class="container">
@@ -227,7 +228,8 @@
 		str += '<li value="' + that.id +'"><a href="/srch/main?sfilter='
 				+ that.id + '">' + that.career + '</a></li>';
 	}
-
+	
+	//실행
 	drop1ListItems = drop1CodListItems; // list items 생성함수 연결
 	$.getJSON("/sresult/code/1", drop1CodHandler); // experience(1)
 	$.getJSON("/sresult/code/2", drop1CodHandler); // education(2)
@@ -476,7 +478,7 @@
 	$("#sinput").focus();
 
 	function infiniteScroll() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
 			if (infScrDone && !lastpage && moreView) {
 				console.log(page);
 				getRecruitAllList(snum, page++, false);
@@ -507,7 +509,10 @@
 		alert("회원가입이 완료 되었습니다. 이메일 인증을 진행 해주세요.");
 	} else if (result == 'fail') {
 		alert("접근권한이 없습니다.");
+	} else if (result == 'leave') {
+	    alert("탈퇴 처리되었습니다.");
 	}
+	
 </script>
 
 <%@include file="../include/cfooter.jsp"%>

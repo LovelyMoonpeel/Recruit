@@ -135,7 +135,8 @@
 					<a href="/company/C_manage" name="sideBtns" id="C_manage C_recruitInfo C_recruitModify" class="list-group-item">채용공고관리</a>
 					<a href="/company/C_recom" name="sideBtns" id="C_recom" class="list-group-item">추천인재</a>
 					<a href="/company/C_favor" name="sideBtns" id="C_favor" class="list-group-item">관심인재</a>
-					<a href="/company/C_pass" name="sideBtns" id="C_pass" class="list-group-item">비밀번호 변경</a>   <!-- 문> 3.23 추가 --> 
+					<a href="/company/C_pass" name="sideBtns" id="C_pass" class="list-group-item">비밀번호 변경</a>
+					<a href="/company/C_leave" name="sideBtns" id="C_leave" class="list-group-item">탈퇴하기</a>
 				</div>
 			</div>
 			

@@ -741,4 +741,42 @@ public class CompanyController {
 	public void home() {
 	
 	}
+	
+	@RequestMapping(value="/C_leave", method = RequestMethod.GET)
+	public String leaveGET(HttpSession session) throws Exception {
+		System.out.println("leave");
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println(id);
+			return "company/C_leave";
+		} else {
+			return "redirect:/";
+		}
+		
+	}
+	
+	@RequestMapping(value="/C_leaveGo", method = RequestMethod.GET)
+	public String leavePOST(HttpSession session) throws Exception {
+		System.out.println("leave2");
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+
+		if (login != null) {
+			String id = login.getId();
+			System.out.println("id"+id);
+			service.leave(id);
+			return "redirect:/user/leave";
+		} else {
+			return "redirect:/";
+		}
+
+		
+	}
+	
+	
+	
+	
 }

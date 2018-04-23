@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.SrchVO;
-
+//장우님꺼
 @Controller
 @RequestMapping("/srch/*")
 public class SearchController {

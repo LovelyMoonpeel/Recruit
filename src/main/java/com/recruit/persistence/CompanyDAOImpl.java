@@ -193,4 +193,10 @@ public class CompanyDAOImpl implements CompanyDAO{
 		session.update(namespace + ".updateCpPw", dto);
 	}
 	
+	@Override
+	public void leave(String id) throws Exception {
+	    session.delete(namespace + ".delete", id);
+	}
+		
+	
 }

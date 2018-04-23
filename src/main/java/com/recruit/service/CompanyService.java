@@ -65,5 +65,8 @@ public interface CompanyService {
 	  // 문> 기업회원 비밀번호 새로 수정하기 위해서
 	  public void updateCpPw(LoginDTO dto) throws Exception;
 	  
+	  //문> 탈퇴
+	  public void leave(String id) throws Exception;
+	  
   
 }
