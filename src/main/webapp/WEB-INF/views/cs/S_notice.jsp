@@ -18,7 +18,7 @@
 
 <!-- 개인관리 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-	<h1>FAQ</h1>
+	<h1>공지사항</h1>
 
 	<table class="table table-hover">
 		<tr>
@@ -26,13 +26,13 @@
 		</tr>		
 	<c:forEach items="${list}" var="CsVO">
 		<tr>
-			<td><a href='/cs/faqread?bno=${CsVO.bno}'>${CsVO.title}</a></td>
+			<td><a href='/cs/noticeread?bno=${CsVO.bno}'>${CsVO.title}</a></td>
 		</tr>
 	</c:forEach>
 			
 	</table>
 	
-	<input class="btn btn-success" type=<%=reg %> onclick="location.href='/cs/faqreg'" value="작성">
+	<input class="btn btn-success" type=<%=reg %> onclick="location.href='/cs/noticereg'" value="작성">
 
 </div>
 
@@ -45,7 +45,7 @@ if(result == 'modify'){
 }else if(result == 'remove'){
 	alert("삭제가 완료 되었습니다.");
 }else if(result == 'regist'){
-	alert("FAQ가 등록 되었습니다..");
+	alert("공지사항이 등록 되었습니다.");
 }else if(result == 'fail'){
 	alert("접근권한이 없습니다.");
 }

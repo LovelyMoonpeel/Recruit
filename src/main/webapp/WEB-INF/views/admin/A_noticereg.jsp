@@ -2,24 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="../include/sheader.jsp"%>
+<%@include file="../include/aheader.jsp"%>
 
 <!-- FAQ 등록 페이지 -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <!-- <div class="col-md-9"> -->
 
-
-
-	<h1>FAQ</h1>	
-	<form role="form" action="S_faqreg" method="POST">
+	<h1>공지사항</h1>	
+	<form role="form" action="S_noticereg" method="POST">
 		<table class="table table-bordered">
 			<tr>
 				<th>제목</th>
-				<td><input class="form-control" type="text" name="title"></td>
+				<td><input class="form-control" type="text" name="title"
+					value="${CsVO.title}"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea class="form-control" cols="7" rows="10"  name="content" style="resize:none;"></textarea>
+				<td><textarea class="form-control" cols="7" rows="10"  name="content" style="resize:none;">${CsVO.content}</textarea>
 				</td>
 				
 			</tr>
@@ -41,14 +40,14 @@ var formObj = $("form[role='form']");
 
 /* 등록버튼 */
 $(".btn-warning").on("click", function(){
-	if(confirm("등록할랭?")){
+	if(confirm("등록하시겠습니까?")){
 		formObj.submit();
 	}
 });
 
 /* 목록버튼 */
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/faq";
+	self.location = "/admin/notice";
 });
 
 </script>

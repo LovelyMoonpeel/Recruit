@@ -52,6 +52,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/cs/notice">공지사항</a></li>
 					<li><a href="/srch/main?stype=1">기업찾기</a></li>
 					<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
 

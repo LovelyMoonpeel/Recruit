@@ -249,12 +249,12 @@ $("#resume_cha").on("click",function(){
 		
 		for(var i=0;i<4;i++){
 			/* rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]}; */
-			rJobgroupData[i] = {y:weekRJobgroup[i], label:rJobgroup[i]};
+			rJobgroupData[i] = {y:weekRJobgroup[i], color:color[i], label:rJobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
 			/* rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]}; */
-			rRgbData[i] = {y:weekRRgb[i], label:rRgbname[i]};
+			rRgbData[i] = {y:weekRRgb[i], color:color[i], label:rRgbname[i]};
 		}
 		
 		var chart6 = new CanvasJS.Chart("rJobgroup-chart", {
@@ -307,12 +307,12 @@ $("#recruit_cha").on("click", function(){
 		
 		for(var i=0;i<4;i++){
 			/* jobgroupData[i] = {value:weekJobgroup[i], color:color[i], highlight:highlight[i], label:jobgroup[i]}; */
-			jobgroupData[i] = {y:weekJobgroup[i], label:jobgroup[i]};
+			jobgroupData[i] = {y:weekJobgroup[i], color:color[i], label:jobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
 			/* rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]}; */
-			rgbData[i] = {y:weekRgb[i], label:rgbname[i]};
+			rgbData[i] = {y:weekRgb[i], color:color[i], label:rgbname[i]};
 		}
 		
 		var chart4 = new CanvasJS.Chart("jobgroup-chart", {

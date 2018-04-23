@@ -1,6 +1,6 @@
 package com.recruit.domain;
 
-public class CsfaqVO {
+public class CsVO {
 
 	public Integer bno;
 	public String title;

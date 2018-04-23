@@ -122,6 +122,12 @@
 			<a href="/admin/chart" class="hover" name='sideBtns' id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
 		</li>
 		<li>
+			<a href="/admin/notice" class="hover" name='sideBtns' id="notice noticereg noticeread noticemod"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
+		</li>
+		<li>
+			<a href="/admin/usage" class="hover" name='sideBtns' id="usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
+		</li>
+		<li>
 			<a href="/admin/faq" class="hover" name='sideBtns' id="faq faqmod faqreg"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
 		</li>
 		<li>

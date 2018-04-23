@@ -16,8 +16,8 @@
 
 
 
-	<h1>FAQ</h1>	
-	<form role="form" action="S_faqmod" method="POST">
+	<h1>공지사항</h1>	
+	<form role="form" action="S_noticemod" method="POST">
 		<table class="table table-bordered">
 			<tr>
 				<th>번호</th>
@@ -51,20 +51,20 @@ var formObj = $("form[role='form']");
 console.log(formObj);
 /* 수정 버튼 */
 $(".btn-warning").on("click", function(){
-	if(confirm("수정할랭?")){
+	if(confirm("수정하시겠습니까?")){
 		formObj.submit();
 	}
 });
 /* 삭제 버튼 */
 $(".btn-danger").on("click", function(){
 	if(confirm("삭제하시겠습니까?")){
-		formObj.attr("action", "/cs/faqremove");
+		formObj.attr("action", "/cs/noticeremove");
 		formObj.submit();
 	}
 });
 /* 목록 버튼 */
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/faq";
+	self.location = "/cs/notice";
 });
 
 </script>
