@@ -9,4 +9,6 @@ public interface PUserService {
 	public void updatePUser(PUserVO vo)throws Exception;
 
 	public int pwmodify(PUserVO vo) throws Exception;
+	
+	public void leavePUser(String id)throws Exception;
 }

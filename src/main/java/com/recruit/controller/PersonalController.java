@@ -127,6 +127,41 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
+	
+	// 회원탈퇴
+	@RequestMapping(value = "/leave", method = RequestMethod.GET)
+	public String leaveGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+
+		logger.info("leave GET, 회원탈퇴");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			service.leavePUser(id);
+			return "personal/P_leave";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
+	// 회원탈퇴
+	@RequestMapping(value = "/leave", method = RequestMethod.POST)
+	public String leavePOST(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+
+		logger.info("leave GET, 회원탈퇴");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			service.leavePUser(id);
+			return "personal/P_leave";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+	
 
 	// 개인정보수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)

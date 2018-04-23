@@ -42,7 +42,8 @@
 		<!-- //table-responsive -->
 	</div>
 	<br> <br>
-		<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-11" onclick="location.href='/personal/modify'">수정</button>
+		<button type = "button" id = "modify-button" class="btn btn pull-left btn-success col-md-offset-10" onclick="location.href='/personal/modify'">수정</button>
+		<button type="button" id ="delete-id" class="btn btn-danger pull-right" onClick="location.href='/personal/leave'">회원탈퇴</button>
 	<!-- //수정 버튼 -->
 	<br> <br>
 </div>

@@ -15,4 +15,6 @@ public interface PUserDAO {
 	public List<PUserVO> selectPUsers(String skey) throws Exception;
 
 	public int pwmodify(PUserVO vo) throws Exception;
+	
+	public void leavePUser(String id) throws Exception;
 }

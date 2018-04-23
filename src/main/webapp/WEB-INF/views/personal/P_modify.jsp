@@ -19,6 +19,7 @@
          <h1 class="ci_name">${PUserVO.pname}</h1>
          <br>
       </div>
+      
       <table class="table table-bordered">
             <tbody>
             <tr>
@@ -92,6 +93,7 @@
 </div>
 <button id ="modify-finish" class="btn btn-success col-md-offset-10" type='submit'>완료</button>
 <button id ="modify-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/index';" type="button">취소</button>
+
 <br> <br>
 
 <script type='text/javascript'>
@@ -153,6 +155,11 @@ $(document).ready(function(){
    $('#modify-cancel').on("click", function(){
       console.log("#modify-cancel");
       self.location = "/personal/index";
+   });
+   
+   $('#delete-id').on("click", function(){
+	   console.log("#delete-id");
+	   
    });
    
 });
