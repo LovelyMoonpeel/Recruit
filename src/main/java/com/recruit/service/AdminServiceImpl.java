@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,21 +15,41 @@ import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.StatisticVO;
 import com.recruit.persistence.AdminDAO;
+import com.recruit.util.MailHandler;
+import com.recruit.util.TempKey;
 
+@EnableAsync
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	@Inject
 	private AdminDAO dao;
+	
+	@Inject
+	private JavaMailSender mailSender;
 
 	@Override
 	public BoardVO read(String id) throws Exception {
 		return dao.read(id);
 	}
 
+	@Async
+	@Transactional
 	@Override
 	public void modify(BoardVO vo) throws Exception {
 		dao.update(vo);
+		
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[RecruIT 정보 변경 알림]");
+		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1><br><br>")
+				.append("<span>개인정보의 변경이 확인되었음을 알립니다.</span><br><br>")
+				.append("<span>아래의 링크를 통해 변경된 내용을 확인해보세요.</span><br><br>")
+				.append("<a href='http://192.168.0.64:8080'>RecruIT 홈페이지</a>")
+				.append("<br><br><span>항상 이용해 주셔서 감사합니다.</span><br><br>")
+				.toString());
+		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
+		sendMail.setTo(vo.getEmail());
+		sendMail.send();
 	}
 
 	@Override
@@ -144,7 +167,9 @@ public class AdminServiceImpl implements AdminService {
 		return dao.weekResumeCount();
 	}
 	
+	@Override
 	public int weekRecruitCount()throws Exception{
 		return dao.weekRecruitCount();
 	}
+	
 }
