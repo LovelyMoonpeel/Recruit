@@ -25,9 +25,9 @@
 				<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
 				<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;"><label
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)"><label
 						for="title">제목</label>
-					<td colspan="5" style="text-align: center;">${ResumeVO.title}</td>
+					<td colspan="5" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">${ResumeVO.title}</td>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label
@@ -57,7 +57,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">연락처 목록</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">연락처 목록</th>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -76,7 +76,7 @@
 
 				<tr>
 					<th class="table-active" colspan="2" scope="row"
-						style="text-align: center;">학력사항</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">학력사항</th>
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="test">최종학력</label></th>
 					<td style="text-align: center;" colspan="2">${resumeRead.levelofeducation}</td>
@@ -105,7 +105,7 @@
 
 				<tr>
 					<th class="table-active" colspan="2" scope="row"
-						style="text-align: center;">경력사항</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">경력사항</th>
 					<th class="table-active" scope="row" style="text-align: center;"><label
 						for="test">경력</label></th>
 					<td style="text-align: center;" colspan="2">${resumeRead.lastcareer}</td>
@@ -133,7 +133,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">희망 구직 정보</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">희망 구직 정보</th>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;">구직상태</th>
@@ -161,7 +161,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">웹사이트 목록</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">웹사이트 목록</th>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -181,7 +181,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">보유자격증 목록</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">보유자격증 목록</th>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label>순서</label></th>
@@ -204,7 +204,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">어학능력 자격증 목록</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">어학능력 자격증 목록</th>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;"><label
@@ -230,7 +230,7 @@
 
 				<tr>
 					<th class="table-active" colspan="5" scope="row"
-						style="text-align: center;">자기소개서</th>
+						style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">자기소개서</th>
 				</tr>
 				<tr>
 					<td colspan="5" rowspan="3">${coverletter}</td>
