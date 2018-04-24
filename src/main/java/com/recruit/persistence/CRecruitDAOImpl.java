@@ -17,20 +17,38 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 	private SqlSession session;
 
 	private static String namespace = "com.recruit.mapper.CRecruitMapper";
+	
+	public int countPaging(PersonalCriteriaVO cri)throws Exception{
+		return session.selectOne(namespace+".countPaging", cri);
+	}
+	
+	public int countPaging_ongoing(PersonalCriteriaVO cri)throws Exception{
+		return session.selectOne(namespace+".countPaging_ongoing", cri);
+	}
+	
+	public int countPaging_closed(PersonalCriteriaVO cri)throws Exception{
+		System.out.println("ㅗ"+cri);
+		return session.selectOne(namespace+".countPaging_closed", cri);
+	}
 
 	// 스크랩한 채용공고 목록 
 	@Override
 	public List<CRecruitVO> selectCRList(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
 		if(order_value!=null&&order_value.equals("viewcnt_order")){
-			System.out.println("viewcnt_order cri"+cri);
-			System.out.println("viewcnt_order cri getPageStart"+cri.getPageStart());
+			
 			return session.selectList(namespace + ".selectCRList_veiwcnt_order", cri);
+			
 		}else if(order_value!=null&&order_value.equals("applicant_order")){
+			
 			return session.selectList(namespace + ".selectCRList_applicant_order", cri);
+			
 		}else if(order_value!=null&&order_value.equals("closingdate_order")){
+			
 			return session.selectList(namespace + ".selectCRList_closingdate_order", cri);
+			
 		}else{
+			
 			System.out.println("CRecruitDAOImpl selectCRList order_value값 없을 때");
 			return session.selectList(namespace + ".selectCRList_closingdate_order", cri);
 		}
@@ -38,33 +56,40 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 
 	// 스크랩한 채용공고 목록 
 	@Override
-	public List<CRecruitVO> selectCRList_ongoing(String id, String order_value)throws Exception{
+	public List<CRecruitVO> selectCRList_ongoing(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
 		if(order_value!=null&&order_value.equals("viewcnt_order")){
-			return session.selectList(namespace + ".selectCRList_ongoing_veiwcnt_order", id);
+			
+			return session.selectList(namespace + ".selectCRList_ongoing_veiwcnt_order", cri);
+			
 		}else if(order_value!=null&&order_value.equals("applicant_order")){
-			return session.selectList(namespace + ".selectCRList_ongoing_applicant_order", id);
+			
+			return session.selectList(namespace + ".selectCRList_ongoing_applicant_order", cri);
+			
 		}else if(order_value!=null&&order_value.equals("closingdate_order")){
-			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", id);
+			
+			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", cri);
+			
 		}else{
+			
 			System.out.println("CRecruitDAOImpl selectCRList_ongoing 뭔가 이상함");
-			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", id);
+			return session.selectList(namespace + ".selectCRList_ongoing_closingdate_order", cri);
 		}
 	};
 
 	// 스크랩한 채용공고 목록 
 	@Override
-	public List<CRecruitVO> selectCRList_closed(String id, String order_value)throws Exception{
+	public List<CRecruitVO> selectCRList_closed(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
 		if(order_value!=null&&order_value.equals("viewcnt_order")){
-			return session.selectList(namespace + ".selectCRList_closed_veiwcnt_order", id);
+			return session.selectList(namespace + ".selectCRList_closed_veiwcnt_order", cri);
 		}else if(order_value!=null&&order_value.equals("applicant_order")){
-			return session.selectList(namespace + ".selectCRList_closed_applicant_order", id);
+			return session.selectList(namespace + ".selectCRList_closed_applicant_order", cri);
 		}else if(order_value!=null&&order_value.equals("closingdate_order")){
-			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", id);
+			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", cri);
 		}else{
 			System.out.println("CRecruitDAOImpl selectAPList_closed 뭔가 이상함");
-			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", id);
+			return session.selectList(namespace + ".selectCRList_closed_closingdate_order", cri);
 		}
 	};
 

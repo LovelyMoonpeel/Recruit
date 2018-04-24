@@ -8,6 +8,8 @@
 <!--  스크랩한채용공고 페이지 -->
 <form role="form">
 	<input type='hidden' id='userid' name='id' value="${PUserVO.id}">
+	<%-- <input type='hidden' name='page' value=${pageMaker.cri.page }>
+	<input type='hidden' name='perPageNum' value=${pageMaker.cri.perPageNum }> --%>
 </form>
 	
 <div class="container col-md-9">
@@ -24,7 +26,7 @@
 		<br>※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
 
-<input type="hidden" id="controller_value" value="${controller_value}">
+	<input type="hidden" id="controller_value" value="${controller_value}">
 	<input type="hidden" id="order_value" name="order_value" value="${order_value}">
 	
  	<div class="container col-md-4" style="margin-top:30px;">
@@ -69,9 +71,28 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
+	</div><!-- table container -->
+</div><!-- table responsible -->
+<div class="text-center">
+	<ul class="pagination">
+	  	<c:if test="${pageMaker.prev }"	>
+			<li><a href="favor_${controller_value}?order_value=${order_value}&page=${pageMaker.startPage -1}">&laquo;</a></li>
+		</c:if>
+		
+		 <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+			<li
+				<c:out value="${pageMaker.cri.page == idx?'class=active':''}"/>>
+				<a href="favor_${controller_value}?order_value=${order_value}&page=${idx }">${idx}</a>
+			</li>
+		</c:forEach>
+		
+		<c:if test="${pageMaker.next&&pageMaker.endPage > 0}">
+			<li><a href="favor_${controller_value}?order_value=${order_value}&page=${pageMaker.endPage+1 }">&raquo;</a></li>
+		</c:if> 
+	</ul>
+
 </div>
-</div>
+</div><!-- 전체 container -->
 <br> <br>
 <script type="text/javascript">
 

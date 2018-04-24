@@ -4,9 +4,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.recruit.mapper.CRecruitMapper">
+	
+	<!-- p279 참고 -->
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+	where bno in (select rcbno
+					from tblinterestjob
+					where userid = #{id})
+	and bno>0
+	;
+	]]>
+	</select>
+	
+	<select id="countPaging_ongoing" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+	where bno in (select rcbno
+					from tblinterestjob
+					where userid = #{id})
+	AND period >= CURDATE()
+	and bno>0
+	;
+	]]>
+	</select>
+	
+	<select id="countPaging_closed" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+	where bno in (select rcbno
+					from tblinterestjob
+					where userid = #{id})
+	AND period < CURDATE()
+	and bno>0
+	;
+	]]>
+	</select>
+
 	<!-- p178참고 -->
-	
-	
 	<!-- 스크랩한 채용공고 목록  전체 조회수순 소연 수정-->
 	<select id = "selectCRList_veiwcnt_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
@@ -38,7 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno in (select rcbno
 						from tblinterestjob
 						where userid = #{id})
-		order by adddesc desc;
+		order by adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	
@@ -55,7 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno in (select rcbno
 						from tblinterestjob
 						where userid = #{id})
-		order by jobdesc asc;
+		order by jobdesc asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	
@@ -73,7 +113,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period >= CURDATE()
-		order by viewcnt desc;
+		order by viewcnt desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -91,7 +132,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period >= CURDATE()
-		order by adddesc desc;
+		order by adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	
@@ -109,7 +151,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period >= CURDATE()
-		order by jobdesc asc;
+		order by jobdesc asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>  
 	
@@ -127,7 +170,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period < CURDATE()
-		order by viewcnt desc;
+		order by viewcnt desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	
@@ -145,7 +189,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period < CURDATE()
-		order by adddesc desc;
+		order by adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	
@@ -163,7 +208,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						from tblinterestjob
 						where userid = #{id})
 		AND period < CURDATE()
-		order by jobdesc asc;
+		order by jobdesc asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select> 
 	

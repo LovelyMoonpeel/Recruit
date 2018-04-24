@@ -5,12 +5,18 @@ import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.PersonalCriteriaVO;
 
 public interface CRecruitDAO {
+	
+	public int countPaging(PersonalCriteriaVO cri)throws Exception;
+	
+	public int countPaging_ongoing(PersonalCriteriaVO cri)throws Exception;
+	
+	public int countPaging_closed(PersonalCriteriaVO cri)throws Exception;
 
 	public List<CRecruitVO> selectCRList(PersonalCriteriaVO cri, String order_value)throws Exception;
 	
-	public List<CRecruitVO> selectCRList_ongoing(String id, String order_value)throws Exception;
+	public List<CRecruitVO> selectCRList_ongoing(PersonalCriteriaVO cri, String order_value)throws Exception;
 	
-	public List<CRecruitVO> selectCRList_closed(String id, String order_value)throws Exception;
+	public List<CRecruitVO> selectCRList_closed(PersonalCriteriaVO cri, String order_value)throws Exception;
 
 	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception;
 	
