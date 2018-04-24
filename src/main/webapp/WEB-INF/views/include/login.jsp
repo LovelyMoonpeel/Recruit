@@ -221,63 +221,68 @@
 								<div class="form-group">
 								<table>
 								<tr>
-
 									<!--아이디 -->
-									
-										<th class="col-md-6">아이디<br><br></th>
+									<th class="col-md-6">아이디<br><br></th>
 
-										<td class="col-md-8">
-											<div class="form-group">
+									<td>
+										<div class="form-group">
 											<span id="PIDDiv" style="margin-bottom:0px;">
-											<input type="text" id='pid' name='id' class="form-control"
-												placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="15">
+												<input type="text" id='pid' name='id' class="form-control"
+													placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="15">
 											<span class="glyphicon glyphicon-remove form-control-feedback" id="PIDXIcon" aria-hidden="true" style="visibility:hidden"></span>
   				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PIDOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
-  				 							</div>
-  				 							<br>
-  				 							<br>
-
-  				 						</td>
+  				 						</div>
+  				 						<br>
+  				 						<br>
+  				 					</td>
   				 						
-  				 							<div>
-												<td>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
-  												<br>
-  												<br>
-  												</td>
-  											</div>	
-  											
+  				 					<td>
+  				 						<div>
+											<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
+  										</div>	
+  									</td>	
 								</tr>
 								
 								<tr>
 									<!--비밀번호 -->
 									<!-- <div class="form-group"> -->
 									<th class="col-md-6">비밀번호</th>
-									<td colspan="2"><span id="PPWDiv" style="margin-bottom:0px;">
-									<input type="password" id='ppw' name='pw' class="form-control" placeholder="비밀번호를 입력하세요." maxlength="20" 
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
+									
+									<td colspan="2">
+										<span id="PPWDiv" style="margin-bottom:0px;">
+											<input type="password" id='ppw' name='pw' class="form-control" placeholder="비밀번호를 입력하세요." maxlength="20" 
+													data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
+											<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						</span>
   				 					</td>
   				 				</tr>
+  				 				
   				 				<tr>
-									<td colspan="3"><span><small>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</small></span><br><br></td>
+									<td colspan="3">
+										<span>
+											<small>&nbsp;&nbsp;&nbsp;&nbsp;6~20자로 입력해주세요. &nbsp;&nbsp; (대문자와 소문자, 숫자 조합)</small>
+										</span>
+										<br>
+										<br>
+									</td>
 									<!-- </div> -->
 								</tr>
+								
 								<tr>
 									<!-- <div class="form-group"> -->
 									<th class="col-md-6">비밀번호 확인<br><br></th>
+									
 									<td colspan="2">
-									<span id="PPWCDiv" style="margin-bottom:0px;">
-									<input type="password" id="ppwc" class="form-control" placeholder="비밀번호를 다시 입력하세요." maxlength="20" 
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
+										<span id="PPWCDiv" style="margin-bottom:0px;">
+											<input type="password" id="ppwc" class="form-control" placeholder="비밀번호를 다시 입력하세요." maxlength="20" 
+												data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
+											<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 						</span>
   				 						<br>
   				 						<br>
   				 					</td>
-  				 				
 									<!-- </div> -->
 								</tr>
 
@@ -290,48 +295,49 @@
 										<br>
 										<br>
 										</td>
-									<!-- </div> -->
+										<!-- </div> -->
 								</tr>
-
 
 								<tr>
 									<!--생년월일/날짜 폼을 썼음 -->
 									<!-- <div class="form-group"> -->
-										<th class="col-md-6">생년월일<br><br></th>
+									<th class="col-md-6">생년월일<br><br></th>
 										<td colspan="2">
-										<span class="input-group date" data-provide="datepicker">
-											<input type="text" name='birth' class="form-control"
-												placeholder="생년월일을 입력하세요." >
+											<span class="input-group date" data-provide="datepicker">
+												<input type="text" name='birth' class="form-control"
+													placeholder="생년월일을 입력하세요." >
 												<span class="input-group-addon">
-												<i class="glyphicon glyphicon-calendar"></i>
+													<i class="glyphicon glyphicon-calendar"></i>
+												</span>
 											</span>
-										</span>
-										<br>
-										<br>
+											<br>
+											<br>
 										</td>
 									<!-- </div> -->
 								</tr>
 
-
+								문피리바보
+								
 								<tr>
 									<!--이메일 -->
 									<!-- <div class="form-group has-feedback"> -->
 									<th class="col-md-6">이메일<br><br></th>
+										
 									<td>
-									<span id="PEmailDiv" style="margin-bottom:0px;">
-										<input type="text" id="pemail" name="email" class="form-control"
-											placeholder="이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="PEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="PEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  									</span>
-  									<br>
-  									<br>
+										<span id="PEmailDiv" style="margin-bottom:0px;">
+											<input type="text" id="pemail" name="email" class="form-control"
+												placeholder="이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
+											<span class="glyphicon glyphicon-remove form-control-feedback" id="PEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+  										</span>
+  										<br>
+  										<br>
   									</td>
 									<!-- <span class="glyphicon  form-control-feedback"></span> -->
 									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크">
-									<br>
-									<br>
+										<input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크">
+										<br>
+										<br>	
 									</td>
 									<!-- </div> -->
 								</tr>
@@ -349,10 +355,20 @@
 								<tr>
 									<!--가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음  -->
 									<!-- <div class="row"> -->
+									
+								<!-- 	<td colspan="3">
+										<span class="col-xs-12"></span>
+										<span class="col-xs-1">
+										<input id="checkBox" type="checkbox">회원 약관에 동의
+										</span>
+									</td> -->
+									
+									
 									<td colspan="3">
 										<span class="col-xs-12"></span>
 										<span class="col-xs-1">
 											<button type="submit" id="pjoin" class="btn btn-primary">가입하기</button>
+										
 										</span>
 									</td>
 									<!-- </div> -->
@@ -360,6 +376,10 @@
 									</table>
 								</div>
 								<!--//class="box-body" 뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐   -->
+								
+								
+								
+								
 							</form>
 						</div>
 						<!--_____________________//2-1.회원가입 개인회원 끝_____________________  -->

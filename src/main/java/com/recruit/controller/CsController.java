@@ -246,5 +246,15 @@ public class CsController {
 		}
 		return entity;
 	}
+	
+	//문> 이용약관
+	@RequestMapping(value = "/usage", method = RequestMethod.GET)
+	public String usagePersonal() throws Exception {
+
+		return "cs/S_usage";
+	}
+	
+	
+
 
 }

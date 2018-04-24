@@ -27,6 +27,16 @@
     <![endif]-->
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<style>
+.anchor{
+  display: block;
+  height: 115px; /*same height as header*/
+  margin-top: -115px; /*same height as header*/
+  visibility: hidden;
+}
+</style>
+
 </head>
 
 <body>
@@ -59,6 +69,8 @@
 					<div class="clear"></div>
 				</div>
 				<ul class="nav menu list-group">
+					<li><a href="/cs/notice" class="hover" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a></li>
+					<li><a href="/cs/usage" class="hover" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a></li>
 					<li><a href="/cs/faq" class="hover" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a></li>
 					<li><a href="/cs/qna" class="hover" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a></li>
 				</ul>
@@ -69,14 +81,22 @@
 			</div>
 			
 <script>
-var path = window.location.pathname.substr(4,3);
+var path = window.location.pathname.substr(4,6);
 var faq = $("#faq");
 var qna = $("#qna");
+var notice = $("#notice");
+var usage = $("#usage");
 
 if(faq.attr("id")==path){
 	faq.addClass("chk_active");
 }
 if(qna.attr("id")==path){
 	qna.addClass("chk_active");
+}
+if(notice.attr("id")==path){
+	notice.addClass("chk_active");
+}
+if(usage.attr("id")==path){
+	usage.addClass("chk_active");
 }
 </script>

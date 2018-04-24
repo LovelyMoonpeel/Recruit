@@ -3,6 +3,10 @@
 
 <%@include file="../include/cheader.jsp"%>
 
+<form role="form" method="post">
+	<input type="hidden" value="${id}" name="id">
+</form>	 
+
 <div class="col-md-9">			
 	<p class="lead"><strong>탈퇴하기</strong></p>
 
@@ -24,9 +28,11 @@
 
 <script type="text/javascript">
 
+var formobj = $("form[role='form']");
+
 $(".btn").on("click", function(){
 	if(confirm("탈퇴하시겠습니까?")){
-	    location.href="/company/C_leaveGo";
+	    formobj.submit();
 	}
 });
 </script>

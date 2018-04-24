@@ -107,4 +107,3 @@ $("#p_search").on("click",function(){
 			}
 		});
 	</script>
-	<%@ include file="../include/login.jsp"%>

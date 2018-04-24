@@ -743,7 +743,7 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(value="/C_leave", method = RequestMethod.GET)
-	public String leaveGET(HttpSession session) throws Exception {
+	public String leaveGET(Model model, HttpSession session) throws Exception {
 		System.out.println("leave");
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
@@ -751,29 +751,27 @@ public class CompanyController {
 		if (login != null) {
 			String id = login.getId();
 			System.out.println(id);
+			model.addAttribute("id",id);
 			return "company/C_leave";
 		} else {
 			return "redirect:/";
 		}
 		
 	}
-	
-	@RequestMapping(value="/C_leaveGo", method = RequestMethod.GET)
-	public String leavePOST(HttpSession session) throws Exception {
+	//post로 바꾸기
+	@RequestMapping(value="/C_leave", method = RequestMethod.POST)
+	public String leavePOST(String id, HttpSession session) throws Exception {
 		System.out.println("leave2");
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
-			String id = login.getId();
 			System.out.println("id"+id);
 			service.leave(id);
 			return "redirect:/user/leave";
 		} else {
 			return "redirect:/";
 		}
-
-		
 	}
 	
 	
