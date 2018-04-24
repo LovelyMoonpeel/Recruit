@@ -37,6 +37,7 @@ import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
+import com.recruit.domain.PersonalCriteriaVO;
 import com.recruit.domain.PreferenceVO;
 import com.recruit.domain.RLicenseVO;
 import com.recruit.domain.ResumeCareerVO;
@@ -542,7 +543,7 @@ public class PersonalController {
 
 	// 관심채용공고
 	@RequestMapping(value = "/favor_all", method = RequestMethod.GET)
-	public String favorGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+	public String favorGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
@@ -550,8 +551,12 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="viewcnt_order";
 			}
+			System.out.println("favor_all GET CONTROLLER");
 			
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, order_value));
+			//PersonalCriteriaVO cri = new PersonalCriteriaVO();
+			cri.setId(id);
+			System.out.println(cri);
+			model.addAttribute("CRecruitVOList", Cservice.selectCRList(cri, order_value));
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","all");
 			

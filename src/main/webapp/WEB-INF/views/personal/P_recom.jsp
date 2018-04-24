@@ -57,6 +57,18 @@
 <div class="col-md-9" style="padding-top:20px;">
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
+	
+	<div style='width: 100%; border: 1px solid #c0c6d3; padding: 30px;'>
+		<ul style="list-style-type: circle;">
+			<li>[${PUserVO.pname}]님이 지원한 채용공고/이력서 목록입니다.</li>
+			<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
+			<li>이력서를 <b>공개</b>하신 회원님께 해당이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.
+			<li>공개된 이력서에서 <b>[희망 구직정보 - 희망 근무지, 희망직종], 최종학력, 최종경력</b>을 입력하시면<br>더 정확한 추천 공고 서비스를 이용하실 수 있습니다.<br></li>
+		</ul>
+		<br>※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
+	</div>
+	
+	<br>
 	<div class="container"
 		style="width: 100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; padding: 20px;">
 
@@ -395,7 +407,7 @@ $(document).ready(function (){
 	</div>
 	
 	
-	<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
+	<div class="container" style="width: 100%; padding: 20px 0px 0px 0px;">
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tr>

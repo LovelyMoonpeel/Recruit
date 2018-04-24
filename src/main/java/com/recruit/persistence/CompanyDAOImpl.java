@@ -70,8 +70,6 @@ public class CompanyDAOImpl implements CompanyDAO{
 		paraMap.put("perPageNum", cri.getPerPageNum());
 		paraMap.put("pageStart", cri.getPageStart());
 		
-		
-		
 		return session.selectList(namespace + ".reComList", paraMap);
 	}
 	@Override

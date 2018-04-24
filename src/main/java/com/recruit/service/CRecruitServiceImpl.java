@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.CRecruitVO;
+import com.recruit.domain.PersonalCriteriaVO;
 import com.recruit.persistence.CRecruitDAO;
 
 @Service
@@ -16,8 +17,8 @@ public class CRecruitServiceImpl implements CRecruitService {
 	private CRecruitDAO dao;
 	
 	@Override
-	public List<CRecruitVO> selectCRList(String id, String order_value)throws Exception{
-		return dao.selectCRList(id, order_value);
+	public List<CRecruitVO> selectCRList(PersonalCriteriaVO cri, String order_value)throws Exception{
+		return dao.selectCRList(cri, order_value);
 	};
 	
 	@Override

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.CRecruitVO;
+import com.recruit.domain.PersonalCriteriaVO;
 
 @Repository
 public class CRecruitDAOImpl implements CRecruitDAO{
@@ -19,17 +20,19 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 
 	// 스크랩한 채용공고 목록 
 	@Override
-	public List<CRecruitVO> selectCRList(String id, String order_value)throws Exception{
+	public List<CRecruitVO> selectCRList(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
 		if(order_value!=null&&order_value.equals("viewcnt_order")){
-			return session.selectList(namespace + ".selectCRList_veiwcnt_order", id);
+			System.out.println("viewcnt_order cri"+cri);
+			System.out.println("viewcnt_order cri getPageStart"+cri.getPageStart());
+			return session.selectList(namespace + ".selectCRList_veiwcnt_order", cri);
 		}else if(order_value!=null&&order_value.equals("applicant_order")){
-			return session.selectList(namespace + ".selectCRList_applicant_order", id);
+			return session.selectList(namespace + ".selectCRList_applicant_order", cri);
 		}else if(order_value!=null&&order_value.equals("closingdate_order")){
-			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
+			return session.selectList(namespace + ".selectCRList_closingdate_order", cri);
 		}else{
 			System.out.println("CRecruitDAOImpl selectCRList order_value값 없을 때");
-			return session.selectList(namespace + ".selectCRList_closingdate_order", id);
+			return session.selectList(namespace + ".selectCRList_closingdate_order", cri);
 		}
 	};
 
