@@ -128,16 +128,18 @@ public class PersonalController {
 		}
 	}
 	
-	// 회원탈퇴
+	// 개인회원탈퇴
 	@RequestMapping(value = "/leave", method = RequestMethod.GET)
 	public String leaveGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
-		logger.info("leave GET, 회원탈퇴");
+		System.out.println("leave GET, 회원탈퇴");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			service.leavePUser(id);
+			
+			model.addAttribute("PUser",service.selectPUser(id));
+			
 			return "personal/P_leave";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
@@ -145,17 +147,18 @@ public class PersonalController {
 		}
 	}
 	
-	// 회원탈퇴
+	// 개인회원탈퇴
 	@RequestMapping(value = "/leave", method = RequestMethod.POST)
 	public String leavePOST(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
-		logger.info("leave GET, 회원탈퇴");
+		System.out.println("leave POST, 회원탈퇴");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			service.leavePUser(id);
-			return "personal/P_leave";
+			System.out.println("탈퇴됐니");
+			return "redirect:/user/logout";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";

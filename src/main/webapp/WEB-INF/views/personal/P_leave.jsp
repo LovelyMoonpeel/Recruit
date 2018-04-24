@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="../include/cheader.jsp"%>
+<%@include file="../include/pheader.jsp"%>
 
+<form role="form" method='post'>
+	<input type="hidden" value="${PUser.id}" >
+</form>
 <div class="col-md-9">			
 	<p class="lead"><strong>탈퇴하기</strong></p>
 
@@ -27,15 +30,18 @@
 		<br>
 	</div>
 
-	<button type="button" class="btn btn-danger">탈퇴하기</button>
+	<button type="submit" id ="delete-id" class="btn btn-danger">탈퇴하기</button>
 </div> 	
 
 <script type="text/javascript">
 
+var formobj = $("form[role='form']");
+
 $(".btn").on("click", function(){
 	if(confirm("탈퇴하시겠습니까?")){
 		alert("탈퇴되었습니다.");
-		location.href="/user/logout";
+		formobj.attr("action", "leave");
+		formobj.submit();
 	}
 });
 </script>

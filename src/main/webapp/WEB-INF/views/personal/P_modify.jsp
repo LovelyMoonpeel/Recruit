@@ -11,88 +11,50 @@
 <!-- Main content -->
 <!-- 개인 수정 페이지 -->
 
-<div class="col-md-9">
-   <form role = "form" method = "post">
-      <!-- 개인 페이지 첫번째(이미지, 이름) -->
-      <div class="top_cont">
-         <br>
-         <h1 class="ci_name">${PUserVO.pname}</h1>
-         <br>
-      </div>
-      
-      <table class="table table-bordered">
-            <tbody>
-            <tr>
-               <!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-               <!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-               <th class="table-active" scope="row"><label>아이디</label></th>
-               <td>
-                  <div class="form-group">
-                      <input type="text" name="id" class="form-control" id="id" value="${PUserVO.id}" readonly="readonly">
-                  </div>
-               </td>
-               
-                    <!--j.code 03/23 : '기존 비밀번호'추가  -->
-                    <th class="table-active" scope="row"><label>기존 비밀번호</label></th>
-               <td>
-                  <div class="form-group">
-                     <input type="password" name="pwc" class="form-control" id="pwc">
-                     <span id="pwchk"></span>
-                  </div>
-               </td>
-               <!--j.code 03/23 : '기존 비밀번호'추가  끝-->
-               <!--j.code 03/27 : '이름, 생일, 이메일' readonly로 변경 -->
-                </tr>
-            <tr>
-               <th class="table-active" scope="row"><label>이름</label></th>
-               <td>
-                  <div >
-                     <input  type="text" name="pname" class="form-control form-group col-sm-6" id="panme" value="${PUserVO.pname}" readonly="readonly">
-                  </div>
-               </td>
-               
-               <!--j.code 03/23 :'새 비밀번호' 추가  -->
-               <th class="table-active" scope="row"><label>새 비밀번호</label></th>
-               <td>
-                  <div class="form-group">
-                      <input type="password" name="npw" class="form-control" id="npw" placeholder="6자리를 입력하세요.">
-                      <span>(대문자와 소문자, 숫자 조합)</span>
-                  </div>
-               </td>
-               <!--j.code 03/23 :'새 비밀번호' 추가  끝-->
-            </tr>
-            <tr>
-               <th class="table-active" scope="row"><label>email</label></th>
-               <td>
-                  <div class="form-group">
-                     <input type="text" name = "email" class="form-control" id="email" value ="${PUserVO.email}" readonly="readonly">
-                  </div>
-               </td>
-               
-               <!--j.code 03/23 : '새 비밀번호 확인'추가  -->
-                <th class="table-active" scope="row"><label>새 비밀번호 확인</label></th>
-               <td>
-                  <div class="form-group">
-                      <input type="password" name="npwc" class="form-control" id="npwc" placeholder="6자리를 입력하세요.">
-                  <span id="npwchk"></span>
-                  </div>
-               </td>
-               <!--j.code 03/23 : '새 비밀번호 확인'추가 끝 -->
-            </tr>
-            <tr>
-               <th class="table-active" scope="row"><label>생일</label></th>
-               <td >
-                  <div class="form-group">
-                        <input type="text" name ="birth" class="form-control" id = "birth" value ="${PUserVO.birth}" readonly="readonly">
-                  </div>
-               </td>
-            </tr>
-            </tbody>
-         </table>
-   </form>
-</div>
-<button id ="modify-finish" class="btn btn-success col-md-offset-10" type='submit'>완료</button>
+
+<div class="col-md-5 col-md-offset-2" >
+	<form role = "form" method = "post">
+		<div class="top_cont">
+		<br>
+		<h1 class="ci_name" >${PUserVO.pname}</h1>
+		<br>
+		</div>
+		<table class="table table-bordered">
+		<tbody>
+          <tr>
+			<th class="table-active" scope="row" style="text-align: center; vertical-align: middle;"><label>기존 비밀번호</label></th>
+             <td>
+                <div class="form-group">
+                   <input type="password" name="pwc" class="form-control" id="pwc">
+                   <span id="pwchk"></span>
+                </div>
+             </td>
+          </tr> 
+          <tr>
+            <th class="table-active" scope="row" style="text-align: center; vertical-align: middle;"><label>새 비밀번호</label></th>
+             <td>
+                <div class="form-group">
+                    <input type="password" name="npw" class="form-control" id="npw" placeholder="6자리를 입력하세요.">
+                    <span>(대문자와 소문자, 숫자 조합)</span>
+                </div>
+             </td>
+          </tr> 
+          <tr>  
+            <th class="table-active" scope="row" style="text-align: center; vertical-align: middle;"><label>새 비밀번호 확인</label></th>
+             <td>
+                <div class="form-group">
+                    <input type="password" name="npwc" class="form-control" id="npwc" placeholder="6자리를 입력하세요.">
+                <span id="npwchk"></span>
+                </div>
+             </td>
+          </tr>
+		</tbody>
+		</table>
+	</form>
+<button id ="modify-finish" class="btn btn-success col-md-offset-9" type='submit'>완료</button>
 <button id ="modify-cancel" class="btn btn-danger" onClick="javascript:self.location='/personal/index';" type="button">취소</button>
+</div>
+
 
 <br> <br>
 

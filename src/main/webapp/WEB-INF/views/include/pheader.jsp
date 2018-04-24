@@ -113,5 +113,6 @@
 				<a href="/personal/recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>
 				<a href="/personal/favor_all" id = "P_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a>
 				<a href="/personal/applied_all" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a><!-- p07 -->
+				<a href="/personal/leave" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;회원탈퇴</a><!-- p07 -->
 			</div>
 		</div>
