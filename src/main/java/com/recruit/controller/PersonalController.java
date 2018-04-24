@@ -522,26 +522,6 @@ public class PersonalController {
 		return entity;
 	}
 	
-/*	// 추천채용공고
-	@RequestMapping(value = "/recom", method = RequestMethod.POST)
-	public String recomPOST(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
-		System.out.println("recom POST Controller");
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-
-			model.addAttribute("CRecruitVOList", Cservice.selectCRList(id, null));
-			model.addAttribute("PUserVO", service.selectPUser(id));
-			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
-			
-			return "personal/P_recom";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}*/
-
 	// 관심채용공고
 	@RequestMapping(value = "/favor_all", method = RequestMethod.GET)
 	public String favorGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
@@ -559,7 +539,6 @@ public class PersonalController {
 			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(Cservice.countPaging(cri));
-			
 			model.addAttribute("pageMaker", pageMaker);
 			
 			model.addAttribute("PUserVO", service.selectPUser(id));
@@ -589,7 +568,6 @@ public class PersonalController {
 			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(Cservice.countPaging_ongoing(cri));
-			
 			model.addAttribute("pageMaker", pageMaker);
 			
 			model.addAttribute("PUserVO", service.selectPUser(id));
@@ -619,7 +597,6 @@ public class PersonalController {
 			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(Cservice.countPaging_closed(cri));
-			System.out.println("closed 몇개"+Cservice.countPaging_closed(cri));
 			model.addAttribute("pageMaker", pageMaker);
 			
 			model.addAttribute("PUserVO", service.selectPUser(id));
@@ -636,7 +613,7 @@ public class PersonalController {
 
 	// 지원현황리스트
 	@RequestMapping(value = "/applied_all", method = RequestMethod.GET)
-	public String appliedGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+	public String appliedGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
@@ -645,7 +622,14 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="applicant_order";
 			}
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList(id, order_value));
+			cri.setId(id);
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList(cri, order_value));
+			
+			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(Cservice.countPaging_AP(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","all");
 			model.addAttribute("order_value",order_value);
@@ -660,7 +644,7 @@ public class PersonalController {
 	
 	// 지원현황리스트
 	@RequestMapping(value = "/applied_ongoing", method = RequestMethod.GET)
-	public String applied_ongoingGET(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+	public String applied_ongoingGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
@@ -669,7 +653,14 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="applicant_order";
 			}
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(id, order_value));
+			cri.setId(id);
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(cri, order_value));
+			
+			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(Cservice.countPaging_AP_ongoing(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","ongoing");
 			model.addAttribute("order_value",order_value);
@@ -684,7 +675,7 @@ public class PersonalController {
 
 	// 지원현황리스트
 	@RequestMapping(value = "/applied_closed", method = RequestMethod.GET)
-	public String appliedGET_closed(HttpSession session, RedirectAttributes rttr, Model model, String order_value) throws Exception {
+	public String appliedGET_closed(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
@@ -693,7 +684,14 @@ public class PersonalController {
 			if(order_value==null){
 				order_value="applicant_order";
 			}
-			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(id, order_value));
+			cri.setId(id);
+			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(cri, order_value));
+			
+			PersonalPageMakerVO pageMaker = new PersonalPageMakerVO();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(Cservice.countPaging_AP_closed(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			
 			model.addAttribute("PUserVO", service.selectPUser(id));
 			model.addAttribute("controller_value","closed");
 			model.addAttribute("order_value",order_value);

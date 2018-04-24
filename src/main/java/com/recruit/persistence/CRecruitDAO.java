@@ -11,6 +11,12 @@ public interface CRecruitDAO {
 	public int countPaging_ongoing(PersonalCriteriaVO cri)throws Exception;
 	
 	public int countPaging_closed(PersonalCriteriaVO cri)throws Exception;
+	
+	public int countPaging_AP(PersonalCriteriaVO cri)throws Exception;
+	
+	public int countPaging_AP_ongoing(PersonalCriteriaVO cri)throws Exception;
+	
+	public int countPaging_AP_closed(PersonalCriteriaVO cri)throws Exception;
 
 	public List<CRecruitVO> selectCRList(PersonalCriteriaVO cri, String order_value)throws Exception;
 	
@@ -18,11 +24,11 @@ public interface CRecruitDAO {
 	
 	public List<CRecruitVO> selectCRList_closed(PersonalCriteriaVO cri, String order_value)throws Exception;
 
-	public List<CRecruitVO> selectAPList(String id, String order_value)throws Exception;
+	public List<CRecruitVO> selectAPList(PersonalCriteriaVO cri, String order_value)throws Exception;
 	
-	public List<CRecruitVO> selectAPList_ongoing(String id, String order_value)throws Exception;
+	public List<CRecruitVO> selectAPList_ongoing(PersonalCriteriaVO cri, String order_value)throws Exception;
 	
-	public List<CRecruitVO> selectAPList_closed(String id, String order_value)throws Exception;
+	public List<CRecruitVO> selectAPList_closed(PersonalCriteriaVO cri, String order_value)throws Exception;
 
 	public CRecruitVO selectCROne(int bno)throws Exception;
 

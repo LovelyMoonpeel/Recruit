@@ -217,6 +217,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
 	<!-- 아래쪽 지원-->
 	
+	<!-- p279 참고 -->
+	<select id="countPaging_AP" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+    where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})))
+	and bno>0
+	;
+	]]>
+	</select>
+	
+	<select id="countPaging_AP_ongoing" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+    where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})))
+	AND period >=CURDATE()
+	and bno>0
+	;
+	]]>
+	</select>
+	
+	<select id="countPaging_AP_closed" resultType="int">
+	<![CDATA[
+	select count(bno)
+    from tblrecruit rc
+    where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})))
+	AND period < CURDATE()
+	and bno>0
+	;
+	]]>
+	</select>
+	
 	<!-- 지원한 채용공고 목록 전체 지원자수 순 안소연 사용 수정 -->
 	<select id = "selectAPList_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
@@ -240,7 +294,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						where rsno in ( select bno 
 										from tblresume
 										where userid=#{id})))
-		ORDER BY adddesc desc;
+		ORDER BY adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -267,7 +322,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						where rsno in ( select bno 
 										from tblresume
 										where userid=#{id})))
-		ORDER BY period asc;
+		ORDER BY period asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -295,7 +351,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										from tblresume
 										where userid=#{id}))
 		AND period >=CURDATE())
-		ORDER BY adddesc desc;
+		ORDER BY adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -323,7 +380,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										from tblresume
 										where userid=#{id}))
 		AND period >=CURDATE())
-		ORDER BY period asc;
+		ORDER BY period asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -351,7 +409,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										from tblresume
 										where userid=#{id}))
 		AND period < CURDATE())
-		ORDER BY adddesc desc;
+		ORDER BY adddesc desc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
@@ -379,7 +438,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										from tblresume
 										where userid=#{id}))
 		AND period < CURDATE())
-		ORDER BY period asc;
+		ORDER BY period asc
+		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 	
