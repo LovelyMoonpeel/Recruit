@@ -12,7 +12,8 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
-
+ <link rel="stylesheet" type="text/css" href="/resources/rpjt/css/button.css" /> <!-- 버튼용 css -->
+	
 
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
@@ -293,10 +294,10 @@ $(function () {
 				
 				<div id="numChk">
 				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1">&nbsp;1명</label>
-				<input type="radio" nㅠㅗㅕㅅ 라쇼 ame="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;2명</label>
+				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;2명</label>
 				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3">&nbsp;3명</label>
 				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4">&nbsp;4명</label>
-				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" value="12" />명
+				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />명
 				</div>
 				
 				</div>
@@ -497,23 +498,22 @@ $(function () {
 				<th class="text-center" id="periodTxt" style="vertical-align:middle;">접수기간</th>
 				<td>
 				
+					<div class="form-inline">
 					
-					<div class="" style="vertical-align:middle;">
 						<div class="input-group date" data-provide="datepicker" >
-							<input type="text" class="form-control" id="period" name="period" /> <span
-								class="input-group-addon"> <i
-								class="glyphicon glyphicon-calendar"></i>
+							<input type="text" class="form-control" id="periodStart" name="periodstart"  style="width:150px;">
+							<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
 						
-						<!-- <div class="input-group date" data-provide="datepicker" >
-							<input type="text" class="form-control" id="period" name="period" /> <span
-								class="input-group-addon"> <i
-								class="glyphicon glyphicon-calendar"></i>
+						~
+						<div class="input-group date" data-provide="datepicker" >
+							<input type="text" class="form-control" id="period" name="period" style="width:150px;"> 
+							<span class="input-group-addon"> 
+							<i class="glyphicon glyphicon-calendar"></i>
 							</span>
-						</div> -->
+						</div>
 					</div>
-
 					
 				</td>
 			</tr>
@@ -539,13 +539,37 @@ $(function () {
 
 		<br> 
 		<br> 
+
+	<table>
+	<tr class="text-center">
+	<th class="text-center " style=" display: inline-table">
 	
-		<input class="btn btn-primary" type="submit" id="sbm"
-			value="등록"> 
-		<input class="btn btn-primary" type="button" id="cancle"
-			value="취소"> <br>
+		<button class="button button--antiman button--inverted button--border-thin button--text-thick button--size-m" name="actionBtns" type="submit" id="sbm"><span id="sbmSpan" style="color:white;">등록</span></button> 
 		
+		
+		<button class="button button--antiman button--inverted button--border-thin button--text-thick button--size-m" name="actionBtns" id="cancle"><span id="cancleSpan" style="color:white;">취소</span></button> <br>
+		
+	</th>
+	</tr>
+		</table>
 	</form>
+	<script>
+	
+	$("button[name='actionBtns']").mouseenter(function(){
+		
+		span = $(this).attr("id")+"Span";
+		
+		$("#"+span).css("color","black");
+		
+	})
+	
+	$("button[name='actionBtns']").mouseout(function(){
+		
+		span = $(this).attr("id")+"Span";
+		
+		$("#"+span).css("color","white");
+	})
+	</script>
 	
 	<script>
 	

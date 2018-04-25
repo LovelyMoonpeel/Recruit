@@ -144,7 +144,7 @@
 			<div class="col-md-6">
 				<div class="company-div">
 					<a href="{{url}}"
-						onclick='window.open(this.href, "cinfo{{userid}}", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
+						onclick='window.open(this.href, "cinfo{{cname}}", "width=1050, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" ); return false;'>
 						<img class="company-img" src="{{img}}">
 					</a>
 				</div>
@@ -216,7 +216,7 @@
 	var pImgSrc = "/personal/displayFile?fileName=";
 
 	// 링크 url 변수
-	var cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+	var cinfoUrl = "/company/C_info_nonavi?cName=";
 	var recruitUrl = "/company/C_recruitMent?recruitNum=";
 	var resumeUrl = "/personal/detail_nonavi?bno=";
 
@@ -406,7 +406,7 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
-			url : cinfoUrl + that.userid
+			url : cinfoUrl + that.cname
 		};
 		$("#spanelc").append(template_pnl(item));
 	}

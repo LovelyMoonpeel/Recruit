@@ -297,7 +297,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_write", method = RequestMethod.POST) // 채용공고 작성
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		System.out.println(writeRecruit);
+		System.out.println("여기" +writeRecruit);
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		String id = login.getId();
 		logger.info("write Register..........");
@@ -492,20 +492,34 @@ public class CompanyController {
 		}
 	}
 
+	
+	
+	
 	@RequestMapping(value = "C_info_nonavi", method = RequestMethod.GET) // 개인이
-																			// 보는
 																			// 기업정보
-	public String C_info_nonavi(HttpSession session, String recruitNum, Model model, RedirectAttributes rttr)
+	public String C_info_nonavi(HttpSession session, String cName, Model model, RedirectAttributes rttr)
 			throws Exception {
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-
-		String cid = recruitNum;
+		
+		
+		System.out.println("cname = "+cName);
+		String cid = service.ChangeCnameToId(cName);
+		
+		System.out.println("cid = "+cid);
+	
+		if (service.CompanyInfoRead(cid).getIntro() != null) {
+			String content = service.CompanyInfoRead(cid).getIntro();
+			String content2 = content.replace("<", "&lt;"); // HTML 태그를 문자로 인지하게 바꿈
+			String content3 = content2.replace("\r\n", "<br>"); // 엔터를 <br>태그로 교체
+			String content4 = content3.replace(" ", "&nbsp;"); // 공백을 &nbsp;로 변환
+			model.addAttribute("content", content4);
+		}
+		
 		model.addAttribute(service.CompanyInfoRead(cid));
 		model.addAttribute("RecruitList", service.CInfoRecruitList(cid));
 		return "/company/C_info_nonavi";
 
 	}
+	
 
 	@RequestMapping(value = "/C_recruitMent", method = RequestMethod.GET)
 	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model)
@@ -527,6 +541,10 @@ public class CompanyController {
 		model.addAttribute("adddesc", adddesc4);
 		model.addAttribute("jobdesc", jobdesc4);
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
+		
+	
+		
+		model.addAttribute("QnAList", service.QnAList(recruitNum));
 
 		if(login==null){
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));

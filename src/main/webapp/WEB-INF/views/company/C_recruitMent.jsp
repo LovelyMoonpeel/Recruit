@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header_nonavi.jsp"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <style>
 #back-top { 
@@ -49,7 +51,53 @@ transition: 1s;
 #back-top a:hover span { 
 background-color: #777; 
 } 
+
+
+.startDay{
+	float: left;
+    margin: 3px 0 2px;
+    width: 78px;
+    height: 22px;
+    border: 1px solid #d9d9d9;
+    border-radius: 22px;
+    color: #999;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 21px;
+    text-align: center;
+	
+}
+.lastDay{
+ 
+  
+    float: left;
+    margin: 3px 0 2px;
+    width: 78px;
+    height: 22px;
+    border: 1px solid #fa6a71;
+    border-radius: 22px;
+    color: #f66;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 21px;
+    text-align: center;
+}
+.dDay{
+    display: inline-block;
+    margin-left: 3px;
+    padding: 0 12px 0 11px;
+    height: 23px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: -1px;
+    vertical-align: top;
+    background-color: #fa6a71;
+}
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> <!-- selectpicker용 스크립트 -->
 
 <!-- Main content -->
 <div class="col-md-12 ">
@@ -67,6 +115,8 @@ background-color: #777;
 	
 	<br>
 
+<div id="tel_div"></div>
+
 
 <!--  <a id="kakao-link-btn" href="javascript:;"> 카카오
     <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
@@ -79,6 +129,19 @@ background-color: #777;
 			<div class="col-md-8 col-sm-12 col-xs-12"
 				style="border-bottom: 1px solid #dde2eb; padding-left: 15px; padding-top: 10px; padding-bottom: 10px; padding-right:0px; border-right: 1px solid #dde2eb;">
 				<font size="3px">${CInfoVO.cname}</font><br> <font size="6px">${RecruitVO.title}</font>
+				
+				<font style="font-size: 16px;">~${RecruitVO.endday}</font>
+				<c:choose>
+				<c:when test="${RecruitVO.dday > 0}">
+				<font style="font-size: 16px;">(${RecruitVO.week})</font><font class="dDay">D - ${RecruitVO.dday}</font>
+				</c:when>
+				<c:when test="${RecruitVO.dday == 0}">
+				<font style="font-size: 16px;">(${RecruitVO.week})</font><font class="dDay">오늘까지</font>
+				</c:when>
+				<c:when test="${RecruitVO.dday < 0}">
+				<font class="dDay">모집완료</font>
+				</c:when>
+				</c:choose>
 			</div>
 			<div class="col-md-4 text-center"  style="padding-left: 0px; padding-right: 0px; border-left: 1px solid #dde2eb;">
 				<img src="${CInfoVO.img}" class="img-rounded"
@@ -138,7 +201,7 @@ background-color: #777;
 				${CInfoVO.establish}<br> 기업형태 ${CInfoVO.form}<br> 홈페이지
 				${CInfoVO.homepage}<br> <br>
 				<div class="text-center">
-					<a href = '/company/C_info_nonavi?recruitNum=${RecruitVO.cid}'>
+					<a href = '/company/C_info_nonavi?cName=${CInfoVO.cname}'>
 					<button class="btn btn-info">기업정보</button></a>
 				</div>
 				<br>
@@ -150,10 +213,10 @@ background-color: #777;
 	<div id="apply_div" class="text-center">
 		<c:choose>
 		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
-		<button id="applynow" class="btn btn-primary btn-lg">즉시지원</button>
+		<button id="applynow" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span>즉시지원</button>
 		</c:when>
 		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
-		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}">홈페이지지원</button>
+		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}"><span class="glyphicon glyphicon-ok"></span>홈페이지지원</button>
 		</c:when>
 		</c:choose>
 		<button id="clipping" class="btn btn-default btn-lg">관심채용등록</button>
@@ -459,22 +522,41 @@ background-color: #777;
 		
 	<!-- /공고 메인 -->
 	<br> <br>
+	
+		
+
 	<div id="accept_method"
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<div class="row">
 			<!-- 접수기간  -->
 			<div class="col-md-3">
-				<font size="6px">접수방법</font> <br> <span>마감일</span> <span>${RecruitVO.period }</span>
+				
+				<font size="6px">접수방법</font> <br>
+				 <div>
+				 <span class="startDay">시작일 </span> <span>${RecruitVO.periodstart }</span>
+				 </div>
+				 <br>
+				 <div>
+				 <span class="lastDay">마감일</span> <span>${RecruitVO.period }</span>
+				</div>
+				<br>
 			</div>
 
+
+
+<script>
+var timeInMs = Date.now();
+
+$("#t1").html(timeInMs);
+</script>
 			<div class="col-md-9">
 			
 			<c:choose>
 		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
-		<button id="applynow2" class="btn btn-primary btn-lg">지원하기</button>
+		<button id="applynow2" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span>즉시지원</button>
 		</c:when>
 		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
-		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}">지원하기</button>
+		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}"><span class="glyphicon glyphicon-ok"></span>홈페이지지원</button>
 		</c:when>
 		</c:choose>
 				<br>
@@ -562,7 +644,190 @@ background-color: #777;
 	
 			
 	<br>
+	
+	<font>질문하기</font> <button style="float:right" id="questionCall"><span class="glyphicon glyphicon-pencil">인사담당자에게 질문하기</span></button>
+	<br><br>
+	<div id="human_resources_manager" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+		
+		
+		<div id="questionBox" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; display:none">
 			
+			<h4 style="border-bottom: 2px solid #dce1eb; padding: 10px 0px 10px 10px">인사담당자에게 질문하기</h4>
+			
+			<br>
+			
+			<div style="padding: 10px 0px 10px 10px">
+				질문분류 
+				<select class="selectpicker" id="questionType">
+					<option>채용일반</option><option>경력사항</option><option>근무환경</option>
+				</select>
+				
+				<select class="selectpicker" id="questionDetailType" name="staa">
+					<option>채용</option><option>자격요건</option><option>서류전형</option><option>면접</option><option>업무</option><option>기타</option>
+				</select>
+				
+		
+			</div>
+			
+			
+			
+			<div style="padding: 10px 10px 10px 10px">
+				<textarea placeholder="*인사담당자에게 채용 관련하여 궁금한 사랑이 있으면 질문해 주세요." style="width:70%;" id="questionText"></textarea>
+				<button id="questionSbm" style="margin-bottom:10px">등록</button>
+			</div>
+
+
+		<%
+    		pageContext.setAttribute("cid", cid);
+		%>
+
+		</div>
+		
+		<c:set var="cid" value="${pageScope.cid}" /> 
+		
+		<c:forEach items="${QnAList}" var="QnAVO">
+		<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
+		
+		<font class="badge" style="width:8%">${QnAVO.qtype}</font> Q. <font class="text-center" style="width:58%" name="txtClick">${QnAVO.qtext}</font> 
+		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="${QnAVO.qbno}">답변</button></c:if> 
+		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
+		
+		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. ${QnAVO.atext}</font>
+		<textarea class="form-control" name="${QnAVO.qbno}" value="${QnAVO.atext}">${QnAVO.atext}</textarea>
+		<button value="${QnAVO.qbno}" name="aTextModifyBtns">등록하기</button>
+		</div>
+		</c:forEach>
+		
+		
+	</div>
+
+
+<script>
+	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
+		
+	})
+	
+	$(document).on("click","button[name='aTextModifyBtns']",function(){ /* 답변 소환 버튼 */		
+		var num = $(this).val();
+		var txt = $("textarea[name="+num+"]").val();
+		
+		
+		$.ajax({
+			type:'POST',
+			url:'/companyAjax/recruitAnswer/',
+			headers:{
+				"Content-Type": "application/json; charset=UTF-8",
+				"X-HTTP-Method-Override": "POST"},
+			dataType:'text',
+			data: JSON.stringify({qbno:num, atext:txt}),
+			success : function(result) {
+			
+				location.reload();
+	 
+			}	
+			      		      
+	 
+	 }); 
+		
+		
+	})
+</script>
+	<script>
+
+	$("#questionType").change(function(){ /* 채용일반이면 서브 옵션 추가 */
+		
+		if($("#questionType option:selected").html() != "채용일반"){
+			
+			$("#questionDetailType").selectpicker('hide');
+			
+		}else{
+			
+			$("#questionDetailType").selectpicker('show');
+			
+		}
+		
+	})
+	
+	</script>
+	
+	<script>
+	
+	$(document).on("click","#questionCall",function(){ /* 숨어있는 인사담당자 질문하기 소환 */
+		
+		
+		if("<%=pid%>"==""&&"<%=cid%>"==""){
+			alert("로그인해주시길 바랍니다.");
+		}else if("<%=pid%>"==""){
+			alert("개인회원으로 로그인해주시길바랍니다.");
+		}else{
+			$("#questionBox").css("display","");
+		}
+	
+	})
+	
+	</script>
+	
+	<script>
+	
+	$(document).on("click","#questionSbm",function(){ /* 처음에 인사담당자 질문하기 클릭시  */
+		
+		var questionType = $("#questionType option:selected").html();
+		if($("#questionType option:selected").html() != "채용일반"){
+			var questionDetailType = null;
+		}else{
+			var questionDetailType =  $("#questionDetailType option:selected").html()		
+		}
+		var questionText = $("#questionText").val();
+		var id = "<%=pid%>";
+		var rbno = <c:out value="${RecruitVO.bno}"/>
+		
+		
+			if("<%=pid%>"==""&&"<%=cid%>"==""){
+				alert("로그인 후 사용 가능합니다");
+			}else if("<%=pid%>"==""){
+				alert("개인회원으로 로그인 후 사용 가능합니다");
+			}else{
+				
+				
+				
+				$.ajax({
+					type:'POST',
+					url:'/companyAjax/recruitQuestion/',
+					headers:{
+						"Content-Type": "application/json; charset=UTF-8",
+						"X-HTTP-Method-Override": "POST"},
+					dataType:'text',
+					data: JSON.stringify({rbno:rbno, id:id, qtext:questionText, qtype:questionType, rqtype:questionDetailType}),
+					success : function(result) {
+					
+						location.reload();
+			 
+					}	
+					      		      
+			 
+			 }); 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		
+	})
+	
+	
+		
+		
+		
+
+
+	
+	</script>
+	
 			
 	<h4>담당자 정보</h4>
 		
@@ -571,7 +836,7 @@ background-color: #777;
 	
 	<div id="human_resources_manager" 
 		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		<table class="table table-bordered ">
+			<table class="table table-bordered ">
 			
 			
 				<tr>
@@ -580,20 +845,13 @@ background-color: #777;
 				</tr>
 
 				<tr>
-					<th class="table-active" scope="row" name="phone">휴대폰 번호</th>
-					<td colspan="3">010-9843-4305${CInfoVO.phone}</td>
-				</tr>
-
-				<tr>
 					<th class="table-active" scope="row">이메일</th>
 					<td colspan="3">${CInfoVO.email}</td>
 				</tr>
 		
-		</table>
+			</table>
+		</div>
 	</div>
-</div>
-
-
 
 <%-- <form role="form" method="post">
 	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
@@ -711,7 +969,47 @@ $(document).ready(function() {
     	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
     </script>
     
+   <!-- <script>
+    
+    var item = {
+			rid : 0,
+			teltitle : "${PTelVO.teltitle}", 
+			tel : "${PTelVO.tel}" ,
+			qtype : "${QnAVO.qtype}"
+		};
+    
+    
+    var source_tel = $("#template_qnaList").html();
+	var template_tel = Handlebars.compile(source_tel);
+	$("#tel_div").append(template_tel(item));
+	
+    </script>
+<script id="template_qnaList" type="text/x-handlebars-template">
 
+	<c:set var="cid" value="${pageScope.cid}" /> 
+		
+		<c:forEach items="${QnAList}" var="QnAVO">
+
+		<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
+		
+		<font class="badge" style="width:8%">${QnAVO.qtype}</font> Q. <font class="text-center" style="width:58%" name="txtClick">{{QnAVO.qtext}}</font> 
+
+		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{QnAVO.qbno}}">답변</button></c:if> 
+
+		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
+		
+		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. ${QnAVO.atext}</font>
+
+		<textarea class="form-control" name="{{QnAVO.qbno}}" value="{{QnAVO.atext}}">{{QnAVO.atext}}</textarea>
+
+		<button value="{{QnAVO.qbno}}" name="aTextModifyBtns">등록하기</button>
+
+		</div>
+
+	</c:forEach>
+
+
+</script> -->
 <!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>

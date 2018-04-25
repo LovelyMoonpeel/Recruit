@@ -15,6 +15,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -58,6 +59,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.RegionList();
 	 }
+	 @Override
+	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+		 
+		 return dao.QnAList(recruitNum);
+	 }
 	 
 	 @Override
 	 public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
@@ -75,7 +81,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.listSearchCount(cri, id);
 	 }
-	   
+	 @Override
+	 public String ChangeCnameToId(String cname)throws Exception{
+		 
+		 return dao.ChangeCnameToId(cname);
+	 }
 	 
 	 @Transactional
 	 @Override

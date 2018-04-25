@@ -8,6 +8,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 
+	 <link rel="stylesheet" type="text/css" href="/resources/rpjt/css/button.css" />
+	
+		
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
@@ -20,6 +23,7 @@
 		
 	</p>
 	
+		
 
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
@@ -56,7 +60,7 @@
 					</select>
 				</div>
 					<!-- /btn-group -->
-					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="Search for..." value='${cri.keyword }'> 
+					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="검색어를 입력해주세요." value='${cri.keyword }'> 
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
 						</span>
@@ -66,6 +70,7 @@
 							<option value="10">10개씩보기</option>
 							<option value="20">20개씩보기</option>
 						</select>
+						
 					
 			</div>
 				<!-- /.navbar-collapse -->
@@ -120,11 +125,12 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th style="text-align: center" class="active">공고</th>
-				<th style="text-align: center" class="active">모집 내용</th>
-				<th style="text-align: center" class="active">공고 관리</th>
-				<th style="text-align: center" class="active">지원자 관리</th>
-				<th style="text-align: center" class="active">조회수</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">상태</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">모집 내용</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">공고 관리</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">지원자 관리</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">조회수</th>
+				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">숨기기</th>
 			</tr>
 		</thead>
 		<tbody id="recruitLists">
@@ -254,11 +260,14 @@
     </div>
 	
 </div>
+
+		
 <!-- //기업 채용공고 목록 끝 -->
 
 
 				
 <script>
+
 
 
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
@@ -274,10 +283,9 @@ $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동�
 
 	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 
-	
-	
-	
+		
 })
+
 $(document).on("click","#btnsState", function(){
 	
 	$("li").removeClass();
@@ -285,7 +293,10 @@ $(document).on("click","#btnsState", function(){
 	$(this).addClass("active");
 	
 })
+
 </script>
+
+
 <script>
 $("#viewOrder").on("click", function(){
 	$("#appIcon").removeClass();
@@ -380,6 +391,7 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 })
 </script>
 <script>
+
 			 $("#keywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
 			        if (e.which == 13){
 			        	
@@ -618,29 +630,31 @@ var formObj = $("form[role='form']");
 						var length = data.length;
 						var i = 0;
 						
-						
-						
 						$(data).each(function(){
 							i++;
-							
+						
 							if(i < length){
-								str += "<tr><th rowspan=2 ><br><br><br><span class name=stateid>"+this.recruitstate+"</span></th>"
-								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
-										+"<li>근무형태 : "+this.employstatusid+"</li>"
-										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
-										+"<li>경력 : "+this.exp+"</li>"
-										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-										+"<th><br><button class=center-block clearfix type=button style=width:100% id=modify value="+this.bno+">"+this.btnstate+"</button><button style=width:100% type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+								if(this.state == 1){
+									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span></th>";
+								}else{
+									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>숨김상태</span></th>";
+								} 
+								str += "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
+										
+										+"<th class=text-center><button class=clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><button  type=button id=delete value="+this.bno+" >삭제</button>"
+										
 										if(this.btnstate=="수정"){
-											str += "<br><button id=endRecruit value="+this.bno+" style=width:100%>모집완료하기</button>"
-												+"<th>지원자수 : "+this.applynum+"<button name=onLoad id="+this.bno+" style=width:100% heigth:80px value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
-												+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
+											
+											str += "<button id=endRecruit value="+this.bno+" >모집완료</button></th>"
+												+"<th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
+												
 										}else{
-											str += "<th>지원자수 : "+this.applynum+"<button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
-											+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
+											
+											str += "</th><th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
+											
 										}
 										
-										
+									
 								}else{
 									
 				 					if(this.prev){
@@ -676,21 +690,28 @@ var formObj = $("form[role='form']");
 						 
 						
 						 
-					     var spanLen = $("span[name='stateid']").length;
+					     var spanLen = $("span[name='stateName']").length;
 						 
-					  
-						 for(var i= 0; i<spanLen; i++){
+					    var onloadLen = $("button[name='onLoad']").length;
+					     
+ 						/* for(var j= 0; j<onloadLen; j++){
+ 							$("button[name='onLoad']").eq(j).css("width","100%"); 
+						} */
+					     
+						for(var i= 0; i<spanLen; i++){
 							 
-							 
-							 
-							 if($("span[name='stateid']").eq(i).html() == "모집중"){
-								$("span[name='stateid']").eq(i).addClass("badge");
-								$("span[name='stateid']").eq(i).css("background-color","#3AA0D9");
-								$("span[name='stateid']").eq(i).addClass("center-block clearfix");
+							$("span[name='stateName']").eq(i).addClass("center-block clearfix");
+							$("span[name='stateName']").eq(i).addClass("badge");
+							$("span[name='hide']").eq(i).addClass("glyphicon glyphicon-eye-open");
+							
+							 if($("span[name='stateName']").eq(i).html() == "모집중"){
 								
-							 }else{
-								$("span[name='stateid']").eq(i).addClass("badge");
-								$("span[name='stateid']").eq(i).addClass("center-block clearfix");
+								$("span[name='stateName']").eq(i).css("background-color","#3AA0D9");
+							
+							 }else if($("span[name='stateName']").eq(i).html() == "숨김상태"){
+								 
+								$("span[name='stateName']").eq(i).css("background-color","#F5F2DC");
+								 
 							 }
 						 }
 						 
@@ -709,6 +730,27 @@ var formObj = $("form[role='form']");
 			
 			return false;
 				
+		})
+		
+		$(document).on("click","span[name='hide']",function(){
+			
+			var state = $(this).attr("id");
+			var bno = $(this).attr("value");
+			
+			$.ajax({
+				type:'GET',
+				url: '/companyAjax/changeState/'+bno+'/'+state,
+				dataType: 'Int',
+				
+					success : function() {
+						
+						
+						alert("hih");
+						
+					}	
+			
+			}) 
+			
 		})
 		
 		
@@ -1025,5 +1067,5 @@ function favDel(bno, id){ 	// 관심인재 삭제
     	})
       
      </script>
-     
+    
 <%@include file="../include/cfooter.jsp"%>

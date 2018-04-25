@@ -14,6 +14,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -165,6 +166,34 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		session.update(namespace + ".endRecruit",paraMap);
 		
 	}
+	
+	@Override
+	public void QnaQuestion(RecruitQnAVO QnA) throws Exception {
+		
+		session.insert(namespace + ".qnaQuestion",QnA);
+		
+	}
+	@Override
+	public void QnaAnswer(RecruitQnAVO QnA)throws Exception{
+		
+		session.update(namespace + ".qnaAnswer", QnA);
+	}
+
+	@Override
+	public void ChangeState(int bno,int state)throws Exception{
+		
+		HashMap<String,Object> paraMap = new HashMap<>();
+		
+		if(state == 1){		
+		paraMap.put("bno", bno);
+		paraMap.put("state", 0);
+		}else{
+		paraMap.put("bno", bno);
+		paraMap.put("state", 1);
+			
+		}
+		session.update(namespace + ".changeState", paraMap);
+	}
 
 	@Override // 채용공고 재등록
 	public void RecruitReRegister(String id, int bno, int day)throws Exception{
@@ -240,5 +269,7 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		
 		return session.selectOne(namespace + ".ajaxEndRecruitListCount",paraMap);
 	}
+
+
 	
 }

@@ -17,7 +17,7 @@
 			<br>
 		</div>
 		<div class="ci_desc">
-			<p class="txt">${CInfoVO.intro}</p>
+			<p class="txt">${content}</p>
 		</div>
 	</div>
 	<!-- //기업 페이지 첫번째 -->
@@ -98,7 +98,7 @@
 	
 
 	<h1><a>'${CInfoVO.cname}'</a>진행중인 채용 공고</h1>
-	
+	<br>
 	<div class="row">
   <c:forEach items="${RecruitList}" var="list">
   <div class="col-sm-6 col-md-4 divBox" >
@@ -107,9 +107,9 @@
 
 	 <div class="caption">
         <span>~${list.period}</span>
-        <br><a id="r1" value="${list.bno}">${list.title}</a><br>
+        <br><a id="r1" value="${list.bno}" style="cursor:pointer;">${list.title}</a><br>
         <span>${list.career}</span>|<span>${list.edu}</span>|<span>${list.rgbid}</span>|<span>${list.jobgroup1}</span>
-      </div>
+     </div>
     </div>
   </div>
     </c:forEach>
