@@ -6,10 +6,6 @@
 
 <%@include file="../include/cheader.jsp"%>
 
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
@@ -127,10 +123,10 @@
          
          	 <table class="table table-striped" >
           <tr class=active>
-          <th>번호</th>
-          <th>이름</th>
-          <th>이력서 요약</th>
-          <!-- <th>업데이트일</th> -->
+          <th class="text-center">번호</th>
+          <th class="text-center">이름</th>
+          <th class="text-center">이력서 요약</th>
+       	  <th class="text-center">업데이트일</th>
           </tr>
           <tbody id="recomList">
           
@@ -193,6 +189,8 @@ $("button[name=onLoad]").on("click", function() {
 	
 	var bno = $(this).val();
 	
+	$("#recomList > *").remove();
+	
 	PersonList(bno);
 	
 	
@@ -219,7 +217,9 @@ function PersonList(bno){
 						rgsid : this.rgsid,
 						salary : this.salary,
 						jobgroup1 : this.jobgroup1,
-						jobgroup2 : this.jobgroup2
+						jobgroup2 : this.jobgroup2,
+						days : this.days,
+						todays : this.todays
 												
 					};
 					
@@ -282,7 +282,7 @@ function favorComparison(comparison){
  <script id="template_appList" type="text/x-handlebars-template">
 
 	<tr>
-		<td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="{{bno}}">
+		<td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=r1 value="{{bno}}">
 		</td>
 		<td class=text-center style=vertical-align:middle><strong>{{name}}</strong><br>
 		</td>
@@ -295,10 +295,49 @@ function favorComparison(comparison){
 			<p>희망직종: {{jobgroup1}}({{jobgroup2}})</p>
 		</td>
 	
-	</tr>
-		
+	<td class="text-center" style="vertical-align:middle">
+
+	{{#fn_isIf}}
+		{{days}}
+	{{/fn_isIf}}
+
+	</td>
 	</script> 
 	
+	<script type="text/javascript">
+  
+        Handlebars.registerHelper("fn_isIf", function(option) {
+ 
+            if (this.days == 0) {
+				
+            	if(this.todays.substr(0,1)==0 && this.todays.substr(1,1)!=0){
+					
+            		return this.todays.substr(1,1) +"시간"+ this.todays.substr(2,2) +"분"
+				
+				}if(this.todays.substr(0,2)>=10){
+					
+					return this.todays.substr(0,2) +"시간"+ this.todays.substr(2,2) +"분"
+				
+				}
+				else if(this.todays.substr(0,2)==00 && this.todays.substr(2,2)!=00){
+					
+					return this.todays.substr(2,2) +"분"
+				
+				}
+				else{
+				
+					return "방금전"
+				
+				}
+				
+            } else {
+                return this.days+"일"; // 반대
+            }
+ 
+        });
+
+
+	</script>
 <script>
 $(document).ready(function(){
 	
@@ -318,6 +357,8 @@ $(document).ready(function(){
 	
 	
 })
+
+
 function favAdd(bno, id){   // 관심인재 등록
 			
 	

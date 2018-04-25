@@ -116,7 +116,7 @@
 					}
 				} 
 			}); 		//$.ajax 끝났음
->>>>>>> refs/remotes/origin/cbungi3
+
 			
 			
 			

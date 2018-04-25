@@ -142,9 +142,11 @@ background-color: #777;
 				</c:choose>
 			</div>
 			<div class="col-md-4 text-center"  style="padding-left: 0px; padding-right: 0px; border-left: 1px solid #dde2eb;">
+			<br>
+			<div style="height:104px; align:center; vertical-align:middle">
 				<img src="${CInfoVO.img}" class="img-rounded"
-					id="imgsrc" name="img" value="${CInfoVO.img}"
-					style="width: 200px;"/>
+					id="imgsrc" name="img" value="${CInfoVO.img}" style=" max-width:90%;  max-height:100%; align: center; vertical-align: middle; " />
+			</div>
 			</div>
 		</div>
 		
@@ -643,12 +645,14 @@ $("#t1").html(timeInMs);
 			
 	<br>
 	
-	<font>질문하기</font> <button style="float:right" id="questionCall"><span class="glyphicon glyphicon-pencil">인사담당자에게 질문하기</span></button>
-	<br><br>
-	<div id="human_resources_manager" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
-		
-		
-		<div id="questionBox" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; display:none">
+	
+	<button class="btn btn-primary" id="questionCall" type="button" style="float:right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+<span class="glyphicon glyphicon-pencil">인사담당자에게 질문하기</span>
+</button>
+<br><Br><br>
+<div class="collapse" id="collapseExample">
+
+  <div class="well">
 			
 			<h4 style="border-bottom: 2px solid #dce1eb; padding: 10px 0px 10px 10px">인사담당자에게 질문하기</h4>
 			
@@ -675,49 +679,32 @@ $("#t1").html(timeInMs);
 			</div>
 
 
+		
+      </div>
+</div>
+
+	<br><br>
+	<div id="human_resources_manager" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+		
+		
 		<%
     		pageContext.setAttribute("cid", cid);
 		%>
 
-
-		</div>
+		<c:set var="cid" value="${pageScope.cid}" /> 
 		
 		<div id="qna_div"></div>
 		
-		<c:set var="cid" value="${pageScope.cid}" /> 
 		
-		<c:forEach items="${QnAList}" var="QnAVO">
-		<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
 		
-		<font class="badge" style="width:8%">${QnAVO.qtype}</font> Q. <font class="text-center" style="width:58%" name="txtClick">${QnAVO.qtext}</font> 
-		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="${QnAVO.qbno}">답변</button></c:if> 
-		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
 		
-		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. ${QnAVO.atext}</font>
-		<textarea class="form-control" name="${QnAVO.qbno}" value="${QnAVO.atext}">${QnAVO.atext}</textarea>
-		<button value="${QnAVO.qbno}" name="aTextModifyBtns">등록하기</button>
-		</div>
-		</c:forEach>
 		
 		
 	</div>
 
 
 <script>
-	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
 
-		num = $(this).val();
-		if($("#answerDiv"+num).css("display")=="none"){
-			
-			$("#answerDiv"+num).css("display","block");
-			
-		}else{
-			
-			$("#answerDiv"+num).css("display","none");
-			
-		}
-	
-	})
 	$(document).on("click","button[name='aTextModifyBtns']",function(){ /* 답변 소환 버튼 */		
 		var num = $(this).val();
 		var txt = $("textarea[name="+num+"]").val();
@@ -770,8 +757,10 @@ $("#t1").html(timeInMs);
 		
 		if("<%=pid%>"==""&&"<%=cid%>"==""){
 			alert("로그인해주시길 바랍니다.");
+			$("#collapseExample").prop("id","1212");
 		}else if("<%=pid%>"==""){
 			alert("개인회원으로 로그인해주시길바랍니다.");
+			$("#collapseExample").prop("id","1212");
 		}else{
 			$("#questionBox").css("display","");
 		}
@@ -865,6 +854,8 @@ $("#t1").html(timeInMs);
 			</table>
 		</div>
 	</div>
+
+
 
 <%-- <form role="form" method="post">
 	<input type='hidden' name="bno" value="${RecruitVO.bno}"> 
@@ -1078,16 +1069,15 @@ $(document).ready(function() {
   <script id="template_qnaList" type="text/x-handlebars-template">
 
 	<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
-		
+
 		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%; cursor:pointer;" value="{{qbno}}" name="txtClick">{{qtext}}</font> 
-		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{qbno}}">답변</button></c:if> 
-		<span style="text-align:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>
-		
+		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
+		<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>
 		
 		<font style="font-size:16px; padding-left:9%; display:none" id="Answer{{qbno}}"> A. {{atext}}</font>
 		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
-		<button value="{{qbno}}" name="aTextModifyBtns">등록하기</button>
+		<button name="cancleBtns" value="{{qbno}}">취소</button><button value="{{qbno}}" name="aTextModifyBtns">등록</button>
 		</div>		
 	</div>
 		
@@ -1097,6 +1087,29 @@ $(document).ready(function() {
 </script> 
 
 <script>
+
+	$(document).on("click","button[name='cancleBtns']", function(){
+		
+		var num = $(this).val();
+		$("#aBtn"+num).css("display","")
+		$("#answerDiv"+num).css("display","none");
+		
+	})
+	
+	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
+
+	var num = $(this).val();
+	if($("#answerDiv"+num).css("display")=="none"){
+		
+		$("#answerDiv"+num).css("display","block");
+		$(this).css("display","none");
+	}else{
+		
+		$("#answerDiv"+num).css("display","none");
+		
+	}
+
+	})
 
 	$(document).on("click","font[name='txtClick']",function(){
 		

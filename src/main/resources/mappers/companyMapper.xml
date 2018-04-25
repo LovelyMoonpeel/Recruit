@@ -376,7 +376,7 @@ update tblrecruit set state = #{state} where bno = #{bno};
 
 	<select id="ajaxPersonRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
      select distinct u.pname as name, p.title, c.career as career, m.career as salary, r.rgbname as rgbid, r.rgsname as rgsid, d.career as edu, b.jobgroup as jobgroup1, p.bno
-        , o.jobgroup as jobgroup2
+        , o.jobgroup as jobgroup2 ,  datediff(now(), p.regdate) as days, if(datediff(now(), p.regdate) > 0 , ' ', date_format(timediff(now(), p.regdate),'%H%i')) as todays
         from tblresume p, tblrecruit f, tbluser u, tblcode c, tblcode m, tblregion r, tblregion g , tblcode d, tbljobgroup b, tbljobgroup o
 	where u.id = p.userid and p.jobgroupid = f.jobgroupid and p.rgbid = f.rgbid and f.bno = #{bno} and c.id = p.jobgroupid and m.id = p.salaryid 
     and r.rgbid = p.rgbid and g.rgsid = r.rgsid and p.rgsid = g.rgsid 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
@@ -10,33 +11,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
 
-		<!--   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC"></property> 
-		<property name="username" value="root"></property> <property name="password" 
-		value="apmsetup"></property> </bean> -->
+	<context:property-placeholder location="file:/Users/hyeonghoon/sts-bundle/*.properties" />
 
- 	  <bean id="dataSource"
+
+  	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url"
-			value="jdbc:log4jdbc:mysql://project.c27ep5kj86l5.ap-northeast-2.rds.amazonaws.com:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull">
-		</property>
-		<property name="username" value="master"></property>
-		<property name="password" value="bit102prob"></property>
-	</bean>   
-
-<!--  	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url"
-			value="jdbc:log4jdbc:mysql://project.c27ep5kj86l5.ap-northeast-2.rds.amazonaws.com:3306/project?useSSL=false&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull">
-		</property>
-				<property name="username" value="ahn"></property>
-		<property name="password" value="0000"></property>
-	</bean> -->
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -59,10 +44,10 @@
 	<context:component-scan base-package="com.recruit.service" />
 
   	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="smtp.gmail.com" />
-      <property name="port" value="587" />
-      <property name="username" value="ProJ.B.Team@gmail.com" />
-      <property name="password" value="bit102prob" />
+      <property name="host" value="${email.host}" />
+      <property name="port" value="${email.port}" />
+      <property name="username" value="${email.username}" />
+      <property name="password" value="${email.password}" />
 
 		<!-- email 요청시는 SMTP -->
 		<property name="javaMailProperties">
@@ -75,8 +60,8 @@
 		</property>
 	</bean>
 
-
 </beans>
+
 
 <!--테스트 -->
 
