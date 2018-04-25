@@ -720,7 +720,7 @@ public class CompanyController {
 
 			// 여기
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-			System.out.println("엔티티는" + entity);
+			//System.out.println("엔티티는" + entity);
 		} catch (FileNotFoundException effe) {
 			System.out.println("File Not found Exception");
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);

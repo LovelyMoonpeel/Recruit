@@ -139,4 +139,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		tbluser
 		where id = #{id}
 	</select>
+	
+	<!-- 소연 알림창 jheader에서 쓰는거 -->
+	<select id="countURmessage" resultType="int">
+	<![CDATA[
+		select count(mreadornot)
+		from tblmessage
+		where userid=#{id}
+		and mreadornot=0
+		;
+	]]>
+	</select>
+	
+		<!-- 소연 알림창 jheader에서 쓰는거 -->
+	<select id="readAllmessage" resultType="MessageVO">
+	<![CDATA[
+		select*
+		from tblmessage
+		where userid=#{id}
+		;
+	]]>
+	</select>
+
 </mapper>

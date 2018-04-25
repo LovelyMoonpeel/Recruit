@@ -151,8 +151,6 @@ public class AdminController {
 			String encPassword = passwordEncoder.encode(vo.getPw());
 			vo.setPw(encPassword);
 		}
-		
-		
 		aservice.modify(vo);
 
 		rttr.addAttribute("page", cri.getPage());

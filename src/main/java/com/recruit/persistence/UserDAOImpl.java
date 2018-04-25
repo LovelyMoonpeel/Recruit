@@ -2,6 +2,7 @@ package com.recruit.persistence;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 
 @Repository
@@ -142,5 +144,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public BoardVO getcpw(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".getcpw", dto);
+	}
+	
+	@Override
+	public int countURmessage(String id) throws Exception{
+		return session.selectOne(namespace+".countURmessage", id);
+	}
+	
+	@Override
+	public List<MessageVO> readAllmessage(String id) throws Exception{
+		return session.selectList(namespace+".readAllmessage", id);
 	}
 }

@@ -1,22 +1,40 @@
 package com.recruit.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.recruit.domain.BoardVO;
+import com.recruit.domain.MessageVO;
+import com.recruit.domain.PreferenceVO;
+import com.recruit.service.UserService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-
+	
+	@Inject
+	private UserService service;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	/**
@@ -51,5 +69,59 @@ public class HomeController {
 	public void in1dexTest(Locale locale, Model model) throws Exception {
 		
 	}
+
+	// 알림창 카운트 소연
+	@ResponseBody
+	@RequestMapping(value = "/message_count", method = RequestMethod.POST)
+	public ResponseEntity<String> message_count(HttpSession session) throws Exception {
+	//public ResponseEntity<String> recomModify(@RequestBody String id) throws Exception {
+		System.out.println("ㅗ message count POST Controller");
+		
+		ResponseEntity<String> entity = null;
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			try{			
+				String countURmessage = ""+service.countURmessage(id);
+				//UserService UserDAO//userMapper//알림 카운트하는 서비스//소연
+				entity = new ResponseEntity<String>(countURmessage, HttpStatus.OK);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		} else {
+			entity = new ResponseEntity<String>("", HttpStatus.OK);
+		}
+		return entity;
+	}
 	
+	// 알림창 소연
+	@ResponseBody
+	@RequestMapping(value = "/message_read", method = RequestMethod.POST)
+	public List<MessageVO> message_read(HttpSession session) throws Exception {
+		System.out.println("ㅗ message read POST Controller");
+		
+		List<MessageVO> entity = null;
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			try{			
+				System.out.println("메시지");
+				
+				entity = service.readAllmessage(id);
+				System.out.println("message_read"+entity);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		} else {
+			entity = new ArrayList<MessageVO>(1);
+			entity.add(null);
+		}
+		return entity;
+	}
 }

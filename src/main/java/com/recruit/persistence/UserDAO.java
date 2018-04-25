@@ -1,8 +1,10 @@
 package com.recruit.persistence;
 
 import java.util.Date;
+import java.util.List;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 
 public interface UserDAO {
@@ -44,4 +46,8 @@ public interface UserDAO {
 	public BoardVO getppw(LoginDTO dto) throws Exception;
 	
 	public BoardVO getcpw(LoginDTO dto) throws Exception;
+	
+	public int countURmessage(String id)throws Exception;//소연
+	
+	public List<MessageVO> readAllmessage(String id) throws Exception;//소연
 }

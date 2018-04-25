@@ -186,28 +186,30 @@ $(document).ready(function(){
 		var apply_pid = $("#apply_pid").val();
 		
 	    $(this).on("click", function(){
-	    	
-			$.ajax({
-			    type:'post',
-			    url:'/personal/apply_cancel',
-			    headers:{
-			       "Content-Type":"application/json",
-			       "X-HTTP-Method-Override" : "POST"
-			    },
-			    dataType:'text',
-			    data:JSON.stringify({
-			       rcno : apply_bno,
-			       pid : apply_pid 
-			    }),
-			    success:function(result){
-			       if(result=='deleted'){
-			          alert("지원취소 되었습니다.");
-			      		self.location="/personal/applied_all";
-			       }else{
-			          alert("뭔가 잘못됨 else문으로 들어옴");
-			       }
-			    }//success end
-			 });//ajax end
+			
+	    	if(confirm("정말 지원을 취소하시겠습니까?")){
+	    		$.ajax({
+				    type:'post',
+				    url:'/personal/apply_cancel',
+				    headers:{
+				       "Content-Type":"application/json",
+				       "X-HTTP-Method-Override" : "POST"
+				    },
+				    dataType:'text',
+				    data:JSON.stringify({
+				       rcno : apply_bno,
+				       pid : apply_pid 
+				    }),
+				    success:function(result){
+				       if(result=='deleted'){
+				          alert("지원취소 되었습니다.");
+				      		self.location="/personal/applied_all";
+				       }else{
+				          alert("뭔가 잘못됨 else문으로 들어옴");
+				       }
+				    }//success end
+				 });//ajax end
+	    	}//if end
 	    });//on click end
 	});//apply_cancel.each end
 });

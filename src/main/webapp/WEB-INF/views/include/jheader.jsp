@@ -98,7 +98,7 @@
 						 <li class="dropdown">
 							<a href="#">
 								<span style="cursor:pointer; font-size:20px;" class="glyphicon glyphicon-bell dropdown-toggle" data-toggle="dropdown"></span>
-								<span class="badge badge-danger">1</span>
+								<span id="message_notice" class="badge badge-danger">1</span>
 							</a>
 							 <ul class="dropdown-menu">
 						      <li><a href="#">HTML</a></li>
@@ -117,7 +117,60 @@
 	</nav>
 
 	<!-- 인재찾기 접근 가능 스크립트 -->
-	<script>
+<script>
+$(document).ready(function(){
+	var id = '<%=id%>';
+	
+	$.ajax({
+		type:'POST',
+		url:'/message_count',
+		headers:{
+			"Content-Type":"application/json; charset=UTF-8",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType:'text',
+	/* 	data:JSON.stringify({
+		
+		}), */
+		success:function(result){
+			if(result!=''){
+				$("#message_notice").text(result);		
+				console.log(result);
+				console.log("성공함");
+			}else{
+				console.log("실패함");
+			}
+		}//success end
+	});//ajax end
+});
+
+$("#message_notice").on("click", function(){
+	var id = '<%=id%>';
+	
+	$.ajax({
+		type:'POST',
+		url:'/message_read',
+		headers:{
+			"Content-Type":"application/json; charset=UTF-8",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType:'text',
+	/* 	data:JSON.stringify({
+		
+		}), */
+		success:function(result){
+			if(result!=''){
+				console.log(result);
+				console.log("성공함");
+			}else{
+				console.log(result);
+				console.log("실패함");
+			}
+		}//success end
+	});//ajax end
+	
+});
+	
 $("#p_search").on("click",function(){
 	var c_chk = "<%=c_chk%>";
 	

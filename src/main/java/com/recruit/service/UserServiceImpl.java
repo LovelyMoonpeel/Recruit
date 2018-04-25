@@ -1,6 +1,7 @@
 package com.recruit.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.UserDAO;
 import com.recruit.util.MailHandler;
@@ -231,5 +233,15 @@ public class UserServiceImpl implements UserService{
 		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
 		sendMail.setTo(dto.getEmail());
 		sendMail.send();
+	}
+	
+	@Override//소연
+	public int countURmessage(String id)throws Exception{
+		return dao.countURmessage(id);
+	}
+
+	@Override
+	public List<MessageVO> readAllmessage(String id) throws Exception{
+		return dao.readAllmessage(id);
 	}
 }

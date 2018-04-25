@@ -111,6 +111,7 @@ public class PersonalController {
 	@Inject
 	private PreferenceService PREFService;
 	
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {

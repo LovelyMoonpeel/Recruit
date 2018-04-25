@@ -1,8 +1,10 @@
 package com.recruit.service;
 
 import java.util.Date;
+import java.util.List;
 
 import com.recruit.domain.BoardVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 
 public interface UserService {
@@ -43,4 +45,9 @@ public interface UserService {
 	public void pRead(LoginDTO dto) throws Exception;
 	
 	public void cRead(LoginDTO dto) throws Exception;
+	
+	public int countURmessage(String id)throws Exception;//소연
+	
+	public List<MessageVO> readAllmessage(String id) throws Exception;//소연
+
 }

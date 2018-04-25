@@ -243,7 +243,7 @@ public class SearchServiceImpl implements SearchService {
 			lastRecruit.setTitle("lastRecruit");
 			recruitVOList1.add(lastRecruit);
 			while (recruitVOList.size() > pageSize * pageNum + i) {
-				System.out.println("::" + recruitVOList.size() + "::" + (pageSize * pageNum + i));
+				//System.out.println("::" + recruitVOList.size() + "::" + (pageSize * pageNum + i));
 				recruitVOList1.add(recruitVOList.get(pageSize * pageNum + i++));
 			}
 		}
@@ -264,7 +264,7 @@ public class SearchServiceImpl implements SearchService {
 			lastResume.setTitle("lastResume");
 			resumeVOList1.add(lastResume);
 			while (resumeVOList.size() > pageSize * pageNum + i) {
-				System.out.println("::" + resumeVOList.size() + "::" + (pageSize * pageNum + i));
+				//System.out.println("::" + resumeVOList.size() + "::" + (pageSize * pageNum + i));
 				resumeVOList1.add(resumeVOList.get(pageSize * pageNum + i++));
 			}
 		}
