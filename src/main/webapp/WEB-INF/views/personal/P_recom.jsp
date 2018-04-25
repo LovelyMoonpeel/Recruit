@@ -4,19 +4,15 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/pheader.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <link href="/resources/personal/css/bootstrap-slider.css" rel="stylesheet">
-
 <script src="/resources/personal/js/bootstrap-slider.js"></script>
 
-<style>
+ <style>
 .material-icons:hover {
    color: #56c0e0;
 }
@@ -46,8 +42,6 @@
 	background:rgba(34,34,34,0.8); 
  }
 
-
- 
 </style>
 <!-- Main content -->
 <form role="form">
@@ -472,64 +466,16 @@ $(document).ready(function (){
 		</ul>
 
 		<div class="col-md-1">
-			<div class="progress">
-				<i id="icon_job" class="material-icons" style="cursor: pointer;"
-					onclick="add_job();">business</i>
-			</div>
-			<div class="progress">
-				<i id="icon_region" class="material-icons" style="cursor: pointer;"
-					onclick="add_region();">location_on</i>
-			</div>
-			<div class="progress">
-				<i id="icon_employstatus" class="material-icons"
-					style="cursor: pointer;" onclick="add_employstatus();">people</i>
-			</div>
-			<div class="progress">
-				<i id="icon_levelofeducation" class="material-icons"
-					style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
-			</div>
-			<div class="progress">
-				<i id="icon_lastcareer" class="material-icons"
-					style="cursor: pointer;" onclick="add_lastcareer();">work</i>
-			</div>
-		</div>
-
-		<div class="col-md-11">
-			<div class="progress">
-				<div id="bar_job" class="progress-bar progress-bar-success"
-					role="progressbar" aria-valuenow="20" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_job}%; background-color: #c0c6d3;">직무
-					${PreferenceVO.pref_job}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_region" class="progress-bar"
-					role="progressbar" aria-valuenow="30" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_region}%; background-color: #c0c6d3;">지역
-					${PreferenceVO.pref_region}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_employstatus" class="progress-bar progress-bar-warning"
-					role="progressbar" aria-valuenow="40" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_employstatus}%; background-color: #c0c6d3;">근무형태
-					${PreferenceVO.pref_employstatus}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_levelofeducation" class="progress-bar"
-					role="progressbar" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_levelofeducation}%; background-color: #c0c6d3;">학력
-					${PreferenceVO.pref_levelofeducation}%</div>
-			</div>
-			<div class="progress">
-				<div id="bar_lastcareer" class="progress-bar"
-					role="progressbar" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"
-					style="width: ${PreferenceVO.pref_lastcareer}%; background-color: #c0c6d3;">경력
-					${PreferenceVO.pref_lastcareer}%</div>
-			</div>
+			<i id="icon_job" class="material-icons" style="cursor: pointer;"
+				onclick="add_job();">business</i>
+			<i id="icon_region" class="material-icons" style="cursor: pointer;"
+				onclick="add_region();">location_on</i>
+			<i id="icon_employstatus" class="material-icons"
+				style="cursor: pointer;" onclick="add_employstatus();">people</i>
+			<i id="icon_levelofeducation" class="material-icons"
+				style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+			<i id="icon_lastcareer" class="material-icons"
+				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
 		</div>
 	</div><!-- container end -->
 	

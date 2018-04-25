@@ -102,7 +102,7 @@ $(document).ready(function(){
 				
 				  checkRow = checkRow + $(this).val()+"," ;
 			});
-			checkRow = checkRow.substring(0,checkRow.lastIndexOf( ","));
+			checkRow = checkRow.substring(0,checkRow.lastIndexOf(","));
 		}
 		
 		if(checkRow == ''){
