@@ -981,7 +981,7 @@ $(document).ready(function() {
     	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
     </script>
     
-    <script>
+   <script>
     
     var rbno = <c:out value="${RecruitVO.bno}"/>
     
@@ -1027,8 +1027,7 @@ $(document).ready(function() {
     }
     
     </script>
-  
-   <script>
+ <script>
   
    var rbno = <c:out value="${RecruitVO.bno}"/>
    
@@ -1080,13 +1079,13 @@ $(document).ready(function() {
 
 	<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
 		
-		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%" name="txtClick">{{qtext}}</font> 
+		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%; cursor:pointer;" value="{{qbno}}" name="txtClick">{{qtext}}</font> 
 		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{qbno}}">답변</button></c:if> 
-		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
+		<span style="text-align:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>
 		
 		
-		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. {{atext}}</font>
-		<div id="answerDiv{{qbno}}" style="display:none">
+		<font style="font-size:16px; padding-left:9%; display:none" id="Answer{{qbno}}"> A. {{atext}}</font>
+		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
 		<button value="{{qbno}}" name="aTextModifyBtns">등록하기</button>
 		</div>		
@@ -1095,7 +1094,32 @@ $(document).ready(function() {
 	
 
 
-</script>  
+</script> 
+
+<script>
+
+	$(document).on("click","font[name='txtClick']",function(){
+		
+		var num = $(this).attr("value");
+		if($("#Answer"+num).css("display")=="none"){
+		$("#Answer"+num).css("display","block")
+		}else{
+		$("#Answer"+num).css("display","none")
+		}
+	})
+
+	$(document).on("click","span[name='spanClick']",function(){
+	
+		var num = $(this).attr("value");
+		if($("#Answer"+num).css("display")=="none"){
+		$("#Answer"+num).css("display","block")
+		}else{
+		$("#Answer"+num).css("display","none")
+		}
+	
+	})
+
+</script>
 <!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>

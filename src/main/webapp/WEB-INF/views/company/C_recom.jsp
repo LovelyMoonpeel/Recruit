@@ -6,6 +6,7 @@
 
 <%@include file="../include/cheader.jsp"%>
 
+
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -15,6 +16,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 	
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+	
 <!-- Main content -->
 <!-- 기업 페이지 -->
 <!-- <div class="col-md-9"> -->
@@ -126,7 +130,7 @@
           <th>번호</th>
           <th>이름</th>
           <th>이력서 요약</th>
-          <th>업데이트일</th>
+          <!-- <th>업데이트일</th> -->
           </tr>
           <tbody id="recomList">
           
@@ -204,15 +208,31 @@ function PersonList(bno){
 		$(data).each(
 				function() {
 					
-					str += "<tr><td><img src=/resources/rpjt/img/non.png id=r1 value="+this.bno+"></td><td>"+this.name+" * * </td><td><span class=careerLine>경력 3년 5개월</span>"
-					+"<a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
-					+ ""+this.title+"</a><br>"+this.schoolname+""+this.major+"<br>"+this.rgbid+""+this.salary+"</td><td></td></tr>";		
+					var item ={
+						
+						bno : this.bno,
+						name : this.name,
+						title : this.title,
+						career : this.career,
+						edu : this.edu,
+						rgbid : this.rgbid,
+						rgsid : this.rgsid,
+						salary : this.salary,
+						jobgroup1 : this.jobgroup1,
+						jobgroup2 : this.jobgroup2
+												
+					};
+					
+					console.log(item)
+					
+					
+					CreateRecomList(item);
+					
 					
 					comparison.push(this.bno)
 					
 				});
 		
-		$("#recomList").html(str);
 		
 	
 		favorComparison(comparison)
@@ -222,6 +242,18 @@ function PersonList(bno){
 	
 	
 }
+
+function CreateRecomList(item){
+	
+	var source_tel = $("#template_appList").html();
+	var template = Handlebars.compile(source_tel);
+	$("#recomList").append(template(item));
+	
+}
+
+
+
+
 function favorComparison(comparison){
 	
 	var compare = document.getElementsByName('CompareList');
@@ -247,6 +279,26 @@ function favorComparison(comparison){
 }
 </script>
 
+ <script id="template_appList" type="text/x-handlebars-template">
+
+	<tr>
+		<td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="{{bno}}">
+		</td>
+		<td class=text-center style=vertical-align:middle><strong>{{name}}</strong><br>
+		</td>
+		
+		<td><span class=careerLine>{{career}}</span>
+			<a id=btt class="{{bno}}" href=/personal/detail_nonavi?bno={{bno}}>{{title}}</a>
+			<p>학력: {{edu}}</p>
+			<p>희망 근무지 : {{rgbid}}({{rgsid}})</p>
+			<p>희망연봉: {{salary}}</p>
+			<p>희망직종: {{jobgroup1}}({{jobgroup2}})</p>
+		</td>
+	
+	</tr>
+		
+	</script> 
+	
 <script>
 $(document).ready(function(){
 	
@@ -322,7 +374,7 @@ $(document).ready(
 		})
 </script>
 
-<script>
+			<script>
 			 $("#keywordInput").keypress(function (e) {
 			        if (e.which == 13){
 			        	
@@ -341,6 +393,8 @@ $(document).ready(
 			})
 			
 			</script>
+
+
 
 
 <!-- //기업 페이지 -->

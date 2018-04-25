@@ -10,8 +10,8 @@ public class PrivateKey{
 	PrivateKey(){
 		try{
 			
-			String aa = readFile("c:\\zzz\\PrivateKey.txt");
-			//String aa = readFile("/Users/hyeonghoon/sts-bundle/PrivateKey.txt");
+			//String aa = readFile("c:\\zzz\\PrivateKey.txt");
+			String aa = readFile("/Users/hyeonghoon/sts-bundle/PrivateKey.txt");
 			
 			accessKey = aa.substring(0, 20);
 			secretKey = aa.substring(21);

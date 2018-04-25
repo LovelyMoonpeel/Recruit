@@ -375,13 +375,12 @@ update tblrecruit set state = #{state} where bno = #{bno};
 	</select> 
 
 	<select id="ajaxPersonRecomList" resultType="com.recruit.domain.CPersonInfoVO"> <!-- 추천인재 리스트 -->
-	select distinct p.bno as bno, u.pname , p.title as title,  r.rgbname as rgbid, n.career as salary
-	
-	from tblresume p, tblrecruit c, tbljobgroup j, tblregion r, tblcode m, tblcode n, tbluser u
-	
-	where p.jobgroupid = c.jobgroupid and p.rgbid = c.rgbid and p.rgsid = c.rgsid and p.employstatusid = c.employstatusid
-	and p.jobstateid = 1 and p.salaryid = c.salaryid and j.id = c.jobgroupid and  r.rgbid = c.rgbid and c.employstatusid = m.id 
-	and c.salaryid = n.id and p.userid = u.id and c.bno = #{bno};
+     select distinct u.pname as name, p.title, c.career as career, m.career as salary, r.rgbname as rgbid, r.rgsname as rgsid, d.career as edu, b.jobgroup as jobgroup1, p.bno
+        , o.jobgroup as jobgroup2
+        from tblresume p, tblrecruit f, tbluser u, tblcode c, tblcode m, tblregion r, tblregion g , tblcode d, tbljobgroup b, tbljobgroup o
+	where u.id = p.userid and p.jobgroupid = f.jobgroupid and p.rgbid = f.rgbid and f.bno = #{bno} and c.id = p.jobgroupid and m.id = p.salaryid 
+    and r.rgbid = p.rgbid and g.rgsid = r.rgsid and p.rgsid = g.rgsid 
+    and d.id = p.levelofeducation and b.id = p.jobgroupid and o.id = p.jobgroupid2;
 	</select> <!-- 추천인재 리스트(조건이 완전 일치하는 인재만 뜨게끔 돼있음) -->
 
 	<insert id="ajaxFavorPersonAdd" parameterType="hashMap">

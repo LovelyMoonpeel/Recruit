@@ -113,7 +113,7 @@ public class CompanyAjax {
 		
 		try {
 			entity = new ResponseEntity<>(service.PersonRecomList(bno), HttpStatus.OK);
-			
+			System.out.println("추천인재는 =" +entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
