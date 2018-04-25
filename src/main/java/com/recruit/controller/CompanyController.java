@@ -656,7 +656,7 @@ public class CompanyController {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		HttpURLConnection uCon = null;
-		System.out.println("FILE NAME: " + fileName);
+		//System.out.println("FILE NAME: " + fileName);
 
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);

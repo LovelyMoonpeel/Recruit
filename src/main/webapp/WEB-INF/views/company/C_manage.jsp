@@ -6,7 +6,7 @@
 
 <!-- 문> 반응형 카드를 위한 아래 두 줄  -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
@@ -29,12 +29,12 @@
 	
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
 		
-		<div class="container-fluid">
+		
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 			
 				<ul class="nav navbar-nav">
-					<li id="btnsState" name="SearchReset" class="active"><a id="btns" style="cursor:pointer">전체</a></li>
+					<li id="btnsState" name="SearchReset" class="active text-center"><a id="btns" style="cursor:pointer; width:80px">전체</a></li>
 				</ul>
 			</div>
 			
@@ -42,15 +42,15 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					
-					<li id="btnsState"><a id="btns" style="cursor:pointer">진행중</a></li>
-					<li id="btnsState"><a id="btns" style="cursor:pointer">마감</a></li>
+					<li id="btnsState"><a id="btns" style="cursor:pointer;">진행중</a></li>
+					<li id="btnsState"><a id="btns" style="cursor:pointer;">마감</a></li>
 				
 				</ul>
-				
+			
 				
 			<div class="input-group" >
-				<div class="input-group-btn" style="vertical-align:middle">
-					<select class="selectpicker" name="searchType" style="width:50px;">
+				<div class="input-group-btn" style="vertical-align:middle;"  >
+					<select class="selectpicker" name="searchType" data-width="100px">
 							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
 							<%-- <option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option> --%>
 					</select>
@@ -60,20 +60,26 @@
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
 						</span>
-					<ul class="nav navbar-nav navbar-right" style="vertical-align:middle">
-						<select class="selectpicker" id="perPageNum" style="width: 120px">
+						
+						<select class="selectpicker" id="perPageNum" data-width="60px">
 							<option value="5" selected>5개씩보기</option>
 							<option value="10">10개씩보기</option>
 							<option value="20">20개씩보기</option>
 						</select>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
+					
 			</div>
+				<!-- /.navbar-collapse -->
+				
+					
+			</div>
+			
+			
+						
+					
 		
 			<!-- /.container-fluid -->
 	</nav>
-	<nav class="navbar-default" style="margin-bottom: 15px;">
+	<nav class="nav navbar-nav navbar-right" style="margin-bottom: 15px; padding-right: 30px; !important; ">
 		<div class="container-fluid" style="padding-bottom: 1px; padding-top: 1px;">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<small id="viewOrder" style="cursor:pointer">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder" style="cursor:pointer">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder" style="cursor:pointer">마감일순</small><span name="orders" id="endIcon" class=""></span>
@@ -142,10 +148,10 @@
 				<ul style="list-style-type: circle">
 					<li>진행중 공고의 게재 기간은 <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br>
 					<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li>
-						<br>
-					<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li>
-						<br>
-					<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
+						
+					<li>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</li>
+						
+					
 				</ul>
 			</td>
 		</tr>
@@ -177,7 +183,7 @@
           <h4 class="modal-title">지원자 리스트</h4>
         </div>
         <div class="modal-body">
-      
+      	<input type="text" value="">
     
       <div class="collapse navbar-collapse">
 				
@@ -213,13 +219,13 @@
          	 <thead class=active>
          
 		<tr class=active>
-			<th class="text-center" style="width:5%"></th>
+			<th class="text-center" style="width:5%"><input type="text" id="s_rcnoval" value=""></th>
         	<th class="text-center" style="width:15%">이름</th>
       		<th class="text-center" style="width:65%">이력서 요약</th>
        		
 		</tr>
           
-          </thead>
+          </thead>	
           
           <tbody id="appList">
           
@@ -618,19 +624,20 @@ var formObj = $("form[role='form']");
 							i++;
 							
 							if(i < length){
-								str += "<tr><th rowspan=2 ><span class=badge>"+this.recruitstate+"</span></th>"
+								str += "<tr><th rowspan=2 ><br><br><br><span class name=stateid>"+this.recruitstate+"</span></th>"
 								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
 										+"<li>근무형태 : "+this.employstatusid+"</li>"
 										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
 										+"<li>경력 : "+this.exp+"</li>"
 										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-										+"<th><button class=center-block clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><br><span id=spid></span><button type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
+										+"<th><br><button class=center-block clearfix type=button style=width:100% id=modify value="+this.bno+">"+this.btnstate+"</button><button style=width:100% type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
 										if(this.btnstate=="수정"){
-											str += "<br><button id=endRecruit value="+this.bno+">모집완료하기</button>"
-												+"<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
+											str += "<br><button id=endRecruit value="+this.bno+" style=width:100%>모집완료하기</button>"
+												+"<th>지원자수 : "+this.applynum+
+												"<button name=onLoad id="+this.bno+" style=width:100% heigth:80px value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
 												+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
 										}else{
-											str += "<th><li>지원자수 : "+this.applynum+"</li><button name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
+											str += "<th>지원자수 : "+this.applynum+"<button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기</button></th><th>"+this.viewcnt+"</th></tr>"
 											+"<tr><th colspan=4 class=text-center>최근수정 : "+this.regdate+" (담당자:"+this.pname+")</th></tr>"	
 										}
 										
@@ -660,15 +667,38 @@ var formObj = $("form[role='form']");
 						
 						 $("#noStrs").html(noStr); 
 						 
+				 
 						 $("#noStrs").addClass("text-center");
 						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
 					/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
 						 $("#listPage").html(chr); 
 							
 						 $("li[name="+pN+"]").addClass("active");
+						 
+						
+						 
+					     var spanLen = $("span[name='stateid']").length;
+						 
+					  
+						 for(var i= 0; i<spanLen; i++){
+							 
+							 
+							 
+							 if($("span[name='stateid']").eq(i).html() == "모집중"){
+								$("span[name='stateid']").eq(i).addClass("badge");
+								$("span[name='stateid']").eq(i).css("background-color","#3AA0D9");
+								$("span[name='stateid']").eq(i).addClass("center-block clearfix");
+								
+							 }else{
+								$("span[name='stateid']").eq(i).addClass("badge");
+								$("span[name='stateid']").eq(i).addClass("center-block clearfix");
+							 }
+						 }
+						 
+						 
 					}	
 					      
-					     
+					      
 			 
 			 }); 
 			  
@@ -751,6 +781,9 @@ $(document).on("click", "button[name=onLoad]", function() {
 	 $("#pKeywordInput").prop("value","");
 	 
 	 PersonList(bno, pN);
+	 
+	 //소연
+	 $("#s_rcnoval").val(bno);
 	
 })
 
@@ -795,7 +828,7 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 		 	if(i < length){
 				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
-				+ "<td><span class=careerLine>"+this.career+"</span><a id=btt class=C_readAPR href=/personal/detail_nonavi?bno="+this.bno+">"
+				+ "<td><span class=careerLine>"+this.career+"</span><a id=btt class="+this.bno+" href=/personal/detail_nonavi?bno="+this.bno+">"
 				+ ""+this.title+"</a>"
 				+ "<p>"+"학력: "+this.edu+"</p>"
 				+ "<p>"+"희망 근무지 : "+this.rgbid+"("+this.rgsid+")</p>"
@@ -857,13 +890,42 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 
 $(document).on("click","#btt",function(){ /* 이력서 새창에 보기위해 지정하는 스크립트 */
 	
-		window.open(this.href, '', 'width=800, height=1000'); 
+	//소연	
+	var rsno = $(this).attr("class");
+	var rcno = $("#s_rcnoval").val();
+	C_readAPR(rsno, rcno);
+	
+	window.open(this.href, '', 'width=1000, height=960'); 
+	return false;
 		
-		return false;
-		
-})
+});
 
-
+function C_readAPR(rsno, rcno){
+	
+	alert(rsno);
+	alert(rcno);
+	$.ajax({
+		type:'post',
+		url:'/companyAjax/C_readAPR',
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType:'text',
+		data:JSON.stringify({
+			rsno : rsno,//이거 바꾸고 ajax 생성
+			rcno : rcno
+		}),
+		success:function(result){
+			console.log("result가 뭐냐?"+result);
+			if(result=='SUCCESS'){
+				console.log("지원자의 이력서를 이미 열람했거나 방금 열람했다.");
+			}else{
+				console.log("result가 뭔가 이상함");
+			}
+		}//success end
+ });//ajax end 
+}
 	
 	
 	

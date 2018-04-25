@@ -138,6 +138,7 @@
 		if($("a[class='list-group-item']").eq(i).attr("id").indexOf(thisfilefullname1)!= -1){
 			
 			console.log("1");
+			
 			$("a[class='list-group-item']").eq(i).css("background-color","#5bc0de;");
 			$("a[class='list-group-item']").eq(i).css("color","white");
 			$("a[class='list-group-item']").eq(i).addClass("list-active");

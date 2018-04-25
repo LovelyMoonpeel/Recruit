@@ -27,7 +27,7 @@ public class PApplyServiceImpl implements PApplyService {
 	}
 	
 	public void CreadAPOne(PApplyVO pavo)throws Exception{
-		dao.readornotAPOne(pavo);
+		dao.CreadAPOne(pavo);
 	}
 	
 	public void deleteAPOne(PApplyVO pavo)throws Exception{

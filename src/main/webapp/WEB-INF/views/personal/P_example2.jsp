@@ -190,7 +190,7 @@
 				<div class="input-group">
 					<div class="input-group-btn" style="vertical-align:middle;">
 					
-			
+
 						<select class="selectpicker" name="pSearchType">
 							<option value="n"
 							<c:out value="${cri.pSearchType eq 'n'?'selected':''}"/>>
@@ -219,7 +219,7 @@
          	 <thead class=active>
          
 		<tr class=active>
-			<th class="text-center" style="width:5%"><input type="text" id="s_rcnoval" value=""></th>
+			<th class="text-center" style="width:5%"></th>
         	<th class="text-center" style="width:15%">이름</th>
       		<th class="text-center" style="width:65%">이력서 요약</th>
        		

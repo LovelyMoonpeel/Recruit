@@ -265,11 +265,11 @@ public class CompanyAjax {
 			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
 		
-		System.out.println("page는"+page);
+		/*System.out.println("page는"+page);
 		System.out.println("state는"+state);
 		System.out.println("searchType는"+searchType);
 		System.out.println("keyword는"+keyword);
-			
+			*/
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
 		Map<String, Object> result = new HashMap<String,Object>();
@@ -278,8 +278,8 @@ public class CompanyAjax {
 			String id = login.getId();
 			
 			try {
-				System.out.println("cri는 = "+cri);
-				System.out.println("cri.toString은 = "+cri.toString());
+				//System.out.println("cri는 = "+cri);
+				//System.out.println("cri.toString은 = "+cri.toString());
 //				List<RecruitVO> a = service.RecruitCriteria(cri);
 				List<RecruitVO> a = service.RecruitCriteria(cri,id);
 				List<Object> b = new ArrayList<Object>();
@@ -295,14 +295,14 @@ public class CompanyAjax {
 			
 			
 				if(cri.getState().equals("전체")){
-					System.out.println("전체들어옴");
+					//System.out.println("전체들어옴");
 					pageMaker.setTotalCount(service.recruitCriteriaCount(cri, id));	
 				}else if(cri.getState().equals("진행중")){
 					pageMaker.setTotalCount(service.ajaxIngRecruitListCount(cri, id));
 				}else{
 					pageMaker.setTotalCount(service.ajaxEndRecruitListCount(cri, id));
 				}
-				System.out.println(pageMaker);
+				//System.out.println(pageMaker);
 				b.add(pageMaker);
 				
 				
@@ -311,13 +311,13 @@ public class CompanyAjax {
 		
 //				model.addAttribute("pageMaker",pageMaker);
 //				
-				System.out.println("출력됨 : "+entity.toString());
+			//	System.out.println("출력됨 : "+entity.toString());
 				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				System.out.println("출력안됨 : "+entity.toString());
+				//System.out.println("출력안됨 : "+entity.toString());
 			}
 			
 		}
@@ -474,15 +474,43 @@ public class CompanyAjax {
 		return entity;
 	}
 	
+	@RequestMapping(value = "/C_readAPR", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> C_readAPRPOST(@RequestBody PApplyVO pavo) throws Exception {
+		System.out.println("C_readAPRPOST POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+		String rsno = pavo.getRsno();
+		String rcno = pavo.getRcno();
+		System.out.println("pavo"+pavo);
+		try{
+			String result = papService.readornotAPOne(pavo);
+			System.out.println("읽었냐 말았냐?"+result);
+			if(result.equals("읽지않음")){//읽은 적이 없을 때
+				System.out.println("읽지않음 if문으로 들어옴");
+				papService.CreadAPOne(pavo);//읽음으로 바뀌는 서비스
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}else if(result.equals("읽음")){//읽은 적이 있을 때
+				System.out.println("이미읽음 if문으로 들어옴");
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}else{
+				System.out.println("어느 if문에도 들어가지 못함");
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
+		return entity;
+	}
+	
 	@RequestMapping(value = "/applyList/{pArray}", method = RequestMethod.GET)
 	public Object appList(@PathVariable("pArray") List<String> pArray, CompanySearchCriteria cri){
 	
 		ResponseEntity<List<Object>> entity = null;
 	
 		
-		System.out.println(pArray);
-		
-		
+	//	System.out.println(pArray);
 		
 		
 		if(pArray.size()==2){

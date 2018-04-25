@@ -72,7 +72,7 @@ public class S3Util {
 
 	// 파일 URL
 	public String getFileURL(String bucketName, String fileName) {
-		System.out.println("넘어오는 파일명 : "+fileName);
+		//System.out.println("넘어오는 파일명 : "+fileName);
 		String imgName = (fileName).replace(File.separatorChar, '/');
 		return conn.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, imgName)).toString();
 	}
