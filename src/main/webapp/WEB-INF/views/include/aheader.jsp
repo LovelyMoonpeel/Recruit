@@ -101,7 +101,7 @@
 	<!-- Page Content -->
 <div class="container-fluid">
 	<div class="row">
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<div id="sidebar-collapse" class="col-md-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">관리자페이지</div>
@@ -122,7 +122,10 @@
 			<a href="/admin/chart" class="hover" name='sideBtns' id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
 		</li>
 		<li>
-			<a href="/admin/amodify" class="hover" name='sideBtns' id="amodify"><span class="glyphicon glyphicon-wrench"></span> 관리자정보수정</a>
+			<a href="/admin/notice" class="hover" name='sideBtns' id="notice noticereg noticeread noticemod"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
+		</li>
+		<li>
+			<a href="/admin/usage" class="hover" name='sideBtns' id="usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
 		</li>
 		<li>
 			<a href="/admin/faq" class="hover" name='sideBtns' id="faq faqmod faqreg"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>

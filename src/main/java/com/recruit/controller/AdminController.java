@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,10 +33,9 @@ import com.recruit.domain.AdminPageMaker;
 import com.recruit.domain.AdminSearchCriteria;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
-import com.recruit.domain.CsfaqVO;
+import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
-import com.recruit.domain.CsqnaReplyVO;
 import com.recruit.domain.CsqnaVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
@@ -50,7 +49,7 @@ import com.recruit.service.AdCompanyService;
 import com.recruit.service.AdminService;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
-import com.recruit.service.CsfaqService;
+import com.recruit.service.CsService;
 import com.recruit.service.CsqnaService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
@@ -77,7 +76,7 @@ public class AdminController {
 	private ResumeService rservice;
 
 	@Inject
-	private CsfaqService fservice;
+	private CsService fservice;
 
 	@Inject
 	private CsqnaService qservice;
@@ -217,7 +216,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_faqreg", method = RequestMethod.POST)
-	public String faqRegisterPOST(CsfaqVO vo, RedirectAttributes rttr) throws Exception {
+	public String faqRegisterPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Register..........");
 		logger.info(vo.toString());
 
@@ -240,13 +239,13 @@ public class AdminController {
 	@RequestMapping(value = "/faqmod", method = RequestMethod.GET)
 	public String faqModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("faq Modify Get..........");
-		model.addAttribute("CsfaqVO", fservice.read(bno));
+		model.addAttribute("CsVO", fservice.read(bno));
 		
 		return "/admin/A_faqmod";
 	}
 
 	@RequestMapping(value = "/A_faqmod", method = RequestMethod.POST)
-	public String faqModifyPOST(CsfaqVO vo, RedirectAttributes rttr) throws Exception {
+	public String faqModifyPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Modify Post..........");
 		logger.info(vo.toString());
 
@@ -617,13 +616,20 @@ public class AdminController {
 	
 	@RequestMapping(value = "/chart", method = RequestMethod.GET)
 	public String chartGET(Model model) throws Exception{
-		model.addAttribute("P_member",aservice.pcount());
-		model.addAttribute("C_member", aservice.ccount());
+		model.addAttribute("P_member",aservice.pcount());	//전체 가입한 개인회원 수
+		model.addAttribute("C_member", aservice.ccount());	//전체 가입한 기업회원 수
+		model.addAttribute("weekPcount", aservice.weekPcount());	//주간 가입한 개인회원 수
+		model.addAttribute("weekCcount", aservice.weekCcount());	//주간 가입한 기업회원 수
+		model.addAttribute("weekResumeCount", aservice.weekResumeCount());	//주간 이력서 등록 수 
+		model.addAttribute("weekRecruitCount", aservice.weekRecruitCount());//주간 채용공고 등록 수
 		model.addAttribute("weekRecruit", aservice.count_recruit());
 		model.addAttribute("weekJobgroup",aservice.jobgroup_recruit());
-		model.addAttribute("weekJobgroup2", aservice.jobgroup2_recruit());
+		model.addAttribute("weekRgb", aservice.rgb_recruit());
 		model.addAttribute("weekPerson", aservice.weekPerson());
 		model.addAttribute("weekCompany", aservice.weekCompany());
+		model.addAttribute("weekResume", aservice.weekResume());
+		model.addAttribute("weekRJobgroup", aservice.jobgroup_resume());
+		model.addAttribute("weekRRgb",aservice.rRgb_resume());
 		return "/admin/A_chart";
 	}
 	
@@ -638,5 +644,65 @@ public class AdminController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+	
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
+	public String noticeGET(Model model) throws Exception {
+		model.addAttribute("list", fservice.noticeListAll());
+		
+		return "/admin/A_notice";
+	}
+
+	@RequestMapping(value = "/noticeread", method = RequestMethod.GET)
+	public String noticeReadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+
+
+		String content = fservice.noticeRead(bno).getContent();
+		String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+		String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+		String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+		
+		model.addAttribute("content", content4);
+		model.addAttribute("CsVO", fservice.noticeRead(bno));
+		
+		return "/admin/A_noticeread";
+	}
+
+	@RequestMapping(value = "/noticemod", method = RequestMethod.GET)
+	public String noticeModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
+		model.addAttribute("CsVO", fservice.noticeRead(bno));
+		return "/admin/A_noticemod";		
+	}
+
+	@RequestMapping(value = "/S_noticemod", method = RequestMethod.POST)
+	public String noticeModifyPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
+		fservice.noticeUpdate(vo);
+
+		rttr.addFlashAttribute("msg", "modify");
+
+		return "redirect:/admin/notice";
+	}
+	
+	@RequestMapping(value = "/noticeremove", method = RequestMethod.POST)
+	public String noticeRemove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception {
+		fservice.noticeDelete(bno);
+
+		rttr.addFlashAttribute("msg", "remove");
+
+		return "redirect:/admin/notice";
+	}
+	
+	@RequestMapping(value = "/noticereg", method = RequestMethod.GET)
+	public String noticeRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		return "/admin/A_noticereg";		
+	}
+	
+	@RequestMapping(value = "/S_noticereg", method = RequestMethod.POST)
+	public String noticeRegisterPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
+		fservice.noticeCreate(vo);
+
+		rttr.addFlashAttribute("msg", "regist");
+
+		return "redirect:/admin/notice";
 	}
 }

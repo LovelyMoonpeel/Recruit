@@ -106,8 +106,8 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
-	public List<StatisticVO> jobgroup2_recruit() throws Exception{
-		return session.selectList(namespace+".jobgroup2_recruit");
+	public List<StatisticVO> rgb_recruit() throws Exception{
+		return session.selectList(namespace+".rgb_recruit");
 	}
 	
 	@Override
@@ -123,5 +123,40 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void emailauth(BoardVO vo) throws Exception{
 		session.update(namespace+".emailauth", vo);
+	}
+	
+	@Override
+	public List<StatisticVO> weekResume() throws Exception{
+		return session.selectList(namespace+".weekResume");
+	}
+	
+	@Override
+	public List<StatisticVO> jobgroup_resume() throws Exception{
+		return session.selectList(namespace+".jobgroup_resume");
+	}
+	
+	@Override
+	public List<StatisticVO> rRgb_resume() throws Exception{
+		return session.selectList(namespace+".rRgb_resume");
+	}
+	
+	@Override
+	public int weekPcount()throws Exception{
+		return session.selectOne(namespace+".weekPcount");
+	}
+	
+	@Override
+	public int weekCcount()throws Exception{
+		return session.selectOne(namespace+".weekCcount");
+	}
+	
+	@Override
+	public int weekResumeCount()throws Exception{
+		return session.selectOne(namespace+".weekResumeCount");
+	}
+	
+	@Override
+	public int weekRecruitCount()throws Exception{
+		return session.selectOne(namespace+".weekRecruitCount");
 	}
 }

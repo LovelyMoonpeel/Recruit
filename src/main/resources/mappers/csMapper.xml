@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.recruit.mapper.csMapper">
+
+	<select id="create">
+		insert into project.tblfaq (title, content)
+		values
+		(#{title}, #{content})
+	</select>
+
+	<select id="read" resultType="CsVO">
+		select
+		bno, title, content
+		from
+		project.tblfaq
+		where bno = #{bno}
+	</select>
+
+	<update id="update">
+		update project.tblfaq set
+		title = #{title}, content =
+		#{content}
+		where bno = #{bno}
+	</update>
+
+	<delete id="delete">
+		delete from project.tblfaq where bno = #{bno}
+	</delete>
+
+	<select id="listAll" resultType="CsVO">
+	<![CDATA[
+	select
+		bno, title
+	from
+		project.tblfaq
+	order by bno desc
+	]]>
+	</select>
+
+	<select id="noticeCreate">
+		insert into project.tblnotice (title, content)
+		values (#{title}, #{content})
+	</select>
+
+	<select id="noticeRead" resultType="CsVO">
+		select
+		bno, title, content
+		from
+		project.tblnotice
+		where bno = #{bno}
+	</select>
+
+	<update id="noticeUpdate">
+		update project.tblnotice set
+		title = #{title}, content = #{content}
+		where bno = #{bno}
+	</update>
+
+	<delete id="noticeDelete">
+		delete from project.tblnotice where bno = #{bno}
+	</delete>
+
+	<select id="noticeListAll" resultType="CsVO">
+	<![CDATA[
+	select
+		bno, title
+	from
+		project.tblnotice
+	order by bno desc
+	]]>
+	</select>
+
+</mapper>

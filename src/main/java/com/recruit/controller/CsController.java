@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
-import com.recruit.domain.CsfaqVO;
+import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
 import com.recruit.domain.CsqnaVO;
-import com.recruit.service.CsfaqService;
+import com.recruit.service.CsService;
 import com.recruit.service.CsqnaService;
 
 @Controller
@@ -31,7 +31,7 @@ public class CsController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@Inject
-	private CsfaqService fservice;
+	private CsService fservice;
 
 	@Inject
 	private CsqnaService qservice;
@@ -54,25 +54,47 @@ public class CsController {
 		String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
 		
 		model.addAttribute("content", content4);
-		model.addAttribute("CsfaqVO", fservice.read(bno));
+		model.addAttribute("CsVO", fservice.read(bno));
 		
 		return "/cs/S_faqread";
 	}
 
-	@RequestMapping(value = "/S_faqmod", method = RequestMethod.GET)
-	public void faqModifyGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	@RequestMapping(value = "/faqmod", method = RequestMethod.GET)
+	public String faqModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Modify Get..........");
-		model.addAttribute("CsfaqVO", fservice.read(bno));
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				model.addAttribute("CsVO", fservice.read(bno));
+				return "/cs/S_faqmod";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/faq";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/faq";
+		}
 	}
 
 	@RequestMapping(value = "/S_faqmod", method = RequestMethod.POST)
-	public String faqModifyPOST(CsfaqVO vo, RedirectAttributes rttr) throws Exception {
+	public String faqModifyPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Modify Post..........");
 		logger.info(vo.toString());
 
 		fservice.modify(vo);
 
 		rttr.addFlashAttribute("msg", "modify");
+
+		return "redirect:/cs/faq";
+	}
+	
+	@RequestMapping(value = "/faqremove", method = RequestMethod.POST)
+	public String faqRemove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception {
+		fservice.remove(bno);
+
+		rttr.addFlashAttribute("msg", "remove");
 
 		return "redirect:/cs/faq";
 	}
@@ -182,7 +204,7 @@ public class CsController {
 		if (login != null) {
 			String id = login.getId();
 			String idc = qservice.read2(bno).getUser();
-			if(id.equals(idc)){
+			if(id.equals(idc)||id.equals("admin")){
 				model.addAttribute("CsqnaVO", qservice.read2(bno));
 				return "/cs/S_qnamod";				
 			}else{
@@ -257,4 +279,120 @@ public class CsController {
 	
 
 
+	@RequestMapping(value = "/faqreg", method = RequestMethod.GET)
+	public String faqRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		logger.info("faq Register..........");
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				return "/cs/S_faqreg";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/faq";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/faq";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/S_faqreg", method = RequestMethod.POST)
+	public String faqRegisterPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("faq Register..........");
+		logger.info(vo.toString());
+
+		fservice.regist(vo);
+
+		rttr.addFlashAttribute("msg", "regist");
+
+		return "redirect:/cs/faq";
+	}
+	
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
+	public String noticeGET(Model model) throws Exception {
+		model.addAttribute("list", fservice.noticeListAll());
+		
+		return "/cs/S_notice";
+	}
+
+	@RequestMapping(value = "/noticeread", method = RequestMethod.GET)
+	public String noticeReadGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+
+
+		String content = fservice.noticeRead(bno).getContent();
+		String content2 = content.replace("<", "&lt;"); //HTML 태그를 문자로 인지하게 바꿈
+		String content3 = content2.replace("\r\n", "<br>"); //엔터를 <br> 태그로 교체
+		String content4 = content3.replace(" ","&nbsp;"); //공백을 &nbsp; 로 변환
+		
+		model.addAttribute("content", content4);
+		model.addAttribute("CsVO", fservice.noticeRead(bno));
+		
+		return "/cs/S_noticeread";
+	}
+
+	@RequestMapping(value = "/noticemod", method = RequestMethod.GET)
+	public String noticeModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				model.addAttribute("CsVO", fservice.noticeRead(bno));
+				return "/cs/S_noticemod";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/notice";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/notice";
+		}
+	}
+
+	@RequestMapping(value = "/S_noticemod", method = RequestMethod.POST)
+	public String noticeModifyPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
+		fservice.noticeUpdate(vo);
+
+		rttr.addFlashAttribute("msg", "modify");
+
+		return "redirect:/cs/notice";
+	}
+	
+	@RequestMapping(value = "/noticeremove", method = RequestMethod.POST)
+	public String noticeRemove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception {
+		fservice.noticeDelete(bno);
+
+		rttr.addFlashAttribute("msg", "remove");
+
+		return "redirect:/cs/notice";
+	}
+	
+	@RequestMapping(value = "/noticereg", method = RequestMethod.GET)
+	public String noticeRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			if(id.equals("admin")){
+				return "/cs/S_noticereg";		
+			}else{
+				rttr.addFlashAttribute("msg", "fail");
+				return "redirect:/cs/notice";
+				}
+		} else {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/cs/notice";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/S_noticereg", method = RequestMethod.POST)
+	public String noticeRegisterPOST(CsVO vo, RedirectAttributes rttr) throws Exception {
+		fservice.noticeCreate(vo);
+
+		rttr.addFlashAttribute("msg", "regist");
+
+		return "redirect:/cs/notice";
+	}
 }

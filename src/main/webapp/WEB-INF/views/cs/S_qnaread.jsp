@@ -15,12 +15,17 @@
 
 <%
 	String mod = "hidden";
+	String removeBtn = "hidden";
+	String replyMod = "none";
 	try{
 		String idc = "";
 		idc = (String)session.getAttribute("idc");
-		System.out.println("id : "+id+" idc : "+idc);
-		if(id.equalsIgnoreCase(idc)){
+		if(id.equalsIgnoreCase(idc)||id.equals("admin")){
 			mod = "submit";
+			if(id.equals("admin")){
+				removeBtn = "submit";
+				replyMod = "";
+			}
 		}
 	}catch(Exception e){
 		e.printStackTrace();
@@ -59,14 +64,32 @@
 		</tr>
 	</table>
 	
+		<!-- 댓글달기 창 -->
+	<div class="row" style="display:<%=replyMod%>">
+	<div class="col-md-12">
+	 <div class="box box-success">
+	  <div class="box-header">
+	   <h3 class="box-title">댓글 달기</h3>
+	  </div>
+	  <div class="box-body">
+	   <input type='hidden' id='bno' name='bno' value="${CsqnaVO.bno}">
+	   <textarea class="form-control" placeholder="댓글 내용" id="newReplyText" rows="5" style="resize: none;"></textarea>
+	  </div>
+	  <div class="box-footer">
+	   <button type="submit" class="btn btn-success" id="replyAddBtn">댓글 달기</button>
+	  </div>
+	 </div>
+	</div>
+	</div>
+	
 	<ul class="timeline">
 	 <li class="time-label" id="repliesDiv"><button type="button" class="btn btn-info">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button></li>
 	</ul>
 	<ul id="replies"></ul>
 	
-	<input id="" type="<%=mod %>" class="btn btn-warning" value="수정">
-	<!-- <input type="submit" class="btn btn-danger" value="삭제"> -->
-	<input type="submit" class="btn btn-primary" value="목록">
+	<input type="<%=mod %>" class="btn btn-warning" id="modifyBtn" value="수정">
+	<input type="<%=removeBtn %>" class="btn btn-danger" id="deleteBtn" value="삭제">
+	<input type="submit" class="btn btn-primary" id="listBtn" value="목록">
 	
 </div>
 <!-- //관리자정보수정 페이지 -->
@@ -85,12 +108,37 @@
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
   <div class="timeline-body"><textarea class="form-control" readonly rows="5" style="resize: none;">{{content}}</textarea> </div>
+	<a class="btn btn-primary btn-xs"
+     data-toggle="modal" data-target="#modifyModal" style="display:<%=replyMod%>">Modify</a>
   </div>
  </div>
 </li>
 {{/each}}
 </script>
 <!-- // QnA 댓글 -->
+
+<!-- 댓글 수정 Modal -->
+<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+ <div class="modal-dialog">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+     <input type='hidden' id='bno' name='bno' value="${CsqnaVO.bno}">
+     <button type="button" class="close" data-dismiss="modal">&times;</button>
+     <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body" data-rno>
+     <p><textarea id="content" class="form-control" rows="5" style="resize: none;"></textarea></p>
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-info" id="replyModBtn">수정</button>
+     <button type="button" class="btn btn-danger" id="replyDelBtn">삭제</button>
+     <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+    </div>
+  </div>
+ </div>
+</div>
+<!-- //댓글 수정 Modal -->
 
 <script>
 Handlebars.registerHelper("prettifyDate", function(timeValue){
@@ -135,7 +183,7 @@ var formObj = $("form[role='form']");
 
 console.log(formObj);
 
-$(".btn-warning").on("click", function(){
+$("#modifyBtn").on("click", function(){
 	if(confirm("수정할랭?")){
 		formObj.attr("action", "/cs/qnamod");
 		formObj.attr("method", "GET");
@@ -143,17 +191,102 @@ $(".btn-warning").on("click", function(){
 	}
 });
 
-$(".btn-danger").on("click", function(){
+$("#deleteBtn").on("click", function(){
 	if(confirm("삭제하시겠습니까?")){
 		formObj.attr("action", "/cs/qremove");
 		formObj.submit();
 	}
 });
 
-$(".btn-primary").on("click", function(){
+$("#listBtn").on("click", function(){
 	self.location = "/cs/qna";
 });
 
+/* 댓글 달기 버튼 */
+$("#replyAddBtn").on("click", function(event){
+	var contentObj = $("#newReplyText");
+	var bnoObj = $("#bno");
+	var content = contentObj.val();
+	var bno = bnoObj.val();
+	
+	if(content==""){
+		alert("댓글 내용을 입력해주세요.");
+		event.preventDefault();
+	}else{
+	$.ajax({
+		type:'post',
+		url:'/replies/',
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override": "POST"},
+		dataType:'text',
+		data: JSON.stringify({bno:bno, content:content}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'success'){
+				alert("등록완료");
+				contentObj.val("");
+				getPage("/replies/all/" + bno);
+			}
+		}});		
+	}
+	
+});
+
+/* 댓글 수정 Modal */
+$(".timeline").on("click", ".replyLi", function(event){
+	var reply = $(this);
+	
+	$("#content").val(reply.find('.timeline-body').text());
+	$(".modal-title").html(reply.attr("data-rno"));
+});
+
+/* 댓글 수정 버튼 */
+$("#replyModBtn").on("click", function(){
+	var rno = $(".modal-title").html();
+	var content = $("#content").val();
+	
+	$.ajax({
+		type:'put',
+		url:'/replies/'+rno,
+		headers:{
+			"Content-Type": "application/json; charset=UTF-8",
+			"X-HTTP-Method-Override":"PUT"},
+		data:JSON.stringify({content:content}),
+		dataType:'text',
+		success:function(result){
+			console.log("result: "+result);
+			if(result == 'success'){
+				alert("수정 되었습니다.");
+				getPage("/replies/all/"+bno);
+			}
+		}});
+});
+
+/* 댓글 삭제 */
+$("#replyDelBtn").on("click",function(){
+	var rno = $(".modal-title").html();
+	var content = $("#content").val();
+	var bno = $("#bno").val();
+	
+	if(confirm("삭제하시겠습니까?")){
+		$.ajax({
+			type:'delete',
+			url:'/replies/'+bno+"/"+rno,
+			headers:{
+				"Content-Type": "application/json; charset=UTF-8",
+				"X-HTTP-Method-Override":"PUT"},
+			dataType:'text',
+			success:function(result){
+				console.log("result: "+ result);
+				if(result == 'success'){
+					alert("삭제 되었습니다.");
+					getPage("/replies/all/"+bno);
+				}
+			}
+		})
+	}
+})
 </script>
 <!-- //버튼에 대한 스크립트  -->
 

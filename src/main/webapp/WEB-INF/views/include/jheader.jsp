@@ -11,6 +11,7 @@
 	String cname = "";
 	String location = ""; //mypage 경로 설정 변수
 	String c_chk = null; //company_check
+	String myPage = "MyPage"; //myPage 이름 변경
 
 	try {
 		login = (BoardVO) session.getAttribute("login");
@@ -22,6 +23,7 @@
 		if (cname == null) {
 			if (id.equals("admin")) {
 				location = "/admin/main";
+				myPage = "관리자 페이지";
 			} else {
 				location = "/personal/index";
 			}
@@ -59,6 +61,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/cs/notice">공지사항</a></li>
 					<li><a href="/srch/main?stype=1">기업찾기</a></li>
 					<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
 
@@ -81,7 +84,7 @@
 					<!--MyPage, 로그아웃 부분  -->
 					<c:if test="${not empty sessionScope.login}">
 
-						<li><a href="<%=location%>">MyPage</a></li>
+						<li><a href="<%=location%>"><%=myPage %></a></li>
 
 
 						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
