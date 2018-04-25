@@ -81,12 +81,13 @@
 
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
-					<th>${RecruitVO.recruitstate}</th>
+					<th><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
 					<th><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
-					<li>근무형태 : ${RecruitVO.employstatusid}</li>
-					<li>직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}</li>
-					<li>경력 : ${RecruitVO.exp} </li>
-					<li>접수기간 : ${RecruitVO.period}</li></th>
+					<%-- <br>근무형태 : ${RecruitVO.employstatusid}
+					직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}
+					경력 : ${RecruitVO.exp} 
+					접수기간 : ${RecruitVO.period} --%>
+					</th>
 					<th>${RecruitVO.period}</th>
 					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
@@ -96,6 +97,20 @@
 		
 	</table>
 	
+	<script>
+	$(document).ready(function(){
+		
+	var stateLen = $("span[name='stateName']").length;
+
+	for(var sT = 0; sT< stateLen; sT++){
+		
+		$("span[name='stateName']").eq(sT).css("background-color","#3AA0D9");
+		$("span[name='stateName']").eq(sT).addClass("center-block clearfix");
+		
+	}
+	})
+
+	 </script>
 	
 	<div id="myModal" class="modal fade" role="dialog">
  	 <div class="modal-dialog modal-lg">

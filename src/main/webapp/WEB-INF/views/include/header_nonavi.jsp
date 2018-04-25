@@ -80,7 +80,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 
-<body>
+<body class="fuelux">
 	
 	<%@include file="../include/jheader_nonavi.jsp"%>
 

@@ -8,6 +8,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -42,6 +43,14 @@ public interface CompanyAjaxService {
 	 public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception; 
 
 	 public void FavorPersonAdd(int bno, String id) throws Exception; // 관심 인재 추가
+	 
+	 public void ChangeState(int bno, int state)throws Exception;
+	 
+	 public void QnaQuestion(RecruitQnAVO QnA)throws Exception;
+	 
+	 public void QnaAnswer(RecruitQnAVO QnA)throws Exception;
+	  
+	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
 	 
 	 public void FavorPersonDelete(int bno, String id) throws Exception; //관심 인재 제거
 	 

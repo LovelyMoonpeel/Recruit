@@ -17,7 +17,7 @@
 	
 	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
 		select
-		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form,
+		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form, location,
 		establish, numemp, sales, tel, fax, sns, lng, lat , phone, email, tu.pname
 		from
 		tblcinfo as tci, tbluser as tu
@@ -35,7 +35,7 @@
 		, form=#{form}, establish=#{establish},
 		numemp=#{numemp},
 		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} ,
-		img=#{img}
+		img=#{img}, location=#{location}
 		, phone=#{phone} , email=#{email}, lat = #{lat}, lng = #{lng}
 		where
 		tu.id = #{id} and tci.id = tu.id
@@ -136,16 +136,23 @@
 		<if test="rgsid != null">,rgsid</if>
 		<if test="rgsid == null">,rgsid</if>
 		, jobdesc, recruitnum, employstatusid ,salaryid, edu
-		, exp, adddesc,period, acceptmethod)
+		, exp, adddesc,period, periodstart, acceptmethod)
 		values (#{title}, #{cid}, #{jobgroupid}
 		<if test="jobgroupid2 != null">, #{jobgroupid2}</if>
 		<if test="jobgroupid2 == null">, 0</if>
 		, #{rgbid}
 		<if test="rgsid != null">, #{rgsid}</if>
 		<if test="rgsid == null">, '102'</if>
-		, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}
-		, #{exp}, #{adddesc}, #{period}, #{acceptmethod})
+		, #{jobdesc}, #{recruitnum}, #{employstatusid}, #{salaryid}, #{edu}, 
+		 #{exp}, #{adddesc}, #{period}, #{periodstart}, #{acceptmethod})
 	</insert> <!-- 채용공고 작성 -->
+
+<select id="changeCnameToId" resultType="String">
+
+select id
+from tblcinfo
+where cname = #{cname};
+</select>
 
 	<select id="recruitList" resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
@@ -157,30 +164,38 @@
 	</select> <!-- 채용공고 리스트 (*여러곳에서 사용) -->
 
 	<select id="cRecruitList" resultType="com.recruit.domain.CPersonInfoVO">
-		select distinct f.bno,
-		title, (select date_format((select e.period from
-		project.tblrecruit e
-		where e.bno = f.bno),'%m/%d')) as period,
-		r.rgbname as rgbid, c.career
-		as career, m.career as edu, j.jobgroup as
-		jobgroup1
-		from tblrecruit f ,
-		tblcode c, tblcode m, tblregion r, tbljobgroup j
-		where f.exp = c.id and
-		f.edu = m.id and f.rgbid = r.rgbid and f.jobgroupid
-		= j.id and cid =
-		#{id}
+		select distinct 
+		f.bno,
+		title, 
+		(select date_format((select e.period from project.tblrecruit e where e.bno = f.bno),'%m/%d')) as period,
+		r.rgbname as rgbid, 
+		c.career as career, 
+		m.career as edu, 
+		j.jobgroup as jobgroup1
+		from 
+		tblrecruit f , tblcode c, tblcode m, tblregion r, tbljobgroup j
+		where 
+		f.exp = c.id 
+		and f.edu = m.id 
+		and f.rgbid = r.rgbid 
+		and f.jobgroupid = j.id 
+		and cid = #{id}
+		and f.state = 1;
 		
 		
 	</select>
 <!-- CURDATE 소연 추가 -->
 	<select id="recruitinfoRead" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[
-	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid,
-	 d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt
-	, CURDATE() as regdate	
-		from project.tblrecruit r, project.tbljobgroup j, project.tbljobgroup u, project.tblregion g
-		, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e
+	select distinct r.bno, r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup as jobgroupid2, g.rgbname as rgbid, datediff(period,date_format(now(),'%Y-%m-%d'))as dday,
+	SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1) as week, date_format(period,'%m/%d') as endday,
+    g.rgsname as rgsid, r.jobdesc, r.recruitnum, c.career as employstatusid, o.career as salaryid, r.periodstart as periodstart,
+	 d.career as edu, e.career as exp, r.adddesc, r.period, r.recruitform, r.acceptmethod, r.viewcnt, h.applycnt , h.interestcnt
+	, CURDATE() as regdate
+		from project.tbljobgroup j, project.tbljobgroup u, project.tblregion g
+		, project.tblcode c, project.tblcode o, project.tblcode d, project.tblcode e ,project.tblrecruit r
+        LEFT JOIN(select (select count(a.rcno) from tblapply a where a.rcno = #{recruitNum}) as applycnt , (select  count(b.rcbno) from tblinterestjob b where b.rcbno = #{recruitNum})as interestcnt
+        from dual)h on  #{recruitNum}= r.bno
 	where r.bno = #{recruitNum}
     	and r.jobgroupid = j.id
     	and r.jobgroupid2 = u.id
@@ -189,7 +204,7 @@
     	and r.employstatusid = c.id
     	and r.salaryid = o.id
     	and r.edu = d.id
-    	and r.exp = e.id or r.exp = null
+    	and r.exp = e.id or r.exp = null;
 ]]>
 	</select> <!-- 채용공고 정보 -->
 
@@ -207,7 +222,7 @@
  </select> <!-- ajax용 채용공고 리스트  -->
  <select id="recruitCriteria"  resultType="com.recruit.domain.RecruitVO">
  <![CDATA[
- select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
+ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate, state
 , case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
 ,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
 , if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
@@ -228,11 +243,7 @@
 		bno = #{recruitNum}
 	</update> <!-- 채용공고 카운터 -->
 
-	<update id="recruitExtension" parameterType="HashMap">
 
-		
-	</update>
-	
 	<select id="recruitCriteriaCount" resultType="int"> <!-- 전체 공고 몇개 있는지 체크용  -->
 <![CDATA[  
 select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup j, tbljobgroup i,tbluser u, tblrecruit f LEFT JOIN (select count(if(z.rcno=x.bno,z.rcno,null))as applynum , z.rcno as o from tblapply z,tblrecruit x where  x.bno = z.rcno and x.cid = #{id} group by z.rcno) h on  h.o = f.bno 
@@ -260,11 +271,13 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 
 
 	<select id="recruitinfoRead3" resultType="com.recruit.domain.RecruitVO">
-<![CDATA[
+	
+	<![CDATA[	
 	select bno, title, cid, jobgroupid, jobgroupid2, rgbid, rgsid, jobdesc, recruitnum, employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod
 	from project.tblrecruit
-	where bno=#{recruitNum}
-]]>
+	where bno=#{recruitNum}	
+	]]>
+	
 	</select>
 	
 	<select id="pcStateCheck" resultType="RecruitVO">
@@ -329,6 +342,12 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 		</if>
 	</sql>
 
+<update id="changeState" parameterType="HashMap">
+
+update tblrecruit set state = #{state} where bno = #{bno};
+
+
+</update>
 		<select id="reComList" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[  
  select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate 
@@ -409,7 +428,7 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 
 		select distinct r.bno,
 		r.cid, r.title, j.jobgroup as jobgroupid, u.jobgroup
-		as jobgroupid2,
+		as jobgroupid2, state,
 		g.rgbname as rgbid, g.rgsname as rgsid, r.jobdesc,
 		r.recruitnum,
 		c.career as employstatusid, o.career as salaryid,
@@ -422,8 +441,7 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 		project.tblcode d, project.tblcode e
 		where
 		r.jobgroupid = j.id
-		and
-		r.jobgroupid2 = u.id
+		and r.jobgroupid2 = u.id
 		and g.rgbid = r.rgbid
 		and g.rgsid = r.rgsid
 		and
@@ -521,5 +539,28 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 		delete from project.tbluser
 		where project.tbluser.id = #{id}
 	</delete>	
+	
+	<insert id="qnaQuestion">
+	
+	insert 
+	into project.tblrecruitqna(id, rbno, qtype, rqtype, qtext) 
+	values (#{id}, #{rbno}, #{qtype},#{rqtype}, #{qtext});
+	
+	</insert>
+	
+	<update id="qnaAnswer">
+	update 
+		project.tblrecruitqna
+		set
+		atext = #{atext}
+		where
+		qbno = #{qbno}
+	
+	</update>
+	
+	<select id="qnaList" resultType="com.recruit.domain.RecruitQnAVO">
+	select distinct(q.qbno), q.rbno, q.qtext, q.atext, q.qtype, q.rqtype from project.tblrecruitqna q 
+	left join(select z.atext, z.qtype, z.rqtype from project.tblrecruitqna z)h on h.qtype where rbno = #{recruitNum}
+	</select>
 	
 </mapper> 

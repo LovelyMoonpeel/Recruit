@@ -20,6 +20,8 @@ public class RecruitVO implements Bnoble {
 	private String exp;
 	private String adddesc;
 	private String period;
+	private String periodstart;
+	private String state;
 	private String acceptmethod;
 	private String recruitform;
 	private String regdate;
@@ -33,6 +35,11 @@ public class RecruitVO implements Bnoble {
 	private String lat;
 	private String lng;
 
+	private String interestcnt;
+	private String applycnt;
+	private String dday;
+	private String endday;
+	
 	public int getBno() {
 		return bno;
 	}
@@ -152,7 +159,18 @@ public class RecruitVO implements Bnoble {
 	public void setPeriod(String period) {
 		this.period = period;
 	}
-
+	public String getPeriodstart() {
+		return periodstart;
+	}
+	public void setPeriodstart(String periodstart) {
+		this.periodstart = periodstart;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getAcceptmethod() {
 		return acceptmethod;
 	}
@@ -249,15 +267,41 @@ public class RecruitVO implements Bnoble {
 		this.lng = lng;
 	}
 
+	public String getInterestcnt() {
+		return interestcnt;
+	}
+	public void setInterestcnt(String interestcnt) {
+		this.interestcnt = interestcnt;
+	}
+	public String getApplycnt() {
+		return applycnt;
+	}
+	public void setApplycnt(String applycnt) {
+		this.applycnt = applycnt;
+	}
+	public String getDday() {
+		return dday;
+	}
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
+	public String getEndday() {
+		return endday;
+	}
+	public void setEndday(String endday) {
+		this.endday = endday;
+	}
 	@Override
 	public String toString() {
 		return "RecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
 				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc
 				+ ", recruitnum=" + recruitnum + ", employstatusid=" + employstatusid + ", salaryid=" + salaryid
-				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod="
-				+ acceptmethod + ", recruitform=" + recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt
-				+ ", recruitstate=" + recruitstate + ", week=" + week + ", applynum=" + applynum + ", rownum=" + rownum
-				+ ", btnstate=" + btnstate + ", pname=" + pname + ", lat=" + lat + ", lng=" + lng + "]";
+				+ ", edu=" + edu + ", exp=" + exp + ", adddesc=" + adddesc + ", period=" + period + ", periodstart="
+				+ periodstart + ", state=" + state + ", acceptmethod=" + acceptmethod + ", recruitform=" + recruitform
+				+ ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", recruitstate=" + recruitstate + ", week=" + week
+				+ ", applynum=" + applynum + ", rownum=" + rownum + ", btnstate=" + btnstate + ", pname=" + pname
+				+ ", lat=" + lat + ", lng=" + lng + ", interestcnt=" + interestcnt + ", applycnt=" + applycnt
+				+ ", dday=" + dday + ", endday=" + endday + "]";
 	}
 
 	@Override

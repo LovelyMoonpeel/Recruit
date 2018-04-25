@@ -61,6 +61,14 @@
 					<li><a href="#accept_method"><span class="glyphicon glyphicon-envelope"></span> 접수방법</a></li>
 					<li><a href="#human_resources_manager"><span class="glyphicon glyphicon-user"></span> 담당자 정보</a></li>
 				</ul>
+				
+				<br>
+				
+				<span class="glyphicon glyphicon-eye-open" style="color:rgb(146, 146, 146);">조회수${RecruitVO.viewcnt}  </span>
+				<span class="glyphicon glyphicon-thumbs-up" style="color:rgb(146, 146, 146);">스크랩수${RecruitVO.interestcnt}  </span>
+				<span class="glyphicon glyphicon-user" style="color:rgb(146, 146, 146);">지원자수${RecruitVO.applycnt}  </span>
+				<span class="glyphicon glyphicon-link" style="color:rgb(146, 146, 146); cursor: pointer" id="kakao-link-btn" href="javascript:;">공유하기  </span>
+	
 			</div>
 			<!-- /.navbar-collapse -->
 	</div>

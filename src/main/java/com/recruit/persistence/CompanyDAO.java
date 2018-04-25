@@ -8,6 +8,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -28,7 +29,9 @@ public interface CompanyDAO {
 	public List<RecruitVO> RecomList(CompanyCriteria cri, String id) throws Exception;
 	
 	public int listSearchCount(CompanySearchCriteria cri, String id) throws Exception;
-	  
+	 
+	public String ChangeCnameToId(String cname)throws Exception;
+	
 	public List<RecruitVO> RecruitList(String id) throws Exception;
 	
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;

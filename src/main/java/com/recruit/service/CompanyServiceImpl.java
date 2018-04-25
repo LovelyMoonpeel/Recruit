@@ -15,6 +15,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -58,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.RegionList();
 	 }
-	 
+		 
 	 @Override
 	 public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
 		 dao.RecruitWrite(recruitWrtie);
@@ -75,7 +76,11 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.listSearchCount(cri, id);
 	 }
-	   
+	 @Override
+	 public String ChangeCnameToId(String cname)throws Exception{
+		 
+		 return dao.ChangeCnameToId(cname);
+	 }
 	 
 	 @Transactional
 	 @Override
@@ -168,7 +173,6 @@ public class CompanyServiceImpl implements CompanyService {
 		 dao.C_RecruitExtension(id,bno);
 	 }
 	  
-	 
 	 // 문> 기업회원 비밀번호 새로 수정하기 위해서 
 	 @Override
 	 public void updateCpPw(LoginDTO dto) throws Exception{
@@ -188,11 +192,8 @@ public class CompanyServiceImpl implements CompanyService {
 		 	 
 	 }
 	 
-	 	@Override
-		public void leave(String id) throws Exception {
-		    dao.leave(id);
-		}	
-		
-	 
-
+ 	@Override
+	public void leave(String id) throws Exception {
+	    dao.leave(id);
+	}	
 }

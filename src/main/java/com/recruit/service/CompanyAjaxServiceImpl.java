@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.CPersonInfoVO;
 
@@ -12,6 +13,7 @@ import com.recruit.domain.CompanyCriteria;
 
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.persistence.CompanyAjaxDAO;
@@ -70,6 +72,11 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 return dao.SubRegion(id2);
 	 }
 	 @Override
+	 public void ChangeState(int bno,int state)throws Exception{
+		
+		 dao.ChangeState(bno,state);
+	 }
+	 @Override
 	 public List<RecruitVO> RecruitList(String id, int page) throws Exception{
 
 		 return dao.RecruitList(id, page);
@@ -109,6 +116,22 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 @Override
 	 public void endRecruit(int bno, String id) throws Exception{
 		 dao.endRecruit(bno, id);
+	 }
+	 
+	
+	 @Override
+	 public void QnaQuestion(RecruitQnAVO QnA)throws Exception{		
+		 dao.QnaQuestion(QnA);	
+	 }
+	 @Override
+	 public void QnaAnswer(RecruitQnAVO QnA)throws Exception{
+		 
+		 dao.QnaAnswer(QnA);
+	 }
+	 @Override
+	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+		 
+		 return dao.QnAList(recruitNum);
 	 }
 	 
 	 @Override

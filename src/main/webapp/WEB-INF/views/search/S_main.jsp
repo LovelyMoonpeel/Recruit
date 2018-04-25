@@ -224,7 +224,7 @@
 	var pImgSrc = "/personal/displayFile?fileName=";
 
 	// 링크 url 변수
-	var cinfoUrl = "/company/C_info_nonavi?recruitNum=";
+	var cinfoUrl = "/company/C_info_nonavi?cName=";
 	var recruitUrl = "/company/C_recruitMent?recruitNum=";
 	var resumeUrl = "/personal/detail_nonavi?bno=";
 
@@ -414,7 +414,7 @@
 			img : cImgSrc + that.img,
 			cname : that.cname,
 			period : that.period,
-			url : cinfoUrl + that.userid
+			url : cinfoUrl + that.cname
 		};
 		$("#spanelc").append(template_pnl(item));
 	}

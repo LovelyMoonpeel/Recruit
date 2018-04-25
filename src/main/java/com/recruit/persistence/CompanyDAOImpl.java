@@ -14,6 +14,7 @@ import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CodeVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -85,6 +86,12 @@ public class CompanyDAOImpl implements CompanyDAO{
 		
 		
 		return session.selectOne(namespace + ".reComListSearchCount", paraMap);
+	}
+	@Override
+	public String ChangeCnameToId(String cname)throws Exception{
+		
+		return session.selectOne(namespace + ".changeCnameToId", cname);
+		
 	}
 	@Override
 	public RecruitVO RecruitInfoRead(int recruitNum) throws Exception{

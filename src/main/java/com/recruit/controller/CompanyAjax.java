@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
 import com.recruit.domain.PApplyVO;
 import com.recruit.domain.PInterestJobVO;
+import com.recruit.domain.RecruitQnAVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.RegionVO;
 import com.recruit.domain.ResumeVO;
@@ -217,7 +219,55 @@ public class CompanyAjax {
 		}
 	}
 	
-	private List<String> sel_skeys;
+	@RequestMapping(value="/changeState/{bno}/{state}", method = RequestMethod.GET)
+	public void changeState(@PathVariable("bno") int bno,@PathVariable("state") int state)throws Exception{
+		
+		System.out.println(bno);
+		System.out.println(state);
+		
+		service.ChangeState(bno,state);
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/recruitQuestion/",method = RequestMethod.POST)
+	public void RecruitQuestion(@RequestBody RecruitQnAVO QnA)throws Exception{
+		
+		System.out.println(QnA);
+		service.QnaQuestion(QnA);
+		
+	}
+	
+	
+	@RequestMapping(value= "/recruitAnswer",method = RequestMethod.POST)
+	public void RecruitAnswer(@RequestBody RecruitQnAVO QnA)throws Exception{
+		
+		service.QnaAnswer(QnA);
+		
+	}
+
+	@RequestMapping(value= "/qnaList/",method = RequestMethod.POST)
+	public ResponseEntity<List<RecruitQnAVO>> QnAList(@RequestBody int recruitNum)throws Exception{
+
+		ResponseEntity<List<RecruitQnAVO>> entity = null;
+		System.out.println("넘어옴"+recruitNum);
+	
+			 try{
+			    	
+			    entity = new ResponseEntity<>( service.QnAList(recruitNum), HttpStatus.OK);
+			    System.out.println("질문 entity는"+ entity);
+			 }catch (Exception e) {
+				 
+				 e.printStackTrace();
+			     entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			     
+			 }
+			 
+			 return entity;
+			 
+	}
 
 	@RequestMapping(value = "/recruitList/",method = RequestMethod.POST)
 	public Object RecruitList(@RequestBody List<String> array,CompanySearchCriteria cri, HttpSession session, Model model , RedirectAttributes rttr){

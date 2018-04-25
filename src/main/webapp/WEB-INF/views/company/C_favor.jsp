@@ -7,24 +7,6 @@
 <!-- 기업 페이지 -->
 <div class="col-md-9">
 	<p class="lead"><strong>관심인재</strong></p>
-
-
-<table class="table table-bordered">
-		<tr class="active gobox2">
-		<td style="line-height: 200%">
-
-			<ul style="list-style-type : circle">
-				<li>관심 인재로 등록한 이력서는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
-				<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.</li> 
-				<br> 
-				<li>공고를 등록하신 회원님께<b>공고 기반 추천 인재 서비스를 무료</b>로 제공합니다. </li>
-				<li>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요. (서류 결과 발표 버튼 클릭)</li>
-				<br>
-				※ 사람인 채용정보 등록 규정상 부적합한 공고로 판별된 경우, 별도 통보 없이 공고가 마감/삭제 처리될 수 있습니다.
-			</ul>
-		</td>
-		</tr>
-</table>
 			
 <!-- 문> 반응형 안 먹어서 일단 주석처리  -->
 <!-- 	<div class="gobox1">
@@ -60,7 +42,22 @@
 	
 
 	<!-- //기업 페이지 -->
+	<table class="table table-bordered">
+		<tr class="active gobox2">
+		<td style="line-height: 200%">
+
+			<ul style="list-style-type : circle">
+				<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.</li>  
+				<li>공고를 등록하신 회원님께<b>공고 기반 추천 인재 서비스를 무료</b>로 제공합니다. </li>
+				<li>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요.</li>
+				※ RecruIT 채용정보 등록 규정상 부적합한 공고로 판별된 경우, 별도 통보 없이 공고가 마감/삭제 처리될 수 있습니다.
+			</ul>
+		</td>
+		</tr>
+</table>
+
 </div>
+
 
 <script>
 $(document).ready(function(){
