@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pw = #{pw}, pname =	#{pname}, email = #{email}, birth = #{birth}
 		where id = #{id}
 	</update>
+	
+	<!-- 개인회원탈퇴 -->
+	<delete id="leavePUser">
+		delete from tbluser where id = #{id}
+	</delete>
 
 	<select id="selectPUserAll" resultType="com.recruit.domain.PUserVO">
 		select id, pw, pname,

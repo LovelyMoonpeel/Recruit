@@ -25,4 +25,9 @@ public class PUserServiceImpl implements PUserService {
 	public int pwmodify(PUserVO vo) throws Exception {
 		return dao.pwmodify(vo);
 	}
+
+	@Override
+	public void leavePUser(String id) throws Exception {
+		dao.leavePUser(id);
+	}
 }

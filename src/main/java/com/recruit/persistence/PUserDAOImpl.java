@@ -42,4 +42,9 @@ public class PUserDAOImpl implements PUserDAO {
 	public int pwmodify(PUserVO vo) throws Exception {
 		return session.update(namespace + ".pwmodify", vo);
 	}
+
+	@Override
+	public void leavePUser(String id) throws Exception {
+		session.delete(namespace + ".leavePUser", id);
+	}
 }
