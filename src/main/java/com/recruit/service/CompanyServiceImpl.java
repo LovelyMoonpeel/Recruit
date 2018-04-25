@@ -187,5 +187,12 @@ public class CompanyServiceImpl implements CompanyService {
 			 dao.updateCpPw(dto);
 		 	 
 	 }
+	 
+	 	@Override
+		public void leave(String id) throws Exception {
+		    dao.leave(id);
+		}	
+		
+	 
 
 }

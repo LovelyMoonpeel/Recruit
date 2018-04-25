@@ -73,7 +73,6 @@
 			
 			var Pw = $("#pw1");  	//#pw1은 기존 비번 확인할 때 입력받은 값으로 Pw에 입력함
 			var inputPw = Pw.val();  	//Pw의 값을 inputPw에 대입
-
 			var Pw2 = $("#pw2");  	//#pw2는 새로운 비번 입력받은 값으로 Pw2에 입력함
 			var inputPw2 = Pw2.val();  	//Pw2의 값을 inputPw2에 대입 
 
@@ -101,7 +100,8 @@
 				    if (result == 'success') {			//비밀번호가 이전 거랑 맞으면 진행하는데, 맞으면 result값이 success이면 된다.
 						if ($("#pw2").val() == $("#pw3").val()) {			//새로운 비밀번호와 다시 입력받은 두 값이 같냐? 같으면 진행
 							ajaxchk = "ok";			//ajaxchk에 ok값을 주입한다.왜냐? 위에서 preventDefault()이걸 선언했는데 얘는 되는거니깐 풀어야지
-							alert("비밀번호가 성공적으로 바뀌었습니다. ㅋㅋㅋㅋ다시 로그인 해주세요~");	
+					
+									alert("비밀번호가 성공적으로 바뀌었습니다. 다시 로그인 해주세요~");	
 							if(ajaxchk=="ok"){
 								formObj.submit();
 							}
@@ -116,7 +116,7 @@
 					}
 				} 
 			}); 		//$.ajax 끝났음
-
+>>>>>>> refs/remotes/origin/cbungi3
 			
 			
 			

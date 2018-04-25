@@ -32,10 +32,6 @@
 		e.printStackTrace();
 	}
 %>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
 .badge-danger {
@@ -96,16 +92,16 @@
 								환영합니다.</a></li>
 								
 						
-						<li class="dropdown">
+						 <li class="dropdown">
 							<a href="#">
 								<span style="cursor:pointer; font-size:20px;" class="glyphicon glyphicon-bell dropdown-toggle" data-toggle="dropdown"></span>
 								<span class="badge badge-danger">1</span>
 							</a>
-							<ul class="dropdown-menu">
+							 <ul class="dropdown-menu">
 						      <li><a href="#">HTML</a></li>
 						      <li><a href="#">CSS</a></li>
 						      <li><a href="#">JavaScript</a></li>
-						    </ul>
+						    </ul> 
 						</li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->

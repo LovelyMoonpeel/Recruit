@@ -33,6 +33,7 @@ public class HomeController {
 		return "home";
 	}
 
+	//장우
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String indexGET(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);

@@ -145,7 +145,7 @@ $(function () {
 						<c:if test="${JobGroupVO.id2==status.index}">
 						
 							<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
-							
+								
 							</c:if>
 						</c:forEach>
 					</select>  

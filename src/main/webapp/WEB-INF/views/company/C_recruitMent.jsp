@@ -13,7 +13,7 @@ right:10%;
 z-index:10000;
 /*margin-right: 150px;*/ 
 } 
-#back-top a { 
+#back- a { 
 width: 50px; 
 display: block; 
 text-align: center; 

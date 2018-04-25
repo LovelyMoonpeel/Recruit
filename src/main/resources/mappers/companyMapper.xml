@@ -517,4 +517,9 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 		</if>
 	</sql>
 	
+	<delete id="delete">
+		delete from project.tbluser
+		where project.tbluser.id = #{id}
+	</delete>	
+	
 </mapper> 

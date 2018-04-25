@@ -24,7 +24,7 @@ import com.recruit.domain.SpanelVO;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.SearchService;
-
+//장우팍 ajax
 @RestController
 @RequestMapping("/sresult")
 public class SRestController {

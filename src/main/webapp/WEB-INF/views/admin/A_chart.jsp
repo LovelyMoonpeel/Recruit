@@ -167,7 +167,7 @@ window.onload = function(){
 	</c:forEach>
 }
 
-
+ 
 
 /* 그래프 표현 */
 $("#user_cha").on("click", function(){
