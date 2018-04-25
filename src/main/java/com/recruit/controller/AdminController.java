@@ -498,7 +498,7 @@ public class AdminController {
 
 			try {
 				url = new URL(s3.getFileURL(bucketName, uploadPath + fileName));
-				System.out.println(url);
+				//System.out.println(url);
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {
@@ -568,7 +568,7 @@ public class AdminController {
 
 			try {
 				url = new URL(s3.getFileURL(bucketName, C_uploadPath + fileName));
-				System.out.println(url);
+			//	System.out.println(url);
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {

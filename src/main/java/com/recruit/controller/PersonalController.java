@@ -827,7 +827,7 @@ public class PersonalController {
 
 			try {
 				url = new URL(s3.getFileURL(bucketName, inputDirectory + fileName));
-				System.out.println(url);
+				//System.out.println(url);
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {

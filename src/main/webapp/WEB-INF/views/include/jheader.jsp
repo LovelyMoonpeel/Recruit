@@ -100,6 +100,12 @@
 								<span style="cursor:pointer; font-size:20px;" class="glyphicon glyphicon-bell dropdown-toggle" data-toggle="dropdown"></span>
 								<span id="message_notice" class="badge badge-danger">1</span>
 							</a>
+							
+							<c:forEach items="result" var="MessageVO">
+								<input type="text" value="">
+							</c:forEach>							
+
+
 							 <ul class="dropdown-menu">
 						      <li><a href="#">HTML</a></li>
 						      <li><a href="#">CSS</a></li>
@@ -162,6 +168,11 @@ $("#message_notice").on("click", function(){
 			if(result!=''){
 				console.log(result);
 				console.log("성공함");
+				
+				for(int i=0;i<result.length;i++){
+					console.log(result.length);
+				}
+				
 			}else{
 				console.log(result);
 				console.log("실패함");

@@ -75,7 +75,7 @@ public class HomeController {
 	@RequestMapping(value = "/message_count", method = RequestMethod.POST)
 	public ResponseEntity<String> message_count(HttpSession session) throws Exception {
 	//public ResponseEntity<String> recomModify(@RequestBody String id) throws Exception {
-		System.out.println("ㅗ message count POST Controller");
+		System.out.println("message count POST Controller");
 		
 		ResponseEntity<String> entity = null;
 		
@@ -87,7 +87,7 @@ public class HomeController {
 				String countURmessage = ""+service.countURmessage(id);
 				//UserService UserDAO//userMapper//알림 카운트하는 서비스//소연
 				entity = new ResponseEntity<String>(countURmessage, HttpStatus.OK);
-				
+				System.out.println("ㅗ"+countURmessage);
 			}catch(Exception e){
 				e.printStackTrace();
 			}

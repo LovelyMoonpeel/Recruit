@@ -108,8 +108,8 @@ public class SRestController {
 
 		ResponseEntity<List<CodeVO>> entity = null;
 		try {
-			System.out.println("code2: ");
-			System.out.println(searchService.CodeList(tid));
+			//System.out.println("code2: ");
+			//System.out.println(searchService.CodeList(tid));
 			entity = new ResponseEntity<>(searchService.CodeList(tid), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,9 +125,9 @@ public class SRestController {
 		ResponseEntity<List<String>> entity = null;
 		try {
 			List<String> scodeList = new ArrayList<String>();
-			System.out.println("scodes: " + scode);
+			//System.out.println("scodes: " + scode);
 			scodeList.add(searchService.codeToName(convertJob1to2(scode)));
-			System.out.println("scodeList: " + scodeList);
+			//System.out.println("scodeList: " + scodeList);
 			entity = new ResponseEntity<>(scodeList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,7 +163,6 @@ public class SRestController {
 		int num = scodes.size();
 		for (int i = 0; i < num; i++) {
 			String scode = scodes.get(i);
-			System.out.println("Scode: " + scode);
 			scodes.set(i, convertJob1to2(scode));
 		}
 		getselCodes = scodes;
@@ -191,14 +190,14 @@ public class SRestController {
 			System.out.println("pageNum: " + pageNum);
 
 			if ("getkey".equals(getdoc)) {
-				System.out.println("skey: " + skey);
+				//System.out.println("skey: " + skey);
 				spanelVOList = searchService.getkeyRecruits(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getselCodes: " + getselCodes);
+				//System.out.println("getselCodes: " + getselCodes);
 				spanelVOList = searchService.getselRecruits(getselCodes, pageSize, pageNum);
 			}
-			System.out.println("spanelVOList: " + spanelVOList);
-			System.out.println("spanelVOList.size: " + spanelVOList.size());
+			//System.out.println("spanelVOList: " + spanelVOList);
+			//System.out.println("spanelVOList.size: " + spanelVOList.size());
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -216,14 +215,14 @@ public class SRestController {
 		ResponseEntity<List<SpanelVO>> entity = null;
 		List<SpanelVO> spanelVOList = null;
 		try {
-			System.out.println("pageSize: " + pageSize);
-			System.out.println("pageNum: " + pageNum);
+			//System.out.println("pageSize: " + pageSize);
+			//System.out.println("pageNum: " + pageNum);
 
 			if ("getkey".equals(getdoc)) {
-				System.out.println("skey: " + skey);
+				//System.out.println("skey: " + skey);
 				spanelVOList = searchService.getkeyResumes(skey, pageSize, pageNum);
 			} else { // getsel
-				System.out.println("getselCodes: " + getselCodes);
+				//System.out.println("getselCodes: " + getselCodes);
 				spanelVOList = searchService.getselResumes(getselCodes, pageSize, pageNum);
 			}
 			entity = new ResponseEntity<>(spanelVOList, HttpStatus.OK);
