@@ -178,6 +178,11 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		
 		session.update(namespace + ".qnaAnswer", QnA);
 	}
+	@Override
+	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+		
+		return session.selectList(namespace + ".qnaList",recruitNum);
+	}
 
 	@Override
 	public void ChangeState(int bno,int state)throws Exception{

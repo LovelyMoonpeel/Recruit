@@ -48,6 +48,8 @@ public interface CompanyAjaxDAO {
 	
 	public void QnaAnswer(RecruitQnAVO QnA)throws Exception;
 	
+	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
+	
 	public void FavorPersonAdd(int bno, String id) throws Exception;
 	
 	public void ChangeState(int bno, int state)throws Exception;

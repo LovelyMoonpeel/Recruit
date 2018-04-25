@@ -115,8 +115,6 @@ background-color: #777;
 	
 	<br>
 
-<div id="tel_div"></div>
-
 
 <!--  <a id="kakao-link-btn" href="javascript:;"> 카카오
     <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
@@ -681,7 +679,10 @@ $("#t1").html(timeInMs);
     		pageContext.setAttribute("cid", cid);
 		%>
 
+
 		</div>
+		
+		<div id="qna_div"></div>
 		
 		<c:set var="cid" value="${pageScope.cid}" /> 
 		
@@ -721,8 +722,9 @@ $("#t1").html(timeInMs);
 			dataType:'text',
 			data: JSON.stringify({qbno:num, atext:txt}),
 			success : function(result) {
-			
-				location.reload();
+				
+				$("#qna_div > *").remove();
+				reLoad();
 	 
 			}	
 			      		      
@@ -899,7 +901,6 @@ $(document).ready(function() {
 });
 </script>
 
-
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
@@ -969,47 +970,118 @@ $(document).ready(function() {
     	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
     </script>
     
-   <!-- <script>
+    <script>
     
-    var item = {
-			rid : 0,
-			teltitle : "${PTelVO.teltitle}", 
-			tel : "${PTelVO.tel}" ,
-			qtype : "${QnAVO.qtype}"
-		};
+    var rbno = <c:out value="${RecruitVO.bno}"/>
     
+    function reLoad(){
+    
+    	
+    	
+    	   $.ajax({
+    		   
+    	   
+    			type:'POST',
+    			url:'/companyAjax/qnaList/',
+    			headers: { 
+    			      "Content-Type": "application/json; ",
+    			      "X-HTTP-Method-Override": "POST" },
+    			dataType:'JSON',
+    			data: JSON.stringify(recruitNum=rbno),
+    			success : function(data) {
+    			
+    				var qbno ="";
+    				
+    				
+    				$(data).each(function(){
+    						
+    					var item = {
+    							qbno : this.qbno,
+    							qtype : this.qtype, 
+    							qtext : this.qtext,
+    							atext : this.atext
+    					};
+    					
+    					createTemplate(item)
+    					
+    				})
+    		
+    			}
+    			      
+    			      
+    			      
+    	   })
+    
+    		
+    }
+    
+    </script>
+  
+   <script>
+  
+   var rbno = <c:out value="${RecruitVO.bno}"/>
+   
+   $.ajax({
+	   
+   
+		type:'POST',
+		url:'/companyAjax/qnaList/',
+		headers: { 
+		      "Content-Type": "application/json; ",
+		      "X-HTTP-Method-Override": "POST" },
+		dataType:'JSON',
+		data: JSON.stringify(recruitNum=rbno),
+		success : function(data) {
+		
+			var qbno ="";
+			
+			
+			$(data).each(function(){
+					
+				var item = {
+						qbno : this.qbno,
+						qtype : this.qtype, 
+						qtext : this.qtext,
+						atext : this.atext
+				};
+				
+				createTemplate(item)
+				
+			})
+	
+		}
+		      
+		      
+		      
+   })
+   
+   
+   function createTemplate(item){
     
     var source_tel = $("#template_qnaList").html();
-	var template_tel = Handlebars.compile(source_tel);
-	$("#tel_div").append(template_tel(item));
+	var template = Handlebars.compile(source_tel);
+	$("#qna_div").append(template(item));
 	
+   }
     </script>
-<script id="template_qnaList" type="text/x-handlebars-template">
 
-	<c:set var="cid" value="${pageScope.cid}" /> 
-		
-		<c:forEach items="${QnAList}" var="QnAVO">
+  <script id="template_qnaList" type="text/x-handlebars-template">
 
 		<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
 		
-		<font class="badge" style="width:8%">${QnAVO.qtype}</font> Q. <font class="text-center" style="width:58%" name="txtClick">{{QnAVO.qtext}}</font> 
-
-		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{QnAVO.qbno}}">답변</button></c:if> 
-
+		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%" name="txtClick">{{qtext}}</font> 
+		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{qbno}}">답변</button></c:if> 
 		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
 		
-		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. ${QnAVO.atext}</font>
-
-		<textarea class="form-control" name="{{QnAVO.qbno}}" value="{{QnAVO.atext}}">{{QnAVO.atext}}</textarea>
-
-		<button value="{{QnAVO.qbno}}" name="aTextModifyBtns">등록하기</button>
-
+		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. {{atext}}</font>
+		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
+		<button value="{{qbno}}" name="aTextModifyBtns">등록하기</button>
 		</div>
+		
+	
 
-	</c:forEach>
 
-
-</script> -->
+</script>  
 <!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>

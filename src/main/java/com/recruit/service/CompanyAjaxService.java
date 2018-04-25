@@ -50,6 +50,8 @@ public interface CompanyAjaxService {
 	 
 	 public void QnaAnswer(RecruitQnAVO QnA)throws Exception;
 	  
+	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
+	 
 	 public void FavorPersonDelete(int bno, String id) throws Exception; //관심 인재 제거
 	 
 	 public int FavorListCount(String id) throws Exception; // 관심인재 페이지네이션용 카운터

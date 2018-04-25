@@ -240,11 +240,33 @@ public class CompanyAjax {
 		
 	}
 	
+	
 	@RequestMapping(value= "/recruitAnswer",method = RequestMethod.POST)
 	public void RecruitAnswer(@RequestBody RecruitQnAVO QnA)throws Exception{
 		
 		service.QnaAnswer(QnA);
 		
+	}
+
+	@RequestMapping(value= "/qnaList/",method = RequestMethod.POST)
+	public ResponseEntity<List<RecruitQnAVO>> QnAList(@RequestBody int recruitNum)throws Exception{
+
+		ResponseEntity<List<RecruitQnAVO>> entity = null;
+		System.out.println("넘어옴"+recruitNum);
+	
+			 try{
+			    	
+			    entity = new ResponseEntity<>( service.QnAList(recruitNum), HttpStatus.OK);
+			    System.out.println("질문 entity는"+ entity);
+			 }catch (Exception e) {
+				 
+				 e.printStackTrace();
+			     entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			     
+			 }
+			 
+			 return entity;
+			 
 	}
 
 	@RequestMapping(value = "/recruitList/",method = RequestMethod.POST)

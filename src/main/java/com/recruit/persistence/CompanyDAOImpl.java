@@ -51,11 +51,6 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return session.selectList(namespace + ".regionList");
 	}
 	@Override
-	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
-		
-		return session.selectList(namespace + ".qnaList",recruitNum);
-	}
-	@Override
 	public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
 		
 		session.insert(namespace + ".recruitWrite", recruitWrtie);

@@ -128,6 +128,11 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 		 
 		 dao.QnaAnswer(QnA);
 	 }
+	 @Override
+	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+		 
+		 return dao.QnAList(recruitNum);
+	 }
 	 
 	 @Override
 		public void RecruitReRegister(String id, int bno, int day)throws Exception{

@@ -27,8 +27,6 @@ public interface CompanyService {
 	  
 	  public List<RegionVO> RegionList() throws Exception;
 	  
-	  public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
-	  
 	  public void RecruitWrite(RecruitVO recruitWrtie) throws Exception;
 	 
 	  public List<RecruitVO> RecruitList(String id) throws Exception; // 여러곳에서 사용함

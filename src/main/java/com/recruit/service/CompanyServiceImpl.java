@@ -59,12 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 		 
 		 return dao.RegionList();
 	 }
-	 @Override
-	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
 		 
-		 return dao.QnAList(recruitNum);
-	 }
-	 
 	 @Override
 	 public void RecruitWrite(RecruitVO recruitWrtie) throws Exception{
 		 dao.RecruitWrite(recruitWrtie);

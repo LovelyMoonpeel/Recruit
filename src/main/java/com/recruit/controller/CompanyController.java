@@ -542,10 +542,6 @@ public class CompanyController {
 		model.addAttribute("jobdesc", jobdesc4);
 		model.addAttribute("CInfoVO", service.CompanyInfoRead(cid));
 		
-	
-		
-		model.addAttribute("QnAList", service.QnAList(recruitNum));
-
 		if(login==null){
 		model.addAttribute("RecruitVO", service.RecruitInfoRead(recruitNum));
 		}else{
