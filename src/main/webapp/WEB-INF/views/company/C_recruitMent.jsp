@@ -705,9 +705,11 @@ $("#t1").html(timeInMs);
 
 <script>
 	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
+
 		
-	})
+		$("#answerDiv"+$(this).val()).css("display","");
 	
+	})
 	$(document).on("click","button[name='aTextModifyBtns']",function(){ /* 답변 소환 버튼 */		
 		var num = $(this).val();
 		var txt = $("textarea[name="+num+"]").val();
@@ -724,6 +726,7 @@ $("#t1").html(timeInMs);
 			success : function(result) {
 				
 				$("#qna_div > *").remove();
+				
 				reLoad();
 	 
 			}	
@@ -1067,16 +1070,19 @@ $(document).ready(function() {
 
   <script id="template_qnaList" type="text/x-handlebars-template">
 
-		<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
+	<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
 		
 		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%" name="txtClick">{{qtext}}</font> 
 		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" value="{{qbno}}">답변</button></c:if> 
 		<span style="text-align:right; width:2%" class="glyphicon glyphicon-menu-down" name="spanClick"></span>
 		
+		
 		<font style="font-size:16px; padding-left:9%; display" name="hideFont"><br> A. {{atext}}</font>
+		<div id="answerDiv{{qbno}}" style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
 		<button value="{{qbno}}" name="aTextModifyBtns">등록하기</button>
-		</div>
+		</div>		
+	</div>
 		
 	
 
