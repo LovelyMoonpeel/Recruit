@@ -169,8 +169,8 @@ $("#message_notice").on("click", function(){
 				console.log(result);
 				console.log("성공함");
 				
-				for(int i=0;i<result.length;i++){
-					console.log(result.length);
+				for(var i=0;i<result.length;i++){
+					console.log("몇개냐"+result.length);
 				}
 				
 			}else{
