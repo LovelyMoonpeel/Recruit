@@ -706,8 +706,16 @@ $("#t1").html(timeInMs);
 <script>
 	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
 
-		
-		$("#answerDiv"+$(this).val()).css("display","");
+		num = $(this).val();
+		if($("#answerDiv"+num).css("display")=="none"){
+			
+			$("#answerDiv"+num).css("display","block");
+			
+		}else{
+			
+			$("#answerDiv"+num).css("display","none");
+			
+		}
 	
 	})
 	$(document).on("click","button[name='aTextModifyBtns']",function(){ /* 답변 소환 버튼 */		
