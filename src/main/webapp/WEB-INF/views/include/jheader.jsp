@@ -98,7 +98,7 @@
 						 <li class="dropdown">
 							<a href="#">
 								<span style="cursor:pointer; font-size:20px;" class="glyphicon glyphicon-bell dropdown-toggle" data-toggle="dropdown"></span>
-								<span id="message_notice" class="badge badge-danger">1</span>
+								<span id="message_notice" class="badge badge-danger"></span>
 							</a>
 							
 							<c:forEach items="result" var="MessageVO">
@@ -135,16 +135,13 @@ $(document).ready(function(){
 			"X-HTTP-Method-Override" : "POST"
 		},
 		dataType:'text',
-	/* 	data:JSON.stringify({
-		
-		}), */
 		success:function(result){
 			if(result!=''){
 				$("#message_notice").text(result);		
 				console.log(result);
-				console.log("성공함");
+				console.log("알림창 o");
 			}else{
-				console.log("실패함");
+				console.log("알림창 x");
 			}
 		}//success end
 	});//ajax end
@@ -160,21 +157,18 @@ $("#message_notice").on("click", function(){
 			"Content-Type":"application/json; charset=UTF-8",
 			"X-HTTP-Method-Override" : "POST"
 		},
-		dataType:'text',
-	/* 	data:JSON.stringify({
-		
-		}), */
-		success:function(result){
-			if(result!=''){
-				console.log(result);
+		dataType:'json',
+		success:function(data){
+			if(data!=''){
+				console.log(data);
 				console.log("성공함");
+				console.log("length"+data.length);
 				
-				for(var i=0;i<result.length;i++){
-					console.log("몇개냐"+result.length);
+				for(var i=0;i<data.length;i++){
+					console.log(data[i]);
 				}
-				
 			}else{
-				console.log(result);
+				console.log(data);
 				console.log("실패함");
 			}
 		}//success end

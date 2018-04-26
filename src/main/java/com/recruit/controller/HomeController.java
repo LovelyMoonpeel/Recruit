@@ -114,7 +114,7 @@ public class HomeController {
 				
 				entity = service.readAllmessage(id);
 				System.out.println("message_read"+entity);
-				
+				System.out.println("message_read2"+entity.size());
 			}catch(Exception e){
 				e.printStackTrace();
 			}
