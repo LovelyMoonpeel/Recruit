@@ -37,10 +37,10 @@
 
 <style>
 .badge-danger {
-  background-color: #dc3545;
+	background-color: #bd2130;
 }
-.badge-danger:hover {
-  background-color: #bd2130;
+#drop_a:hover .badge-danger{
+  	background-color: #dc3545;
 }
 </style>
 <div class="wrap">
@@ -93,28 +93,22 @@
 						</a></li>
 						<li><a style="color: white;">${sessionScope.login.pname}님
 								환영합니다.</a></li>
-								
-						
-						 <li class="dropdown">
-							<a href="#">
-								<span style="cursor:pointer; font-size:20px;" class="glyphicon glyphicon-bell dropdown-toggle" data-toggle="dropdown"></span>
-								<span id="message_notice" class="badge badge-danger"></span>
-							</a>
-							
-							<c:forEach items="result" var="MessageVO">
-								<input id="mymessage" type="text" value="">
-							</c:forEach>							
-
-
-							 <ul class="dropdown-menu">
-						      <li><a href="#">HTML</a></li>
-						      <li><a href="#">CSS</a></li>
-						      <li><a href="#">JavaScript</a></li>
-						    </ul> 
+						<li class="dropdown">
+						    <a id="drop_a" class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">
+						    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell"></span>
+						   		<span id="message_count" class="badge badge-danger"></span>	
+						    </a>
+						   		
+						    <ul class="dropdown-menu" style="width:300px;">
+						      <li><a style="cursor:pointer;">Normal</a></li>
+						      <li><a style="cursor:pointer;">Disabled</a></li>
+						      <li><a style="cursor:pointer;">Active</a></li>
+						      <li><a style="cursor:pointer;">Normal</a></li>
+						      <li><a id="mymessage" style="cursor:pointer;"></a>
+						    </ul>
 						</li>
 					</c:if>
 					<!--//MyPage, 로그아웃 부분  -->
-
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -137,7 +131,7 @@ $(document).ready(function(){
 		dataType:'text',
 		success:function(result){
 			if(result!=''){
-				$("#message_notice").text(result);		
+				$("#message_count").text(result);		
 				console.log(result);
 				console.log("알림창 o");
 			}else{
@@ -147,7 +141,7 @@ $(document).ready(function(){
 	});//ajax end
 });
 
-$("#message_notice").on("click", function(){
+$("#drop_a").on("click", function(){
 	var id = '<%=id%>';
 	
 	$.ajax({
@@ -163,11 +157,10 @@ $("#message_notice").on("click", function(){
 				console.log(data);
 				console.log("성공함");
 				console.log("length"+data.length);
-				
 				for(var i=0;i<data.length;i++){
 					console.log(data[i]);
-					$("#mymessage").val(data[i].rcno+data[i].appliedpid+data[i].message);
-				}
+					$("#mymessage").text(data[i].rcno+data[i].appliedpid+data[i].message);
+				} 
 			}else{
 				console.log(data);
 				console.log("실패함");

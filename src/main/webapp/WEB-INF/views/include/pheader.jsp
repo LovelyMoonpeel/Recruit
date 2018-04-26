@@ -131,21 +131,18 @@ td {
 		<div class="col-md-3">
 			<p class="lead">마이페이지</p>
 			<div class="list-group">
-				<a href="/personal/index" id="index" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
-				<a href="/personal/write" id="write" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a>
-				<a href="/personal/manage" id="manag" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
-				<a href="/personal/recom" id="recom" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>
-				<a href="/personal/favor_all" id="favor" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a>
-				<a href="/personal/applied_all" id="appli" name="pnav"  class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a>
-				<a href="/personal/leave" id="leave" name="pnav" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;회원탈퇴</a>
+				<a href="/personal/index" id="index" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
+				<a href="/personal/write" id="write"  class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a>
+				<a href="/personal/manage" id="manag" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
+				<a href="/personal/recom" id="recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>
+				<a href="/personal/favor_all" id="favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a>
+				<a href="/personal/applied_all" id="appli" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a>
+				<a href="/personal/leave" id="leave" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;회원탈퇴</a>
 			</div>
 		</div>
 		
 <script>
 	var nav_id = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 6);
-	
-	//alert($("a[name='pnav']").length);
-	//alert($(".list-group-item").length);
 	
 	for(var i =0; i<=$(".list-group-item").length -1; i++){
 		
@@ -158,14 +155,7 @@ td {
 			
 		}else{
 			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
-		}/* else if($("a[class='list-group-item']").eq(i).attr("id").indexOf(thisfilefullname2)!= -1){
-			
-			alert(thisfilefullname2);
-			
-			$("a[class='list-group-item']").eq(i).css("background-color","#5bc0de;");
-			$("a[class='list-group-item']").eq(i).css("color","white");
-			$("a[class='list-group-item']").eq(i).addClass("list-active");
-		} */
+		}
 	} 
 
 </script>
