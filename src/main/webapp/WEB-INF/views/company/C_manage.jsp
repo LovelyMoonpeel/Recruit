@@ -963,9 +963,8 @@ function C_readAPR(rsno, rcno, userid){
 			userid : userid//열람하는 회사 아이디
 		}),
 		success:function(result){
-			console.log("result가 뭐냐?"+result);
 			if(result=='SUCCESS'){
-				console.log("지원자의 이력서를 이미 열람했거나 방금 열람했다.");
+				console.log(result+"지원자의 이력서를 이미 열람했거나 방금 열람했다.");
 			}else{
 				console.log("result가 뭔가 이상함");
 			}

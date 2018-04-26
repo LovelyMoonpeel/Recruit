@@ -102,7 +102,7 @@
 							</a>
 							
 							<c:forEach items="result" var="MessageVO">
-								<input type="text" value="">
+								<input id="mymessage" type="text" value="">
 							</c:forEach>							
 
 
@@ -166,6 +166,7 @@ $("#message_notice").on("click", function(){
 				
 				for(var i=0;i<data.length;i++){
 					console.log(data[i]);
+					$("#mymessage").val(data[i].rcno+data[i].message);
 				}
 			}else{
 				console.log(data);

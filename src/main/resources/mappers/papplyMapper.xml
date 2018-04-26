@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createAPOne">
 	  <![CDATA[
 	  insert 
-	  into tblapply (rsno, rcno, pid, coverletter)
-	  values(#{rsno}, #{rcno}, #{pid}, #{coverletter});
+	  into tblapply (rsno, rcno, pid)
+	  values(#{rsno}, #{rcno}, #{pid});
 	  ]]>
 	</insert>
 	

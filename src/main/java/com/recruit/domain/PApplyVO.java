@@ -11,7 +11,6 @@ public class PApplyVO {
 	private String title;
 	private String address;
 	private String postcode;
-	private String coverletter;
 	
 	private String img;
 	private String regdate;
@@ -70,12 +69,6 @@ public class PApplyVO {
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
-	public String getCoverletter() {
-		return coverletter;
-	}
-	public void setCoverletter(String coverletter) {
-		this.coverletter = coverletter;
-	}
 	public String getImg() {
 		return img;
 	}
@@ -93,6 +86,6 @@ public class PApplyVO {
 	public String toString() {
 		return "PApplyVO [rsno=" + rsno + ", rcno=" + rcno + ", pid=" + pid + ", readornot=" + readornot + ", bno="
 				+ bno + ", userid=" + userid + ", title=" + title + ", address=" + address + ", postcode=" + postcode
-				+ ", coverletter=" + coverletter + ", img=" + img + ", regdate=" + regdate + "]";
+				+ ", img=" + img + ", regdate=" + regdate + "]";
 	}
 }

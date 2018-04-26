@@ -578,7 +578,6 @@ public class CompanyController {
 			System.out.println("레주메에서 받아오는 유저아이디" + id);
 			pavo.setPid(id);
 			pavo.setRcno(recruitNum + "");
-			pavo.setCoverletter(" ");
 			PAPService.createAPOne(pavo);
 			// applytbl update 시키면 된다.
 
