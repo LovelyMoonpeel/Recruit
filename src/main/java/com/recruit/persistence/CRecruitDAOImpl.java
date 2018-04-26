@@ -27,7 +27,7 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 	}
 	
 	public int countPaging_closed(PersonalCriteriaVO cri)throws Exception{
-		System.out.println("ㅗ"+cri);
+		System.out.println(cri);
 		return session.selectOne(namespace+".countPaging_closed", cri);
 	}
 	

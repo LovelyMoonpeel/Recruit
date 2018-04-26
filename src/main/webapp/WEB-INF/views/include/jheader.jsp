@@ -4,7 +4,6 @@
 
 <%@ page import="com.recruit.domain.BoardVO"%>
 
-
 <%
 	String id = "";
 	BoardVO login = null;
@@ -43,80 +42,82 @@
   	background-color: #dc3545;
 }
 </style>
+
 <div class="wrap">
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/cs/notice">공지사항</a></li>
-					<li><a href="/srch/main?stype=1">기업찾기</a></li>
-					<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span> <span
+				class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
+	</div>
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse"
+		id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="/cs/notice">공지사항</a></li>
+			<li><a href="/srch/main?stype=1">기업찾기</a></li>
+			<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
 
-					<!--회원가입, 로그인 부분 -->
-					<!--★ a href="#" 삭제하면 안됨  -->
-					<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
-					<c:if test="${empty sessionScope.login}">
-						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-						<li id="myBtn_join"><a style="cursor: pointer;"> <span
-								class="glyphicon glyphicon-user"></span> 회원가입
-						</a></li>
+			<!--회원가입, 로그인 부분 -->
+			<!--★ a href="#" 삭제하면 안됨  -->
+			<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
+			<c:if test="${empty sessionScope.login}">
+				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
+				<li id="myBtn_join"><a style="cursor: pointer;"> <span
+						class="glyphicon glyphicon-user"></span> 회원가입
+				</a></li>
 
-						<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-						<li id="myBtn_login"><a style="cursor: pointer;"> <span
-								class="glyphicon glyphicon-log-in"></span> 로그인
-						</a></li>
-					</c:if>
-					<!--//회원가입, 로그인 부분  -->
+				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
+				<li id="myBtn_login"><a style="cursor: pointer;"> <span
+						class="glyphicon glyphicon-log-in"></span> 로그인
+				</a></li>
+			</c:if>
+			<!--//회원가입, 로그인 부분  -->
 
-					<!--MyPage, 로그아웃 부분  -->
-					<c:if test="${not empty sessionScope.login}">
+			<!--MyPage, 로그아웃 부분  -->
+			<c:if test="${not empty sessionScope.login}">
 
-						<li><a href="<%=location%>"><%=myPage %></a></li>
+				<li><a href="<%=location%>"><%=myPage %></a></li>
 
 
-						<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-						<li><a href="/user/logout"> <span
-								class="glyphicon glyphicon-log-out"></span>로그아웃
-						</a></li>
-						<li><a style="color: white;">${sessionScope.login.pname}님
-								환영합니다.</a></li>
-						<li class="dropdown">
-						    <a id="drop_a" class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">
-						    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell"></span>
-						   		<span id="message_count" class="badge badge-danger"></span>	
-						    </a>
-						   		
-						    <ul class="dropdown-menu" style="width:300px;">
-						      <li><a style="cursor:pointer;">Normal</a></li>
-						      <li><a style="cursor:pointer;">Disabled</a></li>
-						      <li><a style="cursor:pointer;">Active</a></li>
-						      <li><a style="cursor:pointer;">Normal</a></li>
-						      <li><a id="mymessage" style="cursor:pointer;"></a>
-						    </ul>
-						</li>
-					</c:if>
-					<!--//MyPage, 로그아웃 부분  -->
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+				<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
+				<li><a href="/user/logout"> <span
+						class="glyphicon glyphicon-log-out"></span>로그아웃
+				</a></li>
+				<li><a style="color: white;">${sessionScope.login.pname}님
+						환영합니다.</a></li>
+				<li class="dropdown">
+				    <a id="drop_a" class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">
+				    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell"></span>
+				   		<span id="message_count" class="badge badge-danger"></span>	
+				    </a>
+				   		
+				    <ul id="drop_ul" class="dropdown-menu container" 
+				    	style="width:250px; border:solid 0.5px black; 
+				    	word-wrap:break-word; white-space:no-wrap; word-break: normal; text-overflow:ellipsis; overflow:hidden;">
+				      
+				      <li><a class="message1" style="cursor:pointer;">Normal</a></li>
+				      <li><a class="message2" style="cursor:pointer;">Disabled</a></li>
+				      <li><a class="message3" style="cursor:pointer;">Active</a></li>
+				      <li><a class="message4" style="cursor:pointer;"> message=진민경씨 당신 =</a></li>
+				      <li><a class="message5" style="cursor:pointer;">5번째 메시지</a></li>
+				    
+				    </ul>
+				</li>
+			</c:if>
+			<!--//MyPage, 로그아웃 부분  -->
+		</ul>
+	</div> <!-- /.navbar-collapse -->
+	</div> <!-- /.container -->
+</nav>
 
-	<!-- 인재찾기 접근 가능 스크립트 -->
 <script>
 $(document).ready(function(){
 	var id = '<%=id%>';
@@ -139,42 +140,48 @@ $(document).ready(function(){
 			}
 		}//success end
 	});//ajax end
-});
-
-$("#drop_a").on("click", function(){
-	var id = '<%=id%>';
 	
-	$.ajax({
-		type:'POST',
-		url:'/message_read',
-		headers:{
-			"Content-Type":"application/json; charset=UTF-8",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType:'json',
-		success:function(data){
-			if(data!=''){
-				console.log(data);
-				console.log("성공함");
-				console.log("length"+data.length);
-				for(var i=0;i<data.length;i++){
-					console.log(data[i]);
-					$("#mymessage").text(data[i].rcno+data[i].appliedpid+data[i].message);
-				} 
-			}else{
-				console.log(data);
-				console.log("실패함");
-			}
-		}//success end
-	});//ajax end
+	$("#drop_a").on("click", function(){
+		var id = '<%=id%>';
+		
+		$.ajax({
+			type:'POST',
+			url:'/message_read',
+			headers:{
+				"Content-Type":"application/json; charset=UTF-8",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'json',
+			success:function(data){
+				if(data!=''){
+					console.log(data);
+					console.log("성공함");
+					console.log("length"+data.length);
+					
+					for(var i=0;i<data.length;i++){
+						
+						var order = i+1;
+						
+						if(<%=cname%>==null){
+							$(".message"+order).text(data[i].rcno+data[i].message);
+						}else{
+							$(".message"+order).text(data[i].rcno+data[i].appliedpid+data[i].message);
+						}
+						
+					} 
+				}else{
+					console.log(data);
+					console.log("실패함");
+				}
+			}//success end
+		});//ajax end
+	});//drop onclick
 	
-});
-	
-$("#p_search").on("click",function(){
-	var c_chk = "<%=c_chk%>";
-	
-	if(c_chk=="null"){
-		if("<%=location%>" != "/admin/main") {
+	$("#p_search").on("click",function(){
+		var c_chk = "<%=c_chk%>";
+		
+		if(c_chk=="null"){
+			if("<%=location%>" != "/admin/main") {
 					alert("접근 권한이 없습니다.");
 				} else {
 					self.location = "/srch/main?stype=2";
@@ -183,5 +190,8 @@ $("#p_search").on("click",function(){
 				self.location = "/srch/main?stype=2";
 			}
 		});
-	</script>
+	
+});//document ready
+</script>
+
 	<%@ include file="../include/login.jsp"%>
