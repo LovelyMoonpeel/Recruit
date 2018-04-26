@@ -152,6 +152,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public List<MessageVO> readFivemessage(String id) throws Exception{
+		return session.selectList(namespace+".readFivemessage", id);
+	}
+	
+	@Override
 	public List<MessageVO> readAllmessage(String id) throws Exception{
 		return session.selectList(namespace+".readAllmessage", id);
 	}

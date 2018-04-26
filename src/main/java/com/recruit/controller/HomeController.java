@@ -112,7 +112,7 @@ public class HomeController {
 			try{			
 				System.out.println("메시지");
 				
-				entity = service.readAllmessage(id);
+				entity = service.readFivemessage(id);
 				System.out.println("message_read"+entity);
 				System.out.println("message_read2"+entity.size());
 			}catch(Exception e){

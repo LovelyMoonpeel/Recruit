@@ -241,8 +241,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public List<MessageVO> readFivemessage(String id) throws Exception{
+		return dao.readFivemessage(id);
+	}
+	
+	@Override
 	public List<MessageVO> readAllmessage(String id) throws Exception{
-		return dao.readAllmessage(id);
+		return dao.readFivemessage(id);
 	}
 	
 	@Override

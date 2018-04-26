@@ -152,13 +152,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
-	<select id="readAllmessage" resultType="MessageVO">
+	<select id="readFivemessage" resultType="MessageVO">
 	<![CDATA[
 		select*
 		from tblmessage
 		where userid=#{id}
 		order by bno desc
 		limit 5
+		;
+	]]>
+	</select>
+	
+	<!-- 소연 알림창 jheader에서 쓰는거 -->
+	<select id="readAllmessage" resultType="MessageVO">
+	<![CDATA[
+		select*
+		from tblmessage
+		where userid=#{id}
+		order by bno desc
 		;
 	]]>
 	</select>
