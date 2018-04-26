@@ -52,4 +52,6 @@ public interface UserDAO {
 	public List<MessageVO> readAllmessage(String id) throws Exception;//소연
 	
 	public void CreadAPRmessage(MessageVO msvo)throws Exception;//소연 이력서 열람했다는 알림
+	
+	public void PAppliedmessage(MessageVO msvo)throws Exception;//소연 이력서 지원했다는 알림
 }

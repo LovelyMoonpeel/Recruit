@@ -161,4 +161,8 @@ public class UserDAOImpl implements UserDAO {
 		session.insert(namespace+".CreadAPRmessage", msvo);
 	}
 	
+	@Override
+	public void PAppliedmessage(MessageVO msvo)throws Exception{//소연 이력서 지원했다는 알림
+		session.insert(namespace+".PAppliedmessage", msvo);
+	}
 }

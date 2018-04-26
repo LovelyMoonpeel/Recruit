@@ -168,5 +168,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{userid}, '에서 지원한 이력서를 열람하였습니다.', #{rcno});
 	]]>
 	</insert>
+	
+	<!-- 소연 알림창 C_recruitment에서 쓰는거 -->
+	<insert id="PAppliedmessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno, appliedpid)
+		values(#{userid}, '채용공고에 지원하였습니다.', #{rcno}, #{appliedpid});
+	]]>
+	</insert>
 
 </mapper>

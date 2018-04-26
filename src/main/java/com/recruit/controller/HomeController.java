@@ -124,4 +124,32 @@ public class HomeController {
 		}
 		return entity;
 	}
+	
+	// 알림창 소연2
+	/*@ResponseBody
+	@RequestMapping(value = "/message_read", method = RequestMethod.POST)
+	public ResponseEntity<List<MessageVO>> message_read(HttpSession session) throws Exception {
+		System.out.println("message read POST Controller");
+		
+		List<MessageVO> messagevolist = new ArrayList<>();
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			try{			
+				System.out.println("메시지");
+				
+				messagevolist = service.readAllmessage(id);
+				System.out.println("message_read"+messagevolist);
+				System.out.println("message_read2"+messagevolist.size());
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		} else {
+			messagevolist = new ArrayList<MessageVO>();
+			messagevolist.add(null);
+		}
+		return new ResponseEntity<>(messagevolist, HttpStatus.);
+	}*/
 }

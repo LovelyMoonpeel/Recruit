@@ -42,13 +42,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.CInfoVO;
+import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CompanyPageMaker;
 import com.recruit.domain.CompanySearchCriteria;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.domain.ResumeVO;
 import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.UserDAO;
+import com.recruit.service.CRecruitService;
 import com.recruit.service.CompanyAjaxService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.PApplyService;
@@ -90,7 +93,9 @@ public class CompanyController {
 	private PasswordEncoder passwordEncoder;
 
 	@Inject
-	private UserService servicePw;
+	private UserService UService;//아무도 안쓰길래 소연 수정
+	@Inject
+	private CRecruitService CService;//소연 사용
 
 	// @Resource(name = "uploadPath") // servlet-context에 지정된 경로를 읽어옴
 	// private String uploadPath;
@@ -580,7 +585,16 @@ public class CompanyController {
 			pavo.setRcno(recruitNum + "");
 			PAPService.createAPOne(pavo);
 			// applytbl update 시키면 된다.
-
+			
+			CRecruitVO rcvo = CService.selectCROne(recruitNum);//rcno로 회사 아이디 가져와서 messagevo userid에 넣기
+			String msvo_userid = rcvo.getCid();
+			MessageVO msvo = new MessageVO();
+			msvo.setAppliedpid(id);//지원한 아이디
+			msvo.setRcno(recruitNum+"");//채용공고번호
+			msvo.setUserid(msvo_userid);//회사아이디
+			
+			UService.PAppliedmessage(msvo);//지원했다고 message보내는 거
+			
 			return "redirect:C_recruitMent?recruitNum=" + recruitNum;
 		} else {
 			rttr.addFlashAttribute("msg", "login");

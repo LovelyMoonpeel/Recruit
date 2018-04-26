@@ -249,4 +249,9 @@ public class UserServiceImpl implements UserService{
 	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림
 		dao.CreadAPRmessage(msvo);
 	}
+	
+	@Override
+	public void PAppliedmessage(MessageVO msvo)throws Exception{//소연 이력서 지원했다는 알림
+		dao.PAppliedmessage(msvo);
+	}
 }
