@@ -155,4 +155,10 @@ public class UserDAOImpl implements UserDAO {
 	public List<MessageVO> readAllmessage(String id) throws Exception{
 		return session.selectList(namespace+".readAllmessage", id);
 	}
+	
+	@Override
+	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림
+		session.insert(namespace+".CreadAPRmessage", msvo);
+	}
+	
 }

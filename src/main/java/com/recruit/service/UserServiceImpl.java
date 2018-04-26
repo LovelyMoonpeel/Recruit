@@ -244,4 +244,9 @@ public class UserServiceImpl implements UserService{
 	public List<MessageVO> readAllmessage(String id) throws Exception{
 		return dao.readAllmessage(id);
 	}
+	
+	@Override
+	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림
+		dao.CreadAPRmessage(msvo);
+	}
 }

@@ -939,14 +939,15 @@ $(document).on("click","#btt",function(){ /* 이력서 새창에 보기위해 �
 	//소연	
 	var rsno = $(this).attr("class");
 	var rcno = $("#s_rcnoval").val();
-	C_readAPR(rsno, rcno);
+	var userid = '<%=id%>';
+	C_readAPR(rsno, rcno, userid);
 	
 	window.open(this.href, '', 'width=1000, height=960'); 
 	return false;
 		
 });
 
-function C_readAPR(rsno, rcno){
+function C_readAPR(rsno, rcno, userid){
 	
 	$.ajax({
 		type:'post',
@@ -958,7 +959,8 @@ function C_readAPR(rsno, rcno){
 		dataType:'text',
 		data:JSON.stringify({
 			rsno : rsno,//이거 바꾸고 ajax 생성
-			rcno : rcno
+			rcno : rcno,
+			userid : userid//열람하는 회사 아이디
 		}),
 		success:function(result){
 			console.log("result가 뭐냐?"+result);

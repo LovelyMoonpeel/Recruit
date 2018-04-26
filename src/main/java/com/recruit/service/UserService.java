@@ -49,5 +49,6 @@ public interface UserService {
 	public int countURmessage(String id)throws Exception;//소연
 	
 	public List<MessageVO> readAllmessage(String id) throws Exception;//소연
-
+	
+	public void CreadAPRmessage(MessageVO msvo)throws Exception;//소연 이력서 열람했다는 알림
 }

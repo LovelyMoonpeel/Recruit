@@ -151,7 +151,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-		<!-- 소연 알림창 jheader에서 쓰는거 -->
+	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="readAllmessage" resultType="MessageVO">
 	<![CDATA[
 		select*
@@ -160,5 +160,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		;
 	]]>
 	</select>
+	
+	<!-- 소연 알림창 C_manage에서 쓰는거 -->
+	<insert id="CreadAPRmessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno)
+		values(#{userid}, '에서 지원한 이력서를 열람하였습니다.', #{rcno});
+	]]>
+	</insert>
 
 </mapper>

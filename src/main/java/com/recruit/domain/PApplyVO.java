@@ -3,22 +3,16 @@ package com.recruit.domain;
 public class PApplyVO {
 	private String rsno;
 	private String rcno;
-	private String pid;
+	private String pid;//알림 보낼 때 개인아이디
 	private String readornot;
 	//소연 readornot 추가
 	private int bno;
-	private String userid;
+	private String userid;//알림 보낼 때 회사아이디
 	private String title;
 	private String address;
 	private String postcode;
 	private String coverletter;
-	private String jobstateid;
-	private String jobgroupid;
-	private String jobgroupid2;
-	private String rgbid;
-	private String rgsid;
-	private String employstatusid;
-	private String salaryid;
+	
 	private String img;
 	private String regdate;
 	
@@ -82,48 +76,6 @@ public class PApplyVO {
 	public void setCoverletter(String coverletter) {
 		this.coverletter = coverletter;
 	}
-	public String getJobstateid() {
-		return jobstateid;
-	}
-	public void setJobstateid(String jobstateid) {
-		this.jobstateid = jobstateid;
-	}
-	public String getJobgroupid() {
-		return jobgroupid;
-	}
-	public void setJobgroupid(String jobgroupid) {
-		this.jobgroupid = jobgroupid;
-	}
-	public String getJobgroupid2() {
-		return jobgroupid2;
-	}
-	public void setJobgroupid2(String jobgroupid2) {
-		this.jobgroupid2 = jobgroupid2;
-	}
-	public String getRgbid() {
-		return rgbid;
-	}
-	public void setRgbid(String rgbid) {
-		this.rgbid = rgbid;
-	}
-	public String getRgsid() {
-		return rgsid;
-	}
-	public void setRgsid(String rgsid) {
-		this.rgsid = rgsid;
-	}
-	public String getEmploystatusid() {
-		return employstatusid;
-	}
-	public void setEmploystatusid(String employstatusid) {
-		this.employstatusid = employstatusid;
-	}
-	public String getSalaryid() {
-		return salaryid;
-	}
-	public void setSalaryid(String salaryid) {
-		this.salaryid = salaryid;
-	}
 	public String getImg() {
 		return img;
 	}
@@ -136,12 +88,11 @@ public class PApplyVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	
 	@Override
 	public String toString() {
 		return "PApplyVO [rsno=" + rsno + ", rcno=" + rcno + ", pid=" + pid + ", readornot=" + readornot + ", bno="
 				+ bno + ", userid=" + userid + ", title=" + title + ", address=" + address + ", postcode=" + postcode
-				+ ", coverletter=" + coverletter + ", jobstateid=" + jobstateid + ", jobgroupid=" + jobgroupid
-				+ ", jobgroupid2=" + jobgroupid2 + ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", employstatusid="
-				+ employstatusid + ", salaryid=" + salaryid + ", img=" + img + ", regdate=" + regdate + "]";
+				+ ", coverletter=" + coverletter + ", img=" + img + ", regdate=" + regdate + "]";
 	}
 }

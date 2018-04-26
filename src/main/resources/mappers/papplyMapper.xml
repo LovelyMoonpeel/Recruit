@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="CreadAPOne">
 	update tblapply
 	set readornot = '읽음'
+	,userid = #{userid}
 	where rcno=#{rcno}
 	AND rsno=#{rsno};
 	</update>

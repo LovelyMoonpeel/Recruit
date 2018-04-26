@@ -29,6 +29,7 @@ import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanyPageMaker;
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
 import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.RecruitQnAVO;
@@ -41,6 +42,8 @@ import com.recruit.service.CompanyService;
 
 import com.recruit.service.PApplyService;
 import com.recruit.service.PInterestJobService;
+import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
 
 @RestController
 @RequestMapping("/companyAjax")
@@ -57,6 +60,10 @@ public class CompanyAjax {
 	// 문> 밑에 changePassword쪽에서 쓰려고 passwordEncoder주입해줬음
 	@Inject
 	private PasswordEncoder passwordEncoder;
+	@Inject
+	private UserService uService;//이력서 읽었다는 알림할 때 쓸거//소연
+	@Inject
+	private ResumeService rService;//이력서 번호로 개인userid 받아오려고
 	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list() {
@@ -529,18 +536,29 @@ public class CompanyAjax {
 		System.out.println("C_readAPRPOST POST CONTROLLER");
 		
 		ResponseEntity<String> entity = null;
-		String rsno = pavo.getRsno();
-		String rcno = pavo.getRcno();
 		System.out.println("pavo"+pavo);
 		try{
 			String result = papService.readornotAPOne(pavo);
 			System.out.println("읽었냐 말았냐?"+result);
 			if(result.equals("읽지않음")){//읽은 적이 없을 때
 				System.out.println("읽지않음 if문으로 들어옴");
-				papService.CreadAPOne(pavo);//읽음으로 바뀌는 서비스
+				papService.CreadAPOne(pavo);//읽음으로 바뀌면서 회사 아이디 추가하는 서비스
+				
+				Integer rsno = Integer.parseInt(pavo.getRsno());
+				System.out.println("이력서번호?"+rsno);
+				ResumeVO resume = rService.readROne(rsno) ;//이력서 번호로 ResumeVO읽어오기
+				String pid= resume.getUserid();//ResumeVO에서 pid읽어오기
+				
+				MessageVO msvo = new MessageVO();
+				msvo.setUserid(pid);//지원한 개인에게 알림가도록 userid 설정
+				msvo.setRcno(pavo.getRcno());//어떤 채용공고에 지원했는지
+				uService.CreadAPRmessage(msvo);//위에서 읽어온 개인 아이디를 userid에 넣어주고 열람했다는 알림 insert 서비스
+				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}else if(result.equals("읽음")){//읽은 적이 있을 때
 				System.out.println("이미읽음 if문으로 들어옴");
+				papService.CreadAPOne(pavo);//읽음으로 바뀌면서 회사 아이디 추가하는 서비스
+				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}else{
 				System.out.println("어느 if문에도 들어가지 못함");
