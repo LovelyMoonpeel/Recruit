@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -30,10 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
-import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CoordinateVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
-import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
@@ -57,11 +57,11 @@ import com.recruit.service.ResumeCareerService;
 import com.recruit.service.ResumeEduService;
 import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
 
-import antlr.collections.List;
 
 /**
  * Handles requests for the application home page.
@@ -111,6 +111,8 @@ public class PersonalController {
 	@Inject
 	private PreferenceService PREFService;
 	
+	@Inject
+	private UserService UService;
 	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -124,6 +126,14 @@ public class PersonalController {
 			String id = login.getId();
 			System.out.println("아이디 출력 해봅니다. : " + id);
 			model.addAttribute(service.selectPUser(id));
+			
+			
+			List<MessageVO> entity = new ArrayList<MessageVO>();
+			
+			entity = UService.readAllmessage(id);
+			
+			model.addAttribute("MessageVOlist",entity);
+			
 			return "personal/P_index";
 		} else {
 			rttr.addFlashAttribute("msg", "login");
