@@ -64,7 +64,7 @@
 	</div>
 	
 	<div class="container"
-		style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
+		style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px; background-color:#dfe2e9;">
 		<h4>
 			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
 			항목 중요도 조절
@@ -85,15 +85,7 @@
 			<i id="icon_lastcareer" class="material-icons"
 				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
 		</div> -->
-		
-		
-		
-	</div><!-- container end -->
-
-	<div class="container"
-		style="width:100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; margin-top:30px; padding-top: 30px; padding-bottom:30px;">
-
-		<div class="container col-md-8" style="width: 100%; background-color: #e0e0e0;">
+		<div class="container col-md-8" style="width: 100%; background-color: #dfe2e9;">
 			<input id="slider_job" type="text" data-provide="slider"
 			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
@@ -101,7 +93,7 @@
 		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
 		
  		<br>
-		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
 			<input id="slider_region" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value='5' />
@@ -109,7 +101,7 @@
 		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
 
 		<br>
-		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
 			<input id="slider_employstatus" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value="5" />
@@ -117,21 +109,70 @@
 		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
 		<br>
 		
-		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
 			<input id="slider_levelofeducation" type="text" data-provide="slider"
 				data-slider-min="0" data-slider-max="5" data-slider-step="1"
 				data-slider-value="3" />
 		</div>
 		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
 		
-		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
 			<input id="slider_lastcareer" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
 			data-slider-value="3" />
 		</div>
 		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
 		<br> 
-	</div>
+		<%-- <i id="icon_job" class="material-icons" 
+			style="cursor: pointer;" onclick="add_job();">business</i>
+		<div class="container" style="width: 80%; background-color: #dfe2e9; float:right;">
+			<input id="slider_job" type="text" data-provide="slider"
+			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
+			data-slider-value="2" />
+		</div>
+		<span style="line-height:200%">직무 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
+		
+		<i id="icon_region" class="material-icons" style="cursor: pointer;"
+				onclick="add_region();">location_on</i>
+ 		<br>
+		<div class="container" style="width: 100%; background-color:#dfe2e9;">
+			<input id="slider_region" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value='5' />
+		</div>
+		<span style="line-height:200%">지역 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
+		
+		<i id="icon_employstatus" class="material-icons"
+			style="cursor: pointer;" onclick="add_employstatus();">people</i>
+		<br>
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
+			<input id="slider_employstatus" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value="5" />
+		</div>
+		<span style="line-height:200%">근무형태 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
+		<br>
+		
+		<i id="icon_levelofeducation" class="material-icons"
+			style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
+			<input id="slider_levelofeducation" type="text" data-provide="slider"
+				data-slider-min="0" data-slider-max="5" data-slider-step="1"
+				data-slider-value="3" />
+		</div>
+		<span style="line-height:200%">학력 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
+		
+		<i id="icon_lastcareer" class="material-icons"
+			style="cursor: pointer;" onclick="add_lastcareer();">work</i>
+		<div class="container" style="width: 100%; background-color: #dfe2e9;">
+			<input id="slider_lastcareer" type="text" data-provide="slider"
+			data-slider-min="0" data-slider-max="5" data-slider-step="1"
+			data-slider-value="3" />
+		</div>
+		<span style="line-height:200%">경력 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
+		<br>  --%>
+		
+	</div><!-- container end -->
 
 
 	<div class="container" style="width:100%; margin-top:10px; padding: 20px 0px 20px 0px;">
