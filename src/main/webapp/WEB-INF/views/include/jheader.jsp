@@ -163,7 +163,7 @@ $(document).ready(function(){
 						
 						var order = i+1;
 						
-						if(<%=cname%>==null){
+						if("<%=cname%>"==null){
 							$(".message"+order).text(data[i].rcno+data[i].message);
 						}else{
 							$(".message"+order).text(data[i].rcno+data[i].appliedpid+data[i].message);

@@ -44,12 +44,12 @@
 	<div class="container col-md-12">
 	
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
-			<div class="alert alert-success alert-dismissible fade in">
+			<div class="alert alert-info alert-dismissible fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>${MessageVO.bno}</strong>${MessageVO.message}
 			</div>
 		</c:forEach>
-			<div class="alert alert-info alert-dismissible fade in">
+			<div class="alert alert-success alert-dismissible fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Info!</strong> This alert box could indicate a neutral
 				informative change or action.
