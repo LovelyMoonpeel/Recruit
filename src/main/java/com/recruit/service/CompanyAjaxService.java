@@ -46,11 +46,13 @@ public interface CompanyAjaxService {
 	 
 	 public void ChangeState(int bno, int state)throws Exception;
 	 
-	 public void QnaQuestion(RecruitQnAVO QnA)throws Exception;
+	 public void QnAQuestion(RecruitQnAVO QnA)throws Exception;
 	 
-	 public void QnaAnswer(RecruitQnAVO QnA)throws Exception;
+	 public void QnAAnswer(RecruitQnAVO QnA)throws Exception;
 	  
 	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
+	 
+	 public int QnAPageNum(int recruitNum)throws Exception;
 	 
 	 public void FavorPersonDelete(int bno, String id) throws Exception; //관심 인재 제거
 	 

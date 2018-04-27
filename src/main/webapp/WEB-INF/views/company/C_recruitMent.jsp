@@ -646,12 +646,12 @@ $("#t1").html(timeInMs);
 	<br>
 	
 	
-	<button class="btn btn-primary" id="questionCall" type="button" style="float:right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+<button class="btn btn-primary" id="questionCall" type="button" style="float:right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 <span class="glyphicon glyphicon-pencil">인사담당자에게 질문하기</span>
 </button>
-<br><Br><br>
-<div class="collapse" id="collapseExample">
 
+<div class="collapse" style="width:100%" id="collapseExample">
+<br><br>
   <div class="well">
 			
 			<h4 style="border-bottom: 2px solid #dce1eb; padding: 10px 0px 10px 10px">인사담당자에게 질문하기</h4>
@@ -974,7 +974,7 @@ $(document).ready(function() {
     
    <script>
     
-    var rbno = <c:out value="${RecruitVO.bno}"/>
+    var recruitNum = <c:out value="${RecruitVO.bno}"/>
     
     function reLoad(){
     
@@ -989,7 +989,7 @@ $(document).ready(function() {
     			      "Content-Type": "application/json; ",
     			      "X-HTTP-Method-Override": "POST" },
     			dataType:'JSON',
-    			data: JSON.stringify(recruitNum=rbno),
+    			data: JSON.stringify({recruitNum:recruitNum}),
     			success : function(data) {
     			
     				var qbno ="";
@@ -1020,7 +1020,7 @@ $(document).ready(function() {
     </script>
  <script>
   
-   var rbno = <c:out value="${RecruitVO.bno}"/>
+   var recruitNum = <c:out value="${RecruitVO.bno}"/>
    
    $.ajax({
 	   
@@ -1031,7 +1031,7 @@ $(document).ready(function() {
 		      "Content-Type": "application/json; ",
 		      "X-HTTP-Method-Override": "POST" },
 		dataType:'JSON',
-		data: JSON.stringify(recruitNum=rbno),
+		data: JSON.stringify({recruitNum:recruitNum}),
 		success : function(data) {
 		
 			var qbno ="";
@@ -1068,19 +1068,36 @@ $(document).ready(function() {
 
   <script id="template_qnaList" type="text/x-handlebars-template">
 
-	<div style="padding:5px 5px 5px 5px; border-bottom: 1px solid #dde2eb;">
 
-		<font class="badge" style="width:8%">{{qtype}}</font> Q. <font class="text-center" style="width:58%; cursor:pointer;" value="{{qbno}}" name="txtClick">{{qtext}}</font> 
-		<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
-		<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>
 		
+<div class="panel-group" id="accordion{{qbno}}" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading{{qbno}}">
+      <h4 class="panel-title">
+      	<a><font class="badge" style="width:8%">{{qtype}}</font></a>
+        <a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" aria-expanded="false" aria-controls="collapse{{qbno}}">
+			Q. <font class="text-center" style="width:58%; cursor:pointer;" value="{{qbno}}" name="txtClick">{{qtext}}</font>    
+        </a>
+        <a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" aria-expanded="false" aria-controls="collapse{{qbno}}">
+			<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>     
+        </a>
+		<a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" value="{{qbno}} aria-expanded="false" aria-controls="collapse{{qbno}}">
+			<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
+		</a>
+      </h4>
+    </div>
+    <div id="collapse{{qbno}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{qbno}}">
+      <div class="panel-body">
 		<font style="font-size:16px; padding-left:9%; display:none" id="Answer{{qbno}}"> A. {{atext}}</font>
+      </div>
 		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
 		<button name="cancleBtns" value="{{qbno}}">취소</button><button value="{{qbno}}" name="aTextModifyBtns">등록</button>
-		</div>		
-	</div>
-		
+		</div>	
+    </div>
+  </div>
+  
+</div>
 	
 
 
@@ -1088,6 +1105,18 @@ $(document).ready(function() {
 
 <script>
 
+	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
+
+	var num = $(this).val();
+	if($("#answerDiv"+num).css("display")=="none"){
+		
+		$("#answerDiv"+num).css("display","block");
+		$(this).css("display","none");
+		$("#Answer"+num).css("display","");
+		
+	}	
+	})
+	
 	$(document).on("click","button[name='cancleBtns']", function(){
 		
 		var num = $(this).val();
@@ -1096,20 +1125,6 @@ $(document).ready(function() {
 		
 	})
 	
-	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
-
-	var num = $(this).val();
-	if($("#answerDiv"+num).css("display")=="none"){
-		
-		$("#answerDiv"+num).css("display","block");
-		$(this).css("display","none");
-	}else{
-		
-		$("#answerDiv"+num).css("display","none");
-		
-	}
-
-	})
 
 	$(document).on("click","font[name='txtClick']",function(){
 		

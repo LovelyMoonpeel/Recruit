@@ -168,20 +168,27 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 	}
 	
 	@Override
-	public void QnaQuestion(RecruitQnAVO QnA) throws Exception {
+	public void QnAQuestion(RecruitQnAVO QnA) throws Exception {
 		
 		session.insert(namespace + ".qnaQuestion",QnA);
 		
 	}
 	@Override
-	public void QnaAnswer(RecruitQnAVO QnA)throws Exception{
+	public void QnAAnswer(RecruitQnAVO QnA)throws Exception{
 		
 		session.update(namespace + ".qnaAnswer", QnA);
 	}
 	@Override
 	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
 		
+		System.out.println("출력");
+		
 		return session.selectList(namespace + ".qnaList",recruitNum);
+	}
+	@Override
+	public int QnAPageNum(int recruitNum) throws Exception{
+		
+		return session.selectOne(namespace + ".qnaPageNum",recruitNum);
 	}
 
 	@Override

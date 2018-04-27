@@ -3,7 +3,16 @@ package com.recruit.domain;
 public class CompanyCriteria {
 	private int page;	
 	private int perPageNum;
+	private int recruitNum;
 	
+	public int getRecruitNum() {
+		return recruitNum;
+	}
+
+	public void setRecruitNum(int recruitNum) {
+		this.recruitNum = recruitNum;
+	}
+
 	public CompanyCriteria(){
 		this.page = 1;
 		this.perPageNum = 5;
@@ -47,6 +56,8 @@ public class CompanyCriteria {
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "CompanyCriteria [page=" + page + ", perPageNum=" + perPageNum + ", recruitNum=" + recruitNum + "]";
 	}
+
+	
 }

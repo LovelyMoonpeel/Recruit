@@ -562,4 +562,8 @@ update tblrecruit set state = #{state} where bno = #{bno};
 	left join(select z.atext, z.qtype, z.rqtype from project.tblrecruitqna z)h on h.qtype where rbno = #{recruitNum}
 	</select>
 	
+	<select id="qnaPageNum" resultType="Int">
+	SELECT count(rbno) FROM project.tblrecruitqna where rbno = #{recruitNum};
+	</select>
+	
 </mapper> 

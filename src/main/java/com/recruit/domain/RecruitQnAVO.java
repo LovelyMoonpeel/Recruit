@@ -1,6 +1,6 @@
 package com.recruit.domain;
 
-public class RecruitQnAVO {
+public class RecruitQnAVO extends CompanyPageMaker {
 
 	
 	private int qnabno;

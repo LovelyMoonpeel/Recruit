@@ -44,11 +44,13 @@ public interface CompanyAjaxDAO {
 	
 	public List<CPersonInfoVO> PersonRecomList(int bno) throws Exception;
 	
-	public void QnaQuestion(RecruitQnAVO QnA)throws Exception;
+	public void QnAQuestion(RecruitQnAVO QnA)throws Exception;
 	
-	public void QnaAnswer(RecruitQnAVO QnA)throws Exception;
+	public void QnAAnswer(RecruitQnAVO QnA)throws Exception;
 	
 	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
+	
+	public int QnAPageNum(int recruitNum) throws Exception;
 	
 	public void FavorPersonAdd(int bno, String id) throws Exception;
 	

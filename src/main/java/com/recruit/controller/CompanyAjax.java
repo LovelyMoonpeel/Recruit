@@ -1,6 +1,7 @@
 package com.recruit.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -236,7 +237,7 @@ public class CompanyAjax {
 	public void RecruitQuestion(@RequestBody RecruitQnAVO QnA)throws Exception{
 		
 		System.out.println(QnA);
-		service.QnaQuestion(QnA);
+		service.QnAQuestion(QnA);
 		
 	}
 	
@@ -244,19 +245,32 @@ public class CompanyAjax {
 	@RequestMapping(value= "/recruitAnswer",method = RequestMethod.POST)
 	public void RecruitAnswer(@RequestBody RecruitQnAVO QnA)throws Exception{
 		
-		service.QnaAnswer(QnA);
+		service.QnAAnswer(QnA);
 		
 	}
 
 	@RequestMapping(value= "/qnaList/",method = RequestMethod.POST)
-	public ResponseEntity<List<RecruitQnAVO>> QnAList(@RequestBody int recruitNum)throws Exception{
+	public ResponseEntity<List<RecruitQnAVO>> QnAList(@RequestBody CompanyCriteria cri)throws Exception{
 
 		ResponseEntity<List<RecruitQnAVO>> entity = null;
-		System.out.println("넘어옴"+recruitNum);
-	
+		int recruitNum = cri.getRecruitNum();
+		int page = cri.getPage();
+		System.out.println("recruitNum은 "+recruitNum);
+		System.out.println("page는 "+page);
 			 try{
-			    	
-			    entity = new ResponseEntity<>( service.QnAList(recruitNum), HttpStatus.OK);
+				 
+				List<Object> result = new ArrayList<Object>();
+				 
+			    entity = new ResponseEntity<>(service.QnAList(recruitNum), HttpStatus.OK);
+
+	
+			    ResponseEntity.ok("m,,");
+			    int pageNum = service.QnAPageNum(recruitNum);
+			    CompanyPageMaker pageMaker = new CompanyPageMaker();
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(pageNum);
+				
+			
 			    System.out.println("질문 entity는"+ entity);
 			 }catch (Exception e) {
 				 
