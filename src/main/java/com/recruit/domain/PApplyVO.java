@@ -15,77 +15,109 @@ public class PApplyVO {
 	private String img;
 	private String regdate;
 	
+	private String record;//지원취소때문에 추가
+
 	public String getRsno() {
 		return rsno;
 	}
+
 	public void setRsno(String rsno) {
 		this.rsno = rsno;
 	}
+
 	public String getRcno() {
 		return rcno;
 	}
+
 	public void setRcno(String rcno) {
 		this.rcno = rcno;
 	}
+
 	public String getPid() {
 		return pid;
 	}
+
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
+
 	public String getReadornot() {
 		return readornot;
 	}
+
 	public void setReadornot(String readornot) {
 		this.readornot = readornot;
 	}
+
 	public int getBno() {
 		return bno;
 	}
+
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
+
 	public String getUserid() {
 		return userid;
 	}
+
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getPostcode() {
 		return postcode;
 	}
+
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
+
 	public String getImg() {
 		return img;
 	}
+
 	public void setImg(String img) {
 		this.img = img;
 	}
+
 	public String getRegdate() {
 		return regdate;
 	}
+
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
+
+	public String getRecord() {
+		return record;
+	}
+
+	public void setRecord(String record) {
+		this.record = record;
+	}
+
 	@Override
 	public String toString() {
 		return "PApplyVO [rsno=" + rsno + ", rcno=" + rcno + ", pid=" + pid + ", readornot=" + readornot + ", bno="
 				+ bno + ", userid=" + userid + ", title=" + title + ", address=" + address + ", postcode=" + postcode
-				+ ", img=" + img + ", regdate=" + regdate + "]";
+				+ ", img=" + img + ", regdate=" + regdate + ", record=" + record + "]";
 	}
+	
 }

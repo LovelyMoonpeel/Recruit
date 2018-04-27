@@ -13,4 +13,6 @@ public interface PApplyService {
 	public void CreadAPOne(PApplyVO pavo)throws Exception;
 	
 	public void deleteAPOne(PApplyVO pavo)throws Exception;
+	
+	public void updateAPOne(PApplyVO pavo)throws Exception;
 }

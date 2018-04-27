@@ -576,16 +576,32 @@ public class CompanyController {
 
 			System.out.println("넘어온 Resume정보" + Rservice.readROne(bno).toString());
 			System.out.println("applynow로 넘어옴");
-
+			
 			PApplyVO pavo = new PApplyVO();
 			pavo.setBno(bno);
 			pavo.setRsno(bno + "");
 			System.out.println("레주메에서 받아오는 유저아이디" + id);
 			pavo.setPid(id);
 			pavo.setRcno(recruitNum + "");
-			PAPService.createAPOne(pavo);
-			// applytbl update 시키면 된다.
+			System.out.println("대체뭐가문제"+pavo.getRcno());
 			
+			try{//try catch로 첫지원/재지원 구분해서 서비스 소연
+				System.out.println("CompanyController /applynow 재지원");
+				PApplyVO Appliedornot = PAPService.selectAPOne(pavo);
+				System.out.println("tblapply에 있냐 없냐 어떤 이력서로 지원했냐"+Appliedornot.getRsno());
+				PAPService.updateAPOne(pavo);
+				// applytbl update 시키면 된다.
+			}catch(NullPointerException null_exception){
+				//지원한 적 없는 경우
+				System.out.println("CompanyController /applynow Nullpoint 예외발생-> 첫지원");
+				PAPService.createAPOne(pavo);
+				
+			}catch(Exception e){
+				System.out.println("CompanyController /applynow 예외발생");
+				e.printStackTrace();
+			}
+			
+			//첫지원이든 재지원이든 알림은 가야함
 			CRecruitVO rcvo = CService.selectCROne(recruitNum);//rcno로 회사 아이디 가져와서 messagevo userid에 넣기
 			String msvo_userid = rcvo.getCid();
 			MessageVO msvo = new MessageVO();

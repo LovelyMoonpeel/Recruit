@@ -284,7 +284,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record
 		from tblrecruit rc
 		where rc.bno in(
 		select bno
@@ -312,7 +313,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot    
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record                        
 		from tblrecruit rc
 		where rc.bno in(
 		select bno
@@ -340,7 +342,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period >= CURDATE() then '모집중' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot 
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record                           
 		from tblrecruit rc
 		where rc.bno in(
 		select bno
@@ -369,7 +372,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period >= CURDATE() then '모집중' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot     
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record                       
 		from tblrecruit rc
 		where rc.bno in(
 		select bno
@@ -398,7 +402,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period < CURDATE() then '모집완료' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot   
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record                         
 		from tblrecruit rc
 		where rc.bno in(
 		select bno
@@ -427,7 +432,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                                     and userid=#{id}) acceptmethod
         , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
         , case when period < CURDATE() then '모집완료' end as jobdesc  
-        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot                            
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record                            
 		from tblrecruit rc
 		where rc.bno in(
 		select bno

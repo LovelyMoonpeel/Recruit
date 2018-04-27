@@ -52,7 +52,6 @@ transition: 1s;
 background-color: #777; 
 } 
 
-
 .startDay{
 	float: left;
     margin: 3px 0 2px;
@@ -69,7 +68,6 @@ background-color: #777;
 }
 .lastDay{
  
-  
     float: left;
     margin: 3px 0 2px;
     width: 78px;

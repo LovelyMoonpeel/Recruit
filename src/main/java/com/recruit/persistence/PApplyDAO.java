@@ -14,4 +14,5 @@ public interface PApplyDAO {
 	
 	public void deleteAPOne(PApplyVO pavo)throws Exception;
 	
+	public void updateAPOne(PApplyVO pavo)throws Exception;
 }

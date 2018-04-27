@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createAPOne">
 	  <![CDATA[
 	  insert 
-	  into tblapply (rsno, rcno, pid)
-	  values(#{rsno}, #{rcno}, #{pid});
+	  into tblapply (rsno, rcno, pid, record)
+	  values(#{rsno}, #{rcno}, #{pid}, 1);
 	  ]]>
 	</insert>
 	
 	<select id="selectAPOne" resultType="PApplyVO">
-	select rsno, rcno, pid
+	select rsno, rcno, pid, record
 	from tblapply
 	where rcno=#{rcno}
 	AND pid=#{pid};
@@ -35,14 +35,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	AND rsno=#{rsno};
 	</update>
 		
-	<delete id = "deleteAPOne">
+	<update id = "deleteAPOne">
 	<![CDATA[
-	delete from tblapply
+	update tblapply
+	set readornot = '읽지않음'
+	,record=0
 	where pid=#{pid}
-	AND rcno=#{rcno};
+	and rcno=#{rcno};
 	]]>
-	</delete>
+	</update>
 	
-	<!-- <update id="updateAPOne"> update project.tbluser set pw = #{pw}, pname 
-		= #{pname}, email = #{email}, birth = #{birth} where id = #{id} </update> -->
+	<update id = "updateAPOne"><!-- 재지원 하는 경우 이력서, 지원이력, 읽음 상태 바꿔준다. -->
+	<![CDATA[
+	update tblapply
+	set readornot = '읽지않음'
+	,record=1
+	,rsno=#{rsno}
+	where pid=#{pid}
+	and rcno=#{rcno};
+	]]>
+	</update>
+	
 </mapper>

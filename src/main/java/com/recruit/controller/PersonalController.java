@@ -762,7 +762,7 @@ public class PersonalController {
 			System.out.println("라라"+pavo.getPid());
 			System.out.println(pavo.getRcno());
 			PAPService.deleteAPOne(pavo);
-			//deleteAPOne
+			//deleteAPOne이지만 update로 record만 바꿈
 			entity= new ResponseEntity<String>("deleted", HttpStatus.OK);
 
 		} catch (Exception e) {

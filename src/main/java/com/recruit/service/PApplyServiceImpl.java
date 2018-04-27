@@ -33,4 +33,8 @@ public class PApplyServiceImpl implements PApplyService {
 	public void deleteAPOne(PApplyVO pavo)throws Exception{
 		dao.deleteAPOne(pavo);
 	}
+	
+	public void updateAPOne(PApplyVO pavo)throws Exception{
+		dao.updateAPOne(pavo);//재지원하는 경우
+	}
 }

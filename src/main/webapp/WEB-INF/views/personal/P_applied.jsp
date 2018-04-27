@@ -85,8 +85,9 @@
 						class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span>
 						<input type="hidden" id="apply_bno${status.index }"
 						value="${CRecruitVO.bno}"> <br>
+						
 					<span style="cursor: pointer"
-						class="badge badge-pill badge-warning apply_cancel">지원 취소</span></td>
+						class="badge badge-pill badge-warning apply_cancel">${CRecruitVO.record}</span></td>
 					<!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 				</tr>
 			</c:forEach>

@@ -37,6 +37,11 @@ public class PApplyDAOImpl implements PApplyDAO{
 	
 	@Override
 	public void deleteAPOne(PApplyVO pavo)throws Exception{
-		session.delete(namespace + ".deleteAPOne", pavo);
+		session.update(namespace + ".deleteAPOne", pavo);
+	}
+	
+	@Override
+	public void updateAPOne(PApplyVO pavo)throws Exception{
+		session.update(namespace + ".updateAPOne", pavo);
 	}
 }

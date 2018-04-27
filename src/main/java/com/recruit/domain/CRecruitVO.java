@@ -23,6 +23,9 @@ public class CRecruitVO {
 	private int viewcnt;
 	private String creadornot;
 	//소연 creadornot 추가
+	private String record;
+	//소연 record 추가
+	
 	public String getBno() {
 		return bno;
 	}
@@ -95,10 +98,10 @@ public class CRecruitVO {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
-	public String getadddesc() {
+	public String getAdddesc() {
 		return adddesc;
 	}
-	public void setadddesc(String adddesc) {
+	public void setAdddesc(String adddesc) {
 		this.adddesc = adddesc;
 	}
 	public String getPeriod() {
@@ -137,13 +140,21 @@ public class CRecruitVO {
 	public void setCreadornot(String creadornot) {
 		this.creadornot = creadornot;
 	}
+	public String getRecord() {
+		return record;
+	}
+	public void setRecord(String record) {
+		this.record = record;
+	}
+	
 	@Override
 	public String toString() {
 		return "CRecruitVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", jobgroupid=" + jobgroupid
 				+ ", rgbid=" + rgbid + ", rgsid=" + rgsid + ", jobdesc=" + jobdesc + ", recruitnum=" + recruitnum
 				+ ", employstatusid=" + employstatusid + ", salaryid=" + salaryid + ", edu=" + edu + ", exp=" + exp
 				+ ", adddesc=" + adddesc + ", period=" + period + ", acceptmethod=" + acceptmethod + ", recruitform="
-				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", creadornot=" + creadornot + "]";
+				+ recruitform + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", creadornot=" + creadornot
+				+ ", record=" + record + "]";
 	}
 	
 }
