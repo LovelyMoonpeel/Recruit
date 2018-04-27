@@ -83,8 +83,7 @@
 							class="badge badge-pill badge-success">내이력서</span></a></td>
 					<td style="text-align: center; vertical-align: middle"><span
 						class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span>
-						<input type="hidden" id="apply_bno${status.index }"
-						value="${CRecruitVO.bno}"> <br>
+						<input type="hidden" id="apply_bno${status.index }" value="${CRecruitVO.bno}"> <br>
 						
 					<span style="cursor: pointer"
 						class="badge badge-pill badge-warning apply_cancel">${CRecruitVO.record}</span></td>

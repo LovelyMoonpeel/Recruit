@@ -400,6 +400,7 @@ public class PersonalController {
 					return "personal/P_detail_nonavi";
 
 				}catch(Exception e){
+					e.printStackTrace();
 					model.addAttribute("PUserVO", service.selectPUser(id));
 
 					return "redirect:/personal/detail_nonavi_exception?bno="+bno;

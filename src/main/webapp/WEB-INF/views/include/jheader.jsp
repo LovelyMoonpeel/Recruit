@@ -103,11 +103,11 @@
 				    	style="width:250px; border:solid 0.5px black; 
 				    	word-wrap:break-word; white-space:no-wrap; word-break: normal; text-overflow:ellipsis; overflow:hidden;">
 				      
-				      <li><a class="message1" style="cursor:pointer;">Normal</a></li>
-				      <li><a class="message2" style="cursor:pointer;">Disabled</a></li>
-				      <li><a class="message3" style="cursor:pointer;">Active</a></li>
-				      <li><a class="message4" style="cursor:pointer;"> message=진민경씨 당신 =</a></li>
-				      <li><a class="message5" style="cursor:pointer;">5번째 메시지</a></li>
+				      <li><a class="message1" style="cursor:pointer;"></a></li>
+				      <li><a class="message2" style="cursor:pointer;"></a></li>
+				      <li><a class="message3" style="cursor:pointer;"></a></li>
+				      <li><a class="message4" style="cursor:pointer;"></a></li>
+				      <li><a class="message5" style="cursor:pointer;"></a></li>
 				      <li><a class="message6" style="cursor:pointer;" href="/message">
 				       	알림 전체보기 <span class="glyphicon glyphicon-chevron-right"></span></a></li>
 				    </ul>
@@ -162,9 +162,13 @@ $(document).ready(function(){
 					for(var i=0;i<data.length;i++){
 						
 						var order = i+1;
+						var cname = '<%=cname%>';
+						console.log(cname);
 						
-						if("<%=cname%>"==null){
-							$(".message"+order).text(data[i].rcno+data[i].message);
+						if(cname=='null'){
+							$(".message"+order).text(data[i].rcno+"personal	'null'"+data[i].message);
+						}else if(cname=null){
+							$(".message"+order).text(data[i].rcno+"personal	null"+data[i].message);
 						}else{
 							$(".message"+order).text(data[i].rcno+data[i].appliedpid+data[i].message);
 						}
