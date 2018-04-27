@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.domain.PreferenceVO;
+import com.recruit.service.PUserService;
 import com.recruit.service.UserService;
 
 /**
@@ -34,6 +35,9 @@ public class HomeController {
 	
 	@Inject
 	private UserService service;
+	
+	@Inject
+	private PUserService PService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -125,31 +129,23 @@ public class HomeController {
 		return entity;
 	}
 	
-	// 알림창 소연2
-	/*@ResponseBody
-	@RequestMapping(value = "/message_read", method = RequestMethod.POST)
-	public ResponseEntity<List<MessageVO>> message_read(HttpSession session) throws Exception {
-		System.out.println("message read POST Controller");
-		
-		List<MessageVO> messagevolist = new ArrayList<>();
-		
+	@RequestMapping(value = "/message", method = RequestMethod.GET)
+	public String messageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+
+		logger.info("index GET, 개인정보 확인");
+
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			
-			try{			
-				System.out.println("메시지");
-				
-				messagevolist = service.readAllmessage(id);
-				System.out.println("message_read"+messagevolist);
-				System.out.println("message_read2"+messagevolist.size());
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			model.addAttribute(PService.selectPUser(id));
+
+			List<MessageVO> entity = service.readAllmessage(id);
+			model.addAttribute("MessageVOlist",entity);
+
+			return "message";
 		} else {
-			messagevolist = new ArrayList<MessageVO>();
-			messagevolist.add(null);
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
 		}
-		return new ResponseEntity<>(messagevolist, HttpStatus.);
-	}*/
+	}
 }

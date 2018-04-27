@@ -115,27 +115,6 @@ public class PersonalController {
 	private UserService UService;
 
 	// 개인정보관리
-	@RequestMapping(value = "/message", method = RequestMethod.GET)
-	public String messageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-
-		logger.info("index GET, 개인정보 확인");
-
-		BoardVO login = (BoardVO) session.getAttribute("login");
-		if (login != null) {
-			String id = login.getId();
-			model.addAttribute(service.selectPUser(id));
-
-			List<MessageVO> entity = UService.readAllmessage(id);
-			model.addAttribute("MessageVOlist",entity);
-
-			return "personal/P_message";
-		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
-		}
-	}
-
-	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 

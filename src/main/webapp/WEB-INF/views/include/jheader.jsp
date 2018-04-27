@@ -108,7 +108,7 @@
 				      <li><a class="message3" style="cursor:pointer;">Active</a></li>
 				      <li><a class="message4" style="cursor:pointer;"> message=진민경씨 당신 =</a></li>
 				      <li><a class="message5" style="cursor:pointer;">5번째 메시지</a></li>
-				      <li><a class="message6" style="cursor:pointer;" href="personal/message">
+				      <li><a class="message6" style="cursor:pointer;" href="/message">
 				       	알림 전체보기 <span class="glyphicon glyphicon-chevron-right"></span></a></li>
 				    </ul>
 				</li>
