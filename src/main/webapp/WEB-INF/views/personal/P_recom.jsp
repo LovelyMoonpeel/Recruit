@@ -52,7 +52,7 @@
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
 	
-	<div style='width: 100%; border: 1px solid #c0c6d3; padding: 30px;'>
+	<div style='width:100%; border: 1px solid #c0c6d3; padding: 30px;'>
 		<ul style="list-style-type: circle;">
 			<li>[${PUserVO.pname}]님이 공개한 이력서와 항목 중요도를 기반으로 추천된 채용공고입니다.</li>
 			<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
@@ -63,11 +63,37 @@
 		<br>※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
 	
-	<br>
 	<div class="container"
-		style="width: 100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; padding: 20px;">
+		style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
+		<h4>
+			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
+			항목 중요도 조절
+		</h4>
+		<ul>
+			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p></li>
+		</ul>
 
-		<div class="container" style="width: 100%; background-color: #e0e0e0;">
+	<!-- 	<div class="col-md-1">
+			<i id="icon_job" class="material-icons" style="cursor: pointer;"
+				onclick="add_job();">business</i>
+			<i id="icon_region" class="material-icons" style="cursor: pointer;"
+				onclick="add_region();">location_on</i>
+			<i id="icon_employstatus" class="material-icons"
+				style="cursor: pointer;" onclick="add_employstatus();">people</i>
+			<i id="icon_levelofeducation" class="material-icons"
+				style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+			<i id="icon_lastcareer" class="material-icons"
+				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
+		</div> -->
+		
+		
+		
+	</div><!-- container end -->
+
+	<div class="container"
+		style="width:100%; border: 1px solid #c0c6d3; background-color: #e0e0e0; margin-top:30px; padding-top: 30px; padding-bottom:30px;">
+
+		<div class="container col-md-8" style="width: 100%; background-color: #e0e0e0;">
 			<input id="slider_job" type="text" data-provide="slider"
 			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
 			data-slider-value="2" />
@@ -106,6 +132,95 @@
 		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
 		<br> 
 	</div>
+
+
+	<div class="container" style="width:100%; margin-top:10px; padding: 20px 0px 20px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle;">이력서 번호</th>
+					<th style="text-align: center; vertical-align:middle;">아이디</th>
+					<th style="text-align: center; vertical-align:middle;">이력서 제목</th>
+					<th style="text-align: center; vertical-align:middle;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle;">경력 z</th>
+					<th style="text-align: center; vertical-align:middle;">관리</th>
+				</tr>
+				
+				<tr>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.bno}</td>
+					<td style="text-align: center; vertical-align:middle;">${PUserVO.id}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.title}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.x}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.y}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.z}</td>
+					<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div class="container" style="width: 100%; padding: 20px 0px 0px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
+					<th style="text-align: center; vertical-align:middle;">회사명</th>
+					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
+					<th style="text-align: center; vertical-align:middle;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle;">경력 z</th>
+					<th style="text-align: center; vertical-align:middle;">관리</th>
+				</tr>
+				
+				<c:choose>
+				
+				<c:when test="${CRecruitVOList eq null}">
+					<tr>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;">공개된 이력서가 없어 추천이 불가능합니다.<br>추천 서비스를 이용하려면 이력서를 공개로 설정해주세요. </td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+					</tr>
+				</c:when>
+				
+				<c:otherwise>
+					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
+						<tr>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.cid}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.title}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.x}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.y}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.z}</td>
+							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+			</table>
+		</div>
+	</div>
+
 <script>
 
 $(document).ready(function (){
@@ -335,151 +450,8 @@ $(document).ready(function (){
       }//if end
     });
 	
-	var width = parseInt($("#bar_job").text().substr(3));
-	
-	$("#bar_job").css("width", width*20+"%");
-	$("#bar_job").text('직무	' + width * 1 * 20 + '%');
-	
-	var r_width = parseInt($("#bar_region").text().substr(3));
-	bar_region.style.width = r_width + '%';
-	$("#bar_region").css("width", r_width*20+"%");
-	$("#bar_region").text('지역	' + r_width * 1 * 20 + '%');
-	
-	var edu_width = parseInt($("#bar_levelofeducation").text().substr(3));
-	
-	bar_levelofeducation.style.width = edu_width + '%';
-	$("#bar_levelofeducation").css("width", edu_width*20+"%");
-	$("#bar_levelofeducation").text('학력	' + edu_width * 1 * 20 + '%');
-	
-	var emp_width = parseInt($("#bar_employstatus").text().substr(5));
-	
-	bar_employstatus.style.width = emp_width + '%';
-	$("#bar_employstatus").css("width", emp_width*20+"%");
-	$("#bar_employstatus").text('근무형태	' + emp_width * 1 * 20 + '%');
-	
-	var lc_width = parseInt($("#bar_lastcareer").text().substr(3));
-	
-	bar_lastcareer.style.width = lc_width + '%';
-	$("#bar_lastcareer").css("width", lc_width*20+"%");
-	$("#bar_lastcareer").text('경력	' + lc_width * 1 * 20 + '%');
-	
 });//document ready end
 
-</script>
-
-		<div class="container" style="width: 100%; padding: 20px 0px 20px 0px;">
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tr>
-					<th style="text-align: center; vertical-align:middle;">이력서 번호</th>
-					<th style="text-align: center; vertical-align:middle;">아이디</th>
-					<th style="text-align: center; vertical-align:middle;">이력서 제목</th>
-					<th style="text-align: center; vertical-align:middle;">직무1v</th>
-					<th style="text-align: center; vertical-align:middle;">직무2v</th>
-					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
-					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
-					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
-					<th style="text-align: center; vertical-align:middle;">학력 y</th>
-					<th style="text-align: center; vertical-align:middle;">경력 z</th>
-					<th style="text-align: center; vertical-align:middle;">관리</th>
-				</tr>
-				
-				<tr>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.bno}</td>
-					<td style="text-align: center; vertical-align:middle;">${PUserVO.id}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.title}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.v1}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.v2}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.w1}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.w2}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.x}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.y}</td>
-					<td style="text-align: center; vertical-align:middle;">${MyResume.z}</td>
-					<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	
-	
-	<div class="container" style="width: 100%; padding: 20px 0px 0px 0px;">
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<tr>
-					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
-					<th style="text-align: center; vertical-align:middle;">회사명</th>
-					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
-					<th style="text-align: center; vertical-align:middle;">직무1v</th>
-					<th style="text-align: center; vertical-align:middle;">직무2v</th>
-					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
-					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
-					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
-					<th style="text-align: center; vertical-align:middle;">학력 y</th>
-					<th style="text-align: center; vertical-align:middle;">경력 z</th>
-					<th style="text-align: center; vertical-align:middle;">관리</th>
-				</tr>
-				
-				<c:choose>
-				
-				<c:when test="${CRecruitVOList eq null}">
-					<tr>
-						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;">공개된 이력서가 없어 추천이 불가능합니다.<br>추천 서비스를 이용하려면 이력서를 공개로 설정해주세요. </td>
-						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
-					</tr>
-				</c:when>
-				
-				<c:otherwise>
-					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
-						<tr>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.cid}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.title}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v1}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v2}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w1}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w2}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.x}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.y}</td>
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.z}</td>
-							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
-						</tr>
-					</c:forEach>
-				</c:otherwise>
-				</c:choose>
-			</table>
-		</div>
-	</div>
-
-	<div class="container"
-		style="width: 100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px;">
-		<h4>
-			<i class="fa fa-bar-chart" style="font-size: 36px;"></i>&nbsp;&nbsp;
-			항목 중요도 조절
-		</h4>
-		<ul>
-			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p></li>
-		</ul>
-
-		<div class="col-md-1">
-			<i id="icon_job" class="material-icons" style="cursor: pointer;"
-				onclick="add_job();">business</i>
-			<i id="icon_region" class="material-icons" style="cursor: pointer;"
-				onclick="add_region();">location_on</i>
-			<i id="icon_employstatus" class="material-icons"
-				style="cursor: pointer;" onclick="add_employstatus();">people</i>
-			<i id="icon_levelofeducation" class="material-icons"
-				style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
-			<i id="icon_lastcareer" class="material-icons"
-				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
-		</div>
-	</div><!-- container end -->
-	
-	<script>
 function add_job() {
 	var bar_job = document.getElementById("bar_job");
 	//회색 #c0c6d3;
@@ -491,11 +463,6 @@ function add_job() {
 	$("#icon_levelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#333333");
 	
-	$("#bar_job").css("background-color", "#56c0e0");
-	$("#bar_region").css("background-color", "#c0c6d3");
-	$("#bar_employstatus").css("background-color", "#c0c6d3");
-	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
-	$("#bar_lastcareer").css("background-color", "#c0c6d3");
 }
 function add_region() {
 	var bar_region = document.getElementById("bar_region");
@@ -507,11 +474,6 @@ function add_region() {
 	$("#icon_levelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#333333");
 	
-	$("#bar_job").css("background-color", "#c0c6d3");
-	$("#bar_region").css("background-color", "#56c0e0");
-	$("#bar_employstatus").css("background-color", "#c0c6d3");
-	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
-	$("#bar_lastcareer").css("background-color", "#c0c6d3");
 }
 function add_employstatus() {
 	var bar_employstatus = document.getElementById("bar_employstatus");
@@ -521,12 +483,6 @@ function add_employstatus() {
 	$("#icon_employstatus").css("color", "#56c0e0");
 	$("#icon_evelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#333333");
-	
-	$("#bar_job").css("background-color", "#c0c6d3");
-	$("#bar_region").css("background-color", "#c0c6d3");
-	$("#bar_employstatus").css("background-color", "#56c0e0");
-	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
-	$("#bar_lastcareer").css("background-color", "#c0c6d3");
 	
 }
 function add_levelofeducation() {
@@ -538,12 +494,6 @@ function add_levelofeducation() {
 	$("#icon_levelofeducation").css("color", "#56c0e0");
 	$("#icon_lastcareer").css("color", "#333333");
 	
-	$("#bar_job").css("background-color", "#c0c6d3");
-	$("#bar_region").css("background-color", "#c0c6d3");
-	$("#bar_employstatus").css("background-color", "#c0c6d3");
-	$("#bar_levelofeducation").css("background-color", "#56c0e0");
-	$("#bar_lastcareer").css("background-color", "#c0c6d3");
-	
 }
 function add_lastcareer() {
 	var bar_lastcareer = document.getElementById("bar_lastcareer");
@@ -554,13 +504,7 @@ function add_lastcareer() {
 	$("#icon_levelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#56c0e0");
 	
-	$("#bar_job").css("background-color", "#c0c6d3");
-	$("#bar_region").css("background-color", "#c0c6d3");
-	$("#bar_employstatus").css("background-color", "#c0c6d3");
-	$("#bar_levelofeducation").css("background-color", "#c0c6d3");
-	$("#bar_lastcareer").css("background-color", "#56c0e0");
 }
-
 </script>
 </div>
 <%@include file="../include/cfooter.jsp"%>
