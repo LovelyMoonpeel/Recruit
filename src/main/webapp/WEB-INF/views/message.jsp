@@ -41,11 +41,11 @@
 	</div>
 	<br><br>
 
-	<div class="container col-md-12">
+	<div class="container col-md-11 col-md-offset-1">
 	
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
 			<div class="alert alert-info alert-dismissible fade in">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>${MessageVO.bno}</strong>${MessageVO.message}
 			</div>
 		</c:forEach>
@@ -85,8 +85,32 @@ $(document).ready(function () {
 	      }); */
 	    }
 	});
+	
+	$(".close").each(function(index){//메시지 확인하는 ajax
+		$(this).on("click", function(){
+			
+			console.log($(this).attr("id"));
+			bno = $(this).attr("id");
+			
+			$.ajax({
+				type:'POST',
+				url:'',
+				headers:{
+					"Content-Type" : "application/json; charset=UTF-8",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: 'text',
+				data:JSON.stringify({
+					
+				}),
+				success : function(result){
+					
+				}
+			})//ajax end
+			
+		});//onclick end
+	});//each end
 });
-
 
 </script>
 </html>

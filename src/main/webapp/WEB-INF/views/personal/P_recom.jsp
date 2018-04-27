@@ -73,105 +73,54 @@
 			<li><p>추천 받을 때, 중요하게 생각하는 요소에 따라 각 점수를 1~5 사이에서 조절해주세요.</p></li>
 		</ul>
 
-	<!-- 	<div class="col-md-1">
-			<i id="icon_job" class="material-icons" style="cursor: pointer;"
-				onclick="add_job();">business</i>
-			<i id="icon_region" class="material-icons" style="cursor: pointer;"
-				onclick="add_region();">location_on</i>
-			<i id="icon_employstatus" class="material-icons"
-				style="cursor: pointer;" onclick="add_employstatus();">people</i>
-			<i id="icon_levelofeducation" class="material-icons"
-				style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
-			<i id="icon_lastcareer" class="material-icons"
-				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
-		</div> -->
 		<div class="container col-md-8" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_job" type="text" data-provide="slider"
+			<i id="icon_job" class="material-icons" 
+			style="cursor: pointer;" onclick="add_job();">business</i>
+			&emsp;&emsp;&emsp;<input id="slider_job" type="text" data-provide="slider"
 			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
-			data-slider-value="2" />
+			data-slider-value="2" style="float:right; width:85%;"/>
 		</div>
 		<span style="line-height:200%">직무 중요도 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
 		
  		<br>
 		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_region" type="text" data-provide="slider"
+			<i id="icon_region" class="material-icons" style="cursor: pointer;"
+				onclick="add_region();">location_on</i>
+			&emsp;&emsp;&emsp;<input id="slider_region" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value='5' />
+			data-slider-value="5" style="float:right; width:85%;" />
 		</div>
 		<span style="line-height:200%">지역 중요도 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
 
 		<br>
 		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_employstatus" type="text" data-provide="slider"
+			<i id="icon_employstatus" class="material-icons"
+				style="cursor: pointer;" onclick="add_employstatus();">people</i>
+			&emsp;&emsp;&emsp;<input id="slider_employstatus" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value="5" />
+			data-slider-value="5" style="float:right; width:85%;" />
 		</div>
 		<span style="line-height:200%">근무형태 중요도 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
 		<br>
 		
 		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_levelofeducation" type="text" data-provide="slider"
+			<i id="icon_levelofeducation" class="material-icons"
+				style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
+			&emsp;&emsp;&emsp;<input id="slider_levelofeducation" type="text" data-provide="slider"
 				data-slider-min="0" data-slider-max="5" data-slider-step="1"
-				data-slider-value="3" />
+				data-slider-value="3" style="float:right; width:85%;"/>
 		</div>
 		<span style="line-height:200%">학력 중요도 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
 		
 		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_lastcareer" type="text" data-provide="slider"
+			<i id="icon_lastcareer" class="material-icons"
+				style="cursor: pointer;" onclick="add_lastcareer();">work</i>
+			&emsp;&emsp;&emsp;<input id="slider_lastcareer" type="text" data-provide="slider"
 			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value="3" />
+			data-slider-value="3" style="float:right; width:85%;"/>
 		</div>
 		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
 		<br> 
-		<%-- <i id="icon_job" class="material-icons" 
-			style="cursor: pointer;" onclick="add_job();">business</i>
-		<div class="container" style="width: 80%; background-color: #dfe2e9; float:right;">
-			<input id="slider_job" type="text" data-provide="slider"
-			data-slider-min="0"	data-slider-max="5" data-slider-step="1"
-			data-slider-value="2" />
-		</div>
-		<span style="line-height:200%">직무 : <span id="val_job">${PreferenceVO.pref_job}</span></span>
-		
-		<i id="icon_region" class="material-icons" style="cursor: pointer;"
-				onclick="add_region();">location_on</i>
- 		<br>
-		<div class="container" style="width: 100%; background-color:#dfe2e9;">
-			<input id="slider_region" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value='5' />
-		</div>
-		<span style="line-height:200%">지역 : <span id="val_region">${PreferenceVO.pref_region}</span></span>
-		
-		<i id="icon_employstatus" class="material-icons"
-			style="cursor: pointer;" onclick="add_employstatus();">people</i>
-		<br>
-		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_employstatus" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value="5" />
-		</div>
-		<span style="line-height:200%">근무형태 : <span id="val_employstatus">${PreferenceVO.pref_employstatus}</span></span>
-		<br>
-		
-		<i id="icon_levelofeducation" class="material-icons"
-			style="cursor: pointer;" onclick="add_levelofeducation();">school</i>
-		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_levelofeducation" type="text" data-provide="slider"
-				data-slider-min="0" data-slider-max="5" data-slider-step="1"
-				data-slider-value="3" />
-		</div>
-		<span style="line-height:200%">학력 : <span id="val_levelofeducation">${PreferenceVO.pref_levelofeducation}</span></span>
-		
-		<i id="icon_lastcareer" class="material-icons"
-			style="cursor: pointer;" onclick="add_lastcareer();">work</i>
-		<div class="container" style="width: 100%; background-color: #dfe2e9;">
-			<input id="slider_lastcareer" type="text" data-provide="slider"
-			data-slider-min="0" data-slider-max="5" data-slider-step="1"
-			data-slider-value="3" />
-		</div>
-		<span style="line-height:200%">경력 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
-		<br>  --%>
-		
 	</div><!-- container end -->
 
 
@@ -179,22 +128,19 @@
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tr>
-					<th style="text-align: center; vertical-align:middle;">이력서 번호</th>
-					<th style="text-align: center; vertical-align:middle;">아이디</th>
-					<th style="text-align: center; vertical-align:middle;">이력서 제목</th>
-					<th style="text-align: center; vertical-align:middle;">직무1v</th>
-					<th style="text-align: center; vertical-align:middle;">직무2v</th>
-					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
-					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
-					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
-					<th style="text-align: center; vertical-align:middle;">학력 y</th>
-					<th style="text-align: center; vertical-align:middle;">경력 z</th>
-					<th style="text-align: center; vertical-align:middle;">관리</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 번호</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 제목</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">경력 z</th>
 				</tr>
 				
 				<tr>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.bno}</td>
-					<td style="text-align: center; vertical-align:middle;">${PUserVO.id}</td>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.title}</td>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.v1}</td>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.v2}</td>
@@ -203,7 +149,6 @@
 					<td style="text-align: center; vertical-align:middle;">${MyResume.x}</td>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.y}</td>
 					<td style="text-align: center; vertical-align:middle;">${MyResume.z}</td>
-					<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 				</tr>
 			</table>
 		</div>
@@ -213,17 +158,17 @@
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tr>
-					<th style="text-align: center; vertical-align:middle;">공고 번호</th>
-					<th style="text-align: center; vertical-align:middle;">회사명</th>
-					<th style="text-align: center; vertical-align:middle;">공고 제목</th>
-					<th style="text-align: center; vertical-align:middle;">직무1v</th>
-					<th style="text-align: center; vertical-align:middle;">직무2v</th>
-					<th style="text-align: center; vertical-align:middle;">지역1w1</th>
-					<th style="text-align: center; vertical-align:middle;">지역2w2</th>
-					<th style="text-align: center; vertical-align:middle;">근무형태 x</th>
-					<th style="text-align: center; vertical-align:middle;">학력 y</th>
-					<th style="text-align: center; vertical-align:middle;">경력 z</th>
-					<th style="text-align: center; vertical-align:middle;">관리</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 번호</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">회사명</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 제목</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; ">경력 z</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">관리</th>
 				</tr>
 				
 				<c:choose>

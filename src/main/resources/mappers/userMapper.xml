@@ -146,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(mreadornot)
 		from tblmessage
 		where userid=#{id}
-		and mreadornot=0
+		and mreadornot=1
 		;
 	]]>
 	</select>
@@ -157,6 +157,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select*
 		from tblmessage
 		where userid=#{id}
+		and mreadornot=1
 		order by bno desc
 		limit 5
 		;
@@ -169,6 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select*
 		from tblmessage
 		where userid=#{id}
+		and mreadornot=1
 		order by bno desc
 		;
 	]]>
