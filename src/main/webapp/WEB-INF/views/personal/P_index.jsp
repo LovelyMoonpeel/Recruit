@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/pheader.jsp"%>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 <!-- Main content -->
 <!-- 개인 페이지 -->
 <div class="container col-md-9">
 	<!-- 개인 페이지 첫번째(이미지, 이름) -->
 	<div class="top_cont">
-				<h1 class="ci_name">${PUserVO.pname}</h1>
+		<h1 class="ci_name">${PUserVO.pname}</h1>
 	</div>
+	
 	<br> <br>
 	<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 	<div class="container col-md-8 col-md-offset-2" style="padding-bottom:50px;">
@@ -41,29 +43,5 @@
 	
 	<button type = "button" id = "modify-button" class="btn btn-success col-md-offset-9" onclick="location.href='/personal/modify'">비밀번호수정</button>
 	<!-- //수정 버튼 -->
-			
-	<div class="container col-md-8 col-md-offset-2" style="padding-top:50px;">	
-		<div class="table-responsive"">
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<th class="table-active"
-							style="text-align: center; vertical-align: middle;" scope="row">번호</th>
-						<th class="table-active"
-							style="text-align: center; vertical-align: middle;" scope="row">알림</th>
-					</tr>
-					<c:forEach items="${MessageVOlist }" var="MessageVO">
-						<tr>
-							<td style="text-align: center; vertical-align: middle;">${MessageVO.bno}</td>
-							<td style="text-align: center; vertical-align: middle;">${MessageVO.message}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<!-- //table class -->
-		</div>
-		<!-- //table-responsive -->
-	</div>
-		<!-- //개인 페이지 -->
 </div>
 <%@include file="../include/cfooter.jsp"%>

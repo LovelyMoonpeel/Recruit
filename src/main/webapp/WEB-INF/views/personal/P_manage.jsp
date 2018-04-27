@@ -19,7 +19,7 @@
 			처리될 수 있습니다.<br><br>
 		</div>
 		<br>
-		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger col-md-offset-10"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
+		<button type = "button" id = "btn_deleteSeleted" onclick="deleteResumeList();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 선택 삭제</button>
 		<br><br>
 		<input type='hidden' id='userid' value='${PUserVO.id}'></input>
 	<div class="table-responsive">			
