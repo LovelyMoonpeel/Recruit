@@ -165,12 +165,14 @@ $(document).ready(function(){
 						var cname = '<%=cname%>';
 						console.log(cname);
 						
-						if(cname=='null'){
+						if(cname=='null'){//개인회원일 경우
 							$(".message"+order).text(data[i].rcno+"personal	'null'"+data[i].message);
+							$(".message"+order).attr("href", "/personal/applied_all");
 						}else if(cname=null){
 							$(".message"+order).text(data[i].rcno+"personal	null"+data[i].message);
-						}else{
+						}else{//기업회원일 경우
 							$(".message"+order).text(data[i].rcno+data[i].appliedpid+data[i].message);
+							$(".message"+order).attr("href", "/company/C_manage");
 						}
 						
 					} 
