@@ -86,7 +86,7 @@
 						<input type="hidden" id="apply_bno${status.index }" value="${CRecruitVO.bno}"> <br>
 						
 					<span style="cursor: pointer"
-						class="badge badge-pill badge-warning apply_cancel">${CRecruitVO.record}</span></td>
+						class="badge badge-pill badge-warning apply_cancel CRVO_record">${CRecruitVO.record}</span></td>
 					<!--  ${CRecruitVO.acceptmethod} : 지원한 이력서 이름 -->
 				</tr>
 			</c:forEach>
@@ -133,6 +133,20 @@ function closingdate_order(){
 }
 
 $(document).ready(function(){
+	
+	$(".CRVO_record").each(function(index){
+		console.log('롸'+$(this).text());
+		if($(this).text()=='1'){
+			$(this).text('지원취소');
+			
+		}else{
+			$(this).text('지원취소함');
+			$(this).removeClass('apply_cancel');
+			$(this).removeClass('badge-warning');
+			$(this).css({'cursor':''});
+		}
+	});
+	
 	
 	if($("#controller_value").val()=="all"){
 		$("#all_btn").addClass("btn-info");
