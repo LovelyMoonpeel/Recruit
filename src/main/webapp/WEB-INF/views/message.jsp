@@ -94,7 +94,7 @@ $(document).ready(function () {
 			
 			$.ajax({
 				type:'POST',
-				url:'',
+				url:'/',
 				headers:{
 					"Content-Type" : "application/json; charset=UTF-8",
 					"X-HTTP-Method-Override" : "POST"

@@ -148,4 +148,24 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
+	
+	/*@RequestMapping(value = "/message", method = RequestMethod.GET)
+	public String messageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+
+		logger.info("index GET, 개인정보 확인");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			model.addAttribute(PService.selectPUser(id));
+
+			List<MessageVO> entity = service.readAllmessage(id);
+			model.addAttribute("MessageVOlist",entity);
+
+			return "message";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}*/
 }
