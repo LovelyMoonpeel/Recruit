@@ -164,7 +164,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception{
 		return session.selectList(namespace+".Readmessage_paging", msvo);
-	}
+	}//페이징
+	
+	@Override
+	public String Maxmassagebno(MessageVO msvo)throws Exception{
+		return session.selectOne(namespace+".Maxmassagebno", msvo);
+	}//페이징
+	
 	
 	@Override
 	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림

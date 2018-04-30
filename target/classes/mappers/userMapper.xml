@@ -177,6 +177,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<!-- 소연 알림창 jheader에서 쓰는거 -->
+	<select id="Maxmassagebno" resultType="String">
+	<![CDATA[
+		select if (#{bno}!=(select MAX(bno) from tblmessage where userid=#{userid}), 'keep', 'stop');
+	]]>
+	</select>
+	
 	<!-- 소연 알림창 jheader에서 쓰는거 무한스크롤 할 거 -->
 	<select id="Readmessage_paging" resultType="MessageVO">
 	<![CDATA[

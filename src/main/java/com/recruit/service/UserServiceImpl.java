@@ -253,6 +253,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception{
 		return dao.Readmessage_paging(msvo);
+	}//페이징처리
+	
+	@Override
+	public String Maxmassagebno(MessageVO msvo)throws Exception{
+		return dao.Maxmassagebno(msvo);
 	}
 	
 	@Override

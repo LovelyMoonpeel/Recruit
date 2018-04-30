@@ -104,7 +104,7 @@ $(document).ready(function () {
 	    				+" alert alert-info alert-dismissible fade in ' data-bno="+this.bno
 	    				+"> <a href=# id='"+this.bno
 	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
-	    				+this.appliedpid+"</strong>"+this.message+"</div>";
+	    				+this.bno+" : "+this.appliedpid+"</strong>"+this.message+"</div>";
 	    				
 	    				$(".All").append(str).trigger("create");
 	    			});//each // Append next contents
