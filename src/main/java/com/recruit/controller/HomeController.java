@@ -114,7 +114,7 @@ public class HomeController {
 			String id = login.getId();
 			
 			try{			
-				System.out.println("메시지");
+				System.out.println("메시지 5개 미리 보기");
 				
 				entity = service.readFivemessage(id);
 				System.out.println("message_read"+entity);
@@ -138,7 +138,7 @@ public class HomeController {
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute(PService.selectPUser(id));
-
+			//전체 알림 확인
 			List<MessageVO> entity = service.readAllmessage(id);
 			model.addAttribute("MessageVOlist",entity);
 
@@ -149,23 +149,28 @@ public class HomeController {
 		}
 	}
 	
-	/*@RequestMapping(value = "/message", method = RequestMethod.GET)
-	public String messageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-
-		logger.info("index GET, 개인정보 확인");
-
+	@ResponseBody
+	@RequestMapping(value = "/message_readornot", method = RequestMethod.POST)
+	public ResponseEntity<String> message_readornot(HttpSession session, @RequestBody MessageVO msvo) throws Exception {
+		System.out.println("message_readornot POST Controller");
+		
+		ResponseEntity<String> entity = null;
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
-			model.addAttribute(PService.selectPUser(id));
-
-			List<MessageVO> entity = service.readAllmessage(id);
-			model.addAttribute("MessageVOlist",entity);
-
-			return "message";
+			
+			try{			
+				System.out.println("msvo"+msvo);
+				service.Readedmessage(msvo);//읽음 서비스 실행
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		} else {
-			rttr.addFlashAttribute("msg", "login");
-			return "redirect:/";
+			entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
 		}
-	}*/
+		return entity;
+	}
+	//
 }

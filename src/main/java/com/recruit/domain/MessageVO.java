@@ -9,6 +9,8 @@ public class MessageVO {
 	
 	private String rcno;
 	private String appliedpid;
+	private String color;
+	
 	public String getBno() {
 		return bno;
 	}
@@ -45,10 +47,17 @@ public class MessageVO {
 	public void setAppliedpid(String appliedpid) {
 		this.appliedpid = appliedpid;
 	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	
 	@Override
 	public String toString() {
 		return "MessageVO [bno=" + bno + ", userid=" + userid + ", message=" + message + ", mreadornot=" + mreadornot
-				+ ", rcno=" + rcno + ", appliedpid=" + appliedpid + "]";
+				+ ", rcno=" + rcno + ", appliedpid=" + appliedpid + ", color=" + color + "]";
 	}
+	
 }
