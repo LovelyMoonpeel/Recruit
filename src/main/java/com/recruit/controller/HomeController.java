@@ -176,6 +176,7 @@ public class HomeController {
 			String id = login.getId();
 			
 			try{
+				System.out.println("끝"+msvo.getBno());
 				String gostop = service.Maxmassagebno(msvo);
 				System.out.println(gostop);
 				

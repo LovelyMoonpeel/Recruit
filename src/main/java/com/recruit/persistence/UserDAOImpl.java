@@ -168,6 +168,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public String Maxmassagebno(MessageVO msvo)throws Exception{
+		System.out.println("최소값"+msvo.getBno());
 		return session.selectOne(namespace+".Maxmassagebno", msvo);
 	}//페이징
 	

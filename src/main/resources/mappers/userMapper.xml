@@ -180,20 +180,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="Maxmassagebno" resultType="String">
 	<![CDATA[
-		select if (#{bno}!=(select MAX(bno) from tblmessage where userid=#{userid}), 'keep', 'stop');
+		select if (#{bno}=(select MIN(bno) from tblmessage where userid=#{userid}), 'stop', 'keep');
 	]]>
 	</select>
 	
 	<!-- 소연 알림창 jheader에서 쓰는거 무한스크롤 할 거 -->
 	<select id="Readmessage_paging" resultType="MessageVO">
 	<![CDATA[
-		select*
+		select bno, userid, message, mreadornot, rcno, appliedpid
 		from tblmessage
 		where userid=#{userid}
 		and mreadornot=1
-	    and #{bno}<bno
-	    and bno<=#{bno}+5
+		and bno<#{bno}
 		order by bno desc
+        limit 5
 		;
 	]]>
 	</select>

@@ -65,34 +65,32 @@
 				<strong>Danger!</strong> This alert box could indicate a dangerous or
 				potentially negative action.
 			</div>
-			<br><br>
 	</div>
 </div>
 </body>
 
 <script>
-$(document).ready(function () {
-	$(document).scroll(function() {
-		
-	    var maxHeight = $(document).height();
-	    var currentScroll = $(window).scrollTop() + $(window).height();
-	
-	    if (maxHeight <= currentScroll + 100) {
-	    	console.log("scroll if문");
-	    	var lastbno = $(".scrolling:last").attr("data-bno");
-	    	console.log("라"+lastbno);
-	    	
-	      $.ajax({
+//$(window).scroll(infiniteScroll);
+
+ function infiniteScroll(){
+	 if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
+		 
+	 	console.log("scroll if문");
+    	var lastbno = $(".scrolling:last").attr("data-bno");
+    	console.log("라"+lastbno);
+    	
+    	
+    	$.ajax({
 	    	type:'post',
 	    	url:'/message_infinite',
 	    	headers:{
 	    		"Content-Type" : "application/json",
 	    		"X-HTTP-Method-Override" : "POST"
-	    	},
+    		},
 	    	dataType:'json',
 	    	data:JSON.stringify({
 	    		bno : lastbno
-	    	}),
+    		}),
 	    	success: function(data){
 	    		var str="";
 	    		
@@ -100,8 +98,9 @@ $(document).ready(function () {
 	    			$(data).each(function(){
 	    				console.log(this);
 	    				console.log(this.color);
-	    				str+="<div class='"+this.color
-	    				+" alert alert-info alert-dismissible fade in ' data-bno="+this.bno
+	    				
+	    				str="<div class='"+this.color
+	    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
 	    				+"> <a href=# id='"+this.bno
 	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
 	    				+this.bno+" : "+this.appliedpid+"</strong>"+this.message+"</div>";
@@ -109,16 +108,40 @@ $(document).ready(function () {
 	    				$(".All").append(str).trigger("create");
 	    			});//each // Append next contents
 	    		}else{//data가 null이 아니면
+	    			lastpage=true;
 	    			console.log("끝");
+	    			
+	    			str="<br><br><p style='text-align:center;'>알림이 끝났습니다.</p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
+    				
+	    			$(".All").append(str).trigger("create");
+	    			
 	    		}
 	    	}//success end
-	      });//ajax end
-	    }//scroll 실행
-	});
+      	});//ajax end
+	 }//scrolling end
+ }	
+ 
+$(document).ready(function () {
+    var win = $(window);
+ 	lastpage = false;
+    // Each time the user scrolls
+    win.scroll(function() {
+        // End of the document reached?
+        if ($(document).height() - win.height() == win.scrollTop()) {
+        	if(!lastpage){
+	        	infiniteScroll();
+        	}
+        }
+    });
+
+
+	//$(document).scroll(infinitScroll());
+	
+	
+	
 	$(".1").each(function(index){
 		$(this).addClass("alert-info");
 	});
-	
 	$(".0").each(function(index){
 		$(this).addClass("alert-info");
 	});
