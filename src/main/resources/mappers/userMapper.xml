@@ -176,6 +176,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<!-- 소연 알림창 jheader에서 쓰는거 무한스크롤 할 거 -->
+	<select id="readAllmessage_paging" resultType="MessageVO">
+	<![CDATA[
+		select*
+		from tblmessage
+		where userid=#{id}
+		and mreadornot=1
+		order by bno desc
+		limit 0,20
+		;
+	]]>
+	</select>
+	
+	<select id="readAllmessage_paging_count" resultType="int">
+	
+	
+	</select>
+	
 	<!-- 소연 알림창 C_manage에서 쓰는거 -->
 	<insert id="CreadAPRmessage">
 	<![CDATA[

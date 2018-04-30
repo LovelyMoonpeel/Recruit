@@ -188,7 +188,7 @@ $(document).ready(function(){
  			$(this).addClass('');
 		}else if($(this).text()=='1'||$(this).text()=='읽음'){
 			$(this).text('읽음');
-			$(this).addClass('');
+			$(this).addClass('badge-info');
 		}else{
 			$(this).text('오류');
 			$(this).addClass('badge-warning');

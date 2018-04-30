@@ -120,8 +120,12 @@ public class HomeController {
 				System.out.println("메시지 5개 미리 보기");
 				
 				entity = service.readFivemessage(id);
-				System.out.println("message_read"+entity);
-				System.out.println("message_read2"+entity.size());
+				
+				/*for(int i=0; i<entity.size(); i++){
+					String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
+					entity.get(i).setRcno(title);
+				}*/
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -143,7 +147,7 @@ public class HomeController {
 			model.addAttribute(PService.selectPUser(id));
 			
 			List<MessageVO> entity = new ArrayList<>();
-			entity = service.readAllmessage(id);//전체 알림 불러오기
+			entity = service.readAllmessage(id);//전체 메시지 불러오기
 			
 			
 			for(int i=0;i<entity.size();i++){
