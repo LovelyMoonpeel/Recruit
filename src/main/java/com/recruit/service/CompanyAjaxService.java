@@ -50,7 +50,7 @@ public interface CompanyAjaxService {
 	 
 	 public void QnAAnswer(RecruitQnAVO QnA)throws Exception;
 	  
-	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception;
+	 public List<RecruitQnAVO> QnAList(int recruitNum, CompanyCriteria cri) throws Exception;
 	 
 	 public int QnAPageNum(int recruitNum)throws Exception;
 	 

@@ -250,8 +250,9 @@ public class CompanyAjax {
 	}
 
 	@RequestMapping(value= "/qnaList/",method = RequestMethod.POST)
-	public ResponseEntity<List<RecruitQnAVO>> QnAList(@RequestBody CompanyCriteria cri)throws Exception{
-
+	public Object QnAList(@RequestBody CompanyCriteria cri)throws Exception{
+		
+		List<Object> result = new ArrayList<Object>();
 		ResponseEntity<List<RecruitQnAVO>> entity = null;
 		int recruitNum = cri.getRecruitNum();
 		int page = cri.getPage();
@@ -259,9 +260,15 @@ public class CompanyAjax {
 		System.out.println("page는 "+page);
 			 try{
 				 
-				List<Object> result = new ArrayList<Object>();
 				 
-			    entity = new ResponseEntity<>(service.QnAList(recruitNum), HttpStatus.OK);
+				List<RecruitQnAVO> a = service.QnAList(recruitNum,cri);
+				
+				
+				for(int i = 0; i<a.size(); i++){
+					result.add((Object)(a.get(i)));
+				}
+				 
+//			    entity = new ResponseEntity<>(service.QnAList(recruitNum), HttpStatus.OK);
 
 	
 			    ResponseEntity.ok("m,,");
@@ -270,8 +277,8 @@ public class CompanyAjax {
 				pageMaker.setCri(cri);
 				pageMaker.setTotalCount(pageNum);
 				
-			
-			    System.out.println("질문 entity는"+ entity);
+				result.add(pageMaker);
+			    System.out.println("질문 result는"+ result);
 			 }catch (Exception e) {
 				 
 				 e.printStackTrace();
@@ -279,7 +286,7 @@ public class CompanyAjax {
 			     
 			 }
 			 
-			 return entity;
+			 return result;
 			 
 	}
 
@@ -329,22 +336,16 @@ public class CompanyAjax {
 			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
 		
-		/*System.out.println("page는"+page);
-		System.out.println("state는"+state);
-		System.out.println("searchType는"+searchType);
-		System.out.println("keyword는"+keyword);
-			*/
+	
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
-		Map<String, Object> result = new HashMap<String,Object>();
+		
 		if (login != null) {
 			
 			String id = login.getId();
 			
 			try {
-				//System.out.println("cri는 = "+cri);
-				//System.out.println("cri.toString은 = "+cri.toString());
-//				List<RecruitVO> a = service.RecruitCriteria(cri);
+			
 				List<RecruitVO> a = service.RecruitCriteria(cri,id);
 				List<Object> b = new ArrayList<Object>();
 				

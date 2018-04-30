@@ -146,7 +146,9 @@
 		
 		</ul>
 	</div>
+
 	
+
 	<table class="table table-bordered">
 		<tr class="active gobox2">
 			<td style="line-height: 200%">
@@ -632,32 +634,39 @@ var formObj = $("form[role='form']");
 							i++;
 						
 							if(i < length){
-								/* str += "<tr><th rowspan=2 ><br><br><br><span class name=stateid>"+this.recruitstate+"</span></th>"
-								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
-										+"<li>근무형태 : "+this.employstatusid+"</li>"
-										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
-										+"<li>경력 : "+this.exp+"</li>"
-										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-										+"<th><br><button class=center-block clearfix type=button style=width:100% id=modify value="+this.bno+">"+this.btnstate+"</button><button style=width:100% type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
- */
+								
 								if(this.state == 1){
 									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span></th>";
 								}else{
 									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>숨김상태</span></th>";
 								} 
-								str += "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
+								str += "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a><span name=question data-toggle=tooltip data-placement=top title=채용 공고 질문이 올라왔스빈다></span></th>"
 										
 										+"<th class=text-center><button class=clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><button  type=button id=delete value="+this.bno+" >삭제</button>"
 										
 										if(this.btnstate=="수정"){
 											
 											str += "<button id=endRecruit value="+this.bno+" >모집완료</button></th>"
-												+"<th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
-												
+												+"<th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th>"
+											
+												if(this.state == 1){
+													str += "<th><span role=state name=hide1 style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
+												}else{
+													
+													str += "<th><span role=state name=hide0 style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>";
+													
+												}
 										}else{
 											
-											str += "</th><th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
+											str += "</th><th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th>"
 											
+											if(this.state == 1){
+												str += "<th><span role=state name=hide1 style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
+											}else{
+												
+												str += "<th><span role=state name=hide0 style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>";
+												
+											}
 										}
 										
 									
@@ -694,7 +703,7 @@ var formObj = $("form[role='form']");
 							
 						 $("li[name="+pN+"]").addClass("active");
 						 
-						
+						$("span[name='question']").addClass("glyphicon glyphicon-comment");
 						 
 					     var spanLen = $("span[name='stateName']").length;
 						 
@@ -708,7 +717,8 @@ var formObj = $("form[role='form']");
 							 
 							$("span[name='stateName']").eq(i).addClass("center-block clearfix");
 							$("span[name='stateName']").eq(i).addClass("badge");
-							$("span[name='hide']").eq(i).addClass("glyphicon glyphicon-eye-open");
+							$("span[name='hide1']").eq(i).addClass("glyphicon glyphicon-eye-open");
+							$("span[name='hide0']").eq(i).addClass("glyphicon glyphicon-lock");
 							
 							 if($("span[name='stateName']").eq(i).html() == "모집중"){
 								
@@ -738,7 +748,8 @@ var formObj = $("form[role='form']");
 				
 		})
 		
-		$(document).on("click","span[name='hide']",function(){
+		$(document).on("click","span[role='state']",function(){
+			
 			
 			var state = $(this).attr("id");
 			var bno = $(this).attr("value");
@@ -750,12 +761,23 @@ var formObj = $("form[role='form']");
 				
 					success : function() {
 						
-						
-						alert("hih");
+
 						
 					}	
 			
 			}) 
+			
+			$("small").css("font-weight","");	
+			$("span[name='orders']").removeClass();
+			 $("#btnsState[class^=active]").removeClass();
+			 $("#btnsState[name='SearchReset']").addClass("active");
+			 var state = $("#btnsState[class^=active]").text();
+			var pN = 1;
+			var searchType = $("select option:selected").val();
+			var keyword = $('#keywordInput').val();
+			var perPageNum = $("#perPageNum option:selected").val();
+			var orderType = $("#appIcon").attr("value");
+			RecruitList(pN, state, perPageNum, searchType, keyword, orderType)
 			
 		})
 		
@@ -961,9 +983,9 @@ function C_readAPR(rsno, rcno){
 			rcno : rcno
 		}),
 		success:function(result){
-			console.log("result가 뭐냐?"+result);
+			
 			if(result=='SUCCESS'){
-				console.log("지원자의 이력서를 이미 열람했거나 방금 열람했다.");
+				console.log(result+"지원자의 이력서를 이미 열람했거나 방금 열람했다.");
 			}else{
 				console.log("result가 뭔가 이상함");
 			}
@@ -1101,5 +1123,8 @@ function favDel(bno, id){ 	// 관심인재 삭제
     	})
       
      </script>
+     
+    
+	
     
 <%@include file="../include/cfooter.jsp"%>

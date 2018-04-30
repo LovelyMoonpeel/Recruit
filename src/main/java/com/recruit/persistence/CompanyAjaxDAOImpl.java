@@ -179,11 +179,16 @@ public class CompanyAjaxDAOImpl implements CompanyAjaxDAO {
 		session.update(namespace + ".qnaAnswer", QnA);
 	}
 	@Override
-	public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+	public List<RecruitQnAVO> QnAList(int recruitNum, CompanyCriteria cri) throws Exception{
 		
-		System.out.println("출력");
+HashMap<String, Object> paraMap = new HashMap<>();
 		
-		return session.selectList(namespace + ".qnaList",recruitNum);
+		paraMap.put("recruitNum", recruitNum);	
+		paraMap.put("perPageNum", cri.getPerPageNum());
+		paraMap.put("pageStart", cri.getPageStart());
+		
+		
+		return session.selectList(namespace + ".qnaList",paraMap);
 	}
 	@Override
 	public int QnAPageNum(int recruitNum) throws Exception{

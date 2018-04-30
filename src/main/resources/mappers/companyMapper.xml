@@ -557,9 +557,10 @@ update tblrecruit set state = #{state} where bno = #{bno};
 	
 	</update>
 	
-	<select id="qnaList" resultType="com.recruit.domain.RecruitQnAVO">
+	<select id="qnaList" parameterType="HashMap" resultType="com.recruit.domain.RecruitQnAVO">
 	select distinct(q.qbno), q.rbno, q.qtext, q.atext, q.qtype, q.rqtype from project.tblrecruitqna q 
 	left join(select z.atext, z.qtype, z.rqtype from project.tblrecruitqna z)h on h.qtype where rbno = #{recruitNum}
+	limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="qnaPageNum" resultType="Int">

@@ -696,7 +696,11 @@ $("#t1").html(timeInMs);
 		<div id="qna_div"></div>
 		
 		
+		<div class="text-center">
+		<ul class="pagination" id="listPage">
 		
+		</ul>
+		</div>
 		
 		
 		
@@ -704,6 +708,7 @@ $("#t1").html(timeInMs);
 
 
 <script>
+
 
 	$(document).on("click","button[name='aTextModifyBtns']",function(){ /* 답변 소환 버튼 */		
 		var num = $(this).val();
@@ -722,16 +727,20 @@ $("#t1").html(timeInMs);
 				
 				$("#qna_div > *").remove();
 				
-				reLoad();
-	 
+				alert("등록이 완료됐습니다.")
+				
+				location.reload();
+	 			
 			}	
 			      		      
 	 
 	 }); 
 		
 		
+		
 	})
 </script>
+
 	<script>
 
 	$("#questionType").change(function(){ /* 채용일반이면 서브 옵션 추가 */
@@ -802,6 +811,7 @@ $("#t1").html(timeInMs);
 					data: JSON.stringify({rbno:rbno, id:id, qtext:questionText, qtype:questionType, rqtype:questionDetailType}),
 					success : function(result) {
 					
+						alert("작성이 완료됐습니다.")
 						location.reload();
 			 
 					}	
@@ -972,98 +982,124 @@ $(document).ready(function() {
     	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJUtblZh2z-lZFLFNeHDQ95o5a5-Q32s0&callback=initMap">
     </script>
     
-   <script>
-    
-    var recruitNum = <c:out value="${RecruitVO.bno}"/>
-    
-    function reLoad(){
-    
-    	
-    	
-    	   $.ajax({
-    		   
-    	   
-    			type:'POST',
-    			url:'/companyAjax/qnaList/',
-    			headers: { 
-    			      "Content-Type": "application/json; ",
-    			      "X-HTTP-Method-Override": "POST" },
-    			dataType:'JSON',
-    			data: JSON.stringify({recruitNum:recruitNum}),
-    			success : function(data) {
-    			
-    				var qbno ="";
-    				
-    				
-    				$(data).each(function(){
-    						
-    					var item = {
-    							qbno : this.qbno,
-    							qtype : this.qtype, 
-    							qtext : this.qtext,
-    							atext : this.atext
-    					};
-    					
-    					createTemplate(item)
-    					
-    				})
-    		
-    			}
-    			      
-    			      
-    			      
-    	   })
-    
-    		
-    }
-    
-    </script>
+
  <script>
-  
-   var recruitNum = <c:out value="${RecruitVO.bno}"/>
-   
-   $.ajax({
+ 
+ var num = 1;
+ 
+ load(num);
+ 
+function load(num){
+	
+
+ var recruitNum = <c:out value="${RecruitVO.bno}"/>
+	 
+ 		$("#qna_div > *").remove();
+	 	
+ 		page = num;
+ 
+	   var chr = "";
+	   $.ajax({
+		   
 	   
-   
-		type:'POST',
-		url:'/companyAjax/qnaList/',
-		headers: { 
-		      "Content-Type": "application/json; ",
-		      "X-HTTP-Method-Override": "POST" },
-		dataType:'JSON',
-		data: JSON.stringify({recruitNum:recruitNum}),
-		success : function(data) {
-		
-			var qbno ="";
+			type:'POST',
+			url:'/companyAjax/qnaList/',
+			headers: { 
+			      "Content-Type": "application/json; ",
+			      "X-HTTP-Method-Override": "POST" },
+			dataType:'JSON',
+			data: JSON.stringify({recruitNum:recruitNum, page:page}),
+			success : function(data) {
 			
-			
-			$(data).each(function(){
+				var qbno ="";
+				var length = data.length;
+				var len = 0;  
+				var item;
+				
+				$(data).each(function(){
 					
-				var item = {
-						qbno : this.qbno,
-						qtype : this.qtype, 
-						qtext : this.qtext,
-						atext : this.atext
-				};
+					len++;
+					
+					if(length > len){    	
+						
+					var item = {
+							qbno : this.qbno,
+							qtype : this.qtype, 
+							qtext : this.qtext,
+							atext : this.atext
+					};
+					
+					createTemplate(item)
+					
+					}else{
+					
+					if(this.prev){
+						chr += "<li style=cursor:pointer><a id=qnaFirstPage name=all value="+this.startPage+">&laquo;</a></li>";
+					}
+					
+					for(var z = this.startPage; z<=this.endPage; z++){
+						chr += "<li style=cursor:pointer id=qnaListListLi name="+z+"><a id=qnaPageList name=all>"+z+"</a></li>"
+						
+					} 
+				 	if(this.next&&this.endPage>0){
+				 		chr += "<li style=cursor:pointer><a id=qnaLastPage value="+this.endPage+" name=all>&raquo;</a></li>";
+					}
+					
+				}
 				
-				createTemplate(item)
+				})
+		
+				  $("#listPage").html(chr); 
 				
-			})
-	
-		}
-		      
-		      
-		      
-   })
-   
-   
-   function createTemplate(item){
+				$("li[name="+page+"]").addClass("active");
+				
+			}
+			      
+			      
+			      
+	   })
+ 
+}
+
+
+
+ function createTemplate(item){
+	    
+	    var source_tel = $("#template_qnaList").html();
+		var template = Handlebars.compile(source_tel);
+		$("#qna_div").append(template(item));
+		
+	   }
+ 
+    </script>
     
-    var source_tel = $("#template_qnaList").html();
-	var template = Handlebars.compile(source_tel);
-	$("#qna_div").append(template(item));
+    <script>
+    
+    $(document).on("click",'#qnaFirstPage',function(){
+    	
+		var num = "1";
+		
+		load(num);
+
+	})
 	
-   }
+	  $(document).on("click",'#qnaLastPage',function(){
+    	
+		var num = $(this).val();
+		
+		load(num);
+
+	})
+	
+	 $(document).on("click",'#qnaPageList',function(){
+    	
+		var num = $(this).html();
+		
+		load(num);
+
+	})
+
+
     </script>
 
   <script id="template_qnaList" type="text/x-handlebars-template">
@@ -1079,7 +1115,7 @@ $(document).ready(function() {
 			Q. <font class="text-center" style="width:58%; cursor:pointer;" value="{{qbno}}" name="txtClick">{{qtext}}</font>    
         </a>
         <a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" aria-expanded="false" aria-controls="collapse{{qbno}}">
-			<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" value="{{qbno}}" name="spanClick"></span>     
+			<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" id="span{{qbno}}" value="{{qbno}}" name="spanClick"></span>     
         </a>
 		<a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" value="{{qbno}} aria-expanded="false" aria-controls="collapse{{qbno}}">
 			<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
@@ -1088,7 +1124,7 @@ $(document).ready(function() {
     </div>
     <div id="collapse{{qbno}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{qbno}}">
       <div class="panel-body">
-		<font style="font-size:16px; padding-left:9%; display:none" id="Answer{{qbno}}"> A. {{atext}}</font>
+		<font style="font-size:16px; padding-left:9%;" id="Answer{{qbno}}"> A. {{atext}}</font>
       </div>
 		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
@@ -1107,14 +1143,24 @@ $(document).ready(function() {
 
 	$(document).on("click","button[name='aBtns']",function(){ /* 답변 소환 버튼 */		
 
-	var num = $(this).val();
-	if($("#answerDiv"+num).css("display")=="none"){
-		
-		$("#answerDiv"+num).css("display","block");
+				
+		var num = $(this).val();
+	
+		$("#answerDiv"+num).css("display","");
 		$(this).css("display","none");
-		$("#Answer"+num).css("display","");
 		
-	}	
+		
+		if($('#collapse'+num).attr("aria-expanded")=="true"){
+			
+			$("#aBtn"+num).trigger("click");
+		
+		} 
+			
+		
+		
+		
+		
+		
 	})
 	
 	$(document).on("click","button[name='cancleBtns']", function(){
@@ -1139,11 +1185,15 @@ $(document).ready(function() {
 	$(document).on("click","span[name='spanClick']",function(){
 	
 		var num = $(this).attr("value");
-		if($("#Answer"+num).css("display")=="none"){
-		$("#Answer"+num).css("display","block")
-		}else{
-		$("#Answer"+num).css("display","none")
-		}
+		
+		
+		
+		if($("#answerDiv"+num).css("display") == "block"){
+			$("#answerDiv"+num).css("display","none");
+			$("#aBtn"+num).css("display","");
+		}  
+		$("#Answer"+num).css("display","block");
+		
 	
 	})
 
