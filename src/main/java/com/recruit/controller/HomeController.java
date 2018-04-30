@@ -143,11 +143,12 @@ public class HomeController {
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
+			
 			String id = login.getId();
 			model.addAttribute(PService.selectPUser(id));
 			
 			List<MessageVO> entity = new ArrayList<>();
-			entity = service.readAllmessage(id);//전체 메시지 불러오기
+			entity = service.readAllmessage(id);//전체 메시지 불러오기//상위 5개
 			
 			for(int i=0;i<entity.size();i++){
 				String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();

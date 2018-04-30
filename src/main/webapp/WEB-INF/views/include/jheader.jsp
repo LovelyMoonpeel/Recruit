@@ -171,7 +171,7 @@ $(document).ready(function(){
 						}else if(cname=null){
 							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우
-							$(".message"+order).text("즉시지원한 이력서를 확인해주세요.");
+							$(".message"+order).text("지원자의 이력서를 확인해주세요.");
 							$(".message"+order).attr("href", "/company/C_manage");
 						}
 						

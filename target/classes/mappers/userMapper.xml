@@ -154,8 +154,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="readFivemessage" resultType="MessageVO">
 	<![CDATA[
-		select*
-		from tblmessage
+		select bno, userid, message, rcno, appliedpid, color
+		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
+		from tblmessage ms
 		where userid=#{id}
 		and mreadornot=1
 		order by bno desc
@@ -167,8 +168,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="readAllmessage" resultType="MessageVO">
 	<![CDATA[
-		select*
-		from tblmessage
+		select bno, userid, message, rcno, appliedpid, color
+		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
+		from tblmessage ms
 		where userid=#{id}
 		and mreadornot=1
 		order by bno desc
@@ -187,8 +189,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 무한스크롤 할 거 -->
 	<select id="Readmessage_paging" resultType="MessageVO">
 	<![CDATA[
-		select bno, userid, message, mreadornot, rcno, appliedpid
-		from tblmessage
+		select bno, userid, message, rcno, appliedpid, color
+		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
+		from tblmessage ms
 		where userid=#{userid}
 		and mreadornot=1
 		and bno<#{bno}
@@ -197,10 +200,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		;
 	]]>
 	</select>
-	
-<!-- 	<select id="readAllmessage_paging_count" resultType="int">
-		select count(bno) *from tblmessage
-	</select> -->
 	
 	<!-- 소연 알림창 C_manage에서 쓰는거 -->
 	<insert id="CreadAPRmessage">
@@ -226,5 +225,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno=#{bno};
 	]]>
 	</update>
-
+	
 </mapper>

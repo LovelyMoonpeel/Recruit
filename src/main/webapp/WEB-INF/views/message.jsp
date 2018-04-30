@@ -42,13 +42,22 @@
 	<br><br>
 
 	<div class="container col-md-11 col-md-offset-1 All">
-	
+		<%if (cname!=null) { %>
+		<c:forEach items="${MessageVOlist }" var="MessageVO">
+			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
+				<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>${MessageVO.appliedpid}</strong>${MessageVO.message} <b>(${MessageVO.mreadornot})</b>
+			</div>
+		</c:forEach>
+		<%}else{%>
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
 			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
 				<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}
 			</div>
 		</c:forEach>
+		<%}%>	
+		
 		
 			<div class="alert alert-success alert-dismissible fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -70,16 +79,7 @@
 </body>
 
 <script>
-// 화면 공백 생성
-function waitForSearching(str, num, del) {
-	if (del !== false)
-		deletespanel();
-	str = '<h3 align="center">' + str + '</h3>';
-	for (var i = 0; i < num; i++) {
-		str = '<br/>' + str + '<br/><br/>';
-	}
-	$("#spanel").append(str);
-}
+
 function infiniteScroll(){
 	if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
 		 
@@ -104,18 +104,27 @@ function infiniteScroll(){
 	    				console.log(this);
 	    				console.log(this.color);
 	    				
-	    				str="<div class='"+this.color
-	    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
-	    				+"> <a href=# id='"+this.bno
-	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
-	    				+this.bno+" : "+this.appliedpid+"</strong>"+this.message+"</div>";
+	    				<%if (cname!=null) { %>
+	    				str="<div class='"
+		    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
+		    				+"> <a href=# id='"+this.bno
+		    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
+		    				+this.appliedpid+"</strong>"+this.message+"("+this.mreadornot+")</div>";
+	    				<%}else{%>
+	    				str="<div class='"
+		    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
+		    				+"> <a href=# id='"+this.bno
+		    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
+		    				+this.appliedpid+"</strong>"+this.message+"</div>";
+	    				<%}%>	
+	    				
 	    				
 	    				$(".All").append(str).trigger("create");
 	    			});//each // Append next contents
 	    		}else{//data가 null이 아니면
 	    			lastpage=true;
 	    			console.log("끝");
-	    			str="<br><br><p style='text-align:center;'>알림이 끝났습니다.</p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
+	    			str="<br><br><p style='text-align:center;'><span class='glyphicon glyphicon-hand-right'></span>&nbsp;&nbsp;&nbsp;알림이 끝났습니다.&nbsp;<span class='glyphicon glyphicon-heart'>&nbsp;</span><span class='glyphicon glyphicon-hand-left'></span></p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
 	    			$(".All").append(str).trigger("create");
 	    		}
 	    	}//success end
@@ -167,6 +176,5 @@ $(document).ready(function () {
 		});//onclick end
 	});//each end
 });
-
 </script>
 </html>
