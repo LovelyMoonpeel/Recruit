@@ -195,8 +195,6 @@ public class HomeController {
 				}else{
 					return entity = null;
 				}
-				
-				
 			}catch(Exception e){
 				e.printStackTrace();
 			}

@@ -70,15 +70,20 @@
 </body>
 
 <script>
-//$(window).scroll(infiniteScroll);
-
- function infiniteScroll(){
-	 if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
+// 화면 공백 생성
+function waitForSearching(str, num, del) {
+	if (del !== false)
+		deletespanel();
+	str = '<h3 align="center">' + str + '</h3>';
+	for (var i = 0; i < num; i++) {
+		str = '<br/>' + str + '<br/><br/>';
+	}
+	$("#spanel").append(str);
+}
+function infiniteScroll(){
+	if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
 		 
-	 	console.log("scroll if문");
     	var lastbno = $(".scrolling:last").attr("data-bno");
-    	console.log("라"+lastbno);
-    	
     	
     	$.ajax({
 	    	type:'post',
@@ -110,16 +115,13 @@
 	    		}else{//data가 null이 아니면
 	    			lastpage=true;
 	    			console.log("끝");
-	    			
 	    			str="<br><br><p style='text-align:center;'>알림이 끝났습니다.</p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
-    				
 	    			$(".All").append(str).trigger("create");
-	    			
 	    		}
 	    	}//success end
-      	});//ajax end
-	 }//scrolling end
- }	
+		});//ajax end
+	}//scrolling end
+}	
  
 $(document).ready(function () {
     var win = $(window);
@@ -134,18 +136,12 @@ $(document).ready(function () {
         }
     });
 
-
-	//$(document).scroll(infinitScroll());
-	
-	
-	
 	$(".1").each(function(index){
 		$(this).addClass("alert-info");
 	});
 	$(".0").each(function(index){
 		$(this).addClass("alert-info");
 	});
-	
 	
 	$(".close").each(function(index){//메시지 확인하는 ajax
 		$(this).on("click", function(){
