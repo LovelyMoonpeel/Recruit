@@ -139,7 +139,7 @@ public class HomeController {
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
 	public String messageGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
-		logger.info("index GET, 개인정보 확인");
+		logger.info("message GET CONTROLLER");
 
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		if (login != null) {
@@ -149,10 +149,9 @@ public class HomeController {
 			List<MessageVO> entity = new ArrayList<>();
 			entity = service.readAllmessage(id);//전체 메시지 불러오기
 			
-			
 			for(int i=0;i<entity.size();i++){
 				String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
-				entity.get(i).setBno(title);
+				entity.get(i).setAppliedpid(title);
 			}
 			
 			model.addAttribute("MessageVOlist",entity);
@@ -162,6 +161,41 @@ public class HomeController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/message_infinite", method = RequestMethod.POST)
+	public List<MessageVO> message_infinite(HttpSession session, RedirectAttributes rttr,@RequestBody MessageVO msvo ){
+
+		logger.info("message_infinite CONTROLLER");
+		//List<MessageVO> entity = null;
+		List<MessageVO> entity = new ArrayList<>();
+		
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+			
+			try{			
+				msvo.setUserid(id);
+				System.out.println("ㅏㅏㅏㅏ"+msvo);
+				entity = service.Readmessage_paging(msvo);//페이징 처리한 전체 메시지 불러오기
+				System.out.println("ㅗㅗㅗㅗ"+entity);
+				System.out.println("롸"+entity.size());
+				
+				for(int i=0;i<entity.size();i++){
+					String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
+					entity.get(i).setAppliedpid(title);
+					System.out.println("ㅗㅗㅗdㅗ"+entity.get(i));
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		} else {
+			entity = new ArrayList<MessageVO>(1);
+			entity.add(null);
+		}
+		return entity;
 	}
 	
 	@ResponseBody

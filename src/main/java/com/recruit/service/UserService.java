@@ -51,10 +51,13 @@ public interface UserService {
 	public List<MessageVO> readFivemessage(String id) throws Exception;//소연
 	
 	public List<MessageVO> readAllmessage(String id) throws Exception;//소연
+
+	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception;
 	
 	public void CreadAPRmessage(MessageVO msvo)throws Exception;//소연 이력서 열람했다는 알림
 	
 	public void PAppliedmessage(MessageVO msvo)throws Exception;//이력서 지원했다는 알림
 	
 	public void Readedmessage(MessageVO msvo)throws Exception;//메시지 확인 서비스
+	
 }

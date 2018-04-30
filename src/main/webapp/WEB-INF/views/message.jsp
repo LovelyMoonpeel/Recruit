@@ -41,14 +41,15 @@
 	</div>
 	<br><br>
 
-	<div class="container col-md-11 col-md-offset-1">
+	<div class="container col-md-11 col-md-offset-1 All">
 	
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
-			<div class="${MessageVO.color } alert alert-dismissible fade in">
+			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
 				<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>${MessageVO.bno}</strong>${MessageVO.message}
+				<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}
 			</div>
 		</c:forEach>
+		
 			<div class="alert alert-success alert-dismissible fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Info!</strong> This alert box could indicate a neutral
@@ -78,12 +79,41 @@ $(document).ready(function () {
 	
 	    if (maxHeight <= currentScroll + 100) {
 	    	console.log("scroll if문");
+	    	var lastbno = $(".scrolling:last").attr("data-bno");
+	    	console.log("라"+lastbno);
 	    	
-	      /* $.ajax({
-	    	  console.log
-	        // Append next contents
-	      }); */
-	    }
+	      $.ajax({
+	    	type:'post',
+	    	url:'/message_infinite',
+	    	headers:{
+	    		"Content-Type" : "application/json",
+	    		"X-HTTP-Method-Override" : "POST"
+	    	},
+	    	dataType:'json',
+	    	data:JSON.stringify({
+	    		bno : lastbno
+	    	}),
+	    	success: function(data){
+	    		var str="";
+	    		
+	    		if(data!=""){
+	    			$(data).each(function(){
+	    				console.log(this);
+	    				console.log(this.color);
+	    				str+="<div class='"+this.color
+	    				+" alert alert-info alert-dismissible fade in ' data-bno="+this.bno
+	    				+"> <a href=# id='"+this.bno
+	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
+	    				+this.appliedpid+"</strong>"+this.message+"</div>";
+	    				
+	    				$(".All").append(str).trigger("create");
+	    			});//each // Append next contents
+	    		}else{//data가 null이 아니면
+	    			console.log("끝");
+	    		}
+	    	}//success end
+	      });//ajax end
+	    }//scroll 실행
 	});
 	$(".1").each(function(index){
 		$(this).addClass("alert-info");

@@ -162,6 +162,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception{
+		return session.selectList(namespace+".Readmessage_paging", msvo);
+	}
+	
+	@Override
 	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림
 		session.insert(namespace+".CreadAPRmessage", msvo);
 	}
@@ -175,4 +180,5 @@ public class UserDAOImpl implements UserDAO {
 	public void Readedmessage(MessageVO msvo)throws Exception{
 		session.update(namespace + ".Readedmessage", msvo);
 	} //메시지 확인 서비스
+	
 }

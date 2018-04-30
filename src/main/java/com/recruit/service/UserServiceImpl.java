@@ -251,6 +251,11 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception{
+		return dao.Readmessage_paging(msvo);
+	}
+	
+	@Override
 	public void CreadAPRmessage(MessageVO msvo)throws Exception{//소연 이력서 열람했다는 알림
 		dao.CreadAPRmessage(msvo);
 	}
@@ -261,7 +266,9 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void Readedmessage(MessageVO msvo)throws Exception{
+	public void Readedmessage(MessageVO msvo)throws Exception{//메시지 읽었다 확인 버튼
 		dao.Readedmessage(msvo);
 	}
+	
+
 }
