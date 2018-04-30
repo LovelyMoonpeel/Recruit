@@ -166,12 +166,12 @@ $(document).ready(function(){
 						console.log(cname);
 						
 						if(cname=='null'){//개인회원일 경우
-							$(".message"+order).text(data[i].rcno+"personal	'null'"+data[i].message);
+							$(".message"+order).text(data[i].rcno + data[i].message);
 							$(".message"+order).attr("href", "/personal/applied_all");
 						}else if(cname=null){
-							$(".message"+order).text(data[i].rcno+"personal	null"+data[i].message);
+							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우
-							$(".message"+order).text(data[i].rcno+data[i].appliedpid+data[i].message);
+							$(".message"+order).text(data[i].rcno + data[i].appliedpid+data[i].message);
 							$(".message"+order).attr("href", "/company/C_manage");
 						}
 						

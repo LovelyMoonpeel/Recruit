@@ -180,7 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="CreadAPRmessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color)
-		values(#{userid}, '에서 지원한 이력서를 열람하였습니다.', #{rcno}, 0);
+		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, 0);
 	]]>
 	</insert>
 	

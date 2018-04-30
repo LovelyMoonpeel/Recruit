@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.domain.PreferenceVO;
+import com.recruit.service.CRecruitService;
 import com.recruit.service.PUserService;
 import com.recruit.service.UserService;
 
@@ -38,6 +39,8 @@ public class HomeController {
 	
 	@Inject
 	private PUserService PService;
+	@Inject
+	private CRecruitService CService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -138,8 +141,16 @@ public class HomeController {
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute(PService.selectPUser(id));
-			//전체 알림 확인
-			List<MessageVO> entity = service.readAllmessage(id);
+			
+			List<MessageVO> entity = new ArrayList<>();
+			entity = service.readAllmessage(id);//전체 알림 불러오기
+			
+			
+			for(int i=0;i<entity.size();i++){
+				String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
+				entity.get(i).setBno(title);
+			}
+			
 			model.addAttribute("MessageVOlist",entity);
 
 			return "message";
