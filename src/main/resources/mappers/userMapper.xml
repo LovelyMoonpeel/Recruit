@@ -226,4 +226,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 	
+	<!-- 지훈 알림창 C_manage에서 쓰는거 -->
+	<insert id="AreadQNAmessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno, color, appliedpid)
+		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{rcno}, 2, #{userid});
+	]]>
+	</insert>
+	
 </mapper>

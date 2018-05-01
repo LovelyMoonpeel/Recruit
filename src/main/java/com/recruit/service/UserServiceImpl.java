@@ -274,6 +274,10 @@ public class UserServiceImpl implements UserService{
 	public void Readedmessage(MessageVO msvo)throws Exception{//메시지 읽었다 확인 버튼
 		dao.Readedmessage(msvo);
 	}
-	
+
+	@Override
+	public void AreadQNAmessage(MessageVO msvo)throws Exception{//지훈 Q&A 등록했다는 알림
+		dao.AreadQNAmessage(msvo);
+	}
 
 }

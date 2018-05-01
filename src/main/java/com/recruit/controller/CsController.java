@@ -21,8 +21,10 @@ import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
 import com.recruit.domain.CsqnaVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.service.CsService;
 import com.recruit.service.CsqnaService;
+import com.recruit.service.UserService;
 
 @Controller
 @RequestMapping("/cs/*")
@@ -35,6 +37,9 @@ public class CsController {
 
 	@Inject
 	private CsqnaService qservice;
+	
+	@Inject
+	private UserService uservice;
 	
 	@RequestMapping(value = "/faq", method = RequestMethod.GET)
 	public String faqGET(Model model) throws Exception {
@@ -131,12 +136,15 @@ public class CsController {
 	}
 
 	@RequestMapping(value = "/S_qnareg", method = RequestMethod.POST)
-	public String qnaRegisterPOST(CsqnaVO vo, RedirectAttributes rttr) throws Exception {
+	public String qnaRegisterPOST(CsqnaVO vo, MessageVO msvo, RedirectAttributes rttr) throws Exception {
 		logger.info("qna Register..........");
 		logger.info(vo.toString());
 
-		qservice.regist(vo);
-
+		//qservice.regist(vo);
+		msvo.setRcno(""+qservice.regist(vo));
+		uservice.AreadQNAmessage(msvo);
+		
+		System.out.println("찍어 : "+msvo);
 		rttr.addFlashAttribute("msg", "regist");
 
 		return "redirect:/cs/qna";

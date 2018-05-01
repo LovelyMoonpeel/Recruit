@@ -188,4 +188,9 @@ public class UserDAOImpl implements UserDAO {
 		session.update(namespace + ".Readedmessage", msvo);
 	} //메시지 확인 서비스
 	
+	@Override
+	public void AreadQNAmessage(MessageVO msvo)throws Exception{
+		//지훈 Q&A 등록했다는 알림
+		session.insert(namespace+".AreadQNAmessage", msvo);
+	}
 }

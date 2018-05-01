@@ -247,12 +247,10 @@ $("#resume_cha").on("click",function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			/* rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]}; */
 			rJobgroupData[i] = {y:weekRJobgroup[i], color:color[i], label:rJobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			/* rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]}; */
 			rRgbData[i] = {y:weekRRgb[i], color:color[i], label:rRgbname[i]};
 		}
 		
@@ -268,11 +266,6 @@ $("#resume_cha").on("click",function(){
 		});
 		chart6.render();
 		
-		/* var chart6 = document.getElementById("rJobgroup-chart").getContext("2d");
-		window.myPie = new Chart(chart6).Pie(rJobgroupData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 		
 		var chart7 = new CanvasJS.Chart("rRgb-chart", {
 			animationEnabled: true,
@@ -286,11 +279,6 @@ $("#resume_cha").on("click",function(){
 		});
 		chart7.render();
 		
-		/* var chart7 = document.getElementById("rRgb-chart").getContext("2d");
-		window.myPie = new Chart(chart7).Pie(rRgbData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 	}, 200);
 });
 
@@ -305,12 +293,10 @@ $("#recruit_cha").on("click", function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			/* jobgroupData[i] = {value:weekJobgroup[i], color:color[i], highlight:highlight[i], label:jobgroup[i]}; */
 			jobgroupData[i] = {y:weekJobgroup[i], color:color[i], label:jobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			/* rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]}; */
 			rgbData[i] = {y:weekRgb[i], color:color[i], label:rgbname[i]};
 		}
 		
@@ -325,13 +311,7 @@ $("#recruit_cha").on("click", function(){
 			}]
 		});
 		chart4.render();
-		
-		/* var chart4 = document.getElementById("jobgroup-chart").getContext("2d");
-		window.myPie = new Chart(chart4).Pie(jobgroupData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
-		
+			
 		var chart5 = new CanvasJS.Chart("rgb-chart", {
 			animationEnabled: true,
 			data: [{
@@ -344,11 +324,6 @@ $("#recruit_cha").on("click", function(){
 		});
 		chart5.render();
 		
-		/* var chart5 = document.getElementById("rgb-chart").getContext("2d");
-		window.myPie = new Chart(chart5).Pie(rgbData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 	}
 	, 200);
 });
@@ -447,26 +422,6 @@ var recruitChart = {
 			}
 		]
 	}
-
-/* var ctx = document.getElementById("test-chart").getContext("2d");
-
-var data = {
-    labels: rJobgroup,
-    datasets: [
-        {
-            data: weekRJobgroup,
-            backgroundColor: color,
-            hoverBackgroundColor: highlight
-        }]
-};
-
-var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: data,
-    options: {
-        showAllTooltips: true
-    }
-}); */
 
 </script>
 

@@ -67,5 +67,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	limit #{pageStart}, #{perPageNum}
 	]]>
 	</select>
+	
+	<!-- Q&A 등록한 거 바로 확인 -->
+	<select id="readLastCreatedOne" resultType="int">
+	  	select MAX(bno)
+		from project.tblqna
+		where user = #{user}
+		;
+	</select>
 
+	<select id = "selectQnAOne" resultType = "CsqnaVO">
+	<!-- bno는 클릭한 Q&A 번호 -->
+	<![CDATA[
+		select *
+		from
+		project.tblqna
+		where bno = #{bno};
+	]]>
+	</select>
 </mapper>

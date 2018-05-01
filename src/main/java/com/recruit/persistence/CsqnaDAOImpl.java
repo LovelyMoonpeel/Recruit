@@ -58,5 +58,14 @@ public class CsqnaDAOImpl implements CsqnaDAO {
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
+	
+	@Override
+	public int readLastCreatedOne(CsqnaVO vo) throws Exception{
+		return session.selectOne(namespace+".readLastCreatedOne", vo);
+	}
 
+	@Override
+	public CsqnaVO selectQnAOne(int bno) throws Exception{
+		return session.selectOne(namespace+".selectQnAOne", bno);
+	}
 }

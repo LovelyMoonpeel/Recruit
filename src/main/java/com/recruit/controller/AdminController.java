@@ -703,4 +703,9 @@ public class AdminController {
 
 		return "redirect:/admin/notice";
 	}
+	
+	@RequestMapping(value = "/usage", method = RequestMethod.GET)
+	public String usageGET(Model model) throws Exception {
+		return "/admin/A_usage";		
+	}
 }

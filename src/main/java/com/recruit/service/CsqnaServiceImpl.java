@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +17,11 @@ public class CsqnaServiceImpl implements CsqnaService {
 	@Inject
 	private CsqnaDAO dao;
 
+	@Transactional
 	@Override
-	public void regist(CsqnaVO vo) throws Exception {
+	public int regist(CsqnaVO vo) throws Exception {
 		dao.create(vo);
+		return dao.readLastCreatedOne(vo);
 	}
 
 	@Transactional
@@ -63,5 +64,10 @@ public class CsqnaServiceImpl implements CsqnaService {
 	@Override
 	public CsqnaVO read2(Integer bno) throws Exception {
 		return dao.read(bno);
+	}
+	
+	@Override
+	public CsqnaVO selectQnAOne(int bno) throws Exception{
+		return dao.selectQnAOne(bno);
 	}
 }

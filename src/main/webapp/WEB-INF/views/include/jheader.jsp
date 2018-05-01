@@ -163,11 +163,16 @@ $(document).ready(function(){
 						
 						var order = i+1;
 						var cname = '<%=cname%>';
-						console.log(cname);
+						var id = '<%=id%>';
 						
 						if(cname=='null'){//개인회원일 경우
-							$(".message"+order).text("이력서가 열람되었습니다.");
-							$(".message"+order).attr("href", "/personal/applied_all");
+							if(id=='admin'){
+								$(".message"+order).text("Q&A가 등록되었습니다.");
+								$(".message"+order).attr("href", "/admin/qna");
+							}else{
+								$(".message"+order).text("이력서가 열람되었습니다.");
+								$(".message"+order).attr("href", "/personal/applied_all");
+							}
 						}else if(cname=null){
 							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우

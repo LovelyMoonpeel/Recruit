@@ -63,4 +63,5 @@ public interface UserService {
 	
 	public void Readedmessage(MessageVO msvo)throws Exception;//메시지 확인 서비스
 	
+	public void AreadQNAmessage(MessageVO msvo)throws Exception;//지훈 Q&A 등록했다는 알림
 }
