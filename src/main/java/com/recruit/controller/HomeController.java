@@ -183,15 +183,12 @@ public class HomeController {
 				
 				if(gostop.equals("keep")){
 					msvo.setUserid(id);
-					System.out.println("ㅏㅏㅏㅏ"+msvo);
 					entity = service.Readmessage_paging(msvo);//페이징 처리한 전체 메시지 불러오기
-					System.out.println("ㅗㅗㅗㅗ"+entity);
 					System.out.println("롸"+entity.size());
 					
 					for(int i=0;i<entity.size();i++){
 						String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
 						entity.get(i).setAppliedpid(title);
-						System.out.println("ㅗㅗㅗdㅗ"+entity.get(i));
 					}
 				}else{
 					return entity = null;
