@@ -131,8 +131,15 @@ public class SearchServiceImpl implements SearchService {
 			SpanelVO spanelVO = new SpanelVO();
 			spanelVO.setBno(listRecruit.get(i).getBno());
 			spanelVO.setUserid(listRecruit.get(i).getCid());
-			spanelVO.setTitle(listRecruit.get(i).getTitle());
-
+			
+			// 소연 recruit title글자수 제한
+			String title = listRecruit.get(i).getTitle();
+			
+			if (title != null && title.length() > 33)
+				title = title.substring(0, 33) + "...";
+			spanelVO.setTitle(title);
+			//소연 끝
+			
 			spanelVO.setJobgroupid(jobGroupMap.get(listRecruit.get(i).getJobgroupid()));
 			if (listRecruit.get(i).getJobgroupid2() != null)
 				spanelVO.setJobgroupid2(jobGroupMap.get(listRecruit.get(i).getJobgroupid2()));

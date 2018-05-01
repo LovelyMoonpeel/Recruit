@@ -19,11 +19,13 @@
 	<div style='width: 100%; border: 1px solid #c0c6d3; padding: 30px;'>
 		<ul style="list-style-type: circle;">
 			<li>[${PUserVO.pname}]님이 지원한 채용공고/이력서 목록입니다.</li>
-			<li>공고 등록 순서에 따라 정렬됩니다.<br></li>
-			<li>이력서를 등록하신 회원님께 <b>이력서 기반 추천 공고 서비스를 무료</b>로 제공합니다.
+			<li>기본적으로 공고 등록 순서에 따라 정렬됩니다.<br></li>
+			<li>이력서를 등록하신 회원님께 <b>이력서 기반 추천 공고 서비스를 무료</b>로 제공합니다.			 
 			</li>
 		</ul>
-		<br>※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
+		<br>
+		※추천공고서비스는  추천채용공고 페이지에서 확인가능합니다.<br>
+		※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
 	</div>
 
 	<input type="hidden" id="controller_value" value="${controller_value}">

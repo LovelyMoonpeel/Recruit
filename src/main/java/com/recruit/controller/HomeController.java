@@ -36,7 +36,6 @@ public class HomeController {
 	
 	@Inject
 	private UserService service;
-	
 	@Inject
 	private PUserService PService;
 	@Inject
