@@ -337,7 +337,7 @@ select count(bno) from (select @rownum:=0) a, tblcode n, tblcode m, tbljobgroup 
 			</if>
 			<if test="State == '마감'"> <!-- 마감 -->
 				<![CDATA[ 
-				state != 0 and period < curdate() and period != ' '
+				and period < curdate() and period != ' '
 				]]>
 			</if>
 		</if>
