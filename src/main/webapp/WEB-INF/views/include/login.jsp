@@ -717,8 +717,8 @@
 
 <!-- 기업 약관 관련 처리  -->
 <script>
-    $("#cjoin").click(function(){
-        if($("#cAgree").prop("checked")){
+    $("#cjoin").click(function(event){
+        if(!$("#cAgree").prop("checked")){
         	event.preventDefault();
         	alert("약관에 동의하셔야 가입됩니다.");
         }
