@@ -39,7 +39,7 @@
 			<label class="col-sm-2 control-label">새 비밀번호</label>
 			<div class="col-sm-6">
 				<input type="password" class="form-control" id="pw2" name="pw2"
-					placeholder="Password입력해주세여.">
+					placeholder="Password입력해주세요.">
 			</div>
 			<span id="chk2"></span>
 		</div>
@@ -48,7 +48,7 @@
 			<label class="col-sm-2 control-label">다시 확인</label>
 			<div class="col-sm-6">
 				<input type="password" class="form-control" id="pw3"
-					name="pw3reinput" placeholder="한 번 더 입력해주세여.">
+					name="pw3reinput" placeholder="한 번 더 입력해주세요.">
 			</div>
 			<span id="chk3"></span>			<!--여기 span태그 속에는 잘못된 비밀번호라고 알려줌  -->
 		</div>
@@ -111,7 +111,7 @@
 						}
 					// ★★ 기존 비밀번호와 사용자가 입력한 기존 비밀번호 일치하지 않을 때 ★★
 					} else {
-						alert("입력한 현재 비밀번호가 틀렸습니당.");			//기존 비밀번호 확인차 진행하는 과정 중 삑사리 난 경우
+						alert("입력한 현재 비밀번호가 틀렸습니다.");			//기존 비밀번호 확인차 진행하는 과정 중 삑사리 난 경우
 						$("#pw1").focus();			//다음 코드는 alert창을 껐을 때, id가 pw1인 곳에 커서가 위치하게 하는 코드
 					}
 				} 
