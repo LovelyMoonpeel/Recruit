@@ -1124,7 +1124,7 @@ function load(num){
     </div>
     <div id="collapse{{qbno}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{qbno}}">
       <div class="panel-body">
-		<font style="font-size:16px; padding-left:9%;" id="Answer{{qbno}}"> A. {{atext}}</font>
+		<font style="font-size:16px; padding-left:9%;" id="Answer{{qbno}}"> {{#Answer}} {{atext}} {{/Answer}}</font>
       </div>
 		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
@@ -1198,6 +1198,26 @@ function load(num){
 	})
 
 </script>
+
+<script type="text/javascript">
+	
+	
+  
+        Handlebars.registerHelper("Answer", function(option) {
+        	
+        	if(this.atext == null){
+        		
+        		return "등록된 답변이 없습니다.";
+        	}else{
+        		
+        		return "A. "+this.atext+"";
+        	}
+        	
+        	
+        	
+        });
+        	
+ </script>
 <!-- //메인 바디 끝 -->
 
 <%@include file="../include/cfooter.jsp"%>
