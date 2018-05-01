@@ -162,8 +162,7 @@ var weekResume = [];	//주간 이력서 작성 수
 var rJobgroup = [];		//이력서 대분류(jobgroup)
 var weekRJobgroup = [];	//이력서 대분류 수
 var rJobgroupData = [];	//이력서 대분류용(jobgroup)
-var color = ["#30a5ff", "#ffb53e", "#1ebfae", "#f9243f"];
-var highlight = ["#62b9fb", "#fac878", "#3cdfce", "#f6495f"];
+var color = ["#30a5ff", "#FFA500", "#1ebfae", "#f9243f"];	//파이차트 색상
 window.onload = function(){
 	
 	<% int cnt = 0; %>
