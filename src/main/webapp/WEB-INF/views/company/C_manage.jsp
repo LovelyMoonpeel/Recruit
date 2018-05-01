@@ -10,6 +10,9 @@
 <!-- 문> 반응형 카드를 위한 아래 두 줄  -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+	
+		
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
@@ -17,17 +20,12 @@
 <div class="col-md-9">
 
 	<p class="lead">
-	
 		<strong>채용공고관리</strong>
-		
 	</p>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> <!-- selectpicker용 스크립트 -->
 	
-
-	
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
-		
 		
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -36,16 +34,12 @@
 					<li id="btnsState" name="SearchReset" class="active text-center"><a id="btns" style="cursor:pointer; width:80px">전체</a></li>
 				</ul>
 			</div>
-			
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					
 					<li id="btnsState"><a id="btns" style="cursor:pointer;">진행중</a></li>
 					<li id="btnsState"><a id="btns" style="cursor:pointer;">마감</a></li>
-				
 				</ul>
-			
 				
 			<div class="input-group" >
 				<div class="input-group-btn" style="vertical-align:middle;"  >
@@ -65,7 +59,6 @@
 							<option value="10">10개씩보기</option>
 							<option value="20">20개씩보기</option>
 						</select>
-					
 			</div>
 				<!-- /.navbar-collapse -->
 			</div>
@@ -80,7 +73,7 @@
 		<!-- /.container-fluid -->
 	</nav>
 	<!-- 소스 -->
-
+	
 <!-- 		<div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-4">
@@ -125,12 +118,10 @@
 	</table>
 	
 	<div id="noStrs">
-	
 	</div>
 	
 	<div class="text-center">
 		<ul class="pagination" id="listPage">
-		
 		</ul>
 	</div>
 
@@ -140,19 +131,14 @@
 				<ul style="list-style-type: circle">
 					<li>진행중 공고의 게재 기간은 <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br>
 					<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li>
-						
 					<li>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</li>
-						
-					
 				</ul>
 			</td>
 		</tr>
 	</table>
 	
 	<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
-	
 		<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
-		
 	</c:forEach>
 
 	<!-- 문> 반응형이 적용 안 되서 일단 주석처리
@@ -177,11 +163,8 @@
         <div class="modal-body">
     
       <div class="collapse navbar-collapse">
-				
 				<div class="input-group">
 					<div class="input-group-btn" style="vertical-align:middle;">
-					
-
 						<select class="selectpicker" name="pSearchType">
 							<option value="n"
 							<c:out value="${cri.pSearchType eq 'n'?'selected':''}"/>>
@@ -197,38 +180,24 @@
 					<input type="text" class="form-control" name='pKeyword' id="pKeywordInput" placeholder="Search for..." value='${cri.pKeyword}'/><span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="pSearchBtn">검색하기</button>
 					</span>
-					
 				</div>			
 				<!-- /.navbar-collapse -->
-				
-				
-					
 			</div>
-			
 					
           <table class="table table-striped" >
          	 <thead class=active>
-         
 		<tr class=active>
 			<th class="text-center" style="width:5%"><input type="hidden" id="s_rcnoval" value=""></th>
         	<th class="text-center" style="width:15%">이름</th>
       		<th class="text-center" style="width:65%">이력서 요약</th>
-       		
 		</tr>
-          
           </thead>	
-          
           <tbody id="appList">
-          
           </tbody>
-          
-        
           </table>
           
           <div id="noApplyList">
-          
           </div>
-          
         </div>
         
           <div class="text-center">
@@ -236,43 +205,32 @@
 			</ul>
 		</div>
         <div class="modal-footer">
-        
           
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div>
       	</div> 
        </div>
     </div>
-	
 </div>
 <!-- //기업 채용공고 목록 끝 -->
-				
 <script>
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
 	var orderType = $("small[name=states]").attr('value');
-		
 	var perPageNum = $("#perPageNum option:selected").val();  
 	var pN = 1;
 	var state = $("#btnsState[class^=active]").text();
 	var searchType = $("select option:selected").val();
 	var keyword = $('#keywordInput').val();
-	
 
 	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-
-		
 })
 
 $(document).on("click","#btnsState", function(){
-	
 	$("li").removeClass();
-	
 	$(this).addClass("active");
-	
 })
 </script>
-
 <script>
 $("#viewOrder").on("click", function(){
 	$("#appIcon").removeClass();
@@ -289,8 +247,6 @@ $("#viewOrder").on("click", function(){
 		$("#viewOrder").attr("value","viewTop");
 		
 		var orderType = $("#viewOrder").attr("value");
-			
-		
 		check(orderType); 
 		
 	}else{
@@ -383,7 +339,6 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 </script>
 <script>
  function check(orderType){
-	
 		var pN = 1;
 		var state = $("#btnsState[class^=active]").text();
 		var searchType = $("select option:selected").val();
@@ -395,6 +350,7 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 </script>
 
 <script>
+
 $(document).on("click","span[role='state']",function(){
 	
 	var state = $(this).attr("id");
@@ -405,9 +361,8 @@ $(document).on("click","span[role='state']",function(){
 		url: '/companyAjax/changeState/'+bno+'/'+state,
 		dataType: 'Int',
 		
-		success : function() {
-			
-		}	
+			success : function() {
+			}	
 	}) 
 	
 	$("small").css("font-weight","");	
@@ -426,10 +381,8 @@ $(document).on("click","span[role='state']",function(){
 	}else{
 		alert("공고가 공개 됐습니다.")
 	}
-	
 	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 })
-
 </script>
 <script>
 $(document).on("click",'#recruitList',function(){ /* 전체 페이징 이동 */
@@ -442,6 +395,7 @@ $(document).on("click",'#recruitList',function(){ /* 전체 페이징 이동 */
 		var pN = $(this).html();
 		
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);		
+		
 	})
 $(document).on("click",'#recruitListExtend',function(){ /* 다음 리스트로 넘어가는 페이징 */
 	
@@ -473,7 +427,6 @@ $(document).on("click",'#recruitListBack',function(){
 		var pN = Number(cn) - Number(one);
 		
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-		
 })
 $(document).ready(function(){
 		var perPageNum = $("#perPageNum option:selected").val();  
@@ -487,6 +440,7 @@ $(document).ready(function(){
 		$("small[name=states]").attr("value","");
 		$("small[name=states]").css("font-weight","");
 		$("small[name=states]").attr("name","");
+		
 		
 		if($(this).text()=="전체"){
 			var pN = 1;
@@ -505,6 +459,7 @@ $(document).ready(function(){
 			var state = "진행중";
 		      
 			RecruitList(pN, state, perPageNum, searchType, keyword);
+		
 		}else{
 			var pN = 1;
 			var searchType = $("select option:selected").val();
@@ -518,196 +473,216 @@ $(document).ready(function(){
 })
 var formObj = $("form[role='form']");
 		
-		$(document).on("click", '#delete',function(){
-			var bno = $(this).attr('value');
-			/* formObj.attr("action", "/company/C_recruitRemove");  */
-			if(confirm("정말 삭제하시겠습니까?")){
-			self.location = "/company/C_recruitRemove?bno="+bno+"";
-			}else{
-				return false;
-			}
-			/* formObj.attr("method", "get");		
-			formObj.submit(); */
-		});
-		$(document).on("click", '#modify',function(){
-			
-			  var bno = $(this).attr('value');
-			  
-			  var text = $(this).html();
-			  
-			 
-			  if(text == "수정"){
-				  self.location = "/company/C_recruitModify?bno="+bno+"";
-			  }else{
-				  var day = prompt("연장일을 숫자로만 입력해주세요.");
-				  if (day != null){
-						 
-						$.ajax({
-							type:'POST',
-							url:'/companyAjax/reRegister/'+bno+'/'+day,
-							headers: { 
-							      "Content-Type": "application/json; ",
-							      "X-HTTP-Method-Override": "POST" },
-							data:JSON.stringify(), 
-							success : function(result) {
-								
-								var orderType = $("small[name=states]").attr('value');
-								
-								var perPageNum = $("#perPageNum option:selected").val();  
-								var pN = $("#recruitListLi[class^=active]").attr("name");
-								var state = $("#btnsState[class^=active]").text();
-								var searchType = $("select option:selected").val();
-								var keyword = $('#keywordInput').val();
-
-								RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-							}	
-					 }); 
-				  }
-			  }
-		});
-		
-		var result = '${msg}';
-		if (result == 'MODISUCCESS') {
-			alert("수정이 완료됐습니다.");
-		}else if(result == 'DELESUCCESS'){
-			alert("삭제가 완료됐습니다.");
-		}
-				
- 		$('#searchBtn').on("click",function(event) {
-			$("small").css("font-weight","");	
-			$("span[name='orders']").removeClass();
-			 $("#btnsState[class^=active]").removeClass();
-			 $("#btnsState[name='SearchReset']").addClass("active");
-			 var state = $("#btnsState[class^=active]").text();
-			var pN = 1;
-			var searchType = $("select option:selected").val();
-			var keyword = $('#keywordInput').val();
-			var perPageNum = $("#perPageNum option:selected").val();
-			var orderType = $("#appIcon").attr("value");
-			RecruitList(pN, state, perPageNum, searchType, keyword, orderType)
-			
- 		});
-		
-		function RecruitList(pN, state, perPageNum, searchType,keyword, orderType){
-			
-			$("#recruitLists > *").remove();
-			
-			var array = [];
-			
-			for(var p = 0; p<arguments.length; p++){
-			array[p] = arguments[p];
-			}	
-			
-			  $.ajax({
-					type:'POST',
-					url:'/companyAjax/recruitList/',
-					headers: { 
-					      "Content-Type": "application/json; ",
-					      "X-HTTP-Method-Override": "POST" },
-					dataType:'json', 
-					data:JSON.stringify(array), 
-					success : function(data) {
-						
-						var str = "";	
-						var chr = "";
-						var noStr = "";
-						var length = data.length;
-						var i = 0;
-						var item;
-						
-						$(data).each(function(){
-							i++;
-						
-							if(i < length){
-								
-								var item = {
-										recruitstate : this.recruitstate,
-										bno : this.bno, 
-										title : this.title,
-										state : this.state,
-										btnstate : this.btnstate,
-										applynum : this.applynum,
-										viewcnt : this.viewcnt,
-										qcnt : this.qcnt,	
-										period : this.period,
-										periodstart : this.periodstart
-								};
-								createTemplate(item);
-								}else{
-									
-				 					if(this.prev){
-										chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
-									}
-									
-									for(var z = this.startPage; z<=this.endPage; z++){
-										chr += "<li id=recruitListLi name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
-										
-									} 
-								 	if(this.next&&this.endPage>0){
-										chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
-									} 
-				 				}
-							if(length == 1){
-								noStr += "<br><br><br><br><h2>공고가 없습니다</h2><br><br><br><br>"
-							}
-						});			
-						
-						 $("#noStrs").html(noStr); 
-						 
-						 $("#noStrs").addClass("text-center");
-						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */ ㄴ/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
-						 $("#listPage").html(chr); 
-							
-						 $("li[name="+pN+"]").addClass("active");
-						 
-					     var spanLen = $("span[name='stateName']").length;
-						 
-					    var onloadLen = $("button[name='onLoad']").length;
-					     
-					     
-						for(var i= 0; i<spanLen; i++){
-							 
-							$("span[name='stateName']").eq(i).addClass("center-block clearfix");
-							$("span[name='stateName']").eq(i).addClass("badge");
-							$("span[name='hide1']").eq(i).addClass("glyphicon glyphicon-eye-open");
-							$("span[name='hide0']").eq(i).addClass("glyphicon glyphicon-lock");
-							
-							$("span[name='qIcons']").eq(i).addClass("glyphicon glyphicon-comment");
-							
-							 if($("span[name='stateName']").eq(i).html() == "모집중"){
-								
-								$("span[name='stateName']").eq(i).css("background-color","#3AA0D9");
-							
-							 }else if($("span[name='stateName']").eq(i).html() == "숨김상태"){
-								 
-								$("span[name='stateName']").eq(i).css("background-color","#F5F2DC");
-							 }
-						 }
-						$(function () {
-							  $('[data-toggle="tooltip"]').tooltip('show')
-							})
-					}	
-			 }); 
-		}
-		
-		$(document).on("click","#nw",function(){
-			window.open(this.href, '', 'width=1240, height=960'); 
+	$(document).on("click", '#delete',function(){
+		var bno = $(this).attr('value');
+		/* formObj.attr("action", "/company/C_recruitRemove");  */
+		if(confirm("정말 삭제하시겠습니까?")){
+		self.location = "/company/C_recruitRemove?bno="+bno+"";
+		}else{
 			return false;
-				
-		})
-	</script>
+		}
+		/* formObj.attr("method", "get");		
+		formObj.submit(); */
+	});
+	$(document).on("click", '#modify',function(){
+		
+		  var bno = $(this).attr('value');
+		  
+		  var text = $(this).html();
+		  
+		 
+		  if(text == "수정"){
+			  self.location = "/company/C_recruitModify?bno="+bno+"";
+		  }else{
+			  var day = prompt("연장일을 숫자로만 입력해주세요.");
+			  if (day != null){
+					 
+					$.ajax({
+						type:'POST',
+						url:'/companyAjax/reRegister/'+bno+'/'+day,
+						headers: { 
+						      "Content-Type": "application/json; ",
+						      "X-HTTP-Method-Override": "POST" },
+						data:JSON.stringify(), 
+						success : function(result) {
+							
+							var orderType = $("small[name=states]").attr('value');
+							
+							var perPageNum = $("#perPageNum option:selected").val();  
+							var pN = $("#recruitListLi[class^=active]").attr("name");
+							var state = $("#btnsState[class^=active]").text();
+							var searchType = $("select option:selected").val();
+							var keyword = $('#keywordInput').val();
+
+							RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+						}	
+				 }); 
+			  }
+		  }
+	});
 	
-	<script>
-	function createTemplate(item){
-	    
-	    	var source_tel = $("#template_recruitList").html();
-			var template = Handlebars.compile(source_tel);
-			$("#recruitLists").append(template(item));
+	var result = '${msg}';
+	if (result == 'MODISUCCESS') {
+		alert("수정이 완료됐습니다.");
+	}else if(result == 'DELESUCCESS'){
+		alert("삭제가 완료됐습니다.");
 	}
-	   
-	</script>
 	
-	 <script id="template_recruitList" type="text/x-handlebars-template">
+		$('#searchBtn').on("click",function(event) {
+		$("small").css("font-weight","");	
+		$("span[name='orders']").removeClass();
+		 $("#btnsState[class^=active]").removeClass();
+		 $("#btnsState[name='SearchReset']").addClass("active");
+		 var state = $("#btnsState[class^=active]").text();
+		var pN = 1;
+		var searchType = $("select option:selected").val();
+		var keyword = $('#keywordInput').val();
+		var perPageNum = $("#perPageNum option:selected").val();
+		var orderType = $("#appIcon").attr("value");
+		RecruitList(pN, state, perPageNum, searchType, keyword, orderType)
+		
+		});
+
+		function RecruitList(pN, state, perPageNum, searchType,keyword, orderType){
+		
+		$("#recruitLists > *").remove();
+		
+		var array = [];
+		
+		for(var p = 0; p<arguments.length; p++){
+		array[p] = arguments[p];
+		}	
+		
+		  $.ajax({
+				type:'POST',
+				url:'/companyAjax/recruitList/',
+				headers: { 
+				      "Content-Type": "application/json; ",
+				      "X-HTTP-Method-Override": "POST" },
+				dataType:'json', 
+				data:JSON.stringify(array), 
+				success : function(data) {
+					
+					
+					var str = "";	
+					var chr = "";
+					var noStr = "";
+					var length = data.length;
+					var i = 0;
+					var item;
+					
+					$(data).each(function(){
+						i++;
+					
+						if(i < length){
+							
+							var item = {
+									recruitstate : this.recruitstate,
+									bno : this.bno, 
+									title : this.title,
+									state : this.state,
+									btnstate : this.btnstate,
+									applynum : this.applynum,
+									viewcnt : this.viewcnt,
+									qcnt : this.qcnt,	
+									period : this.period,
+									periodstart : this.periodstart
+							};
+							
+							createTemplate(item);
+							
+									
+								
+							}else{
+								
+			 					if(this.prev){
+									chr += "<li><a id=recruitListBack name=all value="+this.startPage+">&laquo;</a></li>";
+								}
+								
+								for(var z = this.startPage; z<=this.endPage; z++){
+									chr += "<li id=recruitListLi name="+z+"><a id=recruitList name=all>"+z+"</a></li>"
+									
+								} 
+							 	if(this.next&&this.endPage>0){
+									chr += "<li><a id=recruitListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+								} 
+			 				}
+						if(length == 1){
+							
+							noStr += "<br><br><br><br><h2>공고가 없습니다</h2><br><br><br><br>"
+						
+						}
+					});			
+					
+					
+					 $("#noStrs").html(noStr); 
+					 
+			 
+					 $("#noStrs").addClass("text-center");
+					/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
+				/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
+					 $("#listPage").html(chr); 
+						
+					 $("li[name="+pN+"]").addClass("active");
+					 
+				     var spanLen = $("span[name='stateName']").length;
+					 
+				    var onloadLen = $("button[name='onLoad']").length;
+				     
+				     
+					for(var i= 0; i<spanLen; i++){
+						 
+						$("span[name='stateName']").eq(i).addClass("center-block clearfix");
+						$("span[name='stateName']").eq(i).addClass("badge");
+						$("span[name='hide1']").eq(i).addClass("glyphicon glyphicon-eye-open");
+						$("span[name='hide0']").eq(i).addClass("glyphicon glyphicon-lock");
+						
+						$("span[name='qIcons']").eq(i).addClass("glyphicon glyphicon-comment");
+						
+						 if($("span[name='stateName']").eq(i).html() == "모집중"){
+							
+							$("span[name='stateName']").eq(i).css("background-color","#3AA0D9");
+						
+						 }else if($("span[name='stateName']").eq(i).html() == "숨김상태"){
+							 
+							$("span[name='stateName']").eq(i).css("background-color","#F5F2DC");
+							 
+						 }
+					 }
+					
+					$(function () {
+						  $('[data-toggle="tooltip"]').tooltip('show')
+						})
+
+					 
+					 
+				}	
+				      
+				      
+		 
+		 }); 
+		  
+	}
+	
+	$(document).on("click","#nw",function(){
+
+		window.open(this.href, '', 'width=1240, height=960'); 
+		
+		return false;
+			
+	})
+</script>
+	
+<script>
+function createTemplate(item){
+    
+    	var source_tel = $("#template_recruitList").html();
+		var template = Handlebars.compile(source_tel);
+		$("#recruitLists").append(template(item));
+}
+</script>
+	
+ <script id="template_recruitList" type="text/x-handlebars-template">
 	<tr>
 		<td rowspan=1>
 			{{#State}}
@@ -746,145 +721,117 @@ var formObj = $("form[role='form']");
 			{{/hide}}
 		</td>
 	</tr>
+</script> 
 
-	</script> 
-	
 <script type="text/javascript">
-	Handlebars.registerHelper("State", function(option) {
-       	if(this.state == 1){
-			return "<span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span>";
-		}else if(this.state == 0){
-			return "<span style=vertical-align:middle name=stateName>숨김상태</span>";
-		}
-       });
-       
-       Handlebars.registerHelper("btnState", function(option) {
-       	if(this.btnstate=="수정"){
-       		return "<button id=endRecruit value="+this.bno+">모집완료</button>"
-       	}
-       });
-       
-       Handlebars.registerHelper("hide", function(option) {
-       	if(this.state == 1){
-			return "<span role=state name=hide1 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
-		}else if(this.state == 0){
-			return "<span role=state name=hide0 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
-		}
-       });
-       
-		Handlebars.registerHelper("qIcon", function(option) {
-       	
-       	if(this.qcnt != null){
-				return "<span name=qIcons style=font-size:20px data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
-		}else{
+        Handlebars.registerHelper("State", function(option) {
+        	if(this.state == 1){
+				return "<span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span>";
+			}else if(this.state == 0){
+				return "<span style=vertical-align:middle name=stateName>숨김상태</span>";
+			}
+        });
+        
+        Handlebars.registerHelper("btnState", function(option) {
+        	if(this.btnstate=="수정"){
+        		return "<button id=endRecruit value="+this.bno+">모집완료</button>"
+        	}
+        });
+        
+        Handlebars.registerHelper("hide", function(option) {
+        	if(this.state == 1){
+					return "<span role=state name=hide1 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
+			}else if(this.state == 0){
+					return "<span role=state name=hide0 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
+			}
+        });
+        
+ 		Handlebars.registerHelper("qIcon", function(option) {
+        	if(this.qcnt != null){
+					return "<span name=qIcons style=font-size:20px data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
+			}else{
+			}
+        });
+	</script>
+	
+<script>
+$(document).on("click","#endRecruit", function(){
+	bno = $(this).val();
+	endFunction(bno);
+})
+
+function endFunction(bno){
+	
+	if(confirm("공고를 마감하시겠습니까?")){
+		$.ajax({
+			type:'POST',
+			url:'/companyAjax/endRecruit/'+bno,
+			headers: { 
+			      "Content-Type": "application/json; ",
+			      "X-HTTP-Method-Override": "POST" },
+			data:JSON.stringify(), 
+			success : function(result) {
 				
-		}
-       });
-       
+				var orderType = $("small[name=states]").attr('value');
+				
+				var perPageNum = $("#perPageNum option:selected").val();  
+				var pN = $("#recruitListLi[class^=active]").attr("name");
+				var state = $("#btnsState[class^=active]").text();
+				var searchType = $("select option:selected").val();
+				var keyword = $('#keywordInput').val();
+
+				RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+			}	
+	 }); 
+	}else{
+		return false;
+	}	
+}
 </script>
 	
 <script>
-	$(document).on("click","#endRecruit", function(){
-		
-		bno = $(this).val();
-		
-		endFunction(bno);
-	})
+$(document).on("click", "#aP", function(){
 	
-	function endFunction(bno){
-		
-		if(confirm("공고를 마감하시겠습니까?")){
-			$.ajax({
-				type:'POST',
-				url:'/companyAjax/endRecruit/'+bno,
-				headers: { 
-				      "Content-Type": "application/json; ",
-				      "X-HTTP-Method-Override": "POST" },
-				data:JSON.stringify(), 
-				success : function(result) {
-					
-					var orderType = $("small[name=states]").attr('value');
-					
-					var perPageNum = $("#perPageNum option:selected").val();  
-					var pN = $("#recruitListLi[class^=active]").attr("name");
-					var state = $("#btnsState[class^=active]").text();
-					var searchType = $("select option:selected").val();
-					var keyword = $('#keywordInput').val();
-
-					RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-				}	
-		 }); 
-			
-		}else{
-			return false;
-			
-		}	
-	}
+	window.open(this.href, '', 'width=1000, height=960');
 	
-	</script>
-	
-	<script>
-	$(document).on("click", "#aP", function(){
-		
-		window.open(this.href, '', 'width=1000, height=960');
-		
-		return false;
-		
-	})
-	</script>
-	<script> /* 모달용 스크립트 */
+	return false;
+})
+</script>
+<script> /* 모달용 스크립트 */
 $(document).on("click", "button[name=onLoad]", function() {
 
 	 var bno = $(this).val();
-	 
 	 var pN = 1;
 	 
 	 $("#pKeywordInput").prop("value","");
-	 
 	 PersonList(bno, pN);
 	 //소연
 	 $("#s_rcnoval").val(bno);
-	
 })
 
-
-
 function PersonList(bno, pN, pSearchType, pKeyword){
-		
-		
-		$("#pSearchBtn").attr("value",bno);
-		
-		
-		var pArray = [];
-		
-		var pN = pN;
 	
+	$("#pSearchBtn").attr("value",bno);
+	
+	var pArray = [];
+	var pN = pN;
+
+	for(var pA = 0; pA<arguments.length; pA++){
+		pArray[pA] = arguments[pA];
+	}
+	
+	$.getJSON("/companyAjax/applyList/" + pArray, function(data) {
 		
-		for(var pA = 0; pA<arguments.length; pA++){
+		var str = "";
+		var chr = "";
+		var noStr = "";
+		var i = 0;
+		var comparison = [];
+		var length = data.length;
+	
+		$(data).each(function() {
+			i++;
 			
-			pArray[pA] = arguments[pA];
-			
-		}
-		
-		$.getJSON("/companyAjax/applyList/" + pArray, function(data) {
-			
-			var str = "";
-			
-			var chr = "";
-			
-			var noStr = "";
-			
-			var i = 0;
-			
-			var comparison = [];
-			
-			var length = data.length;
-			
-		
-			$(data).each(function() {
-						
-				i++;
-				
 		 	if(i < length){
 				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
@@ -898,55 +845,38 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 				comparison.push(this.bno)
 				
 			 	}else{
-					
- 					if(this.prev){
+					if(this.prev){
 						chr += "<li><a id=applyListBack name=all value="+this.startPage+">&laquo;</a></li>";
 					}
-					
-					
 					for(var z = this.startPage; z<=this.endPage; z++){
 						chr += "<li id=applyLi name="+z+"><a id=applyList name=all>"+z+"</a></li>"
-						
 					} 
 				 	if(this.next&&this.endPage>0){
 						chr += "<li><a id=applyListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
 					} 
- 				}
-		 	
-		 	
-			});
-			
-			 if(length == 1){ /* 지원자 리스트가 없을 경우의 수 */
-				
-				if($("#pKeywordInput").val().length == 0){ /* 그냥 지원자 자체가 없을 때 */ 
-					noStr += "<br><br><h3>지원한 인재가 아직 없습니다<h3>"
 				}
-				if($("#pKeywordInput").val().length > 0){ /* 검색 결과가 없을 때 */
-					noStr += "<br><br><h3>검색결과가 없습니다<h3>"
-				}
-			
-			 }
-			
-			if(noStr!=null){ /* 지원자 리스트 & 검색결과가 없을 때 문서객체 추가 */
-			$("#noApplyList").html(noStr); 
-			
-			$("#noApplyList").addClass("text-center"); 
-			}
-			
-		 	$("#appList").html(str);	   /* 지원자 리스트& 검색결과가 있을 경우 추가 */
-		 	
-		 	$("#applyListPage").html(chr); /* 지원자 리스트 페이지 네이션을 위해 추가 */
-		 		 	
-		 	
-		 	 
-		 	$("#applyLi[name="+pN+"]").addClass("active"); /* 선택된 페이지에 색상 추가용 클래스 추가 */
-		 	
-		 	favorComparison(comparison) /* 지원한 지원자가 관심인재에 등록된지 확인하기 위한 함수 */
-			
-		})
+		});
 		
-	
-	}
+		 if(length == 1){ /* 지원자 리스트가 없을 경우의 수 */
+			
+			if($("#pKeywordInput").val().length == 0){ /* 그냥 지원자 자체가 없을 때 */ 
+				noStr += "<br><br><h3>지원한 인재가 아직 없습니다<h3>"
+			}
+			if($("#pKeywordInput").val().length > 0){ /* 검색 결과가 없을 때 */
+				noStr += "<br><br><h3>검색결과가 없습니다<h3>"
+			}
+		 }
+		
+		if(noStr!=null){ /* 지원자 리스트 & 검색결과가 없을 때 문서객체 추가 */
+			$("#noApplyList").html(noStr); 
+			$("#noApplyList").addClass("text-center"); 
+		}
+	 	$("#appList").html(str);	   /* 지원자 리스트& 검색결과가 있을 경우 추가 */
+	 	$("#applyListPage").html(chr); /* 지원자 리스트 페이지 네이션을 위해 추가 */
+	 	$("#applyLi[name="+pN+"]").addClass("active"); /* 선택된 페이지에 색상 추가용 클래스 추가 */
+	 	favorComparison(comparison) /* 지원한 지원자가 관심인재에 등록된지 확인하기 위한 함수 */
+	})
+}
 
 $(document).on("click","#btt",function(){ /* 이력서 새창에 보기위해 지정하는 스크립트 */
 	
@@ -985,8 +915,6 @@ function C_readAPR(rsno, rcno, userid){
 		}//success end
  });//ajax end 
 }
-	
-	
 function favorComparison(comparison){ /* 스크랩할려는 인재가 이미 스크랩한 인재인지 검사하기위한 비교문 */
 	
 	var compare = document.getElementsByName('CompareList');
@@ -997,25 +925,19 @@ function favorComparison(comparison){ /* 스크랩할려는 인재가 이미 스
 	}
 	
  	for(var i= 0; i<compareList.length; i++){
- 		
  		for(var j = 0; j<comparison.length; j++){
  			if(compareList[i] == comparison[j]){
  				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
  			}
  		}
  	}
-	
-	
 }
-	
 </script>
-
 <script>
 $(document).ready(function(){ /* 관심인재 스크립하기 이벤트 */
-	
 	$(document).on("click", '#non', function(){
 		
-		 var id = "<%=id%>"
+		var id = "<%=id%>"
 		var bno = $(this).attr('value');
 		
 		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
@@ -1023,97 +945,76 @@ $(document).ready(function(){ /* 관심인재 스크립하기 이벤트 */
 		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
 			favAdd(bno, id);
 		}
-		
-			
-		})
-	
-	
+	})
 })
 function favAdd(bno, id){   // 관심인재 등록
-			
-	
 	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
 		var str = "";
 		
 		$(data).each(
-				
 			function() {
-				
 		});
-		
 	})
 	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
 	alert("관심인재에 등록 됐습니다.")
-	
-	
 }
 function favDel(bno, id){ 	// 관심인재 삭제
 	
 	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
 	var str = "";
-		
-		$(data).each(
-				function() {
-				});
-		
+	
+	$(data).each(
+		function() {
+		});
 	})
 	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
 	alert("관심인재에서 삭제 됐습니다.")
-	
 }
 
 </script>
 
-   <script>
-   	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
-   		var bno = $("#pSearchBtn").val();
-   		var pKeyword = $("#pKeywordInput").val();
-   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-   		var pN = 1
+<script>
+  	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
+  		var bno = $("#pSearchBtn").val();
+  		var pKeyword = $("#pKeywordInput").val();
+  		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+  		var pN = 1
 
-   	
-   		
-   		PersonList(bno, pN, pKeyword,pSearchType);
-   		 
-   		 
-   	})
-   	
-   	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
-   		
-   		var bno = $("#pSearchBtn").val();
-   		var pN = $(this).attr("name");
-   		var pKeyword = $("#pKeywordInput").val();
-   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+  		PersonList(bno, pN, pKeyword,pSearchType);
+  		 
+  	});
+  	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
+  		
+  		var bno = $("#pSearchBtn").val();
+  		var pN = $(this).attr("name");
+  		var pKeyword = $("#pKeywordInput").val();
+  		var pSearchType = $("select[name='pSearchType'] option:selected").val();
 
-   		PersonList(bno, pN, pKeyword,pSearchType);
-   		
-   	})
-   	
-   	$(document).on("click","#applyListBack",function(){
-   		
-   		var one = "1";
-   		var bno = $("#pSearchBtn").val();
-   		var cn = $(this).attr("name");
-   		var pKeyword = $("#pKeywordInput").val();
-   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-   		var pN = Number(cn) - Number(one);
+  		PersonList(bno, pN, pKeyword,pSearchType);
+  		
+  	});
+  	$(document).on("click","#applyListBack",function(){
+  		
+  		var one = "1";
+  		var bno = $("#pSearchBtn").val();
+  		var cn = $(this).attr("name");
+  		var pKeyword = $("#pKeywordInput").val();
+  		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+  		var pN = Number(cn) - Number(one);
 
-   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-   		
-   	})
-   	
-   	$(document).on("click","#applyListExtend",function(){
-   		
-   		var one = "1";
-   		var bno = $("#pSearchBtn").val();
-   		var cn = $(this).attr("name");
-   		var pKeyword = $("#pKeywordInput").val();
-   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-   		var pN = Number(cn) + Number(one);
+  		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+  	});
+  	$(document).on("click","#applyListExtend",function(){
+  		
+  		var one = "1";
+  		var bno = $("#pSearchBtn").val();
+  		var cn = $(this).attr("name");
+  		var pKeyword = $("#pKeywordInput").val();
+  		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+  		var pN = Number(cn) + Number(one);
 
-   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-   	})
-    </script>
-     
-    
+  		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+  	});
+</script>
+
 <%@include file="../include/cfooter.jsp"%>

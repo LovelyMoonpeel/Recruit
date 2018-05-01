@@ -30,6 +30,7 @@ import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanyPageMaker;
 import com.recruit.domain.CompanySearchCriteria;
 import com.recruit.domain.JobGroupVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
 import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.RecruitQnAVO;
@@ -42,6 +43,8 @@ import com.recruit.service.CompanyService;
 
 import com.recruit.service.PApplyService;
 import com.recruit.service.PInterestJobService;
+import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
 
 @RestController
 @RequestMapping("/companyAjax")
@@ -58,6 +61,11 @@ public class CompanyAjax {
 	// 문> 밑에 changePassword쪽에서 쓰려고 passwordEncoder주입해줬음
 	@Inject
 	private PasswordEncoder passwordEncoder;
+	
+	@Inject
+	private UserService uService;//이력서 읽었다는 알림할 때 쓸거//소연
+	@Inject
+	private ResumeService rService;//이력서 번호로 개인userid 받아오려고
 	
 	@RequestMapping(value = "/jobGroup", method = RequestMethod.GET)
 	  public ResponseEntity<List<JobGroupVO>> list() {
@@ -111,7 +119,6 @@ public class CompanyAjax {
 	
 		ResponseEntity<List<CPersonInfoVO>> entity = null;
 		
-		
 		try {
 			entity = new ResponseEntity<>(service.PersonRecomList(bno), HttpStatus.OK);
 			System.out.println("추천인재는 =" +entity);
@@ -132,27 +139,19 @@ public class CompanyAjax {
 		String id = login.getId();
 		try {
 			
-	
 		List<CPersonInfoVO> a = jobService.FavorList(id);
-		
 		List<Object> b = new ArrayList<Object>();	
 		
 		CompanyPageMaker pageMaker = new CompanyPageMaker();
 			
 		for(int i =0; i<a.size(); i++){
 			b.add((Object)(a.get(i)));
-			
 		}
-		
 		pageMaker.setCri(cri);
-			
 		pageMaker.setTotalCount(service.FavorListCount(id));	
-		
 		
 		b.add(pageMaker);
 		
-		
-			
 			entity = new ResponseEntity<>(b, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -161,7 +160,6 @@ public class CompanyAjax {
 		}
 		return entity;	
 	}
-	
 
 	@RequestMapping(value = "/favorAdd/{bno}/{id}",method = RequestMethod.GET)
 	public void faverAdd(@PathVariable("bno") int bno, @PathVariable("id") String id, RedirectAttributes rttr) throws Exception{
@@ -193,15 +191,12 @@ public class CompanyAjax {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/cs/S_faq";
 		}
-		
-	
 }
 	
 	@RequestMapping(value ="endRecruit/{bno}",method = RequestMethod.POST)
 	public void endRecruit(@PathVariable("bno") int bno, HttpSession session, RedirectAttributes rttr)throws Exception{
 		
 		BoardVO login = (BoardVO) session.getAttribute("login");
-		
 		String id = login.getId();
 		
 		service.endRecruit(bno, id);
@@ -222,31 +217,21 @@ public class CompanyAjax {
 	
 	@RequestMapping(value="/changeState/{bno}/{state}", method = RequestMethod.GET)
 	public void changeState(@PathVariable("bno") int bno,@PathVariable("state") int state)throws Exception{
-		
 		System.out.println(bno);
 		System.out.println(state);
 		
 		service.ChangeState(bno,state);
-		
-		
 	}
-	
-	
 	
 	@RequestMapping(value = "/recruitQuestion/",method = RequestMethod.POST)
 	public void RecruitQuestion(@RequestBody RecruitQnAVO QnA)throws Exception{
-		
 		System.out.println(QnA);
 		service.QnAQuestion(QnA);
-		
 	}
-	
 	
 	@RequestMapping(value= "/recruitAnswer",method = RequestMethod.POST)
 	public void RecruitAnswer(@RequestBody RecruitQnAVO QnA)throws Exception{
-		
 		service.QnAAnswer(QnA);
-		
 	}
 
 	@RequestMapping(value= "/qnaList/",method = RequestMethod.POST)
@@ -260,17 +245,12 @@ public class CompanyAjax {
 		System.out.println("page는 "+page);
 			 try{
 				 
-				 
 				List<RecruitQnAVO> a = service.QnAList(recruitNum,cri);
-				
 				
 				for(int i = 0; i<a.size(); i++){
 					result.add((Object)(a.get(i)));
 				}
-				 
 //			    entity = new ResponseEntity<>(service.QnAList(recruitNum), HttpStatus.OK);
-
-	
 			    ResponseEntity.ok("m,,");
 			    int pageNum = service.QnAPageNum(recruitNum);
 			    CompanyPageMaker pageMaker = new CompanyPageMaker();
@@ -283,11 +263,8 @@ public class CompanyAjax {
 				 
 				 e.printStackTrace();
 			     entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			     
 			 }
-			 
 			 return result;
-			 
 	}
 
 	@RequestMapping(value = "/recruitList/",method = RequestMethod.POST)
@@ -315,12 +292,10 @@ public class CompanyAjax {
 		cri.setOrderType(orderType);
 		}
 		
-		
 		if(page!=null){
 			
 			int pa = Integer.parseInt(page);
 			cri.setPage(pa);
-			
 		}
 		cri.setState(state);
 		cri.setSearchType(searchType);
@@ -335,7 +310,6 @@ public class CompanyAjax {
 			cri.setPage(Integer.parseInt(page));
 			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
-		
 	
 		BoardVO login = (BoardVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
@@ -351,13 +325,10 @@ public class CompanyAjax {
 				
 				for(int i =0; i<a.size(); i++){
 					b.add((Object)(a.get(i)));
-					
 				}
 				
 				CompanyPageMaker pageMaker = new CompanyPageMaker();
 				pageMaker.setCri(cri);
-				
-			
 			
 				if(cri.getState().equals("전체")){
 					//System.out.println("전체들어옴");
@@ -370,26 +341,17 @@ public class CompanyAjax {
 				//System.out.println(pageMaker);
 				b.add(pageMaker);
 				
-				
 				entity = new ResponseEntity<>(b, HttpStatus.OK);
-
-		
 //				model.addAttribute("pageMaker",pageMaker);
-//				
 			//	System.out.println("출력됨 : "+entity.toString());
-				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 				//System.out.println("출력안됨 : "+entity.toString());
 			}
-			
 		}
-		
-		
 		return entity;
-		
 	}
 	
 	/*문> 매개변수에 @RequestBody LoginDTO dto를 써줬다.
@@ -414,13 +376,9 @@ public class CompanyAjax {
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		System.out.println("★ login에는 어떤 정보가 들어있냐? " + login);
-
 		System.out.println("★ login의 pw는 무슨 값이냐? " + login.getPw());
-
 		System.out.println("★ dto에는 어떤 정보가 들어있냐? " + dto);
-		
 		System.out.println("★ dto의 pw는 무슨 값이냐? " + dto.getPw());
-		
 		System.out.println("★ 현재 entity는 무슨 값이냐? " + entity);
 		
 		/* 문> login.getPw()는 시큐리티가 적용된 기존 비밀번호이다.
@@ -462,17 +420,24 @@ public class CompanyAjax {
 			System.out.println(pavo.getPid() + "가 지원한 " + pavo.getRsno() + "번째 이력서" + pavo.getRcno() + "번 채용공고");
 			System.out.println("아아"+papService.selectAPOne(pavo));
 			
-			if(true){//마감 날짜 지났는지 안지났는지 확인하는 과정
-				//select 해서 null이면 true
-				if(papService.selectAPOne(pavo)==null){//지원한 적 없을 때
-					System.out.println("true if문으로 들어옴");
-					entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
-				}else{//지원한 적 있을 때
-					System.out.println("false if문으로 들어옴");
-					entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
-				}
+			PApplyVO Appliedornot = papService.selectAPOne(pavo);
+			System.out.println("롸"+Appliedornot.getRecord());
+			
+			String Appliedrecord = Appliedornot.getRecord();
+			String iszero = 0+"";
+			
+			if(Appliedrecord.equals(iszero)){//지원 취소한 경우
+				System.out.println("지원취소해서 true if문으로 들어옴");
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}else{//지원한 적 있을 때
+				System.out.println("false if문으로 들어옴");
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
 			}
 			
+		}catch(NullPointerException null_exception){
+			//지원한 적 없을 때
+			System.out.println("Nullpoint로 true if문으로 들어옴");
+			entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -544,18 +509,29 @@ public class CompanyAjax {
 		System.out.println("C_readAPRPOST POST CONTROLLER");
 		
 		ResponseEntity<String> entity = null;
-		String rsno = pavo.getRsno();
-		String rcno = pavo.getRcno();
 		System.out.println("pavo"+pavo);
 		try{
 			String result = papService.readornotAPOne(pavo);
 			System.out.println("읽었냐 말았냐?"+result);
 			if(result.equals("읽지않음")){//읽은 적이 없을 때
 				System.out.println("읽지않음 if문으로 들어옴");
-				papService.CreadAPOne(pavo);//읽음으로 바뀌는 서비스
+				papService.CreadAPOne(pavo);//읽음으로 바뀌면서 회사 아이디 추가하는 서비스
+				
+				Integer rsno = Integer.parseInt(pavo.getRsno());
+				System.out.println("이력서번호?"+rsno);
+				ResumeVO resume = rService.readROne(rsno) ;//이력서 번호로 ResumeVO읽어오기
+				String pid= resume.getUserid();//ResumeVO에서 pid읽어오기
+				
+				MessageVO msvo = new MessageVO();
+				msvo.setUserid(pid);//지원한 개인에게 알림가도록 userid 설정
+				msvo.setRcno(pavo.getRcno());//어떤 채용공고에 지원했는지
+				uService.CreadAPRmessage(msvo);//위에서 읽어온 개인 아이디를 userid에 넣어주고 열람했다는 알림 insert 서비스
+				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}else if(result.equals("읽음")){//읽은 적이 있을 때
 				System.out.println("이미읽음 if문으로 들어옴");
+				papService.CreadAPOne(pavo);//읽음으로 바뀌면서 회사 아이디 추가하는 서비스
+				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 			}else{
 				System.out.println("어느 if문에도 들어가지 못함");
@@ -574,10 +550,6 @@ public class CompanyAjax {
 	
 		ResponseEntity<List<Object>> entity = null;
 	
-		
-	//	System.out.println(pArray);
-		
-		
 		if(pArray.size()==2){
 			 cri.setBno(Integer.parseInt(pArray.get(0)));
 			 cri.setPage(Integer.parseInt(pArray.get(1)));
@@ -587,24 +559,17 @@ public class CompanyAjax {
 				 cri.setPage(Integer.parseInt(pArray.get(1)));
 				 cri.setpKeyword(pArray.get(2));
 				 cri.setpSearchType(pArray.get(3));
-				 
 			}
 			
 		System.out.println(cri);
 		
 		try {
-			
-			
-			
 			CompanyPageMaker pageMaker = new CompanyPageMaker();
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(service.appListCount(cri.getBno()));
 			
 			List<CPersonInfoVO> a = jobService.ApplyList(cri);
 			List<Object> b = new ArrayList<Object>();
-			
-			
-			
 			
 			for(int i =0; i<a.size(); i++){
 				b.add((Object)(a.get(i)));	
@@ -621,6 +586,5 @@ public class CompanyAjax {
 		}
 		return entity;	
 	}
-	
 	
 }
