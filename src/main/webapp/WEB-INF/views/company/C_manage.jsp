@@ -4,13 +4,12 @@
 <%@include file="../include/cheader.jsp"%>
 <%@ page import="java.util.Calendar"%>
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+	
 <!-- 문> 반응형 카드를 위한 아래 두 줄  -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
-
-	 <link rel="stylesheet" type="text/css" href="/resources/rpjt/css/button.css" />
-	
-		
 <!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
@@ -22,10 +21,6 @@
 		<strong>채용공고관리</strong>
 		
 	</p>
-	
-		
-
-	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> <!-- selectpicker용 스크립트 -->
 	
@@ -73,14 +68,7 @@
 					
 			</div>
 				<!-- /.navbar-collapse -->
-				
-					
 			</div>
-			
-			
-						
-					
-		
 			<!-- /.container-fluid -->
 	</nav>
 	<nav class="nav navbar-nav navbar-right" style="margin-bottom: 15px; padding-right: 30px; !important; ">
@@ -92,7 +80,6 @@
 		<!-- /.container-fluid -->
 	</nav>
 	<!-- 소스 -->
-	
 
 <!-- 		<div class="container">
     <div class="row">
@@ -146,7 +133,7 @@
 		
 		</ul>
 	</div>
-	
+
 	<table class="table table-bordered">
 		<tr class="active gobox2">
 			<td style="line-height: 200%">
@@ -258,16 +245,9 @@
     </div>
 	
 </div>
-
-		
 <!-- //기업 채용공고 목록 끝 -->
-
-
 				
 <script>
-
-
-
 $("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
 		
 	var orderType = $("small[name=states]").attr('value');
@@ -291,9 +271,7 @@ $(document).on("click","#btnsState", function(){
 	$(this).addClass("active");
 	
 })
-
 </script>
-
 
 <script>
 $("#viewOrder").on("click", function(){
@@ -389,21 +367,20 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 })
 </script>
 <script>
-
-			 $("#keywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
-			        if (e.which == 13){
-			        	
-			        	$('#searchBtn').trigger('click');
-			        }
-			    });
-			 
-			 $("#pKeywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
-			        if (e.which == 13){
-			        	
-			        	$('#pSearchBtn').trigger('click');
-			        }
-			    });
-			</script>
+ $("#keywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
+        if (e.which == 13){
+        	
+        	$('#searchBtn').trigger('click');
+        }
+    });
+ 
+ $("#pKeywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
+        if (e.which == 13){
+        	
+        	$('#pSearchBtn').trigger('click');
+        }
+    });
+</script>
 <script>
  function check(orderType){
 	
@@ -414,8 +391,45 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 		var perPageNum = $("#perPageNum option:selected").val();
 			
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-
 }
+</script>
+
+<script>
+$(document).on("click","span[role='state']",function(){
+	
+	var state = $(this).attr("id");
+	var bno = $(this).attr("value");
+	var hide =  $(this).attr("id");
+	$.ajax({
+		type:'GET',
+		url: '/companyAjax/changeState/'+bno+'/'+state,
+		dataType: 'Int',
+		
+		success : function() {
+			
+		}	
+	}) 
+	
+	$("small").css("font-weight","");	
+	$("span[name='orders']").removeClass();
+	
+	 var state = $("#btnsState[class^=active]").text();
+	
+	var pN = 1;
+	var searchType = $("select option:selected").val();
+	var keyword = $('#keywordInput').val();
+	var perPageNum = $("#perPageNum option:selected").val();
+	var orderType = $("#appIcon").attr("value");
+	
+	if(hide==1){
+		alert("공고가 비공개 됐습니다.")
+	}else{
+		alert("공고가 공개 됐습니다.")
+	}
+	
+	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+})
+
 </script>
 <script>
 $(document).on("click",'#recruitList',function(){ /* 전체 페이징 이동 */
@@ -428,8 +442,6 @@ $(document).on("click",'#recruitList',function(){ /* 전체 페이징 이동 */
 		var pN = $(this).html();
 		
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);		
-		
-		
 	})
 $(document).on("click",'#recruitListExtend',function(){ /* 다음 리스트로 넘어가는 페이징 */
 	
@@ -446,9 +458,6 @@ $(document).on("click",'#recruitListExtend',function(){ /* 다음 리스트로 �
 		var pN = Number(cn) + Number(one);
 		
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-		
-		
-		
 })
 $(document).on("click",'#recruitListBack',function(){
 	
@@ -465,15 +474,12 @@ $(document).on("click",'#recruitListBack',function(){
 		
 		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
 		
-		
-	
 })
 $(document).ready(function(){
 		var perPageNum = $("#perPageNum option:selected").val();  
 	  var pN = 1;
 	  var state = "전체";
 	RecruitList(pN, state, perPageNum);
-	
 	
 	$(document).on("click",'#btns',function(){ /* 전체, 진행중, 마감용 상단 버튼 */
 		
@@ -482,14 +488,12 @@ $(document).ready(function(){
 		$("small[name=states]").css("font-weight","");
 		$("small[name=states]").attr("name","");
 		
-		
 		if($(this).text()=="전체"){
 			var pN = 1;
 			var searchType = $("select option:selected").val();
 			var keyword = $('#keywordInput').val();
 			var perPageNum = $("#perPageNum option:selected").val();
 			var state = "전체";
-			
 			
 			RecruitList(pN, state, perPageNum, searchType, keyword);
 				
@@ -501,8 +505,6 @@ $(document).ready(function(){
 			var state = "진행중";
 		      
 			RecruitList(pN, state, perPageNum, searchType, keyword);
-		
-		
 		}else{
 			var pN = 1;
 			var searchType = $("select option:selected").val();
@@ -511,12 +513,8 @@ $(document).ready(function(){
 			var state = "마감";
 		      
 			RecruitList(pN, state, perPageNum, searchType, keyword);
-			
-			
 		}
-		
 	})
-	
 })
 var formObj = $("form[role='form']");
 		
@@ -562,17 +560,11 @@ var formObj = $("form[role='form']");
 								var keyword = $('#keywordInput').val();
 
 								RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-								
 							}	
-							      
 					 }); 
-				  
 				  }
 			  }
-			  	 
-			  
 		});
-		
 		
 		var result = '${msg}';
 		if (result == 'MODISUCCESS') {
@@ -581,7 +573,6 @@ var formObj = $("form[role='form']");
 			alert("삭제가 완료됐습니다.");
 		}
 				
-		
  		$('#searchBtn').on("click",function(event) {
 			$("small").css("font-weight","");	
 			$("span[name='orders']").removeClass();
@@ -596,20 +587,16 @@ var formObj = $("form[role='form']");
 			RecruitList(pN, state, perPageNum, searchType, keyword, orderType)
 			
  		});
- 		
- 
-	
 		
 		function RecruitList(pN, state, perPageNum, searchType,keyword, orderType){
 			
-			
+			$("#recruitLists > *").remove();
 			
 			var array = [];
 			
 			for(var p = 0; p<arguments.length; p++){
 			array[p] = arguments[p];
 			}	
-			
 			
 			  $.ajax({
 					type:'POST',
@@ -621,46 +608,31 @@ var formObj = $("form[role='form']");
 					data:JSON.stringify(array), 
 					success : function(data) {
 						
-						
 						var str = "";	
 						var chr = "";
 						var noStr = "";
 						var length = data.length;
 						var i = 0;
+						var item;
 						
 						$(data).each(function(){
 							i++;
 						
 							if(i < length){
-								/* str += "<tr><th rowspan=2 ><br><br><br><span class name=stateid>"+this.recruitstate+"</span></th>"
-								+ "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a>"
-										+"<li>근무형태 : "+this.employstatusid+"</li>"
-										+"<li>직종 : "+this.jobgroupid+"->"+this.jobgroupid2+"</li>"
-										+"<li>경력 : "+this.exp+"</li>"
-										+"<li>접수기간 : "+this.period+"("+this.week+")</li></th>"
-										+"<th><br><button class=center-block clearfix type=button style=width:100% id=modify value="+this.bno+">"+this.btnstate+"</button><button style=width:100% type=button id=delete value="+this.bno+" class=btn-danger>삭제하기</button>"
- */
-								if(this.state == 1){
-									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span></th>";
-								}else{
-									str += "<tr><th rowspan=1 ><span style=vertical-align:middle name=stateName>숨김상태</span></th>";
-								} 
-								str += "<th><a id=nw href=C_recruitMent?recruitNum="+this.bno+" target=_blank>"+this.title+"</a></th>"
-										
-										+"<th class=text-center><button class=clearfix type=button id=modify value="+this.bno+">"+this.btnstate+"</button><button  type=button id=delete value="+this.bno+" >삭제</button>"
-										
-										if(this.btnstate=="수정"){
-											
-											str += "<button id=endRecruit value="+this.bno+" >모집완료</button></th>"
-												+"<th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
-												
-										}else{
-											
-											str += "</th><th><button style=width:100% name=onLoad id="+this.bno+" value="+this.bno+" data-toggle=modal data-target=#myModal>지원자보기 ["+this.applynum+"명]</button></th><th class=text-center>"+this.viewcnt+"</th><th><span name=hide style=cursor:pointer id="+this.state+" value="+this.bno+"></span></th></tr>"
-											
-										}
-										
-									
+								
+								var item = {
+										recruitstate : this.recruitstate,
+										bno : this.bno, 
+										title : this.title,
+										state : this.state,
+										btnstate : this.btnstate,
+										applynum : this.applynum,
+										viewcnt : this.viewcnt,
+										qcnt : this.qcnt,	
+										period : this.period,
+										periodstart : this.periodstart
+								};
+								createTemplate(item);
 								}else{
 									
 				 					if(this.prev){
@@ -676,39 +648,31 @@ var formObj = $("form[role='form']");
 									} 
 				 				}
 							if(length == 1){
-								
 								noStr += "<br><br><br><br><h2>공고가 없습니다</h2><br><br><br><br>"
-							
 							}
 						});			
 						
-						$("#recruitLists").html(str);	
-						
 						 $("#noStrs").html(noStr); 
 						 
-				 
 						 $("#noStrs").addClass("text-center");
-						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
-					/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
+						/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */ ㄴ/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
 						 $("#listPage").html(chr); 
 							
 						 $("li[name="+pN+"]").addClass("active");
-						 
-						
 						 
 					     var spanLen = $("span[name='stateName']").length;
 						 
 					    var onloadLen = $("button[name='onLoad']").length;
 					     
- 						/* for(var j= 0; j<onloadLen; j++){
- 							$("button[name='onLoad']").eq(j).css("width","100%"); 
-						} */
 					     
 						for(var i= 0; i<spanLen; i++){
 							 
 							$("span[name='stateName']").eq(i).addClass("center-block clearfix");
 							$("span[name='stateName']").eq(i).addClass("badge");
-							$("span[name='hide']").eq(i).addClass("glyphicon glyphicon-eye-open");
+							$("span[name='hide1']").eq(i).addClass("glyphicon glyphicon-eye-open");
+							$("span[name='hide0']").eq(i).addClass("glyphicon glyphicon-lock");
+							
+							$("span[name='qIcons']").eq(i).addClass("glyphicon glyphicon-comment");
 							
 							 if($("span[name='stateName']").eq(i).html() == "모집중"){
 								
@@ -717,60 +681,114 @@ var formObj = $("form[role='form']");
 							 }else if($("span[name='stateName']").eq(i).html() == "숨김상태"){
 								 
 								$("span[name='stateName']").eq(i).css("background-color","#F5F2DC");
-								 
 							 }
 						 }
-						 
-						 
+						$(function () {
+							  $('[data-toggle="tooltip"]').tooltip('show')
+							})
 					}	
-					      
-					      
-			 
 			 }); 
-			  
 		}
 		
 		$(document).on("click","#nw",function(){
-
 			window.open(this.href, '', 'width=1240, height=960'); 
-			
 			return false;
 				
 		})
-		
-		$(document).on("click","span[name='hide']",function(){
-			
-			var state = $(this).attr("id");
-			var bno = $(this).attr("value");
-			
-			$.ajax({
-				type:'GET',
-				url: '/companyAjax/changeState/'+bno+'/'+state,
-				dataType: 'Int',
-				
-					success : function() {
-						
-						
-						alert("hih");
-						
-					}	
-			
-			}) 
-			
-		})
-		
-		
 	</script>
 	
-	
 	<script>
+	function createTemplate(item){
+	    
+	    	var source_tel = $("#template_recruitList").html();
+			var template = Handlebars.compile(source_tel);
+			$("#recruitLists").append(template(item));
+	}
+	   
+	</script>
 	
+	 <script id="template_recruitList" type="text/x-handlebars-template">
+	<tr>
+		<td rowspan=1>
+			{{#State}}
+				{{state}}{{recruitstate}}
+			{{/State}}
+		</td>
+
+		<td>
+			<a id=nw href=C_recruitMent?recruitNum={{bno}} target=_blank>{{title}}</a>
+			{{#qIcon}}
+				{{state}}
+			{{/qIcon}}	
+			<br>
+			({{periodstart}}{{period}})
+		</td>
+	
+		<td class=text-center>
+			<button class=clearfix type=button id=modify value="{{bno}}">{{btnstate}}</button>
+			<button type=button id=delete value="{{bno}}">삭제</button>
+			{{#btnState}}
+				{{btnstate}}
+			{{/btnState}}
+		</td>
+
+		<td>
+			<button style=width:100% name=onLoad id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
+		</td>
+		
+		<td class=text-center>
+			{{viewcnt}}
+		</td>
+
+		<td>
+			{{#hide}}
+				{{state}}{{bno}}
+			{{/hide}}
+		</td>
+	</tr>
+
+	</script> 
+	
+<script type="text/javascript">
+	Handlebars.registerHelper("State", function(option) {
+       	if(this.state == 1){
+			return "<span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span>";
+		}else if(this.state == 0){
+			return "<span style=vertical-align:middle name=stateName>숨김상태</span>";
+		}
+       });
+       
+       Handlebars.registerHelper("btnState", function(option) {
+       	if(this.btnstate=="수정"){
+       		return "<button id=endRecruit value="+this.bno+">모집완료</button>"
+       	}
+       });
+       
+       Handlebars.registerHelper("hide", function(option) {
+       	if(this.state == 1){
+			return "<span role=state name=hide1 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
+		}else if(this.state == 0){
+			return "<span role=state name=hide0 style=cursor:pointer id="+this.state+" value="+this.bno+"></span>";
+		}
+       });
+       
+		Handlebars.registerHelper("qIcon", function(option) {
+       	
+       	if(this.qcnt != null){
+				return "<span name=qIcons style=font-size:20px data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
+		}else{
+				
+		}
+       });
+       
+</script>
+	
+<script>
 	$(document).on("click","#endRecruit", function(){
 		
 		bno = $(this).val();
 		
 		endFunction(bno);
-		
 	})
 	
 	function endFunction(bno){
@@ -794,17 +812,13 @@ var formObj = $("form[role='form']");
 					var keyword = $('#keywordInput').val();
 
 					RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-					
 				}	
-				      
 		 }); 
 			
 		}else{
-		
 			return false;
 			
 		}	
-			
 	}
 	
 	</script>
@@ -1050,57 +1064,56 @@ function favDel(bno, id){ 	// 관심인재 삭제
 
 </script>
 
-    <script>
-    	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
-    		var bno = $("#pSearchBtn").val();
-    		var pKeyword = $("#pKeywordInput").val();
-    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-    		var pN = 1
+   <script>
+   	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
+   		var bno = $("#pSearchBtn").val();
+   		var pKeyword = $("#pKeywordInput").val();
+   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+   		var pN = 1
 
-    	
-    		
-    		PersonList(bno, pN, pKeyword,pSearchType);
-    		 
-    		 
-    	})
-    	
-    	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
-    		
-    		var bno = $("#pSearchBtn").val();
-    		var pN = $(this).attr("name");
-    		var pKeyword = $("#pKeywordInput").val();
-    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-	
-    		PersonList(bno, pN, pKeyword,pSearchType);
-    		
-    	})
-    	
-    	$(document).on("click","#applyListBack",function(){
-    		
-    		var one = "1";
-    		var bno = $("#pSearchBtn").val();
-    		var cn = $(this).attr("name");
-    		var pKeyword = $("#pKeywordInput").val();
-    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-    		var pN = Number(cn) - Number(one);
+   	
+   		
+   		PersonList(bno, pN, pKeyword,pSearchType);
+   		 
+   		 
+   	})
+   	
+   	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
+   		
+   		var bno = $("#pSearchBtn").val();
+   		var pN = $(this).attr("name");
+   		var pKeyword = $("#pKeywordInput").val();
+   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
 
-    		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-    		
-    	})
-    	
-    	$(document).on("click","#applyListExtend",function(){
-    		
-    		var one = "1";
-    		var bno = $("#pSearchBtn").val();
-    		var cn = $(this).attr("name");
-    		var pKeyword = $("#pKeywordInput").val();
-    		var pSearchType = $("select[name='pSearchType'] option:selected").val();
-    		var pN = Number(cn) + Number(one);
+   		PersonList(bno, pN, pKeyword,pSearchType);
+   		
+   	})
+   	
+   	$(document).on("click","#applyListBack",function(){
+   		
+   		var one = "1";
+   		var bno = $("#pSearchBtn").val();
+   		var cn = $(this).attr("name");
+   		var pKeyword = $("#pKeywordInput").val();
+   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+   		var pN = Number(cn) - Number(one);
 
-    		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
-    		
-    	})
-      
-     </script>
+   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+   		
+   	})
+   	
+   	$(document).on("click","#applyListExtend",function(){
+   		
+   		var one = "1";
+   		var bno = $("#pSearchBtn").val();
+   		var cn = $(this).attr("name");
+   		var pKeyword = $("#pKeywordInput").val();
+   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
+   		var pN = Number(cn) + Number(one);
+
+   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+   	})
+    </script>
+     
     
 <%@include file="../include/cfooter.jsp"%>

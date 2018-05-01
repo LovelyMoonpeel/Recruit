@@ -120,18 +120,23 @@ public class CompanyAjaxServiceImpl implements CompanyAjaxService{
 	 
 	
 	 @Override
-	 public void QnaQuestion(RecruitQnAVO QnA)throws Exception{		
-		 dao.QnaQuestion(QnA);	
+	 public void QnAQuestion(RecruitQnAVO QnA)throws Exception{		
+		 dao.QnAQuestion(QnA);	
 	 }
 	 @Override
-	 public void QnaAnswer(RecruitQnAVO QnA)throws Exception{
+	 public void QnAAnswer(RecruitQnAVO QnA)throws Exception{
 		 
-		 dao.QnaAnswer(QnA);
+		 dao.QnAAnswer(QnA);
 	 }
 	 @Override
-	 public List<RecruitQnAVO> QnAList(int recruitNum) throws Exception{
+	 public List<RecruitQnAVO> QnAList(int recruitNum, CompanyCriteria cri) throws Exception{
 		 
-		 return dao.QnAList(recruitNum);
+		 return dao.QnAList(recruitNum, cri);
+	 }
+	 @Override
+	 public int QnAPageNum(int recruitNum)throws Exception{
+		 
+		 return dao.QnAPageNum(recruitNum);
 	 }
 	 
 	 @Override

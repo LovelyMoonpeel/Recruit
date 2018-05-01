@@ -13,6 +13,7 @@
 
 
 	<context:property-placeholder location="file:/zzz/*.properties" />
+	<!--  context:property-placeholder location="file:/Users/hoonys/sts-bundle/*.properties" />-->
 
   	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

@@ -9,6 +9,7 @@ public class CompanySearchCriteria extends CompanyCriteria {
 	private String pKeyword;
 	private String orderType;
 	private int bno;
+
 	
 	public String getSearchType() {
 		return searchType;
@@ -52,6 +53,7 @@ public class CompanySearchCriteria extends CompanyCriteria {
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
+	
 	@Override
 	public String toString() {
 		return "CompanySearchCriteria [searchType=" + searchType + ", pSearchType=" + pSearchType + ", State=" + State
@@ -59,6 +61,4 @@ public class CompanySearchCriteria extends CompanyCriteria {
 	}
 	
 	
-	
-
 }
