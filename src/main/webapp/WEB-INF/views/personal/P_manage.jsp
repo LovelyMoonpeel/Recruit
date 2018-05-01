@@ -28,7 +28,7 @@
 				<th style="width: 65px; vertical-align:middle;">전체&nbsp;<input type="checkbox" id="allcheck"></th>
 				<th style="width: 60px; text-align: center; vertical-align:middle;">순번</th>
 				<th style="text-align: center; vertical-align:middle;">이력서 제목</th>
-				<th style="width: 95px; text-align: center; vertical-align:middle;">추천/검색 허용</th>
+				<th style="width: 95px; text-align: center; vertical-align:middle;">추천/검색<br>허용</th>
 				<th style="width: 60px; text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-pencil"></span> 수정</th>
 				<th style="width: 60px; text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-trash"></span> 삭제</th>
 			</tr>
