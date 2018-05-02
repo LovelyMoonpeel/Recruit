@@ -160,6 +160,9 @@ $(document).ready(function () {
 	$(".0").each(function(index){
 		$(this).addClass("alert-info");
 	});
+	$(".2").each(function(index){
+		$(this).addClass("alert-warning");
+	});
 	
 	$(".close").each(function(index){//메시지 확인하는 ajax
 		$(this).on("click", function(){
