@@ -16,8 +16,9 @@
 	}
 %>
 
-<!-- 개인관리 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!--  FAQ 페이지 -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 	<h1>FAQ</h1>
 
 	<table class="table table-hover">

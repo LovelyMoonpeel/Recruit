@@ -6,8 +6,8 @@
 
 
 <!-- 개인관리 페이지 -->
-<div class="col-md-10 col-md-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- <div class="col-md-10 col-md-offset-2 main"> -->
+<div class="col-md-9">
 	<h1>개인회원 리스트</h1>
 
 	<table class="table table-hover">
@@ -15,7 +15,7 @@
 			<th>아이디</th>
 			<th>회원이름</th>
 			<th>이메일</th>
-			<th>생년월일</th>
+			<!-- <th>생년월일</th> -->
 			<th>회원정보수정</th>
 		</tr>		
 	<c:forEach items="${list}" var="BoardVO">
@@ -23,7 +23,7 @@
 			<td>${BoardVO.id}</td>
 			<td>${BoardVO.pname}</td>
 			<td>${BoardVO.email}</td>
-			<td>${BoardVO.birth}</td>
+			<%-- <td>${BoardVO.birth}</td> --%>
 			<td><input class="btn btn-success" type="button" onclick="location.href='/admin/pmodify${pageMaker.makeSearch(pageMaker.cri.page)}&id=${BoardVO.id }'" value="회원정보수정"></td>
 		</tr>
 	</c:forEach>

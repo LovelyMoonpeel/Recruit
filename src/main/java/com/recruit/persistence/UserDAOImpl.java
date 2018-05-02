@@ -191,7 +191,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void AreadQNAmessage(MessageVO msvo)throws Exception{
 		//지훈 Q&A 등록했다는 알림
-		session.insert(namespace+".AreadQNAmessage", msvo);
+		session.insert(namespace+".readQNAmessage", msvo);
+	}
+	
+	@Override
+	public void readQNAReplymessage(MessageVO msvo)throws Exception{
+		//지훈 Q&A 댓글 등록했다는 알림
+		session.insert(namespace+".readQNAReplymessage", msvo);
 	}
 	
 	@Override

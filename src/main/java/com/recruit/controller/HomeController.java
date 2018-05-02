@@ -155,8 +155,12 @@ public class HomeController {
 				}
 			}else{
 				for(int i=0;i<entity.size();i++){
-					String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
-					entity.get(i).setAppliedpid(title);
+					if(Integer.parseInt(entity.get(i).getColor()) == 0 || Integer.parseInt(entity.get(i).getColor()) == 1){
+						if(Integer.parseInt((entity.get(i).getRcno()))!=0){
+							String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
+							entity.get(i).setAppliedpid(title);
+						}						
+					}
 				}
 			}
 			

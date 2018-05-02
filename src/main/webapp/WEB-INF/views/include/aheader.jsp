@@ -60,18 +60,7 @@
 <%@ page import = "com.recruit.domain.BoardVO" %>
 
 <%
-/* 	String id = "";
-	BoardVO login = null; */
-	
 	try{
-		/* System.out.println("첫번째"); */
-		/* login = (BoardVO)session.getAttribute("login"); */
-		/* System.out.println("로그인"+login);
-		System.out.println("두번째"); */
-		/* if(login != null){
-		id = login.getId();} */
-/* 		System.out.println("세번째");
-		System.out.println("아이디값 출력" + id); */
 		if(login == null){
 %>
 		<script>
@@ -81,15 +70,12 @@
 <%			
 		}
 		if(!id.equals("admin")){
-			/* System.out.println("아이디 입니다요" + id); */
 %>
 		<script>
 			alert("접근 권한이 없습니다.");
 			location.href= "/";
 		</script>
 <%
-			/* response.sendRedirect("/cs/S_faq"); */
-			/* System.out.println("나옵니까?"); */
 		}
 	}catch(Exception e){
 		e.printStackTrace();
@@ -99,10 +85,29 @@
 
 
 	<!-- Page Content -->
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-	<div id="sidebar-collapse" class="col-md-2 sidebar">
-		<div class="profile-sidebar">
+	<div class="col-md-3">
+			<div class="profile-sidebar">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">관리자페이지</div>
+				<div class="profile-usertitle-status">
+					<span class="indicator label-success"></span>Online
+				</div>
+			</div>
+			<div class="clear"></div>
+			</div>
+			<div class="list-group">
+				<a href="/admin/main" class="hover list-group-item" name='sideBtns' id="main pmodify resmodify"><span class="glyphicon glyphicon-user"></span> 개인관리</a>
+				<a href="/admin/company" class="hover list-group-item" name='sideBtns' id="company cmodify rmodify"><span class="glyphicon glyphicon-briefcase"></span> 기업관리</a>
+				<a href="/admin/chart" class="hover list-group-item" name='sideBtns' id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
+				<a href="/admin/notice" class="hover list-group-item" name='sideBtns' id="notice noticereg noticeread noticemod"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
+				<a href="/admin/usage" class="hover list-group-item" name='sideBtns' id="usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
+				<a href="/admin/faq" class="hover list-group-item" name='sideBtns' id="faq faqmod faqreg"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
+				<a href="/admin/qna" class="hover list-group-item" name='sideBtns' id="qna qnamod"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
+			</div>
+		</div>
+		<!-- <div class="profile-sidebar">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">관리자페이지</div>
 				<div class="profile-usertitle-status">
@@ -134,7 +139,7 @@
 			<a href="/admin/qna" class="hover" name='sideBtns' id="qna qnamod"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
 		</li>
 		</ul>
-	</div>
+	</div> -->
 
 <script>
 	

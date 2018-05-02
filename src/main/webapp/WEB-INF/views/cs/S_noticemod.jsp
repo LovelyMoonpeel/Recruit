@@ -10,9 +10,9 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
 
-<!-- FAQ 수정 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- 공지사항 수정 페이지 -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="col-md-9">
 
 
 

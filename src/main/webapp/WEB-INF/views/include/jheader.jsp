@@ -155,9 +155,16 @@ $(document).ready(function(){
 			dataType:'json',
 			success:function(data){
 				if(data!=''){
-					console.log(data);
-					console.log("성공함");
-					console.log("length"+data.length);
+					var array = data[0]
+					var keys = Object.keys(data[0]);
+					for(var i in keys){
+						if(keys[i]=="rcno"){
+							var rcno = array[keys[i]];
+						}
+						if(keys[i]=="color"){
+							var color = array[keys[i]];
+						}
+					}
 					
 					for(var i=0;i<data.length;i++){
 						
@@ -170,14 +177,40 @@ $(document).ready(function(){
 								$(".message"+order).text("Q&A가 등록되었습니다.");
 								$(".message"+order).attr("href", "/admin/qna");
 							}else{
-								$(".message"+order).text("이력서가 열람되었습니다.");
-								$(".message"+order).attr("href", "/personal/applied_all");
+								if(rcno == 0){
+									$(".message"+order).text("개인정보가 변경되었습니다.");
+									$(".message"+order).attr("href", "/personal/index");									
+								}else{
+									if(color == 4){
+										$(".message"+order).text("Q&A에 답변이 달렸습니다.");
+										$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
+									}else if(color == 3){
+										$(".message"+order).text("이력서가 변경되었습니다.");
+										$(".message"+order).attr("href", "/personal/Rmodify?bno="+rcno);
+									}else{
+										$(".message"+order).text("이력서가 열람되었습니다.");
+										$(".message"+order).attr("href", "/personal/applied_all");									
+									}
+								}
 							}
 						}else if(cname=null){
 							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우
-							$(".message"+order).text("지원자의 이력서를 확인해주세요.");
-							$(".message"+order).attr("href", "/company/C_manage");
+							if(rcno == 0){
+								$(".message"+order).text("회사정보가 변경되었습니다.");
+								$(".message"+order).attr("href", "/company/C_index");									
+							}else{
+								if(color == 4){
+									$(".message"+order).text("Q&A에 답변이 달렸습니다.");
+									$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
+								}else if(color == 3){
+									$(".message"+order).text("채용공고가 변경되었습니다.");
+									$(".message"+order).attr("href", "/company/C_recruitModify?bno="+rcno);
+								}else{
+									$(".message"+order).text("지원자의 이력서를 확인해주세요.");
+									$(".message"+order).attr("href", "/company/C_manage");									
+								}
+							}
 						}
 						
 					} 

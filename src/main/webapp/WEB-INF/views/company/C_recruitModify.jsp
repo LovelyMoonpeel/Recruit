@@ -15,9 +15,6 @@
 		
 		<table class="table table-hover" id="my-tbody">
 		
-		<table class="table table-hover" id="my-tbody">
-		
-	
 			<tr>
 				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" >제목</th>
 				<td style="vertical-align:middle; padding:15px 15px 15px 0px;">
@@ -475,7 +472,7 @@ $(function () {
 				<div style="padding:15px 15px 15px 0px;">
 					<div class="form-group" style="vertical-align:middle;">
 						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+							<input type="text" class="form-control" name="period" value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
 					</div>

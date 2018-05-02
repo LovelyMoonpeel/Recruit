@@ -338,7 +338,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
-	public String cmodifyPOST(BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String cmodifyPOST(MessageVO msvo, BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
 		logger.info("cmodify post...........");
@@ -354,6 +354,7 @@ public class AdminController {
 		// System.out.println("controller test1");
 		cservice.modify(vo);
 		pservice.CompanyInfoModify(cinfo);
+		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -381,13 +382,13 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.POST)
-	public String rmodifyPOST(CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String rmodifyPOST(MessageVO msvo, CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
 		logger.info("cmodify post...........");
 
-		// System.out.println("controller test1");
 		cservice.modify(recvo);
+		uservice.modifyRecruitAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -444,7 +445,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/A_resmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
+	public String RmodifyPOST(MessageVO msvo, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
 			RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model, RedirectAttributes rttr)
 			throws Exception {
 
@@ -461,6 +462,7 @@ public class AdminController {
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		rttr.addFlashAttribute("msg", "resume_mod");
+		uservice.modifyResumeAdminMessage(msvo);
 
 		return "redirect:/admin/pmodify?id=" + id;
 	}

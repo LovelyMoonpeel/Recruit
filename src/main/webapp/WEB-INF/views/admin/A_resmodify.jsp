@@ -9,10 +9,13 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 	<h1>${PUserVO.pname}님의 이력서 수정</h1>
 	<form role="form" method="post">
 	 	<input type="text" class="form-control" id="bno" name="bno" value="${ResumeVO.bno}" readonly>
+	 	<input type="hidden" name="rcno" value="${ResumeVO.bno}">
+	 	<input type="hidden" name="userid" value="${PUserVO.id}">
 		<br>	
 		<div class="form-group">
 			<label for="title">제목</label> <input class="form-control" id="title" name="title" value="${ResumeVO.title}">

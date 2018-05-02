@@ -27,7 +27,7 @@
 <% }else{
 	if(id.equals("admin")){
 %>
-		<jsp:include page="include/pheader.jsp" flush="true"/>
+		<jsp:include page="include/aheader.jsp" flush="true"/>
 <%	
 	}else{
 %>
@@ -55,7 +55,7 @@
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
 			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
 				<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>${MessageVO.appliedpid}</strong>${MessageVO.message} <b>(${MessageVO.mreadornot})</b>
+				<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}
 			</div>
 		</c:forEach>
 		<%}else{%>

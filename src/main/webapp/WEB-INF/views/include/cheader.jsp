@@ -128,7 +128,16 @@
 	<div class="row">
 
 			<div class="col-md-3">
-				<p class="lead">기업정보관리</p>
+				<!-- <p class="lead">기업정보관리</p> -->
+				<div class="profile-sidebar">
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">기업정보관리</div>
+						<div class="profile-usertitle-status">
+							<span class="indicator label-success"></span>Online
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
 				<div class="list-group">
 					<a href="/company/C_index" name="sideBtns" id="C_index C_modify" class="list-group-item">기업정보관리</a>
 					<a href="/company/C_write" name="sideBtns" id="C_write"  class="list-group-item">채용공고작성</a>

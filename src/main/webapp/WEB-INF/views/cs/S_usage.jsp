@@ -53,8 +53,10 @@ transition: 1s;
 background-color: #777; 
 } 
 </style>
-	
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+<!-- 이용약관 페이지 -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 
 	<p id="back-top"> 
    		<a href="#top"><span></span></a> 

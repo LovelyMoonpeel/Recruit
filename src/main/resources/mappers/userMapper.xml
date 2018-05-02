@@ -227,18 +227,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 지훈 알림창 Q&A에서 쓰는거 -->
-	<insert id="AreadQNAmessage">
+	<insert id="readQNAmessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{rcno}, 2, #{userid});
+		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{rcno}, 4, #{userid});
+	]]>
+	</insert>
+	
+	<!-- 지훈 알림창 Q&A댓글에서 쓰는거 -->
+	<insert id="readQNAReplymessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno, color, appliedpid)
+		values(#{userid}, '님이 Q&A에 답변을 남겼습니다.', #{rcno}, 4, '관리자');
 	]]>
 	</insert>
 	
 	<!-- 지훈 관리자의 개인회원 정보 수정 -->
 	<insert id="modifyAdminMessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, color, appliedpid)
-		values(#{userid}, '님의 정보를 관리자가 수정하였습니다.<a href="/cs/notice">공지사항</a>', 2, 'admin');
+		insert into tblmessage(userid, message, rcno, color, appliedpid)
+		values(#{userid}, '님이 개인정보를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', 0, 2, '관리자');
 	]]>
 	</insert>
 	
@@ -246,7 +254,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="modifyResumeAdminMessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님의 이력서를 관리자가 수정하였습니다.<a href='/cs/notice'>공지사항</a>', #{rcno}, 2, 'admin');
+		values(#{userid}, '님이 이력서를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rcno}, 3, '관리자');
 	]]>
 	</insert>
 	
@@ -254,7 +262,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="modifyRecruitAdminMessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님의 이력서를 관리자가 수정하였습니다.<a href='/cs/notice'>공지사항</a>', #{rcno}, 2, 'admin');
+		values(#{userid}, '님이 채용공고를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rcno}, 3, '관리자');
 	]]>
 	</insert>
 	

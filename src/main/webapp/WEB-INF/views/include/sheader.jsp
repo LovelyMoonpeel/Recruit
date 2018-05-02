@@ -45,11 +45,10 @@
 		}
 	%>
 
-	<!-- Page Content -->
-	<div class="container-fluid">
-		<div class="row">
-			<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-				<div class="profile-sidebar">
+<div class="container">
+	<div class="row">
+	<div class="col-md-3">
+			<div class="profile-sidebar">
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">고객센터</div>
 						<div class="profile-usertitle-status">
@@ -58,18 +57,14 @@
 					</div>
 					<div class="clear"></div>
 				</div>
-				<ul class="nav menu list-group">
-					<li><a href="/cs/notice" class="hover" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a></li>
-					<li><a href="/cs/usage" class="hover" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a></li>
-					<li><a href="/cs/faq" class="hover" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a></li>
-					<li><a href="/cs/qna" class="hover" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a></li>
-				</ul>
-				<!-- 				<div class="list-group">
-					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
-						class="list-group-item">Q&A</a>
-				</div> -->
+			<div class="list-group">
+				<a href="/cs/notice" class="hover list-group-item" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
+				<a href="/cs/usage" class="hover list-group-item" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
+				<a href="/cs/faq" class="hover list-group-item" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
+				<a href="/cs/qna" class="hover list-group-item" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
 			</div>
-			
+		</div>
+		
 <script>
 var path = window.location.pathname.substr(4,6);
 var faq = $("#faq");

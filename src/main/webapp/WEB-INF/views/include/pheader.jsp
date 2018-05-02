@@ -129,9 +129,18 @@ td {
 	<div class="container">
 	<div class="row this">
 		<div class="col-md-3">
-			<p class="lead">마이페이지</p>
+			<!-- <p class="lead">마이페이지</p> -->
+			<div class="profile-sidebar">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">마이페이지</div>
+				<div class="profile-usertitle-status">
+					<span class="indicator label-success"></span>Online
+				</div>
+			</div>
+			<div class="clear"></div>
+			</div>
 			<div class="list-group">
-				<a href="/personal/index" id="index" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
+				<a href="/personal/index" id="index modify" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
 				<a href="/personal/write" id="write"  class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a>
 				<a href="/personal/manage" id="manag" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
 				<a href="/personal/recom" id="recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>

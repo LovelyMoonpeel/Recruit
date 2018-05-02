@@ -5,8 +5,8 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- 기업회원리스트 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="col-md-9">
 	<h1>기업회원 리스트</h1>
 
 	<table class="table table-hover">

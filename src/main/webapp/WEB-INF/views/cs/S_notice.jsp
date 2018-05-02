@@ -16,8 +16,9 @@
 	}
 %>
 
-<!-- 개인관리 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- 공지사항 리스트 페이지 -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 	<h1>공지사항</h1>
 
 	<table class="table table-hover">

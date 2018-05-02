@@ -5,7 +5,8 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- Chart 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">통계</h1>
@@ -71,7 +72,7 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
@@ -83,7 +84,7 @@
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
@@ -111,7 +112,7 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
@@ -122,7 +123,7 @@
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
