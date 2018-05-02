@@ -317,7 +317,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row tel_row_number">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
 	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
@@ -351,7 +351,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 </script>
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row edu_row_number">
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<hr class="form-group" style="border: solid 0.5px #ccc; width:97%;">
 	<div class="form-group col-md-3">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
@@ -406,7 +406,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<hr class="form-group" style="border: solid 0.5px #ccc; width:97%;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -472,7 +472,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 </script>
 <script id="template_web" type="text/x-handlebars-template">
 <div class="row web_row_number">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
 
@@ -503,7 +503,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 </script>
  <script id="template_license" type="text/x-handlebars-template">
 <div class="row license_row_number">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
 	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
 	
@@ -541,7 +541,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
             
  <script id="template_language" type="text/x-handlebars-template">
 <div class="row lang_row_number">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 

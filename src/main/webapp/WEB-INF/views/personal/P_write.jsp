@@ -209,7 +209,9 @@
 	          </c:forEach>
 	       </select>
 	     </div>
+	     
 		<div id="edu_div"></div>
+		
 		<hr style="border: solid 4px #ccc;">
 		<div style="font-size:18px;" class="form-group col-md-2"><b>경력 사항</b></div>
 		<div class="form-group col-md-2"><label for="career">경력</label>
@@ -324,7 +326,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 
 <script id="template_tel" type="text/x-handlebars-template">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
 	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
@@ -342,7 +344,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 	</div>
 	
 	<div class="form-group col-md-2">
-		<label>라벨 추가/삭제</label>
+		<label>추가/삭제</label>
 		<br>
 		<button class="btn btn-default btn-sm tel_plus_btn" type="button">
 			<i class="glyphicon glyphicon-plus"></i>
@@ -354,13 +356,11 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 </div>
 <!-- end of row -->
 </script>
-
+<!-- 소연-->
 <script id="template_edu" type="text/x-handlebars-template">
 <div class="row"><!-- 첫번째는 hidden 시키기 -->
-
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<hr class="line form-group" style="border: solid 0.5px #ccc; width:97%;" id="line">
 	<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
-	
 	<div class="form-group col-md-3">
 		<label>입학일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -419,8 +419,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 <script id="template_exp" type="text/x-handlebars-template">
 <div class="row">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
+	<hr class="form-group" style="border: solid 0.5px #ccc; width:97%">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -487,7 +486,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 
 <script id="template_web" type="text/x-handlebars-template">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
 
@@ -517,7 +516,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 </script>
 <script id="template_license" type="text/x-handlebars-template">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
 	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
 	
@@ -557,7 +556,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1"></textarea>
 
 <script id="template_language" type="text/x-handlebars-template">
 <div class="row">
-	<hr style="border: solid 0.5px #ccc;">
+	<hr style="border: solid 0.5px #ccc; width:97%;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 
@@ -716,7 +715,6 @@ $(document).ready(function(){
 	    	container: 'body'
 	    });
 	});
-	
 	
 	$("#behidden").hide();
 
