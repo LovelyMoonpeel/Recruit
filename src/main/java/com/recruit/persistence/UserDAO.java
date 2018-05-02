@@ -65,4 +65,9 @@ public interface UserDAO {
 	
 	public void AreadQNAmessage(MessageVO msvo)throws Exception;//지훈 Q&A 등록했다는 알림
 	
+	public void modifyAdminMessage(MessageVO msvo) throws Exception; //지훈  admin에서 개인정보 수정알림
+	
+	public void modifyResumeAdminMessage(MessageVO msvo) throws Exception; //지훈  admin에서 이력서 수정
+	
+	public void modifyRecruitAdminMessage(MessageVO msvo) throws Exception; //지훈  admin에서 채용공고 수정
 }

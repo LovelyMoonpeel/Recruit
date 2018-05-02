@@ -313,273 +313,11 @@
             </div>   
             
         </form>
-<!-- //______________________________실험_________________ -->
-
-
-
-
-
-
-					<!-- 		<form role="form" class="form-inline" action="/user/joinPost" method="post">
-							
-								뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐 
-								<div class="form-group">
-								<table>
-								<tr>
-									아이디
-									<th class="col-md-6">아이디<br><br></th>
-
-									<td>
-										<div class="form-group">
-											<span id="PIDDiv" style="margin-bottom:0px;">
-												<input type="text" id='pid' name='id' class="form-control"
-													placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="15">
-											<span class="glyphicon glyphicon-remove form-control-feedback" id="PIDXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PIDOKIcon" aria-hidden="true" style="visibility:hidden"></span></span>
-  				 						</div>
-  				 						<br>
-  				 						<br>
-  				 					</td>
-  				 						
-  				 					<td>
-  				 						<div>
-											<input class="btn btn-success" type="button" id="pid_overlap" value="중복체크">
-  										</div>	
-  									</td>	
-								</tr>
-								
-								<tr>
-									비밀번호
-									<div class="form-group">
-									<th class="col-md-6">비밀번호</th>
-									
-									<td colspan="2">
-										<span id="PPWDiv" style="margin-bottom:0px;">
-											<input type="password" id='ppw' name='pw' class="form-control" placeholder="비밀번호를 입력하세요." maxlength="20" 
-													data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-											<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						</span>
-  				 					</td>
-  				 				</tr>
-  				 				
-  				 				<tr>
-									<td colspan="3">
-										<span>
-											<small>&nbsp;&nbsp;&nbsp;&nbsp;6~20자로 입력해주세요. &nbsp;&nbsp; (대문자와 소문자, 숫자 조합)</small>
-										</span>
-										<br>
-										<br>
-									</td>
-									</div>
-								</tr>
-								
-								<tr>
-									<div class="form-group">
-									<th class="col-md-6">비밀번호 확인<br><br></th>
-									
-									<td colspan="2">
-										<span id="PPWCDiv" style="margin-bottom:0px;">
-											<input type="password" id="ppwc" class="form-control" placeholder="비밀번호를 다시 입력하세요." maxlength="20" 
-												data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top">
-											<span class="glyphicon glyphicon-remove form-control-feedback" id="PPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						</span>
-  				 						<br>
-  				 						<br>
-  				 					</td>
-									</div>
-								</tr>
-
-								<tr>
-									이름
-									<th class="col-md-6">이름<br><br></th>
-									<div class="form-group">
-										<td colspan="2"><input type="text" name='pname' class="form-control"
-											placeholder="이름을 입력하세요." maxlength="15">
-										<br>
-										<br>
-										</td>
-										</div>
-								</tr>
-
-								<tr>
-									생년월일/날짜 폼을 썼음
-									<div class="form-group">
-									<th class="col-md-6">생년월일<br><br></th>
-										<td colspan="2">
-											<span class="input-group date" data-provide="datepicker">
-												<input type="text" name='birth' class="form-control"
-													placeholder="생년월일을 입력하세요." >
-												<span class="input-group-addon">
-													<i class="glyphicon glyphicon-calendar"></i>
-												</span>
-											</span>
-											<br>
-											<br>
-										</td>
-									</div>
-								</tr>
-
-						
-								
-								<tr>
-									이메일
-									<div class="form-group has-feedback">
-									<th class="col-md-6">이메일<br><br></th>
-										
-									<td>
-										<span id="PEmailDiv" style="margin-bottom:0px;">
-											<input type="text" id="pemail" name="email" class="form-control"
-												placeholder="이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"/>
-											<span class="glyphicon glyphicon-remove form-control-feedback" id="PEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 							<span class="glyphicon glyphicon-ok form-control-feedback" id="PEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  										</span>
-  										<br>
-  										<br>
-  									</td>
-									<span class="glyphicon  form-control-feedback"></span>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input class="btn btn-success" type="button" id="pemail_overlap" value="중복체크">
-										<br>
-										<br>	
-									</td>
-									</div>
-								</tr>
-
-
-								<tr>
-									이메일 인증 
-									<div>
-									<td colspan="3">
-									<span class="text-center">회원가입 후 이메일 인증이 발송됩니다.</span>
-									</td>
-									</div>
-								</tr>
-
-								<tr>
-									가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음 
-									<div class="row">
-									
-									<td colspan="3">
-										<span class="col-xs-12"></span>
-										<span class="col-xs-1">
-										<input id="checkBox" type="checkbox">회원 약관에 동의
-										</span>
-									</td>
-									
-									
-									<td colspan="3">
-										<span class="col-xs-12"></span>
-										<span class="col-xs-1">
-											<button type="submit" id="pjoin" class="btn btn-primary">가입하기</button>
-										
-										</span>
-									</td>
-									</div>
-								</tr>
-									</table>
-								</div>
-								//class="box-body" 뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  
-								
-								
-								
-								
-							</form> -->
 						</div>
 						<!--_____________________//2-1.회원가입 개인회원 끝_____________________  -->
 
 						<!--_____________________2-2.회원가입 기업회원 시작_____________________  -->
 						<div id="join_company" class="tab-pane fade">
-	<!-- 						<form role="form" action="/user/joinPost" method="post">
-
-								뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐 
-								<div class="box-body">
-
-									아이디
-									<div class="form-group"> 회사 아이디
-									<div id="CIDDiv" style="margin-bottom:0px;">
-										<input type="text" id="cid" name='id' class="form-control"
-											placeholder="4~15자리를 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CIDXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CIDOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  									</div>
-									<input class="btn btn-success" type="button" id="cid_overlap" value="중복체크">
-									</div>
-
-
-									비밀번호
-									<div class="form-group">비밀번호
-									<div id="CPWDiv" style="margin-bottom:0px;">
-									<input type="password" id='cpw' name='pw' class="form-control" placeholder="6자리를 입력하세요." maxlength="20" 
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 					</div>
-  				 					<span>6~20자로 입력해주세요.(대문자와 소문자, 숫자 조합)</span>
-									</div>
-									
-									<div class="form-group">비밀번호 확인
-									<div id="CPWCDiv" style="margin-bottom:0px;">
-									<input type="password" id='cpwc' class="form-control" placeholder="6자리를 입력하세요." maxlength="20"
-										data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 					</div>
-										<span id="cpwchk"></span>
-									</div>
-
-
-
-									회사명
-									<div class="form-group">
-										회사명<input type="text" name='cname' class="form-control"
-											placeholder="회사명을 입력하세요." required>
-									</div>
-
-
-									담당자 이름
-									<div class="form-group">
-										담당자 이름<input type="text" name='pname' class="form-control"
-											placeholder="담당자 이름을 입력하세요." required>
-									</div>
-
-
-									담당자 이메일
-									<div class="form-group has-feedback">담당자 이메일
-									<div id="CEmailDiv" style="margin-bottom:0px;">
-										<input type="text" id="cemail" name="email" class="form-control"
-											placeholder="담당자의 회사 이메일을 입력하세요." data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" required/>
-										<span class="glyphicon glyphicon-remove form-control-feedback" id="CEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
-  				 						<span class="glyphicon glyphicon-ok form-control-feedback" id="CEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>
-  									</div>
-									<span class="glyphicon  form-control-feedback"></span>
-									<input class="btn btn-success" type="button" id="cemail_overlap" value="중복체크">
-									</div>
-
-
-									이메일 인증 
-									<span class="text-center">회원가입 후 이메일 인증이 발송됩니다.</span>
-
-									사업자 등록번호
-									<div class="form-group">
-										사업자 등록번호<input type="text" name='registnum'
-											class="form-control" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." maxlength="10" required>
-									</div>
-
-									가입하기 버튼인데 우측에 붙이고 싶어서 이렇게 설정했음 
-									<div class="row">
-										<div class="col-xs-8"></div>
-										<div class="col-xs-4">
-											<button type="submit" id="cjoin" class="btn btn-primary">가입하기</button>
-										</div>
-									</div>
-
-
-								</div>
-								//class="box-body" 뭔지 모르겠지만 box-body를 빼면 전체 틀이 약간 구려짐  
-
-							</form> -->
 							
 							
 <!--문>실험  -->							
@@ -622,9 +360,9 @@
                     <input type="password" class="form-control" id="cpwc" data-rule-required="true" placeholder="비밀번호를 다시 입력하세요." 
                     	data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="30">
                 	<span class="glyphicon glyphicon-remove form-control-feedback" 
-                		id="CPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+                		id="CPWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
   				 	<span class="glyphicon glyphicon-ok form-control-feedback" 
-  				 		id="CPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 		id="CPWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
                 </div>
             </div>
             
@@ -648,9 +386,9 @@
                     <input type="email" class="form-control" id="cemail" name="email" data-rule-required="true" placeholder="이메일을 입력하세요." 
                     	data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="15">
                     <span class="glyphicon glyphicon-remove form-control-feedback" 
-               			id="CPWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+               			id="CEmailXIcon" aria-hidden="true" style="visibility:hidden"></span>
   				 	<span class="glyphicon glyphicon-ok form-control-feedback" 
-  				 		id="CPWOKIcon" aria-hidden="true" style="visibility:hidden"></span>	
+  				 		id="CEmailOKIcon" aria-hidden="true" style="visibility:hidden"></span>	
                 </div>
                 <div class="col-lg-3">
                 	<input type="button" class="form-control btn btn-success"  id="cemail_overlap" value="중복체크">
@@ -660,7 +398,7 @@
             <div class="form-group" id="divName">
                 <label for="inputName" class="col-lg-3 control-label">사업자등록번호</label>
                 <div class="col-lg-6">
-                    <input type="text" class="form-control onlyHangul" name='registnum' data-rule-required="true" placeholder="띄워쓰기 없이 숫자만 연속으로 입력하세요." maxlength="10">
+                    <input type="text" class="form-control onlyHangul" name='registnum' data-rule-required="true" placeholder="숫자만 입력해주세요." maxlength="10">
                 </div>
             </div>    
 

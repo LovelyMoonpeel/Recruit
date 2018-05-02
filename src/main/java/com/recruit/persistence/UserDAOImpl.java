@@ -193,4 +193,22 @@ public class UserDAOImpl implements UserDAO {
 		//지훈 Q&A 등록했다는 알림
 		session.insert(namespace+".AreadQNAmessage", msvo);
 	}
+	
+	@Override
+	public void modifyAdminMessage(MessageVO msvo) throws Exception{
+		//지훈  admin에서 개인정보 수정알림
+		session.insert(namespace+".modifyAdminMessage", msvo);
+	}
+	
+	@Override
+	public void modifyResumeAdminMessage(MessageVO msvo) throws Exception{
+		//지훈  admin에서 이력서 수정
+		session.insert(namespace+".modifyResumeAdminMessage", msvo);
+	}
+	
+	@Override
+	public void modifyRecruitAdminMessage(MessageVO msvo) throws Exception{
+		//지훈  admin에서 채용공고 수정
+		session.insert(namespace+".modifyRecruitAdminMessage", msvo);
+	}
 }

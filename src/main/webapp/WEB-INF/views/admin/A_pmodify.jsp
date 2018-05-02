@@ -26,7 +26,10 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly></td>
+				<td>
+					<input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly>
+					<input type="hidden" name="userid" value="${BoardVO.id}">
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>

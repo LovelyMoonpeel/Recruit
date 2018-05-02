@@ -21,11 +21,20 @@
 		e.printStackTrace();
 	}
 
-	if (cname!=null) { %>
+	if (cname!=null) {
+%>
     <jsp:include page="include/cheader.jsp" flush="true"/>
-<% }else{%>
-	<jsp:include page="include/pheader.jsp" flush="true"/>
-<% }%>	
+<% }else{
+	if(id.equals("admin")){
+%>
+		<jsp:include page="include/pheader.jsp" flush="true"/>
+<%	
+	}else{
+%>
+		<jsp:include page="include/pheader.jsp" flush="true"/>
+<%
+	}
+}%>	
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 
 <html>

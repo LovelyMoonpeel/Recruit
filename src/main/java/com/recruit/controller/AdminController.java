@@ -37,6 +37,7 @@ import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
 import com.recruit.domain.CsqnaVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -59,6 +60,7 @@ import com.recruit.service.ResumeCareerService;
 import com.recruit.service.ResumeEduService;
 import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
@@ -113,6 +115,9 @@ public class AdminController {
 	
     @Inject
     private PasswordEncoder passwordEncoder;
+    
+    @Inject
+    private UserService uservice;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
@@ -140,7 +145,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
-	public String modifyPOST(BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(MessageVO msvo, BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -152,6 +157,8 @@ public class AdminController {
 			vo.setPw(encPassword);
 		}
 		aservice.modify(vo);
+		System.out.println("test : "+msvo);
+		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());

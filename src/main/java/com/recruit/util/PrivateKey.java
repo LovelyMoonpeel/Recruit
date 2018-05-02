@@ -15,8 +15,8 @@ public class PrivateKey{
 			
 			accessKey = aa.substring(0, 20);
 			secretKey = aa.substring(21);
-			System.out.println(accessKey);
-			System.out.println(secretKey);
+			//System.out.println(accessKey);
+			//System.out.println(secretKey);
 		}catch(Exception e){
 			e.printStackTrace();
 		}		

@@ -226,11 +226,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 	
-	<!-- 지훈 알림창 C_manage에서 쓰는거 -->
+	<!-- 지훈 알림창 Q&A에서 쓰는거 -->
 	<insert id="AreadQNAmessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color, appliedpid)
 		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{rcno}, 2, #{userid});
+	]]>
+	</insert>
+	
+	<!-- 지훈 관리자의 개인회원 정보 수정 -->
+	<insert id="modifyAdminMessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, color, appliedpid)
+		values(#{userid}, '님의 정보를 관리자가 수정하였습니다.<a href="/cs/notice">공지사항</a>', 2, 'admin');
+	]]>
+	</insert>
+	
+	<!-- 지훈 관리자의 이력서 수정 -->
+	<insert id="modifyResumeAdminMessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno, color, appliedpid)
+		values(#{userid}, '님의 이력서를 관리자가 수정하였습니다.<a href='/cs/notice'>공지사항</a>', #{rcno}, 2, 'admin');
+	]]>
+	</insert>
+	
+	<!-- 지훈 관리자의 채용공고 수정 -->
+	<insert id="modifyRecruitAdminMessage">
+	<![CDATA[
+		insert into tblmessage(userid, message, rcno, color, appliedpid)
+		values(#{userid}, '님의 이력서를 관리자가 수정하였습니다.<a href='/cs/notice'>공지사항</a>', #{rcno}, 2, 'admin');
 	]]>
 	</insert>
 	
