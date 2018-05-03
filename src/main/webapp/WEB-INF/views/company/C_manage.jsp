@@ -129,9 +129,13 @@
 		<tr class="active gobox2">
 			<td style="line-height: 200%">
 				<ul style="list-style-type: circle">
-					<li>진행중 공고의 게재 기간은 <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br>
-					<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li>
-					<li>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</li>
+					<li><small>숨김상태 공고는 구직자에게 공개가 되지 않으며 <b style="color:#7F0000">예정 종료일에 자동으로 모집완료 상태로 변경</b>됩니다.</small></li>
+					<li><small>공고를 등록하신 회원님께<b style="color:#7F0000">공고 기반 추천 인재 서비스를 무료</b>로 제공합니다.</small></li>
+					<li><small>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요.</small></li>
+					<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
+					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하 징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>
+					
+					<br> <font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</font> 처리될 수 있습니다.</font>
 				</ul>
 			</td>
 		</tr>
@@ -645,7 +649,7 @@ var formObj = $("form[role='form']");
 						
 						 }else if($("span[name='stateName']").eq(i).html() == "숨김상태"){
 							 
-							$("span[name='stateName']").eq(i).css("background-color","#F5F2DC");
+							$("span[name='stateName']").eq(i).css("background-color","#400000");
 							 
 						 }
 					 }
@@ -700,15 +704,15 @@ function createTemplate(item){
 		</td>
 	
 		<td class=text-center>
-			<button class=clearfix type=button id=modify value="{{bno}}">{{btnstate}}</button>
-			<button type=button id=delete value="{{bno}}">삭제</button>
+			<button style="vertical-align: middle" type=button id=modify value="{{bno}}">{{btnstate}}</button>
+			<button style="vertical-align: middle" type=button id=delete value="{{bno}}">삭제</button>
 			{{#btnState}}
 				{{btnstate}}
 			{{/btnState}}
 		</td>
 
 		<td>
-			<button style=width:100% name=onLoad id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
+			<button style="vertical-align: middle;" name=onLoad id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
 		</td>
 		
 		<td class=text-center>
@@ -728,7 +732,7 @@ function createTemplate(item){
         	if(this.state == 1){
 				return "<span style=vertical-align:middle name=stateName>"+this.recruitstate+"</span>";
 			}else if(this.state == 0){
-				return "<span style=vertical-align:middle name=stateName>숨김상태</span>";
+				return "<span style=vertical-align: middle name=stateName>숨김상태</span>";
 			}
         });
         

@@ -13,14 +13,29 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
  <link rel="stylesheet" type="text/css" href="/resources/rpjt/css/button.css" /> <!-- 버튼용 css -->
-	
+
+<style>
+ #map {
+      		width:	100%;
+            height: 300px; 
+        }
+
+r{
+color:rgb(255, 79, 0);
+}
+.container1 {
+        width: 100%;
+        height: 600px;
+        overflow: scroll; /* showing scrollbars */
+  }
+</style>	
 
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <div class="col-md-9 ">
 
 	<p class="lead">
-		<strong>채용공고작성</strong>
+		<h2>채용공고작성</h2>
 	</p>
 
 
@@ -31,7 +46,7 @@
 		
 	
 			<tr>
-				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" >제목</th>
+				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" ><h4>공고 제목</h4></th>
 				<td style="vertical-align:middle; padding:15px 15px 15px 0px;">
 				<div id="titleDiv" style="margin-bottom:0px;">
 				<input type="text" class="form-control" tabindex="0" name="title"  id="title" 
@@ -110,7 +125,7 @@ $(function () {
  -->
 		
 		<tr>
-					<th class="text-center" id="jobGroupTxt" style="vertical-align:middle;">직종/직무</th>
+					<th class="text-center" id="jobGroupTxt" style="vertical-align:middle;"><h4>직종/직무</h4></th>
 				<td>
 				
 				
@@ -175,10 +190,6 @@ $(function () {
 					
 			<input type="hidden" name="jobgroupid2" id="jobgroupid2" >
 			
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					
-				<span class="glyphicon glyphicon-remove form-control-feedback" id="subJobgroupXIcon" aria-hidden="true" style="display:none;  right:0" ></span>
-				<span class="glyphicon glyphicon-ok form-control-feedback" id="subJobgroupOKIcon" aria-hidden="true" style="display:none;  right:0"></span>
 				
 			</a>	
 					
@@ -188,7 +199,7 @@ $(function () {
 		</tr>
 		
 			<tr>
-				<th class="text-center" id="rgbidTxt" style="vertical-align:middle;">근무지역</th>
+				<th class="text-center" id="rgbidTxt" style="vertical-align:middle;"><h4>근무지역</h4></th>
 				<td>
 				<div style="padding:15px 15px 15px 0px;">
 				
@@ -212,7 +223,7 @@ $(function () {
 				%>
 				
 				
-				<a id="subRegion"> 
+				<a id="subRegionDiv"> 
 					
 					
 				<c:forEach begin="1" end="${regionCount}" varStatus="status">
@@ -240,12 +251,15 @@ $(function () {
 				
 				</c:forEach>
 				
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					
-			<span class="glyphicon glyphicon-remove form-control-feedback" id="subRegionXIcon" aria-hidden="true" style="display:none; " ></span>
-			<span class="glyphicon glyphicon-ok form-control-feedback" id="subRegionOKIcon" aria-hidden="true" style="display:none; "></span>
 			
 				</a>
+				<br>
+				<br>
+				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				<input type="hidden" name="lat" id="lat">
+				<input type="hidden" name="lng" id="lng">
+				<input type="hidden" name="location" id="test">
+				<div id="map"></div>
 					
 				</div>
 				
@@ -267,6 +281,51 @@ $(function () {
 				
 				</script>
 				
+					<script>
+					
+					changelatlan = "";
+					var e = jQuery.Event( "keypress", { keyCode: 13 } ); 
+					
+					
+			$("#rgbid").change(function(){
+				changelatlan = "";
+				changelatlan += $(this).children("option:selected").text();	
+				
+				$("#pac-input").val(changelatlan);
+				alert(changelatlan);
+				
+
+			})
+			$("select[name=subRegion]").change(function(){
+				cuts = changelatlan.split(' ');
+				changelatlan = cuts[0];
+				changelatlan += " "
+				changelatlan += $(this).children("option:selected").text();
+				$("#pac-input").val(changelatlan);
+				alert(changelatlan);
+			})
+			</script>
+			
+		<input type="button" id="hohoho" value="hohotest"/>
+		
+		<script>
+		var e = jQuery.Event("keydown");
+
+		e.which = 13; // # Some key code value
+
+
+		$("#hohoho").on("click",function(){
+			
+			$("#pac-input").focus();
+			alert("hi");
+			
+			alert("hi");
+			alert("hi");
+			alert("hi");
+			$("#pac-input").trigger(e);
+		})
+		</script> 
+				
 	
 				<input type="hidden" name="rgsid" id="rgsid"> <!-- rgsid 전송용 -->
 				
@@ -274,7 +333,7 @@ $(function () {
 			</tr>
 			
 			<tr>
-				<th class="text-center" id="jobdescTxt" style="vertical-align:middle;">담당업무</th>
+				<th class="text-center" id="jobdescTxt" style="vertical-align:middle;"><h4>담당업무</h4></th>
 				<td>
 					<div id="jobdescDiv">
 						<textarea class="form-control" style="resize: none" id="jobdesc"
@@ -287,16 +346,16 @@ $(function () {
 			
 			<tr>
 			
-				<th class="text-center" id="recruitnumTxt" style="vertical-align:middle;">모집인원</th>
+				<th class="text-center" id="recruitnumTxt" style="vertical-align:middle;"><h4>모집인원</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
 				
 				<div id="numChk">
-				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1">&nbsp;1명</label>
-				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;2명</label>
-				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3">&nbsp;3명</label>
-				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4">&nbsp;4명</label>
+				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1">&nbsp;<h5>1명</h5></label>
+				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;<h5>2명</h5></label>
+				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3">&nbsp;<h5>3명</h5></label>
+				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4">&nbsp;<h5>4명</h5></label>
 				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />명
 				</div>
 				
@@ -334,7 +393,7 @@ $(function () {
 			})
 			</script>
 			<tr>
-				<th class="text-center" id="employstatusidTxt" style="vertical-align:middle;">근무형태</th>
+				<th class="text-center" id="employstatusidTxt" style="vertical-align:middle;"><h4>근무형태</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
@@ -375,8 +434,9 @@ $(function () {
 			})
 						
 			</script>
+		
 			<tr>
-				<th class="text-center" id="salaryidTxt" style="vertical-align:middle;">급여사항</th>
+				<th class="text-center" id="salaryidTxt" style="vertical-align:middle;"><h4>급여사항</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
@@ -407,7 +467,7 @@ $(function () {
 			</tr>
 			<tr>
 			
-				<th class="text-center" id="eduTxt" style="vertical-align:middle;">학력</th>
+				<th class="text-center" id="eduTxt" style="vertical-align:middle;"><h4>학력</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
@@ -441,7 +501,7 @@ $(function () {
 			</tr>
 			
 			<tr>
-				<th class="text-center" id="expTxt" style="vertical-align:middle;">경력</th>
+				<th class="text-center" id="expTxt" style="vertical-align:middle;"><h4>경력</h4></th>
 				<td>
 				
 				
@@ -474,7 +534,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="adddescTxt" style="vertical-align:middle;">상세내용 및 우대사항<br>(공통자격요건)</th>
+				<th class="text-center" id="adddescTxt" style="vertical-align:middle;"><h4>상세내용 및 우대사항<br>(공통자격요건)</h4></th>
 				
 				<td>
 				
@@ -495,7 +555,7 @@ $(function () {
 			</tr>
 		
 			<tr>
-				<th class="text-center" id="periodTxt" style="vertical-align:middle;">접수기간</th>
+				<th class="text-center" id="periodTxt" style="vertical-align:middle;"><h4>접수기간</h4></th>
 				<td>
 				
 					<div class="form-inline">
@@ -518,7 +578,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="acceptmethodTxt" style="vertical-align:middle;">접수방법</th>
+				<th class="text-center" id="acceptmethodTxt" style="vertical-align:middle;"><h4>접수방법</h4></th>
 				<td>
 				
 				
@@ -532,13 +592,32 @@ $(function () {
 			</div>
 				</td>
 			</tr>
+			
+		
 
 		</table>
+		
+		<br>
+		<br>
+		<p class="lead">
+			<h2>채용정보 공유 및 등록제한 규정</h2>
+		</p>
+		
+		<div style="text-center">
+		<hr>
 
-
+			<font>등록하신 채용공고는 각종 사이트에 동시 게재됩니다.</font> <input id="TAC" type="checkbox"  style=""/> <b style="font-size:15px">동의합니다.</b>
+			
+		<hr>
+		
+			※ 채용공고가 아래와 같은 경우 법에 따라 처벌 받을 수 있으며, 모니터링으로 공고가 게재되지 않을 수 있습니다.<br>
+				- 연령에 제한을 두거나 성별을 분리하여 모집하는 경우<br>
+				- 최저임금 미만 이거나 채용공고 내용이 법령을 위반하는 경우<br>
+				- 불량정보 유형에 속하는 채용정보일 경우 <a style="padding-left:50%" data-toggle=modal data-target=#myModal>공고등록 제한 규정 안내<span style="cursor:pointer" class="glyphicon glyphicon-triangle-bottom"></span></a>
 
 		<br> 
-		<br> 
+		<br>
+		</div> 
 
 	<table>
 	<tr class="text-center">
@@ -551,8 +630,122 @@ $(function () {
 		
 	</th>
 	</tr>
+	
 		</table>
+		
 	</form>
+	
+		<div id="myModal" class="modal fade" role="dialog">
+ 	 <div class="modal-dialog modal-md" >
+	   <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" name="offLoad" id="off" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">등록 불가 및 주의사항</h3>
+        </div>
+        <div class="modal-body">
+    
+    <div class="container1">
+    
+    <br>
+    
+	1.채용공고의 내용은 명확하고 상세하게 작성해 주시기 바랍니다.
+	<br>
+	<br>
+	2.<r>
+	허위/과장된 채용공고 등록 후, 입사지원자의 개인 정보를 무분별하게 수집하는<br>
+	이력서 피싱이 성행하고 있습니다. recruIT의 개인회원을 대상으로 이력서 피싱을 <br>
+	벌일 경우, 강력한 법적 조치가 행해질 수 있습니다. </r>
+	<br>
+	<br>
+	3.아래 유형의 공고는 <r>불량 채용정보 정책에 의해 채용공고 등록이 불가하며,</r> <br>
+	작성자 동의 없이 삭제될 수 있습니다.
+	<br>
+	<br>
+	4.또한 아래 유형의 공고는 필요에 따라 회원서비스의 이용 제한 및 탈퇴 조치를 <br>
+	취할 수 있습니다. <br>
+	
+	<br>
+	<h4>[불량정보 유형]</h4>
+	1. 직업안정법, 연령차별금지법, 남녀고용평등법, 최저임금법에 위배되는 공고 
+	<br>
+	<br>
+	2.구직자로부터 임금체납, 허위 공고, 급여, 처우 등에 대한 신고가 접수된 기업의 공고 
+	<br>
+	<br>
+	3.구인 목적이 아닌 창업 관련 홍보, 사이트 홍보, 체인점 모집, 동업자 모집 공고
+	<br>
+	<br>
+	4.불법성인오락실, 도박장, 게임장의 공고
+	<br>
+	<br>
+	5.불법다단계, 피라미드 방식으로 물품을 판매하거나 온라인 홍보 요원, 가입자를<br>
+	유치하는 공고
+	<br>
+	<br>
+	6.회원가입비, 등록비, 소개비 등의 선입금을 요구하는 공고
+	<br>
+	<br>
+	7.교육비, 수강료를 요구하는 수강생 모집 공고, 학원 공고
+	<br>
+	<br>
+	8.구직자의 개인 정보 수집을 목적으로 하는 공고
+	<br>
+	<br>
+	9.사업자 등록번호나 기업명 도용 등 기업정보를 허위로 등록하는 기업의 공고
+	<br>
+	<br>
+	10.고소득, 월 000만 원 보장 등의 표현을 기재하여 구직자를 현혹하는 공고
+	<br>
+	<br>
+	11.홍보를 목적으로 동일한 내용의 공고를 반복적으로 기재한 기업의 공고
+	<br>
+	<br>
+	12.기본급이 보장되지 않고, 개인의 실적에 따라 급여가 지급되는 기업의 공고
+	<br>
+	<br>
+	13.근무시간, 근무장소, 급여, 모집 내용이 자세하게 기재되지 않은 공고
+	<br>
+	<br>
+	14.취업 수수료 등 취업 관련 비용이 필요한 공고(지입, 인력 용역, 운송 등)
+	<br>
+	<br>
+	15.홍보를 목적으로 업무 내용과 무관한 업직종을<br>
+	선택하거나 근무지와 무관한 지역을 다수 선택한 공고
+	<br>
+	<br>
+	16.선거법 위반 공고 (특정 후보를 지지하는 게시글을 올리는 행위)
+	<br>
+	<br>
+	17.불법파견, 불량직업소개소, 고객사 정보로 가입된 파견·대행의 공고
+	<br>
+	<br>
+	18.기타 관계 법규에 위배되는 내용이거나 사이트의 원활한 운영을 위하여 운영자가
+	<br>필요하다고 판단한 경우
+	<br>
+	<br>
+	19.작성자가 제시한 급여, 직종, 업무내용, 근로조건 등이 실제와 현저히 다른 공고
+	<br>
+	<br>
+	20.“회사”의 저작권 또는 제 3자의 저작권 등 기타 권리를 침해하는 내용인 경우
+	<br>
+	<br>
+	21.온라인으로 통신 상품을 홍보하는 홍보 요원 모집과 가입자를 유치하는 공고
+
+</div>
+		</div>
+					
+  
+          
+      
+        </div>
+        
+        
+      
+       </div>
+       
+       
+    </div>
+	
 	<script>
 	
 	$("button[name='actionBtns']").mouseenter(function(){
@@ -579,6 +772,171 @@ $(function () {
 		
 	})
 	</script>
+	
+	<script>
+
+var map;
+
+ function initAutocomplete() {
+	 
+	 llat = "";
+	 llng = "";
+	 
+	 llat1 = "<c:out value="${CInfoVO.lat}"/>";
+	 llng1 = "<c:out value="${CInfoVO.lng}"/>";
+	 
+	 llat = Number(llat1);
+	 llng = Number(llng1);
+	 
+	 
+		 if("<c:out value="${CInfoVO.lat}"/>"==""){
+			var map = new google.maps.Map(document.getElementById('map'), {
+	        	
+		          center: {lat: 37.49794199999999, lng: 127.02762099999995},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
+			 
+			
+			
+			var map = new google.maps.Map(document.getElementById('map'), {
+		        	
+		          center: {lat: llat, lng: llng},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}
+		
+       
+        
+        
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            
+            var lat = place.geometry.location.lat()
+            var lng = place.geometry.location.lng()
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+			
+				
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+        
+        map.addListener('click', function(event) {
+        	
+        	
+            deleteMarkers();
+        
+            addMarker(event.latLng);
+        
+           
+           
+          });
+        
+        function addMarker(location) {
+    	    var marker = new google.maps.Marker({
+    	      position: location,
+    	      map: map
+    	    });
+    	 	
+    	    
+    	    
+    	    markers.push(marker);
+    	    
+    	    var lat = location.lat();
+            var lng = location.lng();
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+            
+            	
+           		
+           		
+    	  }
+    	  
+    	//Sets the map on all markers in the array.
+    	  function setMapOnAll(map) {
+    	    for (var i = 0; i < markers.length; i++) {
+    	      markers[i].setMap(map);
+    	    }
+    	  }
+    	  
+    	  function deleteMarkers() {
+    	      clearMarkers();
+    	      markers = [];
+    	    }
+    	  
+    	  function clearMarkers() {
+    	      setMapOnAll(null);
+    	  }
+    	 
+          addMarker(map.center);
+          
+      } 
+ 
+ </script>
 	
 	<script>
 	$("#sbm").on("click",function(e){
@@ -724,21 +1082,21 @@ $(function () {
 					
 				}
 			
-		}
+			}
 		
 	
-		if($("#employstatusid").val()==""){
+			if($("#employstatusid").val()==""){
 			
 			
 			
-			$("#employstatusidDiv").addClass("form-group has-error has-feedback"); 
-			$("#employstatusidTxt").css("color","#a94442")
-			$("#employstatusidXIcon").css("display","");
-			$("#employstatusid").focus();
-			e.preventDefault(); 
+				$("#employstatusidDiv").addClass("form-group has-error has-feedback"); 
+				$("#employstatusidTxt").css("color","#a94442")
+				$("#employstatusidXIcon").css("display","");
+				$("#employstatusid").focus();
+				e.preventDefault(); 
 		
 		
-			}else{
+				}else{
 				
 				
 				$("#employstatusidDiv").removeClass(); 
@@ -748,20 +1106,20 @@ $(function () {
 				$("#employstatusidOKIcon").css("display","");
 				$("#employstatusid").focus();
 				
-			}
+				}
 		
-			if($("#salaryid").val()==""){
+				if($("#salaryid").val()==""){
 			
 			
 			
-			$("#salaryidDiv").addClass("form-group has-error has-feedback"); 
-			$("#salaryidTxt").css("color","#a94442")
-			$("#salaryidXIcon").css("display","");
-			$("#salaryid").focus();
-			e.preventDefault(); 
+				$("#salaryidDiv").addClass("form-group has-error has-feedback"); 
+				$("#salaryidTxt").css("color","#a94442")
+				$("#salaryidXIcon").css("display","");
+				$("#salaryid").focus();
+				e.preventDefault(); 
 		
-		
-			}else{
+			
+				}else{
 				
 				
 				$("#salaryidDiv").removeClass(); 
@@ -771,9 +1129,9 @@ $(function () {
 				$("#salaryidOKIcon").css("display","");
 				$("#salaryid").focus();
 				
-			}
+				}
 			
-			if($("#edu").val()==""){
+				if($("#edu").val()==""){
 				
 				
 				
@@ -797,7 +1155,7 @@ $(function () {
 				}
 			
 			
-			if($("#exp").val()==""){
+				if($("#exp").val()==""){
 				
 				
 				
@@ -868,10 +1226,16 @@ $(function () {
 				
 			}
 			
+			if($("#TAC").is(":checked")==false){
+				e.preventDefault(); 
+				alert("이용약관에 동의해주세요");		
+			}
+			
+			
+			
 		
 	})
 	</script>
-	
 	
 
 	<!-- // 공고 입력 부분 끝 -->
@@ -890,6 +1254,8 @@ $(function () {
 	});	
 </script>
 
+
+
 <script>
 	$(document).ready(function(){
 		
@@ -898,12 +1264,9 @@ $(function () {
 	})
 </script>
 
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3xjt6_kAjGLYyJN4Mjvd_3coDo3nB7tg&libraries=places&callback=initAutocomplete"
+    async defer></script> <!--api 스크립트 -->
+
 
 
 <%@include file="../include/cfooter.jsp"%>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-    100%
-  </div>
-</div>

@@ -448,17 +448,6 @@ var preexistenceimg = document.getElementById('preexistenceimg');
         
     });
 
- /*    function getOriginalName(fileName) {
-        var idx = fileName.indexOf("_") + 1;
-        return fileName.substr(idx);
-    } */
-
- /*    function getImageLink(fileName) {
-        var front = fileName.substr(0, 12);      //문> '/년/월/일' 경로를 추출하는 용도
-        var end = fileName.substr(14);       //문> 파일 이름 앞의 's_'를 제거하는 용도
-
-        return front + end;
-    } */
 
     //★★★ 수정완료 버튼 ★★★
     $(".btn-primary").on("click", function() {     //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
@@ -473,26 +462,7 @@ var preexistenceimg = document.getElementById('preexistenceimg');
     });
 </script>
 
-
-
-<script> /* 구글 maps api */
-
-/*  llat = "";
- llng = "";
-
-$(document).ready(function(){
-	
-	if("<c:out value="${CInfoVO.lat}"/>"==""){
-		
-		llat = "37.49794199999999";
-		llng = "127.02762099999995";
-		alert(llat);
-	}else if("<c:out value="${CInfoVO.lat}"/>"!=""){
-		llat = "<c:out value="${CInfoVO.lat}"/>";
-		llng = "<c:out value="${CInfoVO.lng}"/>";
-	}
-	
-}) */
+<script>
 
 var map;
 
