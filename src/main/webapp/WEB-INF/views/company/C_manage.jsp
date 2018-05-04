@@ -1,106 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/cheader.jsp"%>
-<%@ page import="java.util.Calendar"%>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<!-- JSTL 사용하기 위한 Script -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<!-- JSTL 사용하기 위한 Script -->
+<%@include file="../include/cheader.jsp"%> 
+<!-- Header Include -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script> 
+<!-- Handlebars 사용하기 위한 Script -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> 
+<!-- Bootstrap (기존 Include된 부트스트랩이 색상 충돌 일어나서 추가 함)  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> 
+<!-- SELECT 검색 기능 추가 플러그인 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> 
+<!-- SELECT 검색 기능 추가 플러그인 -->
 	
-<!-- 문> 반응형 카드를 위한 아래 두 줄  -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<script> /* 공통 변수용 스크립트문 */
 
-	
-		
-<!-- 문> //반응형 카드를 위한 아래 두 줄 -->
+on = "/resources/rpjt/img/on.png";
+/* 인재 스크랩 on 이미지 경로 */
 
-<!-- Main content -->
-<!-- 기업 채용공고 목록 -->
+none = "/resources/rpjt/img/non.png"; 
+/* 인재 스크랩 none 이미지 경로 */
+
+</script>
+
 <div class="col-md-9">
 
 	<p class="lead">
 		<strong>채용공고관리</strong>
 	</p>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> <!-- selectpicker용 스크립트 링크 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> <!-- selectpicker용 스크립트 -->
-	
+
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
-		
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
+		<div class="navbar-header">
+			<ul class="nav navbar-nav">
+				<li id="btnsState" name="SearchReset" class="active text-center"><a id="btns" style="cursor:pointer; width:80px">전체</a></li>
+			</ul>
+		</div>
 			
-				<ul class="nav navbar-nav">
-					<li id="btnsState" name="SearchReset" class="active text-center"><a id="btns" style="cursor:pointer; width:80px">전체</a></li>
-				</ul>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li id="btnsState"><a id="btns" style="cursor:pointer;">진행중</a></li>
-					<li id="btnsState"><a id="btns" style="cursor:pointer;">마감</a></li>
-				</ul>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li id="btnsState"><a id="btns" style="cursor:pointer;">진행중</a></li>
+				<li id="btnsState"><a id="btns" style="cursor:pointer;">마감</a></li>
+			</ul>
 				
 			<div class="input-group" >
 				<div class="input-group-btn" style="vertical-align:middle;"  >
 					<select class="selectpicker" name="searchType" data-width="100px">
-							<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
-							<%-- <option value="c" <c:out value="${cri.searchType eq 'c'?'selected':''}"/>>담당자</option> --%>
+						<option value="t" <c:out value="${cri.searchType eq 't'?'selected':''}"/>>공고제목</option>
 					</select>
 				</div>
-					<!-- /btn-group -->
-					<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="검색어를 입력해주세요." value='${cri.keyword }'> 
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
-						</span>
-						
-						<select class="selectpicker" id="perPageNum" data-width="60px">
-							<option value="5" selected>5개씩보기</option>
-							<option value="10">10개씩보기</option>
-							<option value="20">20개씩보기</option>
-						</select>
+				
+				<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="검색어를 입력해주세요." value='${cri.keyword }'> 
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+					</span>
+					
+				<select class="selectpicker" id="perPageNum" data-width="60px">
+					<option value="5" selected>5개씩보기</option>
+					<option value="10">10개씩보기</option>
+					<option value="20">20개씩보기</option>
+				</select>
 			</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
+		</div>
 	</nav>
+	
 	<nav class="nav navbar-nav navbar-right" style="margin-bottom: 15px; padding-right: 30px; !important; ">
 		<div class="container-fluid" style="padding-bottom: 1px; padding-top: 1px;">
-			<!-- Brand and toggle get grouped for better mobile display -->
 			<small id="viewOrder" style="cursor:pointer">조회수순</small><span name="orders" id="viewIcon" class=""></span> | <small id="appOrder" style="cursor:pointer">지원자수</small><span name="orders" id="appIcon" class=""></span> | <small id="endOrder" style="cursor:pointer">마감일순</small><span name="orders" id="endIcon" class=""></span>
-			<!-- Collect the nav links, forms, and other content for toggling -->
 		</div>
-		<!-- /.container-fluid -->
 	</nav>
-	<!-- 소스 -->
-	
-<!-- 		<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-4">
-            <div class="card">
-                <a class="img-card" href="http://www.fostrap.com/">
-                    <img src="--------- YOUR IMAGE URL ----------" />
-                </a>
-                <br />
-                <div class="card-content">
-                    <h4 class="card-title">
-                        <a href="http://www.fostrap.com/">
-                            Your title card
-                        </a>
-                    </h4>
-                    <div class="">
-                       bkjhkjjh   </div>
-                </div>
-                <div class="card-read-more">
-                    <a class="btn btn-link btn-block" href="http://www.fostrap.com/">
-                        Read More
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-	
+
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -112,15 +81,13 @@
 				<th class="text-center active" style="padding:0px 0px 0px 0px; vertical-align:middle;">숨기기</th>
 			</tr>
 		</thead>
+		
 		<tbody id="recruitLists">
 		
 		</tbody>
 	</table>
 	
-	<div id="noStrs">
-	</div>
-	
-	<div class="text-center">
+	<div class="text-center" id="noStrs">
 		<ul class="pagination" id="listPage">
 		</ul>
 	</div>
@@ -133,8 +100,7 @@
 					<li><small>공고를 등록하신 회원님께<b style="color:#7F0000">공고 기반 추천 인재 서비스를 무료</b>로 제공합니다.</small></li>
 					<li><small>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요.</small></li>
 					<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
-					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하 징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>
-					
+					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하 징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>				
 					<br> <font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</font> 처리될 수 있습니다.</font>
 				</ul>
 			</td>
@@ -145,17 +111,6 @@
 		<input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">
 	</c:forEach>
 
-	<!-- 문> 반응형이 적용 안 되서 일단 주석처리
-	<div style="width: 740px; padding: 0 0 15px 0; margin: 0;">
-		<div style="border: 1px solid #c1d1f2; background-color: #f4f9ff; padding: 13px 0 8px 12px;">
-			<ul>
-				<li>진행중 공고의 게재 기간은  <b>게재일(노출일)로부터 최대 90일</b>까지입니다. (상시, 채용시도 동일) <br> 
-				<li><b>최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</li> <br>
-				<li>채용이 아닌 <r>영업이나 마케팅 등으로 이용하실 경우,</r></li><br>
-				<li><r>정보통신망법 제71조 3에 의거 5년 이하 징역 또는 5,000만원 이하의 벌금에 처해질 수 있습니다.</r></li>
-			</ul>
-		</div>
-	</div> -->
 	
 		<div id="myModal" class="modal fade" role="dialog">
  	 <div class="modal-dialog modal-lg" >
@@ -218,24 +173,29 @@
 </div>
 <!-- //기업 채용공고 목록 끝 -->
 <script>
-$("#perPageNum").change(function(){				// 몇개씩 보기 눌렀을 때 작동하는 스크립트
+$("#perPageNum").change(function(){	// 몇개 씩 보기 눌렀을 때 작동하는 스크립트
 		
-	var orderType = $("small[name=states]").attr('value');
-	var perPageNum = $("#perPageNum option:selected").val();  
-	var pN = 1;
-	var state = $("#btnsState[class^=active]").text();
-	var searchType = $("select option:selected").val();
-	var keyword = $('#keywordInput').val();
+	var orderType = $("small[name=states]").attr('value'); /* 조회수 순  */
+	var perPageNum = $("#perPageNum option:selected").val();  /* 몇개씩 보기  */
+	var pN = 1;	/*  */
+	var state = $("#btnsState[class^=active]").text();	/*  */
+	var searchType = $("select option:selected").val();	/*  */
+	var keyword = $('#keywordInput').val();	/*  */
 
 	RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
+
 })
 
 $(document).on("click","#btnsState", function(){
+	
 	$("li").removeClass();
 	$(this).addClass("active");
+	
 })
 </script>
+
 <script>
+
 $("#viewOrder").on("click", function(){
 	$("#appIcon").removeClass();
 	$("#endIcon").removeClass();
@@ -326,6 +286,7 @@ if($("#endIcon").attr('class')=="glyphicon glyphicon-triangle-bottom"){
 }
 })
 </script>
+
 <script>
  $("#keywordInput").keypress(function (e) { /* input text에서 enter 누르면 trigger 발동 */
         if (e.which == 13){
@@ -756,15 +717,15 @@ function createTemplate(item){
 			}else{
 			}
         });
-	</script>
+</script>
 	
-<script>
+<script> 
 $(document).on("click","#endRecruit", function(){
 	bno = $(this).val();
 	endFunction(bno);
 })
 
-function endFunction(bno){
+function endFunction(bno){ /* 공고 마감 버튼 */
 	
 	if(confirm("공고를 마감하시겠습니까?")){
 		$.ajax({
@@ -837,7 +798,7 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 			i++;
 			
 		 	if(i < length){
-				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non value="+this.bno+"></td>"
+				str += "<tr><td class=text-center style=vertical-align:middle><img src=/resources/rpjt/img/non.png id=non name=favBtns value="+this.bno+"></td>"
 				+ "<td class=text-center style=vertical-align:middle><strong>"+this.name+"</strong><br></td>"
 				+ "<td><span class=careerLine>"+this.career+"</span><a id=btt class="+this.bno+" href=/personal/detail_nonavi?bno="+this.bno+">"
 				+ ""+this.title+"</a>"
@@ -850,13 +811,13 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 				
 			 	}else{
 					if(this.prev){
-						chr += "<li><a id=applyListBack name=all value="+this.startPage+">&laquo;</a></li>";
+						chr += "<li><a id=applyFirstPage name=all value="+this.startPage+">&laquo;</a></li>";
 					}
 					for(var z = this.startPage; z<=this.endPage; z++){
-						chr += "<li id=applyLi name="+z+"><a id=applyList name=all>"+z+"</a></li>"
+						chr += "<li id=applyPage name="+z+"><a id=applyList name=all>"+z+"</a></li>"
 					} 
 				 	if(this.next&&this.endPage>0){
-						chr += "<li><a id=applyListExtend value="+this.endPage+" name=all>&raquo;</a></li>";
+						chr += "<li><a id=applyLastPage value="+this.endPage+" name=all>&raquo;</a></li>";
 					} 
 				}
 		});
@@ -877,7 +838,7 @@ function PersonList(bno, pN, pSearchType, pKeyword){
 		}
 	 	$("#appList").html(str);	   /* 지원자 리스트& 검색결과가 있을 경우 추가 */
 	 	$("#applyListPage").html(chr); /* 지원자 리스트 페이지 네이션을 위해 추가 */
-	 	$("#applyLi[name="+pN+"]").addClass("active"); /* 선택된 페이지에 색상 추가용 클래스 추가 */
+	 	$("#applyPage[name="+pN+"]").addClass("active"); /* 선택된 페이지에 색상 추가용 클래스 추가 */
 	 	favorComparison(comparison) /* 지원한 지원자가 관심인재에 등록된지 확인하기 위한 함수 */
 	})
 }
@@ -931,27 +892,30 @@ function favorComparison(comparison){ /* 스크랩할려는 인재가 이미 스
  	for(var i= 0; i<compareList.length; i++){
  		for(var j = 0; j<comparison.length; j++){
  			if(compareList[i] == comparison[j]){
- 				$("img[value="+compareList[i]+"]").prop("src","/resources/rpjt/img/on.png")
+ 				$("img[value="+compareList[i]+"]").prop("src",on)
  			}
  		}
  	}
 }
 </script>
+
 <script>
-$(document).ready(function(){ /* 관심인재 스크립하기 이벤트 */
-	$(document).on("click", '#non', function(){
+
+$(document).ready(function(){ /* 관심 인재 스크립하기 이벤트 */
+	$(document).on("click", "img[name='favBtns']", function(){
 		
 		var id = "<%=id%>"
 		var bno = $(this).attr('value');
 		
-		if($("img[value="+bno+"]").attr("src")=="/resources/rpjt/img/on.png"){
+		if($("img[value="+bno+"]").attr("src")==on){
 			favDel(bno, id);
-		}else if($("img[value="+bno+"]").attr("src")!="/resources/rpjt/img/on.png"){
+		}else if($("img[value="+bno+"]").attr("src")!=on){
 			favAdd(bno, id);
 		}
 	})
 })
-function favAdd(bno, id){   // 관심인재 등록
+
+function favAdd(bno, id){   // 관심 인재 등록
 	$.getJSON("/companyAjax/favorAdd/"+bno+"/"+id, function(data) {
 		var str = "";
 		
@@ -959,10 +923,10 @@ function favAdd(bno, id){   // 관심인재 등록
 			function() {
 		});
 	})
-	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/on.png")
+	$("img[value="+bno+"]").attr("src",on)
 	alert("관심인재에 등록 됐습니다.")
 }
-function favDel(bno, id){ 	// 관심인재 삭제
+function favDel(bno, id){ 	// 관심 인재 삭제
 	
 	$.getJSON("/companyAjax/favorDelete/"+bno+"/"+id, function(data){
 	var str = "";
@@ -971,14 +935,14 @@ function favDel(bno, id){ 	// 관심인재 삭제
 		function() {
 		});
 	})
-	$("img[value="+bno+"]").attr("src","/resources/rpjt/img/non.png")
+	$("img[value="+bno+"]").attr("src",none)
 	alert("관심인재에서 삭제 됐습니다.")
 }
 
 </script>
 
 <script>
-  	$(document).on("click","#pSearchBtn",function(){ /* 지원인재 검색이벤트 */
+  	$(document).on("click","#pSearchBtn",function(){ /* 지원 인재 보기 - 검색창 */
   		var bno = $("#pSearchBtn").val();
   		var pKeyword = $("#pKeywordInput").val();
   		var pSearchType = $("select[name='pSearchType'] option:selected").val();
@@ -987,7 +951,7 @@ function favDel(bno, id){ 	// 관심인재 삭제
   		PersonList(bno, pN, pKeyword,pSearchType);
   		 
   	});
-  	$(document).on("click","#applyLi", function(){  /* 지원인재 페이지네이션 */
+  	$(document).on("click","#applyPage", function(){  /* 지원 인재 페이지 이동 */
   		
   		var bno = $("#pSearchBtn").val();
   		var pN = $(this).attr("name");
@@ -997,7 +961,9 @@ function favDel(bno, id){ 	// 관심인재 삭제
   		PersonList(bno, pN, pKeyword,pSearchType);
   		
   	});
-  	$(document).on("click","#applyListBack",function(){
+  	
+  	
+  	$(document).on("click","#applyFirstPage",function(){ /* 지원 인재 첫 페이지 이동 */
   		
   		var one = "1";
   		var bno = $("#pSearchBtn").val();
@@ -1008,7 +974,9 @@ function favDel(bno, id){ 	// 관심인재 삭제
 
   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
   	});
-  	$(document).on("click","#applyListExtend",function(){
+  	
+  	
+  	$(document).on("click","#applyLastPage",function(){ /* 지원 인재 마지막 페이지 이동  */
   		
   		var one = "1";
   		var bno = $("#pSearchBtn").val();
@@ -1019,6 +987,6 @@ function favDel(bno, id){ 	// 관심인재 삭제
 
   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
   	});
-</script>
+	</script>
 
 <%@include file="../include/cfooter.jsp"%>

@@ -293,37 +293,179 @@ $(function () {
 				
 				$("#pac-input").val(changelatlan);
 				alert(changelatlan);
-				
+				 
+				function initAutocomplete() {
+					 
+					 llat = "";
+					 llng = "";
+					 
+					 llat1 = "<c:out value="${CInfoVO.lat}"/>";
+					 llng1 = "<c:out value="${CInfoVO.lng}"/>";
+					 
+					 llat = Number(llat1);
+					 llng = Number(llng1);
+					 
+					 
+						 if("<c:out value="${CInfoVO.lat}"/>"==""){
+							var map = new google.maps.Map(document.getElementById('map'), {
+					        	
+						          center: {lat: 37.49794199999999, lng: 127.02762099999995},
+						          zoom: 13,
+						          mapTypeId: 'roadmap'
+						        });
+						}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
+							 
+							
+							
+							var map = new google.maps.Map(document.getElementById('map'), {
+						        	
+						          center: {lat: llat, lng: llng},
+						          zoom: 13,
+						          mapTypeId: 'roadmap'
+						        });
+						}
+						
+				       
+				        
+				        
 
-			})
-			$("select[name=subRegion]").change(function(){
-				cuts = changelatlan.split(' ');
-				changelatlan = cuts[0];
-				changelatlan += " "
-				changelatlan += $(this).children("option:selected").text();
-				$("#pac-input").val(changelatlan);
-				alert(changelatlan);
-			})
+				        // Create the search box and link it to the UI element.
+				        var input = document.getElementById('pac-input');
+				        var searchBox = new google.maps.places.SearchBox(input);
+				        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+				        // Bias the SearchBox results towards current map's viewport.
+				        map.addListener('bounds_changed', function() {
+				          searchBox.setBounds(map.getBounds());
+				        });
+
+				        var markers = [];
+				        // Listen for the event fired when the user selects a prediction and retrieve
+				        // more details for that place.
+				        searchBox.addListener('places_changed', function() {
+				          var places = searchBox.getPlaces();
+
+				          if (places.length == 0) {
+				            return;
+				          }
+
+				          // Clear out the old markers.
+				          markers.forEach(function(marker) {
+				            marker.setMap(null);
+				          });
+				          markers = [];
+
+				          // For each place, get the icon, name and location.
+				          var bounds = new google.maps.LatLngBounds();
+				          places.forEach(function(place) {
+				            if (!place.geometry) {
+				              console.log("Returned place contains no geometry");
+				              return;
+				            }
+				            var icon = {
+				              url: place.icon,
+				              size: new google.maps.Size(71, 71),
+				              origin: new google.maps.Point(0, 0),
+				              anchor: new google.maps.Point(17, 34),
+				              scaledSize: new google.maps.Size(25, 25)
+				            };
+
+				            // Create a marker for each place.
+				            markers.push(new google.maps.Marker({
+				              map: map,
+				              icon: icon,
+				              title: place.name,
+				              position: place.geometry.location
+				            }));
+				            
+				            var lat = place.geometry.location.lat()
+				            var lng = place.geometry.location.lng()
+								
+				           		$("#lat").attr("value","");
+				            	$("#lng").attr("value","");
+				            	
+				            	$("#lat").attr("value",lat);
+				            	$("#lng").attr("value",lng);
+							
+								
+				            if (place.geometry.viewport) {
+				              // Only geocodes have viewport.
+				              bounds.union(place.geometry.viewport);
+				            } else {
+				              bounds.extend(place.geometry.location);
+				            }
+				          });
+				          map.fitBounds(bounds);
+				        });
+				        
+				        map.addListener('click', function(event) {
+				        	
+				        	
+				            deleteMarkers();
+				        
+				            addMarker(event.latLng);
+				        
+				           
+				           
+				          });
+				        
+				        function addMarker(location) {
+				    	    var marker = new google.maps.Marker({
+				    	      position: location,
+				    	      map: map
+				    	    });
+				    	 	
+				    	    
+				    	    
+				    	    markers.push(marker);
+				    	    
+				    	    var lat = location.lat();
+				            var lng = location.lng();
+								
+				           		$("#lat").attr("value","");
+				            	$("#lng").attr("value","");
+				            	
+				            	$("#lat").attr("value",lat);
+				            	$("#lng").attr("value",lng);
+				            
+				            	
+				           		
+				           		
+				    	  }
+				    	  
+				    	//Sets the map on all markers in the array.
+				    	  function setMapOnAll(map) {
+				    	    for (var i = 0; i < markers.length; i++) {
+				    	      markers[i].setMap(map);
+				    	    }
+				    	  }
+				    	  
+				    	  function deleteMarkers() {
+				    	      clearMarkers();
+				    	      markers = [];
+				    	    }
+				    	  
+				    	  function clearMarkers() {
+				    	      setMapOnAll(null);
+				    	  }
+				    	 
+				          addMarker(map.center);
+				          
+				      } 
 			</script>
 			
 		<input type="button" id="hohoho" value="hohotest"/>
+		<input type="button" id="h1h1" value="h1h1"/>
 		
 		<script>
-		var e = jQuery.Event("keydown");
-
-		e.which = 13; // # Some key code value
-
-
-		$("#hohoho").on("click",function(){
-			
-			$("#pac-input").focus();
-			alert("hi");
-			
-			alert("hi");
-			alert("hi");
-			alert("hi");
-			$("#pac-input").trigger(e);
-		})
+			function gogogo(){
+				
+				google.maps.event.trigger(input, 'focus')
+			    google.maps.event.trigger(input, 'keydown', {
+			        keyCode: 13
+			    });
+				
+			}
 		</script> 
 				
 	

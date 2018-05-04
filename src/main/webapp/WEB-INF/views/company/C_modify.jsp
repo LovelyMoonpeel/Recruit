@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@include file="../include/cheader.jsp"%>
 
 
@@ -93,10 +93,21 @@
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>사원수</label> <input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
+				<label>사원수</label> 
+				<input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
+				
 			</div>
 			<div class="form-group col-lg-6">
-				<label>매출액</label> <input type="text" name="sales" class="form-control" value="${CInfoVO.sales}">
+			
+				<label>매출액</label> 
+			
+				<input type="text" name="sales" class="form-control" value="${CInfoVO.sales}">
+			
+			
+				
+               
+          		
+				
 			</div>
 		</div>
 
@@ -160,6 +171,8 @@
 		<br> <br>
 	</div>
 </form>
+
+
 
 <!-- 소연 모달 -->
 <div class="modal" id="ORIGINAL_modal">

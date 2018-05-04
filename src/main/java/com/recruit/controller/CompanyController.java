@@ -61,6 +61,7 @@ import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
+import java.text.*;
 
 
 
@@ -168,7 +169,7 @@ public class CompanyController {
 			RedirectAttributes rttr) throws Exception {
 
 		System.out.println(CInfo.getImg());
-
+		
 		BoardVO login = (BoardVO) session.getAttribute("login");
 
 		if (login != null) {
@@ -180,6 +181,17 @@ public class CompanyController {
 			CInfo.setId(id);
 			InfoFileUpload(CInfo, request, id);
 			System.out.println("시작 CINFO : " + CInfo);
+			
+			String comma = ",";
+			System.out.println("넘어온 사원수는 = " +CInfo.getNumemp());
+			String empNum = CInfo.getNumemp();
+			System.out.println("콤보 있는지 비교한 값은 = " +empNum.contains(comma));
+			System.out.println("한글있냐?" + empNum.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*"));
+			if(empNum.contains(comma)==false && empNum.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")==false){
+				CInfo.setNumemp(Comma(empNum));	
+			}
+			
+			
 			service.CompanyInfoModify(CInfo);
 
 			System.out.println("끝난 CINFO : " + CInfo);
@@ -189,6 +201,13 @@ public class CompanyController {
 			rttr.addFlashAttribute("msg", "login");
 			return "redirect:/";
 		}
+	}
+	
+	public static String Comma(String num) {  // 콤마 추가 메서드
+		  int intValue = Integer.parseInt(num);
+		  DecimalFormat Commas = new DecimalFormat("#,###");
+		  String result = (String)Commas.format(intValue);
+		  return result;
 	}
 
 	public void InfoFileUpload(CInfoVO CInfo, HttpServletRequest request, String id) { // 사진
@@ -378,7 +397,7 @@ public class CompanyController {
 	public String C_recruitModfiy2(RecruitVO recruitModify, RedirectAttributes rttr) throws Exception {
 
 		service.RecruitModify(recruitModify);
-
+		System.out.println("recruitModify는 "+recruitModify);
 		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
 
@@ -841,6 +860,6 @@ public class CompanyController {
 	}
 	
 	
-	
+
 	
 }
