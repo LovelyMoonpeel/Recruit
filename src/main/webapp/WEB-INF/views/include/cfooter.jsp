@@ -21,7 +21,8 @@ z-index: 1;
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<p>Copyright &copy; RecruIT 2017</p>
+				<p>Copyright &copy; RecruIT 2018</p>
+				<p>박장우, 박형훈, 안소연, 오지훈, 진민경, 천문필</p>
 				<a href="/cs/faq" style="color:white">고객센터</a>
 			</div>
 		</div>

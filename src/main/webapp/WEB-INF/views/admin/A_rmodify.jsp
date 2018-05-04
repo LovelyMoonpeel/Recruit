@@ -68,13 +68,13 @@
 	<!-- // 회사 기본 정보 끝 -->
 	<!-- 공고 입력 부분 -->
 	<h3>모집부문</h3>
-	<input type="hidden" id="bno" value="${RecruitVO.bno}"> <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}"> <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
+	 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}"> <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
 	<form role="form" method="POST">
 		<input type="hidden" name="cid" value="${CInfoVO.id}" />
-		<input type="hidden" name="userid" value="${CInfoVO.id}" />
-		<input type="hidden" name="rcno" value="${RecruitVO.bno}" />
 		
+		<input type="hidden" name="bno" id="bno" value="${RecruitVO.bno}">
 		<table class="table table-hover" id="my-tbody">
+		
 	
 			<tr>
 				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" >제목</th>
@@ -146,6 +146,13 @@ $(function () {
 </style>
 			
 			<tr>
+			
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+			
+			
 					<th class="text-center" id="jobGroupTxt" style="vertical-align:middle;">직종/직무</th>
 				<td>
 				
@@ -526,7 +533,7 @@ $(function () {
 				<div style="padding:15px 15px 15px 0px;">
 					<div class="form-group" style="vertical-align:middle;">
 						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" name="period" value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
 					</div>
@@ -560,10 +567,9 @@ $(function () {
 			<%-- <%=request.getParameter("jobgroupid2")%>
 			 --%>
 		</table>
-	</form>
-		<br> <br>
-		<input class="btn btn-warning" type="submit" value="수정">
-		<input class="btn btn-danger" type="submit" value="삭제">
+		</form>
+		<input class="btn btn-warning" type="submit" id="sbm" value="수정">
+		<input class="btn btn-danger" type="button" value="삭제">
 		<input class="btn btn-primary" type="button" value="목록">
 		
 	<br>
@@ -586,10 +592,7 @@ $(function () {
 <!-- 버튼에 대한 스크립트 -->
 <script>
 	$(document).ready(function() {
-
 		var formObj = $("form[role='form']");
-
-
 		$(".btn-warning").on("click", function() {
 			formObj.attr("action", "A_rmodify");
 			formObj.submit();
@@ -606,7 +609,6 @@ $(function () {
 		$(".btn-primary").on("click", function() {
 			self.location = "/admin/cmodify?id=${CInfoVO.id}"
 		});
-
 	});
 </script>
 <!-- //버튼에 대한 스크립트 -->
@@ -756,7 +758,6 @@ $("#sbm").on("click",function(e){
 		
 	}
 	
-
 	if($("#employstatusid").val()==""){
 		
 		
@@ -904,6 +905,7 @@ $("#sbm").on("click",function(e){
 
 <script>
 $(document).ready(function(){
+	
 	var mainJob = "<c:out value="${RecruitVO.jobgroupid}"/>";
 	var subJob  = "<c:out value="${RecruitVO.jobgroupid2}"/>";
 	var mainRgn = "<c:out value="${RecruitVO.rgbid}"/>";
@@ -920,8 +922,6 @@ $(document).ready(function(){
 	var rg2 = $('#rg2').val();
 	var job2 = $('#job2').val();
 	
-	console.log("rg2 : "+rg2);
-	console.log("job2 : "+job2);
 	$("#subjobGroup").val(job2);
 	$("#subRegion").val(rg2);
 });

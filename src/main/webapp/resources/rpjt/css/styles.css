@@ -434,7 +434,7 @@ a.label:hover, a.label:focus {
   padding: 10px 0 0 0;
   margin: 10px 10px 20px 10px; }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) { */
   .sidebar {
     display: block;
     position: fixed;
@@ -734,7 +734,7 @@ position: relative;
 .chk_active{
 	color: #fff !important; 
 	text-decoration: none;
-	background-color: #30a5ff;
+	background-color: #3ac453;
 }
 
 .statCheck{
@@ -746,6 +746,22 @@ position: relative;
 	width: 90%;
 }
 
-/* .canvasjs-chart-canvas{
-	position: relative !important;
-} */
+.navbar-inverse {
+	background-color: #3ac453 !important;
+	border-color: #3ac453 !important;
+}
+
+.navbar-header>a{
+	color: white !important;
+}
+
+.navbar-nav>li>a{
+	color: white !important;
+}
+
+.col-lg-12>p{
+	color: white !important;
+}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+	background-color: #3ac453;
+}

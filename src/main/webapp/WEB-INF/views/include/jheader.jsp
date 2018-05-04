@@ -55,6 +55,14 @@
 				class="icon-bar"></span> <span class="icon-bar"></span> <span
 				class="icon-bar"></span>
 		</button>
+<!-- 		<img src="/resources/rpjt/img/recruit/Large_R.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_e.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_c.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_r.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_u.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/Large_I.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/Large_T.png" width="30px"> -->
+		<!-- <img style="cursor:pointer;" src="/resources/rpjt/img/recruit/recruit.png" width="200px" onclick="self.location='/'"> -->
 		<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->

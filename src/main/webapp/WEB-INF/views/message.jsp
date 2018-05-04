@@ -85,7 +85,6 @@
 			</div>
 	</div>
 </div>
-</body>
 
 <script>
 
@@ -189,4 +188,4 @@ $(document).ready(function () {
 	});//each end
 });
 </script>
-</html>
+<%@include file="include/cfooter.jsp"%>

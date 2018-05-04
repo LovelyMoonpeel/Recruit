@@ -506,7 +506,7 @@ $(function () {
 			<%-- <%=request.getParameter("jobgroupid2")%>
 			 --%>
 		</table>
-	<input type="submit" class="btn btn-primary" id="sbm" value="등록">
+	<input type="submit" class="btn btn-primary" id="sbm" value="수정">
 
 	</form>
 	<br>

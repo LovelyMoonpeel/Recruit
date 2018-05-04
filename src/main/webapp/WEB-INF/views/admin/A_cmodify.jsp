@@ -63,7 +63,7 @@
 			<tr>
 				<th>사업자등록번호</th>
 				<td><input class="form-control" type="text" name="registnum"
-					value="${BoardVO.registnum}" required></td>
+					value="${BoardVO.registnum}" required maxlength="10"></td>
 			</tr>
 			<tr>
 				<th>이메일 인증</th>
