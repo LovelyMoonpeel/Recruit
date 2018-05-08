@@ -55,9 +55,7 @@
 			</div>
 		</c:forEach>
 		<%}%>	
-		
-		
-			<div class="alert alert-success alert-dismissible fade in">
+		<!-- 	<div class="alert alert-success alert-dismissible fade in">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Info!</strong> This alert box could indicate a neutral
 				informative change or action.
@@ -71,7 +69,7 @@
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Danger!</strong> This alert box could indicate a dangerous or
 				potentially negative action.
-			</div>
+			</div> -->
 	</div>
 </div>
 </body>
@@ -121,7 +119,7 @@ function infiniteScroll(){
 	    		}else{//data가 null이 아니면
 	    			lastpage=true;
 	    			console.log("끝");
-	    			str="<br><br><p style='text-align:center;'><span class='glyphicon glyphicon-hand-right'></span>&nbsp;&nbsp;&nbsp;알림이 끝났습니다.&nbsp;<span class='glyphicon glyphicon-heart'>&nbsp;</span><span class='glyphicon glyphicon-hand-left'></span></p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
+	    			str="<br><br><p style='text-align:center;'><span class='glyphicon glyphicon-hand-right'></span>&nbsp;&nbsp;&nbsp;알림이 끝났습니다.&nbsp;&nbsp;</span><span class='glyphicon glyphicon-hand-left'></span></p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
 	    			$(".All").append(str).trigger("create");
 	    		}
 	    	}//success end
@@ -144,13 +142,21 @@ $(document).ready(function () {
         	}
         }
     });
+    $(".0").each(function(index){
+		$(this).addClass("alert-info");
+	});
 	$(".1").each(function(index){
 		$(this).addClass("alert-info");
 	});
-	$(".0").each(function(index){
-		$(this).addClass("alert-info");
+	$(".2").each(function(index){
+		$(this).addClass("alert-warning");
 	});
-	
+	$(".3").each(function(index){
+		$(this).addClass("alert-warning");
+	});
+	$(".4").each(function(index){
+		$(this).addClass("alert-success");
+	});
 	$(".close").each(function(index){//메시지 확인하는 ajax
 		$(this).on("click", function(){
 			
