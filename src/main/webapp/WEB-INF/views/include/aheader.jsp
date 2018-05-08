@@ -53,17 +53,18 @@
 }
 /* 관리자 페이지 끝*/
 .list-group a:hover{
-	color : #ffffff;
-	background-color: #30a5ff;
+	color : black;
+	background-color: #dde2e6;
 }
 
 .list-group a:focus {
-	color : #ffffff;
-	background-color: #30a5ff;
+	color : black;
+	background-color: #dde2e6;
 }
   
 .list-active{
-    background-color: #30a5ff;
+	color: black !important;
+    background-color: #dde2e6;
 }
 </style>
 
@@ -114,13 +115,13 @@
 			<div class="clear"></div>
 			</div>
 			<div class="list-group">
-				<a href="/admin/main" class="list-group-item" id="main pmodi resmo"><span class="glyphicon glyphicon-user"></span> 개인관리</a>
-				<a href="/admin/company" class="list-group-item" id="compan cmodif rmodif"><span class="glyphicon glyphicon-briefcase"></span> 기업관리</a>
-				<a href="/admin/chart" class="list-group-item" id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
-				<a href="/admin/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
-				<a href="/admin/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
-				<a href="/admin/faq" class="list-group-item" id="faq faqmo faqre"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
-				<a href="/admin/qna" class="list-group-item" id="qna qnamo"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
+				<a href="/admin/main" class="list-group-item" id="main pmodi resmo"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인관리</a>
+				<a href="/admin/company" class="list-group-item" id="compan cmodif rmodif"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;&nbsp;기업관리</a>
+				<a href="/admin/chart" class="list-group-item" id="chart"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;통계</a>
+				<a href="/admin/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
+				<!-- <a href="/admin/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a> -->
+				<a href="/admin/faq" class="list-group-item" id="faq faqmo faqre"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
+				<a href="/admin/qna" class="list-group-item" id="qna qnamo"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
 			</div>
 		</div>
 <script>
@@ -148,7 +149,7 @@ var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1
 			
 			console.log(nav_id);
 			
-			$(".list-group-item").eq(i).css("color","white");
+			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
 			
 		}else{

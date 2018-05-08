@@ -99,6 +99,12 @@
 }
 /* 문> // 채용공고관리에서 반응형 카드를 구현하기 위한 css코드  */
 
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: black;
+    background-color: #dde2e6;
+    border-color: #dde2e6;
+}
 </style> <!-- //요기까지  -->
 
 </head>
@@ -141,13 +147,13 @@
 					<div class="clear"></div>
 				</div>
 				<div class="list-group">
-					<a href="/company/C_index" name="sideBtns" id="C_index C_modify" class="list-group-item">기업정보관리</a>
-					<a href="/company/C_write" name="sideBtns" id="C_write"  class="list-group-item">채용공고작성</a>
-					<a href="/company/C_manage" name="sideBtns" id="C_manage C_recruitInfo C_recruitModify" class="list-group-item">채용공고관리</a>
-					<a href="/company/C_recom" name="sideBtns" id="C_recom" class="list-group-item">추천인재</a>
-					<a href="/company/C_favor" name="sideBtns" id="C_favor" class="list-group-item">관심인재</a>
-					<a href="/company/C_pass" name="sideBtns" id="C_pass" class="list-group-item">비밀번호 변경</a>
-					<a href="/company/C_leave" name="sideBtns" id="C_leave" class="list-group-item">탈퇴하기</a>
+					<a href="/company/C_index" name="sideBtns" id="C_index C_modify" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;기업정보관리</a>
+					<a href="/company/C_write" name="sideBtns" id="C_write"  class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;채용공고작성</a>
+					<a href="/company/C_manage" name="sideBtns" id="C_manage C_recruitInfo C_recruitModify" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;채용공고관리</a>
+					<a href="/company/C_recom" name="sideBtns" id="C_recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천인재</a>
+					<a href="/company/C_favor" name="sideBtns" id="C_favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심인재</a>
+					<a href="/company/C_pass" name="sideBtns" id="C_pass" class="list-group-item"><span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 변경</a>
+					<a href="/company/C_leave" name="sideBtns" id="C_leave" class="list-group-item"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;탈퇴하기</a>
 				</div>
 			</div>
 			

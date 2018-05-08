@@ -69,21 +69,21 @@
 	<div class="collapse navbar-collapse"
 		id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/cs/notice">공지사항</a></li>
-			<li><a href="/srch/main?stype=1">기업찾기</a></li>
-			<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
+			<li><a href="/cs/notice" class="header">공지사항</a></li>
+			<li><a href="/srch/main?stype=1" class="header">기업찾기</a></li>
+			<li><a id="p_search" style="cursor: pointer;" class="header">인재찾기</a></li>
 
 			<!--회원가입, 로그인 부분 -->
 			<!--★ a href="#" 삭제하면 안됨  -->
 			<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
 			<c:if test="${empty sessionScope.login}">
 				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-				<li id="myBtn_join"><a style="cursor: pointer;"> <span
+				<li id="myBtn_join"><a style="cursor: pointer;" class="header"> <span
 						class="glyphicon glyphicon-user"></span> 회원가입
 				</a></li>
 
 				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-				<li id="myBtn_login"><a style="cursor: pointer;"> <span
+				<li id="myBtn_login"><a style="cursor: pointer;" class="header"> <span
 						class="glyphicon glyphicon-log-in"></span> 로그인
 				</a></li>
 			</c:if>
@@ -92,18 +92,18 @@
 			<!--MyPage, 로그아웃 부분  -->
 			<c:if test="${not empty sessionScope.login}">
 
-				<li><a href="<%=location%>"><%=myPage %></a></li>
+				<li><a href="<%=location%>" class="header"><%=myPage %></a></li>
 
 
 				<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-				<li><a href="/user/logout"> <span
+				<li><a href="/user/logout" class="header"> <span
 						class="glyphicon glyphicon-log-out"></span>로그아웃
 				</a></li>
 				<li><a style="color: white;">${sessionScope.login.pname}님
 						환영합니다.</a></li>
-				<li class="dropdown">
-				    <a id="drop_a" class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">
-				    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell"></span>
+				<li class="dropdown" class="header">
+				    <a id="drop_a" class="dropdown-toggle header" data-toggle="dropdown" style="cursor:pointer;">
+				    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell header"></span>
 				   		<span id="message_count" class="badge badge-danger"></span>	
 				    </a>
 				   		

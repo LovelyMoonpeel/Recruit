@@ -60,10 +60,10 @@
 					<div class="clear"></div>
 				</div>
 			<div class="list-group">
-				<a href="/cs/notice" class="hover list-group-item" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
-				<a href="/cs/usage" class="hover list-group-item" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
-				<a href="/cs/faq" class="hover list-group-item" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
-				<a href="/cs/qna" class="hover list-group-item" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
+				<a href="/cs/notice" class="hover list-group-item" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
+				<a href="/cs/usage" class="hover list-group-item" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a>
+				<a href="/cs/faq" class="hover list-group-item" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
+				<a href="/cs/qna" class="hover list-group-item" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
 			</div>
 		</div>
 		

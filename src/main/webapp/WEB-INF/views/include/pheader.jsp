@@ -83,17 +83,18 @@
 }
 
 .list-group a:hover{
-	color : #ffffff;
-	background-color: #5bc0de;
+	color : black;
+	background-color: #dde2e6;
 }
 
 .list-group a:focus {
-	color : #ffffff;
-	background-color: #5bc0de;
+	color : black;
+	background-color: #dde2e6;
 }
   
 .list-active{
-    background-color: #5bc0de;
+	color : black !important;
+    background-color: #dde2e6;
 }
 table {
 	border-collapse:seperate;
@@ -162,7 +163,7 @@ td {
 			
 			console.log(nav_id);
 			
-			$(".list-group-item").eq(i).css("color","white");
+			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
 			
 		}else{
