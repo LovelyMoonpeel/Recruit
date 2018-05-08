@@ -68,10 +68,11 @@
 	<!-- // 회사 기본 정보 끝 -->
 	<!-- 공고 입력 부분 -->
 	<h3>모집부문</h3>
-	 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}"> <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
+	 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}">
+	 <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
 	<form role="form" method="POST">
 		<input type="hidden" name="cid" value="${CInfoVO.id}" />
-		
+		<input type="hidden" name="userid" value="${CInfoVO.id}" />
 		<input type="hidden" name="bno" id="bno" value="${RecruitVO.bno}">
 		<table class="table table-hover" id="my-tbody">
 		

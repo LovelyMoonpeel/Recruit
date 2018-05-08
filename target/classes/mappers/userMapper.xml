@@ -213,7 +213,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="PAppliedmessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, appliedpid, color)
-		values(#{userid}, '채용공고에 지원하였습니다.', #{rcno}, #{appliedpid}, 1);
+		values(#{userid}, ' 채용공고에 지원자가 있습니다.', #{rcno}, #{appliedpid}, 1);
 	]]>
 	</insert>
 	

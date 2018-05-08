@@ -10,6 +10,57 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
+<style>
+#map {
+	width: 100%;
+	height: 300px;
+}
+
+.controls {
+	margin-top: 10px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+#pac-input {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 300px;
+}
+
+#pac-input:focus {
+	border-color: #4d90fe;
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+
+#type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+#target {
+	width: 345px;
+}
+</style>
 
 <!-- 기업정보수정 페이지 -->
 <!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
@@ -106,6 +157,10 @@
 			</td>
 		</tr>
 		<tr>
+			<th>기업소개</th>
+			<td colspan="3"><textarea class="form-control" cols="7" rows="10" name="intro" style="resize: none;">${CInfoVO.intro}</textarea></td>
+		</tr>
+		<tr>
 			<th>기업명</th>
 			<td><input class="form-control" type="text" value="${CInfoVO.cname}" readonly></td>
 			<th>대표자명</th>
@@ -122,6 +177,10 @@
 		<tr>
 			<th>설립일</th>
 			<td colspan="3"><input class="form-control" type="text" name="establish" value="${CInfoVO.establish}"></td>
+		</tr>
+		<tr>
+			<th>사원수</th>
+			<td colspan="3"><input class="form-control" type="text" name="numemp" value="${CInfoVO.numemp}"></td>
 		</tr>
 		<tr>
 			<th>매출액</th>
@@ -141,7 +200,13 @@
 		</tr>
 		<tr>
 			<th>기업주소</th>
-			<td colspan="3"><input class="form-control" type="text" name="location" value="${CInfoVO.location}"></td>
+			<td colspan="3"><label>기업주소</label>
+				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				<input type="hidden" name="lat" id="lat">
+				<input type="hidden" name="lng" id="lng">
+				<input type="hidden" name="location" id="test">
+				<div id="map"></div>
+			</td>
 		</tr>
 	</table>
 	<!-- //기업기본정보 -->
@@ -495,5 +560,236 @@ if(result == 'remove'){
 }
 </script>
 <!-- //알림처리 -->
+
+<script>
+function initAutocomplete() {
+	 
+	 llat = "";
+	 llng = "";
+	 
+	 llat1 = "<c:out value="${CInfoVO.lat}"/>";
+	 llng1 = "<c:out value="${CInfoVO.lng}"/>";
+	 
+	 llat = Number(llat1);
+	 llng = Number(llng1);
+	 
+	 
+		 if("<c:out value="${CInfoVO.lat}"/>"==""){
+			var map = new google.maps.Map(document.getElementById('map'), {
+	        	
+		          center: {lat: 37.49794199999999, lng: 127.02762099999995},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
+			 
+			
+			
+			var map = new google.maps.Map(document.getElementById('map'), {
+		        	
+		          center: {lat: llat, lng: llng},
+		          zoom: 13,
+		          mapTypeId: 'roadmap'
+		        });
+		}
+		
+       
+        
+        
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            
+            var lat = place.geometry.location.lat()
+            var lng = place.geometry.location.lng()
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+			
+				
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+        
+        map.addListener('click', function(event) {
+        	
+        	
+            deleteMarkers();
+        
+            addMarker(event.latLng);
+        
+           
+           
+          });
+        
+        function addMarker(location) {
+    	    var marker = new google.maps.Marker({
+    	      position: location,
+    	      map: map
+    	    });
+    	 	
+    	    
+    	    
+    	    markers.push(marker);
+    	    
+    	    var lat = location.lat();
+            var lng = location.lng();
+				
+           		$("#lat").attr("value","");
+            	$("#lng").attr("value","");
+            	
+            	$("#lat").attr("value",lat);
+            	$("#lng").attr("value",lng);
+            
+            	
+           		
+           		locations();
+           		
+    	  }
+    	  
+    	//Sets the map on all markers in the array.
+    	  function setMapOnAll(map) {
+    	    for (var i = 0; i < markers.length; i++) {
+    	      markers[i].setMap(map);
+    	    }
+    	  }
+    	  
+    	  function deleteMarkers() {
+    	      clearMarkers();
+    	      markers = [];
+    	    }
+    	  
+    	  function clearMarkers() {
+    	      setMapOnAll(null);
+    	  }
+    	 
+          addMarker(map.center);
+          
+      } 
+ 
+ </script>
+ 
+   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=255f0ac190064fdd43c712921a3fbb03&libraries=services"></script>
+ 
+ 
+ <script>
+ function locations(){
+	 
+	 
+	 
+	 	var lat = $("#lat").val();
+   	 
+		var lng = $("#lng").val();
+		
+		var 
+		 mapOption = {
+		            center: new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
+		            level: 1 // 지도의 확대 레벨
+		        };
+		 
+		 var geocoder = new daum.maps.services.Geocoder();
+		 
+		 var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+	        infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+	    // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+	    // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+	  
+	        searchDetailAddrFromCoords(mapOption.center, function(result, status) {
+
+	        	
+	        	var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+	             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+	             
+	
+             
+	        	
+	        	
+			$("#test").attr("value",result[0].address.address_name);
+	           
+	        });
+	  
+
+	    function searchDetailAddrFromCoords(coords, callback) {
+	        // 좌표로 법정동 상세 주소 정보를 요청합니다
+	        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	    }
+
+	    // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	    function displayCenterInfo(result, status) {
+	        if (status === daum.maps.services.Status.OK) {
+	            var infoDiv = document.getElementById('centerAddr');
+
+	            for(var i = 0; i < result.length; i++) {
+	                // 행정동의 region_type 값은 'H' 이므로
+	                if (result[i].region_type === 'H') {
+	                    infoDiv.innerHTML = result[i].address_name;
+	                    break;
+	                }
+	            }
+	        }
+	    }
+		 
+ }
+ 
+    </script> <!-- 구글 maps api -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3xjt6_kAjGLYyJN4Mjvd_3coDo3nB7tg&libraries=places&callback=initAutocomplete"
+    async defer></script> <!--api 스크립트 -->
 
 <%@include file="../include/cfooter.jsp"%>

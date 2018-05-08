@@ -26,7 +26,7 @@
 					<div align="center" class="panel-body" id="personCheckPanel" style="cursor:pointer">
 						<br>
 						<div class="recruit-div">
-							개인회원 수 <br>${P_member}
+							전체 개인회원 수 <br>${P_member}
 						</div>
 						<br>
 					</div>
@@ -37,7 +37,7 @@
 					<div align="center" class="panel-body" id="companyCheckPanel" style="cursor:pointer">
 						<br>
 						<div class="recruit-div">
-							기업회원 수 <br>${C_member}
+							전체 기업회원 수 <br>${C_member}
 						</div>
 						<br>
 					</div>

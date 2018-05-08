@@ -163,20 +163,23 @@ $(document).ready(function(){
 			dataType:'json',
 			success:function(data){
 				if(data!=''){
-					var array = data[0]
-					var keys = Object.keys(data[0]);
-					for(var i in keys){
-						if(keys[i]=="rcno"){
-							var rcno = array[keys[i]];
+					for(var j=0;j<data.length;j++){
+					var array = data[j]
+					var keys = Object.keys(data[j]);
+					var rcno;
+					var color;
+					for(var k in keys){
+						if(keys[k]=="rcno"){
+							rcno = array[keys[k]];
 						}
-						if(keys[i]=="color"){
-							var color = array[keys[i]];
+						if(keys[k]=="color"){
+							color = array[keys[k]];
 						}
 					}
 					
-					for(var i=0;i<data.length;i++){
+					/* for(var i=0;i<data.length;i++){ */
 						
-						var order = i+1;
+						var order = j+1;
 						var cname = '<%=cname%>';
 						var id = '<%=id%>';
 						
@@ -185,10 +188,7 @@ $(document).ready(function(){
 								$(".message"+order).text("Q&A가 등록되었습니다.");
 								$(".message"+order).attr("href", "/admin/qna");
 							}else{
-								if(rcno == 0){
-									$(".message"+order).text("개인정보가 변경되었습니다.");
-									$(".message"+order).attr("href", "/personal/index");									
-								}else{
+								if(rcno != 0){
 									if(color == 4){
 										$(".message"+order).text("Q&A에 답변이 달렸습니다.");
 										$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
@@ -199,6 +199,9 @@ $(document).ready(function(){
 										$(".message"+order).text("이력서가 열람되었습니다.");
 										$(".message"+order).attr("href", "/personal/applied_all");									
 									}
+								}else{
+									$(".message"+order).text("개인정보가 변경되었습니다.");
+									$(".message"+order).attr("href", "/personal/index");
 								}
 							}
 						}else if(cname=null){
@@ -221,7 +224,8 @@ $(document).ready(function(){
 							}
 						}
 						
-					} 
+					/* } */ 
+					}
 				}else{
 					console.log(data);
 					console.log("실패함");

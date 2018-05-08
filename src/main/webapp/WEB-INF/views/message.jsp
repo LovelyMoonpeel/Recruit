@@ -35,14 +35,6 @@
 <%
 	}
 }%>	
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>RecruIT 알림</title>
-</head>
-<body>
 
 <div class="container col-md-9">
 	<div class="top_cont">
