@@ -164,14 +164,14 @@ $(document).ready(function(){
 						var order = i+1;
 						var cname = '<%=cname%>';
 						console.log(cname);
-						
+						console.log(data[i].message);
 						if(cname=='null'){//개인회원일 경우
-							$(".message"+order).text("이력서가 열람되었습니다.");
+							//$(".message"+order).text("이력서가 열람되었습니다.");
+							$(".message"+order).text(data[i].message);
 							$(".message"+order).attr("href", "/personal/applied_all");
-						}else if(cname=null){
-							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우
-							$(".message"+order).text("지원자의 이력서를 확인해주세요.");
+							//$(".message"+order).text("지원자의 이력서를 확인해주세요.");
+							$(".message"+order).text(data[i].message);
 							$(".message"+order).attr("href", "/company/C_manage");
 						}
 						

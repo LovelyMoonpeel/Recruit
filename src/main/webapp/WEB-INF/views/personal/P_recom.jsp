@@ -16,20 +16,21 @@
 .material-icons:hover {
    color: #56c0e0;
 }
-#slider_job .slider-selection {
-	background: #c0c6d3;
+#slider_job .slider-selection {/*바 색상*/
+	background: #56c0e0;
 }
 #slider_region .slider-selection {
-	background: #c0c6d3;
+	background: #56c0e0;
 }
 #slider_employstatus .slider-selection {
-	background: #c0c6d3;
+	/*background: #c0c6d3; 예쁜회색*/
+	background: #56c0e0;
 }
 #slider_levelofeducation .slider-selection {
 	background: #56c0e0;
 }
 #slider_lastcareer .slider-selection {
-	background: #c0c6d3;
+	background:#56c0e0;
 }
 .slider.slider-horizontal{
 	 width:90%;
@@ -438,7 +439,7 @@ $(document).ready(function (){
 	
 });//document ready end
 
-function add_job() {
+/* function add_job() {
 	var bar_job = document.getElementById("bar_job");
 	//회색 #c0c6d3;
 	//하늘색 #56c0e0;
@@ -490,7 +491,7 @@ function add_lastcareer() {
 	$("#icon_levelofeducation").css("color", "#333333");
 	$("#icon_lastcareer").css("color", "#56c0e0");
 	
-}
+} */
 </script>
 </div>
 <%@include file="../include/cfooter.jsp"%>

@@ -204,7 +204,7 @@
 				<img class="resume-img" src="{{img}}">
 			</div>
 			<h4><b>{{bno}} {{pname}}</b></h4>
-			<p> {{jobgroupid}}, {{jobgroupid2}} <br />
+			<p class='title_ellipsis col-md-12'> {{jobgroupid}}, {{jobgroupid2}} <br />
 			{{exp}}
 			</p>
 			<p>
