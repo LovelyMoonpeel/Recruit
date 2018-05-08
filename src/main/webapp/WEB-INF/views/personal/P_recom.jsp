@@ -182,6 +182,10 @@
 						<td style="text-align: center; vertical-align:middle;"></td>
 						<td style="text-align: center; vertical-align:middle;"></td>
 						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
 						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 					</tr>
 				</c:when>
@@ -207,7 +211,105 @@
 			</table>
 		</div>
 	</div>
-
+	
+	
+	<!-- test -->
+				<!-- test -->
+								<!-- test -->
+												<!-- test -->
+	<p style="font-size:30px; color:black"><img src="/resources/rpjt/img/curriculum-vitae.png" alt="resume, 내 이력서"> &nbsp;&nbsp;내 이력서	</p>
+	
+			
+	<div class="container" style="width:100%; margin-top:10px; padding: 20px 0px 20px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이름</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 제목</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">관리</th>
+				</tr>
+				
+				<tr>
+					<td rowspan="2" style="text-align: center; vertical-align:middle;">진민경</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.bno} : ${MyResume.title}</td>
+					
+					<td rowspan="2" style="text-align: center; vertical-align:middle;">눈/자물쇠</td>
+				</tr>
+				<tr>
+					<td style="text-align: center; vertical-align:middle;">
+						<span class="label label-primary">직종</span>${MyResume.v1}, ${MyResume.v2}
+						<span class="label label-primary">지역</span>${MyResume.w1}, ${MyResume.w2} 
+						<br><span class="label label-primary">근무형태</span>${MyResume.x}
+							<span class="label label-primary">학력</span> ${MyResume.y } 
+							<span class="label label-primary">경력</span>${MyResume.z}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<p style="font-size:30px; color:black"><img src="/resources/rpjt/img/paper-plane.png" alt="resume, 채용공고"> &nbsp;&nbsp;추천 채용공고 TOP 10</p>
+	
+	<div class="container" style="width: 100%; padding: 20px 0px 0px 0px;">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">순위</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">회사명</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 정보</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">모집기간</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">지원자수</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">관리</th>
+				</tr>
+				
+				<c:choose>
+				
+				<c:when test="${CRecruitVOList eq null}">
+					<tr>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;">공개된 이력서가 없어 추천이 불가능합니다.<br>추천 서비스를 이용하려면 이력서를 공개로 설정해주세요. </td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;">
+							<c:if test="true"><img src="/resources/rpjt/img/non.png"></c:if>
+							<c:if test=""><img src="/resources/rpjt/img/on.png"></c:if>
+						</td>
+					</tr>
+					
+				</c:when>
+				
+				<c:otherwise>
+					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
+						<tr>
+							<td rowspan="2" style="text-align: center; vertical-align:middle; width:65px;">${status.count }</td>
+							<td rowspan="2"  style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
+							
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno} : ${CoordinateVO.title}</td>
+							
+							<td rowspan="2" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
+							<td rowspan="2" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
+							<td rowspan="2" style="text-align: center; vertical-align:middle; width:65px;">
+								<c:if test="true"><img src="/resources/rpjt/img/on.png"></c:if>
+								<c:if test=""><img src="/resources/rpjt/img/non.png"></c:if>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="label label-warning">직종</span>${CoordinateVO.v1}, ${CoordinateVO.v2}
+								<span class="label label-warning">지역</span>${CoordinateVO.w1}, ${CoordinateVO.w2} 
+								<br><span class="label label-warning">근무형태</span>${CoordinateVO.x}
+									<span class="label label-warning">학력</span> ${CoordinateVO.y } 
+									<span class="label label-warning">경력</span>${CoordinateVO.z}
+							</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+			</table>
+		</div>
+	</div>
+	
 <script>
 
 $(document).ready(function (){

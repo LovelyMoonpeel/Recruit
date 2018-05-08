@@ -53,8 +53,10 @@ public class PreferenceDAOImpl implements PreferenceDAO{
 	
 	//채용공고 번호 리스트로 채용공고 리스트 끌어오기
 	@Override
-	public CoordinateVO selectRecomendedOne(CoordinateVO top10)throws Exception{
-		return session.selectOne(namespace + ".selectRecomendedOne", top10);
+	public CoordinateVO selectRecomendedOne(CoordinateVO top_i)throws Exception{
+		//return session.selectOne(namespace + ".selectRecomendedOne", top_i);
+		return session.selectOne(namespace + ".selectRecomendedOne_Modify", top_i);
+		
 	}
 	
 	//해당 이력서 Coordinate로 가져오기

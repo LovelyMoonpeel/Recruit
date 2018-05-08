@@ -45,12 +45,15 @@ public class PreferenceServiceImpl implements PreferenceService {
 	
 	//채용공고 번호 리스트로 채용공고 리스트 끌어오기
 	@Override
-	public List<CoordinateVO> selectRecomendedList(List<CoordinateVO> top10)throws Exception{
+	public List<CoordinateVO> selectRecomendedList(List<CoordinateVO> top10, String id)throws Exception{
 		
 		List<CoordinateVO> real_top10 = new ArrayList<CoordinateVO>();
-		
-		for(int i=0;i<top10.size()-1;i++){
-			real_top10.add(dao.selectRecomendedOne(top10.get(i)));
+
+		for(int i=0;i<top10.size();i++){
+			CoordinateVO top_i = top10.get(i);
+			top_i.setPid(id);//개인 아이디 넣어주기 (지원여부 알아야함)
+			System.out.println("어디까지 출력되나"+i + dao.selectRecomendedOne(top_i));
+			real_top10.add(dao.selectRecomendedOne(top_i));
 		}
 		System.out.println("PreferenceServiceImpl selectRecomendedList real_top10"+ real_top10);
 		return real_top10;

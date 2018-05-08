@@ -22,7 +22,7 @@ public interface PreferenceService {
 	public List<CoordinateVO> selectCoordinateList(ResumeVO resume)throws Exception;
 	
 	//채용공고 번호 리스트로 채용공고 리스트 끌어오기
-	public List<CoordinateVO> selectRecomendedList(List<CoordinateVO> top10)throws Exception;
+	public List<CoordinateVO> selectRecomendedList(List<CoordinateVO> top10, String id)throws Exception;
 	
 	//해당 이력서 Coordinate로 가져오기
 	public CoordinateVO selectPublicResumeasCoordinateVO(Integer bno)throws Exception;

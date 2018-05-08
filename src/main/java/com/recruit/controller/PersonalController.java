@@ -523,10 +523,11 @@ public class PersonalController {
 				System.out.println("이력서"+resume);
 
 				ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(resume));
-				System.out.println("나오냐"+top10);
+				
+				System.out.println("나오냐"+top10.size());//10개
 				//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
-
-				model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10));
+				
+				model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10, id));
 				//4. 채용공고 번호로 리스트 끌어오기
 
 				model.addAttribute("MyResume", PREFService.selectPublicResumeasCoordinateVO(resume.getBno()));

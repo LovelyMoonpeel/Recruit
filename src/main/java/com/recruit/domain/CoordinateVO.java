@@ -17,6 +17,14 @@ public class CoordinateVO {
 	
 	private String distance;
 
+	private String cname; //회사명
+	private String periodstart;//공고 시작 기간
+	private String period; //공고 마감 기간
+	private String acceptmethod; //지원자수
+	private String adddesc; // 관리(스크랩 했는지 안했는지)
+	
+	private String pid;//쓰고 있는 사람 아이디
+
 	public int getBno() {
 		return bno;
 	}
@@ -105,10 +113,60 @@ public class CoordinateVO {
 		this.distance = distance;
 	}
 
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getPeriodstart() {
+		return periodstart;
+	}
+
+	public void setPeriodstart(String periodstart) {
+		this.periodstart = periodstart;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
+	public String getAcceptmethod() {
+		return acceptmethod;
+	}
+
+	public void setAcceptmethod(String acceptmethod) {
+		this.acceptmethod = acceptmethod;
+	}
+
+	public String getAdddesc() {
+		return adddesc;
+	}
+
+	public void setAdddesc(String adddesc) {
+		this.adddesc = adddesc;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
 	@Override
 	public String toString() {
 		return "CoordinateVO [bno=" + bno + ", title=" + title + ", cid=" + cid + ", v1=" + v1 + ", v2=" + v2 + ", w1="
-				+ w1 + ", w2=" + w2 + ", x=" + x + ", y=" + y + ", z=" + z + ", distance=" + distance + "]";
+				+ w1 + ", w2=" + w2 + ", x=" + x + ", y=" + y + ", z=" + z + ", distance=" + distance + ", cname="
+				+ cname + ", periodstart=" + periodstart + ", period=" + period + ", acceptmethod=" + acceptmethod
+				+ ", adddesc=" + adddesc + ", pid=" + pid + "]";
 	}
 	
 }

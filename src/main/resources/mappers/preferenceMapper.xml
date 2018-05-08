@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<!-- CRecruitMapper에서 가져옴 채용공고 하나 확인 -->
+	<!-- CRecruitMapper에서 가져옴 채용공고 하나 확인 원래꺼-->
 	<select id = "selectRecomendedOne" resultType = "com.recruit.domain.CoordinateVO">
 	<![CDATA[
 		select bno, title, cid
@@ -49,6 +49,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, (select career from tblcode where id=rc.employstatusid ) as x
 		, (select career from tblcode where id=rc.edu ) as y
 		, (select career from tblcode where id=rc.exp ) as z
+		from
+		tblrecruit rc
+		where bno = #{bno};
+	]]>
+	</select>
+	
+		<!-- CRecruitMapper에서 가져옴 채용공고 하나 확인 하는거 수정 -->
+ 	<select id = "selectRecomendedOne_Modify" resultType = "com.recruit.domain.CoordinateVO">
+	<![CDATA[
+			select bno, title, cid
+		, (select jobgroup from tbljobgroup where id=rc.jobgroupid ) as v1
+		, (select jobgroup from tbljobgroup where id=rc.jobgroupid2 ) as v2
+		, (select rgbname from tblregion where rgbid=rc.rgbid AND rgsid=rc.rgsid ) as w1
+		, (select rgsname from tblregion where rgbid=rc.rgbid AND rgsid=rc.rgsid ) as w2
+		, (select career from tblcode where id=rc.employstatusid ) as x
+		, (select career from tblcode where id=rc.edu ) as y
+		, (select career from tblcode where id=rc.exp ) as z
+        
+        ,(select cname from tblcinfo where id=rc.cid) as cname
+		, (select periodstart from tblrecruit where bno = rc.bno) as periodstart
+		, (select period from tblrecruit where bno = rc.bno) as period
+		, (select count(*) from tblapply where rcno = rc.bno) as acceptmethod
+		, ( select count(*) from tblinterestjob where userid=#{pid} and rcbno=#{bno}) as adddesc
+    
 		from
 		tblrecruit rc
 		where bno = #{bno};
