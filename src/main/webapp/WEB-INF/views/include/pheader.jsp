@@ -146,7 +146,7 @@ td {
 			<div class="list-group">
 				<a href="/personal/index" id="index modify" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
 				<a href="/personal/write" id="write"  class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a>
-				<a href="/personal/manage" id="manag" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
+				<a href="/personal/manage" id="manag Rmodi detai" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
 				<a href="/personal/recom" id="recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>
 				<a href="/personal/favor_all" id="favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a>
 				<a href="/personal/applied_all" id="appli" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a>
@@ -166,9 +166,9 @@ td {
 			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
 			
-		}else{
+		}/* else{
 			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
-		}
+		} */
 	} 
 
 </script>

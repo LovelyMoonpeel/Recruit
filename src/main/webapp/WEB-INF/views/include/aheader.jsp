@@ -115,7 +115,7 @@
 			<div class="clear"></div>
 			</div>
 			<div class="list-group">
-				<a href="/admin/main" class="list-group-item" id="main pmodi resmo"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인관리</a>
+				<a href="/admin/main" class="list-group-item" id="main pmodi resmo main?"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인관리</a>
 				<a href="/admin/company" class="list-group-item" id="compan cmodif rmodif"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;&nbsp;기업관리</a>
 				<a href="/admin/chart" class="list-group-item" id="chart"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;통계</a>
 				<a href="/admin/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
@@ -142,19 +142,16 @@ var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1
   
 	var nav_id = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 6);
 
-	console.log("확인 : "+nav_id);
 	for(var i =0; i<=$(".list-group-item").length -1; i++){
 		
 		if($(".list-group-item").eq(i).attr("id").indexOf(nav_id)!= -1){
 			
-			console.log(nav_id);
-			
 			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
 			
-		}else{
+		}/* else{
 			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
-		}
+		} */
 	}
   
 </script>

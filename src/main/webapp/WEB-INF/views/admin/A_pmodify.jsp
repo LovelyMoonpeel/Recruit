@@ -33,14 +33,31 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input class="form-control" type="password" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required></td>
+				<td>
+					<div class="form-group" id="PWDiv" style="margin-bottom:0;">
+	                    <input type="password" class="form-control" id='pw' name='pw' 
+	                    	data-rule-required="true" data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top"  placeholder="변경할 비밀번호를 입력하세요." maxlength="30">
+	               		<span class="glyphicon glyphicon-remove form-control-feedback" 
+	               			id="PWXIcon" aria-hidden="true" style="visibility:hidden"></span>
+	  				 	<span class="glyphicon glyphicon-ok form-control-feedback" 
+	  				 		id="PWOKIcon" aria-hidden="true" style="visibility:hidden"></span> 
+	            	</div>
+				<%-- <input class="form-control" type="password" name="pw" id="pw" placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required> --%>
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호확인</th>
-				<td><input class="form-control" type="password" name="pwc" id="pwc"
-					placeholder="비밀번호를 다시 입력하세요." required>
-				<span id="pwchk"></span>				
+				<td>
+				<div class="form-group" id="PWCDiv" style="margin-bottom:0;">
+                    <input type="password" class="form-control" id="pwc" data-rule-required="true" placeholder="비밀번호를 다시 입력하세요." 
+                    	data-toggle="popover" data-trigger="focus" data-content="" data-placement="auto top" maxlength="30">
+                	<span class="glyphicon glyphicon-remove form-control-feedback" 
+                		id="PWCXIcon" aria-hidden="true" style="visibility:hidden"></span>
+  				 	<span class="glyphicon glyphicon-ok form-control-feedback" 
+  				 		id="PWCOKIcon" aria-hidden="true" style="visibility:hidden"></span>
+            	</div>
+				<!-- <input class="form-control" type="password" name="pwc" id="pwc"
+					placeholder="비밀번호를 다시 입력하세요." required> -->
 				</td>
 			</tr>
 			<tr>
@@ -56,10 +73,10 @@
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control" id="birth" name="birth" value="${BoardVO.birth}" required>
-				<span class="input-group-addon">
-				<i class="glyphicon glyphicon-calendar"></i>
-				</span>
+					<input type="text" class="form-control" id="birth" name="birth" value="${BoardVO.birth}" required>
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</span>
 				</div>
 				</td>
 			</tr>
@@ -123,43 +140,79 @@
 	/* keyup을 통해 비밀번호가 맞는지 확인하는 작업 */
 	var pwchk = $('#pwchk');
 	var pwcheck = "ok";
-	
-	var pwReg = /[A-Za-z0-9]$/;
-	var pexpReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/i;
+	var pwReg = /^[A-Za-z0-9]{1,20}$/;
+	var expReg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{1,20}/i;
 
+	function PWCXcheck(){
+		$("#PWCDiv").removeClass();
+		$("#PWCOKIcon").css("visibility","hidden");
+		$("#PWCDiv").addClass("form-group has-error has-feedback"); 
+		$("#PWCXIcon").css("visibility","visible");
+		$("#pwc").attr("data-content", "사용 불가능한 비밀번호 입니다.");
+		$("#pwc").focusout();
+		$("#pwc").focus();
+		pwcheck = "no";
+	}
+	
+	function PWXcheck(){
+		$("#PWDiv").removeClass();
+		$("#PWOKIcon").css("visibility","hidden");
+		$("#PWDiv").addClass("form-group has-error has-feedback"); 
+		$("#PWXIcon").css("visibility","visible");
+		$("#pw").attr("data-content", "사용 불가능한 비밀번호 입니다.");
+		$("#pw").focusout();
+		$("#pw").focus();
+		pwcheck = "no";
+	}
+	
+	function PWCOcheck(){
+		$("#PWCDiv").removeClass();
+		$("#PWCXIcon").css("visibility","hidden");
+		$("#PWCDiv").addClass("form-group has-success has-feedback"); 
+		$("#PWCOKIcon").css("visibility","visible");
+		$("#pwc").attr("data-content", "사용 가능한 비밀번호 입니다.");
+		$("#pwc").focusout();
+		$("#pwc").focus();
+		pwcheck = "ok";
+	}
+	
+	function PWOcheck(){
+		$("#PWDiv").removeClass();
+		$("#PWXIcon").css("visibility","hidden");
+		$("#PWDiv").addClass("form-group has-success has-feedback"); 
+		$("#PWOKIcon").css("visibility","visible");
+		$("#pw").attr("data-content", "사용 가능한 비밀번호 입니다.");
+		$("#pw").focusout();
+		$("#pw").focus();
+		pwcheck = "ok";
+	}
+	
 	$('#pwc').keyup(function(){	
 		var pwcval = $('#pwc').val();
 		var pwval = $('#pw').val();
 		
-		if(pwcval.search(/\s/) != -1){
-			alert("공백 금지");
-			$('#pwc').val(pwcval.slice(0, -1));
-		}
-		
-		if(!(pwReg.test(pwcval)) && pexpReg.test(pwcval)){
-			alert("특수문자 금지");
-			$('#pwc').val(pwcval.slice(0, -1));
-		}
-
-		pwcval = $('#pwc').val();
-		pwval = $('#pw').val();
-		
-		if(!(pwcval.length > 5 && pwcval.length <= 20)){
-        	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
-			pwchk.attr("style", "color:red");
-			pwcheck = "no";
-		}else{
-			if(pwval == pwcval){
-				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-				pwchk.attr("style", "color:blue");
-				pwcheck = "ok";
+		//1. 대소문자, 숫자가 들어왔는가
+		if(pwReg.test(pwcval)){
+			//2. 공백이나 특수문자가 들어왔는가
+			if(pwcval.search(/\s/) == -1 || !pexpReg.test(pwcval)){
+				//3. 길이가 일치하는가
+				if(pwcval.length > 5 && pwcval.length <= 20){
+					//4. 두개의 값이 같은가
+					if(pwval == pwcval){
+						PWOcheck();
+						PWCOcheck();
+					}else{
+						PWCXcheck();
+					}
+				}else{
+					PWCXcheck();
+				}
 			}else{
-				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-				pwchk.attr("style", "color:red");
-				pwcheck = "no";
+				PWCXcheck();
 			}
+		}else{
+			PWCXcheck();
 		}
-		
 	})
 	
 	
@@ -167,34 +220,45 @@
 		var pwval = $('#pw').val();
 		var pwcval = $('#pwc').val();
 		
-		if(pwval.search(/\s/) != -1){
-			alert("공백 금지");
-			$('#pw').val(pwval.slice(0, -1));
-		}
-		
-		if(!(pwReg.test(pwval)) && pexpReg.test(pwval)){
-			alert("특수문자 금지");
-			$('#pw').val(pwval.slice(0, -1));
-		}
-		
-		pwval = $('#pw').val();
-		pwcval = $('#pwc').val();
-		
-		if(!(pwval.length > 5 && pwval.length <= 20)){
-        	document.getElementById("pwchk").innerHTML = "비밀번호가 유효하지 않습니다.(6~20자)";
-			pwchk.attr("style", "color:red");
-			pwcheck = "no";
-		}else{
-			if(pwval == pwcval){
-				document.getElementById("pwchk").innerHTML = "비밀번호가 일치합니다.";
-				pwchk.attr("style", "color:blue");
-				pwcheck = "ok";
+		//1. 대소문자, 숫자가 들어왔는가
+		if(pwReg.test(pwval)){
+			//2. 공백이나 특수문자가 들어왔는가
+			if(pwcval.search(/\s/) == -1 || !pexpReg.test(pwval)){
+				//3. 길이가 일치하는가
+				if(pwval.length > 5 && pwval.length <= 20){					
+					//4. 두개의 값이 같은가
+					if(pwcval.length != 0){
+						if(pwval == pwcval){
+							PWCOcheck();
+							PWOcheck();
+						}else{
+							if(pwcval.length>0){
+								PWCXcheck();							
+							}
+							PWXcheck();
+						}						
+					}else{
+						PWOcheck();						
+					}
+				}else{
+					if($("#PWCDiv").hasClass("has-success")){
+						PWCXcheck();
+					}
+					PWXcheck();
+				}
 			}else{
-				document.getElementById("pwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
-				pwchk.attr("style", "color:red");
-				pwcheck = "no";
+				if($("#PWCDiv").hasClass("has-success")){
+					PWCXcheck();
+				}
+				PWXcheck();
 			}
+		}else{
+			if($("#PWCDiv").hasClass("has-success")){
+				PWCXcheck();
+			}
+			PWXcheck();
 		}
+		
 	})
 </script>
 <!-- //비밀번호 일치 여부  -->

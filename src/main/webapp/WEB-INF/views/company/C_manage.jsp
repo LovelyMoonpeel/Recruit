@@ -4,16 +4,8 @@
 <%@include file="../include/cheader.jsp"%>
 <%@ page import="java.util.Calendar"%>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-	
-<!-- 문> 반응형 카드를 위한 아래 두 줄  -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
-
-	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 		
-<!-- 문> //반응형 카드를 위한 아래 두 줄 -->
 
 <!-- Main content -->
 <!-- 기업 채용공고 목록 -->

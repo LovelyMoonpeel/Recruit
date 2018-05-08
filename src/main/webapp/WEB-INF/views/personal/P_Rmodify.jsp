@@ -92,7 +92,7 @@
                 <tr>
                   <th style="text-align : center; vertical-align : middle;">구직상태</th>
                   <td>
-                     <div class="form-group col-md-5">
+                     <div class="form-group col-md-4" style="width: 35%;">
                      <select id="jobstateid" class="form-control" name="jobstateid" >
                         <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
@@ -106,9 +106,9 @@
                </tr>
                
                  <tr>
-                   <th style="text-align : center; vertical-align : middle;">모집직종</th>
-               <td>
-                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 30%; ">
+                   <th style="text-align : center; vertical-align : middle; width: 48px;">모집직종</th>
+               <td width=50px>
+                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 35%; ">
                   <label for="jobgroupid">대분류</label> 
                   <select id="jobGroup" class="form-control" data-live-search="true" name="jobgroupid" >
                      <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
@@ -129,7 +129,7 @@
             <tr>
                <th style="text-align : center; vertical-align : middle;">희망근무형태</th>
                <td>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-4" style="width: 35%;">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
                         <option value="102">선택</option>
@@ -145,9 +145,9 @@
                </td>
             </tr>
             <tr>
-                <th style="text-align : center; vertical-align : middle;">희망근무지</th>
-               <td>
-                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%; ">
+                <th style="text-align : center; vertical-align : middle; width: 48px;">희망근무지</th>
+               <td width=280px>
+                  <div class="form-group col-md-4" style="border: 1px; float: left; width: 35%; ">
                      <label for="regionid">시/도</label> 
                      <select id="region" class="form-control" name='rgbid'>
                         <c:forEach items="${RegionVOlist}" var="RegionVO">
@@ -167,7 +167,7 @@
             <tr>
                	 <th style="text-align : center; vertical-align : middle;">희망연봉</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-4" style="width: 35%;">
                      <!-- <label for="CodeList7">희망연봉</label> -->
                      <select class="form-control" name="salaryid" id="CodeList7">
                      	<option value="102">선택</option>
@@ -316,9 +316,8 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 </div>
 <!-- 소연 코드 -->
 <script id="template_tel" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row tel_row_number">
-	<hr style="border: solid 0.5px #ccc;">
-
 	<input type="hidden" class="form-control telid" value="{{telid}}"></input>
 	<input type="hidden" class="form-control rid telclass" name="ptelvolist[].rid" value="{{rid}}"></input>
 	
@@ -350,8 +349,8 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <!-- end of row -->
 </script>
 <script id="template_edu" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row edu_row_number">
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<input class="edu" type="hidden" name="listEdu[].resumenum" value="{{resumenum}}">
 		<label>입학일</label>
@@ -378,7 +377,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 		<label for="major">학과</label> <input class="form-control major edu" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[학과 예시]</b>"
 		data-content="전자공학과<br> 기계공학과" name="listEdu[].major" value="{{major}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}
@@ -404,9 +403,9 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <!-- end of row -->
 </script>
 <script id="template_exp" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row exp_row_number">
 	<input class="career" type="hidden" name="listCareer[].resumenum" value="{{resumenum}}">
-	<hr class="form-group col-md-12" style="border: solid 0.5px #ccc;">
 	<div class="form-group col-md-3">
 		<label>입사일</label>
 		<div class="input-group date" data-provide="datepicker">
@@ -471,8 +470,8 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <!-- end of row -->
 </script>
 <script id="template_web" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row web_row_number">
-	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control webid" value="{{webid}}"></input>
 	<input type="hidden" class="form-control webclass rid" name="pwebsitesvolist[].rid" value="{{rid}}"></input>
 
@@ -502,8 +501,8 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 <!-- end of row -->
 </script>
  <script id="template_license" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row license_row_number">
-	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control licenseid" value="{{licenseid}}"></input>
 	<input type="hidden" class="form-control rid licenseclass" name="rlicensevolist[].rid" value="{{rid}}"></input>
 	
@@ -540,8 +539,8 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 </script>           
             
  <script id="template_language" type="text/x-handlebars-template">
+<hr class="form-group" style="border: solid 0.5px #ccc; width:100%;">
 <div class="row lang_row_number">
-	<hr style="border: solid 0.5px #ccc;">
 	<input type="hidden" class="form-control resumelangid" value="{{resumelangid}}"></input>
 	<input type="hidden" class="form-control rid langclass" name="rlangvolist[].rid" value="{{rid}}"></input>
 

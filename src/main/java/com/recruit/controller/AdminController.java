@@ -387,19 +387,18 @@ public class AdminController {
 	public String rmodifyPOST(MessageVO msvo, CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
-		logger.info("cmodify post...........");
-
 		cservice.modify(recvo);
 		uservice.modifyRecruitAdminMessage(msvo);
 
-		rttr.addAttribute("page", cri.getPage());
+/*		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-
+*/
 		rttr.addFlashAttribute("msg", "modify");
-
-		return "redirect:/admin/company";
+		String id = recvo.getCid();
+				
+		return "redirect:/admin/cmodify?id="+id;
 	}
 
 	@RequestMapping(value = "/rremove", method = RequestMethod.POST)

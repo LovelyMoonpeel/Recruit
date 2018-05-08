@@ -59,22 +59,6 @@
 		</c:forEach>
 		<%}%>	
 		
-		
-			<div class="alert alert-success alert-dismissible fade in">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>Info!</strong> This alert box could indicate a neutral
-				informative change or action.
-			</div>
-			<div class="alert alert-warning alert-dismissible fade in">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>Warning!</strong> This alert box could indicate a warning
-				that might need attention.
-			</div>
-			<div class="alert alert-danger alert-dismissible fade in">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>Danger!</strong> This alert box could indicate a dangerous or
-				potentially negative action.
-			</div>
 	</div>
 </div>
 

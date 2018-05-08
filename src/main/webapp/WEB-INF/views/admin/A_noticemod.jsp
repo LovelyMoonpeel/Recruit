@@ -18,11 +18,8 @@
 
 	<h1>공지사항</h1>	
 	<form role="form" action="S_noticemod" method="POST">
+		<input class="form-control" type="hidden" name="bno" value="${CsVO.bno}" readonly>
 		<table class="table table-bordered">
-			<tr>
-				<th>번호</th>
-				<td><input class="form-control" type="text" name="bno" value="${CsVO.bno}" readonly></td>
-			</tr>
 			<tr>
 				<th>제목</th>
 				<td><input class="form-control" type="text" name="title"

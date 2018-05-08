@@ -617,6 +617,7 @@ $(function () {
 <script>
 $("#sbm").on("click",function(e){
 	
+	if(confirm("수정하시겠습니까?")){
 	if($("#title").val()==""){   /* 타이틀 유효성 검사 */
 		
 		$("#titleDiv").addClass("form-group has-error has-feedback"); 
@@ -899,7 +900,7 @@ $("#sbm").on("click",function(e){
 			
 			
 		}
-		
+	}
 	
 })
 </script>
