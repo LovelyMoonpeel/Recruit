@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="../include/cheader.jsp"%>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 	
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> 
+<!-- Bootstrap (기존 Include된 부트스트랩이 색상 충돌 일어나서 추가 함)  -->
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	
 <!-- Main content -->
 <!-- 기업 페이지 -->
@@ -70,11 +71,11 @@
 	</nav>
 
 	<table class="table table-bordered">
-		<tr class="active">
-			<th>공고 상태</th>
-			<th>모집 내용</th>
-			<th style="text-align: center">기간</th>
-			<th>인재보기</th>
+		<tr class="active " >
+			<th style="text-align: center">공고 상태</th>
+			<th style="text-align: center">모집 내용</th>
+			<th style="text-align: center">모집 기간</th>
+			<th style="text-align: center">인재보기</th>
 			
 		</tr>
 		
@@ -82,20 +83,18 @@
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
-					<th><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
-					<%-- <br>근무형태 : ${RecruitVO.employstatusid}
-					직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}
-					경력 : ${RecruitVO.exp} 
-					접수기간 : ${RecruitVO.period} --%>
+					<th style="text-align: center"><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					</th>
-					<th>${RecruitVO.period}</th>
-					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
+					<th style="text-align: center">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
+					<th style="text-align: center"><button class="btn btn-default" name="onLoad" style="width:100%" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 					
 
 						</c:forEach>
 		
 	</table>
+	
+	
 	
 	<script>
 	$(document).ready(function(){
@@ -123,7 +122,7 @@
          
          	 <table class="table table-striped" >
           <tr class=active>
-          <th class="text-center">번호</th>
+          <th class="text-center"></th>
           <th class="text-center">이름</th>
           <th class="text-center">이력서 요약</th>
        	  <th class="text-center">업데이트일</th>
@@ -169,8 +168,23 @@
 					</div>
 
 				</div>
+				
+					<table class="table table-bordered">
+		<tr class="active gobox2">
+			<td style="line-height: 200%">
+				<ul style="list-style-type: circle">
+					<li><small>추천인재는 공고에 기입된 원하는 인적사항과 <b style="color:#7F0000">유사한 인적사항을 가진 인재를 매칭</b>해 추천해줍니다.</small></li>
+					<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
+					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>
+				<br> <font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</b> 처리될 수 있습니다.</font>
+				</ul>
+			</td>
+		</tr>
+	</table>
 
 </div>
+
+
 
 <c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
 <input type="hidden" name="CompareList" value="${FavorCompareListVO.presume}">

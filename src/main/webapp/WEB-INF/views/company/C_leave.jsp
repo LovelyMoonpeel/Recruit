@@ -23,7 +23,7 @@
 		또한, 지원자들의 이력서, 포트폴리오 등의 자료가 삭제되어 나중에 다시 보실 수 없게 됩니다.
 	</div>
 
-	<button type="button" class="btn btn-default">모든 회원 혜택 포기하고 탈퇴하기</button>
+	<button type="button" class="btn btn-danger btn-lg">모든 회원 혜택 포기하고 탈퇴하기</button>
 </div> 	
 
 <script type="text/javascript">

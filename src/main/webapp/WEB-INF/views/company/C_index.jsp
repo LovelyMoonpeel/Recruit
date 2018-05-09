@@ -1,92 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@include file="../include/cheader.jsp"%>
-
-
-<!-- Main content -->
-<!-- 기업 페이지 -->
+<%@include file="../include/cheader.jsp"%> <!-- Header Include -->
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 
 <div class="col-md-9">
-
 
 	<p class="lead">
 		<strong>기업 정보</strong>
 	</p>
 
-	<!-- 기업 페이지 첫번째(이미지, 이름, 소개) -->
-	<div class="top_cont">
+	<div class="top_cont">	
 		<div class="corp_logo">
-		<div id='uploadedList'>
-			<img alt="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width: 200px;" /> <br> <br>
+			<div id='uploadedList'>
+				<img alt="${CInfoVO.img}" id="imgsrc" name="img" value="${CInfoVO.img}" style="width: 200px;" /> <br> <br>
 			</div>
-			<input type="hidden" id=''>
+			
 			<h1 class="ci_name">${CInfoVO.cname}</h1>
-			<br>
 		</div>
+		
 		<div class="ci_desc">
-			<!-- 문> 아래 ${content}는 model.addAttribute("content", content4);로 인해서 저렇게 쓸 수 있다 -->
 			<p class="txt">${content}</p>
-		</div>
+		</div>		
 	</div>
-	<!-- //기업 페이지 첫번째 -->
-	<br>
-	<!-- 기업 페이지 두번째(기본 정보) -->
+	
 	<div class="company_info_content">
-		<!-- ★아래 두 줄의 class 설정으로 인해 테이블이 반응형으로 적용됨 -->
 		<div class="table-responsive">
-			<!-- ★클래스를 여러 개 쓰고 싶으면 한 칸 띄우고 쓰기/table-striped는 홀수번째마다 색칠하기 -->
-			<table class="table table-bordered ">
-				<tbody>
+			<table class="table table-bordered">
 					<tr>
-						<!-- ★scope="row"는 태그가 있는 행의 나머지 셀에 적용 -->
-						<!-- ★class="table-active"는 셀 바탕색,active말고도 success, warning, danger, info -->
-						<th class="table-activec col-lg-2" scope="row" style="text-align: center;">기업명</th>
-						<td class="table-activec col-lg-4">${CInfoVO.cname}</td>
-						<th class="table-active col-lg-2" scope="row" style="text-align: center;">대표자명</th>
-						<td class="table-activec col-lg-4">${CInfoVO.ceo}</td>
+						<th class="table-activec col-lg-2" scope="row" style="text-align: center;"><h5>기업명</h5></th>
+						<td class="table-activec col-lg-4"><h5>${CInfoVO.cname}</h5></td>
+						<th class="table-active col-lg-2" scope="row" style="text-align: center;"><h5>대표자명</h5></th>
+						<td class="table-activec col-lg-4"><h5>${CInfoVO.ceo}</h5></td>
+					</tr>
+					
+					<tr>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>업종</h5></th>
+						<td colspan="3"><h5>${CInfoVO.ctype}</h5></td>
+					</tr>
+					
+					<tr>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>기업형태</h5></th>
+						<td colspan="3"><h5>${CInfoVO.form}</h5></td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">업종</th>
-						<td colspan="3">${CInfoVO.ctype}</td>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>기업주소</h5></th>
+						<td colspan="3" id="location"><h5>${CInfoVO.location} ${CInfoVO.detaillocation}</h5></td>
+					</tr>
+					
+					<tr>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>설립일</h5></th>
+						<td colspan="3"><h5>${CInfoVO.establish}</h5></td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">기업형태</th>
-						<td colspan="3">${CInfoVO.form}</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">기업주소</th>
-						<td colspan="3" id="location">${CInfoVO.location}</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">설립일</th>
-						<td colspan="3">${CInfoVO.establish}</td>
-					</tr>
-					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">사원수</th>
-						<!-- 문> '명'이란 단어 지웠음  -->
-						<td>${CInfoVO.numemp}</td>
-						<th class="table-active" scope="row" style="text-align: center;">매출액</th>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>사원수</h5></th>
+						
+						
+						<c:set var = "numemp" value="${CInfoVO.numemp}"/> 
+						<c:set var = "comma" value=","/> 	
+						
+						<c:choose>
+							<c:when test="${fn:contains(numemp,comma)}">
+								<td>${CInfoVO.numemp}</td>
+							</c:when>
+							
+							<c:otherwise>
+								<td>${CInfoVO.numemp}</td>
+							</c:otherwise>
+						</c:choose>
+						
+						<th class="table-active" scope="row" style="text-align: center;"><h5>매출액</h5></th>
 						<td>${CInfoVO.sales}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">대표전화</th>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>대표전화</h5></th>
 						<td>${CInfoVO.tel}</td>
-						<th class="table-active" scope="row" style="text-align: center;">FAX</th>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>FAX</h5></th>
 						<td>${CInfoVO.fax}</td>
 					</tr>
 					<tr>
-						<th class="table-active" scope="row" style="text-align: center;">홈페이지</th>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>홈페이지</h5></th>
 						<td>
-							<a href="${CInfoVO.homepage}" class="link_site" target="_blank" rel="nofollow">${CInfoVO.homepage}</a>
+							<a href="${CInfoVO.homepage}" class="link_site" target="_blank" rel="nofollow"><h5>${CInfoVO.homepage}</h5></a>
 						</td>
-						<th class="table-active" scope="row" style="text-align: center;">SNS</th>
+						<th class="table-active" scope="row" style="text-align: center;"><h5>SNS</h5></th>
 						<td>
-							<a href="${CInfoVO.sns}" class="link_site" target="_blank" rel="nofollow">${CInfoVO.sns}</a>
+							<a href="${CInfoVO.sns}" class="link_site" target="_blank" rel="nofollow"><h5>${CInfoVO.sns}</h5></a>
 						</td>
 					</tr>
 					
-				</tbody>
 			</table>
 			<p class="lead">
 				<strong>지도 위치</strong>
@@ -130,8 +133,8 @@
 
 
 	<!-- 수정 버튼 -->
-	<div class="box-footer">
-		<button type="submit" class="btn btn-warning" id="cinfoModify">수정하기</button>
+	<div class="box-footer text-center">
+		<button type="submit" class="btn btn-warning btn-lg" id="cinfoModify">수정하기</button>
 	</div>
 
 

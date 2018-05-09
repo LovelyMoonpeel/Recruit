@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@include file="../include/cheader.jsp"%>
 
 
@@ -93,10 +93,21 @@
 
 		<div class="row">
 			<div class="form-group col-lg-6">
-				<label>사원수</label> <input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
+				<label>사원수</label> 
+				<input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
+				
 			</div>
 			<div class="form-group col-lg-6">
-				<label>매출액</label> <input type="text" name="sales" class="form-control" value="${CInfoVO.sales}">
+			
+				<label>매출액</label> 
+			
+				<input type="text" name="sales" class="form-control" value="${CInfoVO.sales}">
+			
+			
+				
+               
+          		
+				
 			</div>
 		</div>
 
@@ -121,10 +132,12 @@
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>기업주소</label>
-				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				<input id="pac-input" class="controls" type="text" placeholder="주소를 입력해주세요">
+				<input id="pac-input1" class="controls1" type="text" placeholder="건물명과 층수를 입력해주세요">
 				<input type="hidden" name="lat" id="lat">
 				<input type="hidden" name="lng" id="lng">
-				<input type="hidden" name="location" id="test">
+				<input type="hidden" name="location" id="location">		
+				<input type="hidden" name="detaillocation" id="detaillocation">	
 				<div id="map"></div>
 			</div>
 		</div>
@@ -152,14 +165,16 @@
 		<br>
 
 		<!-- 수정 버튼 -->
-		<div class="box-footer">
-			<button type="button" class="btn btn-primary">저장하기</button>
-			<button type="button" class="btn btn-warning" id="modify">취소하기</button>
+		<div class="box-footer text-center">
+			<button type="button" class="btn btn-primary btn-lg">저장하기</button>
+			<button type="button" class="btn btn-danger btn-lg" id="modify">취소하기</button>
 		</div>
 		<!-- //수정 버튼 -->
 		<br> <br>
 	</div>
 </form>
+
+
 
 <!-- 소연 모달 -->
 <div class="modal" id="ORIGINAL_modal">
@@ -184,8 +199,13 @@
 	<!--//modal-dialog -->
 </div>
 <!--//소연 모달 -->
-
+<!-- $("#detailLocation").attr("value",$("#pac-input1").val()); -->
 <script>
+
+$("#pac-input1").focusout(function(){
+	 $("#detaillocation").attr("value",$("#pac-input1").val());
+})
+
     //★★★ 취소하기 버튼 ★★★
 	$(document).ready(function() {
 		var formObj = $("form[role='form']");
@@ -218,12 +238,25 @@
             height: 300px; 
         }
         
+        
        .controls {
         margin-top: 10px;
         border: 1px solid transparent;
         border-radius: 2px 0 0 2px;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+       .controls1 {
+      	margin-left: 10px;
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+       	width : 150px;
         height: 32px;
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -448,17 +481,6 @@ var preexistenceimg = document.getElementById('preexistenceimg');
         
     });
 
- /*    function getOriginalName(fileName) {
-        var idx = fileName.indexOf("_") + 1;
-        return fileName.substr(idx);
-    } */
-
- /*    function getImageLink(fileName) {
-        var front = fileName.substr(0, 12);      //문> '/년/월/일' 경로를 추출하는 용도
-        var end = fileName.substr(14);       //문> 파일 이름 앞의 's_'를 제거하는 용도
-
-        return front + end;
-    } */
 
     //★★★ 수정완료 버튼 ★★★
     $(".btn-primary").on("click", function() {     //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
@@ -473,26 +495,7 @@ var preexistenceimg = document.getElementById('preexistenceimg');
     });
 </script>
 
-
-
-<script> /* 구글 maps api */
-
-/*  llat = "";
- llng = "";
-
-$(document).ready(function(){
-	
-	if("<c:out value="${CInfoVO.lat}"/>"==""){
-		
-		llat = "37.49794199999999";
-		llng = "127.02762099999995";
-		alert(llat);
-	}else if("<c:out value="${CInfoVO.lat}"/>"!=""){
-		llat = "<c:out value="${CInfoVO.lat}"/>";
-		llng = "<c:out value="${CInfoVO.lng}"/>";
-	}
-	
-}) */
+<script>
 
 var map;
 
@@ -533,12 +536,14 @@ var map;
 
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
+        var input1 = document.getElementById('pac-input1');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input1);
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
+          
         });
 
         var markers = [];
@@ -691,11 +696,27 @@ var map;
 	             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 	             
 	
-             
+	        
+            var address = ""
+            
+	        if(result[0].road_address!=null){
+	        
+	        	address += ""+result[0].road_address.address_name+"";
+	        
+	        }else{
 	        	
-	        	
-			$("#test").attr("value",result[0].address.address_name);
-	           
+	        	address += ""+result[0].address.address_name+"";
+	        }
+            
+	      
+	        if(address==""){
+	        	$("#location").attr("value",address);
+	        }else{
+	        	$("#location").attr("value",address);	
+	        }
+            
+			
+			
 	        });
 	  
 

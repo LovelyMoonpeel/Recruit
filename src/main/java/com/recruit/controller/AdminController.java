@@ -362,32 +362,32 @@ public class AdminController {
 	@RequestMapping(value = "/rmodify", method = RequestMethod.GET)
 	public String rmodifyGET(@RequestParam("id") String id, @RequestParam("bno") int bno,
 			@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
-		model.addAttribute("BoardVO", cservice.read(id));
-		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
-		model.addAttribute("recruitList", pservice.RecruitList(id));
+		model.addAttribute(pservice.CompanyInfoRead(id));
+		System.out.println("아이디입니당." + id);
+		System.out.println("bno값입니당." + bno);
 		model.addAttribute("jobgroupList", jobService.jobgroupList());
+		
+		model.addAttribute("subJobgroupList", jobService.subJobgroupList()); // subJobGroupList
+		model.addAttribute("subRegionList", jobService.subRegionList()); // subRegionList
+		model.addAttribute("jobGroupCount", jobService.jobGroupCount()); // jobgroup
+		model.addAttribute("regionCount", jobService.regionCount()); // region
+
 		model.addAttribute("codeList", pservice.CodeList());
 		model.addAttribute("regionList", pservice.RegionList());
-		model.addAttribute("RecruitVO", pservice.RecruitInfoRead3(bno));
+		model.addAttribute("RecruitVO", pservice.RecruitModifyRead(bno, id));
 
 		return "/admin/A_rmodify";
 	}
 
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.POST)
-	public String rmodifyPOST(CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String rmodifyPOST(RecruitVO recruitModify, RedirectAttributes rttr)
 			throws Exception {
 
-		logger.info("cmodify post...........");
+		pservice.RecruitModify(recruitModify);
 
-		// System.out.println("controller test1");
-		cservice.modify(recvo);
-
-		rttr.addAttribute("page", cri.getPage());
-		rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		rttr.addAttribute("searchType", cri.getSearchType());
-		rttr.addAttribute("keyword", cri.getKeyword());
-
-		rttr.addFlashAttribute("msg", "modify");
+		System.out.println("recruitModify = "+ recruitModify);
+		
+		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
 		return "redirect:/admin/company";
 	}

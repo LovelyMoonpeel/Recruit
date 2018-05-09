@@ -17,6 +17,7 @@ public class CInfoVO { // 회사 정보 VO
 	private String fax;
 	private String sns;
 	private String location;
+	private String detaillocation;
 	private String phone;
 	private String email;   //문> email 추가
 	private String pname;
@@ -112,6 +113,12 @@ public class CInfoVO { // 회사 정보 VO
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public String getDetaillocation() {
+		return detaillocation;
+	}
+	public void setDetaillocation(String detaillocation) {
+		this.detaillocation = detaillocation;
+	}
 	public String getPhone() {
 		return phone;
 	}
@@ -147,10 +154,11 @@ public class CInfoVO { // 회사 정보 VO
 		return "CInfoVO [id=" + id + ", cname=" + cname + ", img=" + img + ", homepage=" + homepage + ", intro=" + intro
 				+ ", ceo=" + ceo + ", ctype=" + ctype + ", form=" + form + ", establish=" + establish + ", numemp="
 				+ numemp + ", sales=" + sales + ", tel=" + tel + ", fax=" + fax + ", sns=" + sns + ", location="
-				+ location + ", phone=" + phone + ", email=" + email + ", pname=" + pname + ", lng=" + lng + ", lat="
-				+ lat + "]";
+				+ location + ", detaillocation=" + detaillocation + ", phone=" + phone + ", email=" + email + ", pname="
+				+ pname + ", lng=" + lng + ", lat=" + lat + "]";
 	}
-
+	
+	
 	
 
 }
