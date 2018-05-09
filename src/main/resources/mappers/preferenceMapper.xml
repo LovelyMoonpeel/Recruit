@@ -126,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from tblresume re, tblrecruit rc, tbluser user
 	where re.bno=#{bno}
 	and user.id=#{userid}
+	and rc.state=1
 	order by distance asc
 	limit 10
 	;

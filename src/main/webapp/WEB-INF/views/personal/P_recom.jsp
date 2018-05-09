@@ -282,20 +282,32 @@
 				<c:otherwise>
 					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
 						<tr>
-							<td rowspan="2" style="text-align: center; vertical-align:middle; width:65px;">${status.count }</td>
-							<td rowspan="2"  style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
+							<c:if test="${status.count eq 1}">
+								<td rowspan="2" id="${status.count }VO" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
+									<!--  <img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등"> -->
+									<img src="/resources/rpjt/img/winner.png" alt="1등">
+									<!--   img src="/resources/rpjt/img/gold-medal.png" alt="1등">-->
+								</td>
+							</c:if>
+							<c:if test="${status.count ne 1}">
+								<td rowspan="2" id="${status.count }VO" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
+									${status.count }
+								</td>
+							</c:if>
 							
-							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno} : ${CoordinateVO.title}</td>
+							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
 							
-							<td rowspan="2" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
-							<td rowspan="2" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
-							<td rowspan="2" style="text-align: center; vertical-align:middle; width:65px;">
-								<c:if test="true"><img src="/resources/rpjt/img/on.png"></c:if>
-								<c:if test=""><img src="/resources/rpjt/img/non.png"></c:if>
+							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;">${CoordinateVO.bno} : ${CoordinateVO.title}</td>
+							
+							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
+							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
+							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
+								<c:if test="${CoordinateVO.adddesc eq 0}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/non.png"></c:if>
+								<c:if test="${CoordinateVO.adddesc eq 1}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/on.png"></c:if>
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td class="${status.count }VOLIST">
 								<span class="label label-warning">직종</span>${CoordinateVO.v1}, ${CoordinateVO.v2}
 								<span class="label label-warning">지역</span>${CoordinateVO.w1}, ${CoordinateVO.w2} 
 								<br><span class="label label-warning">근무형태</span>${CoordinateVO.x}
@@ -313,7 +325,15 @@
 <script>
 
 $(document).ready(function (){
+	
+	//$(".1VOLIST").css("background-color","#e9ecf2");	
+	//$(".1VO").append("img","");
 
+	//	<img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등">
+	//$("#1VO").text('');
+	//$('#1VO').append('<img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등"/>');
+	
+	
 	$("#val_job").html(${PreferenceVO.pref_job});
 	$("#slider_job").attr("data-slider-value",(${PreferenceVO.pref_job}));
 	
