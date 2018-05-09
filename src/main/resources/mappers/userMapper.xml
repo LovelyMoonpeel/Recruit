@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!--문> 로그인 처리 -->
-	<select id="login" resultType="BoardVO">
+	<select id="login" resultType="UserVO">
 
 		select id, pw, pname, cname, authCode
 		from
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!--// -->
 
-	<select id="idoverlap" resultType="BoardVO">
+	<select id="idoverlap" resultType="UserVO">
 	select
 	id
 	from
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 
-	<select id="checkUserWithSessionKey" resultType="BoardVO">
+	<select id="checkUserWithSessionKey" resultType="UserVO">
 
 		select *
 		from
@@ -66,21 +66,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update tbluser set authCode = null where email = #{email}
 	</update>
 	
-	<select id="pread" resultType="BoardVO">
+	<select id="pread" resultType="UserVO">
 	select id
 	from tbluser
 	where pname = #{pname}
 	and email = #{email}
 	</select>
 	
-	<select id="cread" resultType="BoardVO">
+	<select id="cread" resultType="UserVO">
 	select id
 	from tbluser
 	where cname = #{cname}
 	and email = #{email}
 	</select>
 	
-	<select id="emailoverlap" resultType="BoardVO">
+	<select id="emailoverlap" resultType="UserVO">
 	select
 	email
 	from
@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	email = #{email}
 	</select>
 	
-	<select id="getppw" resultType="BoardVO">
+	<select id="getppw" resultType="UserVO">
 		select
 		pw
 		from
@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id = #{id} and email = #{email} and pname = #{pname}
 	</select>
 	
-	<select id="getcpw" resultType="BoardVO">
+	<select id="getcpw" resultType="UserVO">
 		select
 		pw
 		from
@@ -115,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update tbluser set pw = #{pw} where id=#{id} and email = #{email} and cname=#{cname}
 	</update>
 	
-	<select id="getPw" resultType="BoardVO">
+	<select id="getPw" resultType="UserVO">
 	select
 	pw
 	from
@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	id = #{id}
 	</select>
 	
-	<select id="userRead" resultType="BoardVO">
+	<select id="userRead" resultType="UserVO">
 		select id, pname, cname
 		from
 		tbluser

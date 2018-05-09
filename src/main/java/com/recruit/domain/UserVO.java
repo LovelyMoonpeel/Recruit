@@ -1,48 +1,70 @@
 package com.recruit.domain;
 
-import java.util.Arrays;
-
+//3.14 문
 public class UserVO {
-
-	private String uid;
-	private String upw;
-	private String uname;
-	private int upoint;
-
-	public String getUid() {
-		return uid;
+	
+	private String id;
+	private String pw;
+	private String cname;
+	private String pname;
+	private String email;
+	private String registnum;
+	private String birth;
+	private String authCode;
+	
+	public String getId() {
+		return id;
 	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public String getUpw() {
-		return upw;
+	public String getPw() {
+		return pw;
 	}
-
-	public void setUpw(String upw) {
-		this.upw = upw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-
-	public String getUname() {
-		return uname;
+	public String getCname() {
+		return cname;
 	}
-
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setCname(String cname) {
+		this.cname = cname;
 	}
-
-	public int getUpoint() {
-		return upoint;
+	public String getPname() {
+		return pname;
 	}
-
-	public void setUpoint(int upoint) {
-		this.upoint = upoint;
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
-
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getRegistnum() {
+		return registnum;
+	}
+	public void setRegistnum(String registnum) {
+		this.registnum = registnum;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getAuthCode() {
+		return authCode;
+	}
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
 	@Override
 	public String toString() {
-		return "UserVO [uid=" + uid + ", upw=" + upw + ", uname=" + uname + ", upoint=" + upoint + "]";
+		return "UserVO [id=" + id + ", pw=" + pw + ", cname=" + cname + ", pname=" + pname + ", email=" + email
+				+ ", registnum=" + registnum + ", birth=" + birth + ", authCode=" + authCode + "]";
 	}
+	
+	
 }

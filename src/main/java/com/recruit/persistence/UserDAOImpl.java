@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 
@@ -23,23 +23,23 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public BoardVO login(LoginDTO dto) throws Exception {
+	public UserVO login(LoginDTO dto) throws Exception {
 
 		return session.selectOne(namespace + ".login", dto);
 	}
 
 	@Override
-	public BoardVO idoverlap(String id) throws Exception{
+	public UserVO idoverlap(String id) throws Exception{
 		return session.selectOne(namespace+".idoverlap", id);
 	}
 	
 	@Override
-	public void create(BoardVO vo) throws Exception {
+	public void create(UserVO vo) throws Exception {
 	  session.insert(namespace + ".create", vo);
 	}
 
 	@Override
-	public void Ccreate(BoardVO vo) throws Exception{
+	public void Ccreate(UserVO vo) throws Exception{
 		session.insert(namespace+".Ccreate", vo);
 	}
 	
@@ -59,21 +59,21 @@ public class UserDAOImpl implements UserDAO {
 
 	// loginCookie에 기록된 값으로 사용자의 정보를 조회하는 기능
 	@Override
-	public BoardVO checkUserWithSessionKey(String value) {
+	public UserVO checkUserWithSessionKey(String value) {
 
 		return session.selectOne(namespace + ".checkUserWithSessionKey", value);
 
 	}
 	
 	@Override
-	public void insertUser(BoardVO vo) throws Exception {
+	public void insertUser(UserVO vo) throws Exception {
 		session.insert(namespace +".insertUser", vo);
 	}
 
 	@Override
 	public void createAuthKey(String email, String authCode) throws Exception {
 		// TODO Auto-generated method stub
-		BoardVO vo = new BoardVO();
+		UserVO vo = new UserVO();
 		vo.setAuthCode(authCode);
 		vo.setEmail(email);
 
@@ -87,23 +87,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public BoardVO pread(LoginDTO dto) throws Exception{
+	public UserVO pread(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".pread", dto);
 	}
 	
 	@Override
-	public BoardVO cread(LoginDTO dto) throws Exception{
+	public UserVO cread(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".cread", dto);
 	}
 	
 	@Override
-	public BoardVO emailoverlap(String email) throws Exception{
+	public UserVO emailoverlap(String email) throws Exception{
 		return session.selectOne(namespace+".emailoverlap", email);
 	}
 
 	@Override
 	public void ppwchk(LoginDTO dto, String pw) throws Exception{
-		BoardVO vo = new BoardVO();
+		UserVO vo = new UserVO();
 		vo.setId(dto.getId());
 		vo.setEmail(dto.getEmail());
 		vo.setPname(dto.getPname());
@@ -113,7 +113,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public void cpwchk(LoginDTO dto, String pw) throws Exception{
-		BoardVO vo = new BoardVO();
+		UserVO vo = new UserVO();
 		vo.setId(dto.getId());
 		vo.setEmail(dto.getEmail());
 		vo.setCname(dto.getCname());
@@ -122,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public BoardVO getPw(LoginDTO dto) throws Exception{
+	public UserVO getPw(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".getPw", dto);
 	}
 	
@@ -132,17 +132,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public BoardVO userread(String id) throws Exception{
+	public UserVO userread(String id) throws Exception{
 		return session.selectOne(namespace+".userRead", id);
 	}
 	
 	@Override
-	public BoardVO getppw(LoginDTO dto) throws Exception{
+	public UserVO getppw(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".getppw", dto);
 	}
 	
 	@Override
-	public BoardVO getcpw(LoginDTO dto) throws Exception{
+	public UserVO getcpw(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace+".getcpw", dto);
 	}
 	

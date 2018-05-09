@@ -74,7 +74,7 @@
 <body>
 
 <%@include file="../include/jheader.jsp"%>
-<%@ page import = "com.recruit.domain.BoardVO" %>
+<%@ page import = "com.recruit.domain.UserVO" %>
 
 <%
 	try{

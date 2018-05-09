@@ -115,7 +115,7 @@
 					</tr>
 <%-- 					<tr>
 						<th class="table-active col-lg-2" scope="row" style="text-align: center;">담당자</th>
-						<td class="table-activec col-lg-4">${boardVO.pname}</td>
+						<td class="table-activec col-lg-4">${UserVO.pname}</td>
 						<th class="table-active col-lg-2" scope="row" style="text-align: center;">담당자 전화번호</th>
 						<td class="table-activec col-lg-4">${CInfoVO.phone}</td>
 					</tr> --%>

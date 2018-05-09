@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.recruit.mapper.adminMapper">
 
-	<select id="read" resultType="BoardVO">
+	<select id="read" resultType="UserVO">
 	select
 		id, pname, email, birth, authCode
 	from
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from tbluser where id = #{id}
 	</delete>
 
-	<select id="listAll" resultType="BoardVO">
+	<select id="listAll" resultType="UserVO">
 	<![CDATA[
 	select
 		id, pname, email, birth
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<select id="listCriteria" resultType="BoardVO">
+	<select id="listCriteria" resultType="UserVO">
 	<![CDATA[
 	select
 		id, pname, email, birth
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>	
 	</select>
 
-	<select id="listPage" resultType="BoardVO">
+	<select id="listPage" resultType="UserVO">
 	<![CDATA[
 	select
 		id, pname, email, birth
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<select id="listSearch" resultType="BoardVO">
+	<select id="listSearch" resultType="UserVO">
 	<![CDATA[
 	select *
 	from
@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<select id="aread" resultType="BoardVO">
+	<select id="aread" resultType="UserVO">
 	select
 		id, pw, pname, email, birth
 	from

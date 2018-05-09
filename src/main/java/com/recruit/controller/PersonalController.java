@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
@@ -126,7 +126,7 @@ public class PersonalController {
 		logger.info("index GET, 개인정보 확인");
 
 		// j.code 세션수정03/21
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			System.out.println("아이디 출력 해봅니다. : " + id);
@@ -152,7 +152,7 @@ public class PersonalController {
 
 		System.out.println("leave GET, 회원탈퇴");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -171,7 +171,7 @@ public class PersonalController {
 
 		System.out.println("leave POST, 회원탈퇴");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			service.leavePUser(id);
@@ -190,7 +190,7 @@ public class PersonalController {
 		// 수정하는 페이지
 
 		// j.code 세션수정03/21
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("PUserVO", service.selectPUser(id));
@@ -219,7 +219,7 @@ public class PersonalController {
 			throws Exception {
 		logger.info("index POST, 개인정보 수정");
 		ResponseEntity<String> entity = null;
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		try {
 			if (passwordEncoder.matches(PUser.getPw(), login.getPw())) {
@@ -250,7 +250,7 @@ public class PersonalController {
 		System.out.println("manage GET Controller");
 
 		// j.code 세션수정03/21
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
@@ -268,7 +268,7 @@ public class PersonalController {
 		System.out.println("write GET controller");
 
 		// j.code 세션수정03/21
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("ResumeVOList", Rservice.selectRList(id));
@@ -316,7 +316,7 @@ public class PersonalController {
 	public String modifyGET(int bno, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		// j.code 세션수정03/21
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			if (id.equals(Rservice.readROne(bno).getUserid())) {
@@ -369,7 +369,7 @@ public class PersonalController {
 	public String detail_nonaviGET(int bno, Model model, HttpSession session, RedirectAttributes rttr)
 			throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			// Apply
@@ -425,7 +425,7 @@ public class PersonalController {
 	public String detail_nonavi_exceptionGET(int bno, Model model, HttpSession session, RedirectAttributes rttr)
 			throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			model.addAttribute("bno", bno);
@@ -443,7 +443,7 @@ public class PersonalController {
 		// 수정하는 페이지
 		System.out.println("Rmodify GET Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			puser.setId(id);
@@ -506,7 +506,7 @@ public class PersonalController {
 	public String recomGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("recom GET Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -551,7 +551,7 @@ public class PersonalController {
 	public String recomGET_developer(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("recom_developer Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -600,7 +600,7 @@ public class PersonalController {
 
 		ResponseEntity<String> entity = null;
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -658,7 +658,7 @@ public class PersonalController {
 	// 관심채용공고
 	@RequestMapping(value = "/favor_all", method = RequestMethod.GET)
 	public String favorGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -688,7 +688,7 @@ public class PersonalController {
 	// 관심채용공고
 	@RequestMapping(value = "/favor_ongoing", method = RequestMethod.GET)
 	public String favor_ongoingGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -717,7 +717,7 @@ public class PersonalController {
 	// 관심채용공고
 	@RequestMapping(value = "/favor_closed", method = RequestMethod.GET)
 	public String favor_closedGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -748,7 +748,7 @@ public class PersonalController {
 	@RequestMapping(value = "/applied_all", method = RequestMethod.GET)
 	public String appliedGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -779,7 +779,7 @@ public class PersonalController {
 	@RequestMapping(value = "/applied_ongoing", method = RequestMethod.GET)
 	public String applied_ongoingGET(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -810,7 +810,7 @@ public class PersonalController {
 	@RequestMapping(value = "/applied_closed", method = RequestMethod.GET)
 	public String appliedGET_closed(HttpSession session, PersonalCriteriaVO cri, RedirectAttributes rttr, Model model, String order_value) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 
@@ -1029,7 +1029,7 @@ public class PersonalController {
 			throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();
@@ -1048,7 +1048,7 @@ public class PersonalController {
 			throws Exception {
 		System.out.println("deleteOneResume POST Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();

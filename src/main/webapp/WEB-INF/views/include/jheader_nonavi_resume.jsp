@@ -2,17 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import="com.recruit.domain.BoardVO"%>
+<%@ page import="com.recruit.domain.UserVO"%>
 
 
 <%
 	String id = "";
-	BoardVO login = null;
+UserVO login = null;
 	String cname = "";
 	String location = "";
 
 	try {
-		login = (BoardVO) session.getAttribute("login");
+		login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			id = login.getId();
 			cname = login.getCname();

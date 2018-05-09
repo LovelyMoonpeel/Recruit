@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.RecruitVO;
 import com.recruit.persistence.AdCompanyDAO;
 import com.recruit.persistence.UserDAO;
@@ -23,24 +23,24 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	private AdCompanyDAO dao;
 	
 	@Override
-	public BoardVO read(String id) throws Exception {
+	public UserVO read(String id) throws Exception {
 		return dao.read(id);
 	}
 
 	@Transactional
 	@Override
-	public void modify(BoardVO vo) throws Exception {
+	public void modify(UserVO vo) throws Exception {
 		dao.update(vo);
 		dao.cnameupdate(vo);
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
+	public List<UserVO> listAll() throws Exception {
 		return dao.listAll();
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<UserVO> listCriteria(AdminCriteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
 
@@ -50,7 +50,7 @@ public class AdCompanyServiceImpl implements AdCompanyService {
 	}
 
 	@Override
-	public List<BoardVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
+	public List<UserVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 

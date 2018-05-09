@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CPersonInfoVO;
 import com.recruit.domain.CompanyCriteria;
 import com.recruit.domain.CompanyPageMaker;
@@ -134,7 +134,7 @@ public class CompanyAjax {
 		
 		ResponseEntity<List<Object>> entity = null;
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		
 		String id = login.getId();
 		try {
@@ -174,7 +174,7 @@ public class CompanyAjax {
 	@RequestMapping(value = "/favorDeleteRestart/{bno}",method = RequestMethod.GET)
 	public String faverDeleteRestart(HttpSession session, @PathVariable("bno") int bno,  RedirectAttributes rttr) throws Exception{
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		
 		if (login != null) {
 			
@@ -196,7 +196,7 @@ public class CompanyAjax {
 	@RequestMapping(value ="endRecruit/{bno}",method = RequestMethod.POST)
 	public void endRecruit(@PathVariable("bno") int bno, HttpSession session, RedirectAttributes rttr)throws Exception{
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String id = login.getId();
 		
 		service.endRecruit(bno, id);
@@ -206,7 +206,7 @@ public class CompanyAjax {
 	public void reRegister(@PathVariable("bno") int bno, @PathVariable("day") int day, HttpSession session,
 			RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();
@@ -311,7 +311,7 @@ public class CompanyAjax {
 			cri.setPerPageNum(Integer.parseInt(perPageNum));
 		}
 	
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		ResponseEntity<List<Object>> entity = null;
 		
 		if (login != null) {
@@ -373,7 +373,7 @@ public class CompanyAjax {
 		ResponseEntity<String> entity = null;
 
 		// 문> login에 있는 pw값을 데리고 오기 위함. 거기에 있는 pw값과 사용자에게 확인 차 입력받은 비번을 비교하려고.
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		System.out.println("★ login에는 어떤 정보가 들어있냐? " + login);
 		System.out.println("★ login의 pw는 무슨 값이냐? " + login.getPw());

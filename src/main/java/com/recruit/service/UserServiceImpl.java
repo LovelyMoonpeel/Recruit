@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 import com.recruit.persistence.UserDAO;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
 	@Override
-	public BoardVO login(LoginDTO dto) throws Exception {
+	public UserVO login(LoginDTO dto) throws Exception {
 		String pw = ""; //디비값
 		String rawPw = "";  //입력받은 값
 		if(dao.getId(dto) != null){
@@ -48,14 +48,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public BoardVO idoverlap(String id) throws Exception {
+	public UserVO idoverlap(String id) throws Exception {
 		return dao.idoverlap(id);
 	}
 
 	@Async
 	@Transactional
 	@Override
-	public void pregist(BoardVO board) throws Exception {
+	public void pregist(UserVO board) throws Exception {
 		String encPassword = passwordEncoder.encode(board.getPw());
 		board.setPw(encPassword);
 		
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService{
 	@Async
 	@Transactional
 	@Override
-	public void cregist(BoardVO board) throws Exception {
+	public void cregist(UserVO board) throws Exception {
 		String encPassword = passwordEncoder.encode(board.getPw());
 		board.setPw(encPassword);
 		
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService{
 
 	// 문> 과거에 접속한 사용자인지 확인
 	@Override
-	public BoardVO checkLoginBefore(String value) {
+	public UserVO checkLoginBefore(String value) {
 
 		return dao.checkUserWithSessionKey(value);
 	}
@@ -126,17 +126,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public BoardVO pread(LoginDTO dto) throws Exception {
+	public UserVO pread(LoginDTO dto) throws Exception {
 		return dao.pread(dto);
 	}
 
 	@Override
-	public BoardVO cread(LoginDTO dto) throws Exception {
+	public UserVO cread(LoginDTO dto) throws Exception {
 		return dao.cread(dto);
 	}
 	
 	@Override
-	public BoardVO emailoverlap(String email) throws Exception {
+	public UserVO emailoverlap(String email) throws Exception {
 		return dao.emailoverlap(email);
 	}
 	
@@ -185,17 +185,17 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public BoardVO userread(String id) throws Exception{
+	public UserVO userread(String id) throws Exception{
 		return dao.userread(id);
 	}
 	
 	@Override
-	public BoardVO getppw(LoginDTO dto) throws Exception{
+	public UserVO getppw(LoginDTO dto) throws Exception{
 		return dao.getppw(dto);
 	}
 	
 	@Override
-	public BoardVO getcpw(LoginDTO dto) throws Exception{
+	public UserVO getcpw(LoginDTO dto) throws Exception{
 		return dao.getcpw(dto);
 	}
 	

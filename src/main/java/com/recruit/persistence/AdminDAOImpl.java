@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.StatisticVO;
 
 @Repository
@@ -21,12 +21,12 @@ public class AdminDAOImpl implements AdminDAO {
 	private static String namespace = "com.recruit.mapper.adminMapper";
 
 	@Override
-	public BoardVO read(String id) throws Exception {
+	public UserVO read(String id) throws Exception {
 		return session.selectOne(namespace + ".read", id);
 	}
 
 	@Override
-	public void update(BoardVO vo) throws Exception {
+	public void update(UserVO vo) throws Exception {
 		session.update(namespace + ".update", vo);
 	}
 
@@ -36,17 +36,17 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
+	public List<UserVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<UserVO> listCriteria(AdminCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 
 	@Override
-	public List<BoardVO> listPage(int page) throws Exception {
+	public List<UserVO> listPage(int page) throws Exception {
 		if (page <= 0) {
 			page = 1;
 		}
@@ -61,7 +61,7 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<BoardVO> listSearch(AdminSearchCriteria cri) throws Exception {
+	public List<UserVO> listSearch(AdminSearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 
@@ -71,17 +71,17 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public BoardVO aread() throws Exception {
+	public UserVO aread() throws Exception {
 		return session.selectOne(namespace + ".aread");
 	}
 
 	@Override
-	public void aupdate(BoardVO vo) throws Exception {
+	public void aupdate(UserVO vo) throws Exception {
 		session.update(namespace + ".aupdate", vo);
 	}
 	
 	@Override
-	public String readpw(BoardVO vo) throws Exception{
+	public String readpw(UserVO vo) throws Exception{
 		return session.selectOne(namespace + ".readpw", vo);
 	}
 	
@@ -121,7 +121,7 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
-	public void emailauth(BoardVO vo) throws Exception{
+	public void emailauth(UserVO vo) throws Exception{
 		session.update(namespace+".emailauth", vo);
 	}
 	

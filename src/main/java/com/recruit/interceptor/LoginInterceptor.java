@@ -11,7 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
@@ -25,20 +25,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 
 		ModelMap modelMap = modelAndView.getModelMap();
-		Object boardVO = modelMap.get("boardVO");
-		//System.out.println("인터셉터 들어오니 ? "+boardVO);
+		Object UserVO = modelMap.get("UserVO");
+		//System.out.println("인터셉터 들어오니 ? "+UserVO);
 
-		if (boardVO != null) {
+		if (UserVO != null) {
 
 			logger.info("new login success");
 			
 			
-			session.setAttribute(LOGIN, boardVO);
+			session.setAttribute(LOGIN, UserVO);
 	
 			if (request.getParameter("useCookie")!= null&&request.getParameter("useCookie").equals("on")) {
 
 				logger.info("remember me................");
-				BoardVO login = (BoardVO)session.getAttribute("login");
+				UserVO login = (UserVO)session.getAttribute("login");
 				if(login.getCname()==null){
 					Cookie PloginCookie = new Cookie("PloginCookie", login.getId());
 					PloginCookie.setPath("/");

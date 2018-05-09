@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.dto.LoginDTO;
 import com.recruit.service.UserService;
 
@@ -40,7 +40,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@RequestParam("location") String location ,HttpServletRequest request, LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		BoardVO vo = service.login(dto);
+		UserVO vo = service.login(dto);
 		
 		if (vo == null) {
 			rttr.addFlashAttribute("msg", "login_fail");
@@ -65,7 +65,7 @@ public class UserController {
 		}
 		
 		
-		model.addAttribute("boardVO", vo); 
+		model.addAttribute("UserVO", vo); 
 
 		if (dto.isUseCookie()) {
 
@@ -119,7 +119,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/joinPost", method = RequestMethod.POST)
-	public String joinPost(BoardVO board, RedirectAttributes rttr) throws Exception {
+	public String joinPost(UserVO board, RedirectAttributes rttr) throws Exception {
 
 		logger.info("regist post ...........");
 		logger.info(board.toString());
@@ -137,7 +137,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/idoverlap", method = RequestMethod.POST)
-	public ResponseEntity<String> Idoverlap(@RequestBody BoardVO board) throws Exception {
+	public ResponseEntity<String> Idoverlap(@RequestBody UserVO board) throws Exception {
 		ResponseEntity<String> entity = null;
 		
 		try{
@@ -155,7 +155,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/emailoverlap", method = RequestMethod.POST)
-	public ResponseEntity<String> Emailoverlap(@RequestBody BoardVO board) throws Exception {
+	public ResponseEntity<String> Emailoverlap(@RequestBody UserVO board) throws Exception {
 		ResponseEntity<String> entity = null;
 		
 		try{
@@ -182,7 +182,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/IDsearch", method = RequestMethod.GET)
 	public String IDsearchGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if(login!=null){
 			rttr.addFlashAttribute("msg", "fail");
 			return "redirect:/";
@@ -215,7 +215,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/PWsearch", method = RequestMethod.GET)
 	public String PWsearchGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if(login!=null){
 			rttr.addFlashAttribute("msg", "fail");
 			return "redirect:/";

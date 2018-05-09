@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
@@ -84,7 +84,7 @@ public class CompanyServiceImpl implements CompanyService {
 	 
 	 @Transactional
 	 @Override
-	 public RecruitVO RecruitInfoRead(int recruitNum,BoardVO login) throws Exception{
+	 public RecruitVO RecruitInfoRead(int recruitNum,UserVO login) throws Exception{
 
 		
 		 if(login.getCname()==null){

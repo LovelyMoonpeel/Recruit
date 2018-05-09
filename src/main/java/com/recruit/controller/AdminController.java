@@ -31,7 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.AdminPageMaker;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
@@ -138,14 +138,14 @@ public class AdminController {
 	@RequestMapping(value = "/pmodify", method = RequestMethod.GET)
 	public String modifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
-		model.addAttribute("BoardVO", aservice.read(id));
+		model.addAttribute("UserVO", aservice.read(id));
 		model.addAttribute("reslist", rservice.selectRList(id));
 		
 		return "/admin/A_pmodify";
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
-	public String modifyPOST(MessageVO msvo, BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(MessageVO msvo, UserVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -181,12 +181,12 @@ public class AdminController {
 
 	@RequestMapping(value = "/amodify", method = RequestMethod.GET)
 	public String amodifyGET(Model model) throws Exception {
-		model.addAttribute("BoardVO", aservice.aread());
+		model.addAttribute("UserVO", aservice.aread());
 		return "/admin/A_amodify";
 	}
 
 	@RequestMapping(value = "/A_amodify", method = RequestMethod.POST)
-	public String amodifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
+	public String amodifyPOST(UserVO vo, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -330,7 +330,7 @@ public class AdminController {
 	@RequestMapping(value = "/cmodify", method = RequestMethod.GET)
 	public String cmodifyGET(@RequestParam("id") String id, @ModelAttribute("cri") AdminSearchCriteria cri, Model model)
 			throws Exception {
-		model.addAttribute("BoardVO", cservice.read(id));
+		model.addAttribute("UserVO", cservice.read(id));
 		model.addAttribute("recruitList", pservice.RecruitList(id));
 		model.addAttribute("CInfoVO", pservice.CompanyInfoRead(id));
 		
@@ -338,7 +338,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
-	public String cmodifyPOST(MessageVO msvo, BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String cmodifyPOST(MessageVO msvo, UserVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
 		logger.info("cmodify post...........");
@@ -651,7 +651,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/emailAuth", method = RequestMethod.PUT)
-	public ResponseEntity<String> Pemailauth(@RequestBody BoardVO vo){
+	public ResponseEntity<String> Pemailauth(@RequestBody UserVO vo){
 		ResponseEntity<String> entity = null;
 		try{
 			aservice.emailauth(vo);

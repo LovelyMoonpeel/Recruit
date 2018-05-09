@@ -3,49 +3,49 @@ package com.recruit.persistence;
 import java.util.Date;
 import java.util.List;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.dto.LoginDTO;
 
 public interface UserDAO {
 
-	public BoardVO login(LoginDTO dto) throws Exception;
+	public UserVO login(LoginDTO dto) throws Exception;
 
-	public BoardVO idoverlap(String id) throws Exception;
+	public UserVO idoverlap(String id) throws Exception;
 	
-	public void create(BoardVO vo)throws Exception;
+	public void create(UserVO vo)throws Exception;
 
-	public void Ccreate(BoardVO vo) throws Exception;
+	public void Ccreate(UserVO vo) throws Exception;
 	
 	public void keepLogin(String id, String sessionId, Date next);
 
-	public BoardVO checkUserWithSessionKey(String value);
+	public UserVO checkUserWithSessionKey(String value);
 	
-	public void insertUser(BoardVO vo) throws Exception;
+	public void insertUser(UserVO vo) throws Exception;
 	
 	public void createAuthKey(String email, String authCode) throws Exception;
 	
 	public void userAuth(String email) throws Exception;
 	
-	public BoardVO pread(LoginDTO dto) throws Exception;
+	public UserVO pread(LoginDTO dto) throws Exception;
 	
-	public BoardVO cread(LoginDTO dto) throws Exception;
+	public UserVO cread(LoginDTO dto) throws Exception;
 	
-	public BoardVO emailoverlap(String email) throws Exception;
+	public UserVO emailoverlap(String email) throws Exception;
 	
 	public void ppwchk(LoginDTO dto, String pw) throws Exception;
 	
 	public void cpwchk(LoginDTO dto, String pw) throws Exception;
 	
-	public BoardVO getPw(LoginDTO dto) throws Exception;
+	public UserVO getPw(LoginDTO dto) throws Exception;
 	
 	public String getId(LoginDTO dto) throws Exception;
 	
-	public BoardVO userread(String id) throws Exception;
+	public UserVO userread(String id) throws Exception;
 	
-	public BoardVO getppw(LoginDTO dto) throws Exception;
+	public UserVO getppw(LoginDTO dto) throws Exception;
 	
-	public BoardVO getcpw(LoginDTO dto) throws Exception;
+	public UserVO getcpw(LoginDTO dto) throws Exception;
 	
 	public int countURmessage(String id)throws Exception;//소연
 	

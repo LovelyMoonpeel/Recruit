@@ -78,8 +78,8 @@
 			<tr>
 				<th>ID</th>
 				<td>
-					<input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly>
-					<input type="hidden" name="userid" value="${BoardVO.id}">
+					<input class="form-control" type="text" id="userid" name="id" value="${UserVO.id}" readonly>
+					<input type="hidden" name="userid" value="${UserVO.id}">
 				</td>
 			</tr>
 			<tr>
@@ -94,7 +94,7 @@
 	  				 		id="PWOKIcon" aria-hidden="true" style="visibility:hidden"></span> 
 	            	</div>
 				<%-- <input class="form-control" type="password" name="pw" id="pw"
-					placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required> --%>
+					placeholder="변경할 비밀번호를 입력하세요." value="${UserVO.pw}" required> --%>
 				</td>
 			</tr>
 			<tr>
@@ -115,11 +115,11 @@
 			</tr>
 			<tr>
 				<th>회사명</th>
-				<td><input class="form-control" type="text" name="cname" value="${BoardVO.cname}"></td>
+				<td><input class="form-control" type="text" name="cname" value="${UserVO.cname}"></td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${UserVO.pname}" required></td>
 			</tr>
 			<%-- <tr>
 				<th>담당자 연락처</th>
@@ -128,18 +128,18 @@
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${BoardVO.email}" required></td>
+					value="${UserVO.email}" required></td>
 			</tr>
 			<tr>
 				<th>사업자등록번호</th>
 				<td><input class="form-control" type="text" name="registnum"
-					value="${BoardVO.registnum}" required maxlength="10"></td>
+					value="${UserVO.registnum}" required maxlength="10"></td>
 			</tr>
 			<tr>
 				<th>이메일 인증</th>
 				<td>
 					<c:choose>
-					<c:when test="${BoardVO.authCode eq null}">
+					<c:when test="${UserVO.authCode eq null}">
 					<div id="authDiv">인증완료</div>
 					</c:when>
 					<c:otherwise>
@@ -282,7 +282,7 @@
 		<tr>
 			<td>${RecruitVO.bno}</td>
 			<td>${RecruitVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/rmodify?id=${BoardVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
+			<td><input type="button" onclick="location.href='/admin/rmodify?id=${UserVO.id}&bno=${RecruitVO.bno}'" value="채용공고수정"></td>
 		</tr>
 	</c:forEach>
 	</table>

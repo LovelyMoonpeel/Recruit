@@ -2,7 +2,7 @@ package com.recruit.service;
 
 import java.util.List;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CInterestPersonVO;
 import com.recruit.domain.CPersonInfoVO;
@@ -37,7 +37,7 @@ public interface CompanyService {
 	  
 	  public String ChangeCnameToId(String cname)throws Exception;
 	   
-	  public RecruitVO RecruitInfoRead(int recruitNum,BoardVO login) throws Exception;
+	  public RecruitVO RecruitInfoRead(int recruitNum,UserVO login) throws Exception;
 	  
 	  public RecruitVO RecruitInfoRead(int recruitNum) throws Exception;
 	  

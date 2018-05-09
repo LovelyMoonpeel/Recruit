@@ -27,8 +27,8 @@
 			<tr>
 				<th>ID</th>
 				<td>
-					<input class="form-control" type="text" id="userid" name="id" value="${BoardVO.id}" readonly>
-					<input type="hidden" name="userid" value="${BoardVO.id}">
+					<input class="form-control" type="text" id="userid" name="id" value="${UserVO.id}" readonly>
+					<input type="hidden" name="userid" value="${UserVO.id}">
 				</td>
 			</tr>
 			<tr>
@@ -42,7 +42,7 @@
 	  				 	<span class="glyphicon glyphicon-ok form-control-feedback" 
 	  				 		id="PWOKIcon" aria-hidden="true" style="visibility:hidden"></span> 
 	            	</div>
-				<%-- <input class="form-control" type="password" name="pw" id="pw" placeholder="변경할 비밀번호를 입력하세요." value="${BoardVO.pw}" required> --%>
+				<%-- <input class="form-control" type="password" name="pw" id="pw" placeholder="변경할 비밀번호를 입력하세요." value="${UserVO.pw}" required> --%>
 				</td>
 			</tr>
 			<tr>
@@ -62,18 +62,18 @@
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}" required></td>
+				<td><input class="form-control" type="text" name="pname" value="${UserVO.pname}" required></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${BoardVO.email}" required></td>
+					value="${UserVO.email}" required></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-					<input type="text" class="form-control" id="birth" name="birth" value="${BoardVO.birth}" required>
+					<input type="text" class="form-control" id="birth" name="birth" value="${UserVO.birth}" required>
 						<span class="input-group-addon">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</span>
@@ -84,7 +84,7 @@
 				<th>이메일 인증</th>
 				<td>
 					<c:choose>
-					<c:when test="${BoardVO.authCode eq null}">
+					<c:when test="${UserVO.authCode eq null}">
 					<div id="authDiv">인증완료</div>
 					</c:when>
 					<c:otherwise>

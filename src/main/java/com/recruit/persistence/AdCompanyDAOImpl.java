@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.RecruitVO;
 
 @Repository
@@ -21,32 +21,32 @@ public class AdCompanyDAOImpl implements AdCompanyDAO {
 	private static String namespace = "com.recruit.mapper.adcompanyMapper";
 
 	@Override
-	public BoardVO read(String id) throws Exception {
+	public UserVO read(String id) throws Exception {
 		return session.selectOne(namespace + ".read", id);
 	}
 
 	@Override
-	public void update(BoardVO vo) throws Exception {
+	public void update(UserVO vo) throws Exception {
 		session.update(namespace + ".update", vo);
 	}
 	
 	@Override
-	public void cnameupdate(BoardVO vo) throws Exception{
+	public void cnameupdate(UserVO vo) throws Exception{
 		session.update(namespace+".cnameupdate", vo);
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
+	public List<UserVO> listAll() throws Exception {
 		return session.selectList(namespace + ".listAll");
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<UserVO> listCriteria(AdminCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 
 	@Override
-	public List<BoardVO> listPage(int page) throws Exception {
+	public List<UserVO> listPage(int page) throws Exception {
 		if (page <= 0) {
 			page = 1;
 		}
@@ -61,7 +61,7 @@ public class AdCompanyDAOImpl implements AdCompanyDAO {
 	}
 
 	@Override
-	public List<BoardVO> listSearch(AdminSearchCriteria cri) throws Exception {
+	public List<UserVO> listSearch(AdminSearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 

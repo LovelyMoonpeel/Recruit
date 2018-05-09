@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.StatisticVO;
 import com.recruit.persistence.AdminDAO;
 
@@ -21,12 +21,12 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDAO dao;
 
 	@Override
-	public BoardVO read(String id) throws Exception {
+	public UserVO read(String id) throws Exception {
 		return dao.read(id);
 	}
 
 	@Override
-	public void modify(BoardVO vo) throws Exception {
+	public void modify(UserVO vo) throws Exception {
 		dao.update(vo);
 	}
 
@@ -36,12 +36,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
+	public List<UserVO> listAll() throws Exception {
 		return dao.listAll();
 	}
 
 	@Override
-	public List<BoardVO> listCriteria(AdminCriteria cri) throws Exception {
+	public List<UserVO> listCriteria(AdminCriteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
 
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<BoardVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
+	public List<UserVO> listSearchCriteria(AdminSearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 
@@ -61,17 +61,17 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public BoardVO aread() throws Exception {
+	public UserVO aread() throws Exception {
 		return dao.aread();
 	}
 
 	@Override
-	public void amodify(BoardVO vo) throws Exception {
+	public void amodify(UserVO vo) throws Exception {
 		dao.aupdate(vo);
 	}
 	
 	@Override
-	public String readpw(BoardVO vo) throws Exception{
+	public String readpw(UserVO vo) throws Exception{
 		return dao.readpw(vo);
 	}
 	
@@ -111,7 +111,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void emailauth(BoardVO vo) throws Exception{
+	public void emailauth(UserVO vo) throws Exception{
 		dao.emailauth(vo);
 	}
 	

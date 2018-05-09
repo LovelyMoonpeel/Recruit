@@ -22,7 +22,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<td><input class="form-control" type="text" name="id" value="${BoardVO.id}" readonly></td>
+				<td><input class="form-control" type="text" name="id" value="${UserVO.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
@@ -38,25 +38,25 @@
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input class="form-control" type="text" name="pname" value="${BoardVO.pname}"></td>
+				<td><input class="form-control" type="text" name="pname" value="${UserVO.pname}"></td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td><input class="form-control" type="text" name="email"
-					value="${BoardVO.email}"></td>
+					value="${UserVO.email}"></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control birth" id="birth" name="birth" value="${BoardVO.birth}" required>
+				<input type="text" class="form-control birth" id="birth" name="birth" value="${UserVO.birth}" required>
 				<span class="input-group-addon">
 				<i class="glyphicon glyphicon-calendar"></i>
 				</span>
 				</div>
 				</td>
 			</tr>
-			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${BoardVO.birth}" /> --%>
+			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${UserVO.birth}" /> --%>
 		</table>
 	</form>
 		<input type="submit" class="btn btn-warning" value="수정">

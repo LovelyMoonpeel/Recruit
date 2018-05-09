@@ -12,7 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
 import com.recruit.controller.AdminController;
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.service.UserService;
 
 
@@ -41,12 +41,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       if(loginCookie != null) { 
         System.out.println("로그인 쿠키 확인 : "+loginCookie);
     	
-        BoardVO boardVO = service.checkLoginBefore(loginCookie.getValue());
+        UserVO UserVO = service.checkLoginBefore(loginCookie.getValue());
         
-        logger.info("USERVO: " + boardVO);
+        logger.info("USERVO: " + UserVO);
         
-        if(boardVO != null){
-          session.setAttribute("login", boardVO);
+        if(UserVO != null){
+          session.setAttribute("login", UserVO);
           return true;
         }
         

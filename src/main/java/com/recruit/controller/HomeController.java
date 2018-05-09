@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.CsqnaService;
@@ -47,31 +47,12 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate);
-		return "home";
-	}
-
 	//장우
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String indexGET(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		return "search/S_index";
-	}
-
-	@RequestMapping(value = "/socket.io/", method = RequestMethod.GET)
-	public void in1dexTest(Locale locale, Model model) throws Exception {
-		
 	}
 
 	// 알림창 카운트 소연
@@ -83,7 +64,7 @@ public class HomeController {
 		
 		ResponseEntity<String> entity = null;
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			
@@ -109,7 +90,7 @@ public class HomeController {
 		
 		List<MessageVO> entity = null;
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			
@@ -138,7 +119,7 @@ public class HomeController {
 
 		logger.info("message GET CONTROLLER");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			
 			String id = login.getId();
@@ -146,10 +127,6 @@ public class HomeController {
 			
 			List<MessageVO> entity = new ArrayList<>();
 			entity = service.readAllmessage(id);//전체 메시지 불러오기//상위 5개
-			
-			System.out.println(entity);
-			System.out.println(Integer.parseInt(entity.get(0).getRcno()));
-			System.out.println(qService.selectQnAOne(Integer.parseInt(entity.get(0).getRcno())).getUser());
 			
 			if(id.equals("admin")){
 				for(int i=0;i<entity.size();i++){
@@ -184,7 +161,7 @@ public class HomeController {
 		//List<MessageVO> entity = null;
 		List<MessageVO> entity = new ArrayList<>();
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			
@@ -222,7 +199,7 @@ public class HomeController {
 		
 		ResponseEntity<String> entity = null;
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			

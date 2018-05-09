@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
@@ -67,7 +67,7 @@ public class CsController {
 	@RequestMapping(value = "/faqmod", method = RequestMethod.GET)
 	public String faqModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Modify Get..........");
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			if(id.equals("admin")){
@@ -122,7 +122,7 @@ public class CsController {
 	public String qnaRegisterGET(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("qna Register..........");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		
 		if (login != null) {
 			String id = login.getId();
@@ -154,7 +154,7 @@ public class CsController {
 	public String qnareadGET(@RequestParam("bno") Integer bno, HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("qna read..........");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String pw = "";
 		pw = qservice.read2(bno).getBpw();
 		
@@ -207,7 +207,7 @@ public class CsController {
 	public String qnaModifyGET(HttpSession session, RedirectAttributes rttr, @RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("qna Modify Get..........");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		
 		if (login != null) {
 			String id = login.getId();
@@ -240,7 +240,7 @@ public class CsController {
 	@RequestMapping(value="/S_qnaread/{bno}", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> bpw(@PathVariable("bno") Integer bno, HttpSession session){
 		ResponseEntity<String> entity = null;
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String result = "fail"; //반환해줄 결과값
 		try{
 			if(login != null){
@@ -261,7 +261,7 @@ public class CsController {
 		ResponseEntity<String> entity = null;
 		String result = "";
 		try{
-			BoardVO login = (BoardVO) session.getAttribute("login");
+			UserVO login = (UserVO) session.getAttribute("login");
 			if(login!=null){
 				if(!login.getId().equals("admin")){
 					result = qservice.modread(bno).getBpw();
@@ -291,7 +291,7 @@ public class CsController {
 	public String faqRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		logger.info("faq Register..........");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			if(id.equals("admin")){
@@ -343,7 +343,7 @@ public class CsController {
 
 	@RequestMapping(value = "/noticemod", method = RequestMethod.GET)
 	public String noticeModifyGET(@RequestParam("bno") Integer bno, Model model,HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			if(id.equals("admin")){
@@ -379,7 +379,7 @@ public class CsController {
 	
 	@RequestMapping(value = "/noticereg", method = RequestMethod.GET)
 	public String noticeRegisterGET(Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			if(id.equals("admin")){

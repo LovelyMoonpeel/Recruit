@@ -40,7 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.recruit.domain.BoardVO;
+import com.recruit.domain.UserVO;
 import com.recruit.domain.CInfoVO;
 import com.recruit.domain.CRecruitVO;
 import com.recruit.domain.CompanyPageMaker;
@@ -105,7 +105,7 @@ public class CompanyController {
 	public String read(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		// String pw = login.getPw();
 
 		if (login != null) {
@@ -147,7 +147,7 @@ public class CompanyController {
 	public String modifyGET(HttpSession session, HttpServletRequest request, RedirectAttributes rttr, Model model)
 			throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -170,7 +170,7 @@ public class CompanyController {
 
 		System.out.println(CInfo.getImg());
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -292,7 +292,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_write", method = RequestMethod.GET) // 채용공고 작성
 	public String writeGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -322,7 +322,7 @@ public class CompanyController {
 	public String writePOST(RecruitVO writeRecruit, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		System.out.println("여기" +writeRecruit);
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String id = login.getId();
 		logger.info("write Register..........");
 		writeRecruit.setCid(id);
@@ -341,7 +341,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_recruitExtension", method = RequestMethod.GET)
 	public void recruitExtension(HttpSession session, int bno, Model model, RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			/*
@@ -363,7 +363,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_recruitModify", method = RequestMethod.GET) // 채용공고
 	public String C_recruitModfiy(HttpSession session, RedirectAttributes rttr, int bno, Model model) throws Exception { // 채용공고
 																															// 수정
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -411,7 +411,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_manage", method = RequestMethod.GET) // 채용공고 관리
 	public String manage(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model,
 			RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		if (login != null) {
 			String id = login.getId();
 			CompanyPageMaker pageMaker = new CompanyPageMaker();
@@ -433,7 +433,7 @@ public class CompanyController {
 	public String readRecom(@ModelAttribute("cri") CompanySearchCriteria cri, HttpSession session, Model model,
 			RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -473,7 +473,7 @@ public class CompanyController {
 	@RequestMapping(value = "C_favor", method = RequestMethod.GET) // 관심인재 리스트
 	public String readfavor(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			if (login.getCname() == null) {
@@ -495,7 +495,7 @@ public class CompanyController {
 
 	@RequestMapping(value = "C_info", method = RequestMethod.GET) // 개인이 보는 기업정보
 	public String C_info(HttpSession session, int recruitNum, Model model, RedirectAttributes rttr) throws Exception {
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 
@@ -549,7 +549,7 @@ public class CompanyController {
 	public String readRecruitMent(HttpSession session, RedirectAttributes rttr, int recruitNum, Model model)
 			throws Exception {
 		// 안소연 수정
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		String adddesc = service.RecruitInfoRead2(recruitNum).getAdddesc();
 		String adddesc2 = adddesc.replace("<", "&lt;");
@@ -586,7 +586,7 @@ public class CompanyController {
 	public String applynowPOST(HttpSession session, ResumeVO resume, int recruitNum, Model model,
 			RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 		String cid = service.RecruitInfoRead2(recruitNum).getCid();
 		Integer bno = resume.getBno();
 
@@ -643,7 +643,7 @@ public class CompanyController {
 			throws Exception {
 
 		// 문> login을 데리고 와서
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		// 문> login이 null이 아니면, 즉, 로그인 되어 있으면 진행
 		if (login != null) {
@@ -675,8 +675,8 @@ public class CompanyController {
 	public String pass2(String pw2, LoginDTO dto, HttpSession session, Model model, HttpServletRequest request,
 			RedirectAttributes rttr) throws Exception {
 
-		// 문> BoardVO(회원가입시 받은 정보)의 login 정보를 데리고 온다.
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		// 문> UserVO(회원가입시 받은 정보)의 login 정보를 데리고 온다.
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		System.out.println("★★★★★★");
 		// 문> 가지고 온 login값에서 id값을 LoginDTO에 넣어주겠다.
@@ -717,7 +717,7 @@ public class CompanyController {
 	@RequestMapping(value = "/C_recruitRemove", method = RequestMethod.GET) // 채용공고
 	public String remove(@RequestParam("bno") int bno, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 	         if (login.getCname() == null){
@@ -808,7 +808,7 @@ public class CompanyController {
 			throws Exception {
 		System.out.println("deleteResumeList POST Controller");
 
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();
@@ -831,7 +831,7 @@ public class CompanyController {
 	public String leaveGET(Model model, HttpSession session) throws Exception {
 		System.out.println("leave");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			String id = login.getId();
@@ -848,7 +848,7 @@ public class CompanyController {
 	public String leavePOST(String id, HttpSession session) throws Exception {
 		System.out.println("leave2");
 		
-		BoardVO login = (BoardVO) session.getAttribute("login");
+		UserVO login = (UserVO) session.getAttribute("login");
 
 		if (login != null) {
 			System.out.println("id"+id);
