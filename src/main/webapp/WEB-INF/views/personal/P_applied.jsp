@@ -72,14 +72,14 @@
 					<td style="text-align: center; vertical-align: middle">${CRecruitVO.recruitform}</td>
 					<td style="text-align: center; vertical-align: middle"><a
 						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'
-						onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1000, height=960'); return false;">${CRecruitVO.bno}
+						onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1100, height=960'); return false;">${CRecruitVO.bno}
 							: ${CRecruitVO.title}</a></td>
 					<td style="text-align: center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 					<td style="text-align: center; vertical-align: middle"><span
 						class="badge badge-pill">${CRecruitVO.adddesc}</span></td>
 					<td style="text-align: center; vertical-align: middle"><a
 						href='/personal/detail_nonavi?bno=${CRecruitVO.viewcnt}'
-						onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=1000, height=960'); return false;"><span
+						onClick="window.open(this.href, 'R${CRecruitVO.viewcnt}', 'width=850, height=960'); return false;"><span
 							class="badge badge-pill badge-success">내이력서</span></a></td>
 					<td style="text-align: center; vertical-align: middle"><span
 						class="creadornot badge badge-pill">${CRecruitVO.creadornot}</span>

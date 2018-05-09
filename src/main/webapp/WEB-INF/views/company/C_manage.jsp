@@ -635,7 +635,7 @@ var formObj = $("form[role='form']");
 	
 	$(document).on("click","#nw",function(){
 
-		window.open(this.href, '', 'width=1240, height=960'); 
+		window.open(this.href, '', 'width=1100, height=960'); 
 		
 		return false;
 			
@@ -734,7 +734,7 @@ $(document).on("click","span[name='qIcons']",function(){
 	
 	var bno = $(this).attr("value");
 	
-	window.open('C_recruitMent?recruitNum='+bno+'#questionCall', '', 'width=1000, height=960')
+	window.open('C_recruitMent?recruitNum='+bno+'#questionCall', '', 'width=1100, height=960')
 	
 })
 
@@ -766,15 +766,6 @@ function endFunction(bno){ /* 공고 마감 버튼 */
 		return false;
 	}	
 }
-</script>
-	
-<script>
-$(document).on("click", "#aP", function(){
-	
-	window.open(this.href, '', 'width=1000, height=960');
-	
-	return false;
-})
 </script>
 <script> /* 모달용 스크립트 */
 $(document).on("click", "button[name=onLoad]", function() {
@@ -866,7 +857,7 @@ $(document).on("click","#btt",function(){ /* 이력서 새창에 보기위해 �
 	var userid = '<%=id%>';
 	C_readAPR(rsno, rcno, userid);
 	
-	window.open(this.href, '', 'width=1000, height=960'); 
+	window.open(this.href, '', 'width=850, height=960'); 
 	return false;
 		
 });

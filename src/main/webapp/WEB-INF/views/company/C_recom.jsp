@@ -78,8 +78,6 @@
 			<th style="text-align: center">인재보기</th>
 			
 		</tr>
-		
-
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
@@ -88,10 +86,7 @@
 					<th style="text-align: center">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
 					<th style="text-align: center"><button class="btn btn-default" name="onLoad" style="width:100%" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
-					
-
 						</c:forEach>
-		
 	</table>
 	
 	
@@ -422,7 +417,15 @@ $(document).ready(
 <script>
 		$(document).on("click","#gR",function(){
 
-			window.open(this.href, '', 'width=1240, height=960'); 
+			window.open(this.href, '', 'width=1100, height=960'); 
+			
+			return false;
+				
+		})
+		
+		$(document).on("click","#btt",function(){
+
+			window.open(this.href, '', 'width=850, height=960'); 
 			
 			return false;
 				
