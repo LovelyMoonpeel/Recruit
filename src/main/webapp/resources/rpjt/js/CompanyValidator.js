@@ -144,7 +144,7 @@
 		}
 
 
-		if($("input[type=radio][name='recruitnum']:checked").val()==undefined){ /* 모집인원 유효성 검사 */
+		if($("input[type=radio][name='recruitnum']:checked").val()==undefined && urlName=='C_write'){ /* 모집인원 유효성 검사 */
 					
 			$("#recruitnumTxt").css("color","#a94442")
 			$("#recruitnumXIcon").css("display","");

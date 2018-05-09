@@ -8,18 +8,18 @@
 <%@include file="../include/cheader.jsp"%>
 
 <!-- Include dependencies -->
-<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.css" /> -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.css" />
+<!-- Include date range picker plugin -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css" />
  
- <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<!--  <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+기존 한글 datePicker -->
 
-<!-- Include date range picker plugin -->
-<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css" />
- -->
 <style>
  
 r{
@@ -309,11 +309,11 @@ $(function () {
 				<div style="padding:15px 15px 15px 0px;">
 				
 				<div id="numChk">
-				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1" style="cursor:pointer">&nbsp;<h5>&nbsp;1명</h5></label>
-				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2" style="cursor:pointer">&nbsp;<h5>&nbsp;2명</h5></label>
-				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3" style="cursor:pointer">&nbsp;<h5>&nbsp;3명</h5></label>
-				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4" style="cursor:pointer">&nbsp;<h5>&nbsp;4명</h5></label>
-				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />&nbsp;명
+				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1" style="cursor:pointer">&nbsp;<font style="font-size:15px">1명</font></label>
+				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2" style="cursor:pointer">&nbsp;<font style="font-size:15px">2명</font></label>
+				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3" style="cursor:pointer">&nbsp;<font style="font-size:15px">3명</font></label>
+				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4" style="cursor:pointer">&nbsp;<font style="font-size:15px">4명</font></label>
+				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" /><font style="font-size:15px">명</font>
 				</div>
 				
 				</div>
@@ -523,13 +523,21 @@ $(function () {
 							</span>
 						</div> -->
 						
+						<div class="form-inline">
 						
-						<div class="form-group" style="vertical-align:middle;">
-						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+							<div class=input-group style="vertical-align:middle;">
+								<input type="text" class="form-control" id="startPicker" name="periodstart" style="width:150px;">
+								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>	
+								</span>
+							</div>
+							~ 
+							<div class="input-group" style="vertical-align:middle;">
+						<input type="text" class="form-control" id="endPicker" name="period" style="width:150px;"/>  
+						<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
-					</div>
+						
+						</div>
 					<!-- </div> -->
 					
 				</td>
@@ -543,8 +551,8 @@ $(function () {
 				
 				
 				
-				<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<h5>&nbsp;홈페이지접수</h5></label>&nbsp;
-				<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원"><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<h5>&nbsp;즉시지원</h5></label>
+				<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<font style="font-size:14px">홈페이지접수</font></label>&nbsp;
+				<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원"><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<font style="font-size:14px">즉시지원</font></label>
 			
 			</div>
 				</td>
@@ -553,11 +561,10 @@ $(function () {
 		
 
 		</table>
-		<!-- 
-		// Button element the date range picker is applied to
-<button id="picker" class="btn btn-primary"><span class="date"></span> <span class="caret"></span></button>
-<input type="text" id="picker" name="startPicker"/>
-<input type="text" id="pp"/>  -->
+		
+		
+<!-- <button id="picker" class="btn btn-primary"><span class="date"></span> <span class="caret"></span></button> -->
+
 		<br>
 		<br>
 		<p class="lead">
@@ -567,9 +574,10 @@ $(function () {
 		
 		<div style="text-center; border: solid 1px black; border-color: black; padding:5px 5px 5px 5px; padding-left:15px;">
 			<br>
-			<font>등록하신 채용공고는 각종 사이트에 동시 게재됩니다.</font> <input id="TAC" type="checkbox"/> <label for="TAC" style=cursor:pointer>동의합니다.</label>
+			<font>등록하신 채용공고는 각종 사이트에 동시 게재됩니다.</font> <input id="TAC" type="checkbox" style="font-size:25px"/> <label for="TAC" style=cursor:pointer><font style="font-size:23px">동의합니다.</font></label>
 			
 		<hr>
+		
 		
 			※ 채용공고가 아래와 같은 경우 법에 따라 처벌 받을 수 있으며, 모니터링으로 공고가 게재되지 않을 수 있습니다.<br>
 				- 연령에 제한을 두거나 성별을 분리하여 모집하는 경우<br>
@@ -757,11 +765,18 @@ $(function () {
 	})
 	
 	
-/* 	// Apply the date range picker with default settings to the button
-$('#picker').daterangepicker();
+	$("#endPicker").on("click",function(){
+			
+			$("#startPicker").trigger("click");
+			
+	})
+		
+	
+// Apply the date range picker with default settings to the button
+$('#startPicker').daterangepicker();
 
 // Apply the date range picker with custom settings to the button
-$('#picker').daterangepicker({
+$('#startPicker').daterangepicker({
 	
 
     format: 'MM/DD/YYYY',
@@ -782,7 +797,7 @@ $('#picker').daterangepicker({
        '3개월': [moment(), moment().add(3, 'month')]
        
     },
-    opens: 'left',
+    opens: 'right',
     drops: 'down',
     buttonClasses: ['btn', 'btn-sm'],
     applyClass: 'btn-primary',
@@ -799,20 +814,18 @@ $('#picker').daterangepicker({
         firstDay: 1
     }
 }, function(start, end, label) {
-    $('#picker span').html(start.format(' M/D/YYYY') + ' ~ ' + end.format('M/D/YYYY'));
-  
-    var stt = start.format(' M/D/YYYY');
-  	var end = end.format('M/D/YYYY');
+   
+    var stt = start.format('YYYY-M-D');
+  	var end = end.format('YYYY-M-D');
   	
-  	alert(stt);
-  	alert(end);
-  	$("input[name='startPicker']").val(stt);
-    $("#pp").val(end); 
-}); */
+
+  	$("input[name='periodstart']").val(stt);
+    $("#endPicker").val(end); 
+}); 
 	
 </script>
 
-<script type='text/javascript'>
+<!-- <script type='text/javascript'>
 	$(function() {
 		$('.input-group.date').datepicker({
 			calendarWeeks : false,
@@ -823,7 +836,7 @@ $('#picker').daterangepicker({
 		});
 	});	
 </script>
-
+ -->
 
 
 <%@include file="../include/cfooter.jsp"%>

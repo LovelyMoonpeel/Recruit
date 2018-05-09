@@ -46,8 +46,9 @@
 					</tr>
 					<tr>
 						<th class="table-active" scope="row" style="text-align: center;"><h5>기업주소</h5></th>
-						<td colspan="3" id="location"><h5>${CInfoVO.location}</h5></td>
+						<td colspan="3" id="location"><h5>${CInfoVO.location} ${CInfoVO.detaillocation}</h5></td>
 					</tr>
+					
 					<tr>
 						<th class="table-active" scope="row" style="text-align: center;"><h5>설립일</h5></th>
 						<td colspan="3"><h5>${CInfoVO.establish}</h5></td>

@@ -2,9 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/cheader.jsp"%>
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
+<!-- Include dependencies -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.css" />
+<!-- Include date range picker plugin -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css" />
+ 
 
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
@@ -19,7 +24,7 @@
 		
 	
 			<tr>
-				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" >제목</th>
+				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" ><h4>공고 제목</h4></th>
 				<td style="vertical-align:middle; padding:15px 15px 15px 0px;">
 				<div id="titleDiv" style="margin-bottom:0px;">
 				<input type="text" class="form-control" tabindex="0" name="title"  id="title" 
@@ -95,7 +100,7 @@ $(function () {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 			
 			
-					<th class="text-center" id="jobGroupTxt" style="vertical-align:middle;">직종/직무</th>
+					<th class="text-center" id="jobGroupTxt" style="vertical-align:middle;"><h4>직종/직무</h4></th>
 				<td>
 				
 				 <div style="padding:15px 15px 15px 0px;">
@@ -188,7 +193,7 @@ $(function () {
 			
 			<tr>
 				
-				<th class="text-center" id="rgbidTxt" style="vertical-align:middle;">근무지역</th>
+				<th class="text-center" id="rgbidTxt" style="vertical-align:middle;"><h4>근무지역</h4></th>
 				<td>
 				<div style="padding:15px 15px 15px 0px;">
 				
@@ -283,7 +288,7 @@ $(function () {
 			</tr>
 			
 			<tr>
-				<th class="text-center" id="jobdescTxt" style="vertical-align:middle;">담당업무</th>
+				<th class="text-center" id="jobdescTxt" style="vertical-align:middle;"><h4>담당업무</h4></th>
 				<td>
 					<div id="jobdescDiv">
 						<textarea class="form-control" style="resize: none" id="jobdesc"
@@ -295,7 +300,7 @@ $(function () {
 			</tr>
 			
 			<tr>
-				<th class="text-center" id="recruitnumTxt" style="vertical-align:middle;">모집인원</th>
+				<th class="text-center" id="recruitnumTxt" style="vertical-align:middle;"><h4>모집인원</h4></th>
 				<td>
 					<div style="padding:15px 15px 15px 0px;">
 				
@@ -308,7 +313,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="employstatusidTxt" style="vertical-align:middle;">근무형태</th>
+				<th class="text-center" id="employstatusidTxt" style="vertical-align:middle;"><h4>근무형태</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
@@ -342,7 +347,7 @@ $(function () {
 			</tr>
 			
 			<tr>
-				<th class="text-center" id="salaryidTxt" style="vertical-align:middle;">급여사항</th>
+				<th class="text-center" id="salaryidTxt" style="vertical-align:middle;"><h4>급여사항</h4></th>
 				<td>
 				<div style="padding:15px 15px 15px 0px;">
 				
@@ -374,7 +379,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="eduTxt" style="vertical-align:middle;">학력</th>
+				<th class="text-center" id="eduTxt" style="vertical-align:middle;"><h4>학력</h4></th>
 				<td>
 				
 				<div style="padding:15px 15px 15px 0px;">
@@ -408,7 +413,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="expTxt" style="vertical-align:middle;">경력</th>
+				<th class="text-center" id="expTxt" style="vertical-align:middle;"><h4>경력</h4></th>
 				<td>
 				
 					<div style="padding:15px 15px 15px 0px;">
@@ -444,7 +449,7 @@ $(function () {
 				</td>
 			</tr>
 			<tr>
-				<th class="text-center" id="adddescTxt" style="vertical-align:middle;">상세내용 및 우대사항</th>
+				<th class="text-center" id="adddescTxt" style="vertical-align:middle;"><h4>상세내용 및 우대사항<br>(공통자격요건)</h4></th>
 				
 				<td>
 				
@@ -469,42 +474,59 @@ $(function () {
 				</td>
 			</tr> -->
 			<tr>
-				<th class="text-center" id="periodTxt" style="vertical-align:middle;">접수기간</th>
+				<th class="text-center" id="periodTxt" style="vertical-align:middle;"><h4>접수기간</h4></th>
 				<td>
 				
-				<div style="padding:15px 15px 15px 0px;">
-					<div class="form-group" style="vertical-align:middle;">
-						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+				<div class="form-inline">
+						
+							<div class=input-group style="vertical-align:middle;">
+								<input type="text" class="form-control" id="startPicker" name="periodstart" value="${RecruitVO.periodstart}" style="width:150px;">
+								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>	
+								</span>
+							</div>
+							~ 
+							<div class="input-group" style="vertical-align:middle;">
+						<input type="text" class="form-control" id="endPicker" name="period" value="${RecruitVO.period}" style="width:150px;"/>  
+						<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
-					</div>
-				</div>
+						
+						</div>
+						
+			
 				</td>
 			</tr>
-			<tr>
-				<th class="text-center" id="acceptmethodTxt" style="vertical-align:middle;">접수방법</th>
-				<td>
+		<tr>
+		
+			<th class="text-center" id="acceptmethodTxt" style="vertical-align:middle;"><h4>접수방법</h4></th>
+			
+			<td>
 				
 				
 				<div style="padding:15px 15px 15px 0px;">
-									<c:choose>
+					<c:choose>
+					
 						<c:when test="${RecruitVO.acceptmethod eq '홈페이지접수'}">
-							<input type="radio" name="acceptmethod" value="홈페이지접수" checked>홈페이지접수
-				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원
-				</c:when>
+							<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수" checked><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<font style="font-size:14px">홈페이지접수</font></label>&nbsp;
+							<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원"><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<font style="font-size:14px">즉시지원</font></label>
+						</c:when>
+					
 						<c:when test="${RecruitVO.acceptmethod eq '즉시지원'}">
-							<input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수 
-				<input type="radio" name="acceptmethod" value="즉시지원" checked>즉시지원
-				</c:when>
+					
+							<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<font style="font-size:14px">홈페이지접수</font></label>&nbsp;
+							<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원" checked><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<font style="font-size:14px">즉시지원</font></label>
+						
+						</c:when>
+						
 						<c:otherwise>
-							<input type="radio" name="acceptmethod" value="홈페이지접수">홈페이지접수 &nbsp;
-				<input type="radio" name="acceptmethod" value="즉시지원">즉시지원
-				</c:otherwise>
+						<input type="radio" name="acceptmethod" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<font style="font-size:14px">홈페이지접수</font></label>&nbsp;
+						<input type="radio" name="acceptmethod" value="즉시지원"><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<font style="font-size:14px">즉시지원</font></label>
+						</c:otherwise>
+						
 					</c:choose>
 				</div>
-				</td>
-			</tr>
+			</td>
+		</tr>
 
 			<%-- <%=request.getParameter("jobgroupid2")%>
 			 --%>
@@ -521,16 +543,66 @@ $(function () {
 	<!-- // 공고 입력 부분 끝 -->
 </div>
 <!-- // 공고 작성 바디 끝 -->
-<script type='text/javascript'>
-	$(function() {
-		$('.input-group.date').datepicker({
-			calendarWeeks : false,
-			todayHighlight : true,
-			autoclose : true,
-			format : "yyyy/mm/dd",
-			language : "kr"
-		});
-	});	
+<script>
+$("#endPicker").on("click",function(){
+	
+	$("#startPicker").trigger("click");
+	
+})
+
+
+//Apply the date range picker with default settings to the button
+$('#startPicker').daterangepicker();
+
+//Apply the date range picker with custom settings to the button
+$('#startPicker').daterangepicker({
+
+
+format: 'MM/DD/YYYY',
+startDate: moment(),
+endDate: moment(),
+minDate: 'today',
+
+showDropdowns: false,
+showWeekNumbers: true,
+timePicker: false,
+timePickerIncrement: 1,
+timePicker12Hour: false
+,
+ranges: {
+'일주일':	[moment(), moment().add(6, 'days') ],
+'1개월': [moment(), moment().add(1, 'month')],
+'2개월': [moment(), moment().add(2, 'month')],
+'3개월': [moment(), moment().add(3, 'month')]
+
+},
+opens: 'right',
+drops: 'down',
+buttonClasses: ['btn', 'btn-sm'],
+applyClass: 'btn-primary',
+cancelClass: 'btn-default',
+separator: ' to ',
+locale: {
+applyLabel: '완료',
+cancelLabel: '취소',
+fromLabel: '시작일',
+toLabel: '마감일',
+customRangeLabel: '날짜지정하기',
+daysOfWeek: ['일', '월', '화', '수', '목', '금','토'],
+monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+firstDay: 1
+}
+}, function(start, end, label) {
+
+var stt = start.format('YYYY-M-D');
+var end = end.format('YYYY-M-D');
+
+
+$("input[name='periodstart']").val(stt);
+$("#endPicker").val(end); 
+}); 
+
+
 </script>
 
 

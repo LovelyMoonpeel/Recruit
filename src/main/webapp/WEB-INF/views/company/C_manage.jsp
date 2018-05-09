@@ -677,7 +677,7 @@ function createTemplate(item){
 		</td>
 
 		<td>
-			<button class="btn btn-default" name="onLoad"; id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
+			<button class="btn btn-default" style="width:100%" name="onLoad"; id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
 		</td>
 		
 		<td class=text-center>

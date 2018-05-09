@@ -17,7 +17,7 @@
 	
 	<select id="companyinfoRead" resultType="com.recruit.domain.CInfoVO">
 		select
-		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form, location,
+		tci.id, tci.cname, img, homepage, intro, ceo, ctype, form, location, detaillocation,
 		establish, numemp, sales, tel, fax, sns, lng, lat , phone, email, tu.pname
 		from
 		tblcinfo as tci, tbluser as tu
@@ -36,6 +36,7 @@
 		numemp=#{numemp},
 		sales=#{sales}, tel=#{tel}, fax=#{fax}, sns=#{sns} ,
 		img=#{img}, location=#{location}
+		, detaillocation=#{detaillocation}
 		, phone=#{phone} , email=#{email}, lat = #{lat}, lng = #{lng}
 		where
 		tu.id = #{id} and tci.id = tu.id
@@ -351,7 +352,7 @@ update tblrecruit set state = #{state} where bno = #{bno};
 </update>
 		<select id="reComList" resultType="com.recruit.domain.RecruitVO">
 <![CDATA[  
- select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate, periodstart
+ select @rownum:=@rownum+1 as rownum, f.bno, title, case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as recruitstate, date_format(periodstart,'%y/%m/%d')as periodstart
 , case when period >= CURDATE() then '수정' when period = '' then '' ELSE '재등록' end as btnstate
 ,  if(h.applynum != '', h.applynum, 0 )as applynum, f.viewcnt,  if(period != ' ',(select date_format((select e.period from tblrecruit e where e.bno = f.bno),'~ %y/%m/%d')),' ') as period
 , if(period != ' ', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(period), 1),'')as week, m.career as employstatusid, n.career as exp, j.jobgroup as jobgroupid, i.jobgroup as jobgroupid2, u.pname, f.regdate
@@ -482,7 +483,7 @@ update tblrecruit set state = #{state} where bno = #{bno};
 		parameterType="hashMap">
 		select
 		bno,title,cid,jobgroupid,jobgroupid2,rgbid,rgsid,jobdesc,recruitnum,
-		employstatusid, salaryid, edu, exp, adddesc, period, acceptmethod,
+		employstatusid, salaryid, edu, exp, adddesc, period, periodstart, acceptmethod,
 		recruitform, regdate, viewcnt
 		from tblrecruit
 		where bno = #{bno} and cid

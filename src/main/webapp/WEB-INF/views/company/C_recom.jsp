@@ -74,7 +74,7 @@
 		<tr class="active " >
 			<th style="text-align: center">공고 상태</th>
 			<th style="text-align: center">모집 내용</th>
-			<th style="text-align: center">기간</th>
+			<th style="text-align: center">모집 기간</th>
 			<th style="text-align: center">인재보기</th>
 			
 		</tr>
@@ -86,7 +86,7 @@
 					<th style="text-align: center"><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					</th>
 					<th style="text-align: center">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
-					<th style="text-align: center"><button class="btn btn-default" name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
+					<th style="text-align: center"><button class="btn btn-default" name="onLoad" style="width:100%" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 					
 
