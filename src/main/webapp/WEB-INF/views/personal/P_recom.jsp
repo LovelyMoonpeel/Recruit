@@ -133,7 +133,7 @@
 				<tr>
 					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이름</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 제목</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">관리</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">등록/수정일자</th>
 				</tr>
 				
 				<tr>
