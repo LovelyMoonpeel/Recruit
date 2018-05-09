@@ -20,9 +20,6 @@
 		
 		<table class="table table-hover" id="my-tbody">
 		
-		<table class="table table-hover" id="my-tbody">
-		
-	
 			<tr>
 				<th class="col-sm-3 text-center"  id="titleTxt" style="vertical-align:middle;" ><h4>공고 제목</h4></th>
 				<td style="vertical-align:middle; padding:15px 15px 15px 0px;">
@@ -532,10 +529,11 @@ $(function () {
 			 --%>
 		</table>
 		<div class="text-center">
-	<input type="submit" class="btn btn-primary btn-lg" id="sbm" value="등록">
+	<input type="submit" class="btn btn-primary btn-lg" id="sbm" value="수정">
 	
 	<input type="button" class="btn btn-danger btn-lg" id="cancel" value="취소">
 </div>
+
 	</form>
 	<br>
 	<br>

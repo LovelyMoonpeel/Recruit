@@ -9,6 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
+<link rel="icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
+
 <title>RecruIT</title>
 
 <!-- Bootstrap Core CSS -->
@@ -49,6 +52,20 @@
   background-color: transparent;
 }
 /* 관리자 페이지 끝*/
+.list-group a:hover{
+	color : black;
+	background-color: #dde2e6;
+}
+
+.list-group a:focus {
+	color : black;
+	background-color: #dde2e6;
+}
+  
+.list-active{
+	color: black !important;
+    background-color: #dde2e6;
+}
 </style>
 
 
@@ -60,18 +77,7 @@
 <%@ page import = "com.recruit.domain.BoardVO" %>
 
 <%
-/* 	String id = "";
-	BoardVO login = null; */
-	
 	try{
-		/* System.out.println("첫번째"); */
-		/* login = (BoardVO)session.getAttribute("login"); */
-		/* System.out.println("로그인"+login);
-		System.out.println("두번째"); */
-		/* if(login != null){
-		id = login.getId();} */
-/* 		System.out.println("세번째");
-		System.out.println("아이디값 출력" + id); */
 		if(login == null){
 %>
 		<script>
@@ -81,15 +87,12 @@
 <%			
 		}
 		if(!id.equals("admin")){
-			/* System.out.println("아이디 입니다요" + id); */
 %>
 		<script>
 			alert("접근 권한이 없습니다.");
 			location.href= "/";
 		</script>
 <%
-			/* response.sendRedirect("/cs/S_faq"); */
-			/* System.out.println("나옵니까?"); */
 		}
 	}catch(Exception e){
 		e.printStackTrace();
@@ -99,10 +102,10 @@
 
 
 	<!-- Page Content -->
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-	<div id="sidebar-collapse" class="col-md-2 sidebar">
-		<div class="profile-sidebar">
+	<div class="col-md-3">
+			<div class="profile-sidebar">
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">관리자페이지</div>
 				<div class="profile-usertitle-status">
@@ -110,35 +113,20 @@
 				</div>
 			</div>
 			<div class="clear"></div>
+			</div>
+			<div class="list-group">
+				<a href="/admin/main" class="list-group-item" id="main pmodi resmo main?"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인관리</a>
+				<a href="/admin/company" class="list-group-item" id="compan cmodif rmodif"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;&nbsp;기업관리</a>
+				<a href="/admin/chart" class="list-group-item" id="chart"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;통계</a>
+				<a href="/admin/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
+				<!-- <a href="/admin/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a> -->
+				<a href="/admin/faq" class="list-group-item" id="faq faqmo faqre"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
+				<a href="/admin/qna" class="list-group-item" id="qna qnamo"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
+			</div>
 		</div>
-		<ul class="nav menu list-group">
-		<li>
-			<a href="/admin/main" class="hover" name='sideBtns' id="main pmodify resmodify"><span class="glyphicon glyphicon-user"></span> 개인관리</a>
-		</li>
-		<li>
-			<a href="/admin/company" class="hover" name='sideBtns' id="company cmodify rmodify"><span class="glyphicon glyphicon-briefcase"></span> 기업관리</a>
-		</li>
-		<li>
-			<a href="/admin/chart" class="hover" name='sideBtns' id="chart"><span class="glyphicon glyphicon-stats"></span> 통계</a>
-		</li>
-		<li>
-			<a href="/admin/notice" class="hover" name='sideBtns' id="notice noticereg noticeread noticemod"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</a>
-		</li>
-		<li>
-			<a href="/admin/usage" class="hover" name='sideBtns' id="usage"><span class="glyphicon glyphicon-list-alt"></span> 이용약관</a>
-		</li>
-		<li>
-			<a href="/admin/faq" class="hover" name='sideBtns' id="faq faqmod faqreg"><span class="glyphicon glyphicon-info-sign"></span> FAQ</a>
-		</li>
-		<li>
-			<a href="/admin/qna" class="hover" name='sideBtns' id="qna qnamod"><span class="glyphicon glyphicon-question-sign"></span> Q&A</a>
-		</li>
-		</ul>
-	</div>
-
 <script>
 	
-var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+/* var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
 var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
 	
   for(var i =0; i<=$("a[name='sideBtns']").length-1; i++){
@@ -150,6 +138,20 @@ var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1
  		
  		$("a[name='sideBtns']").eq(i).addClass("chk_active");
  	}
- }
+ } */
+  
+	var nav_id = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 6);
+
+	for(var i =0; i<=$(".list-group-item").length -1; i++){
+		
+		if($(".list-group-item").eq(i).attr("id").indexOf(nav_id)!= -1){
+			
+			$(".list-group-item").eq(i).css("color","black");
+			$(".list-group-item").eq(i).addClass("list-active");
+			
+		}/* else{
+			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
+		} */
+	}
   
 </script>

@@ -3,11 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+<html lang="ko">
 
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
+<link rel="icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
 <title>RecruIT</title>
 
 <!-- Bootstrap Core CSS -->
@@ -80,17 +83,18 @@
 }
 
 .list-group a:hover{
-	color : #ffffff;
-	background-color: #5bc0de;
+	color : black;
+	background-color: #dde2e6;
 }
 
 .list-group a:focus {
-	color : #ffffff;
-	background-color: #5bc0de;
+	color : black;
+	background-color: #dde2e6;
 }
   
 .list-active{
-    background-color: #5bc0de;
+	color : black !important;
+    background-color: #dde2e6;
 }
 table {
 	border-collapse:seperate;
@@ -129,11 +133,20 @@ td {
 	<div class="container">
 	<div class="row this">
 		<div class="col-md-3">
-			<p class="lead">마이페이지</p>
+			<!-- <p class="lead">마이페이지</p> -->
+			<div class="profile-sidebar">
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">마이페이지</div>
+				<div class="profile-usertitle-status">
+					<span class="indicator label-success"></span>Online
+				</div>
+			</div>
+			<div class="clear"></div>
+			</div>
 			<div class="list-group">
 				<a href="/personal/index" id="index modify" class="list-group-item"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;&nbsp;개인정보관리</a>
 				<a href="/personal/write" id="write"  class="list-group-item"><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 작성</a>
-				<a href="/personal/manage" id="manag" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
+				<a href="/personal/manage" id="manag Rmodi detai" class="list-group-item"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;&nbsp;이력서 관리</a>
 				<a href="/personal/recom" id="recom" class="list-group-item"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;&nbsp;&nbsp;추천채용공고</a>
 				<a href="/personal/favor_all" id="favor" class="list-group-item"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;관심채용공고</a>
 				<a href="/personal/applied_all" id="appli" class="list-group-item"><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;&nbsp;지원현황리스트</a>
@@ -150,12 +163,12 @@ td {
 			
 			console.log(nav_id);
 			
-			$(".list-group-item").eq(i).css("color","white");
+			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
 			
-		}else{
+		}/* else{
 			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
-		}
+		} */
 	} 
 
 </script>

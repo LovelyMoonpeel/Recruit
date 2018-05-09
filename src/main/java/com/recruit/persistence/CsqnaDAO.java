@@ -22,4 +22,8 @@ public interface CsqnaDAO {
 	public int countPaging(CsqnaCriteria cri) throws Exception;
 
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception;
+	
+	public int readLastCreatedOne(CsqnaVO vo) throws Exception;
+	
+	public CsqnaVO selectQnAOne(int bno) throws Exception;
 }

@@ -37,6 +37,7 @@ import com.recruit.domain.CsVO;
 import com.recruit.domain.CsqnaCriteria;
 import com.recruit.domain.CsqnaPageMaker;
 import com.recruit.domain.CsqnaVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PWebSiteVO;
 import com.recruit.domain.RLicenseVO;
@@ -59,6 +60,7 @@ import com.recruit.service.ResumeCareerService;
 import com.recruit.service.ResumeEduService;
 import com.recruit.service.ResumeLanguageService;
 import com.recruit.service.ResumeService;
+import com.recruit.service.UserService;
 import com.recruit.util.MediaUtils;
 import com.recruit.util.S3Util;
 import com.recruit.util.UploadFileUtils;
@@ -113,6 +115,9 @@ public class AdminController {
 	
     @Inject
     private PasswordEncoder passwordEncoder;
+    
+    @Inject
+    private UserService uservice;
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainGET(@ModelAttribute("cri") AdminSearchCriteria cri, Model model) throws Exception {
@@ -140,7 +145,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_modify", method = RequestMethod.POST)
-	public String modifyPOST(BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(MessageVO msvo, BoardVO vo, AdminSearchCriteria cri, RedirectAttributes rttr) throws Exception {
 
 		logger.info("modify post...........");
 		logger.info(vo.toString());
@@ -152,6 +157,8 @@ public class AdminController {
 			vo.setPw(encPassword);
 		}
 		aservice.modify(vo);
+		System.out.println("test : "+msvo);
+		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -331,7 +338,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_cmodify", method = RequestMethod.POST)
-	public String cmodifyPOST(BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
+	public String cmodifyPOST(MessageVO msvo, BoardVO vo, CInfoVO cinfo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
 		logger.info("cmodify post...........");
@@ -347,6 +354,7 @@ public class AdminController {
 		// System.out.println("controller test1");
 		cservice.modify(vo);
 		pservice.CompanyInfoModify(cinfo);
+		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -366,12 +374,10 @@ public class AdminController {
 		System.out.println("아이디입니당." + id);
 		System.out.println("bno값입니당." + bno);
 		model.addAttribute("jobgroupList", jobService.jobgroupList());
-		
 		model.addAttribute("subJobgroupList", jobService.subJobgroupList()); // subJobGroupList
 		model.addAttribute("subRegionList", jobService.subRegionList()); // subRegionList
 		model.addAttribute("jobGroupCount", jobService.jobGroupCount()); // jobgroup
 		model.addAttribute("regionCount", jobService.regionCount()); // region
-
 		model.addAttribute("codeList", pservice.CodeList());
 		model.addAttribute("regionList", pservice.RegionList());
 		model.addAttribute("RecruitVO", pservice.RecruitModifyRead(bno, id));
@@ -380,16 +386,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/A_rmodify", method = RequestMethod.POST)
-	public String rmodifyPOST(RecruitVO recruitModify, RedirectAttributes rttr)
+	public String rmodifyPOST(MessageVO msvo, CInfoVO cinfo, RecruitVO recvo, AdminSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
 
-		pservice.RecruitModify(recruitModify);
+/*		pservice.RecruitModify(recruitModify);
 
 		System.out.println("recruitModify = "+ recruitModify);
 		
 		rttr.addFlashAttribute("msg", "MODISUCCESS");
 
-		return "redirect:/admin/company";
+		return "redirect:/admin/company";*/
+		cservice.modify(recvo);
+		uservice.modifyRecruitAdminMessage(msvo);
+
+/*		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+*/
+		rttr.addFlashAttribute("msg", "modify");
+		String id = recvo.getCid();
+				
+		return "redirect:/admin/cmodify?id="+id;
 	}
 
 	@RequestMapping(value = "/rremove", method = RequestMethod.POST)
@@ -437,7 +455,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/A_resmodify", method = RequestMethod.POST)
-	public String RmodifyPOST(Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
+	public String RmodifyPOST(MessageVO msvo, Integer bno, PTelVO ptvo, PWebSiteVO pwvo, ResumeLanguageVO plavo,
 			RLicenseVO plivo, ResumeEduVO resumeEduVO, ResumeCareerVO resumeCareerVO, ResumeVO resume, Model model, RedirectAttributes rttr)
 			throws Exception {
 
@@ -454,6 +472,7 @@ public class AdminController {
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		rttr.addFlashAttribute("msg", "resume_mod");
+		uservice.modifyResumeAdminMessage(msvo);
 
 		return "redirect:/admin/pmodify?id=" + id;
 	}
@@ -702,5 +721,10 @@ public class AdminController {
 		rttr.addFlashAttribute("msg", "regist");
 
 		return "redirect:/admin/notice";
+	}
+	
+	@RequestMapping(value = "/usage", method = RequestMethod.GET)
+	public String usageGET(Model model) throws Exception {
+		return "/admin/A_usage";		
 	}
 }

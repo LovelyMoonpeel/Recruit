@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../include/sheader.jsp"%>
+<%@include file="../include/aheader.jsp"%>
 
 <style>
 .anchor{
@@ -53,8 +53,7 @@ transition: 1s;
 background-color: #777; 
 } 
 </style>
-
-<!-- 이용약관 페이지 -->
+	
 <!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
 <div class="container col-md-9">
 

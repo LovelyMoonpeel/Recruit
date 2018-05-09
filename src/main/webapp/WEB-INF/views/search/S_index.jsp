@@ -4,12 +4,12 @@
 <%@ include file="../include/sheader2.jsp"%>
 <%
 	// carousel 연결주소 및 이미지
-	String carouselUrl = "/company/C_info_nonavi?recruitNum=";
+	String carouselUrl = "/company/C_recruitMent?recruitNum=";
 	String carouselImg = "/resources/rpjt/img/";
 	String[][] carouselItems = { // 회사 아이디, carousel 이미지
-			{"rcode0", "frontimg5.jpg"}, //
-			{"assagini", "frontimg6.jpg"}, //
-			{"octest", "frontimg7.jpg"}};
+			{"633", "frontimg5.jpg"}, //
+			{"658", "frontimg6.jpg"}, //
+			{"602", "frontimg7.jpg"}};
 
 	for (int i = 0; i < carouselItems.length; i++) {
 		request.setAttribute("carouselUrl" + i, carouselUrl + carouselItems[i][0]);
@@ -95,37 +95,37 @@
 <!-- end of container -->
 <br />
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverser">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="row">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#" style="color: white;">채용정보</a>
+					<div class="navbar-headered">
+						<a class="navbar-brand" style="color: white;">채용정보</a>
 					</div>
 					<ul class="nav navbar-nav">
-						<li class="dropdown"><a id="jobgroupMenu"
-							class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무별&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown">
+							<a id="jobgroupMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="jobgroup">
 								<li role=separator class=divider></li>
 							</ul></li>
-						<li class="dropdown"><a id="regionMenu"
-							class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역별&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown">
+							<a id="regionMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="region">
 								<li role=separator class=divider></li>
 							</ul></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태별&nbsp;&nbsp;</a>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태별&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="emp">
 								<li role=separator class=divider></li>
 							</ul></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력별&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;학력별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="edu">
 								<li role=separator class=divider></li>
 							</ul></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력별&nbsp;&nbsp;&nbsp;</a>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;경력별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="exp">
 								<li role=separator class=divider></li>
 							</ul></li>

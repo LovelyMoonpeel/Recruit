@@ -23,8 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recruit.domain.BoardVO;
 import com.recruit.domain.MessageVO;
-import com.recruit.domain.PreferenceVO;
 import com.recruit.service.CRecruitService;
+import com.recruit.service.CsqnaService;
 import com.recruit.service.PUserService;
 import com.recruit.service.UserService;
 
@@ -38,8 +38,12 @@ public class HomeController {
 	private UserService service;
 	@Inject
 	private PUserService PService;
+	
 	@Inject
 	private CRecruitService CService;
+	
+	@Inject
+	private CsqnaService qService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -65,12 +69,6 @@ public class HomeController {
 		return "search/S_index";
 	}
 
-	@RequestMapping(value = "/2", method = RequestMethod.GET)
-	public String indexTest(Locale locale, Model model) throws Exception {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		return "home2";
-	}
 	@RequestMapping(value = "/socket.io/", method = RequestMethod.GET)
 	public void in1dexTest(Locale locale, Model model) throws Exception {
 		
@@ -146,15 +144,17 @@ public class HomeController {
 			String id = login.getId();
 			model.addAttribute(PService.selectPUser(id));
 			
-			
 			List<MessageVO> entity = new ArrayList<>();
 			entity = service.readAllmessage(id);//전체 메시지 불러오기//상위 5개
 			
+			System.out.println(entity);
+			System.out.println(Integer.parseInt(entity.get(0).getRcno()));
+			System.out.println(qService.selectQnAOne(Integer.parseInt(entity.get(0).getRcno())).getUser());
 			
 			if(id.equals("admin")){
 				for(int i=0;i<entity.size();i++){
-					//String title = qService.selectQnAOne(Integer.parseInt(entity.get(i).getRcno())).getUser();
-					//entity.get(i).setAppliedpid(title);
+					String title = qService.selectQnAOne(Integer.parseInt(entity.get(i).getRcno())).getUser();
+					entity.get(i).setAppliedpid(title);
 				}
 			}else{
 				for(int i=0;i<entity.size();i++){

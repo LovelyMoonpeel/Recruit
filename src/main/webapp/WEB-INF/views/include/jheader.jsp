@@ -55,27 +55,35 @@
 				class="icon-bar"></span> <span class="icon-bar"></span> <span
 				class="icon-bar"></span>
 		</button>
+<!-- 		<img src="/resources/rpjt/img/recruit/Large_R.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_e.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_c.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_r.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/small_u.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/Large_I.png" width="30px">
+		<img src="/resources/rpjt/img/recruit/Large_T.png" width="30px"> -->
+		<!-- <img style="cursor:pointer;" src="/resources/rpjt/img/recruit/recruit.png" width="200px" onclick="self.location='/'"> -->
 		<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse"
 		id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/cs/notice">공지사항</a></li>
-			<li><a href="/srch/main?stype=1">기업찾기</a></li>
-			<li><a id="p_search" style="cursor: pointer;">인재찾기</a></li>
+			<li><a href="/cs/notice" class="header">공지사항</a></li>
+			<li><a href="/srch/main?stype=1" class="header">기업찾기</a></li>
+			<li><a id="p_search" style="cursor: pointer;" class="header">인재찾기</a></li>
 
 			<!--회원가입, 로그인 부분 -->
 			<!--★ a href="#" 삭제하면 안됨  -->
 			<!--c태그를 이용해서 로그인 되면 MyPage,로그아웃이 나오게 함  -->
 			<c:if test="${empty sessionScope.login}">
 				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_join모달이 뜬다-->
-				<li id="myBtn_join"><a style="cursor: pointer;"> <span
+				<li id="myBtn_join"><a style="cursor: pointer;" class="header"> <span
 						class="glyphicon glyphicon-user"></span> 회원가입
 				</a></li>
 
 				<!--버튼을 누르면 아래 스크립트문에 의해서 id=modal_login모달이 뜬다-->
-				<li id="myBtn_login"><a style="cursor: pointer;"> <span
+				<li id="myBtn_login"><a style="cursor: pointer;" class="header"> <span
 						class="glyphicon glyphicon-log-in"></span> 로그인
 				</a></li>
 			</c:if>
@@ -84,18 +92,18 @@
 			<!--MyPage, 로그아웃 부분  -->
 			<c:if test="${not empty sessionScope.login}">
 
-				<li><a href="<%=location%>"><%=myPage %></a></li>
+				<li><a href="<%=location%>" class="header"><%=myPage %></a></li>
 
 
 				<!--버튼을 누르면 UserController에  /user/logout을 찾아간다 -->
-				<li><a href="/user/logout"> <span
+				<li><a href="/user/logout" class="header"> <span
 						class="glyphicon glyphicon-log-out"></span>로그아웃
 				</a></li>
 				<li><a style="color: white;">${sessionScope.login.pname}님
 						환영합니다.</a></li>
-				<li class="dropdown">
-				    <a id="drop_a" class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">
-				    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell"></span>
+				<li class="dropdown" class="header">
+				    <a id="drop_a" class="dropdown-toggle header" data-toggle="dropdown" style="cursor:pointer;">
+				    	<span id="message_check" style="font-size:20px;" class="glyphicon glyphicon-bell header"></span>
 				   		<span id="message_count" class="badge badge-danger"></span>	
 				    </a>
 				   		
@@ -155,27 +163,69 @@ $(document).ready(function(){
 			dataType:'json',
 			success:function(data){
 				if(data!=''){
-					console.log(data);
-					console.log("성공함");
-					console.log("length"+data.length);
+					for(var j=0;j<data.length;j++){
+					var array = data[j]
+					var keys = Object.keys(data[j]);
+					var rcno;
+					var color;
+					for(var k in keys){
+						if(keys[k]=="rcno"){
+							rcno = array[keys[k]];
+						}
+						if(keys[k]=="color"){
+							color = array[keys[k]];
+						}
+					}
 					
-					for(var i=0;i<data.length;i++){
+					/* for(var i=0;i<data.length;i++){ */
 						
-						var order = i+1;
+						var order = j+1;
 						var cname = '<%=cname%>';
-						console.log(cname);
-						console.log(data[i].message);
+						var id = '<%=id%>';
+						
 						if(cname=='null'){//개인회원일 경우
-							//$(".message"+order).text("이력서가 열람되었습니다.");
-							$(".message"+order).text(data[i].message);
-							$(".message"+order).attr("href", "/personal/applied_all");
+							if(id=='admin'){
+								$(".message"+order).text("Q&A가 등록되었습니다.");
+								$(".message"+order).attr("href", "/admin/qna");
+							}else{
+								if(rcno != 0){
+									if(color == 4){
+										$(".message"+order).text("Q&A에 답변이 달렸습니다.");
+										$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
+									}else if(color == 3){
+										$(".message"+order).text("이력서가 변경되었습니다.");
+										$(".message"+order).attr("href", "/personal/Rmodify?bno="+rcno);
+									}else{
+										$(".message"+order).text("이력서가 열람되었습니다.");
+										$(".message"+order).attr("href", "/personal/applied_all");									
+									}
+								}else{
+									$(".message"+order).text("개인정보가 변경되었습니다.");
+									$(".message"+order).attr("href", "/personal/index");
+								}
+							}
+						}else if(cname=null){
+							$(".message"+order).text(data[i].rcno + data[i].message);
 						}else{//기업회원일 경우
-							//$(".message"+order).text("지원자의 이력서를 확인해주세요.");
-							$(".message"+order).text(data[i].message);
-							$(".message"+order).attr("href", "/company/C_manage");
+							if(rcno == 0){
+								$(".message"+order).text("회사정보가 변경되었습니다.");
+								$(".message"+order).attr("href", "/company/C_index");									
+							}else{
+								if(color == 4){
+									$(".message"+order).text("Q&A에 답변이 달렸습니다.");
+									$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
+								}else if(color == 3){
+									$(".message"+order).text("채용공고가 변경되었습니다.");
+									$(".message"+order).attr("href", "/company/C_recruitModify?bno="+rcno);
+								}else{
+									$(".message"+order).text("지원자의 이력서를 확인해주세요.");
+									$(".message"+order).attr("href", "/company/C_manage");									
+								}
+							}
 						}
 						
-					} 
+					/* } */ 
+					}
 				}else{
 					console.log(data);
 					console.log("실패함");

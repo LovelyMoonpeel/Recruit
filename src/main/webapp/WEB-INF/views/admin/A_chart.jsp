@@ -5,7 +5,8 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- Chart 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">통계</h1>
@@ -25,7 +26,7 @@
 					<div align="center" class="panel-body" id="personCheckPanel" style="cursor:pointer">
 						<br>
 						<div class="recruit-div">
-							개인회원 수 <br>${P_member}
+							전체 개인회원 수 <br>${P_member}
 						</div>
 						<br>
 					</div>
@@ -36,7 +37,7 @@
 					<div align="center" class="panel-body" id="companyCheckPanel" style="cursor:pointer">
 						<br>
 						<div class="recruit-div">
-							기업회원 수 <br>${C_member}
+							전체 기업회원 수 <br>${C_member}
 						</div>
 						<br>
 					</div>
@@ -71,7 +72,7 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
@@ -83,7 +84,7 @@
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
@@ -111,7 +112,7 @@
 					</div>
 				</div>
 				<!-- piechart-대분류 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 직종(최근 일주일)
@@ -122,7 +123,7 @@
 					</div>
 				</div>
 				<!-- piechart-지역 -->
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							많이 올라온 지역(최근 일주일)
@@ -247,12 +248,10 @@ $("#resume_cha").on("click",function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			/* rJobgroupData[i] = {value:weekRJobgroup[i], color:color[i], highlight:highlight[i], label:rJobgroup[i]}; */
 			rJobgroupData[i] = {y:weekRJobgroup[i], color:color[i], label:rJobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			/* rRgbData[i] = {value:weekRRgb[i], color:color[i], highlight:highlight[i], label:rRgbname[i]}; */
 			rRgbData[i] = {y:weekRRgb[i], color:color[i], label:rRgbname[i]};
 		}
 		
@@ -268,11 +267,6 @@ $("#resume_cha").on("click",function(){
 		});
 		chart6.render();
 		
-		/* var chart6 = document.getElementById("rJobgroup-chart").getContext("2d");
-		window.myPie = new Chart(chart6).Pie(rJobgroupData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 		
 		var chart7 = new CanvasJS.Chart("rRgb-chart", {
 			animationEnabled: true,
@@ -286,11 +280,6 @@ $("#resume_cha").on("click",function(){
 		});
 		chart7.render();
 		
-		/* var chart7 = document.getElementById("rRgb-chart").getContext("2d");
-		window.myPie = new Chart(chart7).Pie(rRgbData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 	}, 200);
 });
 
@@ -305,12 +294,10 @@ $("#recruit_cha").on("click", function(){
 		});
 		
 		for(var i=0;i<4;i++){
-			/* jobgroupData[i] = {value:weekJobgroup[i], color:color[i], highlight:highlight[i], label:jobgroup[i]}; */
 			jobgroupData[i] = {y:weekJobgroup[i], color:color[i], label:jobgroup[i]};
 		}
 		
 		for(var i=0;i<4;i++){
-			/* rgbData[i] = {value:weekRgb[i], color:color[i], highlight:highlight[i], label:rgbname[i]}; */
 			rgbData[i] = {y:weekRgb[i], color:color[i], label:rgbname[i]};
 		}
 		
@@ -325,13 +312,7 @@ $("#recruit_cha").on("click", function(){
 			}]
 		});
 		chart4.render();
-		
-		/* var chart4 = document.getElementById("jobgroup-chart").getContext("2d");
-		window.myPie = new Chart(chart4).Pie(jobgroupData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
-		
+			
 		var chart5 = new CanvasJS.Chart("rgb-chart", {
 			animationEnabled: true,
 			data: [{
@@ -344,11 +325,6 @@ $("#recruit_cha").on("click", function(){
 		});
 		chart5.render();
 		
-		/* var chart5 = document.getElementById("rgb-chart").getContext("2d");
-		window.myPie = new Chart(chart5).Pie(rgbData, {
-		responsive: true,
-		segmentShowStroke: false
-		}); */
 	}
 	, 200);
 });
@@ -447,26 +423,6 @@ var recruitChart = {
 			}
 		]
 	}
-
-/* var ctx = document.getElementById("test-chart").getContext("2d");
-
-var data = {
-    labels: rJobgroup,
-    datasets: [
-        {
-            data: weekRJobgroup,
-            backgroundColor: color,
-            hoverBackgroundColor: highlight
-        }]
-};
-
-var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: data,
-    options: {
-        showAllTooltips: true
-    }
-}); */
 
 </script>
 

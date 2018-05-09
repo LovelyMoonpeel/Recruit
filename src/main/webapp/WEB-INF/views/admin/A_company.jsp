@@ -5,15 +5,15 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- 기업회원리스트 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="col-md-9">
 	<h1>기업회원 리스트</h1>
 
 	<table class="table table-hover">
 		<tr>
 			<th>아이디</th>
 			<th>회사명</th>
-			<th>이름</th>
+			<th>담당자명</th>
 			<th>이메일</th>
 			<th>사업자번호</th>
 			<th>회원정보수정</th>
@@ -104,8 +104,6 @@ if(result == 'modify'){
 	alert("수정 처리가 완료 되었습니다.");
 }else if(result == 'remove'){
 	alert("삭제가 완료 되었습니다.");
-}else if(result == 'amodify'){
-	alert("관리자 정보가 수정 되었습니다.");
 }
 </script>
 <!-- //수정, 삭제 처리시 -->

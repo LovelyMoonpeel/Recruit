@@ -203,7 +203,7 @@
 			<div class="resume-div img-circle">
 				<img class="resume-img" src="{{img}}">
 			</div>
-			<h4><b>{{bno}} {{pname}}</b></h4>
+			<h4><b>{{pname}}</b></h4>
 			<p class='title_ellipsis col-md-12'> {{jobgroupid}}, {{jobgroupid2}} <br />
 			{{exp}}
 			</p>

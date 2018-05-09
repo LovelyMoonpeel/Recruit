@@ -4,14 +4,9 @@
 
 <%@include file="../include/sheader.jsp"%>
 
-<!-- picker : https://lalwr.blogspot.kr/2016/04/bootstrap-datepicker.html -->
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-
-
-<!-- 개인정보수정 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<!-- Q&A 등록 페이지 -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="container col-md-9">
 
 
 
@@ -30,7 +25,9 @@
 			</tr>
 			<tr>
 				<td><input required class="form-control" type="text" name="user" id="user"
-					value="${id}" readonly></td>
+					value="${id}" readonly>
+					<input type="hidden" name="userid" value="${id}">			
+				</td>
 			</tr>
 			<tr>
 				<th>게시글 비밀번호</th>

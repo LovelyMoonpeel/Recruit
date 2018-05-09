@@ -11,26 +11,23 @@
 
 
 <!-- FAQ 수정 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="col-md-9">
 
 
 
 	<h1>FAQ</h1>	
 	<form role="form" action="A_faqmod" method="POST">
+		<input class="form-control" type="hidden" name="bno" value="${CsVO.bno}" readonly>
 		<table class="table table-bordered">
-			<tr>
-				<th>번호</th>
-				<td><input class="form-control" type="text" name="bno" value="${CsfaqVO.bno}" readonly></td>
-			</tr>
 			<tr>
 				<th>제목</th>
 				<td><input class="form-control" type="text" name="title"
-					value="${CsfaqVO.title}"></td>
+					value="${CsVO.title}"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea class="form-control" name="content" rows="10" style="resize: none;">${CsfaqVO.content}</textarea>
+				<td><textarea class="form-control" name="content" rows="10" style="resize: none;">${CsVO.content}</textarea>
 				</td>
 			</tr>
 		</table>

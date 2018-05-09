@@ -7,7 +7,7 @@ import com.recruit.domain.CsqnaVO;
 
 public interface CsqnaService {
 
-	public void regist(CsqnaVO vo) throws Exception;
+	public int regist(CsqnaVO vo) throws Exception;
 
 	public CsqnaVO read(Integer bno) throws Exception;
 
@@ -24,4 +24,6 @@ public interface CsqnaService {
 	public List<CsqnaVO> listCriteria(CsqnaCriteria cri) throws Exception;
 
 	public CsqnaVO read2(Integer bno) throws Exception;
+	
+	public CsqnaVO selectQnAOne(int bno) throws Exception;
 }

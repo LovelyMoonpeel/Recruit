@@ -434,7 +434,7 @@ a.label:hover, a.label:focus {
   padding: 10px 0 0 0;
   margin: 10px 10px 20px 10px; }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) { */
   .sidebar {
     display: block;
     position: fixed;
@@ -714,27 +714,28 @@ position: relative;
 }
 
 .hover:hover{
-  color: #fff !important; 
+  color: black !important; 
   text-decoration: none;
-  background-color: #30a5ff !important;
+  background-color: #dde2e6  !important;
 }
 
 .pagination>.active>a{
-	background-color: #30a5ff !important;
-	border-color: #30a5ff !important;
+	color: black !important; 
+	background-color: #dde2e6 !important;
+	border-color: #dde2e6 !important;
 }
 .pagination>li>a{
-	color: #30a5ff;
+	color: #555;
 }
 
 .pagination>li>a:hover{
-	color : #337ab7;
+	color : black;
 }
 
 .chk_active{
-	color: #fff !important; 
+	color: black !important; 
 	text-decoration: none;
-	background-color: #30a5ff;
+	background-color: #dde2e6 ;
 }
 
 .statCheck{
@@ -746,6 +747,35 @@ position: relative;
 	width: 90%;
 }
 
-/* .canvasjs-chart-canvas{
-	position: relative !important;
-} */
+.navbar-inverse {
+	background-color: #245789 !important;
+	border-color: #245789 !important;
+}
+
+.navbar-header>a{
+	color: white !important;
+}
+
+.header{
+	color: white !important;
+}
+
+.col-lg-12>p{
+	color: white !important;
+}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+	background-color: #245789;
+}
+
+.navbar-inverser {
+    background-color: #e0e3da !important;
+    border-color: #e0e3da !important;
+}
+
+.navbar-headered>a {
+    color: #7c7877 !important;
+}
+
+.dropdown-toggle {
+	color: #7c7877 !important;
+}

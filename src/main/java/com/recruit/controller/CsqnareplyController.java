@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.recruit.domain.CsqnaReplyVO;
+import com.recruit.domain.CsqnaVO;
+import com.recruit.domain.MessageVO;
 import com.recruit.service.CsqnaReplyService;
+import com.recruit.service.CsqnaService;
+import com.recruit.service.UserService;
 
 @RestController
 @RequestMapping("/replies")
@@ -23,12 +26,21 @@ public class CsqnareplyController {
 	@Inject
 	private CsqnaReplyService service;
 	
+	@Inject
+	private CsqnaService qservice;
+	
+	@Inject
+	private UserService uservice;
+	
 	@RequestMapping(value="", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody CsqnaReplyVO vo){
+	public ResponseEntity<String> register(@RequestBody CsqnaReplyVO vo, MessageVO msvo){
 		ResponseEntity<String> entity = null;
 		try{
 			service.addReply(vo);
 			service.updateReply(vo.getBno());
+			msvo.setRcno(""+vo.getBno());
+			msvo.setUserid(qservice.read2(vo.getBno()).getUser());
+			uservice.readQNAReplymessage(msvo);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

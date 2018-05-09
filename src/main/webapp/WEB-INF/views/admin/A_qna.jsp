@@ -6,8 +6,8 @@
 <%@include file="../include/aheader.jsp"%>
 
 <!-- Q&A 페이지 -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<!-- <div class="col-md-9"> -->
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
+<div class="col-md-9">
 	<h1>Q&A</h1>
 
 	<table class="table table-hover">

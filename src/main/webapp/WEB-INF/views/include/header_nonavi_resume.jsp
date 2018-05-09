@@ -8,6 +8,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
+<link rel="icon" href="/resources/rpjt/img/favicon.png" type="image/x-icon">
 <title>RecruIT</title>
 
 <!-- Bootstrap Core CSS -->
@@ -16,6 +18,8 @@
 <!-- Custom CSS -->
 <!-- <link href="css/shop-item.css" rel="stylesheet"> -->
 <link href="/resources/rpjt/css/lovelyB_022711.css" rel="stylesheet">
+<link href="/resources/rpjt/css/shop-item.css" rel="stylesheet">
+<link href="/resources/rpjt/css/styles.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

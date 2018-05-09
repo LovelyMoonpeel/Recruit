@@ -6,12 +6,14 @@
 <%@include file="../include/aheader.jsp"%>
 
 
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
+<!-- Include dependencies -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.css" />
+<!-- Include date range picker plugin -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css" />
+ 
 <!-- Main content -->
 <!-- 공고 작성 바디 -->
 <!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
@@ -68,10 +70,11 @@
 	<!-- // 회사 기본 정보 끝 -->
 	<!-- 공고 입력 부분 -->
 	<h3>모집부문</h3>
-	 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}"> <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
+	 <input type="hidden" id="job2" value="${RecruitVO.jobgroupid2}">
+	 <input type="hidden" id="rg2" value="${RecruitVO.rgsid}">
 	<form role="form" method="POST">
 		<input type="hidden" name="cid" value="${CInfoVO.id}" />
-		
+		<input type="hidden" name="userid" value="${CInfoVO.id}" />
 		<input type="hidden" name="bno" id="bno" value="${RecruitVO.bno}">
 		<table class="table table-hover" id="my-tbody">
 		
@@ -226,7 +229,7 @@ $(function () {
 				
 				</script>
 				
-				<input type="text" name="jobgroupid2" id="jobgroupid2" value="${RecruitVO.jobgroupid2}" > <!-- jobgroupid2 전송용  -->
+				<input type="hidden" name="jobgroupid2" id="jobgroupid2" value="${RecruitVO.jobgroupid2}" > <!-- jobgroupid2 전송용  -->
 				
 				
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -530,14 +533,21 @@ $(function () {
 				<th class="text-center" id="periodTxt" style="vertical-align:middle;">접수기간</th>
 				<td>
 				
-				<div style="padding:15px 15px 15px 0px;">
-					<div class="form-group" style="vertical-align:middle;">
-						<div class="input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+					<div class="form-inline">
+						
+							<div class=input-group style="vertical-align:middle;">
+								<input type="text" class="form-control" id="startPicker" name="periodstart" style="width:150px;" value="${RecruitVO.periodstart}">
+								<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>	
+								</span>
+							</div>
+							~ 
+							<div class="input-group" style="vertical-align:middle;">
+						<input type="text" class="form-control" id="endPicker" name="period" style="width:150px;" value="${RecruitVO.period}"/>  
+						<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
-					</div>
-					</div>
+						
+						</div>
 				</td>
 			</tr>
 			<tr>
@@ -567,27 +577,83 @@ $(function () {
 			<%-- <%=request.getParameter("jobgroupid2")%>
 			 --%>
 		</table>
-		<input class="btn btn-warning" type="submit" id="sbm" value="수정">
 		</form>
-		<br> <br>
+		<input class="btn btn-warning" type="submit" id="sbm" value="수정">
 		<input class="btn btn-danger" type="button" value="삭제">
-		<input class="btn btn-primary" type="button" value="목록">
+		<input class="btn btn-primary" id="primary" type="button" value="목록">
 		
 	<br>
 	<!-- // 공고 입력 부분 끝 -->
 </div>
 <!-- // 공고 작성 바디 끝 -->
 
-<script type='text/javascript'>
-	$(function() {
-		$('.input-group.date').datepicker({
-			calendarWeeks : false,
-			todayHighlight : true,
-			autoclose : true,
-			format : "yyyy/mm/dd",
-			language : "kr"
-		});
-	});	
+<script>
+
+	$(document).ready(function(){
+		
+		$(".btn-group bootstrap-select").css("background","red");
+		
+	})
+	
+	
+	$("#endPicker").on("click",function(){
+			
+			$("#startPicker").trigger("click");
+			
+	})
+		
+	
+// Apply the date range picker with default settings to the button
+$('#startPicker').daterangepicker();
+
+// Apply the date range picker with custom settings to the button
+$('#startPicker').daterangepicker({
+	
+
+    format: 'MM/DD/YYYY',
+    startDate: moment(),
+    endDate: moment(),
+    minDate: 'today',
+    
+    showDropdowns: false,
+    showWeekNumbers: true,
+    timePicker: false,
+    timePickerIncrement: 1,
+    timePicker12Hour: false
+    ,
+    ranges: {
+       '일주일':	[moment(), moment().add(6, 'days') ],
+       '1개월': [moment(), moment().add(1, 'month')],
+       '2개월': [moment(), moment().add(2, 'month')],
+       '3개월': [moment(), moment().add(3, 'month')]
+       
+    },
+    opens: 'right',
+    drops: 'down',
+    buttonClasses: ['btn', 'btn-sm'],
+    applyClass: 'btn-primary',
+    cancelClass: 'btn-default',
+    separator: ' to ',
+    locale: {
+        applyLabel: '완료',
+        cancelLabel: '취소',
+        fromLabel: '시작일',
+        toLabel: '마감일',
+        customRangeLabel: '날짜지정하기',
+        daysOfWeek: ['일', '월', '화', '수', '목', '금','토'],
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        firstDay: 1
+    }
+}, function(start, end, label) {
+   
+    var stt = start.format('YYYY-M-D');
+  	var end = end.format('YYYY-M-D');
+  	
+
+  	$("input[name='periodstart']").val(stt);
+    $("#endPicker").val(end); 
+}); 
+	
 </script>
 
 <!-- 버튼에 대한 스크립트 -->
@@ -607,7 +673,7 @@ $(function () {
 			}
 		});
 		
-		$(".btn-primary").on("click", function() {
+		$("#primary").on("click", function() {
 			self.location = "/admin/cmodify?id=${CInfoVO.id}"
 		});
 	});
@@ -617,6 +683,7 @@ $(function () {
 <script>
 $("#sbm").on("click",function(e){
 	
+	if(confirm("수정하시겠습니까?")){
 	if($("#title").val()==""){   /* 타이틀 유효성 검사 */
 		
 		$("#titleDiv").addClass("form-group has-error has-feedback"); 
@@ -899,7 +966,7 @@ $("#sbm").on("click",function(e){
 			
 			
 		}
-		
+	}
 	
 })
 </script>
