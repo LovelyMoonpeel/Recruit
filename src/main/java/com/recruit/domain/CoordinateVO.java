@@ -18,7 +18,7 @@ public class CoordinateVO {
 	private String distance;
 
 	private String cname; //회사명
-	private String periodstart;//공고 시작 기간
+	private String periodstart;//공고 시작 기간 periodstart 에서 createdate로 바꿈 //다시 바꿈
 	private String period; //공고 마감 기간
 	private String acceptmethod; //지원자수
 	private String adddesc; // 관리(스크랩 했는지 안했는지)

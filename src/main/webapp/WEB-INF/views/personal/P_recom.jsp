@@ -302,8 +302,8 @@
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
-								<c:if test="${CoordinateVO.adddesc eq 0}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/non.png"></c:if>
-								<c:if test="${CoordinateVO.adddesc eq 1}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/on.png"></c:if>
+								<c:if test="${CoordinateVO.adddesc eq 0}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/non.png" onclick="recom_clipping()" ></c:if>
+								<c:if test="${CoordinateVO.adddesc eq 1}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/on.png" onclick="recom_clipping()"></c:if>
 							</td>
 						</tr>
 						<tr>
@@ -323,6 +323,10 @@
 	</div>
 	
 <script>
+
+function recom_clipping(){
+	
+}
 
 $(document).ready(function (){
 	
