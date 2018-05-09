@@ -479,7 +479,7 @@ $(function () {
 							</span>
 						</div>
 					</div>
-					</div>
+				</div>
 				</td>
 			</tr>
 			<tr>

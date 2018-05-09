@@ -662,7 +662,7 @@ function createTemplate(item){
 		<td>
 			<a id=nw href=C_recruitMent?recruitNum={{bno}} target=_blank>{{title}}</a>
 			{{#qIcon}}
-				{{state}}
+				{{state}}{{bno}}
 			{{/qIcon}}	
 			<br>
 			({{periodstart}}{{period}})
@@ -717,7 +717,7 @@ function createTemplate(item){
         
  		Handlebars.registerHelper("qIcon", function(option) {
         	if(this.qcnt != null){
-					return "<span name=qIcons style=font-size:20px;cursor:pointer  data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
+					return "<span name=qIcons value="+this.bno+" style=font-size:20px;cursor:pointer  data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
 			}else{
 			}
         });
@@ -725,9 +725,19 @@ function createTemplate(item){
 	
 <script> 
 $(document).on("click","#endRecruit", function(){
-	bno = $(this).val();
+	
+	var bno = $(this).val();
 	endFunction(bno);
 })
+
+$(document).on("click","span[name='qIcons']",function(){
+	
+	var bno = $(this).attr("value");
+	
+	window.open('C_recruitMent?recruitNum='+bno+'#questionCall', '', 'width=1000, height=960')
+	
+})
+
 
 function endFunction(bno){ /* 공고 마감 버튼 */
 	
