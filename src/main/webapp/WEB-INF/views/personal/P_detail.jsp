@@ -23,15 +23,14 @@
                <td colspan="5" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">${ResumeVO.title}</td>
             </tr>
             <tr>
-               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
-                  for="pname">이름</label></th>
+               <th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">
+               <label for="pname">이름</label></th>
                <td class="col-sm-4" id="pname" name="pname"
                   style="text-align: center; vertical-align:middle;">${PUserVO.pname}</td>
-               <th rowspan="3" class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
-                  for="img">사진</label></th>
-               <td colspan="3" rowspan="3" class="col-sm-4">
-                  <div id='uploadedList'
-                     style='width: 127px; height: 151px;'>
+               <th rowspan="3" class="table-active" scope="row" style="text-align: center; vertical-align:middle;">
+               <label for="img">사진</label></th>
+               <td colspan="3" rowspan="3" class="col-sm-4" style="text-align:center;">
+                  <div id='uploadedList' style='width: 127px; height: 151px; text-align:center; margin:0 auto;'>
                      <img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
                   </div> <!--  사진 보이는 div  --> <input id='imgsrccheck' type='hidden'
                   value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->

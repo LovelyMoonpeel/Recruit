@@ -30,14 +30,14 @@
 					<td colspan="5" style="text-align: center; vertical-align:middle; line-height:200%; background-color:rgba(192,198,211,0.5)">${ResumeVO.title}</td>
 				</tr>
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;"><label
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
 						for="pname">이름</label></th>
 					<td class="col-sm-4" id="pname" name="pname"
-						style="text-align: center;">${ResumeVO.preadornot}</td>
+						style="text-align: center; vertical-align:middle;">${ResumeVO.preadornot}</td>
 					<th rowspan="3" class="table-active" scope="row"
-						style="text-align: center;"><label for="img">사진</label></th>
-					<td colspan="3" rowspan="3" class="col-sm-4">
-						<div id='uploadedList' style='width: 127px; height: 152px;'>
+						style="text-align: center; vertical-align:middle;"><label for="img">사진</label></th>
+					<td colspan="3" rowspan="3" class="col-sm-4" style="vertical-align:middle;">
+						<div id='uploadedList' style='width: 127px; height: 152px; margin:0 auto;'>
 							<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 						</div> <!--  사진 보이는 div  --> <input id='imgsrccheck' type='hidden'
 						value="${ResumeVO.img}" /> <!-- db에 있는 file img 이름 받아오는 hidden input -->
@@ -46,13 +46,13 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;"><label>생년월일</label></th>
-					<td style="text-align: center;">${ResumeVO.extracolumn}</td>
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label>생년월일</label></th>
+					<td style="text-align: center; vertical-align:middle;">${ResumeVO.extracolumn}</td>
 				</tr>
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;"><label
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;"><label
 						for="email">이메일</label></th>
-					<td style="text-align: center;">${ResumeVO.publicornot}</td>
+					<td style="text-align: center; vertical-align:middle;">${ResumeVO.publicornot}</td>
 				</tr>
 
 				<tr>
@@ -142,16 +142,16 @@
 					<td colspan="2" style="text-align: center;">${resumeRead.employstatusid}</td>
 				</tr>
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;">희망직종(대분류)</th>
-					<td style="text-align: center;">${resumeRead.jobgroupid}</td>
-					<th class="table-active" scope="row" style="text-align: center;">희망직종(소분류)</th>
-					<td colspan="2" style="text-align: center;">${resumeRead.jobgroupid2}</td>
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">희망직종(대분류)</th>
+					<td style="text-align: center; vertical-align:middle;">${resumeRead.jobgroupid}</td>
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">희망직종(소분류)</th>
+					<td colspan="2" style="text-align: center; vertical-align:middle;">${resumeRead.jobgroupid2}</td>
 				</tr>
 				<tr>
-					<th class="table-active" scope="row" style="text-align: center;">희망근무지(시/도)</th>
-					<td style="text-align: center;">${resumeRead.rgbid}</td>
-					<th class="table-active" scope="row" style="text-align: center;">희망근무지</th>
-					<td colspan="2" style="text-align: center;">${resumeRead.rgsid}</td>
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">희망근무지(시/도)</th>
+					<td style="text-align: center; vertical-align:middle;">${resumeRead.rgbid}</td>
+					<th class="table-active" scope="row" style="text-align: center; vertical-align:middle;">희망근무지</th>
+					<td colspan="2" style="text-align: center; vertical-align:middle;">${resumeRead.rgsid}</td>
 				</tr>
 				<tr>
 					<th class="table-active" scope="row" style="text-align: center;">희망연봉</th>

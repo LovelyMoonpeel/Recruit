@@ -46,7 +46,7 @@
 							for="img">사진</label></th>
 						<td style="overflow-y:hidden;" rowspan="3" style="text-align : center">
 							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px solid #c0c6d3; margin:0 auto;'>
-								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br><br> 권장 사이즈 : <br>(235 x 315 px)</p>
+								<p style="text-align : center; vertical-align : middle;"><br><br>(사 진)<br><br> 권장 사이즈 : <br>(354 x 472 px)</p>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> <!--  사진 보이는 div  -->
 							<input type='hidden' id='imgsrccheck' value="${ResumeVO.img}" />
