@@ -531,11 +531,11 @@ background-color: #777;
 				
 				<font size="6px">접수방법</font> <br>
 				 <div>
-				 <span class="startDay">시작일 </span> <span>${RecruitVO.periodstart }</span>
+				 <span class="startDay">시작일 </span> <span>&nbsp;&nbsp;${RecruitVO.periodstart }</span>
 				 </div>
 				 <br>
 				 <div>
-				 <span class="lastDay">마감일</span> <span>${RecruitVO.period }</span>
+				 <span class="lastDay">마감일</span> <span>&nbsp;&nbsp;${RecruitVO.period }</span>
 				</div>
 				<br>
 			</div>
@@ -559,13 +559,10 @@ $("#t1").html(timeInMs);
 		</c:choose>
 				<br>
 				<table>
+				<br>
 					<tr>
-						<td>접수방법</td>
+						<td>접수방법 &nbsp;</td>
 						<td>${RecruitVO.acceptmethod }</td>
-					</tr>
-					<tr>
-						<td>지원양식</td>
-						<td>${RecruitVO.recruitform }</td>
 					</tr>
 					<tr>
 						<td>모집인원</td>
@@ -1116,7 +1113,7 @@ function load(num){
 			<span style="float:right; width:2%; cursor:pointer;" class="glyphicon glyphicon-menu-down" id="span{{qbno}}" value="{{qbno}}" name="spanClick"></span>     
         </a>
 		<a data-toggle="collapse" data-parent="#accordion{{qbno}}" href="#collapse{{qbno}}" value="{{qbno}} aria-expanded="false" aria-controls="collapse{{qbno}}">
-			<c:if test="${RecruitVO.cid == cid}"><button name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
+			<c:if test="${RecruitVO.cid == cid}"><button class="btn btn-default" name="aBtns" id="aBtn{{qbno}}" value="{{qbno}}" style="right:0">답변/수정하기</button></c:if> 
 		</a>
       </h4>
     </div>
@@ -1126,7 +1123,11 @@ function load(num){
       </div>
 		<div id="answerDiv{{qbno}}"  style="display:none">
 		<textarea class="form-control" name="{{qbno}}" value="{{atext}}">{{atext}}</textarea>
-		<button name="cancleBtns" value="{{qbno}}">취소</button><button value="{{qbno}}" name="aTextModifyBtns">등록</button>
+		<br>
+		<div class="text-center" style="text-align: center;">
+		<button class="btn btn-danger btn-lg" name="cancelBtns" value="{{qbno}}">취소</button><button class="btn btn-success btn-lg" value="{{qbno}}" name="aTextModifyBtns">등록</button>
+		</div>
+		<br>
 		</div>	
     </div>
   </div>
@@ -1161,7 +1162,7 @@ function load(num){
 		
 	})
 	
-	$(document).on("click","button[name='cancleBtns']", function(){
+	$(document).on("click","button[name='cancelBtns']", function(){
 		
 		var num = $(this).val();
 		$("#aBtn"+num).css("display","")

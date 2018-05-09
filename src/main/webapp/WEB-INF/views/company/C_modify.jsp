@@ -163,9 +163,9 @@
 		<br>
 
 		<!-- 수정 버튼 -->
-		<div class="box-footer">
-			<button type="button" class="btn btn-primary">저장하기</button>
-			<button type="button" class="btn btn-warning" id="modify">취소하기</button>
+		<div class="box-footer text-center">
+			<button type="button" class="btn btn-primary btn-lg">저장하기</button>
+			<button type="button" class="btn btn-danger btn-lg" id="modify">취소하기</button>
 		</div>
 		<!-- //수정 버튼 -->
 		<br> <br>

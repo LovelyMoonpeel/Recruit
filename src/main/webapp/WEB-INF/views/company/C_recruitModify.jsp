@@ -509,8 +509,11 @@ $(function () {
 			<%-- <%=request.getParameter("jobgroupid2")%>
 			 --%>
 		</table>
-	<input type="submit" class="btn btn-primary" id="sbm" value="등록">
-
+		<div class="text-center">
+	<input type="submit" class="btn btn-primary btn-lg" id="sbm" value="등록">
+	
+	<input type="button" class="btn btn-danger btn-lg" id="cancel" value="취소">
+</div>
 	</form>
 	<br>
 	<br>
@@ -533,291 +536,9 @@ $(function () {
 
 	<script>
 	
-$("#sbm").on("click",function(e){
+	$("#sbm").on("click",function(e){
 		
-		if($("#title").val()==""){   /* 타이틀 유효성 검사 */
-			
-			$("#titleDiv").addClass("form-group has-error has-feedback"); 
-			$("#titleTxt").css("color","#a94442")
-			$("#titleXIcon").css("display","");
-			$("#title").focus();
-			
-			e.preventDefault();
-			
-		}else{
-			$("#titleDiv").removeClass(); 
-			$("#titleXIcon").css("display","none");
-			$("#titleDiv").addClass("form-group has-success has-feedback");
-			$("#titleTxt").css("color","#3c763d")
-			$("#titleOKIcon").css("display","");
-			
-		}
-		
-		if($("#jobdesc").val()==""){
-			
-			$("#jobdescDiv").addClass("form-group has-error has-feedback"); 
-			$("#jobdescTxt").css("color","#a94442")
-			$("#jobdescXIcon").css("display","");
-			$("#jobdesc").focus();
-			
-		}else{
-			
-			$("#jobdescDiv").removeClass(); 
-			$("#jobdescXIcon").css("display","none");
-			$("#jobdescDiv").addClass("form-group has-success has-feedback");
-			$("#jobdescTxt").css("color","#3c763d")
-			$("#jobdescOKIcon").css("display","");
-			
-		}
-		
-		if($("#adddesc").val()==""){
-			
-			$("#adddescDiv").addClass("form-group has-error has-feedback"); 
-			$("#adddescTxt").css("color","#a94442")
-			$("#adddescXIcon").css("display","");
-			$("#adddesc").focus();
-			
-		}else{
-			
-			$("#adddescDiv").removeClass(); 
-			$("#adddescXIcon").css("display","none");
-			$("#adddescDiv").addClass("form-group has-success has-feedback");
-			$("#adddescTxt").css("color","#3c763d")
-			$("#adddescOKIcon").css("display","");
-			
-		}
-		
-		if($("#jobGroup").val()==""){
-			
-			$("#jobGroupDiv").addClass("form-group has-error has-feedback"); 
-			$("#jobGroupTxt").css("color","#a94442")
-			$("#jobGroupXIcon").css("display","");
-			$("#jobGroup").focus();
-			
-			
-		}else{
-			
-			$("#jobGroupDiv").removeClass(); 
-		 	$("#jobGroupXIcon").css("display","none"); 
-			$("#jobGroupDiv").addClass("form-group has-success has-feedback"); 
-			$("#jobGroupTxt").css("color","#3c763d")
-			$("#jobGroupOKIcon").css("display","");
-			$("#jobGroup").focus();
-			
-			
-			if($("#jobgroupid2").val()==""){
-				
-				$("#subJobgroupDiv").addClass("form-group has-error has-feedback"); 
-				$("#jobGroupTxt").css("color","#a94442")
-				$("#subJobgroupXIcon").css("display","");
-				$("#subJobgroup").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#subJobgroupDiv").removeClass(); 
-					$("#subJobgroupDiv").addClass("form-group has-success has-feedback"); 
-					$("#jobGroupTxt").css("color","#3c763d");
-					$("#subJobgroupXIcon").css("display","none");
-					$("#subJobgroupOKIcon").css("display","");
-					$("#subJobgroup").focus();
-			
-					
-				}
-			
-		}
-		
-		
-		
-		
-		if($("#rgbid").val()==""){
-			
-			$("#rgbidDiv").addClass("form-group has-error has-feedback"); 
-			$("#rgbidTxt").css("color","#a94442")
-			$("#rgbidXIcon").css("display","");
-			$("#rgbid").focus();
-			e.preventDefault();
-			
-		}else{
-			
-			$("#rgbidDiv").removeClass(); 
-			$("#rgbidXIcon").css("display","none");
-			$("#rgbidDiv").addClass("form-group has-success has-feedback");
-			$("#rgbidTxt").css("color","#3c763d")
-			$("#rgbidOKIcon").css("display","");
-			
-			var jN = $("#rgbid").val();
-			
-			
-			if($("#rgsid").val()==""){
-				
-			
-				
-				$("#subRegionDiv").addClass("form-group has-error has-feedback"); 
-				$("#rgbidTxt").css("color","#a94442")
-				$("#subRegionXIcon").css("display","");
-				$("#subRegion").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#subRegionDiv").removeClass(); 
-					$("#subRegionDiv").addClass("form-group has-success has-feedback"); 
-					$("#rgbidTxt").css("color","#3c763d");
-					$("#subRegionXIcon").css("display","none");
-					$("#subRegionOKIcon").css("display","");
-					$("#subRegion").focus();
-			
-					
-				}
-			
-		}
-		
-	
-		if($("#employstatusid").val()==""){
-			
-			
-			
-			$("#employstatusidDiv").addClass("form-group has-error has-feedback"); 
-			$("#employstatusidTxt").css("color","#a94442")
-			$("#employstatusidXIcon").css("display","");
-			$("#employstatusid").focus();
-			e.preventDefault(); 
-		
-		
-			}else{
-				
-				
-				$("#employstatusidDiv").removeClass(); 
-				$("#employstatusidDiv").addClass("form-group has-success has-feedback"); 
-				$("#employstatusidTxt").css("color","#3c763d");
-				$("#employstatusidXIcon").css("display","none");
-				$("#employstatusidOKIcon").css("display","");
-				$("#employstatusid").focus();
-				
-			}
-		
-			if($("#salaryid").val()==""){
-			
-			
-			
-			$("#salaryidDiv").addClass("form-group has-error has-feedback"); 
-			$("#salaryidTxt").css("color","#a94442")
-			$("#salaryidXIcon").css("display","");
-			$("#salaryid").focus();
-			e.preventDefault(); 
-		
-		
-			}else{
-				
-				
-				$("#salaryidDiv").removeClass(); 
-				$("#salaryidDiv").addClass("form-group has-success has-feedback"); 
-				$("#salaryidTxt").css("color","#3c763d");
-				$("#salaryidXIcon").css("display","none");
-				$("#salaryidOKIcon").css("display","");
-				$("#salaryid").focus();
-				
-			}
-			
-			if($("#edu").val()==""){
-				
-				
-				
-				$("#eduDiv").addClass("form-group has-error has-feedback"); 
-				$("#eduTxt").css("color","#a94442")
-				$("#eduXIcon").css("display","");
-				$("#edu").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#eduDiv").removeClass(); 
-					$("#eduDiv").addClass("form-group has-success has-feedback"); 
-					$("#eduTxt").css("color","#3c763d");
-					$("#eduXIcon").css("display","none");
-					$("#eduOKIcon").css("display","");
-					$("#edu").focus();
-					
-				}
-			
-			
-			if($("#exp").val()==""){
-				
-				
-				
-				$("#expDiv").addClass("form-group has-error has-feedback"); 
-				$("#expTxt").css("color","#a94442")
-				$("#expXIcon").css("display","");
-				$("#exp").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#expDiv").removeClass(); 
-					$("#expDiv").addClass("form-group has-success has-feedback"); 
-					$("#expTxt").css("color","#3c763d");
-					$("#expXIcon").css("display","none");
-					$("#expOKIcon").css("display","");
-					$("#exp").focus();
-					
-				}
-			
-			if($("#recruitnum").val()==""){
-					
-				$("#recruitnumTxt").css("color","#a94442")
-				$("#recruitnumXIcon").css("display","");
-				$("#recruitnum").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#recruitnumTxt").css("color","#3c763d");
-				$("#recruitnumXIcon").css("display","none");
-				$("#recruitnumOKIcon").css("display","");
-				$("#recruitnum").focus();
-				
-				
-			}
-			
-			
-			if($("input[type=radio][name='acceptmethod']:checked").val()==undefined){
-				
-				$("#acceptmethodTxt").css("color","#a94442")
-				$("#recruitnum").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#acceptmethodTxt").css("color","#3c763d");
-				
-				$("#acceptmethod").focus();
-				
-				
-			}
-		
-			if($("#period").val()==""){
-				
-				$("#periodTxt").css("color","#a94442")
-				$("#period").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#periodTxt").css("color","#3c763d");
-				
-				$("#period").focus();
-				
-				
-			}
+		<%@include file="/resources/rpjt/js/CompanyValidator.js" %> /* 유효성 검사용 js 파일 */
 			
 		
 	})
@@ -826,6 +547,13 @@ $("#sbm").on("click",function(e){
 
 
 <script>
+
+$("#cancel").on("click",function(){
+	if(confirm("취소하겠습니까?")){
+	location.href = "/company/C_manage";
+	}
+})
+
 $(document).ready(function(){
 	
 	var mainJob = "<c:out value="${RecruitVO.jobgroupid}"/>";

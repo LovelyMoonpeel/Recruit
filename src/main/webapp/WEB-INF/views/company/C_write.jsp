@@ -1,25 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+	
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <%@include file="../include/cheader.jsp"%>
 
-
-<link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
+<!-- Include dependencies -->
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/2.9.0/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.css" /> -->
+ 
+ <link rel="stylesheet" type="text/css" href="/resources/rpjt/datepicker/datepicker3.css" />
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 
- <link rel="stylesheet" type="text/css" href="/resources/rpjt/css/button.css" /> <!-- 버튼용 css -->
-
+<!-- Include date range picker plugin -->
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/1/daterangepicker-bs3.css" />
+ -->
 <style>
- #map {
-      		width:	100%;
-            height: 300px; 
-        }
-
+ 
 r{
 color:rgb(255, 79, 0);
 }
@@ -159,8 +161,10 @@ $(function () {
 					<select class="selectpicker" data-live-search="true" id="subJob${status.index}" name="subJobgroup" title="선택">
 						<c:forEach items="${subJobgroupList}" var="JobGroupVO">
 						<c:if test="${JobGroupVO.id2==status.index}">
+						<c:if test="${JobGroupVO.jobgroup!='전체'}">
 						
 							<option value="${JobGroupVO.id}">${JobGroupVO.jobgroup}</option>
+							</c:if>
 								
 							</c:if>
 						</c:forEach>
@@ -207,7 +211,9 @@ $(function () {
 				
 					<select class="selectpicker" data-live-search="true" id="rgbid" name='rgbid' title="선택">
 							<c:forEach items="${regionList}" var="RegionVO">
+								<c:if test="${RegionVO.rgbid!='Z'}"> 
 								<option value="${RegionVO.rgbid}">${RegionVO.rgbname}</option>
+								</c:if>
 							</c:forEach>
 					</select> 				
 			
@@ -255,11 +261,7 @@ $(function () {
 				</a>
 				<br>
 				<br>
-				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-				<input type="hidden" name="lat" id="lat">
-				<input type="hidden" name="lng" id="lng">
-				<input type="hidden" name="location" id="test">
-				<div id="map"></div>
+				
 					
 				</div>
 				
@@ -280,193 +282,6 @@ $(function () {
 				})
 				
 				</script>
-				
-					<script>
-					
-					changelatlan = "";
-					var e = jQuery.Event( "keypress", { keyCode: 13 } ); 
-					
-					
-			$("#rgbid").change(function(){
-				changelatlan = "";
-				changelatlan += $(this).children("option:selected").text();	
-				
-				$("#pac-input").val(changelatlan);
-				alert(changelatlan);
-				 
-				function initAutocomplete() {
-					 
-					 llat = "";
-					 llng = "";
-					 
-					 llat1 = "<c:out value="${CInfoVO.lat}"/>";
-					 llng1 = "<c:out value="${CInfoVO.lng}"/>";
-					 
-					 llat = Number(llat1);
-					 llng = Number(llng1);
-					 
-					 
-						 if("<c:out value="${CInfoVO.lat}"/>"==""){
-							var map = new google.maps.Map(document.getElementById('map'), {
-					        	
-						          center: {lat: 37.49794199999999, lng: 127.02762099999995},
-						          zoom: 13,
-						          mapTypeId: 'roadmap'
-						        });
-						}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
-							 
-							
-							
-							var map = new google.maps.Map(document.getElementById('map'), {
-						        	
-						          center: {lat: llat, lng: llng},
-						          zoom: 13,
-						          mapTypeId: 'roadmap'
-						        });
-						}
-						
-				       
-				        
-				        
-
-				        // Create the search box and link it to the UI element.
-				        var input = document.getElementById('pac-input');
-				        var searchBox = new google.maps.places.SearchBox(input);
-				        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-				        // Bias the SearchBox results towards current map's viewport.
-				        map.addListener('bounds_changed', function() {
-				          searchBox.setBounds(map.getBounds());
-				        });
-
-				        var markers = [];
-				        // Listen for the event fired when the user selects a prediction and retrieve
-				        // more details for that place.
-				        searchBox.addListener('places_changed', function() {
-				          var places = searchBox.getPlaces();
-
-				          if (places.length == 0) {
-				            return;
-				          }
-
-				          // Clear out the old markers.
-				          markers.forEach(function(marker) {
-				            marker.setMap(null);
-				          });
-				          markers = [];
-
-				          // For each place, get the icon, name and location.
-				          var bounds = new google.maps.LatLngBounds();
-				          places.forEach(function(place) {
-				            if (!place.geometry) {
-				              console.log("Returned place contains no geometry");
-				              return;
-				            }
-				            var icon = {
-				              url: place.icon,
-				              size: new google.maps.Size(71, 71),
-				              origin: new google.maps.Point(0, 0),
-				              anchor: new google.maps.Point(17, 34),
-				              scaledSize: new google.maps.Size(25, 25)
-				            };
-
-				            // Create a marker for each place.
-				            markers.push(new google.maps.Marker({
-				              map: map,
-				              icon: icon,
-				              title: place.name,
-				              position: place.geometry.location
-				            }));
-				            
-				            var lat = place.geometry.location.lat()
-				            var lng = place.geometry.location.lng()
-								
-				           		$("#lat").attr("value","");
-				            	$("#lng").attr("value","");
-				            	
-				            	$("#lat").attr("value",lat);
-				            	$("#lng").attr("value",lng);
-							
-								
-				            if (place.geometry.viewport) {
-				              // Only geocodes have viewport.
-				              bounds.union(place.geometry.viewport);
-				            } else {
-				              bounds.extend(place.geometry.location);
-				            }
-				          });
-				          map.fitBounds(bounds);
-				        });
-				        
-				        map.addListener('click', function(event) {
-				        	
-				        	
-				            deleteMarkers();
-				        
-				            addMarker(event.latLng);
-				        
-				           
-				           
-				          });
-				        
-				        function addMarker(location) {
-				    	    var marker = new google.maps.Marker({
-				    	      position: location,
-				    	      map: map
-				    	    });
-				    	 	
-				    	    
-				    	    
-				    	    markers.push(marker);
-				    	    
-				    	    var lat = location.lat();
-				            var lng = location.lng();
-								
-				           		$("#lat").attr("value","");
-				            	$("#lng").attr("value","");
-				            	
-				            	$("#lat").attr("value",lat);
-				            	$("#lng").attr("value",lng);
-				            
-				            	
-				           		
-				           		
-				    	  }
-				    	  
-				    	//Sets the map on all markers in the array.
-				    	  function setMapOnAll(map) {
-				    	    for (var i = 0; i < markers.length; i++) {
-				    	      markers[i].setMap(map);
-				    	    }
-				    	  }
-				    	  
-				    	  function deleteMarkers() {
-				    	      clearMarkers();
-				    	      markers = [];
-				    	    }
-				    	  
-				    	  function clearMarkers() {
-				    	      setMapOnAll(null);
-				    	  }
-				    	 
-				          addMarker(map.center);
-				          
-				      } 
-			</script>
-			
-		<input type="button" id="hohoho" value="hohotest"/>
-		<input type="button" id="h1h1" value="h1h1"/>
-		
-		<script>
-			function gogogo(){
-				
-				google.maps.event.trigger(input, 'focus')
-			    google.maps.event.trigger(input, 'keydown', {
-			        keyCode: 13
-			    });
-				
-			}
-		</script> 
 				
 	
 				<input type="hidden" name="rgsid" id="rgsid"> <!-- rgsid 전송용 -->
@@ -494,11 +309,11 @@ $(function () {
 				<div style="padding:15px 15px 15px 0px;">
 				
 				<div id="numChk">
-				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1">&nbsp;<h5>1명</h5></label>
-				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2">&nbsp;<h5>2명</h5></label>
-				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3">&nbsp;<h5>3명</h5></label>
-				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4">&nbsp;<h5>4명</h5></label>
-				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />명
+				<input type="radio" name="recruitnum" id="num1" value="1"><label class="form-check-label" for="num1" style="cursor:pointer">&nbsp;<h5>&nbsp;1명</h5></label>
+				<input type="radio" name="recruitnum" id="num2" value="2"><label class="form-check-label" for="num2" style="cursor:pointer">&nbsp;<h5>&nbsp;2명</h5></label>
+				<input type="radio" name="recruitnum" id="num3" value="3"><label class="form-check-label" for="num3" style="cursor:pointer">&nbsp;<h5>&nbsp;3명</h5></label>
+				<input type="radio" name="recruitnum" id="num4" value="4"><label class="form-check-label" for="num4" style="cursor:pointer">&nbsp;<h5>&nbsp;4명</h5></label>
+				<input type="radio" name="recruitnum" id="num5">&nbsp;<input type="text" name="recruitnum" id="numText" style="background-color: rgb(249, 249, 249);" />&nbsp;명
 				</div>
 				
 				</div>
@@ -621,7 +436,7 @@ $(function () {
 						<c:forEach items="${codeList}" var="CodeVO">
 							<c:if test="${CodeVO.tid==2}">
 
-								<option value="${CodeVO.id}">${CodeVO.career}</option>
+								<option value="${CodeVO.id}">${CodeVO.career} ↑</option>
 
 							</c:if>
 						</c:forEach>
@@ -698,24 +513,24 @@ $(function () {
 		
 			<tr>
 				<th class="text-center" id="periodTxt" style="vertical-align:middle;"><h4>접수기간</h4></th>
-				<td>
+					<td>
 				
-					<div class="form-inline">
+					<!-- <div class="form-inline"> -->
 					
-						<div class="input-group date" data-provide="datepicker" >
+					<!-- 	<div class="input-group date" data-provide="datepicker" >
 							<input type="text" class="form-control" id="periodStart" name="periodstart"  style="width:150px;">
 							<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
-						</div>
+						</div> -->
 						
-						~
-						<div class="input-group date" data-provide="datepicker" >
-							<input type="text" class="form-control" id="period" name="period" style="width:150px;"> 
-							<span class="input-group-addon"> 
-							<i class="glyphicon glyphicon-calendar"></i>
+						
+						<div class="form-group" style="vertical-align:middle;">
+						<div class="input-group date" data-provide="datepicker">
+							<input type="text" class="form-control" name="period" / value="${RecruitVO.period}"><span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
 							</span>
 						</div>
 					</div>
+					<!-- </div> -->
 					
 				</td>
 			</tr>
@@ -728,8 +543,8 @@ $(function () {
 				
 				
 				
-				<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1">&nbsp;홈페이지접수</label>&nbsp;
-				<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원"><label class="form-check-label" for="acceptmethod2">&nbsp;즉시지원</label>
+				<input type="radio" name="acceptmethod" id="acceptmethod1" value="홈페이지접수"><label class="form-check-label" for="acceptmethod1" style="cursor:pointer">&nbsp;<h5>&nbsp;홈페이지접수</h5></label>&nbsp;
+				<input type="radio" name="acceptmethod" id="acceptmethod2" value="즉시지원"><label class="form-check-label" for="acceptmethod2" style="cursor:pointer">&nbsp;<h5>&nbsp;즉시지원</h5></label>
 			
 			</div>
 				</td>
@@ -738,42 +553,42 @@ $(function () {
 		
 
 		</table>
-		
+		<!-- 
+		// Button element the date range picker is applied to
+<button id="picker" class="btn btn-primary"><span class="date"></span> <span class="caret"></span></button>
+<input type="text" id="picker" name="startPicker"/>
+<input type="text" id="pp"/>  -->
 		<br>
 		<br>
 		<p class="lead">
 			<h2>채용정보 공유 및 등록제한 규정</h2>
 		</p>
 		
-		<div style="text-center">
-		<hr>
-
-			<font>등록하신 채용공고는 각종 사이트에 동시 게재됩니다.</font> <input id="TAC" type="checkbox"  style=""/> <b style="font-size:15px">동의합니다.</b>
+		
+		<div style="text-center; border: solid 1px black; border-color: black; padding:5px 5px 5px 5px; padding-left:15px;">
+			<br>
+			<font>등록하신 채용공고는 각종 사이트에 동시 게재됩니다.</font> <input id="TAC" type="checkbox"/> <label for="TAC" style=cursor:pointer>동의합니다.</label>
 			
 		<hr>
 		
 			※ 채용공고가 아래와 같은 경우 법에 따라 처벌 받을 수 있으며, 모니터링으로 공고가 게재되지 않을 수 있습니다.<br>
 				- 연령에 제한을 두거나 성별을 분리하여 모집하는 경우<br>
 				- 최저임금 미만 이거나 채용공고 내용이 법령을 위반하는 경우<br>
-				- 불량정보 유형에 속하는 채용정보일 경우 <a style="padding-left:50%" data-toggle=modal data-target=#myModal>공고등록 제한 규정 안내<span style="cursor:pointer" class="glyphicon glyphicon-triangle-bottom"></span></a>
+				- 불량정보 유형에 속하는 채용정보일 경우 <a style="padding-left:50%; cursor:pointer" data-toggle=modal data-target=#myModal>공고등록 제한 규정 안내<span style="cursor:pointer" class="glyphicon glyphicon-triangle-bottom"></span></a>
 
 		<br> 
 		<br>
 		</div> 
 
-	<table>
-	<tr class="text-center">
-	<th class="text-center " style=" display: inline-table">
 	
-		<button class="button button--antiman button--inverted button--border-thin button--text-thick button--size-m" name="actionBtns" type="submit" id="sbm"><span id="sbmSpan" style="color:white;">등록</span></button> 
-		
-		
-		<button class="button button--antiman button--inverted button--border-thin button--text-thick button--size-m" name="actionBtns" id="cancle"><span id="cancleSpan" style="color:white;">취소</span></button> <br>
-		
-	</th>
-	</tr>
+	<br>
 	
-		</table>
+		<div class="text-center" style="text-align: center;">
+		<button class="btn btn-primary btn-lg" name="actionBtns" type="submit" id="sbm">등록</button> 
+
+		<button class="btn btn-danger btn-lg" name="actionBtns" id="cancel"><span>취소</span></button> <br>
+		</div>
+	
 		
 	</form>
 	
@@ -908,473 +723,18 @@ $(function () {
 	
 	<script>
 	
-	$("#cancle").on("click",function(){
+	$("#cancel").on("click",function(){
 		
 		self.location = "/company/C_manage";
 		
 	})
 	</script>
 	
-	<script>
-
-var map;
-
- function initAutocomplete() {
-	 
-	 llat = "";
-	 llng = "";
-	 
-	 llat1 = "<c:out value="${CInfoVO.lat}"/>";
-	 llng1 = "<c:out value="${CInfoVO.lng}"/>";
-	 
-	 llat = Number(llat1);
-	 llng = Number(llng1);
-	 
-	 
-		 if("<c:out value="${CInfoVO.lat}"/>"==""){
-			var map = new google.maps.Map(document.getElementById('map'), {
-	        	
-		          center: {lat: 37.49794199999999, lng: 127.02762099999995},
-		          zoom: 13,
-		          mapTypeId: 'roadmap'
-		        });
-		}else if("<c:out value="${CInfoVO.lat}"/>"!=""){ 
-			 
-			
-			
-			var map = new google.maps.Map(document.getElementById('map'), {
-		        	
-		          center: {lat: llat, lng: llng},
-		          zoom: 13,
-		          mapTypeId: 'roadmap'
-		        });
-		}
-		
-       
-        
-        
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-            
-            var lat = place.geometry.location.lat()
-            var lng = place.geometry.location.lng()
-				
-           		$("#lat").attr("value","");
-            	$("#lng").attr("value","");
-            	
-            	$("#lat").attr("value",lat);
-            	$("#lng").attr("value",lng);
-			
-				
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
-        
-        map.addListener('click', function(event) {
-        	
-        	
-            deleteMarkers();
-        
-            addMarker(event.latLng);
-        
-           
-           
-          });
-        
-        function addMarker(location) {
-    	    var marker = new google.maps.Marker({
-    	      position: location,
-    	      map: map
-    	    });
-    	 	
-    	    
-    	    
-    	    markers.push(marker);
-    	    
-    	    var lat = location.lat();
-            var lng = location.lng();
-				
-           		$("#lat").attr("value","");
-            	$("#lng").attr("value","");
-            	
-            	$("#lat").attr("value",lat);
-            	$("#lng").attr("value",lng);
-            
-            	
-           		
-           		
-    	  }
-    	  
-    	//Sets the map on all markers in the array.
-    	  function setMapOnAll(map) {
-    	    for (var i = 0; i < markers.length; i++) {
-    	      markers[i].setMap(map);
-    	    }
-    	  }
-    	  
-    	  function deleteMarkers() {
-    	      clearMarkers();
-    	      markers = [];
-    	    }
-    	  
-    	  function clearMarkers() {
-    	      setMapOnAll(null);
-    	  }
-    	 
-          addMarker(map.center);
-          
-      } 
- 
- </script>
 	
-	<script>
+	<script charset="utf-8">
 	$("#sbm").on("click",function(e){
 		
-		if($("#title").val()==""){   /* 타이틀 유효성 검사 */
-			
-			$("#titleDiv").addClass("form-group has-error has-feedback"); 
-			$("#titleTxt").css("color","#a94442")
-			$("#titleXIcon").css("display","");
-			$("#title").focus();
-			
-			e.preventDefault();
-			
-		}else{
-			$("#titleDiv").removeClass(); 
-			$("#titleXIcon").css("display","none");
-			$("#titleDiv").addClass("form-group has-success has-feedback");
-			$("#titleTxt").css("color","#3c763d")
-			$("#titleOKIcon").css("display","");
-			
-		}
-		
-		if($("#jobdesc").val()==""){
-			
-			$("#jobdescDiv").addClass("form-group has-error has-feedback"); 
-			$("#jobdescTxt").css("color","#a94442")
-			$("#jobdescXIcon").css("display","");
-			$("#jobdesc").focus();
-			
-		}else{
-			
-			$("#jobdescDiv").removeClass(); 
-			$("#jobdescXIcon").css("display","none");
-			$("#jobdescDiv").addClass("form-group has-success has-feedback");
-			$("#jobdescTxt").css("color","#3c763d")
-			$("#jobdescOKIcon").css("display","");
-			
-		}
-		
-		if($("#adddesc").val()==""){
-			
-			$("#adddescDiv").addClass("form-group has-error has-feedback"); 
-			$("#adddescTxt").css("color","#a94442")
-			$("#adddescXIcon").css("display","");
-			$("#adddesc").focus();
-			
-		}else{
-			
-			$("#adddescDiv").removeClass(); 
-			$("#adddescXIcon").css("display","none");
-			$("#adddescDiv").addClass("form-group has-success has-feedback");
-			$("#adddescTxt").css("color","#3c763d")
-			$("#adddescOKIcon").css("display","");
-			
-		}
-		
-		if($("#jobGroup").val()==""){
-			
-			$("#jobGroupDiv").addClass("form-group has-error has-feedback"); 
-			$("#jobGroupTxt").css("color","#a94442")
-			$("#jobGroupXIcon").css("display","");
-			$("#jobGroup").focus();
-			
-			
-		}else{
-			
-			$("#jobGroupDiv").removeClass(); 
-		 	$("#jobGroupXIcon").css("display","none"); 
-			$("#jobGroupDiv").addClass("form-group has-success has-feedback"); 
-			$("#jobGroupTxt").css("color","#3c763d")
-			$("#jobGroupOKIcon").css("display","");
-			$("#jobGroup").focus();
-			
-			var jN = $("#jobGroup").val();
-			
-			if($("#subJob"+jN).val()==""){
-				
-				$("#subJobgroupDiv").addClass("form-group has-error has-feedback"); 
-				$("#jobGroupTxt").css("color","#a94442")
-				$("#subJobgroupXIcon").css("display","");
-				$("#subJobgroup").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#subJobgroupDiv").removeClass(); 
-					$("#subJobgroupDiv").addClass("form-group has-success has-feedback"); 
-					$("#jobGroupTxt").css("color","#3c763d");
-					$("#subJobgroupXIcon").css("display","none");
-					$("#subJobgroupOKIcon").css("display","");
-					$("#subJobgroup").focus();
-			
-					
-				}
-			
-		}
-		
-		
-		
-		
-		if($("#rgbid").val()==""){
-			
-			$("#rgbidDiv").addClass("form-group has-error has-feedback"); 
-			$("#rgbidTxt").css("color","#a94442")
-			$("#rgbidXIcon").css("display","");
-			$("#rgbid").focus();
-			e.preventDefault();
-			
-		}else{
-			
-			$("#rgbidDiv").removeClass(); 
-			$("#rgbidXIcon").css("display","none");
-			$("#rgbidDiv").addClass("form-group has-success has-feedback");
-			$("#rgbidTxt").css("color","#3c763d")
-			$("#rgbidOKIcon").css("display","");
-			
-			var jN = $("#rgbid").val();
-			
-			
-			if($("#subRegion"+jN).val()==""){
-				
-			
-				
-				$("#subRegionDiv").addClass("form-group has-error has-feedback"); 
-				$("#rgbidTxt").css("color","#a94442")
-				$("#subRegionXIcon").css("display","");
-				$("#subRegion").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#subRegionDiv").removeClass(); 
-					$("#subRegionDiv").addClass("form-group has-success has-feedback"); 
-					$("#rgbidTxt").css("color","#3c763d");
-					$("#subRegionXIcon").css("display","none");
-					$("#subRegionOKIcon").css("display","");
-					$("#subRegion").focus();
-			
-					
-				}
-			
-			}
-		
-	
-			if($("#employstatusid").val()==""){
-			
-			
-			
-				$("#employstatusidDiv").addClass("form-group has-error has-feedback"); 
-				$("#employstatusidTxt").css("color","#a94442")
-				$("#employstatusidXIcon").css("display","");
-				$("#employstatusid").focus();
-				e.preventDefault(); 
-		
-		
-				}else{
-				
-				
-				$("#employstatusidDiv").removeClass(); 
-				$("#employstatusidDiv").addClass("form-group has-success has-feedback"); 
-				$("#employstatusidTxt").css("color","#3c763d");
-				$("#employstatusidXIcon").css("display","none");
-				$("#employstatusidOKIcon").css("display","");
-				$("#employstatusid").focus();
-				
-				}
-		
-				if($("#salaryid").val()==""){
-			
-			
-			
-				$("#salaryidDiv").addClass("form-group has-error has-feedback"); 
-				$("#salaryidTxt").css("color","#a94442")
-				$("#salaryidXIcon").css("display","");
-				$("#salaryid").focus();
-				e.preventDefault(); 
-		
-			
-				}else{
-				
-				
-				$("#salaryidDiv").removeClass(); 
-				$("#salaryidDiv").addClass("form-group has-success has-feedback"); 
-				$("#salaryidTxt").css("color","#3c763d");
-				$("#salaryidXIcon").css("display","none");
-				$("#salaryidOKIcon").css("display","");
-				$("#salaryid").focus();
-				
-				}
-			
-				if($("#edu").val()==""){
-				
-				
-				
-				$("#eduDiv").addClass("form-group has-error has-feedback"); 
-				$("#eduTxt").css("color","#a94442")
-				$("#eduXIcon").css("display","");
-				$("#edu").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#eduDiv").removeClass(); 
-					$("#eduDiv").addClass("form-group has-success has-feedback"); 
-					$("#eduTxt").css("color","#3c763d");
-					$("#eduXIcon").css("display","none");
-					$("#eduOKIcon").css("display","");
-					$("#edu").focus();
-					
-				}
-			
-			
-				if($("#exp").val()==""){
-				
-				
-				
-				$("#expDiv").addClass("form-group has-error has-feedback"); 
-				$("#expTxt").css("color","#a94442")
-				$("#expXIcon").css("display","");
-				$("#exp").focus();
-				e.preventDefault(); 
-			
-			
-				}else{
-					
-					
-					$("#expDiv").removeClass(); 
-					$("#expDiv").addClass("form-group has-success has-feedback"); 
-					$("#expTxt").css("color","#3c763d");
-					$("#expXIcon").css("display","none");
-					$("#expOKIcon").css("display","");
-					$("#exp").focus();
-					
-				}
-			
-			if($("input[type=radio][name='recruitnum']:checked").val()==undefined){
-					
-				$("#recruitnumTxt").css("color","#a94442")
-				$("#recruitnumXIcon").css("display","");
-				$("#recruitnum").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#recruitnumTxt").css("color","#3c763d");
-				$("#recruitnumXIcon").css("display","none");
-				$("#recruitnumOKIcon").css("display","");
-				$("#recruitnum").focus();
-				
-				
-			}
-			
-			
-			if($("input[type=radio][name='acceptmethod']:checked").val()==undefined){
-				
-				$("#acceptmethodTxt").css("color","#a94442")
-				$("#recruitnum").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#acceptmethodTxt").css("color","#3c763d");
-				
-				$("#acceptmethod").focus();
-				
-				
-			}
-		
-			if($("#period").val()==""){
-				
-				$("#periodTxt").css("color","#a94442")
-				$("#period").focus();
-				e.preventDefault(); 
-			
-				
-			}else{
-				$("#periodTxt").css("color","#3c763d");
-				
-				$("#period").focus();
-				
-				
-			}
-			
-			if($("#TAC").is(":checked")==false){
-				e.preventDefault(); 
-				alert("이용약관에 동의해주세요");		
-			}
-			
-			
-			
+		<%@include file="/resources/rpjt/js/CompanyValidator.js" %> /* 유효성 검사용 js 파일 */
 		
 	})
 	</script>
@@ -1383,6 +743,74 @@ var map;
 	<!-- // 공고 입력 부분 끝 -->
 </div>
 <!-- // 공고 작성 바디 끝 -->
+
+
+
+
+
+<script>
+
+	$(document).ready(function(){
+		
+		$(".btn-group bootstrap-select").css("background","red");
+		
+	})
+	
+	
+/* 	// Apply the date range picker with default settings to the button
+$('#picker').daterangepicker();
+
+// Apply the date range picker with custom settings to the button
+$('#picker').daterangepicker({
+	
+
+    format: 'MM/DD/YYYY',
+    startDate: moment(),
+    endDate: moment(),
+    minDate: 'today',
+    
+    showDropdowns: false,
+    showWeekNumbers: true,
+    timePicker: false,
+    timePickerIncrement: 1,
+    timePicker12Hour: false
+    ,
+    ranges: {
+       '일주일':	[moment(), moment().add(6, 'days') ],
+       '1개월': [moment(), moment().add(1, 'month')],
+       '2개월': [moment(), moment().add(2, 'month')],
+       '3개월': [moment(), moment().add(3, 'month')]
+       
+    },
+    opens: 'left',
+    drops: 'down',
+    buttonClasses: ['btn', 'btn-sm'],
+    applyClass: 'btn-primary',
+    cancelClass: 'btn-default',
+    separator: ' to ',
+    locale: {
+        applyLabel: '완료',
+        cancelLabel: '취소',
+        fromLabel: '시작일',
+        toLabel: '마감일',
+        customRangeLabel: '날짜지정하기',
+        daysOfWeek: ['일', '월', '화', '수', '목', '금','토'],
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        firstDay: 1
+    }
+}, function(start, end, label) {
+    $('#picker span').html(start.format(' M/D/YYYY') + ' ~ ' + end.format('M/D/YYYY'));
+  
+    var stt = start.format(' M/D/YYYY');
+  	var end = end.format('M/D/YYYY');
+  	
+  	alert(stt);
+  	alert(end);
+  	$("input[name='startPicker']").val(stt);
+    $("#pp").val(end); 
+}); */
+	
+</script>
 
 <script type='text/javascript'>
 	$(function() {
@@ -1395,19 +823,6 @@ var map;
 		});
 	});	
 </script>
-
-
-
-<script>
-	$(document).ready(function(){
-		
-		$(".btn-group bootstrap-select").css("background","red");
-		
-	})
-</script>
-
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3xjt6_kAjGLYyJN4Mjvd_3coDo3nB7tg&libraries=places&callback=initAutocomplete"
-    async defer></script> <!--api 스크립트 -->
 
 
 

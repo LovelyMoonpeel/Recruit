@@ -11,6 +11,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 	
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> 
+<!-- Bootstrap (기존 Include된 부트스트랩이 색상 충돌 일어나서 추가 함)  -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	
@@ -69,11 +71,11 @@
 	</nav>
 
 	<table class="table table-bordered">
-		<tr class="active">
-			<th>공고 상태</th>
-			<th>모집 내용</th>
+		<tr class="active " >
+			<th style="text-align: center">공고 상태</th>
+			<th style="text-align: center">모집 내용</th>
 			<th style="text-align: center">기간</th>
-			<th>인재보기</th>
+			<th style="text-align: center">인재보기</th>
 			
 		</tr>
 		
@@ -81,14 +83,10 @@
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
 					<th><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
-					<th><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
-					<%-- <br>근무형태 : ${RecruitVO.employstatusid}
-					직종 : ${RecruitVO.jobgroupid} -> ${RecruitVO.jobgroupid2}
-					경력 : ${RecruitVO.exp} 
-					접수기간 : ${RecruitVO.period} --%>
+					<th style="text-align: center"><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					</th>
-					<th>${RecruitVO.period}</th>
-					<th><button name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
+					<th style="text-align: center">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
+					<th style="text-align: center"><button class="btn btn-default" name="onLoad" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 					
 

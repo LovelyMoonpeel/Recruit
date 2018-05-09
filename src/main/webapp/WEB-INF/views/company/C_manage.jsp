@@ -52,7 +52,7 @@ none = "/resources/rpjt/img/non.png";
 				
 				<input type="text" class="form-control" name='keyword' id="keywordInput" placeholder="검색어를 입력해주세요." value='${cri.keyword }'> 
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" id="searchBtn">검색하기</button>
+						<button class="btn btn-default" type="button" id="searchBtn"><span class="glyphicon glyphicon-search"></span></button>
 					</span>
 					
 				<select class="selectpicker" id="perPageNum" data-width="60px">
@@ -440,7 +440,6 @@ var formObj = $("form[role='form']");
 		
 	$(document).on("click", '#delete',function(){
 		var bno = $(this).attr('value');
-		/* formObj.attr("action", "/company/C_recruitRemove");  */
 		if(confirm("정말 삭제하시겠습니까?")){
 		self.location = "/company/C_recruitRemove?bno="+bno+"";
 		}else{
@@ -584,8 +583,7 @@ var formObj = $("form[role='form']");
 					 
 			 
 					 $("#noStrs").addClass("text-center");
-					/* 문> 삭제하기 버튼 앞에 있는 쓰레기통 아이콘 삭제 */
-				/* 	$("#spid").addClass("glyphicon glyphicon-trash"); */ 
+				
 					 $("#listPage").html(chr); 
 						
 					 $("li[name="+pN+"]").addClass("active");
@@ -600,7 +598,12 @@ var formObj = $("form[role='form']");
 						$("span[name='stateName']").eq(i).addClass("center-block clearfix");
 						$("span[name='stateName']").eq(i).addClass("badge");
 						$("span[name='hide1']").eq(i).addClass("glyphicon glyphicon-eye-open");
+						
 						$("span[name='hide0']").eq(i).addClass("glyphicon glyphicon-lock");
+						
+						$("button[name='endRecruit']").eq(i).addClass("btn btn-warning");
+						
+						$("span[name='endSpan']").eq(i).addClass("glyphicon glyphicon-ban-circle");
 						
 						$("span[name='qIcons']").eq(i).addClass("glyphicon glyphicon-comment");
 						
@@ -613,6 +616,7 @@ var formObj = $("form[role='form']");
 							$("span[name='stateName']").eq(i).css("background-color","#400000");
 							 
 						 }
+						 
 					 }
 					
 					$(function () {
@@ -665,15 +669,15 @@ function createTemplate(item){
 		</td>
 	
 		<td class=text-center>
-			<button style="vertical-align: middle" type=button id=modify value="{{bno}}">{{btnstate}}</button>
-			<button style="vertical-align: middle" type=button id=delete value="{{bno}}">삭제</button>
+			<button style="vertical-align: middle" class="btn btn-success" type=button id=modify value="{{bno}}">{{btnstate}}</button>
+			<button style="vertical-align: middle" class="btn btn-danger" type=button id=delete value="{{bno}}"><span class="glyphicon glyphicon-trash"></span>삭제</button>
 			{{#btnState}}
 				{{btnstate}}
 			{{/btnState}}
 		</td>
 
 		<td>
-			<button style="vertical-align: middle;" name=onLoad id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
+			<button class="btn btn-default" name="onLoad"; id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
 		</td>
 		
 		<td class=text-center>
@@ -699,7 +703,7 @@ function createTemplate(item){
         
         Handlebars.registerHelper("btnState", function(option) {
         	if(this.btnstate=="수정"){
-        		return "<button id=endRecruit value="+this.bno+">모집완료</button>"
+        		return "<button id=endRecruit name=endRecruit value="+this.bno+"><span name=endSpan></span>모집완료</button>"
         	}
         });
         
@@ -713,7 +717,7 @@ function createTemplate(item){
         
  		Handlebars.registerHelper("qIcon", function(option) {
         	if(this.qcnt != null){
-					return "<span name=qIcons style=font-size:20px data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
+					return "<span name=qIcons style=font-size:20px;cursor:pointer  data-toggle=tooltip data-placement=top title=질문사항이있습니다></span>";
 			}else{
 			}
         });
@@ -769,6 +773,7 @@ $(document).on("click", "button[name=onLoad]", function() {
 	 var pN = 1;
 	 
 	 $("#pKeywordInput").prop("value","");
+	
 	 PersonList(bno, pN);
 	 //소연
 	 $("#s_rcnoval").val(bno);
@@ -987,6 +992,7 @@ function favDel(bno, id){ 	// 관심 인재 삭제
 
   		RecruitList(pN, state, perPageNum, searchType, keyword, orderType);
   	});
+  	
 	</script>
 
 <%@include file="../include/cfooter.jsp"%>

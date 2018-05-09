@@ -132,8 +132,8 @@
 
 
 	<!-- 수정 버튼 -->
-	<div class="box-footer">
-		<button type="submit" class="btn btn-warning" id="cinfoModify">수정하기</button>
+	<div class="box-footer text-center">
+		<button type="submit" class="btn btn-warning btn-lg" id="cinfoModify">수정하기</button>
 	</div>
 
 
