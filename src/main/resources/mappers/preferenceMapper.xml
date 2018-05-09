@@ -82,6 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id = "selectPublicResumeasCoordinateVO" resultType = "com.recruit.domain.CoordinateVO">
 	<![CDATA[
 		select bno, title
+		, (select pname from tbluser where id=re.userid) as pid
 		, (select jobgroup from tbljobgroup where id=re.jobgroupid ) as v1
 		, (select jobgroup from tbljobgroup where id=re.jobgroupid2 ) as v2
 		, (select rgbname from tblregion where rgbid=re.rgbid AND rgsid=re.rgsid ) as w1

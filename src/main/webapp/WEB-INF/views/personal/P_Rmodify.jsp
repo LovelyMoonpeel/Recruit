@@ -37,9 +37,9 @@
 	          		${PUserVO.pname}
 	           		<%-- <input type="text" class="form-control" id="pname" name="pname" value="${PUserVO.pname}" readonly> --%>
 	           	</td>
-                <th rowspan = "3" class="table-active" scope="row"  style="text-align : center; vertical-align : middle;"><label for="img">사진</label></th>
-						<td rowspan="3" class="col-sm-4"  style="text-align : center; vertical-align : middle;">
-							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted #c0c6d3;'>
+                <th rowspan = "3" class="table-active" scope="row" style="text-align : center; vertical-align : middle;"><label for="img">사진</label></th>
+						<td style="overflow-y:hidden;" rowspan="3" style="text-align : center; vertical-align : middle;">
+							<div id='uploadedList' style='width: 127px; height: 152px; border: 1px dotted #c0c6d3; margin:0 auto;'>
 								<img id='imgsrc' height="150px;" alt="${ResumeVO.img}" />
 							</div> 
 							<!--  사진 보이는 div  --> 
@@ -48,9 +48,8 @@
 							<input type='hidden' id='uploadfilename' name='img' value='${ResumeVO.img}'> 
 							<!-- db에 올라갈 file img 이름 받아오는 hidden input -->
 							<br> 
-							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp"> 
+							<input type='file' id='fileupload' accept=".jpg,.jpeg,.png,.gif,.bmp" style="float:right;"> 
 							<!--파일 업로드 하는 버튼--> 
-							
 							<input type='hidden' id='xornot' value='0'>
 							
 							<input type='hidden' id='preexistenceimg' value='0'>
@@ -92,7 +91,7 @@
                 <tr>
                   <th style="text-align : center; vertical-align : middle;">구직상태</th>
                   <td>
-                     <div class="form-group col-md-5">
+                     <div class="form-group col-md-4" style="width: 35%;">
                      <select id="jobstateid" class="form-control" name="jobstateid" >
                         <option value="102">선택</option>
                         <c:forEach items="${CodeVOlist }" var="CodeVO">
@@ -106,9 +105,9 @@
                </tr>
                
                  <tr>
-                   <th style="text-align : center; vertical-align : middle;">모집직종</th>
-               <td>
-                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 30%; ">
+                   <th style="text-align : center; vertical-align : middle; width: 48px;">모집직종</th>
+               <td width=50px>
+                  <div class="form-group col-md-7" style="border: 1px; float: left; width: 35%; ">
                   <label for="jobgroupid">대분류</label> 
                   <select id="jobGroup" class="form-control" data-live-search="true" name="jobgroupid" >
                      <c:forEach items="${JobGroupVOlist}" var="JobGroupVO">
@@ -129,7 +128,7 @@
             <tr>
                <th style="text-align : center; vertical-align : middle;">희망근무형태</th>
                <td>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-4" style="width: 35%;">
                   <!-- <label for="CodeList4">희망근무형태</label> -->
                      <select class="form-control" name="employstatusid" id="employstatusid"> 
                         <option value="102">선택</option>
@@ -145,9 +144,9 @@
                </td>
             </tr>
             <tr>
-                <th style="text-align : center; vertical-align : middle;">희망근무지</th>
-               <td>
-                  <div class="form-group col-md-5" style="border: 1px; float: left; width: 30%; ">
+                <th style="text-align : center; vertical-align : middle; width: 48px;">희망근무지</th>
+               <td width=280px;>
+                  <div class="form-group col-md-4" style="border: 1px; float: left; width: 35%; ">
                      <label for="regionid">시/도</label> 
                      <select id="region" class="form-control" name='rgbid'>
                         <c:forEach items="${RegionVOlist}" var="RegionVO">
@@ -167,7 +166,7 @@
             <tr>
                	 <th style="text-align : center; vertical-align : middle;">희망연봉</th>
                <td>
-                  <div class="form-group col-md-5">
+                  <div class="form-group col-md-4" style="width: 35%;">
                      <!-- <label for="CodeList7">희망연봉</label> -->
                      <select class="form-control" name="salaryid" id="CodeList7">
                      	<option value="102">선택</option>
@@ -378,7 +377,7 @@ Job_Epil_No=167260&Part_Code=0&Search_Order=1&Page=1">${ResumeVO.coverletter}</t
 		<label for="major">학과</label> <input class="form-control major edu" data-toggle="popover" data-html="true" data-trigger="hover" data-html="true" data-placement="auto top" title="<b>[학과 예시]</b>"
 		data-content="전자공학과<br> 기계공학과" name="listEdu[].major" value="{{major}}"></input>
 	</div>
-	<div class="form-group col-md-2">
+	<div class="form-group col-md-3">
 		<label for="edustatus">졸업상태</label>
 		<select class="form-control edustatus edu" name="listEdu[].edustatus">
 			{{#select edustatus}}

@@ -72,7 +72,7 @@
 					<td style="text-align: center; vertical-align: middle">${CRecruitVO.recruitform}</td>
 					<td style="text-align: center; vertical-align: middle"><a
 						href='/company/C_recruitMent?recruitNum=${CRecruitVO.bno}'
-						onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=100	0, height=960'); return false;">${CRecruitVO.bno}
+						onClick="window.open(this.href, 'C${CRecruitVO.bno}', 'width=1000, height=960'); return false;">${CRecruitVO.bno}
 							: ${CRecruitVO.title}</a></td>
 					<td style="text-align: center;">${CRecruitVO.regdate}<br>~<br>${CRecruitVO.period}</td>
 					<td style="text-align: center; vertical-align: middle"><span

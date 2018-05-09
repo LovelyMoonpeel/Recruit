@@ -53,17 +53,6 @@
 	<h1 class="ci_name">${PUserVO.pname}</h1><h4>님에게 추천드리는 채용 공고</h4>
 	<br>
 	
-	<div style='width:100%; border: 1px solid #c0c6d3; padding: 30px;'>
-		<ul style="list-style-type: circle;">
-			<li>[${PUserVO.pname}]님이 공개한 이력서와 항목 중요도를 기반으로 추천된 채용공고입니다.</li>
-			<li>이력서는 기본적으로 비공개로 저장되며, 이력서 관리 페이지에서 하나의 이력서만 공개로 설정이 가능합니다.</li>
-			<li>이력서를 <b>공개</b>하신 회원님께 해당 이력서를 기반으로  <b>추천 공고 서비스</b>를 무료로 제공합니다.</li>
-			<li>공개된 이력서에서 <b>[희망 구직정보 - 희망 근무지, 희망직종], 최종학력, 최종경력</b>을 입력하시면<br>더 정확한 추천 공고 서비스를 이용하실 수 있습니다.<br></li>
-			<li>다른 채용공고를 추천받고 싶을 경우 항목 중요도를 조절해 다른 채용공고들을 추천받을 수 있습니다.</li>
-		</ul>
-		<br>※ RecruIT 채용정보 등록 규정상 부적합한 이력서로 판별된 경우, 별도 통보 없이 이력서가 비공개/삭제 처리될 수 있습니다.<br>
-	</div>
-	
 	<div class="container"
 		style="width:100%; border: 1px solid #c0c6d3; padding: 10px 20px 20px 20px; margin-top: 30px; margin-bottom: 10px; background-color:#dfe2e9;">
 		<h4>
@@ -123,49 +112,52 @@
 		<span style="line-height:200%">경력 중요도 : <span id="val_lastcareer">${PreferenceVO.pref_lastcareer}</span></span>
 		<br> 
 	</div><!-- container end -->
-	
-	<br><br>
-	<p style="font-size:30px; color:black"><img src="/resources/rpjt/img/curriculum-vitae.png" alt="resume, 내 이력서"> &nbsp;&nbsp;내 이력서	</p>
-	
+
+
 	<div class="container" style="width:100%; margin-top:10px; padding: 20px 0px 20px 0px;">
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tr>
-					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이름</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 번호</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">이력서 제목</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">관리</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#dfe2e9;">경력 z</th>
 				</tr>
 				
 				<tr>
-					<td rowspan="2" style="text-align: center; vertical-align:middle;">${MyResume.pid}</td>
-					<td style="text-align: center; vertical-align:middle;"><a href = "/personal/detail_nonavi?bno=${MyResume.bno}"  onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${MyResume.bno} : ${MyResume.title}</a></td>
-					
-					<td rowspan="2" style="text-align: center; vertical-align:middle;">눈/자물쇠</td>
-				</tr>
-				<tr>
-					<td style="text-align: center; vertical-align:middle;">
-						<span class="label label-primary">직종</span>${MyResume.v1}, ${MyResume.v2}
-						<span class="label label-primary">지역</span>${MyResume.w1}, ${MyResume.w2} 
-						<br><span class="label label-primary">근무형태</span>${MyResume.x}
-							<span class="label label-primary">학력</span> ${MyResume.y} 
-							<span class="label label-primary">경력</span>${MyResume.z}
-					</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.bno}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.title}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.v2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w1}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.w2}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.x}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.y}</td>
+					<td style="text-align: center; vertical-align:middle;">${MyResume.z}</td>
 				</tr>
 			</table>
 		</div>
 	</div>
 	
-	<p style="font-size:30px; color:black"><img src="/resources/rpjt/img/paper-plane.png" alt="resume, 채용공고"> &nbsp;&nbsp;추천 채용공고 TOP 10</p>
-	
 	<div class="container" style="width: 100%; padding: 20px 0px 0px 0px;">
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<tr>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">순위</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 번호</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">회사명</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 정보</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">모집기간</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">지원자수</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 제목</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">직무1v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">직무2v</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">지역1w1</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">지역2w2</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">근무형태 x</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">학력 y</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; ">경력 z</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">관리</th>
 				</tr>
 				
@@ -178,49 +170,29 @@
 						<td style="text-align: center; vertical-align:middle;">공개된 이력서가 없어 추천이 불가능합니다.<br>추천 서비스를 이용하려면 이력서를 공개로 설정해주세요. </td>
 						<td style="text-align: center; vertical-align:middle;"></td>
 						<td style="text-align: center; vertical-align:middle;"></td>
-						<td style="text-align: center; vertical-align:middle;">
-							<c:if test="true"><img src="/resources/rpjt/img/non.png"></c:if>
-							<c:if test=""><img src="/resources/rpjt/img/on.png"></c:if>
-						</td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"></td>
+						<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 					</tr>
-					
 				</c:when>
 				
 				<c:otherwise>
 					<c:forEach items="${CRecruitVOList}" var="CoordinateVO" varStatus="status">
 						<tr>
-							<c:if test="${status.count eq 1}">
-								<td rowspan="2" id="${status.count }VO" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
-									<!--  <img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등"> -->
-									<img src="/resources/rpjt/img/winner.png" alt="1등">
-									<!--   img src="/resources/rpjt/img/gold-medal.png" alt="1등">-->
-								</td>
-							</c:if>
-							<c:if test="${status.count ne 1}">
-								<td rowspan="2" id="${status.count }VO" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
-									${status.count }
-								</td>
-							</c:if>
-							
-							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
-							
-							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><a href = "/company/C_recruitMent?recruitNum=${CoordinateVO.bno}"  onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CoordinateVO.bno} : ${CoordinateVO.title}</a></td>
-							
-							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
-							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
-							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:65px;">
-								<c:if test="${CoordinateVO.adddesc eq 0}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/non.png" onclick="recom_clipping(this)" ></c:if>
-								<c:if test="${CoordinateVO.adddesc eq 1}"><img id="${CoordinateVO.bno}" style="cursor:pointer;" src="/resources/rpjt/img/on.png" onclick="recom_clipping(this)"></c:if>
-							</td>
-						</tr>
-						<tr>
-							<td class="${status.count }VOLIST">
-								<span class="label label-warning">직종</span>${CoordinateVO.v1}, ${CoordinateVO.v2}
-								<span class="label label-warning">지역</span>${CoordinateVO.w1}, ${CoordinateVO.w2} 
-								<br><span class="label label-warning">근무형태</span>${CoordinateVO.x}
-									<span class="label label-warning">학력</span> ${CoordinateVO.y } 
-									<span class="label label-warning">경력</span>${CoordinateVO.z}
-							</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.bno}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.cid}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.title}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.v2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w1}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.w2}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.x}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.y}</td>
+							<td style="text-align: center; vertical-align:middle;">${CoordinateVO.z}</td>
+							<td style="text-align: center; vertical-align:middle;"><span class="glyphicon glyphicon-star"></span></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -231,51 +203,7 @@
 	
 <script>
 
-function recom_clipping(clicked){
-	var rcbno = clicked.id
-	var userid = '${PUserVO.id}';
-	
-	console.log("rcbno"+rcbno);
-	console.log("pid"+userid);
-	
-	$.ajax({
-		type : 'post',
-		url : '/personal/recom_clipping',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType : 'text',
-		data : JSON.stringify({
-			rcbno : rcbno,
-			userid : userid
-		}),
-		success : function(result) {
-			console.log("result가 뭐냐?" + result);
-			
-			if (result == 'TRUE') {
-				alert("관심채용공고에 등록되었습니다.");
-				//location.reload(true);
-				location.href = "";
-			} else if (result == 'FALSE') {
-				alert("관심채용공고에서 삭제되었습니다.");
-				location.href = "";
-			} else {
-				alert("오류 발생.");
-				console.log("어느 if문에도 들어가지 못함.");
-			}
-		}//success end
-	})//ajax end
-}
-
 $(document).ready(function (){
-	
-	//$(".1VOLIST").css("background-color","#e9ecf2");	
-	//$(".1VO").append("img","");
-
-	//	<img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등">
-	//$("#1VO").text('');
-	//$('#1VO').append('<img src="/resources/rpjt/img/first-prize-trophy.png" alt="1등"/>');
 	
 	
 	$("#val_job").html(${PreferenceVO.pref_job});
@@ -505,59 +433,6 @@ $(document).ready(function (){
 	
 });//document ready end
 
-/* function add_job() {
-	var bar_job = document.getElementById("bar_job");
-	//회색 #c0c6d3;
-	//하늘색 #56c0e0;
-	
-	$("#icon_job").css("color", "#56c0e0");
-	$("#icon_region").css("color", "#333333");
-	$("#icon_employstatus").css("color", "#333333");
-	$("#icon_levelofeducation").css("color", "#333333");
-	$("#icon_lastcareer").css("color", "#333333");
-	
-}
-function add_region() {
-	var bar_region = document.getElementById("bar_region");
-	
-	
-	$("#icon_job").css("color", "#333333");
-	$("#icon_region").css("color", "#56c0e0");
-	$("#icon_employstatus").css("color", "#333333");
-	$("#icon_levelofeducation").css("color", "#333333");
-	$("#icon_lastcareer").css("color", "#333333");
-	
-}
-function add_employstatus() {
-	var bar_employstatus = document.getElementById("bar_employstatus");
-	
-	$("#icon_job").css("color", "#333333");
-	$("#icon_region").css("color", "#333333");
-	$("#icon_employstatus").css("color", "#56c0e0");
-	$("#icon_evelofeducation").css("color", "#333333");
-	$("#icon_lastcareer").css("color", "#333333");
-	
-}
-function add_levelofeducation() {
-	var bar_levelofeducation = document.getElementById("bar_levelofeducation");
-	
-	$("#icon_job").css("color", "#333333");
-	$("#icon_region").css("color", "#333333");
-	$("#icon_employstatus").css("color", "#333333");
-	$("#icon_levelofeducation").css("color", "#56c0e0");
-	$("#icon_lastcareer").css("color", "#333333");
-	
-}
-function add_lastcareer() {
-	var bar_lastcareer = document.getElementById("bar_lastcareer");
-	
-	$("#icon_job").css("color", "#333333");
-	$("#icon_region").css("color", "#333333");
-	$("#icon_employstatus").css("color", "#333333");
-	$("#icon_levelofeducation").css("color", "#333333");
-	$("#icon_lastcareer").css("color", "#56c0e0");
-	
-} */
 </script>
 </div>
 <%@include file="../include/cfooter.jsp"%>

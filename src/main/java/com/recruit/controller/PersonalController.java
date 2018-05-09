@@ -34,6 +34,7 @@ import com.recruit.domain.BoardVO;
 import com.recruit.domain.CoordinateVO;
 import com.recruit.domain.MessageVO;
 import com.recruit.domain.PApplyVO;
+import com.recruit.domain.PInterestJobVO;
 import com.recruit.domain.PTelVO;
 import com.recruit.domain.PUserVO;
 import com.recruit.domain.PWebSiteVO;
@@ -48,6 +49,7 @@ import com.recruit.domain.ResumeVO;
 import com.recruit.service.CRecruitService;
 import com.recruit.service.CompanyService;
 import com.recruit.service.PApplyService;
+import com.recruit.service.PInterestJobService;
 import com.recruit.service.PTelService;
 import com.recruit.service.PUserService;
 import com.recruit.service.PWebSiteService;
@@ -113,7 +115,10 @@ public class PersonalController {
 
 	@Inject
 	private UserService UService;
-
+	
+	@Inject
+	private PInterestJobService PIJService;
+	
 	// 개인정보관리
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexGET(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -540,6 +545,52 @@ public class PersonalController {
 			return "redirect:/";
 		}
 	}
+	
+	// 추천채용공고 실험
+	@RequestMapping(value = "/recom_developer", method = RequestMethod.GET)
+	public String recomGET_developer(HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+		System.out.println("recom_developer Controller");
+
+		BoardVO login = (BoardVO) session.getAttribute("login");
+		if (login != null) {
+			String id = login.getId();
+
+			model.addAttribute("PUserVO", service.selectPUser(id));
+			model.addAttribute("PreferenceVO", PREFService.selectPREFOne(id));
+			//실제는 tbluser에서 가져옴
+			//1. 5가지의 선호도 불러옴
+			System.out.println("선호도"+PREFService.selectPREFOne(id));
+			//2. 이력서 공개 된거 있는지 확인하고 번호 가져오는 서비스
+			if(PREFService.selectPublicResume(id)==null){
+				System.out.println("공개된 이력서가 없다.");
+				model.addAttribute("CRecruitVOList",null);
+			}else{
+				Integer bno = PREFService.selectPublicResume(id);
+				//공개된 이력서 번호
+
+				ResumeVO resume = Rservice.readROne(bno);
+				//이력서 객체 가져오기
+				System.out.println("이력서"+resume);
+
+				ArrayList<CoordinateVO> top10 = new ArrayList<CoordinateVO>(PREFService.selectCoordinateList(resume));
+				
+				System.out.println("나오냐"+top10.size());//10개
+				//3. 해당 이력서 번호로 추려낸 top10 추천 채용공고 번호 리스트
+				
+				model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10, id));
+				//4. 채용공고 번호로 리스트 끌어오기
+
+				model.addAttribute("MyResume", PREFService.selectPublicResumeasCoordinateVO(resume.getBno()));
+				//5. 비교할 수 있게 내 이력서 보여주기
+			};
+
+			return "personal/P_recom_developer";
+		} else {
+			rttr.addFlashAttribute("msg", "login");
+			return "redirect:/";
+		}
+	}
+		
 
 	// 추천채용공고 수정하는 ajax
 	@ResponseBody
@@ -570,6 +621,37 @@ public class PersonalController {
 			entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
 		}
 
+		return entity;
+	}
+	
+	@RequestMapping(value = "/recom_clipping", method = RequestMethod.POST)// 소연
+	public ResponseEntity<String> recom_clipping(@RequestBody PInterestJobVO pijvo) throws Exception {
+		System.out.println("clipping POST CONTROLLER");
+		
+		ResponseEntity<String> entity = null;
+		Integer rcbno = pijvo.getRcbno();
+		String userid = pijvo.getUserid();
+	
+		System.out.println("rcbno : " + rcbno + "userid : " + userid);
+		System.out.println("pijvo값 뭐냐"+pijvo.toString());
+		System.out.println(PIJService.selectPIJOne(pijvo));
+		try{
+			if(PIJService.selectPIJOne(pijvo)==null){//스크랩한 적 없을 때
+				System.out.println("true if문으로 들어옴");
+				PIJService.insertPIJOne(pijvo);
+				//insert 시키는거
+				entity = new ResponseEntity<String>("TRUE", HttpStatus.OK);
+			}else{//스크랩한 적 있을 때
+				System.out.println("false if문으로 들어옴");
+				PIJService.deletePIJOne(pijvo);
+				//delete 시키는거
+				entity = new ResponseEntity<String>("FALSE", HttpStatus.OK);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("return entity : " + entity);
 		return entity;
 	}
 
