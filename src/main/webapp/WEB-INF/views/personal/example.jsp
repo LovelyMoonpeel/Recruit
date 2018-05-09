@@ -8,7 +8,7 @@
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/resources/rpjt/datepicker/bootstrap-datepicker.kr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
+df
 <div class="col-md-9">
 	<h1>${PUserVO.id}님의 이력서 작성</h1>
 	<form role="form" method="post">
