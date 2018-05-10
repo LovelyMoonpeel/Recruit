@@ -33,14 +33,12 @@
 		<input type="hidden" id="order_value" name="order_value" value="${order_value}">
 
 	<div class="container col-md-4">
-		<small style="cursor: pointer" id="applicant_order"
-			onclick="applicant_order()">지원자수<span
-			id="applicant_order_icon"
-			class="order glyphicon glyphicon-chevron-down"> </span></small> | <small
-			style="cursor: pointer" id="closingdate_order"
-			onclick="closingdate_order()">마감일순<span
-			id="closingdate_order_icon"
-			class="order glyphicon glyphicon-chevron-down"> </span></small>
+		<small style="cursor: pointer" id="regdate_order" onclick="regdate_order()">지원일순
+		<span id="regdate_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small> |
+		<small style="cursor: pointer" id="applicant_order" onclick="applicant_order()">지원자수
+		<span id="applicant_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small> |
+		<small style="cursor: pointer" id="closingdate_order" onclick="closingdate_order()">마감일순
+		<span id="closingdate_order_icon" class="order glyphicon glyphicon-chevron-down"> </span></small>
 	</div>
 	
 	<div>
@@ -123,6 +121,10 @@ function closed_recruits(){//모집완료
 function all_recruits(){//전체
 	self.location="/personal/applied_all?order_value="+$("#order_value").val();	
 }
+function regdate_order(){
+	$("#order_value").val("regdate_order");
+	self.location="/personal/applied_"+$("#controller_value").val()+"?order_value="+$("#order_value").val();
+}//180510 수정
 function applicant_order(){
 	$("#order_value").val("applicant_order");
 	self.location="/personal/applied_"+$("#controller_value").val()+"?order_value="+$("#order_value").val();
@@ -156,7 +158,14 @@ $(document).ready(function(){
 		$("#closed_btn").addClass("btn-info");
 	}
 	
-	if($("#order_value").val()=="applicant_order"){
+	if($("#order_value").val()=="regdate_order"){
+		$("#regdate_order_icon").removeClass();
+		$("#regdate_order_icon").addClass("glyphicon glyphicon-chevron-up");
+		$("#regdate_order").css("font-weight","bold");
+		
+		$("#regdate_th").css("background-color","#bbdefb");
+		
+	}else if($("#order_value").val()=="applicant_order"){
 		$("#applicant_order_icon").removeClass();
 		$("#applicant_order_icon").addClass("glyphicon glyphicon-chevron-up");
 		$("#applicant_order").css("font-weight","bold");

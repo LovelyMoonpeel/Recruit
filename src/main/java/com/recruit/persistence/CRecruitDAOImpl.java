@@ -115,7 +115,11 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 	@Override
 	public List<CRecruitVO> selectAPList(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
-		if(order_value!=null&&order_value.equals("applicant_order")){
+		if(order_value!=null&&order_value.equals("regdate_order")){
+			
+			 return session.selectList(namespace + ".selectAPList_regdate_order", cri);
+			 
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
 			
 			 return session.selectList(namespace + ".selectAPList_applicant_order", cri);
 			 
@@ -126,7 +130,7 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 		}else{
 			
 			System.out.println("CRecruitDAOImpl selectAPList 뭔가 이상함");
-			return session.selectList(namespace + ".selectAPList_closingdate_order", cri);
+			return session.selectList(namespace + ".selectAPList_regdate_order", cri);
 		}
 	};
 
@@ -134,7 +138,11 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 	@Override
 	public List<CRecruitVO> selectAPList_ongoing(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
-		if(order_value!=null&&order_value.equals("applicant_order")){
+		if(order_value!=null&&order_value.equals("regdate_order")){
+			
+			 return session.selectList(namespace + ".selectAPList_ongoing_regdate_order", cri);
+			 
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
 			
 			 return session.selectList(namespace + ".selectAPList_ongoing_applicant_order", cri);
 			 
@@ -144,7 +152,7 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 			 
 		}else{
 			System.out.println("CRecruitDAOImpl selectAPList_ongoing 뭔가 이상함");
-			return session.selectList(namespace + ".selectAPList_ongoing_closingdate_order", cri);
+			return session.selectList(namespace + ".selectAPList_ongoing_regdate_order", cri);
 		}
 	};
 	
@@ -152,7 +160,11 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 	@Override
 	public List<CRecruitVO> selectAPList_closed(PersonalCriteriaVO cri, String order_value)throws Exception{
 		
-		if(order_value!=null&&order_value.equals("applicant_order")){
+		if(order_value!=null&&order_value.equals("regdate_order")){
+			
+			 return session.selectList(namespace + ".selectAPList_closed_regdate_order", cri);
+			 
+		}else if(order_value!=null&&order_value.equals("applicant_order")){
 			
 			 return session.selectList(namespace + ".selectAPList_closed_applicant_order", cri);
 			 
@@ -161,9 +173,8 @@ public class CRecruitDAOImpl implements CRecruitDAO{
 			 return session.selectList(namespace + ".selectAPList_closed_closingdate_order", cri);
 			 
 		}else{
-			
 			System.out.println("CRecruitDAOImpl selectAPList_closed 뭔가 이상함");
-			return session.selectList(namespace + ".selectAPList_closed_closingdate_order", cri);
+			return session.selectList(namespace + ".selectAPList_closed_regdate_order", cri);
 		}
 	};
 	

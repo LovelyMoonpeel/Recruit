@@ -753,7 +753,7 @@ public class PersonalController {
 			String id = login.getId();
 
 			if(order_value==null){
-				order_value="applicant_order";
+				order_value="regdate_order";
 			}
 			cri.setId(id);
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList(cri, order_value));
@@ -784,7 +784,7 @@ public class PersonalController {
 			String id = login.getId();
 
 			if(order_value==null){
-				order_value="applicant_order";
+				order_value="regdate_order";
 			}
 			cri.setId(id);
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList_ongoing(cri, order_value));
@@ -815,7 +815,7 @@ public class PersonalController {
 			String id = login.getId();
 
 			if(order_value==null){
-				order_value="applicant_order";
+				order_value="regdate_order";
 			}
 			cri.setId(id);
 			model.addAttribute("CRecruitVOList", Cservice.selectAPList_closed(cri, order_value));

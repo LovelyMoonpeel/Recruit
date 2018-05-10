@@ -271,6 +271,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<!-- 지원한 채용공고 목록 전체 지원일 순 안소연 사용 수정 마지막~ -->
+	<select id = "selectAPList_regdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period 
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' when period = '' then '' ELSE '모집완료' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record
+        , (select regdate from tblapply where rcno=rc.bno and pid=#{id}) recruitnum
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id})))
+		ORDER BY recruitnum desc
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+	
 	<!-- 지원한 채용공고 목록 전체 지원자수 순 안소연 사용 수정 -->
 	<select id = "selectAPList_applicant_order" resultType = "com.recruit.domain.CRecruitVO">
 	<![CDATA[
@@ -325,6 +355,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										from tblresume
 										where userid=#{id})))
 		ORDER BY period asc
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 진행중 지원일수 순 안소연 사용 수정 마지막~ -->
+	<select id = "selectAPList_ongoing_regdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period >= CURDATE() then '모집중' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot 
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record
+        , (select regdate from tblapply where rcno=rc.bno and pid=#{id}) recruitnum                        
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period >=CURDATE())
+		ORDER BY recruitnum desc
 		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
@@ -385,6 +446,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										where userid=#{id}))
 		AND period >=CURDATE())
 		ORDER BY period asc
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+	
+	<!-- 지원한 채용공고 목록 마감 지원일 순 안소연 사용 수정 마지막~ -->
+	<select id = "selectAPList_closed_regdate_order" resultType = "com.recruit.domain.CRecruitVO">
+	<![CDATA[
+		select rc.bno, rc.title, rc.period
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') regdate
+		, (select cname from tblcinfo where id = rc.cid) recruitform
+		, (select count(*) from tblapply where rcno = rc.bno group by rcno) adddesc
+		, (select title from tblresume where bno in (select rsno from tblapply
+													where rcno = rc.bno
+                                                    )
+                                                    and userid=#{id}) acceptmethod
+        , (select rsno from tblapply where rcno = rc.bno and pid = #{id}) viewcnt 
+        , case when period < CURDATE() then '모집완료' end as jobdesc  
+        , (select readornot from tblapply where rcno = rc.bno and pid=#{id}) as creadornot
+        , (select record from tblapply where rcno=rc.bno and pid=#{id}) as record  
+        , (select regdate from tblapply where rcno=rc.bno and pid=#{id}) recruitnum                          
+		from tblrecruit rc
+		where rc.bno in(
+		select bno
+		from tblrecruit
+		where bno in (select rcno
+						from tblapply
+						where rsno in ( select bno 
+										from tblresume
+										where userid=#{id}))
+		AND period < CURDATE())
+		ORDER BY recruitnum desc
 		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>

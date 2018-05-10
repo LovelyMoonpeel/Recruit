@@ -1,29 +1,29 @@
 package com.recruit.domain;
 
 public class CRecruitVO {
-	public String bno;
+	public String bno;//
 	//안소연 bno로 바꿈
-	private String title;
+	private String title;//
 	private String cid;
 	private int jobgroupid;
 	private String rgbid;
 	public int rgsid;
-	private String jobdesc;
+	private String jobdesc;//
 	private String recruitnum;
 	private int employstatusid;
 	private int salaryid;
 	private int edu;
 	private int exp;
-	private String adddesc;
+	private String adddesc;//
 	//소연 잘못적은건데 걍 이대로감 고칠게 넘많다
-	private String period;
-	private String acceptmethod;
-	private String recruitform;
-	private String regdate;
-	private int viewcnt;
-	private String creadornot;
+	private String period;//
+	private String acceptmethod;//
+	private String recruitform;//
+	private String regdate;//
+	private int viewcnt;//
+	private String creadornot;//
 	//소연 creadornot 추가
-	private String record;
+	private String record;//
 	//소연 record 추가
 	
 	public String getBno() {
