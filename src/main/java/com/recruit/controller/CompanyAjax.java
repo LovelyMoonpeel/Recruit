@@ -525,6 +525,8 @@ public class CompanyAjax {
 				MessageVO msvo = new MessageVO();
 				msvo.setUserid(pid);//지원한 개인에게 알림가도록 userid 설정
 				msvo.setRcno(pavo.getRcno());//어떤 채용공고에 지원했는지
+				msvo.setRsno(rsno+"");//이력서 번호 넣어줌.
+				msvo.setAppliedpid(pavo.getUserid());
 				uService.CreadAPRmessage(msvo);//위에서 읽어온 개인 아이디를 userid에 넣어주고 열람했다는 알림 insert 서비스
 				
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

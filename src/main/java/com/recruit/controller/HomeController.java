@@ -130,8 +130,9 @@ public class HomeController {
 			
 			if(id.equals("admin")){
 				for(int i=0;i<entity.size();i++){
-					String title = qService.selectQnAOne(Integer.parseInt(entity.get(i).getRcno())).getUser();
-					entity.get(i).setAppliedpid(title);
+					System.out.println(entity.get(i).getQbno());
+					String appliedpid = qService.selectQnAOne(Integer.parseInt(entity.get(i).getQbno())).getUser();
+					entity.get(i).setAppliedpid(appliedpid);
 				}
 			}else{
 				for(int i=0;i<entity.size();i++){

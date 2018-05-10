@@ -623,10 +623,12 @@ public class CompanyController {
 			//첫지원이든 재지원이든 알림은 가야함
 			CRecruitVO rcvo = CService.selectCROne(recruitNum);//rcno로 회사 아이디 가져와서 messagevo userid에 넣기
 			String msvo_userid = rcvo.getCid();
+			
 			MessageVO msvo = new MessageVO();
 			msvo.setAppliedpid(id);//지원한 아이디
 			msvo.setRcno(recruitNum+"");//채용공고번호
 			msvo.setUserid(msvo_userid);//회사아이디
+			msvo.setRsno(bno+"");//이력서번호
 			
 			UService.PAppliedmessage(msvo);//지원했다고 message보내는 거
 			

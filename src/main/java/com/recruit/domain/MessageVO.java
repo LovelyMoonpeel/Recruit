@@ -8,6 +8,9 @@ public class MessageVO {
 	private String mreadornot;
 	
 	private String rcno;
+	private String rsno;
+	private String qbno;
+	
 	private String appliedpid;
 	private String color;
 	
@@ -41,6 +44,18 @@ public class MessageVO {
 	public void setRcno(String rcno) {
 		this.rcno = rcno;
 	}
+	public String getRsno() {
+		return rsno;
+	}
+	public void setRsno(String rsno) {
+		this.rsno = rsno;
+	}
+	public String getQbno() {
+		return qbno;
+	}
+	public void setQbno(String qbno) {
+		this.qbno = qbno;
+	}
 	public String getAppliedpid() {
 		return appliedpid;
 	}
@@ -57,7 +72,8 @@ public class MessageVO {
 	@Override
 	public String toString() {
 		return "MessageVO [bno=" + bno + ", userid=" + userid + ", message=" + message + ", mreadornot=" + mreadornot
-				+ ", rcno=" + rcno + ", appliedpid=" + appliedpid + ", color=" + color + "]";
+				+ ", rcno=" + rcno + ", rsno=" + rsno + ", qbno=" + qbno + ", appliedpid=" + appliedpid + ", color="
+				+ color + "]";
 	}
 	
 }

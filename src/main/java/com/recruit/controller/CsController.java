@@ -141,7 +141,9 @@ public class CsController {
 		logger.info(vo.toString());
 
 		//qservice.regist(vo);
-		msvo.setRcno(""+qservice.regist(vo));
+		msvo.setQbno(""+qservice.regist(vo));
+		System.out.println("msvo으아아아ㅏ"+msvo.toString());
+		
 		uservice.AreadQNAmessage(msvo);
 		
 		System.out.println("찍어 : "+msvo);

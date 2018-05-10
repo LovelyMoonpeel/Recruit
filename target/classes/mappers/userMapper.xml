@@ -154,7 +154,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="readFivemessage" resultType="MessageVO">
 	<![CDATA[
-		select bno, userid, message, rcno, appliedpid, color
+		select bno, userid, message, rcno, rsno, qbno, appliedpid, color
 		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
 		from tblmessage ms
 		where userid=#{id}
@@ -168,7 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
 	<select id="readAllmessage" resultType="MessageVO">
 	<![CDATA[
-		select bno, userid, message, rcno, appliedpid, color
+		select bno, userid, message, rcno, rsno, qbno, appliedpid, color
 		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
 		from tblmessage ms
 		where userid=#{id}
@@ -189,7 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 jheader에서 쓰는거 무한스크롤 할 거 -->
 	<select id="Readmessage_paging" resultType="MessageVO">
 	<![CDATA[
-		select bno, userid, message, rcno, appliedpid, color
+		select bno, userid, message, rcno, rsno, qbno, appliedpid, color
 		, (	select count(rcno) from tblapply where rcno=ms.rcno) as mreadornot
 		from tblmessage ms
 		where userid=#{userid}
@@ -204,16 +204,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 C_manage에서 쓰는거 -->
 	<insert id="CreadAPRmessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, color)
-		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, 0);
+		insert into tblmessage(userid, message, rcno, rsno, color)
+		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, #{rsno}, 0);
 	]]>
 	</insert>
 	
 	<!-- 소연 알림창 C_recruitment에서 쓰는거 -->
 	<insert id="PAppliedmessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, appliedpid, color)
-		values(#{userid}, ' 채용공고에 지원자가 있습니다.', #{rcno}, #{appliedpid}, 1);
+		insert into tblmessage(userid, message, rcno, rsno, appliedpid, color)
+		values(#{userid}, ' 채용공고에 지원자가 있습니다.', #{rcno}, #{rsno}, #{appliedpid}, 1);
 	]]>
 	</insert>
 	
@@ -229,16 +229,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 지훈 알림창 Q&A에서 쓰는거 -->
 	<insert id="readQNAmessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{rcno}, 4, #{userid});
+		insert into tblmessage(userid, message, qbno, color, appliedpid)
+		values('admin', '님이 작성한 Q&A가 등록 되었습니다.', #{qbno}, 4, #{userid});
 	]]>
 	</insert>
 	
 	<!-- 지훈 알림창 Q&A댓글에서 쓰는거 -->
 	<insert id="readQNAReplymessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님이 Q&A에 답변을 남겼습니다.', #{rcno}, 4, '관리자');
+		insert into tblmessage(userid, message, qbno, color, appliedpid)
+		values(#{userid}, '님이 Q&A에 답변을 남겼습니다.', #{qbno}, 4, '관리자');
 	]]>
 	</insert>
 	
