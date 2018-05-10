@@ -239,7 +239,7 @@ $(document).ready(function(){
 		
 		if(c_chk=="null"){
 			if("<%=location%>" != "/admin/main") {
-					alert("접근 권한이 없습니다.");
+					alert("기업회원으로 로그인 해주세요.");
 				} else {
 					self.location = "/srch/main?stype=2";
 				}

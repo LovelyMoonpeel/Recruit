@@ -47,7 +47,7 @@
 				<div class="modal-body">
 
 					<!--x표시 누르면 창 사라지게 하는 코드 -->
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close" id="login_X" data-dismiss="modal">&times;</button>
 
 					<!--모달 안의 상단 네비게이션  -->
 					<ul class="nav nav-tabs">
@@ -96,8 +96,8 @@
 									
 									<!--로그인 버튼 -->
 									<div class="col-xs-4">
-										<button type="submit"
-											class="btn btn-primary btn-block btn-flat">로그인</button>
+										<button type="submit" class="btn btn-primary btn-block btn-flat">로그인</button>
+										
 									</div>
 									
 								</div>
@@ -107,6 +107,8 @@
 								<a href="/user/IDsearch">아이디를 잊어버렸어요</a> 
 								<br> 
 								<a href="/user/PWsearch">패스워드를 잊어버렸어요</a>
+								<br>
+								<a id="pjoinlink" style="cursor:pointer">아직 회원이 아닙니다</a>
 								
 							</form>
 							
@@ -157,6 +159,8 @@
 								<a href="/user/IDsearch">아이디를 잊어버렸어요</a> 
 								<br> 
 								<a href="/user/PWsearch">패스워드를 잊어버렸어요</a>
+								<br>
+								<a id="cjoinlink" style="cursor:pointer">아직 회원이 아닙니다</a>
 							</form>
 							
 						</div>
@@ -199,8 +203,8 @@
 
 					<!--모달 안에서 맨 위에 있는 네비게이션  -->
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#join_person">개인회원</a></li>
-						<li><a data-toggle="tab" href="#join_company">기업회원</a></li>
+						<li class="active"><a data-toggle="tab" href="#join_person" id="joinPerson">개인회원</a></li>
+						<li><a data-toggle="tab" href="#join_company" id="joinCompany">기업회원</a></li>
 					</ul>
 
 					<br>
@@ -454,31 +458,49 @@
 	    });
 	</script>
 
+	<script>
+	$("#pjoinlink").on("click", function(){
+		$("#login_X").trigger('click');
+		companyLogin = "";
+		$("#myBtn_join").trigger('click');
+	});
+	
+	var companyLogin = "";
+	
+	$("#cjoinlink").on("click", function(){
+		$("#login_X").trigger('click');
+		companyLogin = "check";
+		$("#myBtn_join").trigger('click');
+	});
+	</script>	
+
 	<!--___로그인 모달  -->
 	<script>
-		$(document).ready(function() {
-			$("#myBtn_login").click(function() {
-				$("#modal_login").modal();
-				if($("#loginpid").val()!=""){
-					$("#loginppw").focus();
-				}else{
-					if($("#logincid").val()!=""){
-						$("#logincpw").focus();
-					}else{
-						$("#logincid").focus();
-					}
-					$("#loginpid").focus();
-				}
-			});
-		});
+	$("#myBtn_login").click(function() {
+		$("#modal_login").modal();
+		if($("#loginpid").val()!=""){
+			$("#loginppw").focus();
+		}else{
+			if($("#logincid").val()!=""){
+				$("#logincpw").focus();
+			}else{
+				$("#logincid").focus();
+			}
+			$("#loginpid").focus();
+		}
+	});
 	</script>
 	
 	<!--회원가입 모달  -->
 	<script>
-		$(document).ready(function() {
-			$("#myBtn_join").click(function() {
+		$("#myBtn_join").click(function() {
+			if(companyLogin=="check"){
 				$("#modal_join").modal();
-			});
+				$("#joinCompany").trigger("click");
+			}else{
+				$("#modal_join").modal();
+				$("#joinPerson").trigger("click");
+			}
 		});
 	</script>
 	<!--날짜입력 모달 관련내용  -->

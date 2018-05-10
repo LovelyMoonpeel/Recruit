@@ -34,7 +34,7 @@
 						placeholder="키워드를 입력후 돋보기 아이콘을 누르세요." name="skeyword" id="sinput"
 						value="${srchVO.skeyword}" onKeyDown="onEnter();">
 					<div class="input-group-btn">
-						<button class="btn btn-default" id="key_search_btn" type="button">
+						<button class="btn btn-default btn-style" id="key_search_btn" type="button">
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
@@ -74,7 +74,7 @@
 				<div class="well col-md-11" id="well"
 					style="background-color: Gainsboro;"></div>
 				<div class="col-md-1">
-					<button type="button" class="btn btn-default" id="sel_search_btn">
+					<button type="button" class="btn btn-default btn-style" id="sel_search_btn">
 						<i class="glyphicon glyphicon-search"></i>
 					</button>
 				</div>
@@ -176,7 +176,7 @@
 				<img class="recruit-img thumbnail" src="{{img}}">
 			</div>
 			<h4>
-				<b>{{bno}} {{cname}}</b>
+				<b>{{cname}}</b>
 			</h4>
 			<p class="col-md-12">
 				<a href="{{url}}"
@@ -289,8 +289,10 @@
 
 	// select 1번째 직무 option 생성하기
 	function sel1JobOptions(index, that) {
-		str += '<option class="opt1" value="'+ that.id +'">' + that.jobgroup
-				+ '</option>';
+		if(this.id != 0){
+			str += '<option class="opt1" value="'+ that.id +'">' + that.jobgroup
+					+ '</option>';			
+		}
 	}
 
 	// select 1번째 지역 option 생성하기
