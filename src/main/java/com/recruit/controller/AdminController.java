@@ -399,7 +399,9 @@ public class AdminController {
 
 		return "redirect:/admin/company";*/
 		cservice.modify(recvo);
+		
 		System.out.println(msvo);
+		
 		uservice.modifyRecruitAdminMessage(msvo);
 
 /*		rttr.addAttribute("page", cri.getPage());

@@ -75,7 +75,7 @@
 	<form role="form" method="POST">
 		<input type="hidden" name="cid" value="${CInfoVO.id}" />
 		<input type="hidden" name="userid" value="${CInfoVO.id}" />
-		<input type="hidden" name="bno" id="bno" value="${RecruitVO.bno}">
+		<input type="hidden" name="rcno" id="bno" value="${RecruitVO.bno}">
 		<table class="table table-hover" id="my-tbody">
 		
 	
