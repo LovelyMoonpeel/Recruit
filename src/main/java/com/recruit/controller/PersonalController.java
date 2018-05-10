@@ -534,7 +534,9 @@ public class PersonalController {
 				
 				model.addAttribute("CRecruitVOList",PREFService.selectRecomendedList(top10, id));
 				//4. 채용공고 번호로 리스트 끌어오기
-
+				
+				
+				System.out.println("롸"+PREFService.selectPublicResumeasCoordinateVO(resume.getBno()).getAdddesc());	
 				model.addAttribute("MyResume", PREFService.selectPublicResumeasCoordinateVO(resume.getBno()));
 				//5. 비교할 수 있게 내 이력서 보여주기
 			};
@@ -845,7 +847,7 @@ public class PersonalController {
 		try {
 			System.out.println("라라"+pavo.getPid());
 			System.out.println(pavo.getRcno());
-			PAPService.deleteAPOne(pavo);
+			PAPService.deleteAPOne(pavo); 
 			//deleteAPOne이지만 update로 record만 바꿈
 			entity= new ResponseEntity<String>("deleted", HttpStatus.OK);
 

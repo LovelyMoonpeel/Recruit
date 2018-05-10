@@ -90,6 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, (select career from tblcode where id=re.employstatusid ) as x
 		, (select career from tblcode where id=re.levelofeducation ) as y
 		, (select career from tblcode where id=re.lastcareer ) as z
+		, if(regdate!='', (select date_format(regdate, '%Y-%m-%d')),'') as adddesc
 		from
 		tblresume re
 		where bno = #{bno};

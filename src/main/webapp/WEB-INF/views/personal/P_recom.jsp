@@ -140,7 +140,7 @@
 					<td rowspan="2" style="text-align: center; vertical-align:middle;">${MyResume.pid}</td>
 					<td style="text-align: center; vertical-align:middle;"><a href = "/personal/detail_nonavi?bno=${MyResume.bno}"  onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${MyResume.bno} : ${MyResume.title}</a></td>
 					
-					<td rowspan="2" style="text-align: center; vertical-align:middle;">눈/자물쇠</td>
+					<td rowspan="2" style="text-align: center; vertical-align:middle;">${MyResume.adddesc}</td>
 				</tr>
 				<tr>
 					<td style="text-align: center; vertical-align:middle;">
