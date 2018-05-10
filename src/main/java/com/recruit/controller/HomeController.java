@@ -140,7 +140,7 @@ public class HomeController {
 						if(Integer.parseInt((entity.get(i).getRcno()))!=0){
 							String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
 							entity.get(i).setAppliedpid(title);
-						}						
+						}//관리자가 수정한 경우는 따로 title 넣어줄 필요 없으므로						
 					}
 				}
 			}

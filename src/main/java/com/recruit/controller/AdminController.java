@@ -158,6 +158,7 @@ public class AdminController {
 		}
 		aservice.modify(vo);
 		System.out.println("test : "+msvo);
+		
 		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
@@ -354,6 +355,7 @@ public class AdminController {
 		// System.out.println("controller test1");
 		cservice.modify(vo);
 		pservice.CompanyInfoModify(cinfo);
+		
 		uservice.modifyAdminMessage(msvo);
 
 		rttr.addAttribute("page", cri.getPage());
@@ -397,6 +399,7 @@ public class AdminController {
 
 		return "redirect:/admin/company";*/
 		cservice.modify(recvo);
+		System.out.println(msvo);
 		uservice.modifyRecruitAdminMessage(msvo);
 
 /*		rttr.addAttribute("page", cri.getPage());
@@ -472,6 +475,8 @@ public class AdminController {
 		Eduservice.changeResumeEduList(resumenum, resumeEduVO.getListEdu());
 		Careerservice.changeResumeCareerList(resumenum, resumeCareerVO.getListCareer());
 		rttr.addFlashAttribute("msg", "resume_mod");
+		System.out.println(msvo);
+		msvo.setRsno(bno+"");
 		uservice.modifyResumeAdminMessage(msvo);
 
 		return "redirect:/admin/pmodify?id=" + id;

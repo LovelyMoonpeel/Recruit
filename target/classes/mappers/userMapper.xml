@@ -204,8 +204,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소연 알림창 C_manage에서 쓰는거 -->
 	<insert id="CreadAPRmessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, rsno, color)
-		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, #{rsno}, 0);
+		insert into tblmessage(userid, message, rcno, rsno, appliedpid, color)
+		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, #{rsno}, #{appliedpid}. 0);
 	]]>
 	</insert>
 	
@@ -245,16 +245,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 지훈 관리자의 개인회원 정보 수정 -->
 	<insert id="modifyAdminMessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님이 개인정보를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', 0, 2, '관리자');
+		insert into tblmessage(userid, message, color, appliedpid)
+		values(#{userid}, '님이 개인정보를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', 2, '관리자');
 	]]>
 	</insert>
 	
 	<!-- 지훈 관리자의 이력서 수정 -->
 	<insert id="modifyResumeAdminMessage">
 	<![CDATA[
-		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님이 이력서를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rcno}, 3, '관리자');
+		insert into tblmessage(userid, message, rsno, color, appliedpid)
+		values(#{userid}, '님이 이력서를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rsno}, 3, '관리자');
 	]]>
 	</insert>
 	
