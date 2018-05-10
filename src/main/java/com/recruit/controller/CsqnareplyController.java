@@ -36,9 +36,10 @@ public class CsqnareplyController {
 	public ResponseEntity<String> register(@RequestBody CsqnaReplyVO vo, MessageVO msvo){
 		ResponseEntity<String> entity = null;
 		try{
+			System.out.println("ㄴ여긴가?");
 			service.addReply(vo);
 			service.updateReply(vo.getBno());
-			msvo.setRcno(""+vo.getBno());
+			msvo.setQbno(""+vo.getBno());
 			msvo.setUserid(qservice.read2(vo.getBno()).getUser());
 			uservice.readQNAReplymessage(msvo);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
