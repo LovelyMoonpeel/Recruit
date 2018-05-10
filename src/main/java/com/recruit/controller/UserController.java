@@ -173,9 +173,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-	public String emailConfirm(String email, Model model) throws Exception { // 이메일인증
+	public String emailConfirm(String email, String name, Model model) throws Exception { // 이메일인증
 		service.userAuth(email);
-		model.addAttribute("email", email);
+		/*model.addAttribute("email", email);*/
+		model.addAttribute("name", name);
 
 		return "/user/emailConfirm";
 	}

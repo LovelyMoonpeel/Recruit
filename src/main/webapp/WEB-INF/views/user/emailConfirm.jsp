@@ -8,9 +8,11 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var email = '${email}';
+		/* var email = '${email}'; */
+		var name = '${name}';
 
-		alert(email + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다.');
+		alert(name + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다.');
+		/* alert(email + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다.'); */
 
 		window.open('', '_self', ''); // 브라우저창 닫기
 		/* window.close(); // 브라우저 창 닫기 */

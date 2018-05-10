@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
 		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1><br><br>")
 				.append("<span>하단의 링크를 클릭하여 가입을 완료하여 주세요.</span><br><br>")
 				.append("<a href='http://recru-it.xyz/user/emailConfirm?email=").append(board.getEmail())
-				.append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
+				.append("&key=").append(key).append("&name=").append(board.getPname()).append("' target='_blenk'>이메일 인증 확인</a>")
 				.append("<br><br><span>RecruIT에 가입하신것을 환영합니다.</span><br><br>")
 				.toString());
 		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService{
 		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1><br><br>")
 				.append("<span>하단의 링크를 클릭하여 가입을 완료하여 주세요.</span><br><br>")
 				.append("<a href='http://recru-it.xyz/user/emailConfirm?email=").append(board.getEmail())
-				.append("&key=").append(key).append("' target='_blenk'>이메일 인증 확인</a>")
+				.append("&key=").append(key).append("&name=").append(board.getPname()).append("' target='_blenk'>이메일 인증 확인</a>")
 				.append("<br><br><span>RecruIT에 가입하신것을 환영합니다.</span><br><br>")
 				.toString());
 		sendMail.setFrom("ProJ.B.Team@gmail.com", "RecruIT 관리자");

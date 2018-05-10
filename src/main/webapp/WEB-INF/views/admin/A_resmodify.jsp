@@ -827,11 +827,12 @@ $(document).ready(function() {
 	});
 	
 	$("#write-remove").on("click", function(){
-		alert();
-		formObj = $("form[role = 'form']");
-		formObj.attr("action", "/admin/resremove");
-		formObj.attr("method", "post");
-		formObj.submit();
+		if(confirm("삭제하시겠습니까?")){
+			formObj = $("form[role = 'form']");
+			formObj.attr("action", "/admin/resremove");
+			formObj.attr("method", "post");
+			formObj.submit();
+		}
 	});
 	
 	function numberingList() {

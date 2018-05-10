@@ -78,7 +78,7 @@ $(".btn-warning").on("click", function(){
 	
 	if(title != "" && content != ""){
 		if(bpw == bpwc){
-			if(confirm("수정할랭?")){
+			if(confirm("수정하시겠습니까?")){
 				formObj.attr("action", "/cs/S_qnamod");
 				formObj.attr("method", "post");
 				formObj.submit();

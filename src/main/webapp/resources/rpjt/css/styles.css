@@ -776,6 +776,36 @@ position: relative;
     color: #7c7877 !important;
 }
 
+.container > .navbar-headered,
+.container-fluid > .navbar-headered {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+  .container > .navbar-headered,
+  .container-fluid > .navbar-headered {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-headered {
+    float: left;
+  }
+}
+
+.navbar-headered:before,
+.navbar-headered:after {
+	display: table;
+	content: " ";
+}
+
+.navbar-headered:after{
+	clear: both;
+}
+
 .dropdown-toggle {
 	color: #7c7877 !important;
 }

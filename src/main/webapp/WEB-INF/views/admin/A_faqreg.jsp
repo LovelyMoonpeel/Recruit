@@ -48,7 +48,7 @@ var formObj = $("form[role='form']");
 
 /* 등록버튼 */
 $(".btn-warning").on("click", function(){
-	if(confirm("등록할랭?")){
+	if(confirm("등록하시겠습니까?")){
 		formObj.submit();
 	}
 });
