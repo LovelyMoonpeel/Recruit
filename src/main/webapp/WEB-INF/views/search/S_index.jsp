@@ -7,9 +7,9 @@
 	String carouselUrl = "/company/C_recruitMent?recruitNum=";
 	String carouselImg = "/resources/rpjt/img/";
 	String[][] carouselItems = { // 회사 아이디, carousel 이미지
-			{"633", "frontimg5.jpg"}, //
-			{"658", "frontimg6.jpg"}, //
-			{"602", "frontimg7.jpg"}};
+			{"690", "goldenplanet.png"}, //
+			{"598", "kakao.jpg"},
+			{"658", "infosec.jpg"}}; //
 
 	for (int i = 0; i < carouselItems.length; i++) {
 		request.setAttribute("carouselUrl" + i, carouselUrl + carouselItems[i][0]);

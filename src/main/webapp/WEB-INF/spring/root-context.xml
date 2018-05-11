@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 
-	<context:property-placeholder location="file:/zzz/*.properties" /> 
-	<!-- context:property-placeholder location="file:/Users/hoonys/sts-bundle/*.properties" -->
+	 <context:property-placeholder location="file:/zzz/*.properties" /> 
+	<!--<context:property-placeholder location="file:/Users/hoonys/sts-bundle/*.properties"/> -->
 
   	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

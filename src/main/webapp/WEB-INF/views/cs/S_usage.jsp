@@ -778,4 +778,19 @@ $(document).ready(function(){
 
 </script>
 
+<script>
+
+$(document).ready(function(){ /* 기업 약관 눌렀을 때 기업쪽으로 이동하기 위한 트리거 */
+	
+	var urlname = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+
+	if(urlname=="usage#company"){
+	
+		$("#menu4").trigger("click");
+	
+	}
+
+})
+</script>
+
 <%@include file="../include/cfooter.jsp"%>

@@ -523,19 +523,22 @@ background-color: #777;
 	
 		
 
-	<div id="accept_method"
-		style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+	<div id="accept_method" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<div class="row">
 			<!-- 접수기간  -->
-			<div class="col-md-3">
+			<div class="col-md-5" >
 				
-				<font size="6px">접수방법</font> <br>
+				<h4>접수기간</h4>
 				 <div>
-				 <span class="startDay">시작일 </span> <span>&nbsp;&nbsp;${RecruitVO.periodstart }</span>
+				 <span class="startDay">시작일 </span> <span style="vertical-align:middle;">&nbsp;&nbsp;${RecruitVO.periodstart }</span>
 				 </div>
 				 <br>
 				 <div>
-				 <span class="lastDay">마감일</span> <span>&nbsp;&nbsp;${RecruitVO.period }</span>
+				 <span class="lastDay">마감일</span> <span style="vertical-align:middle;">&nbsp;&nbsp;${RecruitVO.period }</span>
+				</div>
+				<br>
+				<div style="border-top: 0.1px solid #c0c6d3;">
+				<span class="glyphicon glyphicon-exclamation-sign" style="color:rgb(221,221,221)"></span><span style="color:rgb(144,144,144)">마감일은 기업의 사정, 조기마감 등으로 변경될 수 있습니다.</span>
 				</div>
 				<br>
 			</div>
@@ -547,28 +550,33 @@ var timeInMs = Date.now();
 
 $("#t1").html(timeInMs);
 </script>
-			<div class="col-md-9">
-			
-			<c:choose>
-		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
-		<button id="applynow2" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span>즉시지원</button>
-		</c:when>
-		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
-		<button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}"><span class="glyphicon glyphicon-ok"></span>홈페이지지원</button>
-		</c:when>
-		</c:choose>
-				<br>
-				<table>
-				<br>
+			<div class="col-md-7" style="border-left: 0.1px solid #c0c6d3;">
+			<h4>접수방법 및 모집인원</h4>
+	
+			<table>
 					<tr>
-						<td>접수방법 &nbsp;</td>
-						<td>${RecruitVO.acceptmethod }</td>
+						<td>접수방법 &nbsp; </td>
+						<td>${RecruitVO.acceptmethod}<br></td>
 					</tr>
+					
 					<tr>
 						<td>모집인원</td>
 						<td>${RecruitVO.recruitnum }명<br></td>
 					</tr>
 				</table>
+				
+			<c:choose>
+		<c:when test="${RecruitVO.acceptmethod=='즉시지원'}">
+		<br><button id="applynow2" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-ok"></span>즉시지원</button>
+		
+		</c:when>
+		<c:when test="${RecruitVO.acceptmethod!='즉시지원'}">
+		<br><button id="homeApplyNow" class="btn btn-primary btn-lg" value="${CInfoVO.homepage}"><span class="glyphicon glyphicon-ok"></span>홈페이지지원</button>
+		
+		</c:when>
+		</c:choose>
+				<br>
+				
 			</div>
 		</div>
 		<!-- /접수기간  -->
