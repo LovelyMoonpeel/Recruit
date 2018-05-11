@@ -163,73 +163,64 @@ $(document).ready(function(){
 			dataType:'json',
 			success:function(data){
 				if(data!=''){
-					for(var j=0;j<data.length;j++){
-					var array = data[j]
-					var keys = Object.keys(data[j]);
-					var rcno;
-					var color;
-					for(var k in keys){
-						if(keys[k]=="rcno"){
-							rcno = array[keys[k]];
-						}
-						if(keys[k]=="color"){
-							color = array[keys[k]];
-						}
-					}
+					for(var i=0;i<data.length;i++){
 					
-					/* for(var i=0;i<data.length;i++){ */
-						
-						var order = j+1;
+						var order = i+1;
 						var cname = '<%=cname%>';
 						var id = '<%=id%>';
+						/*0 : 개인에게 기업이 이력서 열람 알림
+						  1 : 기업에게 개인이 채용공고에 지원함 알림
+						  2 : 개인/기업에게 관리자의 개인정보 수정
+						  3 : 개인/기업에게 관리자의 이력서/채용공고 수정
+						  4 : 개인/기업/관리자에게 Q&A관련알림
+							*/
+						if(cname=='null'&&id=='admin'){//관리자 4
+							console.log("admin"+data[i]);
+							$(".message"+order).text("Q&A가 등록되었습니다.");
+							$(".message"+order).attr("href", "/admin/qna");
+						}else if(cname=='null'){//개인 color:0, 2, 3, 4
+							var color = data[i].color;
+							console.log("개인 컬러"+color);
+							
+							switch(color){
+							case '0' : $(".message"+order).text("이력서가 열람되었습니다.");
+									 $(".message"+order).attr("href", "/personal/applied_all");									
+									 break;
+							case '2' : $(".message"+order).text("개인정보가 변경되었습니다.");
+									 $(".message"+order).attr("href", "/personal/index");
+									 break;
+							case '3' : $(".message"+order).text("이력서가 변경되었습니다.");
+									 $(".message"+order).attr("href", "/personal/Rmodify?bno="+data[i].rsno);
+									 break;
+							case '4' : $(".message"+order).text("Q&A에 답변이 달렸습니다.");
+									 $(".message"+order).attr("href", "/cs/qnaread?bno="+data[i].qbno);
+							
+									 break;
+							}//switch end
+						}else{//기업 color: 1, 2, 3, 4
+							var color = data[i].color;
+							console.log("기업"+data[i]);
 						
-						if(cname=='null'){//개인회원일 경우
-							if(id=='admin'){
-								$(".message"+order).text("Q&A가 등록되었습니다.");
-								$(".message"+order).attr("href", "/admin/qna");
-							}else{
-								if(rcno != 0){
-									if(color == 4){
-										$(".message"+order).text("Q&A에 답변이 달렸습니다.");
-										$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
-									}else if(color == 3){
-										$(".message"+order).text("이력서가 변경되었습니다.");
-										$(".message"+order).attr("href", "/personal/Rmodify?bno="+rcno);
-									}else{
-										$(".message"+order).text("이력서가 열람되었습니다.");
-										$(".message"+order).attr("href", "/personal/applied_all");									
-									}
-								}else{
-									$(".message"+order).text("개인정보가 변경되었습니다.");
-									$(".message"+order).attr("href", "/personal/index");
-								}
-							}
-						}else if(cname=null){
-							$(".message"+order).text(data[i].rcno + data[i].message);
-						}else{//기업회원일 경우
-							if(rcno == 0){
-								$(".message"+order).text("회사정보가 변경되었습니다.");
-								$(".message"+order).attr("href", "/company/C_index");									
-							}else{
-								if(color == 4){
-									$(".message"+order).text("Q&A에 답변이 달렸습니다.");
-									$(".message"+order).attr("href", "/cs/qnaread?bno="+rcno);
-								}else if(color == 3){
-									$(".message"+order).text("채용공고가 변경되었습니다.");
-									$(".message"+order).attr("href", "/company/C_recruitModify?bno="+rcno);
-								}else{
-									$(".message"+order).text("지원자의 이력서를 확인해주세요.");
-									$(".message"+order).attr("href", "/company/C_manage");									
-								}
-							}
+							switch(color){
+							case '0' : $(".message"+order).text("지원자의 이력서를 확인해주세요.");
+									 $(".message"+order).attr("href", "/company/C_manage");									
+									 break;
+							case '2' : $(".message"+order).text("회사정보가 변경되었습니다.");
+									 $(".message"+order).attr("href", "/company/C_index");
+									 break;
+							case '3' : $(".message"+order).text("채용공고가 변경되었습니다.");
+									 $(".message"+order).attr("href", "/company/C_recruitModify?bno="+data[i].rcno);
+									 break;
+							case '4' : $(".message"+order).text("Q&A에 답변이 달렸습니다.");
+									 $(".message"+order).attr("href", "/cs/qnaread?bno="+data[i].qbno);
+									 break;
+							}//switch end
 						}
-						
-					/* } */ 
-					}
-				}else{
+					}//for end
+				}else{//data null인지 확인하는 if else
 					console.log(data);
 					console.log("실패함");
-				}
+				}//data null인지 확인하는 if else end
 			}//success end
 		});//ajax end
 	});//drop onclick
