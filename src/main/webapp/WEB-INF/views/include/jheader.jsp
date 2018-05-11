@@ -199,10 +199,10 @@ $(document).ready(function(){
 							}//switch end
 						}else{//기업 color: 1, 2, 3, 4
 							var color = data[i].color;
-							console.log("기업"+data[i]);
+							console.log("기업컬러"+color);
 						
 							switch(color){
-							case '0' : $(".message"+order).text("지원자의 이력서를 확인해주세요.");
+							case '1' : $(".message"+order).text("지원자의 이력서를 확인해주세요.");
 									 $(".message"+order).attr("href", "/company/C_manage");									
 									 break;
 							case '2' : $(".message"+order).text("회사정보가 변경되었습니다.");
