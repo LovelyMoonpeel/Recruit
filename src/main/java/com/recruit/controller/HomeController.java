@@ -167,14 +167,15 @@ public class HomeController {
 			String id = login.getId();
 			
 			try{
-				System.out.println("끝"+msvo.getBno());
-				String gostop = service.Maxmassagebno(msvo);
-				System.out.println(gostop);
+				System.out.println("출력된 알림 끝 번호"+msvo.getBno());
+				String gostop = service.Minmessagebno(msvo);
+				System.out.println("gostop"+gostop);
 				
 				if(gostop.equals("keep")){
 					msvo.setUserid(id);
+					System.out.println("이게뭔데"+msvo.getBno());
 					entity = service.Readmessage_paging(msvo);//페이징 처리한 전체 메시지 불러오기
-					System.out.println("롸"+entity.size());
+					System.out.println("롸 entity.size()"+entity.size());
 					
 					for(int i=0;i<entity.size();i++){
 						String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
@@ -184,7 +185,7 @@ public class HomeController {
 					return entity = null;
 				}
 			}catch(Exception e){
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			entity = new ArrayList<MessageVO>(1);

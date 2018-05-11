@@ -54,7 +54,7 @@ public interface UserService {
 
 	public List<MessageVO> Readmessage_paging(MessageVO msvo)throws Exception;//페이징 처리
 	
-	public String Maxmassagebno(MessageVO msvo)throws Exception;
+	public String Minmessagebno(MessageVO msvo)throws Exception;
 	
 	public void CreadAPRmessage(MessageVO msvo)throws Exception;//소연 이력서 열람했다는 알림
 	

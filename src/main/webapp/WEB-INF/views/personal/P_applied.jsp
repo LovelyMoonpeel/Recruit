@@ -137,7 +137,7 @@ function closingdate_order(){
 $(document).ready(function(){
 	
 	$(".CRVO_record").each(function(index){
-		console.log('롸'+$(this).text());
+		console.log('롸getRecord'+$(this).text());
 		if($(this).text()=='1'){
 			$(this).text('지원취소');
 			

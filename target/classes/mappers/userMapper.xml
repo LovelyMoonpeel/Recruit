@@ -180,7 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 소연 알림창 jheader에서 쓰는거 -->
-	<select id="Maxmassagebno" resultType="String">
+	<select id="Minmessagebno" resultType="String">
 	<![CDATA[
 		select if (#{bno}=(select MIN(bno) from tblmessage where userid=#{userid}), 'stop', 'keep');
 	]]>
@@ -205,7 +205,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="CreadAPRmessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, rsno, appliedpid, color)
-		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, #{rsno}, #{appliedpid}. 0);
+		values(#{userid}, '에 지원한 이력서를 기업에서 열람하였습니다.', #{rcno}, #{rsno}, #{appliedpid}, 0);
 	]]>
 	</insert>
 	
@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="modifyAdminMessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, color, appliedpid)
-		values(#{userid}, '님이 개인정보를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', 2, '관리자');
+		values(#{userid}, '님이 개인정보를 수정하였습니다.', 2, '관리자');
 	]]>
 	</insert>
 	
@@ -254,7 +254,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="modifyResumeAdminMessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rsno, color, appliedpid)
-		values(#{userid}, '님이 이력서를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rsno}, 3, '관리자');
+		values(#{userid}, '님이 이력서를 수정하였습니다.', #{rsno}, 3, '관리자');
 	]]>
 	</insert>
 	
@@ -262,7 +262,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="modifyRecruitAdminMessage">
 	<![CDATA[
 		insert into tblmessage(userid, message, rcno, color, appliedpid)
-		values(#{userid}, '님이 채용공고를 수정하였습니다. 관련 내용은 공지를 확인해주세요. <a href="/cs/notice">공지사항</a>', #{rcno}, 3, '관리자');
+		values(#{userid}, '님이 채용공고를 수정하였습니다.', #{rcno}, 3, '관리자');
 	]]>
 	</insert>
 	

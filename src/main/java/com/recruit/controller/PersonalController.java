@@ -536,7 +536,7 @@ public class PersonalController {
 				//4. 채용공고 번호로 리스트 끌어오기
 				
 				
-				System.out.println("롸"+PREFService.selectPublicResumeasCoordinateVO(resume.getBno()).getAdddesc());	
+				System.out.println("롸추천"+PREFService.selectPublicResumeasCoordinateVO(resume.getBno()).getAdddesc());	
 				model.addAttribute("MyResume", PREFService.selectPublicResumeasCoordinateVO(resume.getBno()));
 				//5. 비교할 수 있게 내 이력서 보여주기
 			};

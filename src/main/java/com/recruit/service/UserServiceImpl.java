@@ -256,8 +256,8 @@ public class UserServiceImpl implements UserService{
 	}//페이징처리
 	
 	@Override
-	public String Maxmassagebno(MessageVO msvo)throws Exception{
-		return dao.Maxmassagebno(msvo);
+	public String Minmessagebno(MessageVO msvo)throws Exception{
+		return dao.Minmessagebno(msvo);
 	}
 	
 	@Override
