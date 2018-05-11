@@ -511,7 +511,6 @@
 		alert("로그인이 필요합니다.");
 	} else if (result == 'logout') {
 		alert("로그아웃 되었습니다.");
-		$("#myBtn_login").trigger("click");
 	} else if (result == 'join') {
 		alert("회원가입이 완료 되었습니다. 이메일 인증을 진행 해주세요.");
 	} else if (result == 'fail') {

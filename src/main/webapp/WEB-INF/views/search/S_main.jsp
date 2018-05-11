@@ -730,4 +730,16 @@
 	
 </script>
 
+<script>
+$(document).ready(function(){
+	setTimeout(function(){
+		if($(".sfilter_btn").length == 0){
+			add_tmpl_sfilter("RA99");
+			setTimeout(function(){
+				$("#sel_search_btn").trigger("click");
+			}, 150);
+		}		
+	}, 100);
+})
+</script>
 <%@include file="../include/cfooter.jsp"%>
