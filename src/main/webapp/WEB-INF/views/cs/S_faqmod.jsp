@@ -51,7 +51,7 @@ var formObj = $("form[role='form']");
 console.log(formObj);
 /* 수정 버튼 */
 $(".btn-warning").on("click", function(){
-	if(confirm("수정할랭?")){
+	if(confirm("수정하시겠습니까?")){
 		formObj.submit();
 	}
 });

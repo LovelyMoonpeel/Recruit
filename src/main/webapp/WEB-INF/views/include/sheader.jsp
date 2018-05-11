@@ -29,6 +29,22 @@
     <![endif]-->
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<style>
+.list-group a:hover{
+	color : black;
+	background-color: #dde2e6;
+}
+
+.list-group a:focus {
+	color : black;
+	background-color: #dde2e6;
+}
+  
+.list-active{
+	color: black !important;
+    background-color: #dde2e6;
+}
+</style>
 </head>
 
 <body>
@@ -60,30 +76,20 @@
 					<div class="clear"></div>
 				</div>
 			<div class="list-group">
-				<a href="/cs/notice" class="hover list-group-item" id="notice" value="/cs/notice"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
-				<a href="/cs/usage" class="hover list-group-item" id="usage" value="/cs/usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a>
-				<a href="/cs/faq" class="hover list-group-item" id="faq" value="/cs/faq"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
-				<a href="/cs/qna" class="hover list-group-item" id="qna" value="/cs/qna"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
+				<a href="/cs/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
+				<a href="/cs/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a>
+				<a href="/cs/faq" class="list-group-item" id="faq faqre"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
+				<a href="/cs/qna" class="list-group-item" id="qna qnare"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
 			</div>
 		</div>
 		
 <script>
-var path = window.location.pathname.substr(4,6);
-var faq = $("#faq");
-var qna = $("#qna");
-var notice = $("#notice");
-var usage = $("#usage");
-
-if(faq.attr("id")==path){
-	faq.addClass("chk_active");
-}
-if(qna.attr("id")==path){
-	qna.addClass("chk_active");
-}
-if(notice.attr("id")==path){
-	notice.addClass("chk_active");
-}
-if(usage.attr("id")==path){
-	usage.addClass("chk_active");
+var nav_id = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 6);
+for(var i =0; i<=$(".list-group-item").length -1; i++){
+	if($(".list-group-item").eq(i).attr("id").indexOf(nav_id)!= -1){
+		$(".list-group-item").eq(i).css("color","black");
+		$(".list-group-item").eq(i).addClass("list-active");
+		
+	}
 }
 </script>

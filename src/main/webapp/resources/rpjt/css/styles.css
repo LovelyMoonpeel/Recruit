@@ -758,6 +758,7 @@ position: relative;
 
 .header{
 	color: white !important;
+	font-size : 16px !important;
 }
 
 .col-lg-12>p{
@@ -766,6 +767,9 @@ position: relative;
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
 	background-color: #245789;
 }
+.navbar-brand{
+	font-size : 28px;
+}
 
 .navbar-inverser {
     background-color: #e0e3da !important;
@@ -773,9 +777,49 @@ position: relative;
 }
 
 .navbar-headered>a {
-    color: #7c7877 !important;
+    color: #6a6767 !important;
+}
+
+.container > .navbar-headered,
+.container-fluid > .navbar-headered {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+  .container > .navbar-headered,
+  .container-fluid > .navbar-headered {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-headered {
+    float: left;
+  }
+}
+
+.navbar-headered:before,
+.navbar-headered:after {
+	display: table;
+	content: " ";
+}
+
+.navbar-headered:after{
+	clear: both;
 }
 
 .dropdown-toggle {
 	color: #7c7877 !important;
+	font-weight: bold;
+}
+
+.btn-style{
+	background-color: #245789 !important;
+	boder-bottom-color:#245789 !important;
+}
+
+.glyphicon-search{
+	color: white !important;
 }

@@ -81,7 +81,7 @@
 						placeholder="채용공고 검색, 키워드를 입력후 돋보기 아이콘을 누르세요." name="skeyword"
 						id="sinput" onKeyDown="onEnter();">
 					<div class="input-group-btn">
-						<button class="btn btn-default" id="search_btn" type="button">
+						<button class="btn btn-default btn-style" id="search_btn" type="button">
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
@@ -101,21 +101,21 @@
 			<div class="col-md-10 col-md-offset-1">
 				<div class="row">
 					<div class="navbar-headered">
-						<a class="navbar-brand" style="color: white;">채용정보</a>
+						<a class="navbar-brand" style="font-size:17px !important;font-weight: bold;">채용정보</a>
 					</div>
 					<ul class="nav navbar-nav">
-						<li class="dropdown">
-							<a id="jobgroupMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무별&nbsp;&nbsp;&nbsp;</a>
-							<ul class="dropdown-menu" id="jobgroup">
-								<li role=separator class=divider></li>
-							</ul></li>
 						<li class="dropdown">
 							<a id="regionMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;지역별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="region">
 								<li role=separator class=divider></li>
 							</ul></li>
 						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;근무형태별&nbsp;&nbsp;</a>
+							<a id="jobgroupMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;직무별&nbsp;&nbsp;&nbsp;</a>
+							<ul class="dropdown-menu" id="jobgroup">
+								<li role=separator class=divider></li>
+							</ul></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;근무형태별&nbsp;&nbsp;&nbsp;</a>
 							<ul class="dropdown-menu" id="emp">
 								<li role=separator class=divider></li>
 							</ul></li>
@@ -511,7 +511,6 @@
 		alert("로그인이 필요합니다.");
 	} else if (result == 'logout') {
 		alert("로그아웃 되었습니다.");
-		$("#myBtn_login").trigger("click");
 	} else if (result == 'join') {
 		alert("회원가입이 완료 되었습니다. 이메일 인증을 진행 해주세요.");
 	} else if (result == 'fail') {

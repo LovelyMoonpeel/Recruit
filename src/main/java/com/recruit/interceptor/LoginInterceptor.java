@@ -27,7 +27,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object UserVO = modelMap.get("UserVO");
 		//System.out.println("인터셉터 들어오니 ? "+UserVO);
-
+		UserVO User = (UserVO)UserVO;
+		//System.out.println(User.getId());
+		
 		if (UserVO != null) {
 
 			logger.info("new login success");
@@ -71,7 +73,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 			Object location = session.getAttribute("location");
 			session.removeAttribute("location");
-			response.sendRedirect(location != null ? (String) location : "/");
+			if(User.getId().equals("admin")){
+				response.sendRedirect("/admin/main");
+			}else{
+				response.sendRedirect(location != null ? (String) location : "/");				
+			}
 		}
 	}
 

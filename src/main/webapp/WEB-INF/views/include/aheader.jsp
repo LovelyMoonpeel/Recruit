@@ -126,20 +126,6 @@
 		</div>
 <script>
 	
-/* var thisfilefullname1 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
-var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("?"));
-	
-  for(var i =0; i<=$("a[name='sideBtns']").length-1; i++){
- 	var active_id = $("a[name='sideBtns']").eq(i).attr("id");
- 	if(active_id.indexOf(thisfilefullname1)!= -1){
- 		$("a[name='sideBtns']").eq(i).addClass("chk_active");
- 		
- 	}else if(active_id.indexOf(thisfilefullname2)!= -1){
- 		
- 		$("a[name='sideBtns']").eq(i).addClass("chk_active");
- 	}
- } */
-  
 	var nav_id = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.lastIndexOf("/") + 6);
 
 	for(var i =0; i<=$(".list-group-item").length -1; i++){
@@ -148,10 +134,7 @@ var thisfilefullname2 = document.URL.substring(document.URL.lastIndexOf("/") + 1
 			
 			$(".list-group-item").eq(i).css("color","black");
 			$(".list-group-item").eq(i).addClass("list-active");
-			
-		}/* else{
-			console.log(i+"번째 네비게이션 pheader뭔가 이상합니다.");
-		} */
+		}
 	}
   
 </script>

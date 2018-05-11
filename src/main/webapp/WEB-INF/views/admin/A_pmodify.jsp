@@ -25,14 +25,14 @@
      <input type='hidden' name='keyword' value="${cri.keyword}">
 		<table class="table table-bordered">
 			<tr>
-				<th>ID</th>
+				<th style="padding-top:22px;">ID</th>
 				<td>
 					<input class="form-control" type="text" id="userid" name="id" value="${UserVO.id}" readonly>
 					<input type="hidden" name="userid" value="${UserVO.id}">
 				</td>
 			</tr>
 			<tr>
-				<th>비밀번호</th>
+				<th style="padding-top:22px;">비밀번호</th>
 				<td>
 					<div class="form-group" id="PWDiv" style="margin-bottom:0;">
 	                    <input type="password" class="form-control" id='pw' name='pw' 
@@ -46,7 +46,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>비밀번호확인</th>
+				<th style="padding-top:22px;">비밀번호확인</th>
 				<td>
 				<div class="form-group" id="PWCDiv" style="margin-bottom:0;">
                     <input type="password" class="form-control" id="pwc" data-rule-required="true" placeholder="비밀번호를 다시 입력하세요." 
@@ -61,16 +61,16 @@
 				</td>
 			</tr>
 			<tr>
-				<th>이름</th>
+				<th style="padding-top:22px;">이름</th>
 				<td><input class="form-control" type="text" name="pname" value="${UserVO.pname}" required></td>
 			</tr>
 			<tr>
-				<th>E-mail</th>
+				<th style="padding-top:22px;">E-mail</th>
 				<td><input class="form-control" type="text" name="email"
 					value="${UserVO.email}" required></td>
 			</tr>
 			<tr>
-				<th>생년월일</th>
+				<th style="padding-top:22px;">생년월일</th>
 				<td>
 				<div class="input-group date" data-provide="datepicker">
 					<input type="text" class="form-control" id="birth" name="birth" value="${UserVO.birth}" required>
@@ -81,17 +81,19 @@
 				</td>
 			</tr>
 			<tr>
-				<th>이메일 인증</th>
-				<td>
+				<th height="63" style="padding-top:22px;">이메일 인증</th>
 					<c:choose>
 					<c:when test="${UserVO.authCode eq null}">
-					<div id="authDiv">인증완료</div>
+					<td style="padding-top: 22px;padding-left: 15px;">
+						<div id="authDiv">인증완료</div>
+					</td>
 					</c:when>
 					<c:otherwise>
-					<div id="authDiv">인증이 필요합니다.&nbsp;&nbsp;<button type="button" class="btn btn-info" id="emailAuth">인증</button></div>
+					<td style="padding-top: 15px;padding-left: 15px;" id="emailCheck">
+						<div id="authDiv">인증이 필요합니다.&nbsp;&nbsp;<button type="button" class="btn btn-info" id="emailAuth">인증</button></div>
+					</td>
 					</c:otherwise>
 					</c:choose>
-				</td>
 			</tr>
 		</table>
 	</form>
@@ -113,7 +115,7 @@
 		<tr>
 			<td>${ResumeVO.bno}</td>
 			<td>${ResumeVO.title}</td>
-			<td><input type="button" onclick="location.href='/admin/resmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
+			<td><input type="button" class="btn btn-success" onclick="location.href='/admin/resmodify?bno=${ResumeVO.bno}'" value="이력서수정"></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -331,6 +333,7 @@ $(function(){
 					if(result == 'success'){
 						alert("이메일 인증이 완료되었습니다.");
 						document.getElementById("authDiv").innerHTML = "인증완료";
+						$("#emailCheck").css("padding-top", "20px");
 					}
 				}});			
 		}

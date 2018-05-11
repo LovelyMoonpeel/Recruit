@@ -73,7 +73,7 @@ $(".btn-warning").on("click", function(){
 	
 	if(title != "" && content != ""){
 		if(bpw == bpwc){
-			if(confirm("등록할랭?")){
+			if(confirm("등록하시겠습니까?")){
 				formObj.attr("action", "/cs/S_qnareg");
 				formObj.submit();
 			}
