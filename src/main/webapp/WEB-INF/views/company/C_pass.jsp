@@ -14,9 +14,9 @@
 		<tr class="active gobox2">			<!-- active는 바탕색을 말하고 gobox2는 따로 css지정  -->
 		<td style="line-height: 200%">			<!-- 줄과 줄 사이 간격  -->
 			<ul style="list-style-type : circle">			<!-- li 앞에 동그라미  -->
-				<li>6~20자의 영문 대문자, 소문자, 숫자를 조합하여 비밀번호를 만드실 수 있습니다.</li>
-				<li>개인정보 보호를 위해 <b>6개월마다 주기적으로 비밀번호를 변경</b>해 사용하는 것이 안전합니다.</li>
-				<li>여러 사이트에 동일한 비밀번호를 사용하면 도용되기 쉬우므로 비밀번호를 주기적으로 변경해 주는 것이 안전합니다. </li>
+				<li><small><b style="color:#7F0000">6~20자의 영문 대문자, 소문자, 숫자</b>를 조합하여 비밀번호를 만드실 수 있습니다.</small></li>
+				<li><small>개인정보 보호를 위해 <b style="color:#7F0000">6개월마다 주기적으로 비밀번호를 변경</b>해 사용하는 것이 안전합니다.</small></li>
+				<li><small>여러 사이트에 동일한 비밀번호를 사용하면 도용되기 쉬우므로 비밀번호를 주기적으로 변경해 주는 것이 안전합니다.</small> </li>
 			</ul>
 		</td>
 		</tr>
@@ -57,7 +57,7 @@
 		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">			<!-- col-sm-2 으로 하면 이상해짐 --> 
-				<button type="submit" class="btn btn-default" id="changePw">확인</button>   <!-- 확인 id값은 밑에 스크립트에서 사용됨 -->
+				<button type="submit" class="btn btn-success btn-lg" id="changePw">변경하기</button>   <!-- 확인 id값은 밑에 스크립트에서 사용됨 -->
 			</div>
 		</div>
 

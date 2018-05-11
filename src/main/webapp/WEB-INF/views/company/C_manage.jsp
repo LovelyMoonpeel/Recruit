@@ -25,7 +25,7 @@ none = "/resources/rpjt/img/non.png";
 <div class="col-md-9">
 
 	<p class="lead">
-		<strong>채용공고관리</strong>
+		<h2>채용공고관리</h2>
 	</p>
 
 	<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
@@ -99,7 +99,7 @@ none = "/resources/rpjt/img/non.png";
 					<li><small>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요.</small></li>
 					<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
 					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하 징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>				
-					<br> <font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</font> 처리될 수 있습니다.</font>
+					<font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</b></font> 처리될 수 있습니다.</font>
 				</ul>
 			</td>
 		</tr>
@@ -651,13 +651,13 @@ function createTemplate(item){
 	
  <script id="template_recruitList" type="text/x-handlebars-template">
 	<tr>
-		<td rowspan=1>
+		<td rowspan=1 class="text-center" style="vertical-align:middle;">
 			{{#State}}
 				{{state}}{{recruitstate}}
 			{{/State}}
 		</td>
 
-		<td>
+		<td class="text-center" style="vertical-align:middle;">
 			<a id=nw href=C_recruitMent?recruitNum={{bno}} target=_blank>{{title}}</a>
 			{{#qIcon}}
 				{{state}}{{bno}}
@@ -666,7 +666,7 @@ function createTemplate(item){
 			({{periodstart}}{{period}})
 		</td>
 	
-		<td class=text-center>
+		<td class="text-center" style="vertical-align:middle;">
 			<button style="vertical-align: middle" class="btn btn-success" type=button id=modify value="{{bno}}">{{btnstate}}</button>
 			<button style="vertical-align: middle" class="btn btn-danger" type=button id=delete value="{{bno}}"><span class="glyphicon glyphicon-trash"></span>삭제</button>
 			{{#btnState}}
@@ -674,15 +674,15 @@ function createTemplate(item){
 			{{/btnState}}
 		</td>
 
-		<td>
+		<td class="text-center" style="vertical-align:middle;">
 			<button class="btn btn-default" style="width:100%" name="onLoad"; id="{{bno}}" value="{{bno}}" data-toggle=modal data-target=#myModal>지원자보기 [{{applynum}}명]</button>
 		</td>
 		
-		<td class=text-center>
+		<td class="text-center" style="vertical-align:middle;">
 			{{viewcnt}}
 		</td>
 
-		<td>
+		<td class="text-center" style="vertical-align:middle;">
 			{{#hide}}
 				{{state}}{{bno}}
 			{{/hide}}

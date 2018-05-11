@@ -412,7 +412,7 @@
 				                    </label>
 				            	</div>
 				            	<div class="col-lg-3">
-				                    <a href="cs/usage" target="_blank"> <input type="button" class="btn btn-success" value="약관보기"> </a>
+				                    <a href="cs/usage#company" target="_blank"> <input type="button" class="btn btn-success" value="약관보기"> </a>
 				                </div>
 							</div>
 				            <div class="form-group">
@@ -679,6 +679,10 @@ $('#cjoin').on("click", function(event){
 		}
 		
 	})
+</script>
+<script>
+
+
 </script>
 <!-- //개인 회원 가입 비밀번호 일치 여부  -->
 

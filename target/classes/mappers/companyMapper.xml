@@ -407,7 +407,7 @@ update tblrecruit set state = #{state} where bno = #{bno};
 		tblregion r, tbluser u , tblcode n, tblcode c, tblcode o, tbljobgroup j, tbljobgroup g, tblregion i
 		where f.presume = p.bno and p.rgbid = r.rgbid and u.id = p.userid and n.id = p.salaryid and i.rgsid = p.rgsid and i.rgbid = r.rgbid
         and p.levelofeducation = c.id and p.lastcareer = o.id and j.id = p.jobgroupid2 and g.id = p.jobgroupid 
-      and f.cuserid = #{id};
+      and f.cuserid = #{id} order by f.createdate desc;
   <!--   and p.publicornot = '공개'  -->
 	</select> <!-- 관심인재 리스트 -->
 	

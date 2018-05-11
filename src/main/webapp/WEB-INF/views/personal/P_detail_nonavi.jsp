@@ -11,8 +11,8 @@
 
 	<div id="noC">
 		<button id=r1 value="${ResumeVO.bno}">
-			<img src=/resources/rpjt/img/non.png name="r1"
-				value="${ResumeVO.bno}"> <b id=r3 name="r2">관심인재 등록하기</b>
+			<img src=/resources/rpjt/img/non.png name="r1"value="${ResumeVO.bno}"> <b id=r3 name="r2">
+			</b>
 		</button>
 	</div>
 
@@ -241,7 +241,7 @@
 
 
 		<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
-			<input type="hidden" name="CompareList"
+			<input type="text" name="CompareList"
 				value="${FavorCompareListVO.presume}">
 		</c:forEach>
 		<!-- 관심인재에 등록된 사람인지 비교하기 위한 forEach문 (park) -->
@@ -300,10 +300,19 @@
 
 			if (compare[i].value == bno) {
 
+				$("#r1").removeClass();
 				$("img[name='r1']").attr("src", "/resources/rpjt/img/on.png")
 				$("b[name='r2']").text("관심인재 취소하기")
-
+				$("#r1").addClass("btn btn-danger");
+			}else{
 			}
+		}
+		
+		if($("#r1").prop("class")!="btn btn-danger"){
+			$("#r1").removeClass();
+			$("img[name='r1']").attr("src", "/resources/rpjt/img/non.png")
+			$("b[name='r2']").text("관심인재 등록하기")
+			$("#r1").addClass("btn btn-success");
 		}
 	})
 </script>
@@ -325,10 +334,16 @@
 											if ($("img[value=" + bno + "]")
 													.attr("src") == "/resources/rpjt/img/on.png") {
 												favDel(bno, id);
+												$("#r1").removeClass();
+												$("b[name='r2']").text("관심인재 등록하기");
+												$("#r1").addClass("btn btn-success");
 											} else if ($(
 													"img[value=" + bno + "]")
 													.attr("src") != "/resources/rpjt/img/on.png") {
 												favAdd(bno, id);
+												$("#r1").removeClass();
+												$("b[name='r2']").text("관심인재 취소하기");
+												$("#r1").addClass("btn btn-danger");
 											}
 
 										})

@@ -31,7 +31,7 @@
 
 	
 	<div class="col-md-9">
-		<p class="lead"><strong>채용공고목록에 따른 추천인재</strong></p>
+		<p class="lead"><h2>추천인재</h2></p>
 	
 		<nav class="navbar navbar-default" style="margin-bottom: 0px; border: 1px solid #dce1eb; border-bottom: 2px solid #c0c6d3;">
 		<div class="container-fluid">
@@ -77,11 +77,11 @@
 		</tr>
 						<c:forEach items="${recruitList}" var="RecruitVO">					
 					<tr>
-					<th><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
-					<th style="text-align: center"><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
+					<th class="text-center" style="vertical-align:middle;"><span class=badge name=stateName>${RecruitVO.recruitstate}</span></th>
+					<th class="text-center" style="vertical-align:middle;"><a id="gR" target="_blank" href=/company/C_recruitMent?recruitNum=${RecruitVO.bno}>${RecruitVO.title}</a>
 					</th>
-					<th style="text-align: center">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
-					<th style="text-align: center"><button class="btn btn-default" name="onLoad" style="width:100%" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
+					<th class="text-center" style="vertical-align:middle;">${RecruitVO.periodstart}  ${RecruitVO.period}</th>
+					<th class="text-center" style="vertical-align:middle;"><button class="btn btn-default" name="onLoad" style="width:100%" id=${RecruitVO.bno} value=${RecruitVO.bno} data-toggle="modal" data-target="#myModal">인재보기</button></th>
 					</tr>
 						</c:forEach>
 	</table>
@@ -168,7 +168,7 @@
 					<li><small>추천인재는 공고에 기입된 원하는 인적사항과 <b style="color:#7F0000">유사한 인적사항을 가진 인재를 매칭</b>해 추천해줍니다.</small></li>
 					<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
 					<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>
-				<br> <font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</b> 처리될 수 있습니다.</font>
+				<font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제</b> 처리될 수 있습니다.</font>
 				</ul>
 			</td>
 		</tr>
@@ -229,11 +229,7 @@ function PersonList(bno){
 												
 					};
 					
-					console.log(item)
-					
-					
 					CreateRecomList(item);
-					
 					
 					comparison.push(this.bno)
 					

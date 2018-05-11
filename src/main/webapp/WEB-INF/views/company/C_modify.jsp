@@ -132,12 +132,12 @@
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>기업주소</label>
-				<input id="pac-input" class="controls" type="text" placeholder="주소를 입력해주세요">
-				<input id="pac-input1" class="controls1" type="text" placeholder="건물명과 층수를 입력해주세요">
+				<input id="pac-input" class="controls" type="text" value="${CInfoVO.location}" placeholder="주소를 입력해주세요">
+				<input id="pac-input1" class="controls1" type="text" value="${CInfoVO.detaillocation}" placeholder="건물명과 층수를 입력해주세요">
 				<input type="hidden" name="lat" id="lat">
 				<input type="hidden" name="lng" id="lng">
-				<input type="hidden" name="location" id="location">		
-				<input type="hidden" name="detaillocation" id="detaillocation">	
+				<input type="hidden" name="location" id="location" value="${CInfoVO.location}">		
+				<input type="hidden" name="detaillocation" id="detaillocation" value="${CInfoVO.detaillocation}">	
 				<div id="map"></div>
 			</div>
 		</div>

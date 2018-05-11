@@ -8,7 +8,7 @@
 <div class="col-md-9">
 
 	<p class="lead">
-		<strong>기업 정보</strong>
+		<h2>기업 정보</h2>
 	</p>
 
 	<div class="top_cont">	

@@ -3,24 +3,9 @@
 
 <%@include file="../include/cheader.jsp"%>
 
-<!-- Main content -->
-<!-- 기업 페이지 -->
 <div class="col-md-9">
-	<p class="lead"><strong>관심인재</strong></p>
+	<p class="lead"><h2>관심인재</h2></p>
 			
-<!-- 문> 반응형 안 먹어서 일단 주석처리  -->
-<!-- 	<div class="gobox1">
-		<div class="gobox2">
-			<ul>
-				<li>관심 인재로 등록한 이력서는 최초 관심 등록일로부터 30일간 보관됩니다.</li>
-				<li>진행중 공고는 <b> 최대 5개까지 동시 게재</b>가능하며, 5개 초과 등록 시, 대기중 상태가 됩니다.</li> <br> 
-				<li>공고를 등록하신 회원님께<b>공고 기반 추천 인재 서비스를 무료</b>로 제공합니다. </li>
-				<li>서류접수가 완료되면 합격/불합격 여부를 떠나 지원자에게 서류발표 여부를 알려주세요. (서류 결과 발표 버튼 클릭)</li><br>
-				<br>※ 사람인 채용정보 등록 규정상 부적합한 공고로 판별된 경우, 별도 통보 없이 공고가 마감/삭제 처리될 수 있습니다.
-			</ul>
-		</div>
-	</div> -->
-
 	<table class="table table-bordered">
 		<tr class="active">
 			<th style="width: 5%;" class="text-center"></th>
@@ -50,9 +35,10 @@
 				<li><small>관심인재 서비스는 <b style="color:#7F0000">해당 인재의 스크랩한 이력서</b>를 보여주는 것입니다.</small></li>  
 				<li><small>공고를 등록하신 회원님께 <b style="color:#7F0000">공고 기반 추천 인재 서비스를 무료</b>로 제공합니다. </small></li>
 				<li><small><b style="color:#7F0000">최초 개인정보 수집한 목적이 달성되면</b> <r>지체 없이 파기</r>하여야 합니다.</small></li>
-				<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하징역 또는 5,000만원 이하의 벌금</b>에 처해질 수 있습니다.</small></li>
-				<br>
-				<font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제 처리될 수 있습니다.</b></font>
+				<li><small>채용이 아닌 영업이나 마케팅 등으로 이용하실 경우, 정보통신망법 제71조 3에 의거 <b style="color:#7F0000">5년 이하징역 또는 5,000만원 이하의 벌금</b>
+				<br>에 처해질 수 있습니다.</small></li>
+			
+				<font style="font-size:15px">※ RecruIT 규정상 부적합한 공고로 판별된 경우, <b style="font-size:15px; color:#7F0000">별도 통보 없이 공고가 마감/삭제 처리</b>될 수 있습니다.</font>
 			</ul>
 		</td>
 		</tr>
