@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/uheader.jsp"%>
-<!-- <div class="col-md-9"> -->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<div class="col-md-9">
+<!-- <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"> -->
 
 <h2>아이디 찾기</h2>
 <form action="IDsearch" method="POST">
@@ -20,7 +20,6 @@
 </table>
 </form>
 <input type="button" class="btn btn-success" id="submit" value="ID 찾기">
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script>
 //라디오로 체크된 값을 구분해서 pname과 cname을 구분지어 넣어 줌

@@ -35,9 +35,9 @@
 
 	<%@include file="../include/jheader.jsp"%>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+			<!-- <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 				<div class="profile-sidebar">
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">회원정보 확인</div>
@@ -51,11 +51,27 @@
 					<li><a href="/user/IDsearch" id="IDsearch" class="hover">아이디 찾기</a></li>
 					<li><a href="/user/PWsearch" id="PWsearch" class="hover">비밀번호 찾기</a></li>
 				</ul>
-				<!-- 				<div class="list-group">
+								<div class="list-group">
 					<a href="/cs/faq" class="list-group-item">FAQ</a> <a href="/cs/qna"
 						class="list-group-item">Q&A</a>
-				</div> -->
+				</div>
+			</div> -->
+			
+			<div class="col-md-3">
+			<div class="profile-sidebar">
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">회원정보 확인</div>
+					<div class="profile-usertitle-status">
+					<span class="indicator label-danger"></span>OFFLINE
+					</div>
+				</div>
+				<div class="clear"></div>
 			</div>
+			<div class="list-group">
+				<a href="/user/IDsearch" class="list-group-item" id="IDsearch"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;아이디 찾기</a>
+				<a href="/user/PWsearch" class="list-group-item" id="PWsearch"><span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</a>
+			</div>
+		</div>
 			
 <script>
 var path = window.location.pathname.substr(6,8);

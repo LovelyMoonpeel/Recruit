@@ -158,7 +158,9 @@ public class CsController {
 		
 		UserVO login = (UserVO) session.getAttribute("login");
 		String pw = "";
-		pw = qservice.read2(bno).getBpw();
+		if(qservice.read2(bno).getBpw() != null){
+			pw = qservice.read2(bno).getBpw();			
+		}
 		
 		if(!pw.equals("")){
 			if (login != null) {

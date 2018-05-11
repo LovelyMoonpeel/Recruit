@@ -197,6 +197,7 @@ public class UserController {
 		ResponseEntity<String> entity = null;
 		try{
 			if(dto.getCname()==null){
+				System.out.println(dto);
 				if(service.pread(dto)!=null){
 					service.pRead(dto);
 					entity = new ResponseEntity<String>("success", HttpStatus.OK);

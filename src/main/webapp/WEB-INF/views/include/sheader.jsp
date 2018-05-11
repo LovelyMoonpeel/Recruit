@@ -79,7 +79,7 @@
 				<a href="/cs/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
 				<a href="/cs/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a>
 				<a href="/cs/faq" class="list-group-item" id="faq faqre"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
-				<a href="/cs/qna" class="list-group-item" id="qna qnare"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
+				<a href="/cs/qna" class="list-group-item" id="qna qnare qna?p"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
 			</div>
 		</div>
 		
