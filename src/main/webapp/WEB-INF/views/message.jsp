@@ -38,30 +38,34 @@
 
 <div class="container col-md-9">
 	<div class="top_cont">
-		<h1 class="ci_name">RecruIT 알림창</h1>
+		<h1 class="ci_name">알림센터</h1>
 	</div>
 	<br><br>
-
 	<div class="container col-md-11 col-md-offset-1 All">
 		<%if (cname!=null) { %><!--  기업회원일 때 -->
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
 			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
 				<c:choose>
-						<c:when test="${MessageVO.color==1}">
-							<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<a href="/company/C_manage"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
-						</c:when>
+					<c:when test="${MessageVO.color==1}">
+						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<span class="glyphicon glyphicon-paperclip"></span>
+						<a href="/company/C_manage">            &nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+					</c:when>
 					<c:when test="${MessageVO.color==2}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/company/C_index"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=4">공지사항</a>
+						<span class="glyphicon glyphicon-warning-sign"></span>
+						<a href="/company/C_index">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=4">공지사항</a>
 					</c:when>
 					<c:when test="${MessageVO.color==3}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessaveVO.rcno}', 'width=1100, height=960'); return false;"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=6">공지사항</a>
+						<span class="glyphicon glyphicon-refresh"></span>
+						<a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessaveVO.rcno}', 'width=1100, height=960'); return false;">
+						&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=6">공지사항</a>
 					</c:when>
 					<c:otherwise>
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/cs/qna"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<span class="glyphicon glyphicon-comment"></span>
+						<a href="/cs/qna">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -72,21 +76,25 @@
 				<c:choose>
 					<c:when test="${MessageVO.color==0}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/personal/applied_all"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<span class="glyphicon glyphicon-paperclip"></span>
+						<a href="/personal/applied_all">            &nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 						 &nbsp;&nbsp; 
 						 <a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessageVO.rcno}', 'width=1100, height=960'); return false;">공고보기</a>
 					</c:when>
 					<c:when test="${MessageVO.color==2}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/personal/index"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>&nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/notice">공지사항</a>
+						<span class="glyphicon glyphicon-warning-sign"></span>
+						<a href="/personal/index">           &nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>&nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/notice">공지사항</a>
 					</c:when>
 					<c:when test="${MessageVO.color==3}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/personal/detail?bno=${MessageVO.rsno }"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=7">공지사항</a>
+						<span class="glyphicon glyphicon-refresh"></span>
+						<a href="/personal/detail?bno=${MessageVO.rsno }">              &nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=7">공지사항</a>
 					</c:when>
 					<c:otherwise>
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<a href="/cs/qna"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<span class="glyphicon glyphicon-comment"></span>
+						<a href="/cs/qna">            &nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -127,29 +135,30 @@ function infiniteScroll(){
 							moreView = false;
 						} */
 					
+					
 						switch(this.color){
 							case '1' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-info' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/company/C_manage'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<span class='glyphicon glyphicon-paperclip'></span><a href='/company/C_manage'>&nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+"</div>";	
 								 break;
 							case '2' :
-								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-danger' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/company/C_index'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=4'>공지사항</a>"
+			    					+"<span class='glyphicon glyphicon-warning-sign'></span>&nbsp;&nbsp;<a href='/company/C_index'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=4'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '3' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C"+this.rcno+"', 'width=1100, height=960'); return false;'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=6'>공지사항</a>"
+			    					+"<span class='glyphicon glyphicon-refresh'></span>&nbsp;&nbsp; <a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C"+this.rcno+"', 'width=1100, height=960'); return false;'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=6'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '4' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<span class='glyphicon glyphicon-comment'></span>&nbsp;&nbsp;<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+"</div>";
 								 break;
 							}//switch end
@@ -158,7 +167,7 @@ function infiniteScroll(){
 							case '0' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-info' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/personal/applied_all'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<a href='/personal/applied_all'><span class='glyphicon glyphicon-paperclip'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+" &nbsp;&nbsp;"
 			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C${MessageVO.rcno}', 'width=1100, height=960'); return false;'>공고보기</a>"
 			    					+"</div>";	
@@ -166,19 +175,19 @@ function infiniteScroll(){
 							case '2' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/personal/index'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/notice'>공지사항</a>"
+			    					+"<a href='/personal/index'><span class='glyphicon glyphicon-warning-sign'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/notice'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '3' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/personal/detail?bno="+this.rsno+"'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=7'>공지사항</a>"
+			    					+"<a href='/personal/detail?bno="+this.rsno+"'><span class='glyphicon glyphicon-refresh'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=7'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '4' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<a href='/cs/qna'><span class='glyphicon glyphicon-comment'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+"</div>";
 								 break;
 							}//switch end	
@@ -188,7 +197,7 @@ function infiniteScroll(){
     		}else{//data가 null이 아니면
     			lastpage=true;
     			console.log("끝");
-    			str="<br><br><p style='text-align:center;'><span class='glyphicon glyphicon-hand-right'></span>&nbsp;&nbsp;&nbsp;알림이 끝났습니다.&nbsp;&nbsp;<span class='glyphicon glyphicon-hand-left'></span></p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
+    			str="<br><br><p style='text-align:center;'><span class='glyphicon glyphicon-hand-right'></span>&nbsp;&nbsp;&nbsp;알림이 끝났습니다.&nbsp;&nbsp;</p><br><p style='text-align:center; color:#ffffff;'>박장우 천문필 박형훈 오지훈 진민경 안소연 제작~</p><br><br>";
     			$(".All").append(str).trigger("create");
     		}
     	}//success end
@@ -214,7 +223,7 @@ $(document).ready(function () {
 		$(this).addClass("alert-info");
 	});
 	$(".2").each(function(index){
-		$(this).addClass("alert-warning");
+		$(this).addClass("alert-danger");
 	});
 	$(".3").each(function(index){
 		$(this).addClass("alert-warning");
