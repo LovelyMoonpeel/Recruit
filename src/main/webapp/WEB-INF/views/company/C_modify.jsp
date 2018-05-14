@@ -132,8 +132,8 @@
 		<div class="row">
 			<div class="form-group col-lg-12">
 				<label>기업주소</label>
-				<input id="pac-input" class="controls" type="text" value="${CInfoVO.location}" placeholder="주소를 입력해주세요">
-				<input id="pac-input1" class="controls1" type="text" value="${CInfoVO.detaillocation}" placeholder="건물명과 층수를 입력해주세요">
+				<input id="pac-input" class="controls" type="text" value="" placeholder="주소를 입력해주세요">
+				<input id="pac-input1" class="controls1" type="text" value="" placeholder="건물명과 층수를 입력해주세요">
 				<input type="hidden" name="lat" id="lat">
 				<input type="hidden" name="lng" id="lng">
 				<input type="hidden" name="location" id="location" value="${CInfoVO.location}">		
@@ -696,12 +696,14 @@ var map;
 	             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 	             
 	
-	        
+	        alert("첫번쨰"+result[0].road_address);
+	        alert("두번째"+result[0].road_address.address_name)
             var address = ""
             
 	        if(result[0].road_address!=null){
 	        
 	        	address += ""+result[0].road_address.address_name+"";
+	        
 	        
 	        }else{
 	        	
