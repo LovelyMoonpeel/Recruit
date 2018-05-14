@@ -121,7 +121,7 @@
 				<a href="/admin/notice" class="list-group-item" id="notic"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;&nbsp;&nbsp;공지사항</a>
 				<!-- <a href="/admin/usage" class="list-group-item" id="usage"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;이용약관</a> -->
 				<a href="/admin/faq" class="list-group-item" id="faq faqmo faqre"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;FAQ</a>
-				<a href="/admin/qna" class="list-group-item" id="qna qnamo"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
+				<a href="/admin/qna" class="list-group-item" id="qna qnamo qna?p"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;Q&A</a>
 			</div>
 		</div>
 <script>

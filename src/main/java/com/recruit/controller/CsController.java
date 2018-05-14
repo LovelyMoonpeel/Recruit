@@ -153,7 +153,7 @@ public class CsController {
 	}
 
 	@RequestMapping(value = "/qnaread", method = RequestMethod.GET)
-	public String qnareadGET(@RequestParam("bno") Integer bno, HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
+	public String qnareadGET(@RequestParam("bno") Integer bno, @ModelAttribute("cri") CsqnaCriteria cri, HttpSession session, RedirectAttributes rttr, Model model) throws Exception {
 		logger.info("qna read..........");
 		
 		UserVO login = (UserVO) session.getAttribute("login");
@@ -208,7 +208,7 @@ public class CsController {
 	}
 
 	@RequestMapping(value = "/qnamod", method = RequestMethod.GET)
-	public String qnaModifyGET(HttpSession session, RedirectAttributes rttr, @RequestParam("bno") Integer bno, Model model) throws Exception {
+	public String qnaModifyGET(HttpSession session, @ModelAttribute("cri") CsqnaCriteria cri, RedirectAttributes rttr, @RequestParam("bno") Integer bno, Model model) throws Exception {
 		logger.info("qna Modify Get..........");
 		
 		UserVO login = (UserVO) session.getAttribute("login");
@@ -233,6 +233,11 @@ public class CsController {
 	public String qnaModifyPOST(CsqnaVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("qna Modify Post..........");
 		logger.info(vo.toString());
+		
+		if(vo.getBpw().equals("")){
+			CsqnaVO bpw = qservice.read2(vo.getBno());
+			vo.setBpw(bpw.getBpw());
+		}
 
 		qservice.modify(vo);
 

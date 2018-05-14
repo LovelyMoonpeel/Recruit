@@ -43,6 +43,12 @@
 	<h1>Q&A</h1>	
 	<form role="form" method="POST">
 		<input class="form-control" type="hidden" name="bno" value="${CsqnaVO.bno}" readonly>
+		<input type='hidden' name='page' value="${cri.page}">
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+	</form>
+	<form role="formlist">
+    	<input type='hidden' name='page' value="${cri.page}">
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 	</form>
 	<table class="table table-bordered">
 		<tr>
@@ -108,7 +114,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly rows="5" style="resize: none;">{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly rows="10" style="resize: none;">{{content}}</textarea> </div>
 	<a class="btn btn-primary btn-xs"
      data-toggle="modal" data-target="#modifyModal" style="display:<%=replyMod%>">Modify</a>
   </div>
@@ -181,8 +187,7 @@ $("#repliesDiv").on("click", function() {
 <script type="text/javascript">
 
 var formObj = $("form[role='form']");
-
-console.log(formObj);
+var formObjlist = $("form[role='formlist']");
 
 $("#modifyBtn").on("click", function(){
 	if(confirm("수정하시겠습니까?")){
@@ -200,7 +205,9 @@ $("#deleteBtn").on("click", function(){
 });
 
 $("#listBtn").on("click", function(){
-	self.location = "/cs/qna";
+	formObjlist.attr("method", "GET");
+	formObjlist.attr("action", "/cs/qna");
+	formObjlist.submit();
 });
 
 /* 댓글 달기 버튼 */
@@ -239,7 +246,7 @@ $(".timeline").on("click", ".replyLi", function(event){
 	var reply = $(this);
 	
 	$("#content").val(reply.find('.timeline-body').text());
-	$(".modal-title").html(reply.attr("data-rno"));
+	$(".modal-title").html("답변 수정");
 });
 
 /* 댓글 수정 버튼 */

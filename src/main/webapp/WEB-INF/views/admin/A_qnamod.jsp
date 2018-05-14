@@ -127,7 +127,7 @@
   <span class="time">
    <i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
   </span>
-  <div class="timeline-body"><textarea class="form-control" readonly rows="5" style="resize: none;">{{content}}</textarea> </div>
+  <div class="timeline-body"><textarea class="form-control" readonly rows="10" style="resize: none;">{{content}}</textarea> </div>
    <a class="btn btn-primary btn-xs"
      data-toggle="modal" data-target="#modifyModal">Modify</a>
   </div>

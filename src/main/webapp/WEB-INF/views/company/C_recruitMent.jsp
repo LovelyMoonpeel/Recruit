@@ -947,8 +947,8 @@ $(document).ready(function() {
             {
                 title: '채용공고 보기',
                 link: {
-                	mobileWebUrl: 'http://localhost:8070/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
-                    webUrl: 'http://localhost:8070/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
+                	mobileWebUrl: 'http://recru-it.xyz:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}',
+                    webUrl: 'http://recru-it.xyz:8080/company/C_recruitMent?recruitNum=${RecruitVO.bno}'
                 }
             }
         ]
@@ -1179,15 +1179,6 @@ function load(num){
 	})
 	
 
-	$(document).on("click","font[name='txtClick']",function(){
-		
-		var num = $(this).attr("value");
-		if($("#Answer"+num).css("display")=="none"){
-		$("#Answer"+num).css("display","block")
-		}else{
-		$("#Answer"+num).css("display","none")
-		}
-	})
 
 	$(document).on("click","span[name='spanClick']",function(){
 	

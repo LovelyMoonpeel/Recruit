@@ -38,8 +38,7 @@
 			<th>게시글 비밀번호</th>
 		</tr>
 		<tr>
-			<td><input class="form-control" type="password" name="bpw" id="bpw"
-				value="${CsqnaVO.bpw}"></td>
+			<td><input class="form-control" type="password" name="bpw" id="bpw"></td>
 		</tr>
 		<tr>
 			<th>게시글 비밀번호 확인</th>
@@ -57,8 +56,20 @@
 	</table>
 	</form>
 	
+	<form role="formlist">
+    	<input type='hidden' name='page' value="${cri.page}">
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+	</form>
+	
+	<form role="formback">
+		<input type="hidden" name="bno" value="${CsqnaVO.bno}">
+    	<input type='hidden' name='page' value="${cri.page}">
+		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+	</form>
+	
 	<input type="submit" class="btn btn-warning" value="수정">
 	<input type="submit" class="btn btn-primary" value="목록">
+	<input type="submit" class="btn btn-default" value="취소">
 		
 </div>
 <!-- //관리자정보수정 페이지 -->
@@ -67,8 +78,8 @@
 <script type="text/javascript">
 
 var formObj = $("form[role='form']");
-
-console.log(formObj);
+var formObjlist = $("form[role='formlist']");
+var formObjback = $("form[role='formback']");
 
 $(".btn-warning").on("click", function(){
 	var title = $('#title').val();
@@ -92,7 +103,15 @@ $(".btn-warning").on("click", function(){
 });
 
 $(".btn-primary").on("click", function(){
-	self.location = "/cs/qna";
+	formObjlist.attr("method", "GET");
+	formObjlist.attr("action", "/cs/qna");
+	formObjlist.submit();
+});
+
+$(".btn-default").on("click", function(){
+	formObjback.attr("method", "GET");
+	formObjback.attr("action", "/cs/qnaread");
+	formObjback.submit();
 });
 
 </script>

@@ -101,7 +101,8 @@ $(".qnadetail").on("click", function(){
 		dataType:'text',
 		success:function(result){
 			if(result == ""){
-				self.location = "/cs/qnaread?bno="+bno;
+				var pageMaker = '${pageMaker.makeQuery(pageMaker.cri.page)}';
+				self.location = "/cs/qnaread"+pageMaker+"&bno="+bno;
 			}else{
 				$("."+bno).click();
 			}
