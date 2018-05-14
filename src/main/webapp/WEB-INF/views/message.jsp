@@ -65,7 +65,7 @@
 					<c:otherwise>
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<span class="glyphicon glyphicon-comment"></span>
-						<a href="/cs/qna">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<a href="/cs/qnaread?bno=${MessageVO.qbno }">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -77,24 +77,24 @@
 					<c:when test="${MessageVO.color==0}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<span class="glyphicon glyphicon-paperclip"></span>
-						<a href="/personal/applied_all">            &nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<a href="/personal/applied_all">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 						 &nbsp;&nbsp; 
 						 <a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessageVO.rcno}', 'width=1100, height=960'); return false;">공고보기</a>
 					</c:when>
 					<c:when test="${MessageVO.color==2}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<span class="glyphicon glyphicon-warning-sign"></span>
-						<a href="/personal/index">           &nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>&nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/notice">공지사항</a>
+						<a href="/personal/index">&nbsp;&nbsp; <strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>&nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=3">공지사항</a>
 					</c:when>
 					<c:when test="${MessageVO.color==3}">
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<span class="glyphicon glyphicon-refresh"></span>
-						<a href="/personal/detail?bno=${MessageVO.rsno }">              &nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=7">공지사항</a>
+						<a href="/personal/detail?bno=${MessageVO.rsno }">&nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=7">공지사항</a>
 					</c:when>
 					<c:otherwise>
 						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<span class="glyphicon glyphicon-comment"></span>
-						<a href="/cs/qna">            &nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						<a href="/cs/qnaread?bno=${MessageVO.qbno }"> &nbsp;&nbsp;<strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -152,13 +152,13 @@ function infiniteScroll(){
 							case '3' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<span class='glyphicon glyphicon-refresh'></span>&nbsp;&nbsp; <a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C"+this.rcno+"', 'width=1100, height=960'); return false;'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=6'>공지사항</a>"
+			    					+"<span class='glyphicon glyphicon-refresh'></span>&nbsp;&nbsp; <a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, \""+this.rcno+"\", \"width=1100, height=960\"); return false;'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=6'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '4' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<span class='glyphicon glyphicon-comment'></span>&nbsp;&nbsp;<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<span class='glyphicon glyphicon-comment'></span>&nbsp;&nbsp;<a href='/cs/qnaread?bno="+this.qbno+"'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+"</div>";
 								 break;
 							}//switch end
@@ -169,13 +169,13 @@ function infiniteScroll(){
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
 			    					+"<a href='/personal/applied_all'><span class='glyphicon glyphicon-paperclip'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+" &nbsp;&nbsp;"
-			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C${MessageVO.rcno}', 'width=1100, height=960'); return false;'>공고보기</a>"
+			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, \""+this.rcno+"\", \"width=1100, height=960\"); return false;'>공고보기</a>"
 			    					+"</div>";	
 								 break;
 							case '2' :
-								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-danger' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/personal/index'><span class='glyphicon glyphicon-warning-sign'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/notice'>공지사항</a>"
+			    					+"<a href='/personal/index'><span class='glyphicon glyphicon-warning-sign'></span>  &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=3'>공지사항</a>"
 			    					+"</div>";
 								 break;
 							case '3' :
@@ -187,7 +187,7 @@ function infiniteScroll(){
 							case '4' :
 								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
 									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
-			    					+"<a href='/cs/qna'><span class='glyphicon glyphicon-comment'></span>            &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"<a href='/cs/qnaread?bno="+this.qbno+"'><span class='glyphicon glyphicon-comment'></span> &nbsp;&nbsp; <strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
 			    					+"</div>";
 								 break;
 							}//switch end	
