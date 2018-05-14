@@ -94,7 +94,7 @@
 		<div class="row">
 			<div class="form-group col-lg-6">
 				<label>사원수</label> 
-				<input type="text" name="numemp" class="form-control" value="${CInfoVO.numemp}">
+				<input type="text" id="numemp" name="numemp" class="form-control" value="${CInfoVO.numemp}">
 				
 			</div>
 			<div class="form-group col-lg-6">
@@ -486,9 +486,9 @@ var preexistenceimg = document.getElementById('preexistenceimg');
     $(".btn-primary").on("click", function() {     //문> btn-primary은 저장하기 클래스 이름 같은데. 뭐 클릭하면 안에꺼 실행
 
         /* alert(uploadedfilename_val); */
-        formObj = $("form[role = 'form']");
-        formObj.attr("method", "post");
-        formObj.submit();
+	    formObj = $("form[role = 'form']");
+	    formObj.attr("method", "post");
+	    formObj.submit();        	
 
         // 문> 이 페이지를 보면 수정하기 버튼을 눌렀을 때 어디로 가란 정보가 없다.
         // 그럴 땐 컨트롤러에서 jsp파일명이 적힌 곳을 봐라 그럼 된다.CompanyController의 /C_modify

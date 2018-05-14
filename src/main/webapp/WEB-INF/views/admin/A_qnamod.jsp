@@ -85,7 +85,7 @@
 	 </div>
 	</div>
 	</div>
-	
+	<br>
 	<ul class="timeline">
 	 <li class="time-label" id="repliesDiv">
 	  <button type="button" class="btn btn-info">댓글<small id='replycntSmall'> [ ${CsqnaVO.reply} ] </small></button>

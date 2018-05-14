@@ -204,10 +204,15 @@ public class CompanyController {
 	}
 	
 	public static String Comma(String num) {  // 콤마 추가 메서드
-		  int intValue = Integer.parseInt(num);
-		  DecimalFormat Commas = new DecimalFormat("#,###");
-		  String result = (String)Commas.format(intValue);
-		  return result;
+		try{
+			int intValue = Integer.parseInt(num);
+			DecimalFormat Commas = new DecimalFormat("#,###");
+			String result = (String)Commas.format(intValue);
+			return result;
+		}catch(Exception e){
+			//e.printStackTrace();
+			return num;
+		}
 	}
 
 	public void InfoFileUpload(CInfoVO CInfo, HttpServletRequest request, String id) { // 사진

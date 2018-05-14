@@ -80,6 +80,15 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
+@font-face {
+   font-family: 'Binggrae-Bold'; /* 폰트 패밀리 이름 주기*/
+   src: url('/resources/rpjt/fonts/Binggrae-Bold.ttf'); /*폰트 파일 주소*/
+}
+   
+.font{ /* 위에서 font-face로 지정해놓은 font-family를 적용*/
+       font-family:'Binggrae-Bold' !important;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>

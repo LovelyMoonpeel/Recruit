@@ -41,6 +41,15 @@
 #drop_a:hover .badge-danger{
   	background-color: #dc3545;
 }
+
+@font-face {
+   font-family: 'Binggrae-Bold'; /* 폰트 패밀리 이름 주기*/
+   src: url('/resources/rpjt/fonts/Binggrae-Bold.ttf'); /*폰트 파일 주소*/
+}
+   
+.font{ /* 위에서 font-face로 지정해놓은 font-family를 적용*/
+       font-family:'Binggrae-Bold' !important;
+}
 </style>
 
 <div class="wrap">
@@ -63,7 +72,7 @@
 		<img src="/resources/rpjt/img/recruit/Large_I.png" width="30px">
 		<img src="/resources/rpjt/img/recruit/Large_T.png" width="30px"> -->
 		<!-- <img style="cursor:pointer;" src="/resources/rpjt/img/recruit/recruit.png" width="200px" onclick="self.location='/'"> -->
-		<a class="navbar-brand" href="/" style="font-size: 25px;">RecruIT</a>
+		<a class="navbar-brand font" href="/" style="font-size: 25px;">RecruIT</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse"
@@ -99,7 +108,7 @@
 				<li><a href="/user/logout" class="header"> <span
 						class="glyphicon glyphicon-log-out"></span>로그아웃
 				</a></li>
-				<li><a style="color: white;">${sessionScope.login.pname}님
+				<li><a style="color: white;" class="header-font">${sessionScope.login.pname}님
 						환영합니다.</a></li>
 				<li class="dropdown" class="header">
 				    <a id="drop_a" class="dropdown-toggle header" data-toggle="dropdown" style="cursor:pointer;">
