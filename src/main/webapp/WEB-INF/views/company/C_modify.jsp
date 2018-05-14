@@ -696,8 +696,6 @@ var map;
 	             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 	             
 	
-	        alert("첫번쨰"+result[0].road_address);
-	        alert("두번째"+result[0].road_address.address_name)
             var address = ""
             
 	        if(result[0].road_address!=null){
