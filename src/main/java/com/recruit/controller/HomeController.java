@@ -137,7 +137,7 @@ public class HomeController {
 			}else{
 				for(int i=0;i<entity.size();i++){
 					if(Integer.parseInt(entity.get(i).getColor()) == 0 || Integer.parseInt(entity.get(i).getColor()) == 1){
-						if(Integer.parseInt((entity.get(i).getRcno()))!=0){
+						if((entity.get(i).getRcno())!=null){
 							String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
 							entity.get(i).setAppliedpid(title);
 						}//관리자가 수정한 경우는 따로 title 넣어줄 필요 없으므로						
@@ -176,21 +176,32 @@ public class HomeController {
 					System.out.println("이게뭔데"+msvo.getBno());
 					entity = service.Readmessage_paging(msvo);//페이징 처리한 전체 메시지 불러오기
 					System.out.println("롸 entity.size()"+entity.size());
+					System.out.println(entity);
+					int size = entity.size();
 					
-					for(int i=0;i<entity.size();i++){
-						String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
-						entity.get(i).setAppliedpid(title);
+					for(int i=0;i<size;i++){
+						if(Integer.parseInt(entity.get(i).getColor()) == 0 || Integer.parseInt(entity.get(i).getColor()) == 1){
+							if((entity.get(i).getRcno())!=null){
+								String title = CService.selectCROne(Integer.parseInt(entity.get(i).getRcno())).getTitle();
+								System.out.println("appliedpid"+title);
+								entity.get(i).setAppliedpid(title);
+							}//관리자가 수정한 경우는 따로 title 넣어줄 필요 없으므로						
+						}
 					}
 				}else{
+					System.out.println("작은else");
 					return entity = null;
 				}
 			}catch(Exception e){
-				//e.printStackTrace();
+				System.out.println("nullpoint");
+				e.printStackTrace();
 			}
 		} else {
+			System.out.println("큰 else");
 			entity = new ArrayList<MessageVO>(1);
 			entity.add(null);
 		}
+		System.out.println("return");
 		return entity;
 	}
 	

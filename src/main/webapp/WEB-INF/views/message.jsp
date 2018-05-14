@@ -43,27 +43,27 @@
 	<br><br>
 
 	<div class="container col-md-11 col-md-offset-1 All">
-		<%if (cname!=null) { %>
+		<%if (cname!=null) { %><!--  기업회원일 때 -->
 		<c:forEach items="${MessageVOlist }" var="MessageVO">
 			<div class="${MessageVO.color } scrolling alert alert-dismissible fade in" data-bno="${MessageVO.bno }">
 				<c:choose>
-				<c:when test="${MessageVO.color==1}">
-					<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<a href="/company/C_manage"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
-				</c:when>
-				<c:when test="${MessageVO.color==2}">
-					<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<a href="/company/C_index"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/notice">공지사항</a>
-				</c:when>
-				<c:when test="${MessageVO.color==3}">
-					<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessaveVO.rcno}', 'width=1100, height=960'); return false;"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=7">공지사항</a>
-				</c:when>
-				<c:otherwise>
-					<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<a href="/cs/qna"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
-				</c:otherwise>
-			</c:choose>
+						<c:when test="${MessageVO.color==1}">
+							<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<a href="/company/C_manage"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+						</c:when>
+					<c:when test="${MessageVO.color==2}">
+						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<a href="/company/C_index"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=4">공지사항</a>
+					</c:when>
+					<c:when test="${MessageVO.color==3}">
+						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<a href="/company/C_recruitMent?recruitNum=${MessageVO.rcno }" onClick="window.open(this.href, 'C${MessaveVO.rcno}', 'width=1100, height=960'); return false;"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href="/cs/noticeread?bno=6">공지사항</a>
+					</c:when>
+					<c:otherwise>
+						<a href="#" id="${MessageVO.bno }" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<a href="/cs/qna"><strong>${MessageVO.appliedpid}</strong>${MessageVO.message}</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</c:forEach>
 		<%}else{%>
@@ -92,7 +92,6 @@
 			</div>
 		</c:forEach>
 		<%}%>	
-		
 	</div>
 </div>
 
@@ -117,26 +116,73 @@ function infiniteScroll(){
     	success: function(data){
     		var str="";
     		
-    		if(data!=""){
+    		if(data!=''){
     			$(data).each(function(){
-    				console.log(this);
+    				console.log(this.bno+""+this);
     				console.log(this.color);
     				
-    				<%if (cname!=null) { %>
-    				str="<div class='"
-	    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
-	    				+"> <a href=# id='"+this.bno
-	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
-	    				+this.appliedpid+"</strong>"+this.message+"("+this.mreadornot+")</div>";
-    				<%}else{%>
-    				str="<div class='"
-	    				+" scrolling alert alert-info alert-dismissible fade in ' data-bno="+this.bno
-	    				+"> <a href=# id='"+this.bno
-	    				+"' class=close data-dismiss=alert aria-label=close>&times;</a> <strong>"
-	    				+this.appliedpid+"</strong>"+this.message+"</div>";
+					<%if (cname!=null) { %> //기업회원일 때
+						
+						/* if (page % 5 !=0)
+							moreView = false;
+						} */
+					
+						switch(this.color){
+							case '1' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-info' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/company/C_manage'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"</div>";	
+								 break;
+							case '2' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/company/C_index'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=4'>공지사항</a>"
+			    					+"</div>";
+								 break;
+							case '3' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C"+this.rcno+"', 'width=1100, height=960'); return false;'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=6'>공지사항</a>"
+			    					+"</div>";
+								 break;
+							case '4' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"</div>";
+								 break;
+							}//switch end
+    				<%}else{%>//개인회원일 때
+	    				switch(this.color){
+							case '0' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-info' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/personal/applied_all'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+" &nbsp;&nbsp;"
+			    					+"<a href='/company/C_recruitMent?recruitNum="+this.rcno+"' onClick='window.open(this.href, 'C${MessageVO.rcno}', 'width=1100, height=960'); return false;'>공고보기</a>"
+			    					+"</div>";	
+								 break;
+							case '2' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/personal/index'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/notice'>공지사항</a>"
+			    					+"</div>";
+								 break;
+							case '3' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-warning' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/personal/detail?bno="+this.rsno+"'><strong>"+this.appliedpid+"</strong>"+this.message+"</a> &nbsp;관련 내용은 공지를 확인해주세요. &nbsp;&nbsp; <a href='/cs/noticeread?bno=7'>공지사항</a>"
+			    					+"</div>";
+								 break;
+							case '4' :
+								str="<div class='"+this.color+" scrolling alert alert-dismissible fade in alert-success' data-bno='"+this.bno+"'>"
+									+"<a href='#' id='"+this.bno+"' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+			    					+"<a href='/cs/qna'><strong>"+this.appliedpid+"</strong>"+this.message+"</a>"
+			    					+"</div>";
+								 break;
+							}//switch end	
     				<%}%>	
-    				
-    				
     				$(".All").append(str).trigger("create");
     			});//each // Append next contents
     		}else{//data가 null이 아니면
