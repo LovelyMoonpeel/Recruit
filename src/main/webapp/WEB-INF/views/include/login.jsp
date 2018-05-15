@@ -867,7 +867,7 @@ $("#pid_overlap").on("click", function(event){
 				$("#PIDXIcon").css("visibility","hidden");
 				$("#PIDOKIcon").css("visibility","visible");
 				$("#pid").attr("data-content", "사용 가능한 아이디 입니다.");
-				$("#ppw").focus();
+				$("#pid").focus();
 				pidchk = Pid;
 			}else{
 				$("#PIDDiv").addClass("form-group has-error has-feedback");
@@ -913,7 +913,7 @@ $("#cid_overlap").on("click", function(){
 				$("#CIDXIcon").css("visibility","hidden");
 				$("#CIDOKIcon").css("visibility","visible");
 				$("#cid").attr("data-content", "사용 가능한 아이디 입니다.");
-				$("#cpw").focus();
+				$("#cid").focus();
 				cidchk = Cid;
 			}else{
 				$("#CIDDiv").addClass("form-group has-error has-feedback");
