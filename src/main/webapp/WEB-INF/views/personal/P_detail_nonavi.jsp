@@ -241,7 +241,7 @@
 
 
 		<c:forEach items="${FavorCompareList}" var="FavorCompareListVO">
-			<input type="text" name="CompareList"
+			<input type="hidden" name="CompareList"
 				value="${FavorCompareListVO.presume}">
 		</c:forEach>
 		<!-- 관심인재에 등록된 사람인지 비교하기 위한 forEach문 (park) -->
