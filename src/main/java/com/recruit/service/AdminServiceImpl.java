@@ -4,16 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import com.recruit.domain.AdminCriteria;
 import com.recruit.domain.AdminSearchCriteria;
-import com.recruit.domain.UserVO;
 import com.recruit.domain.StatisticVO;
+import com.recruit.domain.UserVO;
 import com.recruit.persistence.AdminDAO;
 
-@EnableAsync
 @Service
 public class AdminServiceImpl implements AdminService {
 

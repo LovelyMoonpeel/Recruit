@@ -163,7 +163,7 @@
 				<tr>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">순위</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">회사명</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 정보</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:378px;">공고 정보</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">모집기간</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">지원자수</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">관리</th>
@@ -204,7 +204,7 @@
 							
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
 							
-							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><a href = "/company/C_recruitMent?recruitNum=${CoordinateVO.bno}"  onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CoordinateVO.title}</a></td>
+							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; color:#337ab7;"><a href = "/company/C_recruitMent?recruitNum=${CoordinateVO.bno}"  onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CoordinateVO.title}</a></td>
 							
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
