@@ -138,14 +138,14 @@
 				
 				<tr>
 					<td rowspan="2" style="text-align: center; vertical-align:middle;">${MyResume.pid}</td>
-					<td style="text-align: center; vertical-align:middle;"><a href = "/personal/detail_nonavi?bno=${MyResume.bno}"  onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${MyResume.bno} : ${MyResume.title}</a></td>
+					<td style="text-align: center; vertical-align:middle;"><a href = "/personal/detail_nonavi?bno=${MyResume.bno}"  onClick="window.open(this.href, '', 'width=1000, height=960'); return false;">${MyResume.title}</a></td>
 					
 					<td rowspan="2" style="text-align: center; vertical-align:middle;">${MyResume.adddesc}</td>
 				</tr>
 				<tr>
 					<td style="text-align: center; vertical-align:middle;">
 						<span class="label label-primary">직종</span>${MyResume.v1}, ${MyResume.v2}
-						<span class="label label-primary">지역</span>${MyResume.w1}, ${MyResume.w2} 
+						<br><span class="label label-primary">지역</span>${MyResume.w1}, ${MyResume.w2} 
 						<br><span class="label label-primary">근무형태</span>${MyResume.x}
 							<span class="label label-primary">학력</span> ${MyResume.y} 
 							<span class="label label-primary">경력</span>${MyResume.z}
@@ -204,7 +204,7 @@
 							
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;">${CoordinateVO.cname}</td>
 							
-							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><a href = "/company/C_recruitMent?recruitNum=${CoordinateVO.bno}"  onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CoordinateVO.bno} : ${CoordinateVO.title}</a></td>
+							<td class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><a href = "/company/C_recruitMent?recruitNum=${CoordinateVO.bno}"  onClick="window.open(this.href, '', 'width=1240, height=960'); return false;">${CoordinateVO.title}</a></td>
 							
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle; width:120px;">${CoordinateVO.periodstart} <br>~<br> ${CoordinateVO.period}</td>
 							<td rowspan="2" class="${status.count }VOLIST" style="text-align: center; vertical-align:middle;"><span class="badge badge-pill">${CoordinateVO.acceptmethod}</span></td>
@@ -216,7 +216,7 @@
 						<tr>
 							<td class="${status.count }VOLIST">
 								<span class="label label-warning">직종</span>${CoordinateVO.v1}, ${CoordinateVO.v2}
-								<span class="label label-warning">지역</span>${CoordinateVO.w1}, ${CoordinateVO.w2} 
+								<br><span class="label label-warning">지역</span>${CoordinateVO.w1}, ${CoordinateVO.w2} 
 								<br><span class="label label-warning">근무형태</span>${CoordinateVO.x}
 									<span class="label label-warning">학력</span> ${CoordinateVO.y } 
 									<span class="label label-warning">경력</span>${CoordinateVO.z}

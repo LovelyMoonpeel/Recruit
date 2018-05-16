@@ -517,13 +517,13 @@ background-color: #777;
 	</div>
 	
 	
-		
+		<p id="accept_method">	
 	<!-- /공고 메인 -->
 	<br> <br>
 	
 		
 
-	<div id="accept_method" style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
+	<div style="border: 1px solid #dce1eb; border-top: 2px solid #c0c6d3; solid black; padding-left: 15px; padding-top: 15px;">
 		<div class="row">
 			<!-- 접수기간  -->
 			<div class="col-md-5" >
