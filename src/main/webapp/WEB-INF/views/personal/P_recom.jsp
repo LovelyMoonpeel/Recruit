@@ -163,7 +163,7 @@
 				<tr>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">순위</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">회사명</th>
-					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">공고 정보</th>
+					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:378px;">공고 정보</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">모집기간</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb; width:79px;">지원자수</th>
 					<th style="text-align: center; vertical-align:middle; background-color:#bbdefb;">관리</th>
